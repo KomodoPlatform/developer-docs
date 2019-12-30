@@ -748,50 +748,54 @@ transform::position_2d body_pos{pos_x, is_top ? 0.f : canvas_height};
 
 Body size however, is trickier. Size `X` is the column thickness, but size `Y` is different depending on whether the pipe in question is at the top or bottom of the screen.
 
-If it’s the top pipe, start of the gap `gap_start_pos_y` should be bottom of the rectangle. So half size should be `gap_start_pos_y` since the center of the rectangle is at 0. Full size will be `gap_start_pos_y \* 2.0f`.
+For the top pipe, the start of the gap `gap_start_pos_y` should be the bottom of the rectangle. Half size is `gap_start_pos_y`, as the center of the rectangle is at 0. Full size is `gap_start_pos_y \* 2.0f`.
 
-If it’s the bottom pipe, top of the rectangle will be the end of the gap, `gap_start_pos_y + gap_height`. So half size should be `canvas_height - (gap_start_pos_y + gap_height)`. And we need to double it for the full size. That makes `(canvas_height - (gap_start_pos_y + constants.gap_height)) \* 2.0f`.
+For the bottom pipe, the top of the rectangle is the end of the gap, `gap_start_pos_y + gap_height`. Half size is `canvas_height - (gap_start_pos_y + gap_height)`. Double this value for the full size: `(canvas_height - (gap_start_pos_y + constants.gap_height)) \* 2.0f`.
 
 ```
 // Size X is the column thickness,
 // Size Y is the important part.
-// If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
-//  So half size should be gap_start_pos_y since center of the rectangle is at 0.
-// If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
-//  So half size should be canvas_height - (gap_start_pos_y + gap_height)
-// Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+// If this is a top pipe, gap_start_pos_y is the bottom of the rectangle
+//  Half size is gap_start_pos_y, since the center of the rectangle is 0.
+// If this is the bottom pipe, the top of the rectangle is located at gap_start_pos_y + gap_height
+//  Half size is canvas_height - (gap_start_pos_y + gap_height)
+// Since these are half-sizes, and the position is at the screen border, multiply these sizes by two
 math::vec2f body_size{constants.column_thickness,
                         is_top ?
                         gap_start_pos_y * 2.0f :
                         (canvas_height - (gap_start_pos_y + constants.gap_height)) * 2.0f};
 ```
 
-To construct the rectangle entity, we can use blueprint function `geometry::blueprint_rectangle`. We will also feed `pipe_color` and `pipe_outline_color` (which includes line thickness information).
+To construct the rectangle entity, use the blueprint function `geometry::blueprint_rectangle` and feed `pipe_color` and `pipe_outline_color` (which includes line thickness information).
 
 ```
 auto body = geometry::blueprint_rectangle(registry, body_size, constants.pipe_color, body_pos, constants.pipe_outline_color);
 ```
 
-That’s it for the body! Now we need to construct the cap of the pipe.
+#### Construct the Cap of the Pipe
 
-Size of the cap will be `column_thickness` plus `pipe_cap_extra_width` because we want the cap to look like the mario pipe, so the cap needs to be a little bit wider. The height is pre-defined `pipe_cap_height`. Easy!
+The size of the cap is `column_thickness` plus `pipe_cap_extra_width`, as the cap is visually similar to the popular pipe design from Super Mario Brothers.
+
+The height is pre-defined as `pipe_cap_height`.
 
 ```
 // PIPE CAP
-// Let's prepare the pipe cap
-// Size of the cap is defined in constants
+// Prepare the pipe cap
+// The size of the cap is defined in constants
 math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
 ```
 
-Cap position is a bit trickier, X position will be same as the body, `body_pos.x()` since it’s centered. But the Y position changes depending on if it’s a top one or bottom.
+The cap position is trickier. The `X` position is the same as the body, `body_pos.x()`, since the cap is centered. However, the `Y` position changes depending on whether the cap is for the top or bottom.
 
-If it’s the top cap, bottom line of the cap is alligned with bottom of the body or start of the gap which is the same line. We will use start of the gap here, minus half of the cap height, because position is the center of the rectangle. It makes `gap_start_pos_y - constants.pipe_cap_height \* 0.5f`.
+If the cap is at the top, the bottom line of the cap is alligned with bottom of the body, or start of the gap, as this is the same line.
 
-If it’s the bottom cap, bottom of the gap will be the same line as top of the cap. Bottom of the gap is gap start position plus the gap height, `gap_start_pos_y + constants.gap_height`. Then we need to add half of the pipe height again because we want the shift a little bit down since the position we define is the center of the cap and we want the top to be alligned with top of the body.
+Use the start of the gap minus half of the cap height, because the position is the center of the rectangle. This is defined as `gap_start_pos_y - constants.pipe_cap_height \* 0.5f`.
+
+For the the bottom cap, the bottom of the gap is the same line as the top of the cap. The bottom of the gap is the gap start position plus the gap height: `gap_start_pos_y + constants.gap_height`. Add half of the pipe height again to the shift the pipe down, since the position is the center of the cap and the top of the cap must be alligned with the top of the body.
 
 ```
-// Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
-// or start of the gap, we will use start of the gap here, minus half of the cap height
+// Position X is the same as the body. The bottom of the cap is aligned with the bottom of the body,
+// or start of the gap, use the start of the gap minus half of the cap height
 transform::position_2d cap_pos{body_pos.x(),
                                 is_top ?
                                 gap_start_pos_y - constants.pipe_cap_height * 0.5f :
@@ -799,13 +803,13 @@ transform::position_2d cap_pos{body_pos.x(),
 };
 ```
 
-To construct the rectangle entity, we can use blueprint function `geometry::blueprint_rectangle`. We will also feed `pipe_color` and `pipe_outline_color` again, with color set to the same as the body.
+To construct the rectangle entity, use the blueprint function `geometry::blueprint_rectangle` and feed `pipe_color` and `pipe_outline_color` once again, with the color set to the same color as the body.
 
 ```
 auto cap = geometry::blueprint_rectangle(registry, cap_size, constants.pipe_color, cap_pos, constants.pipe_outline_color);
 ```
 
-To make the cap appear in front of the body, we need to define the draw order. We will use `graphics::layer` for that. Higher is front, lower is back. We set `cap` as `layer<4>` and `body` as `layer<3>`.
+Define the draw order to make the cap appear in front of the body. Use `graphics::layer`. The higher value is the front, the lower is the back. Set `cap` as `layer<4>` and `body` as `layer<3>`.
 
 ```
 // Set layers, cap should be in front of body
@@ -813,20 +817,20 @@ registry.assign<graphics::layer<4>>(cap);
 registry.assign<graphics::layer<3>>(body);
 ```
 
-Now tag both entities as `game_scene` and `dynamic` with the `tag_game_scene` function we defined earlier, then return both inside `{ }` to automatically construct a `struct pipe`.
+Tag both entities as `game_scene` and `dynamic` with the `tag_game_scene` function defined earlier. Return both inside `{ }` to automatically construct a `struct pipe`.
 
 ```
 tag_game_scene(registry, cap, true);
 tag_game_scene(registry, body, true);
 
-// Construct a pipe with body and cap and return it
+// Construct a pipe with the body and cap, and return it
 return {body, cap};
 ```
 
-The completed function looks like this:
+The completed function appears as follows.
 
 ```
-// Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+// Factory for pipes. This requires information about whether the pipe is a top pipe, and the position x of the column, and the starting gap position Y
 pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
     // Retrieve constants
     const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
@@ -838,11 +842,11 @@ pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_s
 
     // Size X is the column thickness,
     // Size Y is the important part.
-    // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
-    //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
-    // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
-    //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
-    // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+    // If this is a top pipe, gap_start_pos_y is the bottom of the rectangle
+    //  Half size is gap_start_pos_y since the center of the rectangle is at 0
+    // If this is the bottom pipe, the top of the rectangle is at gap_start_pos_y + gap_height
+    //  Half size is canvas_height - (gap_start_pos_y + gap_height)
+    // Since these are half-sizes, and the position is at the screen border, multiply these sizes by two
     math::vec2f body_size{constants.column_thickness,
                           is_top ?
                           gap_start_pos_y * 2.0f :
@@ -852,12 +856,12 @@ pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_s
                                               constants.pipe_outline_color);
 
     // PIPE CAP
-    // Let's prepare the pipe cap
+    // Prepare the pipe cap
     // Size of the cap is defined in constants
     math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
 
-    // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
-    // or start of the gap, we will use start of the gap here, minus half of the cap height
+    // Position X is the same as the body. The bottom of the cap is aligned with the bottom of the body,
+    // or start of the gap, use the start of the gap minus half of the cap height
     transform::position_2d cap_pos{body_pos.x(),
                                    is_top ?
                                    gap_start_pos_y - constants.pipe_cap_height * 0.5f :
@@ -879,25 +883,27 @@ pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_s
 }
 ```
 
-Since we are able to make a single pipe now, we can use it to build a full column which (two pipes and a gap).
+#### Create a Pipe
 
-Let’s make the function `void create_column(entt::registry &registry, float pos_x)`, with a single parameter `pos_x` for the X position of the column.
+Use this functionality to build a full column (two pipes and a gap).
 
-We start with creating an empty entity.
+Make the function `void create_column(entt::registry &registry, float pos_x)` with a single parameter `pos_x` for the `X` position of the column.
+
+Start by creating an empty entity.
 
 ```
 // Create a fresh entity for a new column
 auto entity_column = registry.create();
 ```
 
-Then we get a random vertical position for start of the gap with the function we created earlier, `get_random_gap_start_pos`.
+Obtain a random vertical position for the start of the gap with the function created earlier, `get_random_gap_start_pos`.
 
 ```
 // Get a random gap start position Y, between pipes
 float gap_start_pos_y = get_random_gap_start_pos(registry);
 ```
 
-Create `top_pipe` and `bottom_pipe` with the `create_pipe` function. The only parameter that varies between the two being `is_top` boolean is true for the `top_pipe`, and false for `bottom_pipe`.
+Create `top_pipe` and `bottom_pipe` with the `create_pipe` function. The only parameter that varies is the `is_top` boolean  — true for the `top_pipe` and false for `bottom_pipe`.
 
 ```
 // Create pipes, is_top variable is false for bottom one
@@ -905,7 +911,7 @@ auto top_pipe = create_pipe(registry, true, pos_x, gap_start_pos_y);
 auto bottom_pipe = create_pipe(registry, false, pos_x, gap_start_pos_y);
 ```
 
-Now we can construct a `struct column` with these two, tag it with `column` name, then use the `tag_game_scene` function to tag it with `game_scene` and `dynamic`.
+Construct a `struct column` with these two, tag it with `column` name, then use the `tag_game_scene` function to tag it with `game_scene` and `dynamic`.
 
 ```
 // Make a column from these two pipes and mark it as "column"
@@ -914,7 +920,7 @@ registry.assign<entt::tag<"column"_hs>>(entity_column);
 tag_game_scene(registry, entity_column, true);
 ```
 
-The completed function looks like this:
+The completed function appears as follows.
 
 ```
 // Factory to create single column
@@ -936,23 +942,25 @@ void create_column(entt::registry &registry, float pos_x) noexcept {
 }
 ```
 
-We want many of these columns, which we can do with a `create_columns` function.
+Create a `create_columns` function to reuse this functionality.
 
-To start, we will need constants again, so we retrieve them.
+Begin by retrieving the constants.
 
 ```
 // Retrieve constants
 const auto constants = registry.ctx<flappy_bird_constants>();
 ```
 
-Columns move towards Flappy Bird start from a distance, so we have `column_start_distance` to add that offset, and an additional `constants.column_thickness \* 2.0f` to make sure they are out of the screen if `column_start_distance` is set as `canvas_width`.
+Columns move towards the starting position of Flappy Bird from a distance. This animation requires a `column_start_distance` variable to add the offset. The animation also requires an additional `constants.column_thickness \* 2.0f` value to make sure the columns are out of the screen if `column_start_distance` is set as `canvas_width`.
 
 ```
 // Spawn columns far away
 const float column_pos_offset = constants.column_start_distance + constants.column_thickness * 2.0f;
 ```
 
-Using the `create_column` function in a `for loop` we can easily create more columns. For count, we use `column_count` constant, and to add distance between every column, we can use the counter `i` which increments by one, multiplying `i` with `column_distance` puts each column further than the previous one. Finally, add the `column_pos_offset` offset and the loop will look like this:
+Use the `create_column` function in a `for loop` to create more columns. For count, use the `column_count` constant. To add distance between every column use the counter `i` which increments by one, and multiply `i` with `column_distance` to put each column further than the previous column. Add the `column_pos_offset` offset, also.
+
+The loop appears as follows.
 
 ```
 // Create the columns
@@ -964,7 +972,7 @@ for (std::size_t i = 0; i < constants.column_count; ++i) {
 }
 ```
 
-The completed function looks like this:
+The completed function appears as follows.
 
 ```
 // Factory for creating a Flappy Bird columns
@@ -985,7 +993,11 @@ void create_columns(entt::registry &registry) noexcept {
 }
 ```
 
-We will call this `create_columns` function at initialization. Let’s make an initialization function for dynamic objects.
+Call this `create_columns` function at initialization. 
+
+#### Dynamic Objects
+
+Make an initialization function for dynamic objects.
 
 ```
 // Initialize dynamic objects, this function is called at start and resets
@@ -994,7 +1006,7 @@ void init_dynamic_objects(entt::registry &registry) {
 }
 ```
 
-And call it in the `game_scene` constructor:
+Call this in the `game_scene` constructor.
 
 ```
 game_scene(entt::registry &registry) noexcept : base_scene(registry) {
@@ -1006,7 +1018,7 @@ game_scene(entt::registry &registry) noexcept : base_scene(registry) {
 }
 ```
 
-That’s it! Now we have many columns being drawn:
+The result is as follows.
 
 <div>
 
@@ -1014,7 +1026,7 @@ That’s it! Now we have many columns being drawn:
 
 </div>
 
-Step 2 is complete, here is the full code.
+Here is the code up to this point in the tutorial.
 
 ```
 #include <random>
@@ -1109,7 +1121,7 @@ namespace {
 
 // Factory functions
 namespace {
-    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    // Factory for pipes. This requires information about whether the pipe is a top pipe, and the position x of the column, and the starting gap position Y
     pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
         // Retrieve constants
         const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
@@ -1121,11 +1133,11 @@ namespace {
 
         // Size X is the column thickness,
         // Size Y is the important part.
-        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
-        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
-        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
-        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
-        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        // If this is a top pipe, gap_start_pos_y is the bottom of the rectangle
+        //  Half size is gap_start_pos_y since the center of the rectangle is at 0
+        // If this is the bottom pipe, the top of the rectangle is at gap_start_pos_y + gap_height
+        //  Half size is canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, multiply these sizes by two
         math::vec2f body_size{constants.column_thickness,
                               is_top ?
                               gap_start_pos_y * 2.0f :
@@ -1135,12 +1147,12 @@ namespace {
                                                   constants.pipe_outline_color);
 
         // PIPE CAP
-        // Let's prepare the pipe cap
+        // Prepare the pipe cap
         // Size of the cap is defined in constants
         math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
 
-        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
-        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        // Position X is the same as the body. The bottom of the cap is aligned with the bottom of the body,
+        // or start of the gap, use the start of the gap minus half of the cap height
         transform::position_2d cap_pos{body_pos.x(),
                                        is_top ?
                                        gap_start_pos_y - constants.pipe_cap_height * 0.5f :
@@ -1254,9 +1266,11 @@ int main() {
 }
 ```
 
-## Step 3: Creation of the background
+## The Creation of the Background
 
-Now it is time to maker the black background prettier by adding sky, ground and grass. This is how we want it to look like:
+Beautify the background by adding sky, ground, and grass.
+
+The following is the objective.
 
 <div>
 
@@ -1264,7 +1278,9 @@ Now it is time to maker the black background prettier by adding sky, ground and 
 
 </div>
 
-Let’s add the constants to `struct flappy_bird_constants`: thickness and colors.
+#### Create the Sky
+
+Add the constants to the `struct flappy_bird_constants` thickness and colors.
 
 ```
 // Background
@@ -1276,9 +1292,9 @@ const graphics::color grass_color{132, 227, 90};
 const graphics::outline_color grass_outline_color{2.0f, graphics::color{76, 47, 61}};
 ```
 
-Now we make a function called `create_background`.
+Make a function called `create_background`.
 
-First retrieve the constants and canvas size:
+Retrieve the constants and canvas size:
 
 ```
 // Retrieve constants
@@ -1286,44 +1302,44 @@ const auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().ca
 const auto constants = registry.ctx<flappy_bird_constants>();
 ```
 
-Let’s create the sky next, a simple blue rectangle.
+Create the sky as a simple blue rectangle.
 
-Position is center of the canvas.
+The position is the center of the canvas.
 
 ```
-// Sky is whole canvas so position is middle of it
+// The sky is the whole canvas, so the position is in the middle of the canvas
 transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
 ```
 
-Set the size to whole canvas (other visual elements will appear in the foreground).
+Set the size of the rectangle to the whole canvas (other visual elements will appear in the foreground).
 
 ```
-// And the size is full canvas
+// The size is the full canvas
 math::vec2f size{canvas_width, canvas_height};
 ```
 
-Use the `geometry::blueprint_rectangle` again and use `background_color` from defined constants.
+Use the `geometry::blueprint_rectangle` blueprint again and use `background_color` from defined constants.
 
 ```
 auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
 ```
 
-Set it to appear at `layer<1>` and tag `game_scene`:
+Set the sky rectangle to appear at `layer<1>` and tag the rectangle with `game_scene`.
 
 ```
 registry.assign<graphics::layer<1>>(sky);
 tag_game_scene(registry, sky);
 ```
 
-Here is how the whole sky creation snippet looks like:
+The following is the entire sky creation snippet.
 
 ```
 // Create Sky
 {
-    // Sky is whole canvas so position is middle of it
+    // The sky is the whole canvas, so the position is in the middle of the canvas
     transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
 
-    // And the size is full canvas
+    // The size is the full canvas
     math::vec2f size{canvas_width, canvas_height};
 
     auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
@@ -1332,23 +1348,25 @@ Here is how the whole sky creation snippet looks like:
 }
 ```
 
+#### Create the Grass
+
 Now we do the same thing, but for grass. X position is middle of the canvas, Y position is canvas height minus ground thickness because grass grows above the ground!
 
 ```
-// Ground expands to whole canvas width so position is middle of it,
-// But position Y is at top of the ground, so it's canvas height minus ground thickness
+// The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+// Position Y is at the top of the ground, so the height of the ground is canvas_height minus ground_thickness
 transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
 ```
 
-Size Y is constant `grass_thickness` and Size X is full `canvas_width` plus the outline thickness because we don’t wanna see the left and right edges, by making it bigger edges will be out of the canvas.
+Size `Y` is constant `grass_thickness` and Size `X` is full `canvas_width` plus the outline thickness, to hide the left and right edges of the ground.
 
 ```
 // Size X is full canvas but the height is defined in constants
-// We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+// Make the rectangle longer by adding the thickness of the outline to hide the outline at the sides
 math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
 ```
 
-We use `geometry::blueprint_rectangle` again, and assign `layer<3>`, then tag it.
+Use `geometry::blueprint_rectangle` again and assign `layer<3>` to the rectangle, then tag it.
 
 ```
 auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos, constants.grass_outline_color);
@@ -1356,17 +1374,17 @@ registry.assign<graphics::layer<3>>(grass);
 tag_game_scene(registry, grass);
 ```
 
-Here is the completed grass creation snippet looks:
+Here is the completed grass creation snippet.
 
 ```
 // Create Grass
 {
-    // Ground expands to whole canvas width so position is middle of it,
-    // But position Y is at top of the ground, so it's canvas height minus ground thickness
+    // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+    // Position Y is at the top of the ground, so the height of the ground is canvas_height minus ground_thickness
     transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
 
     // Size X is full canvas but the height is defined in constants
-    // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+    // Make the rectangle longer by adding the thickness of the outline to hide the outline at the sides
     math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
 
     auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos, constants.grass_outline_color);
@@ -1375,17 +1393,17 @@ Here is the completed grass creation snippet looks:
 }
 ```
 
-Now we create the ground, it’s easy.
+#### Create the Ground
 
-X position is middle of canvas, height is canvas height minus half of the ground thickness (because position is center of the rectangle).
+The `X` position is the middle of the canvas and the height is the canvas height minus half of the ground thickness (because the position is the center of the rectangle).
 
-Size X is canvas width, Size Y is ground thickness.
+Size `X` is the canvas width, size `Y` is the ground thickness.
 
 ```
 // Create Ground
 {
-    // Ground expands to whole canvas width so position is middle of it,
-    // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+    // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+    // Position Y is at the bottom of the screen, so the height is the full canvas_height minus half of the ground thickness
     transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
 
     // Size X is full canvas but the height is defined in constants
@@ -1397,9 +1415,11 @@ Size X is canvas width, Size Y is ground thickness.
 }
 ```
 
-Notice that we didn’t tag any of these `dynamic`. They will be static and permanent.
+<!-- Sidd: I'm not sure I understood the sentence below correctly. Please correct, if necessary. -->
 
-Now the background is complete, the whole function looks like this:
+Notice that there are no tags for any of these `dynamic` objects. They are static and permanent.
+
+The background creation function appears as follows.
 
 ```
 // Factory for creating a Flappy Bird background
@@ -1410,10 +1430,10 @@ void create_background(entt::registry &registry) noexcept {
 
     // Create Sky
     {
-        // Sky is whole canvas so position is middle of it
+        // The sky is the whole canvas, so the position is in the middle of the canvas
         transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
 
-        // And the size is full canvas
+        // The size is the full canvas
         math::vec2f size{canvas_width, canvas_height};
 
         auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
@@ -1423,12 +1443,12 @@ void create_background(entt::registry &registry) noexcept {
 
     // Create Grass
     {
-        // Ground expands to whole canvas width so position is middle of it,
-        // But position Y is at top of the ground, so it's canvas height minus ground thickness
+        // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+        // Position Y is at the top of the ground, so the height of the ground is canvas_height minus ground_thickness
         transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
 
         // Size X is full canvas but the height is defined in constants
-        // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+        // Make the rectangle longer by adding the thickness of the outline to hide the outline at the sides
         math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
 
         auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
@@ -1439,8 +1459,8 @@ void create_background(entt::registry &registry) noexcept {
 
     // Create Ground
     {
-        // Ground expands to whole canvas width so position is middle of it,
-        // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+        // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+        // Position Y is at the bottom of the screen, so the height is the full canvas_height minus half of the ground thickness
         transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
 
         // Size X is full canvas but the height is defined in constants
@@ -1453,7 +1473,7 @@ void create_background(entt::registry &registry) noexcept {
 }
 ```
 
-Let’s call it inside the `game_scene` constructor.
+Call this function inside the `game_scene` constructor.
 
 ```
 game_scene(entt::registry &registry) noexcept : base_scene(registry) {
@@ -1466,7 +1486,7 @@ game_scene(entt::registry &registry) noexcept : base_scene(registry) {
 }
 ```
 
-Now we have a pretty background, at least as pretty as it can get with three rectangles!
+The result is as follows.
 
 <div>
 
@@ -1474,7 +1494,7 @@ Now we have a pretty background, at least as pretty as it can get with three rec
 
 </div>
 
-Step 3 is complete, full code below.
+Here is the full code up to this point of the tutorial.
 
 ```
 #include <random>
@@ -1577,7 +1597,7 @@ namespace {
 
 // Factory functions
 namespace {
-    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    // Factory for pipes. This requires information about whether the pipe is a top pipe, and the position x of the column, and the starting gap position Y
     pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
         // Retrieve constants
         const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
@@ -1589,11 +1609,11 @@ namespace {
 
         // Size X is the column thickness,
         // Size Y is the important part.
-        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
-        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
-        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
-        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
-        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        // If this is a top pipe, gap_start_pos_y is the bottom of the rectangle
+        //  Half size is gap_start_pos_y since the center of the rectangle is at 0
+        // If this is the bottom pipe, the top of the rectangle is at gap_start_pos_y + gap_height
+        //  Half size is canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, multiply these sizes by two
         math::vec2f body_size{constants.column_thickness,
                               is_top ?
                               gap_start_pos_y * 2.0f :
@@ -1603,12 +1623,12 @@ namespace {
                                                   constants.pipe_outline_color);
 
         // PIPE CAP
-        // Let's prepare the pipe cap
+        // Prepare the pipe cap
         // Size of the cap is defined in constants
         math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
 
-        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
-        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        // Position X is the same as the body. The bottom of the cap is aligned with the bottom of the body,
+        // or start of the gap, use the start of the gap minus half of the cap height
         transform::position_2d cap_pos{body_pos.x(),
                                        is_top ?
                                        gap_start_pos_y - constants.pipe_cap_height * 0.5f :
@@ -1647,7 +1667,7 @@ namespace {
         tag_game_scene(registry, entity_column, true);
     }
 
-    // Factory for creating a Flappy Bird columns
+    // Factory for creating a Flappy Bird column
     void create_columns(entt::registry &registry) noexcept {
         // Retrieve constants
         const auto constants = registry.ctx<flappy_bird_constants>();
@@ -1672,10 +1692,10 @@ namespace {
 
         // Create Sky
         {
-            // Sky is whole canvas so position is middle of it
+            // The sky is the whole canvas, so the position is in the middle of the canvas
             transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
 
-            // And the size is full canvas
+            // The size is the full canvas
             math::vec2f size{canvas_width, canvas_height};
 
             auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
@@ -1685,12 +1705,12 @@ namespace {
 
         // Create Grass
         {
-            // Ground expands to whole canvas width so position is middle of it,
-            // But position Y is at top of the ground, so it's canvas height minus ground thickness
+            // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+            // Position Y is at the top of the ground, so the height of the ground is canvas_height minus ground_thickness
             transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
 
             // Size X is full canvas but the height is defined in constants
-            // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+            // Make the rectangle longer by adding the thickness of the outline to hide the outline at the sides
             math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
 
             auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
@@ -1701,8 +1721,8 @@ namespace {
 
         // Create Ground
         {
-            // Ground expands to whole canvas width so position is middle of it,
-            // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+            // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+            // Position Y is at the bottom of the screen, so the height is the full canvas_height minus half of the ground thickness
             transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
 
             // Size X is full canvas but the height is defined in constants
@@ -1773,17 +1793,19 @@ int main() {
 }
 ```
 
-## Step 4: Move, destroy and respawn pipes
+## Move, Destroy, and Respawn Pipes
 
-To create the illusion of movement, Flappy Bird will stay still and pipes will move to left. That way, we don’t need to make a camera which follows Flappy Bird.
+To create the illusion of movement, Flappy Bird stays still with respect to the horizontal axis and pipes move to the left. (This eliminates the need for a camera that follows the bird.)
 
-Let’s define a constant into `flappy_bird_constants` named `scroll_speed`, which will be the movement speed of pipes moving left (towards Flappy bird).
+#### Moving the Columns
+
+Define a constant to `flappy_bird_constants` named `scroll_speed`. This is the speed of movement of pipes.
 
 ```
 const float scroll_speed{200.f};
 ```
 
-Smooth movement requires a position update at every tick. So we need a `ecs::logic_update_system`, let’s call it `column_logic`.
+Smooth movement requires a position update at every tick. This requires a `ecs::logic_update_system` value. Call this `column_logic`.
 
 ```
 // Column Logic System
@@ -1794,7 +1816,7 @@ public:
     }
 ```
 
-Next we make a `move_pipe` function, with a parameter of `struct pipe` reference. We’ll also retrieve constants, to access the scroll speed.
+Make a `move_pipe` function that accepts as a parameter a reference to a `struct pipe` object. Retrieve constants to access the scroll speed.
 
 ```
 // Move the pipe and return the x position
@@ -1803,18 +1825,24 @@ float move_pipe(entt::registry &registry, pipe &pipe) {
     const auto constants = registry.ctx<flappy_bird_constants>();
 ```
 
-To move the pipe, first we need to know its current position. We retrieve the body position of the pipe (cap is also the same so body will be enough). Pipes move only along the X axis, horizontally. So we are only interested in their X position.
+To move the pipe the logic needs to to know the pipe's current position. Retrieve the body position of the pipe (cap is also the same, so the body data is enough). 
+
+Pipes move only along the X axis, horizontally. 
 
 ```
 // Get current position of the pipe
 auto pos = registry.get<transform::position_2d>(pipe.body);
 ```
 
-Now we calculate the new position X, by adding `scroll_speed`, but we use `-` because a lower position value moves to the left side. So we’re actually subtracting from the X position value to make the pipe move to left side. We also multiply `scroll_speed` with delta time `timer::time_step::get_fixed_delta_time()`, so the movement will be spread over time, and the frame changes will look smoother. `scroll_speed` is actually amount of pixels the object will move in `1 second`.
+Calculate the new position `X` by adding `scroll_speed`. Use the `-` operator, because a lower position value moves to the left side. 
+
+Conceptually, this is the same as subtracting from the `X` position to make the pipe move towards the left side. 
+
+Multiply `scroll_speed` with delta time `timer::time_step::get_fixed_delta_time()`, so that the movement occurs over time and the frame changes are smoother. `scroll_speed` is actually the amount of pixels the object moves in `1 second`.
 
 ```
-// Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
-// Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+// Shift pos X to the left by scroll_speed, but multiply the value by dt, as this occurs many times per second
+// Delta time ensures that the movement occurs over time, so that over the course of one second the movement covers scroll_speed pixels
 auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
 ```
 
@@ -1829,14 +1857,14 @@ auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
 registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
 ```
 
-And finally, return the new position (we will use this later).
+Return the new position.
 
 ```
-// Return the info about if this pipe is out of the screen
+// Return the information about whether this pipe is out of the screen
 return new_pos_x;
 ```
 
-The completed function now looks like this:
+The completed function is now as follows.
 
 ```
 // Move the pipe and return the x position
@@ -1847,8 +1875,8 @@ float move_pipe(entt::registry &registry, pipe &pipe) {
     // Get current position of the pipe
     auto pos = registry.get<transform::position_2d>(pipe.body);
 
-    // Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
-    // Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+    // Shift pos X to the left by scroll_speed, but multiply the value by dt, as this occurs many times per second
+    // Delta time ensures that the movement occurs over time, so that over the course of one second the movement covers scroll_speed pixels
     auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
 
     // Set the new position value
@@ -1858,14 +1886,16 @@ float move_pipe(entt::registry &registry, pipe &pipe) {
     auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
     registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
 
-    // Return the info about if this pipe is out of the screen
+    // Return the information about whether this pipe is out of the screen
     return new_pos_x;
 }
 ```
 
-In the update function, we will move all the columns every tick, and those exiting the screen on the left will be destroyed. A new column will be spawned coming in from the right side, the column furthest away from Flappy bird. Let’s make a very basic function which will return the X position of the furthest pipe.
+In the update function move all the columns each tick. Those exiting the screen on the left are destroyed. 
 
-This basic function simply loops over all columns and check if the column’s X position is higher than the previous maximum.
+A new column is spawned from the right side of the screen and is now the column furthest away from Flappy Bird. 
+
+Create a function that returns the `X` position of the furthest pipe. This function loops over all columns and checks whether the column’s `X` position is higher than the previous maximum.
 
 ```
 // Find the furthest pipe's position X
@@ -1882,12 +1912,10 @@ float furthest_pipe_position(entt::registry &registry) {
 }
 ```
 
-Now we can make the update function which will be called every single tick.
-
-It will retrieve constants and all columns, then loop all the columns.
+The update function that is called ever tick retrieves constants and all columns, and loops all the columns.
 
 ```
-// Update, this will be called every tick
+// Update, this is called every tick
 void update() noexcept final {
     auto &registry = entity_registry_;
 
@@ -1898,13 +1926,13 @@ void update() noexcept final {
     for (auto entity : registry.view<column>()) {
 ```
 
-Inside the loop, we get the `struct column` from the column `entt::entity`.
+Inside the loop retrieve the `struct column` from the column `entt::entity`.
 
 ```
 auto &col = registry.get<column>(entity);
 ```
 
-Then call the `move_pipe` function twice, one for top pipe, one for the bottom one. They are at the same X position, so to know the column position, we save the return value of one of them into `column_pos_x`.
+Call the `move_pipe` function twice: one for the top pipe and one for the bottom. They are at the same X position, and this value is returned into the `column_pos_x` value.
 
 ```
 // Move pipes, and retrieve column position x
@@ -1912,17 +1940,25 @@ float column_pos_x = move_pipe(registry, col.top_pipe);
 move_pipe(registry, col.bottom_pipe);
 ```
 
-Now we know the column position. As we said before, we need to destroy it if it’s out of the screen. Position of left side of the screen is `0`. To make sure column is out of the screen, we can use the `column_distance` value, but negative. For example, it will be `-400`. We can compare the column’s X position against this value to know if it’s outside the screen.
+#### Destroying a Column Once Out of Screen
+
+The position of the left side of the screen is `0`.
+
+To make sure the column is out of the screen, use the `column_distance` value in the negative. 
+
+For example, assume the value is `-400`. Compare the column’s `X` position against this value whether the column is outside the screen.
 
 ```
-// If column is out of the screen
+// Test whether column is out of the screen
 if (column_pos_x < -constants.column_distance) {
 ```
 
-If it is, we destroy the column, then create a new column on the right using the `create_column` function. As the new column position, we use the `furthest_pipe_position` then add `column_distance` so it will spawn a little bit further than the last column.
+If the column is out of the screen, destroy it and create a new column on the right using the `create_column` function. 
+
+For the new column position use the `furthest_pipe_position` value and add `column_distance` as this spawns further than the last column.
 
 ```
-// If column is out of the screen
+// Test whether column is out of the screen
 if (column_pos_x < -constants.column_distance) {
     // Remove this column
     col.destroy(registry, entity);
@@ -1932,7 +1968,7 @@ if (column_pos_x < -constants.column_distance) {
 }
 ```
 
-That’s it - the complete `update` function looks like this:
+The completed `update` function is as follows.
 
 ```
 // Update, this will be called every tick
@@ -1950,7 +1986,7 @@ void update() noexcept final {
         float column_pos_x = move_pipe(registry, col.top_pipe);
         move_pipe(registry, col.bottom_pipe);
 
-        // If column is out of the screen
+        // Test whether column is out of the screen
         if (column_pos_x < -constants.column_distance) {
             // Remove this column
             col.destroy(registry, entity);
@@ -1960,33 +1996,33 @@ void update() noexcept final {
         }
     }
 }
-```
+``` 
 
-Now we name this logic system, after the class.
+Name this logic system after the class.
 
 ```
 // Name this system
 REFL_AUTO (type(column_logic));
 ```
 
-`column_logic` class is fully ready.
+The `column_logic` class is fully ready.
 
-To create a logic system, we need to access `ecs::system_manager` inside the `game_scene`.
+#### Create the Logic System
 
-We add a member variable to store the reference inside the `game_scene`.
+To create a logic system, access `ecs::system_manager` inside the `game_scene` and add a member variable to store the reference inside the `game_scene`.
 
 ```
 // System manager reference
 ecs::system_manager &system_manager_;
 ```
 
-Then add a parameter to the constructor which sets this reference.
+Add a parameter to the constructor that sets this reference.
 
 ```
 game_scene(entt::registry &registry, ecs::system_manager &system_manager) noexcept : base_scene(registry), system_manager_(system_manager) {
 ```
 
-Now we will make a function which will create logic systems, inside we use the `system_manager_`.
+Make a function to create logic systems and inside use the `system_manager_`.
 
 ```
 // Create logic systems
@@ -1995,7 +2031,7 @@ void create_logic_systems() {
 }
 ```
 
-And finally call this in the `init_dynamic_objects` function.
+Call this function in the `init_dynamic_objects` function.
 
 ```
 // Initialize dynamic objects, this function is called at start and resets
@@ -2007,7 +2043,7 @@ void init_dynamic_objects(entt::registry &registry) {
 }
 ```
 
-Step 4 is now complete, here is the full code.
+Below is the complete code of the tutorial up to this point.
 
 ```
 #include <random>
@@ -2111,7 +2147,7 @@ namespace {
 
 // Factory functions
 namespace {
-    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    // Factory for pipes. This requires information about whether the pipe is a top pipe, and the position x of the column, and the starting gap position Y
     pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
         // Retrieve constants
         const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
@@ -2123,11 +2159,11 @@ namespace {
 
         // Size X is the column thickness,
         // Size Y is the important part.
-        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
-        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
-        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
-        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
-        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        // If this is a top pipe, gap_start_pos_y is the bottom of the rectangle
+        //  Half size is gap_start_pos_y since the center of the rectangle is at 0
+        // If this is the bottom pipe, the top of the rectangle is at gap_start_pos_y + gap_height
+        //  Half size is canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, multiply these sizes by two
         math::vec2f body_size{constants.column_thickness,
                               is_top ?
                               gap_start_pos_y * 2.0f :
@@ -2137,12 +2173,12 @@ namespace {
                                                   constants.pipe_outline_color);
 
         // PIPE CAP
-        // Let's prepare the pipe cap
+        // Prepare the pipe cap
         // Size of the cap is defined in constants
         math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
 
-        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
-        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        // Position X is the same as the body. The bottom of the cap is aligned with the bottom of the body,
+        // or start of the gap, use the start of the gap minus half of the cap height
         transform::position_2d cap_pos{body_pos.x(),
                                        is_top ?
                                        gap_start_pos_y - constants.pipe_cap_height * 0.5f :
@@ -2206,10 +2242,10 @@ namespace {
 
         // Create Sky
         {
-            // Sky is whole canvas so position is middle of it
+            // The sky is the whole canvas, so the position is in the middle of the canvas
             transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
 
-            // And the size is full canvas
+            // The size is the full canvas
             math::vec2f size{canvas_width, canvas_height};
 
             auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
@@ -2219,12 +2255,12 @@ namespace {
 
         // Create Grass
         {
-            // Ground expands to whole canvas width so position is middle of it,
-            // But position Y is at top of the ground, so it's canvas height minus ground thickness
+            // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+            // Position Y is at the top of the ground, so the height of the ground is canvas_height minus ground_thickness
             transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
 
             // Size X is full canvas but the height is defined in constants
-            // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+            // Make the rectangle longer by adding the thickness of the outline to hide the outline at the sides
             math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
 
             auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
@@ -2235,8 +2271,8 @@ namespace {
 
         // Create Ground
         {
-            // Ground expands to whole canvas width so position is middle of it,
-            // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+            // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+            // Position Y is at the bottom of the screen, so the height is the full canvas_height minus half of the ground thickness
             transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
 
             // Size X is full canvas but the height is defined in constants
@@ -2271,7 +2307,7 @@ public:
             float column_pos_x = move_pipe(registry, col.top_pipe);
             move_pipe(registry, col.bottom_pipe);
 
-            // If column is out of the screen
+            // Test whether column is out of the screen
             if (column_pos_x < -constants.column_distance) {
                 // Remove this column
                 col.destroy(registry, entity);
@@ -2304,8 +2340,8 @@ private:
         // Get current position of the pipe
         auto pos = registry.get<transform::position_2d>(pipe.body);
 
-        // Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
-        // Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+        // Shift pos X to the left by scroll_speed, but multiply the value by dt, as this occurs many times per second
+        // Delta time ensures that the movement occurs over time, so that over the course of one second the movement covers scroll_speed pixels
         auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
 
         // Set the new position value
@@ -2315,7 +2351,7 @@ private:
         auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
         registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
 
-        // Return the info about if this pipe is out of the screen
+        // Return the information about whether this pipe is out of the screen
         return new_pos_x;
     }
 };
@@ -2392,11 +2428,13 @@ int main() {
 }
 ```
 
-## Step 5: Creation of Flappy Bird
+## The Creation of Flappy Bird
 
-Now we will create the Flappy Bird. Instead of using a rectangle as a character, we will use an image file. This is called a `character sprite`. We will call Flappy Bird “player” from now on.
+Create the Flappy Bird. Instead of using a rectangle as a character, use an image file. This is called a `character sprite`. 
 
-We need two constants, one for the player position, and another one for the image file name.
+From this point forward in the tutorial, the Flappy Bird is referred to as “player.”
+
+Two constants are required: one for the player position and another one for the image file name.
 
 ```
 struct flappy_bird_constants {
@@ -2405,9 +2443,9 @@ struct flappy_bird_constants {
     const float player_pos_x{400.0f};
 ```
 
-Let’s make a `create_player` function which will construct the player entity and return it.
+Create a `create_player` function that constructs the player entity and returns it.
 
-We retrieve the constants as always.
+Retrieve the constants, as before.
 
 ```
 // Factory for creating the player
@@ -2417,8 +2455,9 @@ entt::entity create_player(entt::registry &registry) {
     const auto constants = registry.ctx<flappy_bird_constants>();
 ```
 
-Then we use the `graphics::blueprint_sprite` which is really easy to use. It requires two parameters, `graphics::sprite` and `transform::position_2d`.
-`graphics::sprite` gets the image path, and `transform::position_2d` gets the `player_pos_x` constant as X position, half of the canvas height as Y position.
+Use the `graphics::blueprint_sprite`. This requires two parameters: `graphics::sprite` and `transform::position_2d`.
+
+The `graphics::sprite` parameter receives the image path and `transform::position_2d` receives the `player_pos_x` constant as an `X` position and half of the canvas height as the `Y` position.
 
 ```
 auto entity = graphics::blueprint_sprite(registry,
@@ -2426,7 +2465,9 @@ auto entity = graphics::blueprint_sprite(registry,
                                             transform::position_2d{constants.player_pos_x, canvas_height * 0.5f});
 ```
 
-We assign `layer<5>` for draw order, tag `player`, `game_scene` and `dynamic`. Then return the entity.
+Assign `layer<5>` for the draw order, and provide the tags `player`, `game_scene`, and `dynamic`. 
+
+Return the entity.
 
 ```
 registry.assign<antara::gaming::graphics::layer<5>>(entity);
@@ -2436,7 +2477,7 @@ tag_game_scene(registry, entity, true);
 return entity;
 ```
 
-The completed `create_player` function looks like this:
+The completed `create_player` function is as follows.
 
 ```
 // Factory for creating the player
@@ -2456,7 +2497,7 @@ entt::entity create_player(entt::registry &registry) {
 }
 ```
 
-Finally we call this function inside `init_dynamic_objects`.
+Call this function inside `init_dynamic_objects`.
 
 ```
 // Initialize dynamic objects, this function is called at start and resets
@@ -2471,7 +2512,7 @@ void init_dynamic_objects(entt::registry &registry) {
 }
 ```
 
-Now you should be able to see the character and moving pipes.
+Compiling and executing the program now shows the character and moving pipes.
 
 <div>
 
@@ -2479,7 +2520,7 @@ Now you should be able to see the character and moving pipes.
 
 </div>
 
-Step 5 is complete, here is the full code.
+Here is the full code up to this point of the tutorial.
 
 ```
 #include <random>
@@ -2587,7 +2628,7 @@ namespace {
 
 // Factory functions
 namespace {
-    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    // Factory for pipes. This requires information about whether the pipe is a top pipe, and the position x of the column, and the starting gap position Y
     pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
         // Retrieve constants
         const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
@@ -2599,11 +2640,11 @@ namespace {
 
         // Size X is the column thickness,
         // Size Y is the important part.
-        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
-        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
-        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
-        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
-        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        // If this is a top pipe, gap_start_pos_y is the bottom of the rectangle
+        //  Half size is gap_start_pos_y since the center of the rectangle is at 0
+        // If this is the bottom pipe, the top of the rectangle is at gap_start_pos_y + gap_height
+        //  Half size is canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, multiply these sizes by two
         math::vec2f body_size{constants.column_thickness,
                               is_top ?
                               gap_start_pos_y * 2.0f :
@@ -2613,12 +2654,12 @@ namespace {
                                                   constants.pipe_outline_color);
 
         // PIPE CAP
-        // Let's prepare the pipe cap
+        // Prepare the pipe cap
         // Size of the cap is defined in constants
         math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
 
-        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
-        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        // Position X is the same as the body. The bottom of the cap is aligned with the bottom of the body,
+        // or start of the gap, use the start of the gap minus half of the cap height
         transform::position_2d cap_pos{body_pos.x(),
                                        is_top ?
                                        gap_start_pos_y - constants.pipe_cap_height * 0.5f :
@@ -2682,10 +2723,10 @@ namespace {
 
         // Create Sky
         {
-            // Sky is whole canvas so position is middle of it
+            // The sky is the whole canvas, so the position is in the middle of the canvas
             transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
 
-            // And the size is full canvas
+            // The size is the full canvas
             math::vec2f size{canvas_width, canvas_height};
 
             auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
@@ -2695,12 +2736,12 @@ namespace {
 
         // Create Grass
         {
-            // Ground expands to whole canvas width so position is middle of it,
-            // But position Y is at top of the ground, so it's canvas height minus ground thickness
+            // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+            // Position Y is at the top of the ground, so the height of the ground is canvas_height minus ground_thickness
             transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
 
             // Size X is full canvas but the height is defined in constants
-            // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+            // Make the rectangle longer by adding the thickness of the outline to hide the outline at the sides
             math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
 
             auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
@@ -2711,8 +2752,8 @@ namespace {
 
         // Create Ground
         {
-            // Ground expands to whole canvas width so position is middle of it,
-            // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+            // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+            // Position Y is at the bottom of the screen, so the height is the full canvas_height minus half of the ground thickness
             transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
 
             // Size X is full canvas but the height is defined in constants
@@ -2763,7 +2804,7 @@ public:
             float column_pos_x = move_pipe(registry, col.top_pipe);
             move_pipe(registry, col.bottom_pipe);
 
-            // If column is out of the screen
+            // Test whether column is out of the screen
             if (column_pos_x < -constants.column_distance) {
                 // Remove this column
                 col.destroy(registry, entity);
@@ -2796,8 +2837,8 @@ private:
         // Get current position of the pipe
         auto pos = registry.get<transform::position_2d>(pipe.body);
 
-        // Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
-        // Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+        // Shift pos X to the left by scroll_speed, but multiply the value by dt, as this occurs many times per second
+        // Delta time ensures that the movement occurs over time, so that over the course of one second the movement covers scroll_speed pixels
         auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
 
         // Set the new position value
@@ -2807,7 +2848,7 @@ private:
         auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
         registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
 
-        // Return the info about if this pipe is out of the screen
+        // Return the information about whether this pipe is out of the screen
         return new_pos_x;
     }
 };
@@ -2887,13 +2928,19 @@ int main() {
 }
 ```
 
-## Step 6: Player input and character physics
+## Player Input and Character Physics 
 
-In this step, we will read user input and apply physics to the character.
+To receive input and create character physics begin by including two headers for input, `<antara/gaming/input/virtual.hpp>` and `<antara/gaming/ecs/virtual.input.system.hpp>`.
 
-We need to include two headers for input, `<antara/gaming/input/virtual.hpp>` and `<antara/gaming/ecs/virtual.input.system.hpp>`.
+The logic for this section also requires constants for physics. 
 
-We will also need some constants for physics. `gravity` is the force which will pull Flappy Bird down. `jump_force` will be the force which will be applied instantly when user presses the jump button. `rotate_speed` is for the rotating animation, and `max_angle` is the rotation limit.
+`gravity` is the force which pulls the player down.
+
+`jump_force` is the force which is applied instantly when the user presses the jump button. 
+
+`rotate_speed` is for the rotating animation.
+
+`max_angle` is the rotation limit.
 
 ```
 const float gravity{2000.f};
@@ -2902,7 +2949,11 @@ const float rotate_speed{100.f};
 const float max_angle{60.f};
 ```
 
-Let’s initialize the virtual input system and add a `jump` action. Keyboard keys will be: `space`, `w`, `up`; mouse buttons will be `left` and `right`.
+Initialize the virtual input system and add a `jump` action. 
+
+Keyboard keys are: `space`, `w`, `up`.
+
+Mouse buttons are `left` and `right`.
 
 ```
 // Create virtual input system
@@ -2914,7 +2965,7 @@ input::virtual_input::create("jump",
                                 {input::mouse_button::left, input::mouse_button::right});
 ```
 
-Now we will make another `ecs::logic_update_system` like `column_logic`, but this time for player.
+Make another `ecs::logic_update_system` object, similar to `column_logic`, but this time for the player.
 
 ```
 // Player Logic System
@@ -2925,7 +2976,9 @@ public:
     }
 ```
 
-As you see in the constructor, we will keep the player entity as a member. Also we want a 2D vector for movement speed, `math::vec2f`.
+Keep the player entity as a member. 
+
+There is a 2D vector for movement speed, `math::vec2f`.
 
 ```
 private:
@@ -2933,7 +2986,7 @@ private:
     math::vec2f movement_speed_{0.f, 0.f};
 ```
 
-Now we can make the update function which will be called every tick.
+Make the update function to be called for every tick.
 
 ```
 // Update, this will be called every tick
@@ -2947,41 +3000,45 @@ void update() noexcept final {
     auto pos = registry.get<transform::position_2d>(player_);
 ```
 
-Adding gravity is really easy. As you know, gravity is acceleration, so instead of adding it to the position, we add it to the movement speed. We multiply it with delta time to spread it over time.
+Gravity is acceleration. Instead of adding gravity to the position, add it to the movement speed. Multiply gravity with delta time to spread the change in value over time.
 
-Updating Y of `movement_speed_` with Y plus gravity.
+Update `Y` of `movement_speed_` with `Y` plus gravity.
 
 ```
 // Add gravity to movement speed, multiply with delta time to apply it over time
 movement_speed_.set_y(movement_speed_.y() + constants.gravity * timer::time_step::get_fixed_delta_time());
 ```
 
-For jump, we check if jump button is tapped.
+For the jump, check if the jump button is tapped.
 
 ```
 // Check if jump key is tapped
 bool jump_key_tapped = input::virtual_input::is_tapped("jump");
 ```
 
-If jump is tapped, we set Y of `movement_speed_` as negative `jump_force`. Negative because low values are up and high values are down, negative is being up.
+If the jump button is tapped, set the `Y` value of `movement_speed_` as negative `jump_force`. Using this as a negative value here is effective as it acts as a reversal of the gravitational force.
 
-Here we do a direct set instead of adding it on top of the previous value because we don’t want player to spam jump button and infinitely speed up. Another problem could be movement speed Y is 900 and player presses jump button, adding -650, player still will have 250 movement speed Y, which is going down. We definitely do not want this, that’s why we set instead of add.
+For this change, directly set the value instead of adding the value to the existing value. The reason for this is that this method prevents the player from spamming the jump button and infinitely speeding up. 
+
+This also solves another problem. If the player is dropping more quickly than the jump button could counter, the method prevents a scenario where pressing the button only slows down the player's rate of descent, but does not reverse it.
 
 ```
 // If jump is tapped, jump by adding jump force to the movement speed Y
 if (jump_key_tapped) movement_speed_.set_y(-constants.jump_force);
 ```
 
-Movement speed is ready. Now we move the position with the movement speed. Multiplying it with delta time as always to spread it over time.
+#### Moving the Player Position
+
+Move the position with the movement speed. Multiplying the position with delta time, as always, to spread the change over time.
 
 ```
 // Add movement speed to position to make the character move, but apply over time with delta time
 pos += movement_speed_ * timer::time_step::get_fixed_delta_time();
 ```
 
-Player can keep jumping and go out of the screen, so we need to limit the character position to stay inside.
+Currently, the player can jump out of the screen. There must be a limit to the character position.
 
-If position Y is equal or lower than zero, we reset both position and speed Y to 0. That will keep the player inside no matter how many times jump is pressed.
+If position `Y` is equal to or lower than zero, reset both positions and speed `Y` to `0`. This keeps the player inside, no matter how many times jump is pressed.
 
 ```
 // Do not let player to go out of the screen to top
@@ -2991,23 +3048,16 @@ if (pos.y() <= 0.f) {
 }
 ```
 
-Then set the modified position to the player entity.
+Set the modified position to the player entity.
 
 ```
 // Set the new position value
 registry.replace<transform::position_2d>(player_, pos);
 ```
 
-Now player can jump, falls down with gravity, and is forced to stay inside the screen.
+#### Apply Rotation
 
-```
-// Set the new position value
-registry.replace<transform::position_2d>(player_, pos);
-```
-
-So far so good, but we still need to apply rotation to Flappy Bird, so he is looking down when falling.
-
-To do this, retrieve the properties of the player, then add `rotate_speed` to the `props.rotation`, also apply delta time.
+Retrieve the properties of the player, add `rotate_speed` to the `props.rotation`, also apply delta time.
 
 ```
 // ROTATION
@@ -3018,7 +3068,9 @@ auto &props = registry.get<transform::properties>(player_);
 float new_rotation = props.rotation + constants.rotate_speed * timer::time_step::get_fixed_delta_time();
 ```
 
-When player jumps, we need to reset the rotation so character will be straight again before rotating back down. Also we don’t want character to rotate forever, so we’ll apply a `max_angle` limit.
+When the player jumps, reset the rotation so that the character is straight again before rotating downwards once more. 
+
+Also, apply a `max_angle` limit to prevent excessive rotation.
 
 ```
 // If jump button is tapped, reset rotation,
@@ -3029,14 +3081,14 @@ else if (props.rotation > constants.max_angle)
     new_rotation = constants.max_angle;
 ```
 
-Finally, set the `transform::properties` to apply the rotation change.
+Set the `transform::properties` to apply the rotation change.
 
 ```
 // Set the properties
 registry.replace<transform::properties>(player_, transform::properties{.rotation = new_rotation});
 ```
 
-Update function is complete, this is how it looks like:
+The following is the completed update function.
 
 ```
 // Update, this will be called every tick
@@ -3089,16 +3141,20 @@ void update() noexcept final {
 }
 ```
 
-Now we’ll name this logic system, after the class.
+Name this logic system after the class.
 
 ```
 // Name this system
 REFL_AUTO (type(player_logic));
 ```
 
-`player_logic` is now ready. Let’s use it in `game_scene`.
+`player_logic` is ready to be used in the `game_scene`.
 
-We made a function earlier called `create_logic_systems`, now we will create `player_logic` in it. Though `player_logic` requires `player` entity as argument. Modify the function like as below:
+In the earlier function, `create_logic_systems` create the `player_logic` function. 
+
+`player_logic` requires the `player` entity as an argument. 
+
+Modify the function as follows.
 
 ```
 // Create logic systems
@@ -3108,9 +3164,9 @@ void create_logic_systems(entt::entity player) {
 }
 ```
 
-When we launch the game, we want physics in a paused state so we don’t start the game until we press the jump button.
+When the game is launched the physics is in a paused state. The game begins when the player pressed the jump button.
 
-To do so, we’ll make two functions which enable and disable both logic functions we made.
+Make two functions that enable and disable both logic functions.
 
 ```
 // Pause physics
@@ -3124,14 +3180,14 @@ void resume_physics() {
 }
 ```
 
-We’ll use a boolean to indicate if player started playing.
+Use a boolean to indicate whether the player has started playing.
 
 ```
 // States
 bool started_playing_{false};
 ```
 
-And a function which resets this state value.
+Add a function which resets this state value.
 
 ```
 // Reset state values
@@ -3140,7 +3196,7 @@ void reset_state_variables() {
 }
 ```
 
-In the `init_dynamic_objects` function, we feed `player` entity to the `create_logic_systems` function, pause physics, and reset state variables.
+In the `init_dynamic_objects` function, feed the `player` entity to the `create_logic_systems` function, pause physics, and reset state variables.
 
 ```
 // Initialize dynamic objects, this function is called at start and resets
@@ -3158,7 +3214,9 @@ void init_dynamic_objects(entt::registry &registry) {
 }
 ```
 
-Final thing we need to do is, to check for a jump button press which will start the game. We do this check only if player hasn’t already started playing.
+Check for a jump button press. This starts the game. 
+
+Check only whether the player has not yet begun to play.
 
 ```
 // Check if start game is requested at the pause state
@@ -3172,7 +3230,7 @@ void check_start_game_request() {
 }
 ```
 
-Then call this function in the update function which gets called every tick.
+Call this function in the update function that is called every tick.
 
 ```
 // Update the game every tick
@@ -3182,7 +3240,7 @@ void update() noexcept final {
 }
 ```
 
-Step 6 is complete, here is the full code.
+Here is the complete code up to this point in the tutorial.
 
 ```
 #include <random>
@@ -3296,7 +3354,7 @@ namespace {
 
 // Factory functions
 namespace {
-    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    // Factory for pipes. This requires information about whether the pipe is a top pipe, and the position x of the column, and the starting gap position Y
     pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
         // Retrieve constants
         const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
@@ -3308,11 +3366,11 @@ namespace {
 
         // Size X is the column thickness,
         // Size Y is the important part.
-        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
-        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
-        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
-        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
-        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        // If this is a top pipe, gap_start_pos_y is the bottom of the rectangle
+        //  Half size is gap_start_pos_y since the center of the rectangle is at 0
+        // If this is the bottom pipe, the top of the rectangle is at gap_start_pos_y + gap_height
+        //  Half size is canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, multiply these sizes by two
         math::vec2f body_size{constants.column_thickness,
                               is_top ?
                               gap_start_pos_y * 2.0f :
@@ -3322,12 +3380,12 @@ namespace {
                                                   constants.pipe_outline_color);
 
         // PIPE CAP
-        // Let's prepare the pipe cap
+        // Prepare the pipe cap
         // Size of the cap is defined in constants
         math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
 
-        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
-        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        // Position X is the same as the body. The bottom of the cap is aligned with the bottom of the body,
+        // or start of the gap, use the start of the gap minus half of the cap height
         transform::position_2d cap_pos{body_pos.x(),
                                        is_top ?
                                        gap_start_pos_y - constants.pipe_cap_height * 0.5f :
@@ -3391,10 +3449,10 @@ namespace {
 
         // Create Sky
         {
-            // Sky is whole canvas so position is middle of it
+            // The sky is the whole canvas, so the position is in the middle of the canvas
             transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
 
-            // And the size is full canvas
+            // The size is the full canvas
             math::vec2f size{canvas_width, canvas_height};
 
             auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
@@ -3404,12 +3462,12 @@ namespace {
 
         // Create Grass
         {
-            // Ground expands to whole canvas width so position is middle of it,
-            // But position Y is at top of the ground, so it's canvas height minus ground thickness
+            // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+            // Position Y is at the top of the ground, so the height of the ground is canvas_height minus ground_thickness
             transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
 
             // Size X is full canvas but the height is defined in constants
-            // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+            // Make the rectangle longer by adding the thickness of the outline to hide the outline at the sides
             math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
 
             auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
@@ -3420,8 +3478,8 @@ namespace {
 
         // Create Ground
         {
-            // Ground expands to whole canvas width so position is middle of it,
-            // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+            // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+            // Position Y is at the bottom of the screen, so the height is the full canvas_height minus half of the ground thickness
             transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
 
             // Size X is full canvas but the height is defined in constants
@@ -3472,7 +3530,7 @@ public:
             float column_pos_x = move_pipe(registry, col.top_pipe);
             move_pipe(registry, col.bottom_pipe);
 
-            // If column is out of the screen
+            // Test whether column is out of the screen
             if (column_pos_x < -constants.column_distance) {
                 // Remove this column
                 col.destroy(registry, entity);
@@ -3505,8 +3563,8 @@ private:
         // Get current position of the pipe
         auto pos = registry.get<transform::position_2d>(pipe.body);
 
-        // Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
-        // Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+        // Shift pos X to the left by scroll_speed, but multiply the value by dt, as this occurs many times per second
+        // Delta time ensures that the movement occurs over time, so that over the course of one second the movement covers scroll_speed pixels
         auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
 
         // Set the new position value
@@ -3516,7 +3574,7 @@ private:
         auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
         registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
 
-        // Return the info about if this pipe is out of the screen
+        // Return the information about whether this pipe is out of the screen
         return new_pos_x;
     }
 };
@@ -3702,20 +3760,22 @@ int main() {
 }
 ```
 
-## Step 7: Collision between player and columns, death and reset game
+## Collision Between Player and Columns, Death, and Game Reset
 
-Game ends when Flappy bird flies into the columns and dies. To set this up, we’ll start with adding the collision system header `<antara/gaming/collisions/basic.collision.system.hpp>`.
+The game ends when the player flies into the columns and dies. 
 
-Then make another logic system, `collision_logic`. Constructor gets the player entity and a reference of `player_dead` variable, so we can report back the collision result.
+Start by adding the collision system header `<antara/gaming/collisions/basic.collision.system.hpp>`.
 
-We store both in the class like this:
+Make another logic system, `collision_logic`. The constructor receives the player entity and a reference to the `player_dead` variable, so that the collision result can be reported.
+
+Store both in the class as follows.
 
 ```
 entt::entity player_;
 bool &player_died_;
 ```
 
-Then create the class and constructor:
+Create the class and constructor.
 
 ```
 // Collision Logic System
@@ -3726,11 +3786,15 @@ public:
                                                                                                 player_died_(player_died_) {}
 ```
 
-Now add a function to check collision between player and the pipes, `check_player_pipe_collision`.
+Add a function to check for a collision between the player and the pipes, `check_player_pipe_collision`.
 
-Remember that we put columns to `layer<3>`. We can now retrieve them all by using `view` function, `registry.view<graphics::layer<3>>()`.
+Remember that columns are on `layer<3>`.
 
-Then use `collisions::basic_collision_system::query_rect` function with `player_` and `entity` which is the pipe. If a collision is detected, we mark `player_died_` as `true`.
+Retrieve the columns by using the `view` function, `registry.view<graphics::layer<3>>()`.
+
+Use the `collisions::basic_collision_system::query_rect` function with `player_` and `entity`, which is the pipe. 
+
+If a collision is detected, mark `player_died_` as `true`.
 
 ```
 // Loop all columns to check collisions between player and the pipes
@@ -3745,7 +3809,7 @@ void check_player_pipe_collision(entt::registry &registry) {
 }
 ```
 
-We’ll call this function in the `update` function which is called every tick. But if `player_died_` is `true`, then no need to check for collision, we simply stop the function.
+Call this function in the `update` function that is called every tick. However, if `player_died_` is `true`, there is no need to check for a collision; simply stop the function.
 
 ```
 // Update, this will be called every tick
@@ -3760,14 +3824,14 @@ void update() noexcept final {
 }
 ```
 
-As we did earlier, we name this system, out of the class.
+As before, name this system outside of the class.
 
 ```
 // Name this system
 REFL_AUTO (type(collision_logic));
 ```
 
-The completed class looks like this:
+The completed class is as follows.
 
 ```
 // Collision Logic System
@@ -3807,7 +3871,7 @@ private:
 REFL_AUTO (type(collision_logic));
 ```
 
-Now let’s use this class in `game_scene`:
+Add the class to the game scene.
 
 ```
 // Create logic systems
@@ -3818,7 +3882,8 @@ void create_logic_systems(entt::entity player) {
 }
 ```
 
-Then some more state variables for player death, game over, and reset query:
+Add a few more state variables for player death, game over, and reset query.
+
 
 ```
 // States
@@ -3828,7 +3893,7 @@ bool game_over_{false};
 bool need_reset_{false};
 ```
 
-Finally, add the needed values for game restart to `reset_state_variables`:
+Add the needed values for game restart to `reset_state_variables`.
 
 ```
 // Reset state values
@@ -3839,12 +3904,14 @@ void reset_state_variables() {
 }
 ```
 
-Since `player_died_` will be filled by `collision_logic`, we can read it in this class. When it’s `true`, we will mark `game_over_` as `true` and pause physics because we want the game to stop when player dies. We’ll also mark `player_died_` to `false` so these won’t be triggered again.
+Since `player_died_` is filled by `collision_logic`, the logic can read the value within this class.
+
+When the value is `true`, mark `game_over_` as `true` and pause physics. This stops the game when the player dies. Mark `player_died_` to `false` here also, so that these functions are not triggered again.
 
 ```
-// Check if player died
+// Check if the player died
 void check_death() {
-    // If player died, game over, and pause physics
+    // If the player died, game over, and pause physics
     if (player_died_) {
         player_died_ = false;
         game_over_ = true;
@@ -3853,7 +3920,9 @@ void check_death() {
 }
 ```
 
-Another function will check for a jump button press after the game is over. When jump button is pressed, game will restart.
+Another function checks for a jump button press after the game is over. 
+
+When the jump button is pressed, the game restarts.
 
 ```
 // Check if reset is requested at game over state
@@ -3863,7 +3932,7 @@ void check_reset_request() {
 }
 ```
 
-Let’s call these two in the `update` function:
+Call these two functions in the `update` function.
 
 ```
 // Update the game every tick
@@ -3871,7 +3940,7 @@ void update() noexcept final {
     // Check if player requested to start the game
     check_start_game_request();
 
-    // Check if player died
+    // Check if the player died
     check_death();
 
     // Check if player requested reset after death
@@ -3879,7 +3948,7 @@ void update() noexcept final {
 }
 ```
 
-As you saw in `check_reset_request`, we use `reset_game` function, so let’s define that:
+Defin the `reset_game` function.
 
 ```
 // Reset game
@@ -3892,9 +3961,11 @@ void reset_game() {
 }
 ```
 
-In `reset_game` we want to destroy dynamic objects. To do that, we retrieve all the dynamic entities with `dynamic` tag that we set before, then destroy them all using the registry.
+The `reset_game` function destroys dynamic objects. 
 
-For logic system deletions, we need to mark items for deletion, with the function below:
+To achieve this, retrieve all the dynamic entities with the `dynamic` tag that were set previously, then destroy them using the registry.
+
+For the logic system deletions, mark items for deletion with the function below.
 
 ```
 // Destroy dynamic objects
@@ -3910,7 +3981,7 @@ void destroy_dynamic_objects() {
 }
 ```
 
-Those systems get deleted after the whole update tick is completed, so we don’t want to reinitialize them in `reset_game`. Instead, queue the reset by setting `need_reset_` true, and do reinitialization in `post_update` like this:
+Those systems are deleted after the whole update tick is completed. They should no be reinitialize in `reset_game`. Instead, queue the reset by setting `need_reset_` to `true`, and reinitialize in the `post_update` function, as follows.
 
 ```
 // Post update
@@ -3924,9 +3995,9 @@ void post_update() noexcept final {
 }
 ```
 
-That’s it! Flappy bird now collides with pipes, dies, and enters the “game over” state. Afterwards, by pressing jump button, all the dynamic entities and logic systems are destroyed, then reinitialized.
+Flappy Bird now collides with pipes, dies, and enters the “game over” state. Afterwards, by pressing the jump button, all the dynamic entities and logic systems are destroyed, then reinitialized.
 
-Step 7 is complete, here is the full code.
+Here is the full code up to this point in the tutorial.
 
 ```
 #include <random>
@@ -4041,7 +4112,7 @@ namespace {
 
 // Factory functions
 namespace {
-    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    // Factory for pipes. This requires information about whether the pipe is a top pipe, and the position x of the column, and the starting gap position Y
     pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
         // Retrieve constants
         const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
@@ -4053,11 +4124,11 @@ namespace {
 
         // Size X is the column thickness,
         // Size Y is the important part.
-        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
-        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
-        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
-        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
-        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        // If this is a top pipe, gap_start_pos_y is the bottom of the rectangle
+        //  Half size is gap_start_pos_y since the center of the rectangle is at 0
+        // If this is the bottom pipe, the top of the rectangle is at gap_start_pos_y + gap_height
+        //  Half size is canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, multiply these sizes by two
         math::vec2f body_size{constants.column_thickness,
                               is_top ?
                               gap_start_pos_y * 2.0f :
@@ -4067,12 +4138,12 @@ namespace {
                                                   constants.pipe_outline_color);
 
         // PIPE CAP
-        // Let's prepare the pipe cap
+        // Prepare the pipe cap
         // Size of the cap is defined in constants
         math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
 
-        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
-        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        // Position X is the same as the body. The bottom of the cap is aligned with the bottom of the body,
+        // or start of the gap, use the start of the gap minus half of the cap height
         transform::position_2d cap_pos{body_pos.x(),
                                        is_top ?
                                        gap_start_pos_y - constants.pipe_cap_height * 0.5f :
@@ -4136,10 +4207,10 @@ namespace {
 
         // Create Sky
         {
-            // Sky is whole canvas so position is middle of it
+            // The sky is the whole canvas, so the position is in the middle of the canvas
             transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
 
-            // And the size is full canvas
+            // The size is the full canvas
             math::vec2f size{canvas_width, canvas_height};
 
             auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
@@ -4149,12 +4220,12 @@ namespace {
 
         // Create Grass
         {
-            // Ground expands to whole canvas width so position is middle of it,
-            // But position Y is at top of the ground, so it's canvas height minus ground thickness
+            // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+            // Position Y is at the top of the ground, so the height of the ground is canvas_height minus ground_thickness
             transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
 
             // Size X is full canvas but the height is defined in constants
-            // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+            // Make the rectangle longer by adding the thickness of the outline to hide the outline at the sides
             math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
 
             auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
@@ -4165,8 +4236,8 @@ namespace {
 
         // Create Ground
         {
-            // Ground expands to whole canvas width so position is middle of it,
-            // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+            // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+            // Position Y is at the bottom of the screen, so the height is the full canvas_height minus half of the ground thickness
             transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
 
             // Size X is full canvas but the height is defined in constants
@@ -4217,7 +4288,7 @@ public:
             float column_pos_x = move_pipe(registry, col.top_pipe);
             move_pipe(registry, col.bottom_pipe);
 
-            // If column is out of the screen
+            // Test whether column is out of the screen
             if (column_pos_x < -constants.column_distance) {
                 // Remove this column
                 col.destroy(registry, entity);
@@ -4250,8 +4321,8 @@ private:
         // Get current position of the pipe
         auto pos = registry.get<transform::position_2d>(pipe.body);
 
-        // Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
-        // Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+        // Shift pos X to the left by scroll_speed, but multiply the value by dt, as this occurs many times per second
+        // Delta time ensures that the movement occurs over time, so that over the course of one second the movement covers scroll_speed pixels
         auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
 
         // Set the new position value
@@ -4261,7 +4332,7 @@ private:
         auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
         registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
 
-        // Return the info about if this pipe is out of the screen
+        // Return the information about whether this pipe is out of the screen
         return new_pos_x;
     }
 };
@@ -4393,7 +4464,7 @@ private:
         // Check if player requested to start the game
         check_start_game_request();
 
-        // Check if player died
+        // Check if the player died
         check_death();
 
         // Check if player requested reset after death
@@ -4410,9 +4481,9 @@ private:
         }
     }
 
-    // Check if player died
+    // Check if the player died
     void check_death() {
-        // If player died, game over, and pause physics
+        // If the player died, game over, and pause physics
         if (player_died_) {
             player_died_ = false;
             game_over_ = true;
@@ -4543,11 +4614,11 @@ int main() {
 }
 ```
 
-## Step 8: Score and UI
+## Score and UI
 
-Without scores there is no measure of achievement, and no motivation to play again to see if your skills have improved (or are better than your friends!). So we will count scores and display it on the screen.
+Without scores there is no measure of achievement, and no motivation to play again for improvement.
 
-Only one constant is needed here, `font_size`.
+Only one constant is needed: `font_size`.
 
 ```
 struct flappy_bird_constants {
@@ -4555,14 +4626,18 @@ struct flappy_bird_constants {
     const unsigned long long font_size{32ull};
 ```
 
-We will get one score from each column player passes, so we need to mark the column as `scored`. Let’s put a variable into the `struct column`.
+#### Creating the Score
+
+The score increases by one each time the player passes a column. 
+
+Mark a passed column as `scored`. Put a variable into the `struct column`.
 
 ```
 // Is score taken from this column
 bool scored{false};
 ```
 
-Then we define a score struct, it will have the current score, max score and UI text.
+Define a score struct that has the current score, max score, and UI text.
 
 ```
 // Score struct, has current value, max record, and the UI text
@@ -4573,7 +4648,7 @@ struct score {
 };
 ```
 
-Now make a function which constructs the UI text, and put it under Logic functions `namespace`:
+Make a function which constructs the UI text and places it under logic functions, `namespace`.
 
 ```
 // Create the UI string
@@ -4584,9 +4659,9 @@ std::string score_ui_text(int score = 0, int best_score = 0) {
 }
 ```
 
-Next we can make the `create_score` function which will make an entity.
+Make the `create_score` function that makes an entity.
 
-Retrieve constants and canvas size:
+Retrieve constants and canvas size.
 
 ```
 // Factory to create score entity
@@ -4596,7 +4671,9 @@ entt::entity create_score(entt::registry &registry) {
     const auto constants = registry.ctx<flappy_bird_constants>();
 ```
 
-Then, create `text_entity` using `graphics::blueprint_text` function, feed the text `score_ui_text` and `font_size` from `constants`.
+#### Create the Text
+
+Create `text_entity` using the `graphics::blueprint_text` function, feed the text `score_ui_text` and `font_size` from `constants`.
 
 ```
 // Create text
@@ -4604,14 +4681,14 @@ auto text_entity = graphics::blueprint_text(registry, graphics::text{score_ui_te
     transform::position_2d{canvas_width * 0.03f, canvas_height * 0.03f}, graphics::white);
 ```
 
-Set it ot `layer<9>` because we want the text to be in front of everything, and tag it as `game_scene`.
+Set the layer to `layer<9>`, as the text must be in front of everything. Tag the text as `game_scene`.
 
 ```
 registry.assign<graphics::layer<9>>(text_entity);
 tag_game_scene(registry, text_entity);
 ```
 
-Now we create a fresh entity, assign `struct score` to it with 0 score and max record values, and `text_entity` we just created. Tag it as `high_score` and `game_scene`, then return it.
+Create a fresh entity and assign `struct score` to it with `0` score, max record values, and the `text_entity` value. Tag this entity as `high_score` and `game_scene`, then return it.
 
 ```
 // Create a fresh entity
@@ -4625,13 +4702,13 @@ tag_game_scene(registry, entity);
 return entity;
 ```
 
-Add a member for it in `game_scene`:
+Add a member for the entity in `game_scene`.
 
 ```
 entt::entity score_entity_;
 ```
 
-Then create it inside `game_scene` constructor using the `create_score` function:
+Create the entity inside the `game_scene` constructor using the `create_score` function.
 
 ```
 game_scene(entt::registry &registry, ecs::system_manager &system_manager) noexcept : base_scene(registry),
@@ -4646,13 +4723,17 @@ game_scene(entt::registry &registry, ecs::system_manager &system_manager) noexce
 }
 ```
 
-Now let’s make the function which will update the score. This function will be able to do two things: increment score by one, and reset the score when game is being reset.
+#### Updating the Score
 
-We simply have a parameter `reset` to know about the reset situation.
+Make the function that updates the score.
 
-First we retrieve the `struct score` from the entity, then if reset is requested, we simply set the `value` to zero.
+This function does two things: increment the score by one and reset the score when the game is reset.
 
-If reset is not requested, then it will increment `value` by one, check if it’s higher than the `max_score`, and update `max_score` if `value` it is.
+This requires a parameter, `reset`, for information about the reset.
+
+To achieve this, retrieve the `struct score` from the entity. If a reset is requested, set the `value` to zero.
+
+If a reset is not requested, increment the `value` by one, check whether the value is higher than the `max_score`, and update the `max_score` if this is the case.
 
 ```
 void update_score(entt::registry &registry, entt::entity entity, bool reset = false) {
@@ -4665,14 +4746,14 @@ void update_score(entt::registry &registry, entt::entity entity, bool reset = fa
     else if (++sc.value > sc.max_score) sc.max_score = sc.value;
 ```
 
-Next, update the `struct score` inside the score entity.
+Update the `struct score` inside the score entity.
 
 ```
 // Update the score entity
 registry.replace<score>(entity, sc);
 ```
 
-Then then update the contents of `graphics::text` with the `score_ui_text` using the new values.
+Update the contents of `graphics::text` with the `score_ui_text` using the new values.
 
 ```
 // Update the UI text entity with the current values
@@ -4681,7 +4762,7 @@ text.contents = score_ui_text(sc.value, sc.max_score);
 registry.replace<graphics::text>(sc.text, text);
 ```
 
-The completed function looks like this:
+The completed function is as follows.
 
 ```
 // Update score
@@ -4704,15 +4785,15 @@ void update_score(entt::registry &registry, entt::entity entity, bool reset = fa
 }
 ```
 
-We have the function to update the score now, and it needs to be called when player passes a column. This function needs the score entity so we will pass it to `column_logic` with the constructor.
+The function must be called when the player passes a column. The function needs the score entity. Pass the function to `column_logic` with the constructor.
 
-First, have a class member for entity.
+The first step is to have a class member for entity.
 
 ```
 entt::entity score_entity_;
 ```
 
-Then fill it with the constructor.
+Then fill this with the constructor.
 
 ```
 // Column Logic System
@@ -4724,21 +4805,23 @@ public:
     }
 ```
 
-We need to update the creation line too, feeding the score entity.
+Update the creation line also, feeding the score entity.
 
 ```
 void create_logic_systems(entt::entity player) {
     system_manager_.create_system_rt<column_logic>(score_entity_);
 ```
 
-Now we go back to the `update` function of this class, and inside the for loop which loops all columns, we add the check for score.
+Return to the `update` function of this class and, inside the `for` loop that loops through all columns, add the check for the score.
 
-At first, column should be new, with `score` field being false. Once the column position is to the left side of the player position (after Flappy bird passes), use a simple `<` comparison of the column and Flappy bird’s position on the X axis.
+At first the column should be new with the `score` field set to `false`. 
 
-Inside, we call the `update_score` function, and mark the column `scored` as `true`.
+Once the column position is to the left side of the player position (after the player passes), use a simple `<` comparison of the column and the player’s position on the `X` axis.
+
+Inside, call the `update_score` function and mark the column `scored` as `true`.
 
 ```
-// If this column is not scored, and player passed this column
+// If this column is not scored and if the player passed this column
 if (!col.scored && column_pos_x < constants.player_pos_x) {
     // Increase the score
     update_score(registry, score_entity_);
@@ -4748,9 +4831,11 @@ if (!col.scored && column_pos_x < constants.player_pos_x) {
 }
 ```
 
-Great, score is being counted now.
+#### Reset the Score Value at Game Over
 
-Next thing we want is to reset this score value when game is over and `reset_game` is called. We use `update_score` function to do this, but this time we set the last parameter, `reset` as `true`.
+Reset this score value when the game is over and `reset_game` is called. 
+
+Use the `update_score` function to this effect, but this time set the last parameter, `reset`, as `true`.
 
 ```
 // Reset game
@@ -4766,7 +4851,7 @@ void reset_game() {
 }
 ```
 
-That’s it, now if you run the game, you’ll see the UI which shows current score, max score and button instructions, and as you play, you’ll see score and max score increasing, and see the score return to zero when you die and reset the game.
+A visual example of the result.
 
 <div>
 
@@ -4774,7 +4859,7 @@ That’s it, now if you run the game, you’ll see the UI which shows current sc
 
 </div>
 
-Step 8 is complete, here is the full code.
+Here is the full code.
 
 ```
 #include <random>
@@ -4889,7 +4974,7 @@ namespace {
 
 // Factory functions
 namespace {
-    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    // Factory for pipes. This requires information about whether the pipe is a top pipe, and the position x of the column, and the starting gap position Y
     pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
         // Retrieve constants
         const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
@@ -4901,11 +4986,11 @@ namespace {
 
         // Size X is the column thickness,
         // Size Y is the important part.
-        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
-        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
-        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
-        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
-        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        // If this is a top pipe, gap_start_pos_y is the bottom of the rectangle
+        //  Half size is gap_start_pos_y since the center of the rectangle is at 0
+        // If this is the bottom pipe, the top of the rectangle is at gap_start_pos_y + gap_height
+        //  Half size is canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, multiply these sizes by two
         math::vec2f body_size{constants.column_thickness,
                               is_top ?
                               gap_start_pos_y * 2.0f :
@@ -4915,12 +5000,12 @@ namespace {
                                                   constants.pipe_outline_color);
 
         // PIPE CAP
-        // Let's prepare the pipe cap
+        // Prepare the pipe cap
         // Size of the cap is defined in constants
         math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
 
-        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
-        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        // Position X is the same as the body. The bottom of the cap is aligned with the bottom of the body,
+        // or start of the gap, use the start of the gap minus half of the cap height
         transform::position_2d cap_pos{body_pos.x(),
                                        is_top ?
                                        gap_start_pos_y - constants.pipe_cap_height * 0.5f :
@@ -4984,10 +5069,10 @@ namespace {
 
         // Create Sky
         {
-            // Sky is whole canvas so position is middle of it
+            // The sky is the whole canvas, so the position is in the middle of the canvas
             transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
 
-            // And the size is full canvas
+            // The size is the full canvas
             math::vec2f size{canvas_width, canvas_height};
 
             auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
@@ -4997,12 +5082,12 @@ namespace {
 
         // Create Grass
         {
-            // Ground expands to whole canvas width so position is middle of it,
-            // But position Y is at top of the ground, so it's canvas height minus ground thickness
+            // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+            // Position Y is at the top of the ground, so the height of the ground is canvas_height minus ground_thickness
             transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
 
             // Size X is full canvas but the height is defined in constants
-            // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+            // Make the rectangle longer by adding the thickness of the outline to hide the outline at the sides
             math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
 
             auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
@@ -5013,8 +5098,8 @@ namespace {
 
         // Create Ground
         {
-            // Ground expands to whole canvas width so position is middle of it,
-            // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+            // The ground expands to the whole canvas width, so the position is in the center X value of the canvas,
+            // Position Y is at the bottom of the screen, so the height is the full canvas_height minus half of the ground thickness
             transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
 
             // Size X is full canvas but the height is defined in constants
@@ -5065,7 +5150,7 @@ public:
             float column_pos_x = move_pipe(registry, col.top_pipe);
             move_pipe(registry, col.bottom_pipe);
 
-            // If column is out of the screen
+            // Test whether column is out of the screen
             if (column_pos_x < -constants.column_distance) {
                 // Remove this column
                 col.destroy(registry, entity);
@@ -5098,8 +5183,8 @@ private:
         // Get current position of the pipe
         auto pos = registry.get<transform::position_2d>(pipe.body);
 
-        // Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
-        // Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+        // Shift pos X to the left by scroll_speed, but multiply the value by dt, as this occurs many times per second
+        // Delta time ensures that the movement occurs over time, so that over the course of one second the movement covers scroll_speed pixels
         auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
 
         // Set the new position value
@@ -5109,7 +5194,7 @@ private:
         auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
         registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
 
-        // Return the info about if this pipe is out of the screen
+        // Return the information about whether this pipe is out of the screen
         return new_pos_x;
     }
 };
@@ -5241,7 +5326,7 @@ private:
         // Check if player requested to start the game
         check_start_game_request();
 
-        // Check if player died
+        // Check if the player died
         check_death();
 
         // Check if player requested reset after death
@@ -5258,9 +5343,9 @@ private:
         }
     }
 
-    // Check if player died
+    // Check if the player died
     void check_death() {
-        // If player died, game over, and pause physics
+        // If the player died, game over, and pause physics
         if (player_died_) {
             player_died_ = false;
             game_over_ = true;
@@ -5390,4 +5475,3 @@ int main() {
     return game.run();
 }
 ```
--->
