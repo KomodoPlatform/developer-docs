@@ -2107,6 +2107,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 The `my_tx_history` method returns the blockchain transactions involving the MM2 node's coin address.
 
+The coin that is used must have `tx_history` set to true in its [enable](../../../basic-docs/atomicdex/atomicdex-api.html#enable) or [electrum](../../../basic-docs/atomicdex/atomicdex-api.html#electrum) call.
+
 #### Arguments
 
 | Structure | Type   | Description                                                                                                                                                                                 |
