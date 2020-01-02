@@ -26,7 +26,7 @@ git submodule init
 git submodule update --init --recursive
 ```
 
-- Edit `genkomodo.php` and fill your passphrase instead of `$passphrase = "myverysecretandstrongpassphrase_noneabletobrute"`. Change only the content inside `""` i.e., change `myverysecretandstrongpassphrase_noneabletobrute` with your passphrase
+- Edit `genkomodo.php` and fill your passphrase instead of `$passphrase = "myverysecretandstrongpassphrase_noneabletobrute"`. Change only the content inside `""` i.e., replace `myverysecretandstrongpassphrase_noneabletobrute` with your passphrase
 
 - Execute the command: `php genkomodo.php`
 

@@ -1,6 +1,6 @@
 # Updating a Komodo Notary Node
 
-Work is ongoing.
+WIP.
 
 ## Lesson 1: Securing and updating server
 
@@ -97,7 +97,7 @@ cd ~/komodo/src
 ## Lesson 5: Starting iguana
 
 ```bash
-cd ~/SuperNET/iguana
+cd ~/dPoW/iguana
 cat ./wp_7776     # <-- post this to Discord
 ./m_notary
 ```

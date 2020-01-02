@@ -62,7 +62,7 @@ Run your start script
 ./start
 ```
 
-Let it resync (check with the getinfo command). When it is done resync, start Iguana
+Let it resync (check with the getinfo command). When it is done resyncing, start Iguana
 
 ```bash
 cd ~/KomodoPlatform/iguana

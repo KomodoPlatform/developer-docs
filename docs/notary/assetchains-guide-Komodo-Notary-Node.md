@@ -1,24 +1,24 @@
-# Assetchains Guide for Notary Nodes
+# Smart Chains Guide for Notary Nodes
 
-**If you were looking for the readme how to setup the assetchains, don't look further. It is integrated into Komodo now.**
+**If you were looking for the readme how to setup the Smart Chains, don't look further. It is integrated into Komodo now.**
 
-This is a small troubleshoot page on how to act when some issues comes above.
+This is a small troubleshooting page for problems that may be encountered while starting Smart Chains.
 
-## How do I start the assetchains?
+## How do I start the Smart Chains?
 
 ```bash
 cd ~/komodo/src
 ./assetchains
 ```
 
-## Clear all assetchain data
+## Clear all Smart Chains' data
 
 ```bash
 cd ~/komodo/src
 ./clearassets
 ```
 
-## I get "Error: Cannot obtain a lock on data directory /home/komodo/.komodo/REVS. Zcash is probably already running." when i run it
+## I get "Error: Cannot obtain a lock on data directory /home/komodo/.komodo/REVS. Zcash is probably already running." when I run it
 
 ```bash
 cd ~/komodo/src
@@ -143,7 +143,7 @@ cd ~/komodo/src/
 ./assetchains
 ```
 
-## Here is how i fixed my nodes to work with assetchains
+## Here is how I fixed my nodes to work with Smart Chains
 
 1. Reboot the server
 
@@ -153,14 +153,14 @@ cd ~/komodo/src/
 cd komodo && git fetch && git checkout beta && git pull && make -j8
 ```
 
-1. Delete files from the .komodo folder
+1. Delete data files from the `.komodo` folder
 
 ```bash
 cd ~/.komodo
 rm -rf blocks chainstate debug.log komodostate db.log
 ```
 
-1. Start the ./start script to resync the komodo chain
+1. Start the ./start script to resync the Komodo chain
 
 ```bash
 cd
@@ -220,19 +220,19 @@ rm -rf ~/.komodo/PRLPAY
 ./clearassets
 ```
 
-1. Run assetchains
+1. Run Smart Chains
 
 ```bash
 ./assetchains
 ```
 
-1. Wait for it until it stops doing its thing. The import your BTCDwif key
+1. Wait for it till it stops doing its thing. The import your BTCDwif key
 
 ```bash
 ./fiat-cli importprivkey U*************************** (your BTCDwif key)
 ```
 
-1. After it is finished fund your assets with your BTCD address
+1. After it is finished, fund your assets with your BTCD address
 
 ```bash
 ./assetfunds R********************* (your BTCD address)
@@ -242,8 +242,8 @@ rm -rf ~/.komodo/PRLPAY
 
 ```bash
 cd
-cd SuperNET/iguana
-git fetch && git checkout beta && ./m_notary
+cd dPoW/iguana
+git fetch && git checkout master && ./m_notary
 ```
 
 1. When this is done you should get the following running all the time
