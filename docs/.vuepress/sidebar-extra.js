@@ -360,17 +360,21 @@ var sidebar = {
       children: [
         ["/notary/setup-Komodo-Notary-Node.md", "Setup Komodo Notary Node"],
         ["/notary/update-Komodo-manually.md", "How to update Komodo"],
-        [
+        /*[
           "/notary/smartchains-guide-Komodo-Notary-Node.md",
           "Smart Chains Guide for Notary Nodes"
         ],
         [
           "/notary/updating-Komodo-Notary-Node.md",
           "Updating a Komodo Notary Node"
-        ],
+        ], */
         [
           "/notary/split-utxo-for-notarization.md",
           "How to Split UTXO for Notarization"
+        ],
+        [
+          "/notary/generate-privkeys-third-party-coins-from-passphrase.md",
+          "How to Generate Address and Private Key (WIF) for 3rd Party Coins Using Passphrase"
         ]
       ]
     }

@@ -65,7 +65,7 @@ Run your start script
 Let it resync (check with the getinfo command). When it is done resyncing, start Iguana
 
 ```bash
-cd ~/KomodoPlatform/iguana
+cd ~/dPoW/iguana
 ./m_notary
 ```
 

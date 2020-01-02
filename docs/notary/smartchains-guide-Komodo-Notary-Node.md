@@ -89,7 +89,7 @@ bntn
 08ffe7c25ad1b43700b301ba0d42195e63303bfd465112db91a4d8c7afa20af6
 ```
 
-## I am not in sync with a few hashes. what do i have to do now?
+## I am not in sync with a few hashes. what do I have to do now?
 
 Stop the corresponding fiat value and start it again. For instance REVS:
 
@@ -131,12 +131,12 @@ mv ../wallet.dat .
 cd ..
 ./start
 # wait for resync
-cd ~/SuperNET/iguana/
+cd ~/dPoW/iguana/
 ./m_notary
 # Wait a couple minutes
 cd ~/komodo/src/
 ./assetchains
-./fiat-cli importprivkey U****** (BTCDwif)
+./fiat-cli importprivkey U****** (Komodo wif)
 # wait for it to finish
 ./assetfunds btcd address
 ./fiat-cli stop
