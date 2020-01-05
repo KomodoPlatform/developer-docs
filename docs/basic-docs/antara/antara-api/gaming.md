@@ -18,9 +18,9 @@ The modules of the Antara Gaming SDK rely on other modules, such as [Oracles](./
 
 The `antara::gaming::config` class provides a function to load customized configuration settings for the Antara Gaming SDK.
 
-### Public Functions
+### load\_configuration
 
-#### load\_configuration
+#### Public Function
 
 The `load_configuration` function loads customizable configuration settings from a path and filename. 
 
@@ -28,7 +28,7 @@ The `load_configuration` function loads customizable configuration settings from
 - If the configuration does not exist, the function creates a default configuration
 - If the path and the name of the file exists, the function loads the configuration contents 
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename TConfig>
@@ -36,26 +36,26 @@ template<typename TConfig>
 TConfig antara::gaming::config::load_configuration(std::filesystem::path &&config_path, std::string filename)
 ```
 
-##### Template Parameters
+#### Template Parameters
 
 | Name    | Type | Description                                                                                       |
 | ------- | ---- | ------------------------------------------------------------------------------------------------- |
 | TConfig | typename | the type of template to load                                                                      |
 
-##### Function Parameters
+#### Function Parameters
 
 | Name   | Type | Description                                                                                        |
 | ------ | ---- |  ------------------------------------------------------------------------------------------------- |
 | config\_path | std::filesystem::path | the path to the directory in which the configuration file is located        |
 | filename | std::string | the name of the configuration file                                                        |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | TConfig          |template | the template                                                             |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 auto cfg = config::load_configuration<my_game::config>(std::filesystem::current_path() / "assets/config", "my_game.config.json");
@@ -66,10 +66,9 @@ auto cfg = config::load_configuration<my_game::config>(std::filesystem::current_
 The `antara::gaming::core` class provides functions and information relevant to
 the core Antara Gaming SDK library.
 
-### Public Functions
+### version
 
-#### version
-
+#### Public Function
 The `version` function returns the current version of the Antara Gaming SDK.
 
 ::: tip
@@ -78,7 +77,7 @@ The result of this function can be deduced at compile time.
 
 :::
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 #include <antara/gaming/core/version.hpp>
@@ -86,19 +85,19 @@ The result of this function can be deduced at compile time.
 constexpr const char *antara::gaming::version()
 ```
 
-##### Function Parameters
+#### Function Parameters
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | (none) | |  |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | current version          | const char * | the current version of the Antara Gaming SDK                                                              |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <iostream>
@@ -113,13 +112,13 @@ void print_version() {
 
 The `antara::gaming::ecs::system_manager` class provides methods to perform tasks such as the manipulation of systems, the addition, deletion, and update of systems, and the deactivation of a system.
 
-### Public Functions
+### system\_manager
 
-#### system\_manager
+#### Public Function
 
 The primary constructor function.
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 #include <antara/gaming/ecs/system.manager.hpp>
@@ -127,26 +126,26 @@ The primary constructor function.
 system_manager(entt::registry &registry, bool subscribe_to_internal_events = true)
 ```
 
-##### Destructor
+#### Destructor
 
 ```
 ~system_manager()
 ```
 
-##### Function Parameters
+#### Function Parameters
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | registry | entt::registry | an entity\_registry object |
 | subscribe\_to\_internal\_events | bool | whether to subscribe to default system\_manager events |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (none)          | void  |                                                               |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -161,31 +160,33 @@ int main()
 }
 ``` 
 
-#### receive\_add\_base\_system
+### receive\_add\_base\_system
+
+#### Public Function
 
 Public member functions.
 
 <!-- The description in the documentation was unclear to me. Can you please provide more information about what "Public member functions" means here? Thx -->
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 void receive_add_base_system(const ecs::event::add_base_system &evt)
 ```
 
-##### Function Parameters
+#### Function Parameters
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | evt | ecs::event::add\_base\_system& | <!-- need a description here --> |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (none)          | void  |                                                               |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 <!-- needs an example -->
 
@@ -193,7 +194,9 @@ void receive_add_base_system(const ecs::event::add_base_system &evt)
 
 ``` 
 
-#### start
+### start
+
+#### Public Function
 
 The `start` function informs the system manager instance that the developer's game is initiated and spinning.
 
@@ -203,7 +206,7 @@ This function allows for the execution of actions at the end of each frame. For 
 
 :::
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 #include <antara/gaming/ecs/system.manager.hpp>
@@ -211,13 +214,13 @@ This function allows for the execution of actions at the end of each frame. For 
 system_manager_instance.start();
 ```
 
-##### Function Parameters
+#### Function Parameters
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | (none) |  |  |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -225,7 +228,7 @@ system_manager_instance.start();
 
 <!-- Does this return something such as a bool value, for successful execution, by chance? -->
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -242,7 +245,9 @@ int main()
 }
 ``` 
 
-#### update
+### update
+
+#### Public Function
 
 The `update` function updates a system-manager instance.
 
@@ -252,7 +257,7 @@ The logic of the function is designed to automatically manage the correct order 
 - If the developer's logic marks a system for deletion, the function deletes the system is automatically at the end of the current loop tick
 - If the developer's logic adds a system through an `ecs::event::add_base_system` event, the function automatically adds the system at the end of the current loop tick
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 #include <antara/gaming/ecs/system.manager.hpp>
@@ -260,19 +265,19 @@ The logic of the function is designed to automatically manage the correct order 
 std::size\_t nb\_systems\_updated = system\_manager.update();
 ```
 
-##### Function Parameters
+#### Function Parameters
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | (none) |  |  |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | number of systems updated          | std::size\_t  | the number of systems updated                                                               |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -294,7 +299,9 @@ int main()
 }
 ``` 
 
-#### update\_systems
+### update\_systems
+
+#### Public Function
 
 The `update_systems` function updates specific systems in a system\_manager instance.
 
@@ -302,7 +309,7 @@ The [update](#update) (listed above) function calls this `update_systems` functi
 
 The `update_systems` function is useful when the developer wishes to manually perform an update of a specific system.
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 #include <antara/gaming/ecs/system.manager.hpp>
@@ -310,19 +317,19 @@ The `update_systems` function is useful when the developer wishes to manually pe
 std::size\_t nb\_systems\_updated = system\_manager.update();
 ```
 
-##### Function Parameters
+#### Function Parameters
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | (none) |  |  |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | number of systems updated          | std::size\_t  | the number of systems updated                                                               |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -344,31 +351,32 @@ int main()
 }
 ``` 
 
-#### get\_system | 1
+### get\_system | 1
 
-The `get_system` function uses a template parameter to return a reference to a system.
+#### Public Function
 
+The `get_system` function uses a template parameter to return a reference to a system.  
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename TSystem>
 const TSystem &get_system() const 
 ```
 
-##### Function and Template Type
+#### Function and Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | TSystem | (determined by the developer)  | the TSystem type represents any type of valid template, as designed by the developer   |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | TSystem | &TSystem  | a reference to the template chosen by the developer                                                               |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 <!-- Need an example here -->
 
@@ -376,13 +384,15 @@ const TSystem &get_system() const
 
 ``` 
 
-#### get\_system | 2 
+### get\_system | 2 
+
+#### Public Function
 
 An overloaded version of the `get_system` function above.
 
 This overloaded function accepts different parameters.
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename TSystem>
@@ -390,19 +400,19 @@ template<typename TSystem>
 TSystem &get_system()
 ```
 
-##### Function and Template Type
+#### Function and Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | TSystem | (determined by the developer)  | the TSystem type represents any type of valid template, as designed by the developer   |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | TSystem | &TSystem  | a reference to the template chosen by the developer                                                               |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -423,32 +433,34 @@ int main()
 }
 ``` 
 
-#### get\_systems | 1
+### get\_systems | 1
+
+#### Public Function
 
 The `get_systems` function accepts multiple template parameters and returns multiple systems.
 
 This function recursively calls the [get\_system](#get_system) function. Based on the logic of the different kinds of systems requested, this function updates the indicated systems in the correct order.
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename ...TSystems>
 std::tuple<std::add_lvalue_reference_t<TSystems>...> get_systems()
 ```
 
-##### Function and Template Type
+#### Function and Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | TSystem | std::tuple\<std::add\_lvalue\_reference\_t\<TSystems\>  | a tuple containing multiple TSystems templates   |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | TSystems | std::tuple\<std::add\_lvalue\_reference\_t\<TSystems\>  | a reference to the template chosen by the developer                                                               |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -469,7 +481,9 @@ int main()
 }
 ``` 
 
-#### get\_systems | 2
+### get\_systems | 2
+
+#### Public Function
 
 An overloaded version of the [get\_systems](#get_systems) function.
 
@@ -479,26 +493,26 @@ This function is marked as [nodiscard.](https://en.cppreference.com/w/cpp/langua
 
 :::
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename ...TSystems>
 std::tuple<std::add_lvalue_reference_t<std::add_const_t<TSystems>>...> get_systems() const
 ```
 
-##### Function and Template Type
+#### Function and Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | tuple of TSystems | std::tuple\<std::add\_lvalue\_reference\_t\<std::add\_const\_t\<TSystems\>\>...\>  | a tuple containing multiple TSystems templates types  |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | tuple of TSystems | std::tuple\<std::add\_lvalue\_reference\_t\<std::add\_const\_t\<TSystems\>\>...\>  | a tuple containing multiple references to TSystems templates   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -523,30 +537,32 @@ int main()
 }
 ``` 
 
-#### has\_system 
+### has\_system 
+
+#### Public Function
 
 The `has_system` function verifies whether or not a system is already registered in the [system\_manager](#system_manager).
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename TSystem>
 bool has_system() const
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | TSystem | (determined by the developer) | the system that needs to be verified |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (variable) | bool  | whether or not the indicated system is registered in the system manager instance   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -567,7 +583,9 @@ int main()
 }
 ``` 
 
-#### has\_systems
+### has\_systems | 1
+
+#### Public Function
 
 The `has_systems` function verifies whether or not a list of systems is already registered in the [system\_manager](#system_manager).
 
@@ -579,7 +597,7 @@ This function is marked as [nodiscard.](https://en.cppreference.com/w/cpp/langua
 
 :::
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 #include <antara/gaming/ecs/system.manager.hpp>
@@ -587,19 +605,19 @@ This function is marked as [nodiscard.](https://en.cppreference.com/w/cpp/langua
 bool result = system_manager.has_systems<my_game::render_system, my_game::input_systems>();
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | list of TSystems | template\<typename ...TSystems\> | the list of systems that needs to be verified |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (variable) | bool  | whether or not the indicated systems are registered in the system manager instance   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -620,30 +638,32 @@ int main()
 }
 ``` 
 
-#### has\_systems
+### has\_systems | 2
+
+#### Public Function
 
 The `has_systems` function verifies whether or not a list of systems is already registered in the [system\_manager](#system_manager).
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename ...TSystems>
 bool has_systems() const
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | list of TSystems | template\<typename ...TSystems\> | the list of systems that needs to be verified |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (variable) | bool  | whether or not the indicated systems are registered in the system manager instance   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -664,7 +684,9 @@ int main()
 }
 ``` 
 
-#### has\_systems
+### has\_systems | 3
+
+#### Public Function
 
 The `has_systems` function verifies whether or not a list of systems is already registered in the [system\_manager](#system_manager).
 
@@ -676,7 +698,7 @@ This function is marked as [nodiscard.](https://en.cppreference.com/w/cpp/langua
 
 :::
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 #include <antara/gaming/ecs/system.manager.hpp>
@@ -684,19 +706,19 @@ This function is marked as [nodiscard.](https://en.cppreference.com/w/cpp/langua
 bool result = system_manager.has_systems<my_game::render_system, my_game::input_systems>();
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | list of TSystems | templat\<typename ...TSystems\> | the list of systems that needs to be verified |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (variable) | bool  | whether or not the indicated systems are registered in the system manager instance   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -717,7 +739,9 @@ int main()
 }
 ``` 
 
-#### has\_systems
+### has\_systems | 4
+
+#### Public Function
 
 The `has_systems` function verifies whether or not a list of systems is already registered in the [system\_manager](#system_manager).
 
@@ -729,26 +753,26 @@ This function is marked [nodiscard.](https://en.cppreference.com/w/cpp/language/
 
 :::
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename ...TSystems>
 bool has\_systems() const
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | list of TSystems | template\<typename ...TSystem\> | the list of systems that needs to be verified |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (variable) | bool  | whether or not the indicated systems are loaded in the system-manager instance   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -769,30 +793,32 @@ int main()
 }
 ``` 
 
-#### mark\_system
+### mark\_system
+
+#### Public Function
 
 The`mark_system` function marks a system for destruction at the next tick of the game loop.
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename TSystem>
 bool mark_system()
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | TSystem | TSystem | the system to mark for destruction |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (variable) | bool  | whether or not the system was successfully marked   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -814,30 +840,32 @@ int main()
 }
 ```
 
-#### mark\_systems
+### mark\_systems | 1
+
+#### Public Function
 
 The`mark_systems` function marks a system for destruction at the next tick of the game loop.
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename TSystem>
 bool mark_system()
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | TSystem | TSystem | the system to mark for destruction |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (variable) | bool  | whether or not the system was successfully marked   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -859,7 +887,9 @@ int main()
 }
 ```
 
-#### mark\_systems
+### mark\_systems | 2
+
+#### Public Function
 
 The `mark_systems` function marks a list of systems for destruction at the next tick of the game loop.
 
@@ -871,26 +901,26 @@ This system is marked as [nodiscard.](https://en.cppreference.com/w/cpp/language
 
 :::
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename ...TSystems>
 bool mark_systems()
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | TSystems | TSystems | the systems to mark for destruction |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (variable) | bool  | whether or not the system was successfully marked   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -912,30 +942,32 @@ int main()
 }
 ```
 
-#### enable\_system
+### enable\_system
+
+#### Public Function
 
 The `enable_system` function enables a system.
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename TSystem>
 bool enable_system()
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | TSystem  | TSystem | the system to enable |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (variable) | bool  | whether or not the system was successfully enabled   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -957,32 +989,34 @@ int main()
 }
 ```
 
-#### enable\_systems
+### enable\_systems
+
+#### Public Function
 
 The `enable_systems` function enables a list of systems.
 
 This function recursively calls the [enable\_system](#enable_system) function.
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename ...TSystems>
 bool enable_systems()
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | TSystems  | TSystems | the systems to enable |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (variable) | bool  | whether or not the systems were successfully enabled   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -1003,32 +1037,34 @@ int main()
 }
 ```
 
-#### disable\_system
+### disable\_system
+
+#### Public Function
 
 The `disable_system` function disables a system.
 
 A disabled system is ignored during the game loop, but the system is not destroyed.
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename TSystem>
 bool disable_system()
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | TSystem  | TSystem | the system to disable |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (variable) | bool  | whether or not the system was successfully disabled   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -1049,32 +1085,34 @@ int main()
 }
 ```
 
-#### disable\_systems
+### disable\_systems
+
+#### Public Function
 
 The `disable_systems` function disables a list of systems.
 
 This function recursively calls the [disable\_system](#disable_system) function.
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename ...TSystems>
 bool disable_systems()
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | TSystems  | TSystems | the systems to disable |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (variable) | bool  | whether or not the systems were successfully disabled   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -1095,29 +1133,31 @@ int main()
 }
 ```
 
-#### nb\_systems | 1
+### nb\_systems | 1
+
+#### Public Function
 
 The `nb_systems` function returns the number of systems registered in the system manager.
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 std::size_t nb_systems() const
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | (none)  |  |  |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | number of systems | std::size\_t  | the number of systems registered   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -1138,29 +1178,31 @@ int main()
 }
 ```
 
-#### nb\_systems | 2
+### nb\_systems | 2
+
+#### Public Function
 
 The `nb_systems` function is an overloaded version of the `nb_systems` function. This version returns the system number of a certain type to register in the system manager.
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 std::size_t nb_systems(system_type sys_type) const
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | sys\_type  | system\_type | represents the type of systems  |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | number of systems | std::size\_t  | the number of systems of a specified type   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -1181,33 +1223,35 @@ int main()
 }
 ```
 
-#### create\_system
+### create\_system
+
+#### Public Function
 
 The `create_system` function creates a system with the provided argument.
 
 This function is a factory.
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename TSystem, typename ...TSystemArgs>
 TSystem &create_system(TSystemArgs&&... args)
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | TSystem  | TSystem | represents the type of system to create  |
 | TSystemArgs  | (logic) | the arguments to create the constructed system  |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | TSystem | TSystem  | a reference to the created system   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -1225,36 +1269,40 @@ int main()
 }
 ```
 
-#### create\_system\_rt
+### create\_system\_rt
+
+#### Public Function
 
 <!-- Requires documentation -->
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename TSystem, typename ...TSystemArgs>
 void create_system_rt(TSystemArgs&&... args)
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 |   |  |   |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 |   |  |   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 
 ```
 
-#### load\_systems
+### load\_systems
+
+#### Public Function
 
 The `load_systems` function loads many os systems.
 
@@ -1262,26 +1310,26 @@ The `load_systems` function loads many os systems.
 
 This function recursively calls the [create\_systems](#create_systems) function. 
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 template<typename ...TSystems, typename ...TArgs>
 auto load_systems(TArgs&&... args)
 ```
 
-##### Template Type
+#### Template Type
 
 | Name   | Type | Description                                                                                       |
 | ------ | ---- | ------------------------------------------------------------------------------------------------- |
 | TSystems  | TSystems  | represents a list of systems to load  |
 
-##### Response
+#### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | (variable)  | (tuple)  | a tuple of systems loaded   |
 
-##### :pushpin: Example
+#### :pushpin: Example
 
 ```c
 #include <entt/entity/registry.hpp>
@@ -1300,11 +1348,11 @@ int main()
 }
 ```
 
-### Private Types
+### clock
 
-#### clock
+#### Private Type
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 using clock = std::chrono::steady_clock
@@ -1316,9 +1364,11 @@ using clock = std::chrono::steady_clock
 
     sugar name for an chrono steady clock
 
-#### system\_ptr
+### system\_ptr
 
-##### Usage Pattern
+#### Private Type
+
+#### Usage Pattern
 
 ```
 using system_ptr = std::unique_ptr<base_system>
@@ -1326,9 +1376,11 @@ using system_ptr = std::unique_ptr<base_system>
 
     sugar name for a pointer to base_system
 
-#### system\_array
+### system\_array
 
-##### Usage Pattern
+#### Private Type
+
+#### Usage Pattern
 
 ```
 using system_array = std::vector<system_ptr>
@@ -1336,9 +1388,11 @@ using system_array = std::vector<system_ptr>
 
     sugar name for an array of system_ptr
 
-#### system\_registry
+### system\_registry
 
-##### Usage Pattern
+#### Private Type
+
+#### Usage Pattern
 
 ```
 using system_registry = std::array<system_array, system_type::size>
@@ -1346,7 +1400,9 @@ using system_registry = std::array<system_array, system_type::size>
 
     sugar name for a multidimensional array of system_array (pre_update, logic_update, post_update)
 
-#### systems\_queue
+### systems\_queue
+
+#### Private Type
 
 ```
 using systems_queue = std::queue<system_ptr>
@@ -1354,11 +1410,11 @@ using systems_queue = std::queue<system_ptr>
 
     sugar name for a queue of system pointer to add.
 
-### Private Functions
+### add\_system_
 
-#### add\_system_
+#### Private Function
 
-##### Usage Pattern
+#### Usage Pattern
 
 ```
 base_system &add_system_(system_ptr &&system, system_type sys_type)
@@ -1366,13 +1422,9 @@ base_system &add_system_(system_ptr &&system, system_type sys_type)
 
 <!-- Not clear about any of this, just placing here for now in the format. -->
 
-Private Member Functions
+### entity\_registry_
 
-### Private Members
-
-#### entity\_registry_
-
-Private data members
+#### Private Data Members
 
 ## event::key*
 
