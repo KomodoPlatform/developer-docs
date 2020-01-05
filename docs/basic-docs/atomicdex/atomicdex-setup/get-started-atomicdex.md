@@ -52,9 +52,13 @@ Install [Rust](https://www.rust-lang.org/tools/install):
 curl https://sh.rustup.rs -sSf | sh
 ```
 
-choose `2)` to customize installation, select default host triple and toolchain, then choose `minimal` profile.
+Choose `2)` to customize the installation, select `default host triple` and `default toolchain`, and choose the `minimal` profile.
+
+<div>
 
 <img src="/get-started-atomicdex/rustup-minimal.png">
+
+</div>
 
 #### cmake Version 3.12 or Higher
 
