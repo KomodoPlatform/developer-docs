@@ -1,4 +1,4 @@
-# Complete Checklist for New Coins to Setup Explorers, Electrum Servers, Agama Wallet, Activate dPoW & BarterDEX Trading
+# Complete Checklist for New Coins to Setup Explorer, Electrum Servers, Agama Wallet, Activate dPoW & AtomicDEX Trading
 
 This document will guide you through creating an independent assetchain/coin using Komodo and setup explorer, electrum servers, integrate into Agama GUI wallet, dPoW and enable trading on BarterDEX.
 

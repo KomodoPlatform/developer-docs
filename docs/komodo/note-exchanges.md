@@ -1,6 +1,6 @@
 # A Note to Exchanges
 
-There is a parameter called `-exchange` that you can run the Komodo daemon (`komodod`) with, that ignores the rewards when a transaction is sent. One benefit is it allows exchanges to manage their account balances against their accounting software without any modification during account reconciliation.
+When the Komodo daemon (`komodod`) is started with the parameter called `-exchange`, the daemon ignores the rewards that can be collected from a UTXO when it is used in a transaction. This allows exchanges to manage their account balances against their accounting software without any modification during account reconciliation.
 
 ## Example
 
