@@ -34,7 +34,6 @@ Currently, this technology is being tested on a testchain named `DEXP2P`
 Launch Parameters:
 
 ```bash
-cd src
 ./komodod -ac_name=DEXP2P -dexp2p=2 -ac_supply=999999 -addnode=37.9.62.186 -addnode=94.130.224.11
 ```
 
