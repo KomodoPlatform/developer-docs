@@ -2,6 +2,7 @@
 
 DEX_broadcast hex [priority [tagA [tagB [destpub33 [volA [volB]]]]]]
 DEX_list stopat minpriority tagA tagB destpub33 [minA maxA minB maxB]
+DEX_stats ?
 
 ---
 
@@ -300,3 +301,13 @@ at that setting, a single node can push out about 500 to 1000 per second
 [1:19 AM]jl777c:then on each one, pick 4 random nodes and addnode those
 [1:20 AM]jl777c:the important thing is that it is randomly selected peers, any pattern in the peer selection will lead to suboptimal connectivity
 [1:20 AM]jl777c:but before any stress test, i need to fix the mutex (lack of) problem and speed up the tag creation/lookup, once that is done, there shouldnt be any more significant changes to the internals
+
+1:32 PM]jl777c:i added mutex to avoid the crashes after an hour, waiting for the one hour to pass to make sure it solves the issue. but an unexpected doubling in speed happened! usually when you add a mutex, the overhead slows things down. i was careful in where i put them to minimize the slowdown, but a doubling of speed was unexpected! what that means is that without the mutex, there were a lot of hardware/system inefficiencies due to the overlapped access to the same memory by different threads. i still have txpow active, but it could be that we can achieve 20k/sec now without it
+[1:35 PM]jl777c:the small nodes are at 100% CPU usage
+
+2:05 PM]jl777c:bug is not fixed, so things are still unstable after an hour. this will take a while to solve and i seems better to refactor that code to get a cleaner algo, then debug it if it is still crashing
+[2:51 PM]gcharang:@jl777c what part of the data blob is changed randomly for calculating txpow ?
+[3:08 PM]jl777c:a nonce is added to the end of the payload
+[3:08 PM]jl777c:there is also a header added, one part for routing, another for the indexing
+[3:08 PM]jl777c:`[relaydepth][funcid][timestamp][index header] [payload][nonce]`
+[3:09 PM]jl777c:the [payload] is the hex or ascii that is submitted (or its encrypted form)
