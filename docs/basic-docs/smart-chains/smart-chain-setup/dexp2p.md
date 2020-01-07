@@ -13,7 +13,7 @@ Let's call this local data stored as "Data Mempool" as opposed to the "Mempool/T
 - if `-dexp2p=1` is used, the node will participate in the p2p data network but doesn't respond to requests from nSPV superlight clients
 - if `-dexp2p=2` is used, the node will participate in the p2p data network and also responds to requests from nSPV superlight clients
 
-This p2p data transmission and synchronisation layer can be used for generic data. But, there are certain enhancements made to the RPC that enable the usage of this layer as a Decentralised, Peer to Peer order broadcasting mechanism for the [AtomicDEX-API](../../atomicdex/atomicdex-api.html)
+This p2p data transmission and synchronisation layer can be used for any generic data. But, there are certain enhancements made to the RPC that enable the usage of this layer as a Decentralised, Peer to Peer order broadcasting mechanism for the [AtomicDEX-API](../../atomicdex/atomicdex-api.html)
 
 ## Installation
 
@@ -26,6 +26,19 @@ cd komodo
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh -j$(nproc)
 ```
+
+## Launch
+
+Currently, this technology is being tested on a testchain named `DEXP2P`
+
+Launch Parameters:
+
+```bash
+cd src
+./komodod -ac_name=DEXP2P -dexp2p=2 -ac_supply=999999 -addnode=37.9.62.186 -addnode=94.130.224.11
+```
+
+You might want to add the parameter `-pubkey` with the value as your pubkey for convenient testing of encrypted "datablobs" across different sessions
 
 ## DEX_broadcast
 
