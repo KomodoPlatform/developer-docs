@@ -1,7 +1,3 @@
-# Peer to Peer data broadcast and synchronisation between Nodes of a Smart Chain
-
-All the nodes of a Smart Chain started with the parameter `-dexp2p`
-
 ----help
 
 DEX_broadcast hex [priority [tagA [tagB [destpub33 [volA [volB]]]]]]
@@ -231,3 +227,76 @@ reached stopat id
 [4:07 PM]jl777c:@TonyL pushed a version that handles broadcast f, it will treat any odd length "hex" as an ascii
 also put a limit to the packetsize at 1MB
 and the priority level is automatically reduced by the size of the packet. anything less than 1kb is no change. after that, each time the packetsize doubles, the priority is reduced by 1. this will make generating valid packets for larger packets more and more expensive as not only is the diff increasing by the packetsize, the amount of data you need to hash is increasing too. for small sizes it wont matter, but for nodes trying to spam... they will bog down very fast
+
+7:16 PM]gcharang:@jl777c can I call this data stored by a node in RAM as "data mempool" ?
+is there a limit to the size of the "data mempool"?
+when is a packet dropped from RAM of a node?
+is it based on 1) time limit ? 2) size of total "data mempool"?
+[7:17 PM]jl777c:after one hour data is deleted
+[7:17 PM]jl777c:size is limited by memory of the nodes
+[7:18 PM]jl777c:i will need to add protection from data flooding that exceeds a nodes ram that is available, but with the txPoW being packet size dependent, it will take a fair amount of hashing to be able to conduct an attack. and i will make it so if memory is low, it just ignores new packets
+
+[10:22 PM]jl777c:@TonyL @gcharang automatic encryption and decryption is working. on startup if -pubkey=02.... is not set, it will create a temporary keypair. if it is set, it will derive it from the privkey for the -pubkey=
+it will print the DEX_pubkey from the DEX_stats rpc call, it should start with 01 (which is an illegal secp256k1 pubkey) followed by a curve25519 pubkey. when sending a message to a destpub, use the 01.... pubkey (including the 01) and it will encrypt it automatically.
+[10:24 PM]jl777c:you will see that the data is all random hex. but if your node has the privkey for the destination pubkey, it will automatically decrypt it when you display it. it is not stored in decrypted form, this way all nodes have the same encrypted data and only the node that has the DEX_privkey for the matching DEX_pubkey can decrypt it. in case there is a match, there will be the decrypted value (the original hex/ascii)
+[10:24 PM]jl777c:with this, there is enough functionality to implement DM
+[10:28 PM]jl777c:i only tested small packets, maybe at 2k and bigger, there will be problems. also, there might be memory leaks
+[10:29 PM]jl777c:my todo list is shrinking. all that i have left for full functionality is to handle arbitrary number of tags, prioritized routing and hardening (against crashes and attacks). it should work plenty well for testing even without the hardening
+
+12:22 AM]TonyL:Trying to prepare example with usage of all possible data for filters
+[12:22 AM]jl777c:[] means optional
+[12:22 AM]TonyL:Ouch
+[12:23 AM]TonyL:DEX_broadcast hex [priority [tagA [tagB [destpub33 [volA [volB]]]]]] I thought it's a syntax with logical blocks separation
+[12:23 AM]jl777c:so you can have 1 , 2, 3, ... parameters. they are all treated as strings and converted internally
+[12:24 AM]jl777c:DEX_broadcast hex
+[12:24 AM]jl777c:DEX_broadcast hex priority
+[12:24 AM]jl777c:DEX_broadcast hex priority tagA
+[12:24 AM]jl777c:DEX_broadcast hex priority tagA tagB
+[12:24 AM]jl777c:DEX_broadcast hex priority tagA tagB destpub33
+[12:24 AM]jl777c:DEX_broadcast hex priority tagA tagB destpub33 volA
+[12:24 AM]jl777c:DEX_broadcast hex priority tagA tagB destpub33 volA volB
+[12:25 AM]jl777c:volA and volB are floating point, but only 8 decimals max
+[12:25 AM]TonyL:what if I don't want to specify destpub but want to specify volumes?
+[12:25 AM]jl777c:""
+[12:25 AM]jl777c:DEX_broadcast hex priority tagA tagB "" 1.23 4.56
+12:25 AM]jl777c:"" can be used for any of the parameters to default to the default value
+
+12:31 AM]jl777c:only pubkeys that start with 01 are valid, i didnt add error checking for that yet
+[12:32 AM]jl777c:when you do tagA and tagB, it creates tagA, tagB and tagA/tagB
+[12:32 AM]jl777c:this allows finding all orders with BTC involved, you will have to scan the list and filter out ones with BTC in tagB, that shouldnt be too much extra
+
+12:34 AM]TonyL:I've tried to broadcast same package with non 0 priority now:
+./komodo-cli -ac_name=DEXP2P DEX_broadcast "TonyL" 5 "BTC" "KMD" "028a45fb6ab295576ccf963371c701776900c15b2583608427c616e2316ef39740" "0.1" "100"
+
+Few times I got "priority": 5 in output also sometimes "priority": 6 and "priority": 9 is it fine?
+[12:35 AM]jl777c:what is the priority?
+[12:35 AM]TonyL:5 in my command
+[12:35 AM]jl777c:it is the number of 0 bits above the baseline 0x777
+[12:36 AM]jl777c:when mining, you can get 20 0 bits, every million times
+[12:36 AM]jl777c:so there will be a (binomial?) distribution of 0 bits more than the minimum required
+[12:36 AM]jl777c:this is why mindiff is the parameter, not an exact match
+12:37 AM]jl777c:you ask for diff of X, it will be at least X, but sometimes X+1, X+2, X+3
+
+12:37 AM]jl777c:not sure if you saw what i wrote about packetsize changing the baseline diff. an extra 0 is required for every doubling in size, starting with 1k
+
+1:13 AM]jl777c:
+while true
+do
+./komodo-cli -ac_name=XUZ DEX_broadcast ffff
+done
+[1:15 AM]jl777c:above is a blaster loop. it seems you can launch more than one on a single node, but with current txpow it will saturate pretty fast. for max throughput change:
+#define KOMODO_DEX_TXPOWBITS 12 -->
+#define KOMODO_DEX_TXPOWBITS 1
+at that setting, a single node can push out about 500 to 1000 per second
+[1:15 AM]jl777c:a p2p network should have each node having random 3+ other nodes as local peers
+[1:15 AM]jl777c:not sure if you are able to set up such a network automatically
+[1:15 AM]jl777c:you dont want it fully connected
+
+1:17 AM]TonyL:if write such test suit on python we'll have rpc proxies for all nodes - the just getpeersinfo for each and some combinatorics peers ban before the test start
+[1:18 AM]jl777c:ok, it is lower priority than functionality testing as we already did a bunch of load testing
+[1:18 AM]TonyL:or even start 4th node with hardcoded addnode ips of previous three and so on
+[1:19 AM]jl777c:that wont work
+[1:19 AM]jl777c:you need to generate all the nodes and make a list of ip addresses
+[1:19 AM]jl777c:then on each one, pick 4 random nodes and addnode those
+[1:20 AM]jl777c:the important thing is that it is randomly selected peers, any pattern in the peer selection will lead to suboptimal connectivity
+[1:20 AM]jl777c:but before any stress test, i need to fix the mutex (lack of) problem and speed up the tag creation/lookup, once that is done, there shouldnt be any more significant changes to the internals
