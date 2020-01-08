@@ -31,7 +31,7 @@ See deployment for notes on how to deploy the project on a live system.
 
 Execute the following commands in the terminal to build the project.
 
-```
+```bash
 mkdir build ## bash or powershell
 cd build ## bash or powershell
 
@@ -103,7 +103,7 @@ Create a basic `CMakeLists.txt`. This allows the SDK to compile source code.
 
 <!-- Is this placed in the root directory of the project? -->
 
-```
+```cpp
 ##! Uncomment those lines if you use the gaming sdk as an external project
 #if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 #    set(LINUX TRUE)
@@ -127,7 +127,7 @@ target_link_libraries(quick_and_dirty PUBLIC antara::world)
 
 Create a cpp file with the primitives necessary to launch the intended game.
 
-```
+```cpp
 /******************************************************************************
  * Copyright © 2013-2019 The Komodo Platform Developers.                      *
  *                                                                            *

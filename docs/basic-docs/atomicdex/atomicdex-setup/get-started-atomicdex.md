@@ -52,6 +52,14 @@ Install [Rust](https://www.rust-lang.org/tools/install):
 curl https://sh.rustup.rs -sSf | sh
 ```
 
+Choose `2)` to customize the installation, select `default host triple` and `default toolchain`, and choose the `minimal` profile.
+
+<div>
+
+<img src="/get-started-atomicdex/rustup-minimal.png">
+
+</div>
+
 #### cmake Version 3.12 or Higher
 
 Download the cmake software here: [download link](https://cmake.org/download/)
@@ -90,6 +98,7 @@ rustup install nightly-2019-10-06
 rustup default nightly-2019-10-06
 ```
 
+Optional, skip this step if it fails
 ```bash
 rustup component add rustfmt-preview
 ```

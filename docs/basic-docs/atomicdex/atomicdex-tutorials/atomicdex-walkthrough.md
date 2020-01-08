@@ -13,7 +13,7 @@ In the Komodo ecosystem we use two blockchain coins, RICK and MORTY, for testing
 Let's set up a file in the `~/atomicDEX-API/target/debug` directory to import the settings for these test coins. Make a file called `coins` and place the following text into it:
 
 ```
-[{"coin":"RICK","asset":"RICK","fname":"RICK (TESTCOIN)","rpcport":28223,"mm2":1},{"coin":"MORTY","asset":"MORTY","fname":"MORTY (TESTCOIN)","rpcport":63812,"mm2":1}]
+[{"coin":"RICK","asset":"RICK","fname":"RICK (TESTCOIN)","rpcport":25435,"txversion":4,"overwintered":1,"mm2":1},{"coin":"MORTY","asset":"MORTY","fname":"MORTY (TESTCOIN)","rpcport":16348,"txversion":4,"overwintered":1,"mm2":1}]
 ```
 
 Save this file. MM2 will search for it automatically on launch.

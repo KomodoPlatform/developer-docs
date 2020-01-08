@@ -16,7 +16,7 @@ Please also review the [ecs documentation](./gaming.html) section of the API doc
 
 Create a `CMakeLists.txt` file.
 
-```
+```cpp
 if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     message(FATAL_ERROR "Prevented in-tree build. Please create a build directory outside of the source code and call cmake from there")
 endif ()
@@ -51,7 +51,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC antara::world)
 
 As indicated in the `CMakeLists.txt` file, the project also needs a `C++` file named `my_example_system.cpp` with the following contents.
 
-```
+```cpp
 #include <antara/gaming/world/world.app.hpp>
 
 using namespace antara::gaming;
@@ -90,7 +90,7 @@ In the following video, the actions are performed on an OSX setup. Please refer 
 
 Between the `using namespace` statement and the definition of the class `my_world`, create a system class that is defined as a `pre_update_system`.
 
-```
+```cpp
 class pre_concrete_system final : public ecs::pre_update_system<pre_concrete_system>
 {
 public:
@@ -113,7 +113,7 @@ Place the cursor at the body of the constructor of the class `my_world`.
 
 In order to load the system, use the function [create_system](../../../basic-docs/antara/antara-api/gaming.html#create-system) of the `system_manager` class.
 
-```
+```cpp
 my_world() noexcept
 {
     //! Here there is no need to add any parameters for the constructor
@@ -132,7 +132,7 @@ Add source code that emits a `quit_game event` that the game world will catch an
 
 Create a `counter` as a private field of the system and increment the counter each time the update function is called. At `10` iterations, emit an event to leave the game.
 
-```
+```cpp
 class pre_concrete_system final : public antara::gaming::ecs::pre_update_system<pre_concrete_system>
 {
 public:
@@ -170,7 +170,7 @@ The game should now compile, and when executed, iterate `10` times and close.
 
 #### Full Code Sample
 
-```
+```cpp
 #include <iostream>
 #include <antara/gaming/world/world.app.hpp>
 

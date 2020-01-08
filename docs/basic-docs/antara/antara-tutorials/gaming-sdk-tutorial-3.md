@@ -27,7 +27,7 @@ The `CMakeLists.txt` file contains the following items:
 
 Below is an example `CMakeLists.txt` file.
 
-```
+```cpp
 if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     message(FATAL_ERROR "Prevented in-tree build. Please create a build directory outside of the source code and call cmake from there")
 endif ()
@@ -105,7 +105,7 @@ Create the input file for the application and call it `tic-tac-toe.cpp`.
 
 Add an empty main function:
 
-```
+```cpp
 int main()
 {
     return 0;
@@ -114,7 +114,7 @@ int main()
 
 The project directory tree should now be as follows.
 
-```
+```cpp
 ./tic-tac-toe
 ├── CMakeLists.txt
 └── tic-tac-toe.cpp
@@ -144,7 +144,7 @@ Replace the return value, `return 0`, with the return value of the project game.
 
 The resulting logic should be similar to the following.
 
-```
+```cpp
 #include <antara/gaming/world/world.hpp>
 
 using namespace antara::gaming;
@@ -167,21 +167,22 @@ At this point, compiling and running the executable creates an infinite loop, an
 #### Initiate the Graphics
 
 To initiate the in-game graphics, use the following two modules. 
-```
+
+```cpp
 antara::gaming::sfml::graphic_system
 antara::gaming::sfml::input::system
 ```
 
 These modules have the following headers, respectively.
 
-```
+```cpp
 #include <antara/gaming/sfml/graphic.system.hpp>
 #include <antara/gaming/sfml/input.system.hpp>
 ```
 
 Load the graphic system in the body of the constructor of the `tic_tac_toe_world` class, and initialize the input system with the window from the loaded graphic system.
 
-```
+```cpp
 #include <antara/gaming/world/world.app.hpp>
 #include <antara/gaming/sfml/graphic.system.hpp>
 #include <antara/gaming/sfml/input.system.hpp>
@@ -241,7 +242,7 @@ This requires the creation of a game scene using the scene manager.
 
 Include the header file `#include <antara/gaming/scenes/scene.manager.hpp>` and load the scene's manager system into the system manager.
 
-```
+```cpp
 struct tic_tac_toe_world : world::app
 {
     //! The game entry point
@@ -267,7 +268,7 @@ There is no need to use the `update` function, because the game of Tic-Tac-Toe i
 
 For the `scene_name` function, return the name of the scene.
 
-```
+```cpp
 class game_scene final : public scenes::base_scene
 {
 public:
@@ -293,7 +294,7 @@ private:
 
 Load the game scene into the `scene_manager` using the `change_scene` member function.
 
-```
+```cpp
 struct tic_tac_toe_world : world::app
 {
     //! The game entry point
@@ -337,7 +338,7 @@ For the size of the cells, use the current size of the canvas divided by the num
 
 Create a structure, `tic_tac_toe_constants`, that contains these different pieces of information. Save the structure in the entity registry, so that the data is accessible from anywhere in the program.
 
-```
+```cpp
 struct tic_tac_toe_constants
 {
     tic_tac_toe_constants(std::size_t nb_cells_per_axis_, std::size_t width_, std::size_t height_) noexcept :
@@ -356,7 +357,7 @@ struct tic_tac_toe_constants
 
 In the constructor of the gaming scene create the following logic.
 
-```
+```cpp
 game_scene(entt::registry &entity_registry) noexcept : base_scene(entity_registry)
 {
     //! Retrieve canvas information
@@ -369,7 +370,7 @@ game_scene(entt::registry &entity_registry) noexcept : base_scene(entity_registr
 
 To create the entity representing the grid, add in a private member of the `game_scene` class, the `grid_entity_` field, which is of type `entt::entity` and which has the initial value `entt::null`.
 
-```
+```cpp
 class game_scene final : public scenes::base_scene
 {
 public:
@@ -402,7 +403,7 @@ private:
 
 To initialize this entity, create an anonymous namespace with a function, `create_grid`, which returns an `entt::entity` and takes the parameter `entity registry`.
 
-```
+```cpp
 //! Contains all functions which will be used for logic and factory
 namespace
 {
@@ -416,7 +417,7 @@ namespace
 
 Call the function from the game scene constructor and assign the return value to the field `grid_entity_`.
 
-```
+```cpp
 game_scene(entt::registry &entity_registry) noexcept : base_scene(entity_registry)
 {
     //! Retrieve canvas information
@@ -436,14 +437,14 @@ The following steps create the logic of the `create_grid` function and manage th
 
 Retrieve the canvas size in order to define the size of the grid.
 
-```
+```cpp
 //! Retrieve canvas information
 auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
 ```
 
 Create a new entity named `grid`.
 
-```
+```cpp
 //! Entity creation
 auto grid_entity = registry.create();
 ```
@@ -468,7 +469,7 @@ A Tic-Tac-Toe grid requires four vertical lines: two in the middle and two at th
 
 Therefore, the grid needs `8` lines, and each line is `4` vertices. Thus, `8 \* 4 = 32` vertices are required.
 
-```
+```cpp
 //! The vertices
 std::vector<geometry::vertex> lines{8 * 4};
 ```
@@ -483,7 +484,7 @@ Additional information required for the grid includes the following.
 
 Retrieve these from the defined constants.
 
-```
+```cpp
 //! Retrieve constants information
 auto[nb_cells, cell_width, cell_height, grid_thickness] = registry.ctx<tic_tac_toe_constants>();
 ```
@@ -492,7 +493,7 @@ In calculations, use half of the thickness for the internal lines and the full t
 
 For clarity and reuse, prepare another constant.
 
-```
+```cpp
 const auto half_thickness = grid_thickness * 0.5f;
 ```
 
@@ -504,7 +505,7 @@ Start the count from `0` as this is used for the starting coordinate.
 
 There is also a variable `counter` which counts the vertex indexes. This varaible increases by `4 vertices \* 2 lines = 8 vertices` at each iteration.
 
-```
+```cpp
 //! The loop to create the grid
 for (std::size_t counter = 0, i = 0; i <= nb_cells; ++i, counter += 4 * 2) {
 ```
@@ -535,25 +536,25 @@ The left and right vertices of a thick vertical line need to be separate. Theref
 
 The `Y` value for these vertices is `0` because they are located at the top of the screen. 
 
-```
+```cpp
 lines[counter + 0].pos = {idx * cell_width - half_thickness, 0.f};
 ```
 
 The `Top Right` vertex is essentially the same, with the exception of its using `+ half_thickness`; this offsets the `X` value in the opposite direction. `Y` is still `0` because it is still located at the top of the screen.
 
-```
+```cpp
 lines[counter + 1].pos = {idx * cell_width + half_thickness, 0.f};
 ```
 
 For the `Bottom Right` vertex, `X` is the same as the `Top Right` vertex, but the `Y` value is now `canvas_height`, which is the bottom of the screen.
 
-```
+```cpp
 lines[counter + 2].pos = {idx * cell_width + half_thickness, canvas_height};
 ```
 
 For the last vertex, `Bottom Left`, the `Y` value is the same as `Bottom Right`, and the `X` value is using the `- half_thickness` adjustment, to align this `X` value with the left.
 
-```
+```cpp
 lines[counter + 3].pos = {idx * cell_width - half_thickness, canvas_height};
 ```
 
@@ -565,25 +566,25 @@ Starting at the `Top Left` again, since the line runs from left to right, the `X
 
 Use the `- half_thickness` logic again to calculate `Y`. This shifts the `Y` value of each vertex a small amount to create thickness.
 
-```
+```cpp
 lines[counter + 4].pos = {0, idx * cell_height - half_thickness};
 ```
 
 The `Top Right` vertex, at the far right side, is `canvas_width` pixels away. The `Y` value here is the same as `Top Left`.
 
-```
+```cpp
 lines[counter + 5].pos = {canvas_width, idx * cell_height - half_thickness};
 ```
 
 For the `Bottom Right` vertex, the `X` value stays the same. Add thickness to shift the value towards the bottom.
 
-```
+```cpp
 lines[counter + 6].pos = {canvas_width, idx * cell_height + half_thickness};
 ```
 
 The `X` value of the last vertex, `Bottom Left`, is at the far left, `0`. Shift the `Y` value towards the bottom by adding thickness again.
 
-```
+```cpp
 lines[counter + 7].pos = {0, idx * cell_height + half_thickness};
 ```
 
@@ -593,21 +594,21 @@ Both vertical and horizontal lines are now ready and the loop ends here.
 
 After the loop, turn the vertices to a quad variable of type `geometry::vertex_array`, which are rectangles. Assign this variable to the `grid_entity`.
 
-```
+```cpp
 //! Assign the vertex array to the grid entity
 registry.assign<geometry::vertex_array>(grid_entity, lines, geometry::vertex_geometry_type::quads);
 ```
 
 Tag the grid as `game_scene`.
 
-```
+```cpp
 //! Assign the game_scene tag to the grid_entity (_hs means hashed_string)
 registry.assign<entt::tag<"game_scene"_hs>>(grid_entity);
 ```
 
 Set the grid to appear at `layer 0` of the scene and return the prepared grid.
 
-```
+```cpp
 //! Draw the grid on the most deep layer, 0
 registry.assign<graphics::layer<0>>(grid_entity);
 
@@ -629,14 +630,14 @@ This shift can be called `offset` as a variable. In the function loop, define `o
 
 For any given rectangle, there is no offset by default. Set the offset variables to `0`.
 
-```
+```cpp
 auto offset_x = 0.0f;
 auto offset_y = 0.0f;
 ```
 
 If the current rectangle is one of the the first iteration, add the `half_thickness` value to push the rectangles inside. If the current rectangle is one of the last, subtract the `half_thickness` value to pull the rectangles inside.
 
-```
+```cpp
 if (i == 0) {
     offset_x += half_thickness;
     offset_y += half_thickness;
@@ -649,7 +650,7 @@ else if (i == nb_cells) {
 
 For the vertical line, use the `offset X` value to push the lines left and right.
 
-```
+```cpp
 //! Vertical
 lines[counter + 0].pos = {offset_x + idx * cell_width - half_thickness, 0.f};
 lines[counter + 1].pos = {offset_x + idx * cell_width + half_thickness, 0.f};
@@ -659,7 +660,7 @@ lines[counter + 3].pos = {offset_x + idx * cell_width - half_thickness, canvas_h
 
 For the horizontal line, use the `offset Y` value to push the lines up and down.
 
-```
+```cpp
 //! Horizontal
 lines[counter + 4].pos = {offset_x + 0,            offset_y + idx * cell_height - half_thickness};
 lines[counter + 5].pos = {offset_x + canvas_width, offset_y + idx * cell_height - half_thickness};
@@ -669,7 +670,7 @@ lines[counter + 7].pos = {offset_x + 0,            offset_y + idx * cell_height 
 
 Below is the complete function.
 
-```
+```cpp
 //! Contains all the function that will be used for logic and factory
 namespace
 {
@@ -743,7 +744,7 @@ The following content organizes the destruction of the entities in the destructo
 
 In the destructor, the logic iterates over and destroys all the entities that have the tag of the game scene.
 
-```
+```cpp
 ~game_scene() noexcept final
 {
     //! Retrieve the collection of entities from the game scene
@@ -769,7 +770,7 @@ Compiling and running the program at this point achieves the following result.
 
 Here is the created code.
 
-```
+```cpp
 #include <antara/gaming/world/world.app.hpp>
 #include <antara/gaming/sfml/graphic.system.hpp>
 #include <antara/gaming/sfml/input.system.hpp>
@@ -940,7 +941,7 @@ The game requires a `cell_state` variable to indicate whether the cell is empty,
 
 Use `enum` for this effect.
 
-```
+```cpp
 enum cell_state
 {
     empty,
@@ -955,7 +956,7 @@ Create a `3x3` board. Accept the value `3` in a parameter variable named `nb_cel
 
 The board is a `vector` of `9` `cell_state` instances and all are marked `empty`.
 
-```
+```cpp
 std::vector<cell_state> create_board(std::size_t nb_cells_per_axis)
 {
     std::vector<cell_state> board(nb_cells_per_axis * nb_cells_per_axis, cell_state::empty);
@@ -967,13 +968,13 @@ std::vector<cell_state> create_board(std::size_t nb_cells_per_axis)
 
 The function to display cell states has `row` and `column` parameters.
 
-```
+```cpp
 void create_x(entt::registry &entity_registry, std::size_t row, std::size_t column) noexcept
 ```
 
 Develop the constants that are stored for reuse, such as `nb_cells`, `cell_width`, `cell_height` and `grid_thickness`. Then create other helpful constants as `half_box_side`, `center_x`, `center_y` which is the center position of that specific cell.
 
-```
+```cpp
 auto[nb_cells, cell_width, cell_height, grid_thickness] = entity_registry.ctx<tic_tac_toe_constants>();
 const auto half_box_side = static_cast<float>(std::fmin(cell_width, cell_height) * 0.25f);
 const auto center_x = static_cast<float>(cell_width * 0.5 + column * cell_width);
@@ -982,20 +983,20 @@ const auto center_y = static_cast<float>(cell_height * 0.5 + row * cell_height);
 
 Make an `X` using two lines. As before, every line is a `quad` which has `4` vertices.
 
-```
+```cpp
 auto x_entity = entity_registry.create();
 std::vector<geometry::vertex> lines{2 * 4};
 ```
 
 Every vertex of the `X` has a magenta color. 
 
-```
+```cpp
 for (auto &&current_vertex: lines) current_vertex.pixel_color = graphics::magenta;
 ```
 
 As before, set the position of every single vertex. The order is `Top Left`, `Top Right`, `Bottom Left`, `Bottom Right`.
 
-```
+```cpp
 // Top-left to Bottom-right
 lines[0].pos = {center_x - half_box_side - half_thickness, center_y - half_box_side};
 lines[1].pos = {center_x - half_box_side + half_thickness, center_y - half_box_side};
@@ -1012,7 +1013,7 @@ lines[7].pos = {center_x - half_box_side - half_thickness, center_y + half_box_s
 
 Create a `geometry::vertex_array`.
 
-```
+```cpp
 entity_registry.assign<geometry::vertex_array>(x_entity, lines, geometry::vertex_geometry_type::quads);
 ```
 
@@ -1020,7 +1021,7 @@ Assign the `X` entity to `player_x` and `game_scene`.
 
 Set the layer as `1`. `X` and `O` need to render above the background layer `0`.
 
-```
+```cpp
 entity_registry.assign<entt::tag<"game_scene"_hs>>(x_entity);
 entity_registry.assign<entt::tag<"player_x"_hs>>(x_entity);
 entity_registry.assign<graphics::layer<1>>(x_entity);
@@ -1030,7 +1031,7 @@ entity_registry.assign<graphics::layer<1>>(x_entity);
 
 The process of rendering `O` starts in the same manner as that of `X`.
 
-```
+```cpp
 void create_o(entt::registry &entity_registry, std::size_t row, std::size_t column) noexcept
 {
     auto constants = entity_registry.ctx<tic_tac_toe_constants>();
@@ -1043,7 +1044,7 @@ To create the `O`, create an entity, assign it as a `geometry::circle`.
 
 Set the `fill_color` and `outline_color`, and set the entity position to the center of the cell.
 
-```
+```cpp
 auto o_entity = geometry::blueprint_circle(entity_registry, half_box_side, graphics::transparent,
         transform::position_2d(center_x, center_y),
         graphics::outline_color(constants.grid_thickness, graphics::cyan));
@@ -1051,7 +1052,7 @@ auto o_entity = geometry::blueprint_circle(entity_registry, half_box_side, graph
 
 The process of rendering the `O` from this point is the same as that of `X`: assign the object to `game_scene` and set the object to layer `1`.
 
-```
+```cpp
 entity_registry.assign<entt::tag<"game_scene"_hs>>(o_entity);
 entity_registry.assign<graphics::layer<1>>(o_entity);
 ```
@@ -1060,7 +1061,7 @@ entity_registry.assign<graphics::layer<1>>(o_entity);
 
 Create an `ecs::logic_update_system` called `tic_tac_toe_logic`.
 
-```
+```cpp
 class tic_tac_toe_logic final : public ecs::logic_update_system<tic_tac_toe_logic>
 {
 public:
@@ -1080,14 +1081,14 @@ Actual updates occur only when the mouse is clicked.
 
 Define the `play_turn` function.
 
-```
+```cpp
 //! Game logic
 void play_turn(std::size_t row, std::size_t column) noexcept
 ```
 
 Set `index` according to the `row` and `column`.
 
-```
+```cpp
 //! Retrieve constants
 auto constants = entity_registry_.ctx<tic_tac_toe_constants>();
 
@@ -1101,7 +1102,7 @@ If so, set the board as the current `player_turn_`. If this value is `X`, call `
 
 Then change the turn to the other player.
 
-```
+```cpp
     //! Cell is available ?
     if (index < board_.size() && board_[index] == cell_state::empty) {
 
@@ -1119,7 +1120,7 @@ Then change the turn to the other player.
 
 Call `play_turn` with the position of the mouse click.
 
-```
+```cpp
 void on_mouse_button_pressed(const event::mouse_button_pressed &evt) noexcept
  {
      if (current_game_state_ == running) {
@@ -1136,7 +1137,7 @@ void on_mouse_button_pressed(const event::mouse_button_pressed &evt) noexcept
 
 Assign the `on_mouse_button_pressed` event to the mouse click in the constructor.
 
-```
+```cpp
 tic_tac_toe_logic(entt::registry &registry, entt::entity grid_entity, std::vector<cell_state> board) noexcept
         : system(registry), grid_entity_(grid_entity), board_(std::move(board))
 {
@@ -1151,7 +1152,7 @@ tic_tac_toe_logic(entt::registry &registry, entt::entity grid_entity, std::vecto
 
 Also in this class are the enums `game_state` and `player`.
 
-```
+```cpp
 //! Private enums
 enum game_state
 {
@@ -1171,7 +1172,7 @@ enum player
 
 Also develop the other member variables, such as `grid`, `state board`, `game state` and `player turn`.
 
-```
+```cpp
 //! Private members variable
 entt::entity grid_entity_{entt::null};
 std::vector<cell_state> board_;
@@ -1181,14 +1182,14 @@ player player_turn_{player::x};
 
 After the class definition and out of the class scope give a name to the system.
 
-```
+```cpp
 //! Give a name to the system
 REFL_AUTO(type(tic_tac_toe_logic));
 ```
 
 In the constructor of the `game_scene` create the board and the logic system.
 
-```
+```cpp
 //! Create the board of the tic tac toe
 auto board = create_board(tictactoe_constants.nb_cells_per_axis);
 
@@ -1204,7 +1205,7 @@ this->system_manager_.create_system<tic_tac_toe_logic>(grid_entity, board);
 
 The code up to this point in the tutorial.
 
-```
+```cpp
 #include <vector>
 #include <antara/gaming/world/world.app.hpp>
 #include <antara/gaming/sfml/graphic.system.hpp>
@@ -1529,7 +1530,7 @@ The game requires final conditions, such as `win`, `tie`, and the ability to the
 
 Create a blank `reset_event` struct.
 
-```
+```cpp
 struct reset_event
 {
 
@@ -1538,7 +1539,7 @@ struct reset_event
 
 Define the reset event callback. This calls the destructor and then calls the constructor again.
 
-```
+```cpp
 //! Callback
 void on_reset_event(const reset_event &) noexcept
 {
@@ -1550,7 +1551,7 @@ void on_reset_event(const reset_event &) noexcept
 
 Subscribe to this reset event in the `game_scene` constructor.
 
-```
+```cpp
 class game_scene final : public scenes::base_scene
 {
 public:
@@ -1562,7 +1563,7 @@ public:
 
 Remove this event in the class destructor.
 
-```
+```cpp
 ~tic_tac_toe_logic() noexcept final
 {
     this->dispatcher_.sink<event::mouse_button_pressed>().disconnect(*this);
@@ -1571,7 +1572,7 @@ Remove this event in the class destructor.
 
 Trigger this when the mouse button is pressed and the game state is not `running`.
 
-```
+```cpp
 this->dispatcher_.trigger<reset_event>();
 
 ---------
@@ -1605,7 +1606,7 @@ Count the diagonal lines and check `nb_cells` as before.
 
 If nothing has reached `3`, return `false`.
 
-```
+```cpp
 [[nodiscard]] bool did_current_player_win_the_game() const noexcept
 {
     std::size_t row_count{0u}, column_count{0u}, diag1_count{0u}, diag2_count{0u};
@@ -1645,7 +1646,7 @@ If nothing has reached `3`, return `false`.
 
 If all the cells are filled and there is no `win` condition, the game is a tie.
 
-```
+```cpp
 [[nodiscard]] bool is_tie() const noexcept
 {
     return std::count(begin(board_), end(board_), cell_state::empty) == 0;
@@ -1656,13 +1657,13 @@ If all the cells are filled and there is no `win` condition, the game is a tie.
 
 Use these two conditions to check functions in a larger function that is called later.
 
-```
+```cpp
 void check_winning_condition() noexcept
 ```
 
 Inside this function define a functor `make_screen` that sets the color of the grid.
 
-```
+```cpp
 auto make_screen = [this](graphics::color clr_winner,
                             entt::entity entity) {
     auto &array_cmp = this->entity_registry_.get<geometry::vertex_array>(entity);
@@ -1673,7 +1674,7 @@ auto make_screen = [this](graphics::color clr_winner,
 
 Using this functor, make another functor, `make_player_win_screen`, that gives the winner’s color as an argument.
 
-```
+```cpp
 auto make_player_win_screen = [this, make_screen](entt::entity entity) {
     auto winning_color = player_turn_ == player::x ? graphics::magenta : graphics::cyan;
     make_screen(winning_color, entity);
@@ -1682,7 +1683,7 @@ auto make_player_win_screen = [this, make_screen](entt::entity entity) {
 
 Likewise, create another which feeds a different color when the game is a tie.
 
-```
+```cpp
 auto make_tie_screen = [make_screen](entt::entity entity) {
     make_screen(graphics::yellow, entity);
 };
@@ -1692,7 +1693,7 @@ Check if the current player won the game. If not, check if the game is not a tie
 
 Set the game state accordingly and call the proper functor.
 
-```
+```cpp
 if (did_current_player_win_the_game()) {
     current_game_state_ = static_cast<game_state>(player_turn_);
     make_player_win_screen(grid_entity_);
@@ -1704,7 +1705,7 @@ if (did_current_player_win_the_game()) {
 
 The function `check_winning_condition` now appears as follows.
 
-```
+```cpp
 void check_winning_condition() noexcept
 {
     auto make_screen = [this](graphics::color clr_winner,
@@ -1735,7 +1736,7 @@ void check_winning_condition() noexcept
 
 Call this function in the end of `play_turn`.
 
-```
+```cpp
 void play_turn(std::size_t row, std::size_t column) noexcept
 {
     //! Retrieve constants
@@ -1798,7 +1799,7 @@ The game is now complete.
 
 #### The Complete Game Code
 
-```
+```cpp
 #include <vector>
 #include <antara/gaming/world/world.app.hpp>
 #include <antara/gaming/sfml/graphic.system.hpp>
