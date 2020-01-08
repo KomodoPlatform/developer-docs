@@ -88,3 +88,8 @@ This limitation is intentional. The KMD chain holds all the meta data of the eco
 
 All other Smart Chains in the ecosystem are fully customizable. 
 
+### Licensing Information
+
+All technical-documentation content on this website can be considered to be available under the MIT standard license. Some of the content, including many of the remote procedure call (RPC) documentation that relates to upstream software, such as Bitcoin and Zcash, is derived from upstream documentation that is also freely available. 
+
+For questions and inquiries about licensing information, please reach out to the Komodo team.
