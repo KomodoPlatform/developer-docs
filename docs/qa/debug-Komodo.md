@@ -1,6 +1,6 @@
 # Debug Komodo
 
-To run Komodo in debug mode and help developer troubleshoot issues found at client end systems, please follow these steps:
+To run Komodo in debug mode, and help developers troubleshoot issues, please follow these steps:
 
 ::: tip Note
 These steps are including notary node references in komodod command, but in case you are not a notary node, you don't need to include those command parameters.
@@ -14,20 +14,22 @@ sudo apt-get install gdb
 
 ## Run Komodo daemon with `gdb` tool
 
-Whichever komodod command you are running which results in crashing or problematic behavior run it with `gdb -args`
+Just add the command `gdb -args` before the launch parameters for the daemon.
+
+If you normally start the daemon using the command `./src/komodod -gen -genproclimit=2 -notary -pubkey="03af2412ebf9517a43d192193490476fd0a44312c70755e07eb03b6d71338ebc9d"`, then to get a backtrace from it, execute:
 
 ```bash
 gdb -args  ./src/komodod -gen -genproclimit=2 -notary -pubkey="03af2412ebf9517a43d192193490476fd0a44312c70755e07eb03b6d71338ebc9d"
 ```
 
-*If you have trouble getting it started, try using the full path to the executable.*
+_If you have trouble getting it started, try using the full path to the executable._
 
-The above command initialize debugging.
+The above command initializes debugging.
 
-Once you see `gdb>` command prompt type `run` to start komodo in debug mode.
+Once you see the `gdb>` command prompt, type `run` to start komodo in debug mode.
 
 ## Getting backtrace data
 
-Then when it crashes you'll again see `gdb>` prompt, and some message from komodod daemon itself left some output in gdb before `gdb>`.
+When the daemon crashes, either by itself or after you issue a RPC command, you'll see a `gdb>` prompt again along with some output from the `komodod` daemon itself.
 
-Type `backtrace` and and it will show further very important info that you need to pass to Komodo developers. Post whatever output you get from `backtrace` command to help troubleshoot issues.
+Type `backtrace` and and it will output debug information that must be shared with a developer.

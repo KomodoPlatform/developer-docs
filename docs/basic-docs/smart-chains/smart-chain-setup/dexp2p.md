@@ -62,7 +62,8 @@ This method can be used to broadcast any data to the p2p network, which will be 
 | Name      | Type      | Description                                                                   |
 | --------- | --------- | ----------------------------------------------------------------------------- |
 | timestamp | (number)  | UNIX timestamp at which the datablob was created                              |
-| id        | (number)  | unique id of the datablob<!---FIXME calculated using-->                       |
+| id        | (number)  | short hash of the datablob; can be treated as a unique id most of the time    |
+| hash      | (string)  | hash of the datablob                                                          |
 | tagA      | (string)  | `tagA` of the datablob                                                        |
 | tagB      | (string)  | `tagB` of the datablob                                                        |
 | destpub   | (string)  | the `destpubkey` to which the payload is encrypted to                         |
@@ -118,6 +119,7 @@ This method can be used to filter and list data from the "Data Mempool" of the n
 | maxA        | (float - 8 decimals, optional) | the maximum value of the amount associated to `tagA` to filter the available datablobs |
 | minB        | (float - 8 decimals, optional) | the minimum value of the amount associated to `tagB` to filter the available datablobs |
 | maxB        | (float - 8 decimals, optional) | the maximum value of the amount associated to `tagB` to filter the available datablobs |
+| stophash    | (string, optional)             |                                                                                        |
 
 #### Response
 
