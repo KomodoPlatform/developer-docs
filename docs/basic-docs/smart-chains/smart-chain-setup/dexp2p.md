@@ -85,16 +85,17 @@ This method can be used to broadcast any data to the p2p network, which will be 
 
 ```json
 {
-  "timestamp": 1578397116,
-  "id": 1800711079,
+  "timestamp": 1578774049,
+  "id": 3023765995,
+  "hash": "eb013bb4ea9bc47d813a5d7b2217c7974eaf174b5470a3f7b20e939c503ee0d4",
   "tagA": "BTC",
   "tagB": "KMD",
   "destpub": "01faed489d5ae6d66e6fb7f69a15aeb81051bd02169d29eb8883260f3798e40778",
-  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063cbabee9707fd587c7f2af7edce4dbdbf6b6a64cb706e87bf00000000000000000000000000000000aae2016af1c943f2370b12f96a6f437f23df448bccd0",
+  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d0633f58a584d2eea6328cad6014ea41508d0fc788053672219000000000000000000000000000000000a8506b53e6fd01d878cccab596f1aac5b34950f17721",
   "hex": 1,
   "amountA": 0.1,
   "amountB": 100,
-  "priority": 5
+  "priority": 6
 }
 ```
 
@@ -159,7 +160,7 @@ How to use [DEX_list](#DEX_list) periodically to filter the datablobs received b
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_list "" 0 "" "DOGE"
+./komodo-cli -ac_name=DEXP2P DEX_list "" 0 "BTC" "" "" "" ""
 ```
 
 <collapse-text hidden title="Response">
@@ -168,20 +169,21 @@ How to use [DEX_list](#DEX_list) periodically to filter the datablobs received b
 {
   "matches": [
     {
-      "timestamp": 1578399257,
-      "id": 712810782,
+      "timestamp": 1578774049,
+      "id": 3023765995,
+      "hash": "eb013bb4ea9bc47d813a5d7b2217c7974eaf174b5470a3f7b20e939c503ee0d4",
       "tagA": "BTC",
-      "tagB": "DOGE",
+      "tagB": "KMD",
       "destpub": "01faed489d5ae6d66e6fb7f69a15aeb81051bd02169d29eb8883260f3798e40778",
-      "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063b555fcd17dfcf6a123b54fd9c9ee4150252846e41481351500000000000000000000000000000000bb8743c7c47f3257f24e6507d26563a2ae5a640d97c7",
+      "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d0633f58a584d2eea6328cad6014ea41508d0fc788053672219000000000000000000000000000000000a8506b53e6fd01d878cccab596f1aac5b34950f17721",
       "hex": 1,
       "amountA": 0.1,
-      "amountB": 100000,
-      "priority": 5
+      "amountB": 100,
+      "priority": 6
     }
   ],
-  "tagA": "",
-  "tagB": "DOGE",
+  "tagA": "BTC",
+  "tagB": "",
   "destpub": "",
   "n": 1
 }
