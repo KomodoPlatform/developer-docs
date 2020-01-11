@@ -473,3 +473,45 @@ the destpub encryption can help here I think
 [11:08 PM]gcharang:then the best one is https://github.com/RocketChat/Rocket.Chat
 11:20 PM]gcharang:messaging protocol https://github.com/TokTok/c-toxcore --> instant p2p encypted
 gui for it https://github.com/qTox/qTox
+
+[3:53 PM]jl777c:stophash will stop right before the specified stopat
+[3:53 PM]jl777c:i guess it should be called stopjustrightbefore
+[3:54 PM]jl777c:the idea is you remember the first id/hash from each DEX_list return and use that as the parameter for the next one
+[3:54 PM]jl777c:this way you get each packet exactly once
+3:55 PM]jl777c:the list is in reverse time order
+[3:55 PM]jl777c:from last to first
+[3:55 PM]jl777c:in this ordering third is before the second
+[3:55 PM]jl777c:stopjustrightbeforeasyoutraversethelistinreverseorder
+
+5:03 PM]jl777c:yes, you didnt specify tagA
+[5:03 PM]jl777c:the lists are organized by tags
+[5:03 PM]jl777c:if you use a tag that is not matching, it wont match
+[5:03 PM]jl777c:use tagA of BTC or KMD
+[5:03 PM]jl777c:or tagB of BTC or KMD
+[5:04 PM]jl777c:notice it defaulted to "general" tag in the DEX_list output
+[5:04 PM]jl777c:that is what no tag defaults to
+[5:05 PM]TonyL:ah, I see
+[5:05 PM]TonyL:I thought tag is not mandatory
+[5:06 PM]TonyL:like a if no tag filtering specified it should display everything, with correct tag it works correct
+[5:06 PM]jl777c:its not mandatory
+[5:06 PM]jl777c:it defaults to "general" if not specified, and displays the output in DEX_list
+[5:06 PM]jl777c:ok, so only bug is lack of documentation so far then
+5:12 PM]TonyL:with some examples - if you do not specify tags on broadcast it gets default tag by default, if you don't specify tag on filtering it filter by default tag by default
+[5:13 PM]TonyL:and that if you want to find package broadcasted with tag BTC it's mandatory to specify tag BTC
+[5:13 PM]TonyL:you even can explain it as a case in doc: lets say we want to put order for KMD to BTC with price like that and volume like that and from another side lets say we want to find order for KMD to BTC with params like that
+[5:19 PM]jl777c:"general" is the default tag
+
+8:13 PM]jl777c:i think i got the priority based flow control working. allocation of 20/40/40 for priority 2/1/0 went to 60/20/20. i changed the outputs to show actual totals so i can see how close the actuals are for the highest priority. that is at about 2x overall network capacity. nearly all the highest priority packets are arriving.
+[8:27 PM]jl777c:i made it so if LAG is not detected, it wont change the routing
+[8:28 PM]jl777c:this is to prevent an attack by making a veryhigh priority packet, in LAG mode, only the highest few priorities are getting all the packets through
+[8:41 PM]TonyL:Hmm, if node got 0 connections (both addnode and connect not specified in startup params) I'm not able to add peers to it by addnode RPC call
+Maybe I need to interconnect everything at first and then ban nodes to make not everything interconnected
+[8:41 PM]jl777c:not sure, this part of code is very tricky and unpredictable
+[8:42 PM]jl777c:-addnode= on commandline tends to work pretty well
+
+[8:44 PM]TonyL:Like a start batch interconnected, then connect randomly by 4 addnode params next batch to previous and so on
+If I remember correct there is define in code so I can limit overall amount of peers for each node to lets say 4 - could you please remind where it is?
+[8:45 PM]jl777c:-maxconnections=
+[8:46 PM]jl777c:but it seems to be very drastic in how it works
+[8:47 PM]jl777c:i see where it could have had peers, but ends up with 0
+[8:47 PM]jl777c:i would try -addnode= on the commandline with 3 random peers
