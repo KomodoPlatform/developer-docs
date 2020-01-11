@@ -515,3 +515,10 @@ If I remember correct there is define in code so I can limit overall amount of p
 [8:46 PM]jl777c:but it seems to be very drastic in how it works
 [8:47 PM]jl777c:i see where it could have had peers, but ends up with 0
 [8:47 PM]jl777c:i would try -addnode= on the commandline with 3 random peers
+
+11:44 PM]jl777c:0 or "" both end up at 0
+[11:44 PM]jl777c:if stopat is not 0, it takes precedence over stophash
+[11:45 PM]gcharang:got it
+[12:50 AM]jl777c:@TonyL pushed new version that is basically feature complete. just have more fields to add to the DEX_stats rpc call. it can now handle arbitrary (RAM limited) number of tags. this allows indexing by pubkeys, ie. destpub with conventions that tagA:inbox and tagB:outbox will allow messages to go to a specific pubkey and a broadcast from that pubkey to be easily findable
+[12:51 AM]jl777c:i also hardened it from rare edge case crashes, which before could have happened in rare edge cases
+[12:52 AM]jl777c:to fully test the full range, would need to tweak internal #defines. but the default config should allow a decent coverage. let me know when the basic data transmission is working solid. i will then boost txpowbits to 12 or more, which will get us in the expected normal network config and it will take a lot more than a single server to saturate the network
