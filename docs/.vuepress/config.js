@@ -1,20 +1,32 @@
-require('dotenv').config()
+require("dotenv").config();
 var redirectAliases = require("./public/_redirects.js");
 var sidebarExtraImport = require("./sidebar-extra.js");
 var navbarImport = require("./navbar.js");
-var algoliaSecret = require("./algolia-secret.js")
+var algoliaSecret = require("./algolia-secret.js");
+
 module.exports = {
   plugins: {
     redirect: {
       alias: redirectAliases
+    },
+    "@vuepress/last-updated": {
+      transformer: timestamp => {
+        // Don't forget to install moment yourself
+        const moment = require("moment");
+        return moment(timestamp).fromNow();
+      }
     }
   },
   head: [
-    ["script", {}, `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    [
+      "script",
+      {},
+      `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PC28587');`],
+})(window,document,'script','dataLayer','GTM-PC28587');`
+    ],
     [
       "link",
       {
@@ -61,7 +73,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "meta",
       {
         name: "twitter:image",
-        content: "https://docs.komodoplatform.com/Dev_Docs_Introduction_small.png"
+        content:
+          "https://docs.komodoplatform.com/Dev_Docs_Introduction_small.png"
       }
     ]
   ],
@@ -78,7 +91,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     logo: "/KMD_Horiz_White.svg",
     algolia: {
       apiKey: algoliaSecret.key,
-      indexName: 'komodoplatform_doc'
+      indexName: "komodoplatform_doc"
     },
     logo: "/KMD_Mark_White.png",
     nav: navbarImport,

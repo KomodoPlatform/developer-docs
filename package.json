@@ -9,6 +9,8 @@
   "author": "Contributors from Komodo Platform",
   "license": "MIT",
   "devDependencies": {
+    "@vuepress/plugin-last-updated": "^1.2.0",
+    "moment": "^2.24.0",
     "vuepress": "^1.0.2",
     "vuepress-plugin-redirect": "1.2.0-alpha.0"
   },
