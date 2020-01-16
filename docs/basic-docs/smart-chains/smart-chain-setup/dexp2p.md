@@ -105,7 +105,7 @@ This method can be used to broadcast any data to the p2p network, which will be 
 
 **DEX_list stopat minpriority tagA tagB destpub33 [minA maxA minB maxB]**
 
-This method can be used to filter and list data from the "Data Mempool" of the node. Each specified filter narrows the list down to the datablobs that match it exactly. If a filter is specified as `""` or `0`, it matches all the values a datablobs might have for the filter.
+This method can be used to filter and list data from the "Data Mempool" of the node. Each specified filter narrows the list down to the datablobs that match it exactly. If a filter is specified as `""` or `0`, it matches all the values a datablob might have for the filter.
 
 #### Arguments
 
@@ -184,6 +184,90 @@ This method can be used to filter and list data from the "Data Mempool" of the n
   "tagB": "",
   "destpub": "",
   "n": 1
+}
+```
+
+</collapse-text>
+
+## DEX_orderbook
+
+**DEX_orderbook maxentries minpriority tagA tagB pubkey33 [minA maxA minB maxB]**
+
+This method interprets the datablobs as orders for AtomicDEX and displays relevant data for each order that matches the filters applied through the parameters.
+
+#### Arguments
+
+| Name        | Type                           | Description                                                                                                   |
+| ----------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| maxentries  | (string)                       | the maximum number of orders to list                                                                          |
+| minpriority | (string)                       | the minimum priority of the orders to be listed                                                               |
+| tagA        | (string)                       | the value of `tagA` by which the available orders are filtered; this tag is treated as the "base" coin's name |
+| tagB        | (string)                       | the value of `tagB` by which the available orders are filtered ; this tag is treated as the "rel" coin's name |
+| pubkey33    | (string)                       | the value of `public key` to filter the available orders                                                      |
+| minA        | (float - 8 decimals, optional) | the minimum volume of the coin named by `tagA` to filter the available orders                                 |
+| maxA        | (float - 8 decimals, optional) | the maximum volume of the coin named by `tagA` to filter the available orders                                 |
+| minB        | (float - 8 decimals, optional) | the minimum volume of the coin named by `tagB` to filter the available orders                                 |
+| maxB        | (float - 8 decimals, optional) | the maximum volume of the coin named by `tagB` to filter the available orders                                 |
+
+#### Response
+
+| Name       | Type            | Description                                                                          |
+| ---------- | --------------- | ------------------------------------------------------------------------------------ |
+| asks       | (array of json) | all the asks for the base coin named by `tagA` w.r.t to the rel coin named by `tagB` |
+| price      | (number)        | the price offered; calculated as `amountB/amountA` of the datablob                   |
+| baseamount | (number)        | the volume of the base coin offered; `amountA` of the datablob                       |
+| relamount  | (number)        | the volume of the base coin offered; `amountB` of the datablob                       |
+| priority   | (number)        | the priority of the order                                                            |
+| pubkey     | (number)        | the pubkey associated with the order                                                 |
+| timestamp  | (number)        | the timestamp of the order                                                           |
+| hash       | (number)        | the hash of the order                                                                |
+| id         | (number)        | the short hash of the order ; can be treated as an unique id                         |
+| bids       | (array of json) | all the bids for the base coin named by `tagB` w.r.t to the rel coin named by `tagA` |
+| price      | (number)        | the price offered; calculated as `amountB/amountA` of the datablob                   |
+| baseamount | (number)        | the volume of the base coin offered; `amountB` of the datablob                       |
+| relamount  | (number)        | the volume of the base coin offered; `amountA` of the datablob                       |
+| priority   | (number)        | the priority of the order                                                            |
+| pubkey     | (number)        | the pubkey associated with the order                                                 |
+| timestamp  | (number)        | the timestamp of the order                                                           |
+| hash       | (number)        | the hash of the order                                                                |
+| id         | (number)        | the short hash of the order; can be treated as an unique id                          |
+
+#### :pushpin: Examples
+
+##### Command
+
+```bash
+./komodo-cli -ac_name=DEXP2P DEX_orderbook 10 0 KMD BTC
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "asks": [
+    {
+      "price": 0.001,
+      "baseamount": 1000,
+      "relamount": 1,
+      "priority": 6,
+      "pubkey": "01faed489d5ae6d66e6fb7f69a15aeb81051bd02169d29eb8883260f3798e40778",
+      "timestamp": 1579200793,
+      "hash": "813080b3936a263ebe294f518257383c6923a36d6818c5a9e4da8bdc0d3d96c2",
+      "id": 1505761344
+    }
+  ],
+  "bids": [
+    {
+      "price": 999,
+      "baseamount": 999,
+      "relamount": 1,
+      "priority": 5,
+      "pubkey": "01faed489d5ae6d66e6fb7f69a15aeb81051bd02169d29eb8883260f3798e40778",
+      "timestamp": 1579201068,
+      "hash": "c1a4416a4bdee3a650f84cb3d5d3704c50b42bcb77cb8715af3c11f7d1c11648",
+      "id": 891343456
+    }
+  ]
 }
 ```
 
