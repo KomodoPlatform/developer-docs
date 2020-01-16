@@ -2,13 +2,15 @@
 
 ::: tip
 
-The Prices Antara Module is in the final stages of production. Please reach out to the Komodo team for consultation before attempting to use this module in a production environment.
+The Prices Antara Module is currently in development. The specifics of the implementation are also subject to change. This document is a Work In Progress.
 
 :::
 
 ## Introduction
 
 The Prices Antara module implements a decentralized, incentivized margin trading system on a Smart Chain; allows users to open long and short leveraged positions against the House (the module itself). It required the existence of a completely trustless and decentralized price feed module (DTO - A decentralized trustless oracle). So the DTO was implemented by piggybacking on [timestamp consensus rules](https://medium.com/@jameslee777/decentralized-trustless-oracles-dto-by-piggybacking-on-timestamp-consensus-rules-2adce34d67b6). It works by requiring the miners of the Smart Chain to include the required off-chain data as a part of OP_RETURN of the coinbase transaction (The transaction that pays the block reward to the miner). The validation of the off-chain data is part of the consensus rules and if the data is false, the block will be rejected by the network, which incentivizes the miner to be truthful. To achieve consensus, all nodes allow an error of about 1% in the reported data. The DTO provides the required Price feed. For markets like `AMZN/KMD` that don’t exist in real life, [synthetic prices](#an-explanation-on-synthetic-prices-and-their-calculation) can be used.
+
+The Prices module can retrieve prices of stocks and cryptocurrencies through the Antara Customization Parameters [ac_stocks](../antara-setup/antara-customizations.md#ac-stocks) and [ac_prices](../antara-setup/antara-customizations.md#ac-prices) respectively. It can also extract data from a web source that can be accessed uisng the `http/https` protocols and return the data as a json object using the [ac_feeds](../antara-setup/antara-customizations.md#ac-feeds) parameter.
 
 A player opens a position with the desired betting amount and leverage. They can close the position anytime and receive the current equity that is in a non negative state. When the loss of a player is close to exceeding their position, it is liquidated by incentivized users who will receive a small percentage.
 
@@ -36,7 +38,7 @@ In the above scenario, the lender recovered their capital and also received trad
 
 :::
 
-Now, consider the case of a decrease in price by `5%` after you bought BTC using leverage. If you sold the BTC now, you will receive `$950` if you return the loan(`$900`), you are left with `$50` which amounts to a loss of `50%`.
+Now, consider the case of a decrease in price by `5%` after you bought BTC using a leverage of `10`. If you sold the BTC now, you will receive `$950` if you return the loan(`$900`), you are left with `$50` which amounts to a loss of `50%`.
 
 If the decrease in price was `10%`, after selling the BTC, you will receive `$900` and after returning the loan, there is `$0` left.
 
@@ -56,8 +58,8 @@ When your position cannot take anymore loss due to decrease in price, the lender
 
 It can be observed that
 
-- 10x leverage can tolerate upto 10% decrease in price
-- 100x leverage can tolerate upto 1% decrease in price
+- 10x leverage can tolerate up to 10% decrease in price
+- 100x leverage can tolerate up to 1% decrease in price
 
 To summarize the concepts and standardise the terms:
 

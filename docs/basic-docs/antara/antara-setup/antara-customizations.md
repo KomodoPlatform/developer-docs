@@ -106,10 +106,10 @@ Let the 4 bit binary number be `wxyz`
 
 w,x,y,z are bit4, bit3, bit2 and bit1 respectively
 
-if z = 1 : DTO is enabled and miners are required to add some data to the coinbase transaction's [OP_RETURN](../../../basic-docs/antara/antara-tutorials/advanced-series-3.html#response-annotated)
-if y = 1 : the data miners will write is prices of BTC vs fiat pairs viz., BTC_USD, BTC_GBP, BTC_EUR and Major fiat vs USD pairs
-if x = 1 : the data miners will write is prices of Cryptocurrencies included in the [-ac_prices](#ac-prices) parameter
-if w = 1 : the data miners will write is prices of Stocks included in the [-ac_stocks](#ac-stocks) parameter
+- if z = 1 : DTO is enabled and miners are required to add some data to the coinbase transaction's [OP_RETURN](../../../basic-docs/antara/antara-tutorials/advanced-series-3.html#response-annotated)
+- if y = 1 : the data miners will write is prices of BTC vs fiat pairs viz., BTC_USD, BTC_GBP, BTC_EUR and Major fiat vs USD pairs
+- if x = 1 : the data miners will write is prices of Cryptocurrencies included in the [-ac_prices](#ac-prices) parameter
+- if w = 1 : the data miners will write is prices of Stocks included in the [-ac_stocks](#ac-stocks) parameter
 
 ### Examples
 
@@ -404,6 +404,10 @@ Use the [getblocksubsidy](../../../basic-docs/smart-chains/smart-chain-api/minin
 
 :::
 
+## ac_feeds
+
+The `ac_feeds` parameter supports retrieval of data from sources that can be accessed using the `http/https` protocols that return the data as a json object. The Prices module has an internal parser that can process the json object using the [RFC 6901 'Json Pointer' addressing](https://tools.ietf.org/html/rfc6901). The internal parser can extract the value specified by json pointer itself or calculate average value for specified value paths (explained below).
+
 ## ac_founders
 
 The `ac_founders` parameter creates a "founder's reward."
@@ -430,7 +434,7 @@ Use `ac_script` to send the founder's reward to a multi-signature address.
 
 Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
 
-## ac\_founders\_reward
+## ac_founders_reward
 
 The `ac_founders_reward` parameter functions in a manner that is similar to a combination of the `ac_perc` and `ac_founders` parameters.
 
