@@ -522,3 +522,251 @@ If I remember correct there is define in code so I can limit overall amount of p
 [12:50 AM]jl777c:@TonyL pushed new version that is basically feature complete. just have more fields to add to the DEX_stats rpc call. it can now handle arbitrary (RAM limited) number of tags. this allows indexing by pubkeys, ie. destpub with conventions that tagA:inbox and tagB:outbox will allow messages to go to a specific pubkey and a broadcast from that pubkey to be easily findable
 [12:51 AM]jl777c:i also hardened it from rare edge case crashes, which before could have happened in rare edge cases
 [12:52 AM]jl777c:to fully test the full range, would need to tweak internal #defines. but the default config should allow a decent coverage. let me know when the basic data transmission is working solid. i will then boost txpowbits to 12 or more, which will get us in the expected normal network config and it will take a lot more than a single server to saturate the network
+1:20 PM]jl777c:how close to 100% CPU usage was it for 10 nodes?
+[1:21 PM]jl777c:as soon as all CPU is used,things degrade rapidly. at 5x then best case is 20% of traffic gets through, but with CPU overloaded would be lucky to get 10%, and it seems that is what happened
+[1:22 PM]jl777c:plz do this test at 15 nodes, 20 nodes, 25 nodes and 30 nodes
+[1:22 PM]jl777c:we should see it gradually decline from 99%+ to 20%
+[1:24 PM]jl777c:maybe we can use AWS so the nodes have constant hardware available
+[1:46 PM]jl777c:i think it will stay at the 99+ range until the network gets saturated. then it will start degrading, but not sure how fast it will degrade. also, if you can have a mix of priorities then when the network is degraded we can measure the completion percentage of the different priorities. that is really what makes dexp2p unique (maybe this is in some other p2p network?), the graceful degradation built into p2p streaming.
+[1:48 PM]jl777c:if the network is not saturated, then it wouldnt matter the priority, similar to txfee not mattering if the blocks are not full. once the nodes start lagging, they will go into a lag mode where the top priority packets are given VIP treatment and try to maintain the 99%+ for them. and iterating down to the next priority as resources allow. so overall, we should see something close to a linear degradation overall, but the highest priority would stay at 99%+ until the network is so saturated, it cant even deliver all the VIP packets
+[1:48 PM]jl777c:at least that is what i tried to implement
+[1:50 PM]jl777c:however, this is much much harder than it looks and it is very easy to end up with unintended feedback loops and having non-graceful degradation. we know the network will be saturated at some point as with exponentially growing base of usage, it will exceed any given network capacity, so the important thing is to gracefully degrade during the overload so that as little end user experience is affected (for DEX orderbooks as long as the local orderbook is close to the theoretically best, that is good enough)
+[1:52 PM]jl777c:then when we detect a specific dexp2p network is overloaded, we spawn another one, so nodes would be connected to multiple dexp2p networks and we can get it to scale almost on-demand. the issue of course is normal end user nodes wont be able to handle more than a single dexp2p network....
+[1:53 PM]jl777c:ok, the solution is a hierarchy of dexp2p networks, with the main one reserved for summary data and info about other dexp2p networks. low end network connection clients just connect to this one and it will have all the relevant info from all the lower level dexp2p networks.
+[1:55 PM]jl777c:bridge nodes would then connect to both and feed info from the lower level dexp2p to the higher level in summary form, ie. the top of orderbook, directory of files, etc. without the actual data. maybe enough data is needed so two clients on different lower level dexp2p networks can get enough info to do an alice/bob swap just from info in the main dexp2p
+[1:56 PM]jl777c:i didnt expect to have to solve realtime sharding... but it seems that is sort of what this is
+
+1:47 PM]jl777c:@TonyL changed the behavior of DEX_list to make it so that if a tag is specified then it must match the packet, this allows for a much more streamlined query sequence. leaving a tag as "" will make it match anything the packet has.
+
+also made DEX_stats return most of the status line that prints every minute. if you need any specific field to have its own JSON field, let me know. easy enough to do, but it seems it would just clutter the return to do it to all of them
+[2:01 PM]jl777c:prior testnet did 400 million+ packets
+[2:01 PM]jl777c:of 4kb each
+[2:03 PM]jl777c:latest version has purgetime of one hour to allow longer time testing of tags
+[3:36 PM]jl777c:from what i can tell, the latest version is feature complete for the messaging layer and transport layer, just need to change txpowbits to 12 (or 16) to make it take about a second to calculate the txpow. of course, there are some bugs that still need to be found and fixed
+[3:37 PM]jl777c:i am moving onto the reliable file transfer layer as that gives us a real easy to understand demo with a video streamer(s)
+[3:38 PM]jl777c:oh, and i will change the destpub encryption to only apply to tagA of "inbox", that allows the destpub tag to be used to send messages and also have unencrypted messages from the pubkey
+
+4:12 PM]jl777c:i didnt test the DEX_list required tag matching, so definitely could be bugs there, along with the "inbox" requirement for encryption
+
+4:57 PM]TonyL:
+changed the behavior of DEX_list to make it so that if a tag is specified then it must match the packet, this allows for a much more streamlined query sequence. leaving a tag as "" will make it match anything the packet has.
+not 100% sure that understood this change
+is main difference that now if no packages with tag found it returns an error?
+
+6:02 PM]jl777c:the change to DEX_list is to make the search tags &&
+[6:03 PM]jl777c:so tagA && tagB instead of tagA || tagB
+[6:03 PM]jl777c:if you have tagA of KMD and BTC, and tagB of BTC and KMD
+[6:03 PM]jl777c:then passing in tagA KMD tagB BTC will return only those with both tags
+
+6:17 PM]jl777c:@TonyL we need to make sure -dexp2p nodes will live in their own isolated universe and not be sending DEX messages to non -dexp2p nodes. they should be able to interoperate using normal protocol, but the DEX messages only sent to nodes with the proper nServices bit set
+
+6:55 PM]jl777c:@TonyL @Sir Seven i changed internals to more easily support orderbooks, would be good to do a regression test to make sure i didnt break any existing functionality.
+
+i havent debugged the DEX_orderbook yet, but the general idea is that you can submit bids (or asks) using the tagA=base, tagB=rel convention, and then the volA and volB will determine a price. ie. tagA=KMD, tagB=BTC, volA=10000, volB=1 -> price of 0.0001
+
+pretty sure the DEX_orderbook has many issues, so dont worry about testing that until it at least passes the spot tests.
+
+you can filter the orderbook by minpriority, or volume min/max for either volA or volB
+
+all orderbook entries needs to have your pubkey specified, along with tagA and tagB being base/rel
+[6:55 PM]SHossain:updating my nodes
+[6:57 PM]jl777c:the idea is that the payload for an order can have all the details needed to ordermatch atomic swap
+[7:03 PM]jl777c:once get it spot tested, then we can make a gui for people to submit/cancel bids and asks and see if the orderbook is updating in realtime for them. this way we simulate the actual usecase -dexp2p was designed for
+
+[6:57 PM]jl777c:the idea is that the payload for an order can have all the details needed to ordermatch atomic swap
+[7:03 PM]jl777c:once get it spot tested, then we can make a gui for people to submit/cancel bids and asks and see if the orderbook is updating in realtime for them. this way we simulate the actual usecase -dexp2p was designed for
+
+7:20 PM]jl777c:also, dont use payload ffff, that is a special case for broadcast
+[7:21 PM]jl777c:just any other hex is fine
+[7:21 PM]SHossain:when i used that pubkey i got 10x
+duplicate link attempted ind.0 ptr.0x7fff4c0022a0
+[7:21 PM]SHossain:ok. will not use ffff
+[7:21 PM]jl777c:ffff does 10x repeat
+
+[7:46 PM]jl777c:half the time you hash 1 extra 0 bit, raising its priority
+[7:46 PM]jl777c:quarter the time, 2 extra 0 bits
+[7:46 PM]jl777c:one eighth the time 3 extra 0 bits
+[7:46 PM]jl777c:is it a minimum priority, to make it an exact match would require to throw away half the valid results
+
+9:01 PM]jl777c:oh, you still need to test identical price with different volumes
+[9:01 PM]jl777c:to make sure it is sorting by the proper volA vs volB
+[9:01 PM]SHossain:ok
+[9:01 PM]jl777c:i think for bid vs ask, it should use a different volA or volB for the secondary sort
+[9:02 PM]jl777c:@gcharang DEX_orderbook appears to be ready to document
+
+[10:13 PM]SHossain:what does DEX_get do?
+[10:14 PM]jl777c:when i write it, it will get the specified id/hash
+[10:14 PM]jl777c:the orderbook now doesnt return the payload and if it will be 1kb in size, that is a lot of data to include in the DEX_orderbook return (though i guess i can add that if needed)
+[10:15 PM]jl777c:the idea is that the trading client will look at the orderbook and then for the order it is interested in, DEX_get the id/hash and then use that data to verify that the orderbook entry is valid, the peer is recent, has funds, etc
+
+[10:32 PM]jl777c:probably will need to add some sort of network request for missing id/hash, still not sure the best way to do that. i want to only add things at the core protocol level when it is absolutely needed, or gets us a lot of new functionality.
+[10:34 PM]jl777c:i think mm2 nodes could make a bridge to the dexp2p and a bridge from dexp2p and then pretty immediately use it, but with orderbook functionality now, it seems better to do a full integration with the atomicDEX payloads in the packets. i think the reputation system can also be built on top of the dexp2p as it allows all nodes to find out about misbehaving pubkeys very quickly, just need a way to cryptographically prove misbehavior and then broadcast that info tagA:badpubs
+[10:35 PM]jl777c:i designed the tagA/tagB/pubkey so you can use it for many different purposes, though for non-orderbook usage there will be fields that are unused and a bit of bloat but it is pretty efficient overall so probably wont matter so much
+
+10:35 PM]jl777c:the volA being able to have min/max filters enables a variety of things for non-orderbook usage
+[10:36 PM]Alright:it seems better to do a full integration with the atomicDEX payloads in the packets
+by this do you mean any mm2 client would just do the p2p messages directly?
+[10:36 PM]Alright:without running coin daemon
+[10:36 PM]jl777c:with txpow enabled, it will take 10,000x the nodes to get the same level of network saturation as the 10 nodes do so that is equivalent of 100,000 node capacity, but we will likely be limited to 1000 quotes/sec per dexp2p network
+[10:37 PM]jl777c:dexp2p only replaces the caretaker node comms, the thing that bogged down during the last stress test. the rest would stay the same
+[10:38 PM]Alright:how does the txpow implementation for this work? What must be hashed with leading/trailing 0s?
+[10:38 PM]jl777c:the packet
+[10:38 PM]Alright:and how is it ignored if it doesn't have required amount of 0s
+[10:38 PM]jl777c:if it doesnt have sufficient priority, it is ignored (after received)
+[10:38 PM]jl777c:and so, not relayed, not using any RAM
+[10:39 PM]jl777c:certainly an evil peer can spam invalid packets, but a counter for such invalid packets and banning such a peer solves that
+[10:39 PM]Alright:I noticed recently that that komodo daemon doesn't care if it's getting spammed with p2p messages
+[10:40 PM]Alright:doesn't seem to have much effect even when it is being spammed
+[10:40 PM]Alright:was testing something that was sending messages every 10ms to every peer and none of them cared
+[10:40 PM]jl777c:BTC protocol has no protections against protocol level spam
+[10:40 PM]jl777c:dexp2p does
+[10:42 PM]Alright:so first use of this in real world conditions will still have caretaker nodes relaying this data to mm2 peers?
+[10:42 PM]jl777c:i think there will need to be mm2 fullnodes vs mm2 litenodes
+[10:43 PM]jl777c:then mm2 fullnode could all have a dexp2p node running and just use that, but that probably takes longer to integrate, so i think the plan is to have all the caretaker nodes runing dexp2p nodes and using that to get in sync with each other. but not sure of the details, i am just making dexp2p as fast and useful as possible
+[10:45 PM]jl777c:dexp2p is very bandwidth efficient, am seeing only about 0.1% redundant packet transmissions over the theoretical minimum
+[10:47 PM]jl777c:basically if dexp2p cant keep up, then nothing would seem to be able to, plus dexp2p has prioritized packets, so if the dapp is monitoring network saturation and just boosts the priority it uses for sending out packets, it will maximize the chances that its packets will propagate. this will allow the entire network to adapt to a spam attack, as each incrementing of priority doubles the PoW needed
+[10:48 PM]jl777c:or users can choose to boost priority, similar to paying higher txfee to get confirmed faster, "pay" a higher PoW priority to get propagated at a much higher rate
+[10:49 PM]Alright:still need to dig into it, haven't had much time to devote to this. Are there any protections to prevent front running of orders? Would that have to be built on top of this?
+[10:49 PM]Alright:that is a great idea, more pow, more priority
+[10:49 PM]jl777c:it is broadcast to all nodes via fully decentralized p2p network
+[10:50 PM]jl777c:certainly neighbor nodes would have a 1 second time advantage, but in general you wont be the neighbor to an order
+[10:50 PM]jl777c:even if you are highly connected, a node will only be sending it out to 3 random nodes
+[10:50 PM]jl777c:so if you have majority of the network, then odds are you can find out first (by a second) about any order
+[10:51 PM]jl777c:but what exactly will you do in that one second?
+[10:51 PM]jl777c:if you fill one side of the order, then you filled one side of the order, since it takes minutes to complete the order you either need to wait for it to complete to fill the other half or just do it speculatively.
+[10:52 PM]jl777c:i just dont see any practical advantage to a 1 second earlier knowledge of a quote
+[10:52 PM]jl777c:and, alice conducts a bob auction, it wont matter anyway
+[10:52 PM]jl777c:alice can say, "i want to do this order" and wait for the best offer to come in. in this case a 1 second advantage is meaningless
+[10:53 PM]Markus:Amazing work guys, kmd never stops surprising. Keep it up :thumbsup:
+[10:53 PM]kmdkrazy:Looks ready for dCloud storage and dStreams after test is verified
+[10:54 PM]jl777c:i still need to get recursive DEX_get working before we can do file sync
+[10:54 PM]Alright:When I do start trying to break this, what is the most likely attack vector? Seems spam is handled, front running doesn't matter all that much, can't think of anything :rofl:
+[10:55 PM]Alright:evil nodes that selectively propagate orders? :smiling_imp:
+[10:55 PM]jl777c:it has 3 protocol messages
+[10:55 PM]Alright:what are they?
+[10:55 PM]jl777c:ping (with list of shortids)
+[10:55 PM]jl777c:packet (with the actual packet)
+[10:55 PM]SHossain:probably try changing the orderbook data? :abused:
+[10:56 PM]jl777c:get (which requests shortid)
+[10:56 PM]jl777c:at the low level, those are the only messages
+[10:56 PM]Alright:are the packets signed?
+[10:56 PM]SHossain:txpow would do that. no?
+[10:56 PM]jl777c:not yet, i will add that soon
+[10:56 PM]SHossain:ah...ok
+[10:57 PM]jl777c:there is also no tracking/banning of bad peers yet
+[10:57 PM]jl777c:one attack is to send a crazy long list in the ping, and then never responding
+[10:57 PM]jl777c:this needs to be detected and such a peer banned
+[10:58 PM]jl777c:the other messages, not sure what can be abused. small stuff like sending illegal packet, this needs to be detected and banscored
+[10:58 PM]jl777c:but all that is for after it is all working, not worried about detecting and banscoring
+[10:58 PM]jl777c:txpow makes it permissionless to broadcast packets, as you are paying a cost for all packets
+[10:59 PM]jl777c:the larger the packet, the more PoW is needed, just to have priority of 0
+[10:59 PM]jl777c:first 1k is free, then up to 2k has 1 extra priority, then up to 4kb needs 2 extra priorities, ... up to 1MB
+[11:01 PM]jl777c:for all dexp2p does, it is still only 1700 lines of code, most of it not very complex
+
+11:18 PM]Alright:if this can interact with consensus of the chain it's running on, could we require a "sign up" transaction before orders are propagated?
+[11:18 PM]jl777c:yes, any sort of logic can be added
+[11:18 PM]jl777c:but it isnt yet
+[11:18 PM]Alright:not really priority, but allows for a few different things
+[11:19 PM]jl777c:you can have payments to CC (or fee address) required, or the priority is downshifted by a lot
+[11:19 PM]jl777c:you can have encrypted payloads sent out, only to pubkeys that prove they made KMD payments to the sellers address
+[11:20 PM]jl777c:it is built right into the daemon, so any sort of payment conditions can be added for transactional releases of data
+[11:20 PM]jl777c:special CC can be made to blockchain enforce arbitrary logic
+[11:21 PM]jl777c:even KMD komodod could run -dexp2p nodes so that KMD can be used for the realtime payments with a native node
+[11:21 PM]jl777c:plans are for nSPV support for dexp2p to allow superlite clients the summary data, like orderbooks and individual payloads
+[11:22 PM]jl777c:this is the missing piece for all the realtime performance usecases
+[11:22 PM]jl777c:and while there is no consensus at the dexp2p level, it can tie into the blockchain consensus for things that require consensus
+[11:23 PM]jl777c:its almost as if i identified the missing realtime processing module that could integrate right into the blockchain and CC, and made it
+
+[11:24 PM]jl777c:it doesnt seem to matter from orderbook standpoint the order of identical price with identical volume
+[11:24 PM]jl777c:so random
+[11:25 PM]jl777c:@Alright if you can calculate a 32 bit collision on the id (lowest 32 bits of hash minus the minimum priority and size priority), then that could create a bit of a problem for packet transmission
+[11:26 PM]Alright:minus the minimum priority and size priority this is part of the hash itself?
+[11:26 PM]Alright:so after removing leading trailing 0s?
+[11:27 PM]jl777c:txpowbits is the baseline bits needed for priority 0
+[11:27 PM]jl777c:sizepriority adds to that for packets bigger than 1kb
+[11:28 PM]jl777c:it is all part of the hash, but shifted to not lose any entropy, so for a collision you would need a full 32 bit match , on top of the minimum txpowbits. when it is set to 1, not much of a difference, but for production it will be set to 12 to 16, to that is 4096 to 65536x the PoW needed
+[11:28 PM]jl777c:it is a single SHA256, so you would need an fpga to calculate fast hashes
+[11:29 PM]Alright:yea.... :sweat_smile:
+[11:29 PM]Alright:that's a hefty order
+[11:29 PM]jl777c:probably not worth the effort to confuse the network routing of a single packet
+[11:29 PM]Alright:let me try to understand this though
+[11:29 PM]Alright: "id": 1731644715
+[11:29 PM]Alright:this id?
+[11:29 PM]jl777c:yes
+[11:30 PM]jl777c:convert to hex
+[11:30 PM]jl777c:shift by 1
+[11:30 PM]jl777c:you will see a match to the hash low bits
+[11:30 PM]jl777c:shift by txpowbits, currently it is 1
+[11:30 PM]Alright:gotcha, let me try this
+[11:31 PM]Alright:unlikely I can find a collision like that in a timely matter
+[11:31 PM]Alright:basically I would want to look at someone else's packet, create another with the same id while their packet is still propagating?
+[11:31 PM]jl777c:you have until the fifo comes full circle, the purgetime
+[11:31 PM]Alright:how long is that?
+[11:31 PM]jl777c:2 seconds
+[11:32 PM]jl777c:but maybe if the network is lagging, you have 30 seconds
+[11:32 PM]jl777c:the fifo size is between 5 minutes to one hour, but can be as small as 2 minutes and biggest can be whatever fits in RAM
+
+11:33 PM]Alright:And if I'm able to do this? Wouldn't signing packets negate this anyway?
+[11:34 PM]jl777c:the way the ping works is that only the shortid is sent
+[11:34 PM]jl777c:so unless a node knows of the full hash, it wont know to ask for it
+[11:35 PM]Alright:shortid is just used to cut down on bandwidth?
+[11:35 PM]jl777c:and most of the internals uses the shortid to track things, so the assumption is that shortid collision is rare
+[11:35 PM]Alright:what am I missing here, why is full hash not used?
+[11:35 PM]jl777c:yes, it reduces bandwidth a lot
+[11:36 PM]jl777c:10,000 packets per second, savings of 28 bytes per packet, is 280kb/sec
+[11:36 PM]jl777c:times N
+[11:36 PM]jl777c:as it is sent out to neighbors and also in the requests
+[11:37 PM]Alright:double sha should make it impossibly harder
+[11:37 PM]jl777c:could well be more than 1MB/sec
+[11:37 PM]jl777c:double sha would allow antiminers to make the hash collisions
+[11:37 PM]jl777c:and collision of single sha vs double isnt much different
+[11:38 PM]jl777c:highest performance was the design objective, even if not 100% accurate
+[11:38 PM]jl777c:99.999% accuracy seems to be achieved, and the once in a billion hash collision
+[11:38 PM]jl777c:oh, a true hash collision needs to be for the same second
+[11:39 PM]Alright:a collision is already very hard to do, but not impossible. Must be some way to make it even harder and not have to worry about it
+[11:39 PM]jl777c:as the internal hashtables are a pipeline of one hashtable for each second and the timestamp is known
+[11:40 PM]Alright:need to think about double vs single, have a feeling there is some clever way to make it impossibly harder
+[11:40 PM]jl777c:all honest nodes check to make sure there is no hash collision first
+[11:40 PM]jl777c:only a dishonest node is bypassing this and it needs to make a hash collision for the same timestamp
+[11:40 PM]jl777c:and this will allow it to confuse some of the nodes into not getting the original packet
+[11:41 PM]jl777c:it seems there is no exposure to worry about and no possible to totally eliminate shortid collision
+[11:41 PM]jl777c:higher layers can and will use hashes for 100% accuracy required usecases
+[11:42 PM]Alright:sure you can't eliminate it, but based on you asking me to try it, I assume it's not that hard. I'm sure there is some way to make it magnitudes harder than it currently is, just need to think about it
+[11:42 PM]jl777c:without an fpga, it is basically impossible to do.
+[11:42 PM]jl777c:you would need a billion seconds or so
+[11:43 PM]jl777c:but you only have 30
+[11:43 PM]jl777c:and by then it has propagated to all the nodes anyway, so too late. each additional second means more and more nodes got the original packet
+[11:43 PM]jl777c:i wasnt expecting you to be able to do this, but wanted to put to rest any issues about shortid collisions
+[11:44 PM]jl777c:you were asking about vulnerable areas
+[11:44 PM]Alright:yea understood, was asking about practical attacks vectors though :rofl:
+[11:44 PM]jl777c:blowing up a node by exhausting all its RAM, probably is the only practical attack, which is only practical if txpowbits is set to 1
+[11:45 PM]jl777c:1MB packets would take forever to hash, maybe cant even do it within the lag time limit anyway
+[11:45 PM]jl777c:but i allow for very fast alien processors
+[11:45 PM]jl777c:i think 900 byte packets will have the fastest rate of data consumption
+[11:46 PM]jl777c:10,000 packets per second is 10MB/sec, so 36GB for an hour purgetime
+[11:46 PM]jl777c:that could cause a problem for smaller nodes
+[11:47 PM]jl777c:but at txpowbits of 16... it will take thousands of cores to blast that much data
+[11:47 PM]Alright:how does a node know not to continue to propagate a packet?
+[11:47 PM]Alright:thinking maybe it's possible to get a packet that will just keep looping through the network indefinitely?
+[11:47 PM]jl777c:there is a relay count that is set to a default value
+[11:47 PM]jl777c:maximum of 10, i think
+[11:47 PM]Alright:is it set client side or within the packet?
+[11:48 PM]jl777c:it is the first byte of the packet
+[11:48 PM]jl777c:set by the client
+[11:48 PM]Alright:so packet is changing with each new propagation of it?
+[11:48 PM]jl777c:but remember the 0.1% duplicate packets? it achieves this by tracking all packets from all peers
+[11:48 PM]jl777c:yes, the one byte is changing, the rest is the same
+[11:49 PM]jl777c:each honest node will decrement it
+[11:49 PM]Alright:so I'll setup a few nodes that always change every packet to the max value? :sweat_smile:
+[11:49 PM]jl777c:also, it wont send to a peer that it knows already has it
+[11:50 PM]Alright:reminds me of onion routing without encryption
+[11:50 PM]jl777c:all nodes could just set it to max, but other than boosting the duplicates counts, i dont think it will do much damage. granted tripling bandwidth used is damaging, but that required corrupting every single node
+[11:50 PM]jl777c:there is also encryption to pubkey if tagA is "inbox"
+[11:51 PM]jl777c:but indeed it is similar to onion routing if only due to the decrementing relay counter
+[11:51 PM]jl777c:having a few peers set it to max will just increase the local duplicates by a bit
+[11:52 PM]jl777c:we can assume a misbehaving peer will be banscored and dropped, so you are limited to things that wont get banscored
+[11:52 PM]Alright:re-propogating every packet with first byte changed to max is a good place to start
+[11:53 PM]jl777c:would be interesting to see what sort of duplicates stats you will get with that
+[11:53 PM]Alright:can try this tomorrow, today working on getting my dev station back up and running
+
+[12:02 AM]jl777c:dexp2p doesnt have a large surface, so just start using it and you will get ideas on how to attack it. just take into account txpowbits 1 is for testnet and production will be 32k times harder (maybe will need to tune the production value based on various real world timing from nodes)
