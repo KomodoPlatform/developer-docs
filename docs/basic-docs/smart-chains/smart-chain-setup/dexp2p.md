@@ -105,7 +105,7 @@ This method can be used to broadcast any data to the p2p network, which will be 
 
 **DEX_list stopat minpriority tagA tagB destpub33 [minA maxA minB maxB]**
 
-This method can be used to filter and list data from the "Data Mempool" of the node. Each specified filter narrows the list down to the datablobs that match it exactly. If a filter is specified as `""` or `0`, then the datablobs are not filtered based on it.
+This method can be used to filter and list data from the "Data Mempool" of the node. Each specified filter narrows the list down to the datablobs that match it exactly. If a filter is specified as `""` or `0`, it matches all the values a datablobs might have for the filter.
 
 #### Arguments
 
@@ -115,16 +115,14 @@ This method can be used to filter and list data from the "Data Mempool" of the n
 | minpriority | (string)                       | the minimum priority of the datablobs to be filtered                                                                                                                                              |
 | tagA        | (string)                       | the value of `tagA` by which the available datablobs are filtered; if all the three values: `tagA`, `tagB` and `destpub33` are set to `""` ie., unspecified, `tagA` defaults to the tag "general" |
 | tagB        | (string)                       | the value of `tagB` by which the available datablobs are filtered                                                                                                                                 |
-| destpub33   | (string)                       | the value of `destpublickey` to filter the available datablobs                                                                                                                                    |
+| destpub33   | (string)                       | the value of `destination publickey` to filter the available datablobs                                                                                                                            |
 | minA        | (float - 8 decimals, optional) | the minimum value of the amount associated to `tagA` to filter the available datablobs                                                                                                            |
 | maxA        | (float - 8 decimals, optional) | the maximum value of the amount associated to `tagA` to filter the available datablobs                                                                                                            |
 | minB        | (float - 8 decimals, optional) | the minimum value of the amount associated to `tagB` to filter the available datablobs                                                                                                            |
 | maxB        | (float - 8 decimals, optional) | the maximum value of the amount associated to `tagB` to filter the available datablobs                                                                                                            |
 | stophash    | (string, optional)             | the `id/hash` of the datablob until which the filtered list is to be displayed excluding the datablob with the given `id/hash`; taken into account only when `stopat` is set to `""` or `0`       |
 
-::: tip Note
-
-How to use [DEX_list](#DEX_list) periodically to filter the datablobs received by the node and get each datablob exactly once?
+::: tip How to use the DEX_list RPC periodically to filter the datablobs received by the node and get each datablob exactly once?
 
 - call [DEX_list](#DEX_list) with `stopat` set to `0` and the rest of the filters as necessary
 - the response will contain datablobs sorted in the order: "latest" to "oldest"
