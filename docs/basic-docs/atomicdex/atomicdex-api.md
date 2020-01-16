@@ -527,7 +527,12 @@ The `enable` method enables a coin by connecting the user's software instance to
 
 Each `coin` can be enabled only once, and in either Electrum or Native mode. The DEX software does not allow a `coin` to be active in both modes at once.
 
-For utxo-based coins the daemon of this blockchain must also be running on the user's machine for `enable` to function.
+For utxo-based coins the daemon of this blockchain must also be running on the user's machine for `enable` to function. 
+
+::: tip Note
+The MM2 node's coin address needs to be imported manually into the coin daemon using the [importaddress](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#importaddress) call.
+
+:::
 
 ETH/ERC20 coins are also enabled by the `enable` method, but a local installation of an ETH node is not required.
 
@@ -2415,6 +2420,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 **(from_id limit=10)**
 
 The `my_tx_history` method returns the blockchain transactions involving the MM2 node's coin address.
+
+The coin that is used must have `tx_history` set to true in its [enable](../../../basic-docs/atomicdex/atomicdex-api.html#enable) or [electrum](../../../basic-docs/atomicdex/atomicdex-api.html#electrum) call.
 
 #### Arguments
 

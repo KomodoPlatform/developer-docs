@@ -145,9 +145,7 @@ Setting `ac_cc=1` permits Antara on the Smart Chain, but will not allow the Smar
 
 ### ac_cc=2 to 99
 
-The values of `2` through `99` (inclusive) indicate Smart Chains that can validate transactions that occur on other Smart Chains on the same cluster (i.e. the same `ac_cc` value), but their coins are not fungible.
-
-However, coins are not fungible, and therefore cannot be transferred between blockchains.
+The values of `2` through `99` (inclusive) indicate Smart Chains that can validate transactions that occur on other Smart Chains on the same cluster (i.e. the same `ac_cc` value), but their coins are not fungible and therefore cannot be transferred between blockchains.
 
 ### ac_cc=100 to 9999
 
