@@ -1679,7 +1679,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 <collapse-text hidden title="Response">
 
-#### Response (Taker swap)
+#### Successful Taker swap
 
 ```json
 {
@@ -1909,7 +1909,216 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 }
 ```
 
-#### Response (Maker swap)
+#### Taker swap failed with MakerPaymentSpendFailed event
+
+```json
+{
+  "error_events": [
+    "StartFailed",
+    "NegotiateFailed",
+    "TakerFeeSendFailed",
+    "MakerPaymentValidateFailed",
+    "TakerPaymentTransactionFailed",
+    "TakerPaymentDataSendFailed",
+    "TakerPaymentWaitForSpendFailed",
+    "MakerPaymentSpendFailed",
+    "TakerPaymentRefunded",
+    "TakerPaymentRefundFailed"
+  ],
+  "events": [
+    {
+      "event": {
+        "data": {
+          "lock_duration": 7800,
+          "maker": "1bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8",
+          "maker_amount": "0.12596566232185483",
+          "maker_coin": "KMD",
+          "maker_coin_start_block": 1458035,
+          "maker_payment_confirmations": 1,
+          "maker_payment_wait": 1564053079,
+          "my_persistent_pub": "0326846707a52a233cfc49a61ef51b1698bbe6aa78fa8b8d411c02743c09688f0a",
+          "started_at": 1564050479,
+          "taker_amount": "50.000000000000001504212457800000",
+          "taker_coin": "DOGE",
+          "taker_coin_start_block": 2823448,
+          "taker_payment_confirmations": 1,
+          "taker_payment_lock": 1564058279,
+          "uuid": "41383f43-46a5-478c-9386-3b2cce0aca20"
+        },
+        "type": "Started"
+      },
+      "timestamp": 1564050480269
+    },
+    {
+      "event": {
+        "data": {
+          "maker_payment_locktime": 1564066080,
+          "maker_pubkey": "031bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8",
+          "secret_hash": "3669eb83a007a3c507448d79f45a9f06ec2f36a8"
+        },
+        "type": "Negotiated"
+      },
+      "timestamp": 1564050540991
+    },
+    {
+      "event": {
+        "data": {
+          "block_height": 0,
+          "coin": "DOGE",
+          "fee_details": {
+            "amount": 5
+          },
+          "from": [
+            "DBNHC8sQS8SCwCrKzG57G7ZVCh1zaih2tx"
+          ],
+          "internal_id": "bdde828b492d6d1cc25cd2322fd592dafd722fcc7d8b0fedce4d3bb4a1a8c8ff",
+          "my_balance_change": -5.05791505,
+          "received_by_me": 96.85084225,
+          "spent_by_me": 101.9087573,
+          "timestamp": 0,
+          "to": [
+            "DBNHC8sQS8SCwCrKzG57G7ZVCh1zaih2tx",
+            "DPZnzesTGPD42AXY1qX8BQp78jLbmzpRT7"
+          ],
+          "total_amount": 101.9087573,
+          "tx_hash": "bdde828b492d6d1cc25cd2322fd592dafd722fcc7d8b0fedce4d3bb4a1a8c8ff",
+          "tx_hex": "0100000002c7efa995c8b7be0a8b6c2d526c6c444c1634d65584e9ee89904e9d8675eac88c010000006a473044022051f34d5e3b7d0b9098d5e35333f3550f9cb9e57df83d5e4635b7a8d2986d6d5602200288c98da05de6950e01229a637110a1800ba643e75cfec59d4eb1021ad9b40801210326846707a52a233cfc49a61ef51b1698bbe6aa78fa8b8d411c02743c09688f0affffffffae6c233989efa7c7d2aa6534adc96078917ff395b7f09f734a147b2f44ade164000000006a4730440220393a784c2da74d0e2a28ec4f7df6c8f9d8b2af6ae6957f1e68346d744223a8fd02201b7a96954ac06815a43a6c7668d829ae9cbb5de76fa77189ddfd9e3038df662c01210326846707a52a233cfc49a61ef51b1698bbe6aa78fa8b8d411c02743c09688f0affffffff02115f5800000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88ac41a84641020000001976a914444f0e1099709ba4d742454a7d98a5c9c162ceab88ac6d84395d"
+        },
+        "type": "TakerFeeSent"
+      },
+      "timestamp": 1564050545296
+    },
+    {
+      "event": {
+        "data": {
+          "block_height": 0,
+          "coin": "KMD",
+          "fee_details": {
+            "amount": 0.00001
+          },
+          "from": [
+            "RT9MpMyucqXiX8bZLimXBnrrn2ofmdGNKd"
+          ],
+          "internal_id": "0a0f11fa82802c2c30862c50ab2162185dae8de7f7235f32c506f814c142b382",
+          "my_balance_change": 0,
+          "received_by_me": 0,
+          "spent_by_me": 0,
+          "timestamp": 0,
+          "to": [
+            "RT9MpMyucqXiX8bZLimXBnrrn2ofmdGNKd",
+            "bQTa5QiudricscFpKeJpcvi3rqFW4YEBcs"
+          ],
+          "total_amount": 1.10033066,
+          "tx_hash": "0a0f11fa82802c2c30862c50ab2162185dae8de7f7235f32c506f814c142b382",
+          "tx_hex": "0400008085202f8902ace337db2dd4c56b0697f58fb8cfb6bd1cd6f469d925fc0376d1dcfb7581bf82000000006b483045022100d1f95be235c5c8880f5d703ace287e2768548792c58c5dbd27f5578881b30ea70220030596106e21c7e0057ee0dab283f9a1fe273f15208cba80870c447bd559ef0d0121031bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8ffffffff9f339752567c404427fd77f2b35cecdb4c21489edc64e25e729fdb281785e423000000006a47304402203179e95877dbc107123a417f1e648e3ff13d384890f1e4a67b6dd5087235152e0220102a8ab799fadb26b5d89ceb9c7bc721a7e0c2a0d0d7e46bbe0cf3d130010d430121031bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8ffffffff025635c0000000000017a91480a95d366d65e34a465ab17b0c9eb1d5a33bae08876cbfce05000000001976a914c3f710deb7320b0efa6edb14e3ebeeb9155fa90d88ac8d7c395d000000000000000000000000000000"
+        },
+        "type": "MakerPaymentReceived"
+      },
+      "timestamp": 1564050588176
+    },
+    {
+      "event": {
+        "type": "MakerPaymentWaitConfirmStarted"
+      },
+      "timestamp": 1564050588178
+    },
+    {
+      "event": {
+        "type": "MakerPaymentValidatedAndConfirmed"
+      },
+      "timestamp": 1564050693585
+    },
+    {
+      "event": {
+        "data": {
+          "block_height": 0,
+          "coin": "DOGE",
+          "fee_details": {
+            "amount": 5
+          },
+          "from": [
+            "DBNHC8sQS8SCwCrKzG57G7ZVCh1zaih2tx"
+          ],
+          "internal_id": "539cb6dbdc25465bbccc575554f05d1bb04c70efce4316e41194e747375c3659",
+          "my_balance_change": -55,
+          "received_by_me": 41.85084225,
+          "spent_by_me": 96.85084225,
+          "timestamp": 0,
+          "to": [
+            "AEb1iUQHozeuCifeFxbcvKmoKdFToF4p27",
+            "DBNHC8sQS8SCwCrKzG57G7ZVCh1zaih2tx"
+          ],
+          "total_amount": 96.85084225,
+          "tx_hash": "539cb6dbdc25465bbccc575554f05d1bb04c70efce4316e41194e747375c3659",
+          "tx_hex": "0100000001ffc8a8a1b43b4dceed0f8b7dcc2f72fdda92d52f32d25cc21c6d2d498b82debd010000006a47304402203967b7f9f5532fa47116585c7d1bcba51861ea2059cca00409f34660db18e33a0220640991911852533a12fdfeb039fb9c8ca2c45482c6993bd84636af3670d49c1501210326846707a52a233cfc49a61ef51b1698bbe6aa78fa8b8d411c02743c09688f0affffffff0200f2052a0100000017a914f2fa08ae416b576779ae5da975e5442663215fce87415173f9000000001976a914444f0e1099709ba4d742454a7d98a5c9c162ceab88ac0585395d"
+        },
+        "type": "TakerPaymentSent"
+      },
+      "timestamp": 1564050695611
+    },
+    {
+      "event": {
+        "data": {
+          "secret": "1b8886b8a2cdb62505699400b694ac20f04d7bd4abd80e1ab154aa8d861fc093",
+          "transaction": {
+            "block_height": 0,
+            "coin": "DOGE",
+            "fee_details": {
+              "amount": 5
+            },
+            "from": [
+              "AEb1iUQHozeuCifeFxbcvKmoKdFToF4p27"
+            ],
+            "internal_id": "cc5af1cf68d246419fee49c3d74c0cd173599d115b86efe274368a614951bc47",
+            "my_balance_change": 0,
+            "received_by_me": 0,
+            "spent_by_me": 0,
+            "timestamp": 1564050913,
+            "to": [
+              "DP1GH73GKRdRz8Qxc8mxe2hFtu5NRwTBXV"
+            ],
+            "total_amount": 50,
+            "tx_hash": "cc5af1cf68d246419fee49c3d74c0cd173599d115b86efe274368a614951bc47",
+            "tx_hex": "010000000159365c3747e79411e41643ceef704cb01b5df0545557ccbc5b4625dcdbb69c5300000000d747304402200e78e27d2f1c18676f98ca3dfa4e4a9eeaa8209b55f57b4dd5d9e1abdf034cfa0220623b5c22b62234cec230342aa306c497e43494b44ec2425b84e236b1bf01257001201b8886b8a2cdb62505699400b694ac20f04d7bd4abd80e1ab154aa8d861fc093004c6b6304a7a2395db175210326846707a52a233cfc49a61ef51b1698bbe6aa78fa8b8d411c02743c09688f0aac6782012088a9143669eb83a007a3c507448d79f45a9f06ec2f36a88821031bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8ac68ffffffff01008d380c010000001976a914c3f710deb7320b0efa6edb14e3ebeeb9155fa90d88ac8c77395d"
+          }
+        },
+        "type": "TakerPaymentSpent"
+      },
+      "timestamp": 1564051092890
+    },
+    {
+      "event": {
+        "data": {
+          "error": "lp_swap:1981] utxo:891] rpc_clients:738] JsonRpcError { request: JsonRpcRequest { jsonrpc: \"2.0\", id: \"67\", method: \"blockchain.transaction.broadcast\", params: [String(\"0400008085202f890182b342c114f806c5325f23f7e78dae5d186221ab502c86302c2c8082fa110f0a00000000d7473044022035791ea5548f87484065c9e1f0bdca9ebc699f2c7f51182c84f360102e32dc3d02200612ed53bca52d9c2568437f087598531534badf26229fe0f652ea72ddf03ca501201b8886b8a2cdb62505699400b694ac20f04d7bd4abd80e1ab154aa8d861fc093004c6b630420c1395db17521031bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8ac6782012088a9143669eb83a007a3c507448d79f45a9f06ec2f36a888210326846707a52a233cfc49a61ef51b1698bbe6aa78fa8b8d411c02743c09688f0aac68ffffffff01460ec000000000001976a914444f0e1099709ba4d742454a7d98a5c9c162ceab88ac967e395d000000000000000000000000000000\")] }, error: Transport(\"rpc_clients:668] All electrums are currently disconnected\") }"
+        },
+        "type": "MakerPaymentSpendFailed"
+      },
+      "timestamp": 1564051092897
+    },
+    {
+      "event": {
+        "type": "Finished"
+      },
+      "timestamp": 1564051092900
+    }
+  ],
+  "success_events": [
+    "Started",
+    "Negotiated",
+    "TakerFeeSent",
+    "MakerPaymentReceived",
+    "MakerPaymentWaitConfirmStarted",
+    "MakerPaymentValidatedAndConfirmed",
+    "TakerPaymentSent",
+    "TakerPaymentSpent",
+    "MakerPaymentSpent",
+    "Finished"
+  ],
+  "uuid": "41383f43-46a5-478c-9386-3b2cce0aca20"
+}
+```
+
+#### Successful Maker swap
 
 ```json
 {
@@ -2107,6 +2316,111 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
     "type": "Maker",
     "uuid": "6bf6e313-e610-4a9a-ba8c-57fc34a124aa"
   }
+}
+```
+
+#### Maker swap failed with MakerPaymentTransactionFailed event
+
+```json
+{
+  "error_events": [
+    "StartFailed",
+    "NegotiateFailed",
+    "TakerFeeValidateFailed",
+    "MakerPaymentTransactionFailed",
+    "MakerPaymentDataSendFailed",
+    "TakerPaymentValidateFailed",
+    "TakerPaymentSpendFailed",
+    "MakerPaymentRefunded",
+    "MakerPaymentRefundFailed"
+  ],
+  "events": [
+    {
+      "event": {
+        "data": {
+          "lock_duration": 7800,
+          "maker_amount": "3.54932734",
+          "maker_coin": "KMD",
+          "maker_coin_start_block": 1452970,
+          "maker_payment_confirmations": 1,
+          "maker_payment_lock": 1563759539,
+          "my_persistent_pub": "031bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8",
+          "secret": "0000000000000000000000000000000000000000000000000000000000000000",
+          "started_at": 1563743939,
+          "taker": "101ace6b08605b9424b0582b5cce044b70a3c8d8d10cb2965e039b0967ae92b9",
+          "taker_amount": "0.02004833998671660000000000",
+          "taker_coin": "ETH",
+          "taker_coin_start_block": 8196380,
+          "taker_payment_confirmations": 1,
+          "uuid": "3447b727-fe93-4357-8e5a-8cf2699b7e86"
+        },
+        "type": "Started"
+      },
+      "timestamp": 1563743939211
+    },
+    {
+      "event": {
+        "data": {
+          "taker_payment_locktime": 1563751737,
+          "taker_pubkey": "03101ace6b08605b9424b0582b5cce044b70a3c8d8d10cb2965e039b0967ae92b9"
+        },
+        "type": "Negotiated"
+      },
+      "timestamp": 1563743979835
+    },
+    {
+      "event": {
+        "data": {
+          "block_height": 8196386,
+          "coin": "ETH",
+          "fee_details": null,
+          "from": [
+            "0x3D6a2f4Dd6085b34EeD6cBc2D3aaABd0D3B697C1"
+          ],
+          "internal_id": "00",
+          "my_balance_change": 0,
+          "received_by_me": 0,
+          "spent_by_me": 0,
+          "timestamp": 1563744052,
+          "to": [
+            "0xD8997941Dd1346e9231118D5685d866294f59e5b"
+          ],
+          "total_amount": 0.0001,
+          "tx_hash": "a59203eb2328827de00bed699a29389792906e4f39fdea145eb40dc6b3821bd6",
+          "tx_hex": "f8690284ee6b280082520894d8997941dd1346e9231118d5685d866294f59e5b865af3107a4000801ca0743d2b7c9fad65805d882179062012261be328d7628ae12ee08eff8d7657d993a07eecbd051f49d35279416778faa4664962726d516ce65e18755c9b9406a9c2fd"
+        },
+        "type": "TakerFeeValidated"
+      },
+      "timestamp": 1563744052878
+    },
+    {
+      "event": {
+        "data": {
+          "error": "lp_swap:1888] eth:654] RPC error: Error { code: ServerError(-32010), message: \"Transaction with the same hash was already imported.\", data: None }"
+        },
+        "type": "MakerPaymentTransactionFailed"
+      },
+      "timestamp": 1563744118577
+    },
+    {
+      "event": {
+        "type": "Finished"
+      },
+      "timestamp": 1563763243350
+    }
+  ],
+  "success_events": [
+    "Started",
+    "Negotiated",
+    "TakerFeeValidated",
+    "MakerPaymentSent",
+    "TakerPaymentReceived",
+    "TakerPaymentWaitConfirmStarted",
+    "TakerPaymentValidatedAndConfirmed",
+    "TakerPaymentSpent",
+    "Finished"
+  ],
+  "uuid": "3447b727-fe93-4357-8e5a-8cf2699b7e86"
 }
 ```
 

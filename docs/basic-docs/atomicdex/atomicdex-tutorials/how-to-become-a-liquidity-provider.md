@@ -42,8 +42,10 @@ curl https://sh.rustup.rs -sSf | sh
 When asked to select an installation type, select the following.
 
 ```
-1) Proceed with installation (default)
+2) Customize installation
 ```
+
+Choose default host triple and toolchain, then select minimal profile.
 
 <collapse-text hidden title="Sample Output">
 
@@ -78,8 +80,19 @@ Current installation options:
 1) Proceed with installation (default)
 2) Customize installation
 3) Cancel installation
+>2
 
-Press Enter
+I'm going to ask you the value of each of these installation options.
+You may simply press the Enter key to leave unchanged.
+
+Default host triple?
+
+
+Default toolchain? (stable/beta/nightly/none)
+
+
+Profile (which tools and data to install)? (minimal/default/complete)
+minimal
 
 info: syncing channel updates for 'stable-x86_64-unknown-linux-gnu'
 info: latest update on 2019-07-04, rust version 1.36.0 (a53f9df32 2019-07-03)
@@ -169,7 +182,7 @@ info: default toolchain set to 'nightly-2019-10-06-x86_64-unknown-linux-gnu'
 
 </collapse-text>
 
-##### Command
+##### Command (Optional, skip this step if it fails)
 
 ```bash
 rustup component add rustfmt-preview
