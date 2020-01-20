@@ -837,3 +837,46 @@ i made a LOT of internals changes. most which has no visible external effect, bu
 [1:26 AM]jl777c:and peers of each other
 [1:27 AM]jl777c:being the only -dexp2p nodes, all the DEX messaging should be isolated just between the two of them
 [1:27 AM]jl777c:we dont want it to bleed over into the normal nodes
+
+4:58 PM]jl777c:once i fix the crashing bug, i will add DEX_cancel pubkey, which will cancel all current orders
+[4:58 PM]jl777c:i think already, there is enough functionality for it to be a useful DEX orderbook network
+[4:58 PM]jl777c:let me know if there are any missing functionality
+[5:00 PM]cipi:sure, will do
+one question: the destpub33 that may be specified in the DEX_broadcast is intended to be used as the pubkey of the mm2 node that has the order?
+[5:00 PM]jl777c:i changed the name in the rpc help to be pubkey33
+[5:00 PM]jl777c:it is a bit quirky
+[5:01 PM]jl777c:if the tagA is "inbox", then it is encrypted to the pubkey
+[5:01 PM]jl777c:if tagA is anything else, then it serves as authentication and uses the corresponding privkey to encrypt it to a publickly known privkey
+[5:02 PM]jl777c:so for DEX_broadcast, yes, use your local nodes pubkey (starting with 01, available from DEX_stats) and that will authenticate the broadcast is coming from your node
+[5:02 PM]jl777c:inside the payload can be the bitcoin pubkey, address, utxo list, atomic swap details, etc
+[5:03 PM]jl777c:by separating the -dexp2p pubkey from the bitcoin pubkey, this allows to build a reputation based on the -dexp2p pubkey, so you dont have to start from scratch when changing the bitcoin/KMD address
+[5:04 PM]jl777c:it does allow a -dexp2p pubkey to behave badly and then change to a new one and reuse the same bitcoin pubkey, but that can be caught by checking to see if a new dexp2p is using a known bitcoin pubkey
+[5:05 PM]jl777c:and i guess inheriting whatever reputation it had
+[5:05 PM]cipi:ok, that makes sense... was wondering why the pubkey on dexp2p was decoupled from pubkey of mm2... now i understand
+but that means that every mm2 node needs to run komodod with dexp2p, right?
+[5:05 PM]jl777c:in general, the -dexp2p can be used for broadcasting realtime things, like a bad pubkey for atomic swaps, maybe an tagA "alerts", tagB "swapfail"
+[5:06 PM]jl777c:depending on whether -dexp2p will be used as an alternate means or the only means
+[5:06 PM]jl777c:it is relatively lightweight if using a small purgetime
+
+5:07 PM]cipi:yes, already saw that is uses much less RAM then "normal" komodod
+[5:08 PM]jl777c:it looks like i might have finally fixed the purgetime crash, at least i have my testnet not crashing after 10 minutes so far. it never got past 3 minutes of purging before
+[5:09 PM]jl777c:the bug was very subtle and was triggered by packets random lag making the linked list not have a sorted timestamp
+[5:09 PM]jl777c:when purging, it stopped if the head of the list was younger than the purgetime, but on the other side of it could well be packets that are already expired
+[5:10 PM]jl777c:still this alone isnt enough to cause a crash, it had to combine with not all codepaths being mutex protected, so most of the time it is ok, but this case of having expired packets that are still around allowed some edge cases to cause a 1 in a million ptr corruption
+[5:11 PM]jl777c:at least that is my latest theory on this one. i knew i would be punished for not mutexing all codepaths
+[5:12 PM]jl777c:before you ask why i didnt simply mutex all codepaths to avoid this pain, the reason is that 90% of the performance is lost if you mutex everything. the key to fast operation is going as fast as you can into the rotating hashtables without worrying about collisions
+
+5:20 PM]cipi:that sounds much more complicated than i first thought
+have you changed the default purge time? was is it atm?
+[5:20 PM]jl777c:for purge testing it is set to 5 minutes now
+[5:21 PM]jl777c:the big complication is the need to make localhost rpc calls to access all the internal data
+[5:21 PM]jl777c:this creates all sorts of race conditions
+[5:21 PM]jl777c:and when you are processing thousands per second, that is literally several per millisecond
+5:24 PM]jl777c:imagine a rotating door where thousands of balls are being tossed into it at one slit (varying by packet lag) and from another slit being extracted and cleanly recycled. if any ball drops on the floor it will cause a crash. oh and all the balls are chained by four linked lists (tagA, tagB, tagAB, pubkey) so as they come into the rotating door they are chained to the most recent other ball (up to 4 different ones). when a ball is recycled, there cant be any reference to it. and you cant stop spinning the doors, it is always going nonstop
+
+5:27 PM]gcharang:is there a reason to expect pubkey33 as a parameter in the case of tagA != "inbox" ?
+the node already knows what the DEX_pubkey is. it is either generated randomly for the session or created from the -pubkey that is set
+[5:28 PM]jl777c:you might want to send unauthenticated packets
+[5:28 PM]gcharang:got it
+[5:28 PM]jl777c:i just didnt want to constrain things, probably most all usecases will want authenticated
+[5:28 PM]jl777c:but who knows what usecases unauthenticated provides

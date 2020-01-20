@@ -41,37 +41,39 @@ You might want to add the parameter `-pubkey` with the value as your pubkey for 
 
 ## DEX_broadcast
 
-**DEX_broadcast hex [priority [tagA [tagB [destpub33 [volA [volB]]]]]]**
+**DEX_broadcast hex [priority [tagA [tagB [pubkey33 [volA [volB]]]]]]**
 
 This method can be used to broadcast any data to the p2p network, which will be added to the "Data Mempools" of all the nodes with the parameter `-dexp2p` set to `1` or `2`.
 
 #### Arguments
 
-| Name      | Type                           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| --------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| hex       | (string)                       | the data to be broadcasted; can be in hex format or ASCII; to specify that the string has to be parsed as ASCII, surround it with quotes <br> <br>the size limit of a "datablob" is 1MB; the size of the actual data to be broadcasted is recommended to be smaller than 1MB <br> <br> to combat spam, after the size of "datablob" crosses 1KB, each time the size doubles, its priority is reduced by 1; this will make generating valid packets for larger data more and more expensive as not only is the difficulty increased by the packetsize, the amount of data to be hashed is increasing too                                                                                                                         |
-| priority  | (string, optional)             | the priority with which other nodes will route the data; can be an integer between `0` to `16` <br><br> increasing the priority of a data broadcast increases the time taken by a CPU to create it; this is achieved by changing a "nonce" in the "datablob" until the lowest bits of the SHA256 hash match `011101110111` (`0x777`) and the next "priority" number of bits to `0` <br> <br> **Example:** if priority is set to `5`, the lowest bits of the hash will be `01110111011100000`                                                                                                                                                                                                                                    |
-| tagA      | (string, optional)             | the first tag to be associated with the data; an index associated to a tag is created in the RAM of a node and is used for quick data lookups; limited to 15 characters ;in the context of a atomicDEX order, `tagA` is the "base" (maker) coin being traded; <br> <br> if all the three values: `tagA`, `tagB` and `destpub33` are set to `""` ie., unspecified, `tagA` defaults to the tag "general"; <br> <br> if tagA is set to `"inbox"`, then the data is encrypted to the destination pubkey set using the `destpub33` parameter ; all the other nodes on the network can propagate the data; but, only the node that owns the destination pubkey is able to decrypt it, therefore, it can only be read and listed by it |
-| tagB      | (string, optional)             | the second tag to be associated with the data; an index associated to a tag is created in the RAM of a node and is used for quick data lookups; limited to 15 characters; in the context of a atomicDEX order, `tagB` is the "rel" (taker) coin being traded                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| destpub33 | (string, optional)             | the destination pubkey (destpubkey) which is associated to the datablob; this is not a regular pubkey that starts with `02` or `03`, it starts with `01`; it can be found from the output of the [DEX_stats](#DEX_stats) RPC; it is also printed in the STDOUT of the `komodod` in a line that starts with `DEX_pubkey.(` <br> <br> if the node is started with the `-pubkey` parameter using a regular pubkey, its privatekey is used to create the corresponding destpubkey and printed; else, a keypair is generated for the particular session and its privatekey is used to create the corresponding destpubkey and printed                                                                                                |
-| volA      | (float - 8 decimals, optional) | in the context of a atomicDEX order, volume of the coin denoted by `tagA`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| volB      | (float - 8 decimals, optional) | in the context of a atomicDEX order, volume of the coin denoted by `tagB`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Name     | Type                           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| -------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| hex      | (string)                       | the data to be broadcasted; can be in hex format or ASCII; to specify that the string has to be parsed as ASCII, surround it with quotes <br> <br>the size limit of a "datablob" is 1MB; the size of the actual data to be broadcasted is recommended to be smaller than 1MB <br> <br> to combat spam, after the size of "datablob" crosses 1KB, each time the size doubles, its priority is reduced by 1; this will make generating valid packets for larger data more and more expensive as not only is the difficulty increased by the packetsize, the amount of data to be hashed is increasing too                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| priority | (string, optional)             | the priority with which other nodes will route the data; can be an integer between `0` to `16` <br><br> increasing the priority of a data broadcast increases the time taken by a CPU to create it; this is achieved by changing a "nonce" in the "datablob" until the lowest bits of the SHA256 hash match `011101110111` (`0x777`) and the next "priority" number of bits to `0` <br> <br> **Example:** if priority is set to `5`, the lowest bits of the hash will be `01110111011100000`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| tagA     | (string, optional)             | the first tag to be associated with the data; an index associated to a tag is created in the RAM of a node and is used for quick data lookups; limited to 15 characters ;in the context of a atomicDEX order, `tagA` is the "base" (maker) coin being traded; <br> <br> if all the three values: `tagA`, `tagB` and `pubkey33` are set to `""` ie., unspecified, `tagA` defaults to the value "general"; <br> <br> if `tagA` is set to `"inbox"`, then the data is encrypted to the destination pubkey set using the `pubkey33` parameter ; all the other nodes on the network can propagate the data; but, only the node that owns the destination pubkey is able to decrypt it. therefore, the datablob can only be read and listed by it                                                                                                                                                                                                                                                                                                                                                                                                     |
+| tagB     | (string, optional)             | the second tag to be associated with the data; an index associated to a tag is created in the RAM of a node and is used for quick data lookups; limited to 15 characters; in the context of a atomicDEX order, `tagB` is the "rel" (taker) coin being traded                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| pubkey33 | (string, optional)             | the pubkey which is associated with the datablob, can be called the "DEX_pubkey"; this is not a regular pubkey that starts with `02` or `03`, it starts with `01`; it can be found from the output of the [DEX_stats](#DEX_stats) RPC; it is also printed in the STDOUT of the `komodod` in a line that starts with `DEX_pubkey.(` <br> <br> if the node is started with the `-pubkey` parameter using a regular pubkey, its privatekey is used to create the corresponding `DEX_pubkey` and printed; else, a keypair is generated for the particular session and its privatekey is used to create the corresponding `DEX_pubkey` and printed <br> <br> if the `tagA` is set to "inbox", the datablob is encrypted to the `DEX_pubkey` specified by the `pubkey33` parameter; if `tagA` is not set to "inbox", the datablob is signed by the `DEX_pubkey` provided through the `pubkey33` parameter and also encrypted to a publicly known keypair; if `tagA` is not set to "inbox" and the parameter `pubkey33` is set to `""`, i.e., unspecified, the datablob is not signed by any `DEX_pubkey` and broadcasted to the network un-encrypted; |
+| volA     | (float - 8 decimals, optional) | in the context of a atomicDEX order, volume of the coin denoted by `tagA`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| volB     | (float - 8 decimals, optional) | in the context of a atomicDEX order, volume of the coin denoted by `tagB`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 #### Response
 
-| Name      | Type      | Description                                                                                                                                                 |
-| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| timestamp | (number)  | UNIX timestamp at which the datablob was created                                                                                                            |
-| id        | (number)  | short hash of the datablob; can be treated as a unique id most of the time                                                                                  |
-| hash      | (string)  | hash of the datablob                                                                                                                                        |
-| tagA      | (string)  | `tagA` of the datablob                                                                                                                                      |
-| tagB      | (string)  | `tagB` of the datablob                                                                                                                                      |
-| destpub   | (string)  | the `destpubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `destpubkey` can decrypt the datablob |
-| payload   | (string)  | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                               |
-| hex       | (boolean) | whether the `payload` is in hexadecimal format                                                                                                              |
-| amountA   | (number)  | amount associated with `tagA` (volumeA)                                                                                                                     |
-| amountB   | (number)  | amount associated with `tagB` (volumeB)                                                                                                                     |
-| priority  | (number)  | the priority with which the datablob will be routed by the network                                                                                          |
+| Name      | Type     | Description                                                                                                                                                             |
+| --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| timestamp | (number) | UNIX timestamp at which the datablob was created                                                                                                                        |
+| id        | (number) | short hash of the datablob; can be treated as a unique id most of the time                                                                                              |
+| hash      | (string) | hash of the datablob                                                                                                                                                    |
+| tagA      | (string) | `tagA` of the datablob                                                                                                                                                  |
+| tagB      | (string) | `tagB` of the datablob                                                                                                                                                  |
+| pubkey    | (string) | the `pubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `pubkey` can decrypt the datablob                     |
+| payload   | (string) | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
+| hex       | (number) | whether the `payload` is in hexadecimal format; `0` when `false` and `1` when `true`                                                                                    |
+| amountA   | (number) | amount associated with `tagA` (volumeA)                                                                                                                                 |
+| amountB   | (number) | amount associated with `tagB` (volumeB)                                                                                                                                 |
+| priority  | (number) | the priority with which the datablob will be routed by the network                                                                                                      |
+| recvtime  | (number) | the unix timestamp at which the datablob was first observed by the node                                                                                                 |
+| cancelled | (number) | whether the `datablob` is set to be purged prematurely; in the context of AtomicDEX orders, it means the order has been cancelled; `0` when `false` and `1` when `true` |
 
 #### :pushpin: Examples
 
@@ -95,7 +97,9 @@ This method can be used to broadcast any data to the p2p network, which will be 
   "hex": 1,
   "amountA": 0.1,
   "amountB": 100,
-  "priority": 6
+  "priority": 6,
+  "recvtime": 1579522631,
+  "cancelled": 0
 }
 ```
 
@@ -103,24 +107,24 @@ This method can be used to broadcast any data to the p2p network, which will be 
 
 ## DEX_list
 
-**DEX_list stopat minpriority tagA tagB destpub33 [minA maxA minB maxB]**
+**DEX_list stopat minpriority tagA tagB pubkey33 [minA maxA minB maxB [stophash]]**
 
 This method can be used to filter and list data from the "Data Mempool" of the node. Each specified filter narrows the list down to the datablobs that match it exactly. If a filter is specified as `""` or `0`, it matches all the values a datablob might have for the filter.
 
 #### Arguments
 
-| Name        | Type                           | Description                                                                                                                                                                                       |
-| ----------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| stopat      | (string)                       | the `id/hash` of the datablob until which the filtered list is to be displayed                                                                                                                    |
-| minpriority | (string)                       | the minimum priority of the datablobs to be filtered                                                                                                                                              |
-| tagA        | (string)                       | the value of `tagA` by which the available datablobs are filtered; if all the three values: `tagA`, `tagB` and `destpub33` are set to `""` ie., unspecified, `tagA` defaults to the tag "general" |
-| tagB        | (string)                       | the value of `tagB` by which the available datablobs are filtered                                                                                                                                 |
-| destpub33   | (string)                       | the value of `destination publickey` to filter the available datablobs                                                                                                                            |
-| minA        | (float - 8 decimals, optional) | the minimum value of the amount associated to `tagA` to filter the available datablobs                                                                                                            |
-| maxA        | (float - 8 decimals, optional) | the maximum value of the amount associated to `tagA` to filter the available datablobs                                                                                                            |
-| minB        | (float - 8 decimals, optional) | the minimum value of the amount associated to `tagB` to filter the available datablobs                                                                                                            |
-| maxB        | (float - 8 decimals, optional) | the maximum value of the amount associated to `tagB` to filter the available datablobs                                                                                                            |
-| stophash    | (string, optional)             | the `id/hash` of the datablob until which the filtered list is to be displayed excluding the datablob with the given `id/hash`; taken into account only when `stopat` is set to `""` or `0`       |
+| Name        | Type                           | Description                                                                                                                                                                                      |
+| ----------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| stopat      | (string)                       | the `id/hash` of the datablob until which the filtered list is to be displayed                                                                                                                   |
+| minpriority | (string)                       | the minimum priority of the datablobs to be filtered                                                                                                                                             |
+| tagA        | (string)                       | the value of `tagA` by which the available datablobs are filtered; if all the three values: `tagA`, `tagB` and `pubkey33` are set to `""` ie., unspecified, `tagA` defaults to the tag "general" |
+| tagB        | (string)                       | the value of `tagB` by which the available datablobs are filtered                                                                                                                                |
+| pubkey33    | (string)                       | the value of `destination publickey` to filter the available datablobs                                                                                                                           |
+| minA        | (float - 8 decimals, optional) | the minimum value of the amount associated to `tagA` to filter the available datablobs                                                                                                           |
+| maxA        | (float - 8 decimals, optional) | the maximum value of the amount associated to `tagA` to filter the available datablobs                                                                                                           |
+| minB        | (float - 8 decimals, optional) | the minimum value of the amount associated to `tagB` to filter the available datablobs                                                                                                           |
+| maxB        | (float - 8 decimals, optional) | the maximum value of the amount associated to `tagB` to filter the available datablobs                                                                                                           |
+| stophash    | (string, optional)             | the `id/hash` of the datablob until which the filtered list is to be displayed excluding the datablob with the given `id/hash`; taken into account only when `stopat` is set to `""` or `0`      |
 
 ::: tip How to use the DEX_list RPC periodically to filter the datablobs received by the node and get each datablob exactly once?
 
@@ -134,24 +138,26 @@ This method can be used to filter and list data from the "Data Mempool" of the n
 
 #### Response
 
-| Name      | Type            | Description                                                                   |
-| --------- | --------------- | ----------------------------------------------------------------------------- |
-| matches   | (array of json) | an array containing json representations of the matched datablobs             |
-| timestamp | (number)        | UNIX timestamp at which the datablob was created                              |
-| id        | (number)        | short hash of the datablob; can be treated as a unique id most of the time    |
-| hash      | (string)        | hash of the datablob                                                          |
-| tagA      | (string)        | `tagA` of the datablob                                                        |
-| tagB      | (string)        | `tagB` of the datablob                                                        |
-| destpub   | (string)        | the `destpubkey` to which the payload is encrypted to                         |
-| payload   | (string)        | all the data being sent in the datablob; contains the data,tags,volumes etc., |
-| hex       | (boolean)       | whether the `payload` is in hexadecimal format                                |
-| amountA   | (number)        | amount associated with `tagA` (volumeA)                                       |
-| amountB   | (number)        | amount associated with `tagB` (volumeB)                                       |
-| priority  | (number)        | the priority with which the datablob will be routed by the network            |
-| tagA      | (string)        | the `tagA` used to filter                                                     |
-| tagB      | (string)        | the `tagB` used to filter                                                     |
-| destpub   | (string)        | the `destpubkey` used to filter                                               |
-| n         | (integer)       | number of matches                                                             |
+| Name      | Type            | Description                                                                                                                                                             |
+| --------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| matches   | (array of json) | an array containing json representations of the matched datablobs                                                                                                       |
+| timestamp | (number)        | UNIX timestamp at which the datablob was created                                                                                                                        |
+| id        | (number)        | short hash of the datablob; can be treated as a unique id most of the time                                                                                              |
+| hash      | (string)        | hash of the datablob                                                                                                                                                    |
+| tagA      | (string)        | `tagA` of the datablob                                                                                                                                                  |
+| tagB      | (string)        | `tagB` of the datablob                                                                                                                                                  |
+| destpub   | (string)        | the `destpubkey` to which the payload is encrypted to                                                                                                                   |
+| payload   | (string)        | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
+| hex       | (boolean)       | whether the `payload` is in hexadecimal format                                                                                                                          |
+| amountA   | (number)        | amount associated with `tagA` (volumeA)                                                                                                                                 |
+| amountB   | (number)        | amount associated with `tagB` (volumeB)                                                                                                                                 |
+| priority  | (number)        | the priority with which the datablob will be routed by the network                                                                                                      |
+| recvtime  | (number)        | the unix timestamp at which the datablob was first observed by the node                                                                                                 |
+| cancelled | (number)        | whether the `datablob` is set to be purged prematurely; in the context of AtomicDEX orders, it means the order has been cancelled; `0` when `false` and `1` when `true` |
+| tagA      | (string)        | the `tagA` used to filter                                                                                                                                               |
+| tagB      | (string)        | the `tagB` used to filter                                                                                                                                               |
+| pubkey    | (string)        | the `pubkey` used to filter                                                                                                                                             |
+| n         | (integer)       | number of matches                                                                                                                                                       |
 
 #### :pushpin: Examples
 
@@ -165,24 +171,27 @@ This method can be used to filter and list data from the "Data Mempool" of the n
 
 ```json
 {
+  "result": "success",
   "matches": [
     {
-      "timestamp": 1578774049,
-      "id": 3023765995,
-      "hash": "eb013bb4ea9bc47d813a5d7b2217c7974eaf174b5470a3f7b20e939c503ee0d4",
+      "timestamp": 1579522631,
+      "id": 1296510848,
+      "hash": "015f8e9a41f97b8c13fafa64fed361c500dd0939131915d6805c10fed475ceeb",
       "tagA": "BTC",
       "tagB": "KMD",
-      "destpub": "01faed489d5ae6d66e6fb7f69a15aeb81051bd02169d29eb8883260f3798e40778",
-      "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d0633f58a584d2eea6328cad6014ea41508d0fc788053672219000000000000000000000000000000000a8506b53e6fd01d878cccab596f1aac5b34950f17721",
-      "hex": 1,
-      "amountA": 0.1,
-      "amountB": 100,
-      "priority": 6
+      "pubkey": "",
+      "payload": "hello",
+      "hex": 0,
+      "amountA": 1,
+      "amountB": 999,
+      "priority": 7,
+      "recvtime": 1579522631,
+      "cancelled": 0
     }
   ],
   "tagA": "BTC",
   "tagB": "",
-  "destpub": "",
+  "pubkey": "",
   "n": 1
 }
 ```
