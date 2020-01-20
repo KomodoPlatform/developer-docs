@@ -770,3 +770,70 @@ by this do you mean any mm2 client would just do the p2p messages directly?
 [11:53 PM]Alright:can try this tomorrow, today working on getting my dev station back up and running
 
 [12:02 AM]jl777c:dexp2p doesnt have a large surface, so just start using it and you will get ideas on how to attack it. just take into account txpowbits 1 is for testnet and production will be 32k times harder (maybe will need to tune the production value based on various real world timing from nodes)
+
+9:04 PM]jl777c:@TonyL maybe it is even a bit slower, had to add more mutex to prevent the rare crash. it is sustaining 4k/sec on my testnet, which is pretty good performance.
+i made a LOT of internals changes. most which has no visible external effect, but we now have a command processor for commands that are embedded in the normal payloads
+[9:06 PM]jl777c:this allows proper implementation of DEX_cancel, which needs to take effect networkwide. for commands, it is required to have at least a CMDPRIORITY (currently set to 4) as it will require a bit more processing than normal packets. the way to send out a command is to just use the internal broadcast function with a different funcid than 'Q', using 'X' for cancel. i didnt implement the actual functionality yet, but the 100x harder part of being able to issue a onetime executed command networkwide, it is solved. on the local node, it is possible that the same command will be invoked more than once, but this is a small overhead
+[9:07 PM]jl777c:the other change is that ALL packets with a pubkey tag are encrypted. this includes all the orderbook entries. if you are thinking about this, you might wonder who is it encrypted to? since the orderbook is public info, we need all nodes to be able to decrypt it
+[9:07 PM]jl777c:very good question!
+[9:09 PM]jl777c:what i do is encrypt to the publicly known privkey, so all nodes are able to decrypt and the sender that encrypts it can be verified. the reason to do this is now we can validate that any non "inbox" tagged packet with a pubkey was indeed sent by that pubkey. [this also was needed to properly support DEX_cancel as we cant just let anybody cancel a specific order][9:10 pm]jl777c:now, the general method of having networkwide commands is completed, it will be much faster to add new functionality. but for now i want to make sure the current level of code is not losing a lot of sync percentage relative to the best levels we have seen
+[9:18 PM]jl777c:@TonyL i have a theory about the lower success rate. are you blasting with ffff ?
+[9:19 PM]jl777c:if not, then the mined priority will vary from the specified and when that happens, if a node detects it is lagging, it will start prioritizing. when this happens the lowest priority will start suffering, but if none of the nodes are showing LAG in the status, then it seems this is not the case
+[9:21 PM]jl777c:one interesting test is if you change the TXPOWBITS from 1 to 12
+[9:22 PM]jl777c:that will lower the total packets you can send, but we can see if it will propagate better at closer to production values
+[9:22 PM]jl777c:this blasting is really not a real world packet flow
+
+[9:27 PM]TonyL:
+3480: del.0 00000000, RAM.14099 126f3785 R.12655 S.1444 A.14099 dup.0 | L.31006 A.12610 coll.4 | lag 0.000 (22.7381 17.2374 5.1134) err.0 pend.0 T/F 0/0 | 2 0 4 14 15 29 48 97 225 442 867 1821 3592 6943 LAG 234/sec
+3480: del.0 00000000, RAM.14102 6c965b9f R.12652 S.1450 A.14102 dup.0 | L.31004 A.12621 coll.6 | lag 0.000 (22.5825 17.0636 5.0674) err.0 pend.0 T/F 0/0 | 2 0 4 14 15 29 48 99 225 442 867 1821 3593 6943 LAG 235/sec
+3480: del.0 00000000, RAM.14476 285bbfab R.13030 S.15922 A.14476 dup.0 | L.25986 A.12956 coll.10 | lag 0.000 (2.9840 2.6547 1.8606) err.0 pend.0 T/F 0/0 | 2 0 4 14 15 29 49 100 230 453 887 1866 3680 7147 241/sec
+3480: del.0 00000000, RAM.14476 285bbfab R.13024 S.14432 A.14476 dup.0 | L.34016 A.12916 coll.8 | lag 0.000 (18.0724 12.7920 4.1557) err.0 pend.0 T/F 0/0 | 2 0 4 14 15 29 49 100 230 453 887 1866 3680 7147 LAG 241/sec
+3480: del.0 00000000, RAM.14476 285bbfab R.13023 S.15929 A.14476 dup.0 | L.25953 A.12930 coll.8 | lag 0.000 (5.2601 3.8123 2.2754) err.0 pend.0 T/F 0/0 | 2 0 4 14 15 29 49 100 230 453 887 1866 3680 7147 241/sec
+3480: del.0 00000000, RAM.13635 408a3122 R.12185 S.1450 A.13635 dup.0 | L.26741 A.12140 coll.2 | lag 0.000 (14.4639 9.1557 3.1103) err.0 pend.0 T/F 0/0 | 2 0 4 14 15 29 49 100 230 453 887 1866 3390 6596 LAG 227/sec
+3480: del.0 00000000, RAM.14476 285bbfab R.13035 S.29642 A.14476 dup.0 | L.27503 A.12951 coll.5 | lag 0.000 (9.1973 5.8823 2.3889) err.0 pend.0 T/F 0/0 | 2 0 4 14 15 29 49 100 230 453 887 1866 3680 7147 LAG 241/sec
+3480: del.0 00000000, RAM.14476 285bbfab R.13024 S.43198 A.14476 dup.0 | L.25906 A.12882 coll.5 | lag 0.000 (3.9632 2.9501 1.7407) err.0 pend.0 T/F 0/0 | 2 0 4 14 15 29 49 100 230 453 887 1866 3680 7147 241/sec
+3480: del.0 00000000, RAM.12980 0a806d51 R.11532 S.1448 A.12980 dup.0 | L.28105 A.11469 coll.4 | lag 0.000 (23.3158 18.4461 5.7842) err.0 pend.0 T/F 0/0 | 2 0 4 14 14 29 47 88 207 414 794 1666 3350 6351 LAG 216/sec
+[9:28 PM]TonyL:there is lag field and also LAG - not sure if it makes the difference
+[9:29 PM]jl777c:lag <deleted> (fast medium slow) are the lag times for the deleted packets, for a fast/medium/long term time frame
+[9:29 PM]jl777c:200, 1000 and 10000 approx window size for fast, med, slow
+[9:30 PM]jl777c:so if you see lags that are worse as it is faster, it is detecting possible lag. the other indicator is pend. if this number goes up steadily it will trigger LAG
+[9:30 PM]jl777c:LAG means it is in LAG mode, which is when prioritization kicks in
+[9:32 PM]jl777c:so lag (fast, med, slow) + pend -> state of LAG or not. if LAG is detected then a node goes into a much more passive mode and this is when prioritization has its biggest effect. there are several things it does, one of them is for a given runtime context with another peer, it will only request packets of the highest priority. assuming we are not saturating the network, this wont affect things much as eventually all packets are requested
+[9:33 PM]jl777c:however if we are lagging, waiting until all the highest priority packets are requested and iterating, means the lowest priorities can be starved and never requested. this is how a low priority packet is "dropped", it is basically never requested
+[9:33 PM]jl777c:so no bandwidth wasted for low priority packets that cant be propagated anyway
+[9:34 PM]jl777c:i think a lot can be learned by studying the internals of dexp2p, there are a lot of very simple, yet powerful methods, all working together
+[9:36 PM]TonyL:why lag detecting only for some of the 10 nodes? They are on the same host and CPU utilized on half
+[9:37 PM]TonyL:network latency should be equal for all (~0)
+[9:38 PM]TonyL:is lag just indicating that packages "stuck" in lowest priority protocol traffic jam and there is delay from estimated delivery time and it's non-det for equal conditions nodes?
+[9:41 PM]jl777c:3480: del.0 00000000, RAM.14476 285bbfab R.13024 S.14432 A.14476 dup.0 | L.34016 A.12916 coll.8 | lag 0.000 (18.0724 12.7920 4.1557) err.0 pend.0 T/F 0/0 | 2 0 4 14 15 29 49 100 230 453 887 1866 3680 7147 LAG 241/sec
+[9:41 PM]jl777c:3480: del.0 00000000, RAM.14476 285bbfab R.13024 S.43198 A.14476 dup.0 | L.25906 A.12882 coll.5 | lag 0.000 (3.9632 2.9501 1.7407) err.0 pend.0 T/F 0/0 | 2 0 4 14 15 29 49 100 230 453 887 1866 3680 7147 241/sec
+[9:41 PM]jl777c:they might be on the same host, but the performance seen by those two nodes are quite different
+[9:42 PM]TonyL:maybe OS allocating resources between daemons some tricky way
+[9:42 PM]jl777c:and as expected there is a large range of priorities
+[9:42 PM]jl777c:you cant expect identical performance from 1/Nth of a server
+[9:42 PM]jl777c:maybe they all have identical probabilities, but for them to all get the identical performance would be quite unexpected
+[9:43 PM]jl777c:like having 10 different nodes toss a coin 1000 times each and all of them getting exactly 500 heads and 500 tails. while possible it is certainly not expected
+[9:43 PM]jl777c:your question seems to indicate you expect all nodes to get identical results...
+[9:44 PM]TonyL:I thought that if I spin 6 identical processes with resources allocation <<100% they will not be prioritized that much
+[9:45 PM]TonyL:It seems better to use docker containers for this test
+[9:45 PM]jl777c:the above stats show 100% in sync
+[9:45 PM]jl777c:oh, sorry, not all have the same number of total
+[9:46 PM]jl777c:the problem is the lag (23.3158 18.4461 5.7842)
+[9:46 PM]jl777c:at 20 seconds of lag, it certainly triggers LAG mode
+[9:46 PM]jl777c:it seems there is some sort of bandwidth bottleneck?
+[9:46 PM]jl777c:what happens with TXPOWBITS 12
+
+[11:24 PM]jl777c:@SHossain latest version should be crashproof. it also should support DEX_cancel id
+[11:24 PM]jl777c:support for DEX_cancel 0 <pubkey> is there, just doesnt do anything except make a printout
+[11:25 PM]jl777c:but the DEX_cancel id, should actually cancel the order and it shouldnt appear in the orderbooks anymore, you can verify cancelled status in the DEX_list
+
+1:23 AM]jl777c:@SHossain the more important test is to make sure that blasting away on the -dexp2p WLC21 nodes doesnt affect normal WLC21 nodes
+[1:24 AM]jl777c:the way to test is to add a normal WLC21 node and monitor its bandwidth usage, compare the bandwidth usage to a -dexp2p WLC21 node during a blaster loop
+[1:24 AM]jl777c:we want to make sure the -dexp2p nodes are isolated from the other nodes
+[1:24 AM]jl777c:this way, even KMD can get -dexp2p
+[1:26 AM]SHossain:you want the -dexp2p nodes to use only -connect= param between both of them?
+[1:26 AM]jl777c:no
+[1:26 AM]jl777c:they should be normal peers
+[1:26 AM]jl777c:and peers of each other
+[1:27 AM]jl777c:being the only -dexp2p nodes, all the DEX messaging should be isolated just between the two of them
+[1:27 AM]jl777c:we dont want it to bleed over into the normal nodes
