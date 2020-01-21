@@ -406,6 +406,49 @@ Use the [getblocksubsidy](../../../basic-docs/smart-chains/smart-chain-api/minin
 
 The `ac_feeds` parameter supports retrieval of data from sources that can be accessed using the `http/https` protocols that return the data as a json object. The Prices module has an internal parser that can process the json object using the [RFC 6901 'Json Pointer' addressing](https://tools.ietf.org/html/rfc6901). The internal parser can extract the value specified by json pointer itself or calculate average value for specified value paths (explained below).
 
+This parameter also allows the addition of a custom shared object library (a `.so` file) that has the necessary parsing function that can retrieve values from the json returned by a web api. This feature can be used if the json returned is non-standard and the internal parser's features are not sufficient. The parsing function should take the json and some configuration options like `customdata` as arguments and return the price. The options like `customdata` should let the function know about the location of the price data within the json.
+
+:::tip Note
+
+Currently, this parameter is directly relevant to the [Prices Antara module](../antara-api/prices.md). The Prices module also requires the inclusion of the following parameters in the launch command of a Smart Chain: [-ac_cbopret](#ac-cbopret), [-ac_cc=n (where n >=2)](#ac-cc) .
+
+:::
+
+The value of this parameter is a quoted string that contains a json array of feed-configuration options.
+
+### Basic Usage
+
+```bash
+ac_feeds='[{"name":"stocks", "url":"https://api.iextrading.com/1.0/tops/last?symbols=AAPL,ADBE", "results":[{"symbol":"AAPL","valuepath":"/0/price"}, {"symbol":"ADBE","valuepath":"/1/price"}], "multiplier":1000000, "interval":120 }, {configuration object for another feed ...}]'
+```
+
+Each json object in the above json array defines a unique Feed. It includes details like the feed's name, the web api's url, the symbol for each of the items in the feed and the path to acquire the price data for an item from the json returned from the web api.
+
+```json
+{
+  "name": "stocks",
+  "url": "https://api.iextrading.com/1.0/tops/last?symbols=AAPL,ADBE",
+  "results": [
+    { "symbol": "AAPL", "valuepath": "/0/price" },
+    { "symbol": "ADBE", "valuepath": "/1/price" }
+  ],
+  "multiplier": 1000000,
+  "interval": 120
+}
+```
+
+The above configuration object defines a single feed named "stocks" that contains prices of the symbols `AAPL` and `ADBE` retreived from the web api with the "url": <https://api.iextrading.com/1.0/tops/last?symbols=AAPL,ADBE> The returned data is a json array and is processed by the internal parser to set the prices of the symbols `AAPL` and `ADBE` based on the data in the json array which is the value of the key named "results".
+
+```json
+{ "symbol": "AAPL", "valuepath": "/0/price" }
+```
+
+- The value of the key named "symbol" sets the symbol for the item in the price feed.
+- The value of the key named "valuepath" is a "json pointer" that describes how to extract the value of the price for the "symbol" from the json array response from the web api. Example: `"/0/price"` means that, select the `0th` element of the json array and read the value of the key named "price"
+
+The value of the key named "multiplier" is the number by which the value extracted should be multiplied before being added to the feed. (Used to convert numbers with decimal paces to integers)
+The value of the key named "interval" is the time in seconds between each refresh of the data from the web api. (Minimum value is `120`)
+
 ## ac_founders
 
 The `ac_founders` parameter creates a "founder's reward."
