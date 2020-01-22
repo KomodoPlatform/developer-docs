@@ -99,6 +99,7 @@ rustup default nightly-2019-10-06
 ```
 
 Optional, skip this step if it fails
+
 ```bash
 rustup component add rustfmt-preview
 ```
@@ -151,3 +152,4 @@ If everything installs successfully you will see something similar:
 ```
 
 The MM2 executable is now built and available here: `~/atomicDEX-API/target/debug/mm2`
+
