@@ -243,6 +243,6 @@ Otherwise, you may proceed with the tutorial series by clicking on the link belo
 
 --------
 
-[<b>Link to the next tutorial in this series</b>](../../../antara/antara-tutorials/beginner-series-part-2.html)
+[<b>Link to the next tutorial in this series</b>](../../../basic-docs/antara/antara-tutorials/beginner-series-part-2.html)
 
 
