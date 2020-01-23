@@ -76,7 +76,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         content:
           "https://docs.komodoplatform.com/Dev_Docs_Introduction_small.png"
       }
-    ]
+    ],
   ],
   title: "Komodo Documentation",
   base: "/",

@@ -916,7 +916,7 @@ Validation for the claiming transaction.
 
 Both of the following support functions, `CheckSpentTxns` and `CheckInactivityTime`, are in the `heir.cpp` source file.
 
-[Link to heir.cpp source file](https://github.com/dimxy/komodo/blob/heir-simple/src/cc/heir.cpp]
+[Link to heir.cpp source file](https://github.com/dimxy/komodo/blob/heir-simple/src/cc/heir.cpp)
 
 ```cpp
     case 'C':

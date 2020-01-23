@@ -115,10 +115,6 @@ var sidebar = [
           [
             "/basic-docs/smart-chains/smart-chain-setup/nspv.md",
             "nSPV (Enhanced Lite Mode)"
-          ],
-          [
-            "/basic-docs/smart-chains/smart-chain-setup/dexp2p.md",
-            "Enhanced p2p messaging/data transmission layer"
           ]
         ]
       },
@@ -276,6 +272,22 @@ var sidebar = [
             "Advanced Series — Miscellaneous"
           ],
           [
+            "/basic-docs/antara/antara-tutorials/gaming-sdk-tutorial-0.md",
+            "Gaming SDK Tutorial — Getting Started"
+          ],
+          [
+            "/basic-docs/antara/antara-tutorials/gaming-sdk-tutorial-1.md",
+            "Gaming SDK Tutorial — Adding a Gaming System"
+          ],
+          [
+            "/basic-docs/antara/antara-tutorials/gaming-sdk-tutorial-3.md",
+            "Gaming SDK Tutorial — Tic Tac Toe"
+          ],
+          [
+            "/basic-docs/antara/antara-tutorials/gaming-sdk-tutorial-4.md",
+            "Gaming SDK Tutorial — Flappy Bird"
+          ],
+          [
             "/basic-docs/antara/antara-tutorials/dilithium-module-tutorial.md",
             "Module Tutorial — Dilithium"
           ],
@@ -313,12 +325,14 @@ var sidebar = [
                                ], */
           ["/basic-docs/antara/antara-api/dilithium.md", "Dilithium"],
           ["/basic-docs/antara/antara-api/faucet.md", "Faucet"],
+          ["/basic-docs/antara/antara-api/gaming.md", "Gaming SDK"],
           ["/basic-docs/antara/antara-api/gateways.md", "Gateways"],
           ["/basic-docs/antara/antara-api/heir.md", "Heir"],
           ["/basic-docs/antara/antara-api/musig.md", "MuSig"],
           ["/basic-docs/antara/antara-api/oracles.md", "Oracles"],
           ["/basic-docs/antara/antara-api/payments.md", "Payments"],
           ["/basic-docs/antara/antara-api/pegs.md", "Pegs"],
+          ["/basic-docs/antara/antara-api/prices.md", "Prices"],
           ["/basic-docs/antara/antara-api/rewards.md", "Rewards"],
           ["/basic-docs/antara/antara-api/rogue.md", "Rogue"],
           ["/basic-docs/antara/antara-api/sudoku.md", "Sudoku"],

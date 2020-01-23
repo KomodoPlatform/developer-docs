@@ -49,7 +49,7 @@ The live community test chain, <b>RICK</b>, has the Heir Module enabled and can 
 Launch the chain as follows.
 
 ```bash
-./komodod -pubkey=$pubkey -ac_name=RICK -ac_supply=90000000000 -ac_reward=100000000 -ac_cc=3 -addnode=138.201.136.145 &
+./komodod -pubkey=$pubkey -ac_name=RICK -ac_supply=90000000000 -ac_reward=100000000 -ac_cc=3 -ac_staked=10 -addnode=95.217.44.58 -addnode=138.201.136.145 &
 ```
 
 #### Create a pubkey
@@ -228,7 +228,7 @@ In the above example data structure, note how the value for the key, `asm`, begi
 
 Taking the value in the fully encoded key-value pair, `hex`, here is an approximate breakdown of the data.
 
-| Translation | Hex Value |
+| Hex Value | Translation |
 | ----------- | --------- |
 | 6a | OP_RETURN |
 | 4c85 | Encoded length of the following data. This value is not a string, the value is encoded in the Smart Bitcoin variable length format, and the value is not directly readable. | 
