@@ -699,9 +699,11 @@ The `pricesrefillfund` method adds funds to the house (Global CC address)
 
 ### Response
 
-| "hex" | (string) | the transaction in hex format; it has to ne broadcasted using the `sendrawtransaction` method |
-| "txid" | (string) | the transaction id |
-| "result" | (string) | whether the command executed successfully |
+| Name     | Type     | Description                                                                                   |
+| -------- | -------- | --------------------------------------------------------------------------------------------- |
+| "hex"    | (string) | the transaction in hex format; it has to ne broadcasted using the `sendrawtransaction` method |
+| "txid"   | (string) | the transaction id                                                                            |
+| "result" | (string) | whether the command executed successfully                                                     |
 
 #### :pushpin: Examples
 
