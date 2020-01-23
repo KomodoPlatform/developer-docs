@@ -209,14 +209,20 @@ The `prices` method returns samples of the prices feed data that has been oracli
 
 ### Response
 
-| Name          | Type                                 | Description                                                      |
-| ------------- | ------------------------------------ | ---------------------------------------------------------------- |
-| "firstheight" | (number)                             |                                                                  |
-| "timestamps"  | (array of numbers)                   | the unix timestamps at which the samples were collected          |
-| "pricefeeds"  | (array of jsons)                     | the unix timestamps at which the samples were collected          |
-| "name"        | (string)                             | name(symbol) of the price                                        |
-| "prices"      | (array of arrays containing numbers) | mined (actual received) price; correlated price ; smoothed price |
-| "result"      | (string)                             | whether the command executed successfully                        |
+| Name            | Type                                 | Description                                                      |
+| --------------- | ------------------------------------ | ---------------------------------------------------------------- |
+| "firstheight"   | (number)                             |                                                                  |
+| "timestamps"    | (array of numbers)                   | the unix timestamps at which the samples were collected          |
+| "pricefeeds"    | (array of jsons)                     | the unix timestamps at which the samples were collected          |
+| "name"          | (string)                             | name(symbol) of the price                                        |
+| "prices"        | (array of arrays containing numbers) | mined (actual received) price; correlated price ; smoothed price |
+| "result"        | (string)                             | whether the command executed successfully                        |
+| "seed"          | (number)                             |                                                                  |
+| "height"        | (number)                             |                                                                  |
+| "maxsamples"    | (number)                             | maximum number of samples being displayed                        |
+| "width"         | (number)                             |                                                                  |
+| "daywindow"     | (number)                             |                                                                  |
+| "numpricefeeds" | (number)                             | total number of price feeds available on the Smart Chain         |
 
 #### :pushpin: Examples
 
