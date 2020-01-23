@@ -513,9 +513,24 @@ The `pricesgetorderbook` method shows the currently open bets on chain and their
 
 ### Response
 
-| Name     | Type     | Description                               |
-| -------- | -------- | ----------------------------------------- |
-| "result" | (string) | whether the command executed successfully |
+| Name                  | Type            | Description                                                                                        |
+| --------------------- | --------------- | -------------------------------------------------------------------------------------------------- |
+| Symbol of a Price     | (string)        | whether the command executed successfully                                                          |
+| positions             | (array of json) | whether the command executed successfully                                                          |
+| isOpen                | (number)        | whether the bet is open; `0` if false and `1` if true                                              |
+| expression            | (string)        | the synthetic expression supplied by the user                                                      |
+| positionsize          | (number)        | the amount of native coin used to open the bet                                                     |
+| leverage              | (number)        | the leverage used to open the bet                                                                  |
+| costbasis             | (number)        | the price that has been locked in as the opening price of the bet                                  |
+| lastprice             | (number)        | the last known price                                                                               |
+| equity                | (number)        | the amount of native Smart Chain coin that can be redeemed if the bet is cashed out at this moment |
+| isUpPosition          | (number)        |                                                                                                    |
+| DiffLeveragedPosition | (number)        |                                                                                                    |
+| TotalFund             | (number)        | the total amount of the Smart Chain's coins available in the House's public address                |
+| TotalEquity           | (number)        | the total amount of equity across all the bets                                                     |
+| TotalRekt             | (number)        | total number of bets that are already rekt                                                         |
+| TotalBets             | (number)        | total number of active bets                                                                        |
+| TotalCashoutBets      | (number)        | total number of bets that have been cashed out                                                     |
 
 #### :pushpin: Examples
 
