@@ -882,12 +882,13 @@ the node already knows what the DEX_pubkey is. it is either generated randomly f
 [5:28 PM]jl777c:but who knows what usecases unauthenticated provides
 
 9:09 PM]jl777c:a much improved new version:
+
 1. i cant reproduce the occasional crash anymore, under many different configurations
 2. refactored internals a LOT, memory usage is much less and there is no hard limit to tx/sec rate, though you cant sustain the max rate of 16k/sec for more than maxlagtime of 1 minute
 3. latency is improved
 4. duplicates and errors shouldnt be any worse
 5. higher sync rate for lower priorities
-[9:09 PM]jl777c:please regression test to make sure i didnt break any existing functionality
+   [9:09 PM]jl777c:please regression test to make sure i didnt break any existing functionality
 
 [6:37 AM]jl777c:pushed fix for cancel deadlock
 [6:37 AM]jl777c:also changed how baseamount and relamount are displayed
@@ -919,7 +920,7 @@ The usecases will be - after importing new privkey from other instanse or after 
 [7:28 AM]jl777c:ok, if it helps, i will add it
 
 8:02 AM]cipi:btw, i can cancel all orders for a pair like this
-for i in `komodo-cli -ac_name=DEXP2P DEX_orderbook 10000 0 KMD DGB | jq -r ".[]|.[].id"`; do komodo-cli -ac_name=DEXP2P DEX_cancel $i; done
+for i in `komodo-cli -ac_name=DEXP2P DEX_orderbook 10000 0 KMD DGB | jq -r ".[]|.[].id"`; do komodo-cli -ac_name=DEXP2P DEX_cancel \$i; done
 
 and the orders are gone from orderbook immediately, even if there are hundreds of them... and under heavy load
 [8:08 AM]jl777c:i tried to make it fast. maybe there is no need for any other cancels?
@@ -943,7 +944,7 @@ but maybe it could be changed, so i don't remove the old order, but only post ne
 [8:30 AM]jl777c:each bit makes half the remaining hashes invalid
 [8:31 AM]jl777c:so with 12 bits, only 1 in 4096 is valid with a 4 bit premium for cancel that is 1 in 65536
 [8:31 AM]jl777c:but if the baseline needs to be 16 bits, then cancel pow will be 20 bits...
-[8:31 AM]jl777c:i guess  i need to lower it to a premium of 2. one advantage of higher priority is that it propagates a lot better
+[8:31 AM]jl777c:i guess i need to lower it to a premium of 2. one advantage of higher priority is that it propagates a lot better
 [8:32 AM]jl777c:so having it 4 more than baseline would maximize its reaching all nodes
 [8:33 AM]jl777c:need to tweak the exact costs with some benchmarks. maybe someone can get time to calculate statistics on various systems at various priorities (keeping track of what txpowbits is set to for that version)
 [8:37 AM]cipi:is it sufficient to measure the time till DEX_cancel call returns to get the benchmark values? so if i call DEX_cancel couple thousand times i should get a good value.
@@ -956,7 +957,7 @@ but maybe it could be changed, so i don't remove the old order, but only post ne
 
 8:39 AM]jl777c:i have seen occasional collisions from lots of packets in the same second
 [8:41 AM]cipi:you mean collisions like in this output?
-583: del.1511 6a8b77c7, RAM.0 00000000 R.9442956 S.1331073 A.9444060 dup.15533 | L.22010247 A.9057584 coll.19158 | lag  1.839 (3.3881 2.4727 2.8938) err.0 pend.964 T/F 4075966/4066097 | 0 0 0 0 0 0 0 0 0 0 0 0 0 0  1473/sec
+583: del.1511 6a8b77c7, RAM.0 00000000 R.9442956 S.1331073 A.9444060 dup.15533 | L.22010247 A.9057584 coll.19158 | lag 1.839 (3.3881 2.4727 2.8938) err.0 pend.964 T/F 4075966/4066097 | 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1473/sec
 that is from a node that is also a tor relay and does a lot of tor traffic all the time (150-200 MBits in and out all the time)
 [8:44 AM]jl777c:no, that is for an internal hashtable
 [8:45 AM]jl777c:when broadcasting if your packets id matches an already existing one, it will printout "cant issue duplicate order..."
@@ -977,24 +978,23 @@ interesting python lib btw: https://parallel-ssh.readthedocs.io/en/latest/index.
 https://paste.ubuntu.com/p/N9WmQQZFTH/ 8 nodes per server with limiter
 https://paste.ubuntu.com/p/tWgt4jZcbS/ 10 nodes per server with limiter
 
-
 6:28 PM]jl777c:even the 5 nodes per server is a bit laggy. what are the specifics for the limiter?
 [6:30 PM]jl777c:can you add 100 millseconds pause after each broadcast?
 [6:30 PM]TonyL:
-  
+
 #!/bin/bash
 
 end=$((SECONDS+$3))
 
 while [ $SECONDS -lt $end ]; do
-  let "c = $SECONDS % 10"
+let "c = $SECONDS % 10"
   if (( $c == 0 ))
-  then
-  sleep 1
-  else
-  TEST="$2"_$(( ( RANDOM % 1000000 )  + 1 ))
-  curl --user test:test --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "DEX_broadcast", "params": ["'"$TEST"'", "0", "'"$1"'", "", "", "0.1", "100"] }' -H 'content-type: text/plain;' http://127.0.0.1:$1/ >> spam_p2p/packages/$2_$1_packages.txt
-  fi
+then
+sleep 1
+else
+TEST="$2"_$(( ( RANDOM % 1000000 ) + 1 ))
+curl --user test:test --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "DEX*broadcast", "params": ["'"$TEST"'", "0", "'"$1"'", "", "", "0.1", "100"] }' -H 'content-type: text/plain;' http://127.0.0.1:$1/ >> spam_p2p/packages/\$2*\$1_packages.txt
+fi
 done
 [6:30 PM]jl777c:that would be 10 per node, per second and 1000 per second today
 [6:30 PM]TonyL:each 10th second it sleep for a second
@@ -1006,18 +1006,18 @@ done
 [6:32 PM]jl777c:that is 500 per second, so it should be well below saturation
 [6:32 PM]jl777c:if there is a way to do sub-second sleeps, equivalent to usleep() that would be much better control
 [6:32 PM]TonyL:isn't it 50 per second?
-[6:33 PM]TonyL:oh 10*10
+[6:33 PM]TonyL:oh 10\*10
 6:35 PM]TonyL:I'm not a bash expert at all but google saying that we can use just a second fractions like a:
 sleep 0.1
 [6:35 PM]TonyL:oh or no, need custom functions and etc
 [6:38 PM]TonyL:Sad that python is not good for stress testing things.
 Will solve it and make spam script works correct after a lunch break
-[6:43 PM]jl777c:at txpowbits of 1,  a single node will blast out 1000 per second. so 100 nodes will be trying to blast out 100,000 per second, for 10 seconds or a million packets in 10 seconds. definitely saturated as the numbers show. the fact it did as well as it did means even under extreme saturation, the worst that happens is packets dont get delivered, but higher probability for higher priority
+[6:43 PM]jl777c:at txpowbits of 1, a single node will blast out 1000 per second. so 100 nodes will be trying to blast out 100,000 per second, for 10 seconds or a million packets in 10 seconds. definitely saturated as the numbers show. the fact it did as well as it did means even under extreme saturation, the worst that happens is packets dont get delivered, but higher probability for higher priority
 [6:44 PM]jl777c:for now just start at 500/sec rate (5 packets, sleep 1 second)
 [6:44 PM]TonyL:yeah, and we testing very extreme case when 10 clients spam non stop from single computer - surprised that it not crashes, server not die and etc
 [6:44 PM]jl777c:that is still 10x more traffic than on a 10 node network, equivalent to 5000/sec on a 10 nodes
 [6:44 PM]jl777c:it is at 32768x production levels possible
-[6:46 PM]kmdkrazy:soooo many  possibilities,  my brain wont stop to focus on one - it just keeps adding more
+[6:46 PM]kmdkrazy:soooo many possibilities, my brain wont stop to focus on one - it just keeps adding more
 
 11:06 PM]jl777c:using this way to validate network config, we can make sure we dont get stuck wondering why the network looks saturated when it is just that the nodes cant really talk to half the other nodes
 [11:07 PM]jl777c:now, my testnet is actually on a single server, but it uses something (proxmox?) to create different nodes, each with its own ip address
@@ -1055,7 +1055,7 @@ Will solve it and make spam script works correct after a lunch break
 [11:37 PM]jl777c:which i think it is.
 [11:37 PM]jl777c:while waiting for server provisioning, you can validate the percentage syncing of the different priority levels
 [11:38 PM]jl777c:then you can throttle the bandwidth used by having a sleep every packet, every 10, every 20, every 30, ... and we can see how the percentage in sync degrades at the various priority levels
-[11:38 PM]kmdkrazy:FYI  Chewing 
+[11:38 PM]kmdkrazy:FYI Chewing
 
 11:44 PM]jl777c:already it will create higher priorities, actually for half of them!
 [11:44 PM]jl777c:50% at specified priority
@@ -1066,3 +1066,13 @@ Will solve it and make spam script works correct after a lunch break
 [11:45 PM]jl777c:so you need to record the priority that is returned, (or you can just convert the id to hex and count 0 bits)
 [11:46 PM]jl777c:so after you send out the packets, you can tell what priority each packet was. given that and knowing which packets are in sync, you can get a tally for sync percentage by priority
 [11:49 PM]jl777c:anyway, it seems there are no verified bugs now, so i will go back to writing more of them
+
+[11:38 AM]jl777c:@Sir Seven pushed a version that has DEX_setpubkey. if the wallet doesnt have the privkey, it makes a temporary session specific pubkey, if the wallet does have the privkey, it is like you started with -pubkey= ,but i havent tested actually sending encrypted packets and if the receivers see the proper sender pubkey. let me know if it works
+@cipi DEX_cancel now can cancel by id, or if id is 0, by pubkey (all) or if that is "" then by tagA/tagB, but this is totally untested, so it might even crash. let me know if it works
+@TonyL i had a feeling something was not quite right and maybe now at lower packets sent, 100 nodes will stay in sync!
+
+[3:43 PM]jl777c:ok, so it seems the new set of bugs are fixed and we now have a much more complete DEX_cancel and also DEX_setpubkey that allows to change the active keypair without restarting. with these things, the current version is a release candidate for the first three levels of the protocol: low level transport, messaging and orderbooks. we still need to validate the routing on 100 and even 1000 node networks, so likely there will need to be tweaks to the networking for that.
+
+while waiting, i will make new bugs with the reliable file transfer layer. that will need a bit of low level support from the routing layer with a new command message and the actual file transfer layer. i am aiming for end of month to get the initial release for that, which will be about when the -dexp2p will be a month since the start of coding
+
+4:38 PM]jl777c:i hardened the hash function to resist ASIC and even fpga, though it isnt impossible for one to be made for this hash algo sha256(curve25519(sha256(msg))), it seems unlikely it will be made just for -dexp2p
