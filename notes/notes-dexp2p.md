@@ -1076,3 +1076,17 @@ Will solve it and make spam script works correct after a lunch break
 while waiting, i will make new bugs with the reliable file transfer layer. that will need a bit of low level support from the routing layer with a new command message and the actual file transfer layer. i am aiming for end of month to get the initial release for that, which will be about when the -dexp2p will be a month since the start of coding
 
 4:38 PM]jl777c:i hardened the hash function to resist ASIC and even fpga, though it isnt impossible for one to be made for this hash algo sha256(curve25519(sha256(msg))), it seems unlikely it will be made just for -dexp2p
+
+5:03 PM]artem.pikulin:Are newly connected nodes supposed to sync their DEX_list with other nodes that already have some data? If yes, how much time should it take? I've restarted my node and see only new messages, but other node has more in its DEX_list.
+[5:03 PM]jl777c:currently only new messages are seen. after the purgetime, all nodes will be as much in sync as network bandwidth allows
+[5:04 PM]jl777c:in the file sync layer, i will be adding ways to query older messages
+
+5:05 PM]jl777c:the assumption was that the DEX nodes would be online most of the time, so i didnt solve the syncing issue. one big problem is that as the network gets saturated, there really is no way to sync the older packets as nodes are only able to keep up with the current
+[5:06 PM]jl777c:one idea is to use significantly higher priority packets for ones you want to be able to sync from the past and then it would be possible for a node to sync up to just these higher priority packets
+5:07 PM]jl777c:that is the type of plan i am working on for the file syncing, so maybe for data that wants to be able to be synced from the past is put into "files" and you can use the file sync method for those. like to make an orderbook from a node that has been online for the full purgetime and put that into a "file"
+[5:08 PM]jl777c:given that, a node can see the current orderbook from the long time online node and it will have all the info needed to query the specific packets needed for it
+[5:09 PM]jl777c:the current design is definitely minimalist and i have only added the bare minimum to achieve orderbook propagation and highest performance. with the tagA/tagB indexing, any sort of special information can be made very easy to find. and the file layer will allow to put whatever critical info is needed for a bootstrapping node
+[5:11 PM]jl777c:"tagA":"orderbook", "tagB":"base_rel" could get the localorderbooks from nodes once per 5 minutes, or any other convention to get the required data to bootstrapping nodes
+[5:13 PM]jl777c:keep in mind, there could end up being thousands of messages per second, continuously, so being able to keep up with that, while being able to make queries efficiently... that is the main problem that -dexp2p solved. if you have a specific requirement that is not covered, let me know. i will be adding more third layers on top of the basic messaging layer to make it easy to solve other usecases, but the primary usecase for -dexp2p is the scalable DEX orderbook
+
+5:15 PM]jl777c:i think having a way to query all priority 4+ data will help solve the bootstrapping issue and it also works for the file sync layer

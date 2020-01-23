@@ -298,6 +298,7 @@ This method gives info and stats related to the p2p data layer.
 
 | Name               | Type     | Description                                                                                   |
 | ------------------ | -------- | --------------------------------------------------------------------------------------------- |
+| result             | (string) | whether the command was successfully executed                                                 |
 | publishable_pubkey | (string) | the pubkey to be shared with another user for receiving encrypted data packets                |
 | perfstats          | (string) | A string containing stats about the datablobs and the "Data mempool" the local node is seeing |
 
@@ -313,9 +314,17 @@ This method gives info and stats related to the p2p data layer.
 
 ```json
 {
+  "result": "success",
   "publishable_pubkey": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
   "perfstats": "RAM.14289 27787115 R.0 S.27408 A.14291 dup.0 | L.0 A.0 coll.0 | lag  (0.0000 0.0000 0.0000) err.0 pend.0 T/F 0/0 | 0 2 1 9 15 32 46 125 197 425 896 1781 3531 7229  873/sec\n"
 }
 ```
 
 </collapse-text>
+<!------
+
+## DEX_setpubkey
+
+## DEX_cancel
+
+------->
