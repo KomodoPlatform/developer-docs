@@ -1205,17 +1205,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "skipped": 1,
     "swaps": [
       {
-        "error_events": [
-          "StartFailed",
-          "NegotiateFailed",
-          "TakerFeeValidateFailed",
-          "MakerPaymentTransactionFailed",
-          "MakerPaymentDataSendFailed",
-          "TakerPaymentValidateFailed",
-          "TakerPaymentSpendFailed",
-          "MakerPaymentRefunded",
-          "MakerPaymentRefundFailed"
-        ],
+        "error_events": ["StartFailed","NegotiateFailed","TakerFeeValidateFailed","MakerPaymentTransactionFailed","MakerPaymentDataSendFailed","MakerPaymentWaitConfirmFailed","TakerPaymentValidateFailed","TakerPaymentWaitConfirmFailed","TakerPaymentSpendFailed","MakerPaymentRefunded","MakerPaymentRefundFailed"],
         "events": [
           {
             "event": {
@@ -1398,18 +1388,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "uuid": "6bf6e313-e610-4a9a-ba8c-57fc34a124aa"
       },
       {
-        "error_events": [
-          "StartFailed",
-          "NegotiateFailed",
-          "TakerFeeSendFailed",
-          "MakerPaymentValidateFailed",
-          "TakerPaymentTransactionFailed",
-          "TakerPaymentDataSendFailed",
-          "TakerPaymentWaitForSpendFailed",
-          "MakerPaymentSpendFailed",
-          "TakerPaymentRefunded",
-          "TakerPaymentRefundFailed"
-        ],
+        "error_events": ["StartFailed","NegotiateFailed","TakerFeeSendFailed","MakerPaymentValidateFailed","MakerPaymentWaitConfirmFailed","TakerPaymentTransactionFailed","TakerPaymentWaitConfirmFailed","TakerPaymentDataSendFailed","TakerPaymentWaitForSpendFailed","MakerPaymentSpendFailed","TakerPaymentRefunded","TakerPaymentRefundFailed"],
         "events": [
           {
             "event": {
@@ -1679,23 +1658,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 <collapse-text hidden title="Response">
 
-#### Successful Taker swap
+#### Successful Taker Swap
 
 ```json
 {
   "result": {
-    "error_events": [
-      "StartFailed",
-      "NegotiateFailed",
-      "TakerFeeSendFailed",
-      "MakerPaymentValidateFailed",
-      "TakerPaymentTransactionFailed",
-      "TakerPaymentDataSendFailed",
-      "TakerPaymentWaitForSpendFailed",
-      "MakerPaymentSpendFailed",
-      "TakerPaymentRefunded",
-      "TakerPaymentRefundFailed"
-    ],
+    "error_events": ["StartFailed","NegotiateFailed","TakerFeeSendFailed","MakerPaymentValidateFailed","MakerPaymentWaitConfirmFailed","TakerPaymentTransactionFailed","TakerPaymentWaitConfirmFailed","TakerPaymentDataSendFailed","TakerPaymentWaitForSpendFailed","MakerPaymentSpendFailed","TakerPaymentRefunded","TakerPaymentRefundFailed"],
     "events": [
       {
         "event": {
@@ -1909,22 +1877,11 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 }
 ```
 
-#### Taker swap failed with MakerPaymentSpendFailed event
+#### Taker Swap Failed with MakerPaymentSpendFailed Event
 
 ```json
 {
-  "error_events": [
-    "StartFailed",
-    "NegotiateFailed",
-    "TakerFeeSendFailed",
-    "MakerPaymentValidateFailed",
-    "TakerPaymentTransactionFailed",
-    "TakerPaymentDataSendFailed",
-    "TakerPaymentWaitForSpendFailed",
-    "MakerPaymentSpendFailed",
-    "TakerPaymentRefunded",
-    "TakerPaymentRefundFailed"
-  ],
+  "error_events": ["StartFailed","NegotiateFailed","TakerFeeSendFailed","MakerPaymentValidateFailed","MakerPaymentWaitConfirmFailed","TakerPaymentTransactionFailed","TakerPaymentWaitConfirmFailed","TakerPaymentDataSendFailed","TakerPaymentWaitForSpendFailed","MakerPaymentSpendFailed","TakerPaymentRefunded","TakerPaymentRefundFailed"],
   "events": [
     {
       "event": {
@@ -2118,22 +2075,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 }
 ```
 
-#### Successful Maker swap
+#### Successful Maker Swap
 
 ```json
 {
   "result": {
-    "error_events": [
-      "StartFailed",
-      "NegotiateFailed",
-      "TakerFeeValidateFailed",
-      "MakerPaymentTransactionFailed",
-      "MakerPaymentDataSendFailed",
-      "TakerPaymentValidateFailed",
-      "TakerPaymentSpendFailed",
-      "MakerPaymentRefunded",
-      "MakerPaymentRefundFailed"
-    ],
+    "error_events": ["StartFailed","NegotiateFailed","TakerFeeValidateFailed","MakerPaymentTransactionFailed","MakerPaymentDataSendFailed","MakerPaymentWaitConfirmFailed","TakerPaymentValidateFailed","TakerPaymentWaitConfirmFailed","TakerPaymentSpendFailed","MakerPaymentRefunded","MakerPaymentRefundFailed"],
     "events": [
       {
         "event": {
@@ -2319,21 +2266,11 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 }
 ```
 
-#### Maker swap failed with MakerPaymentTransactionFailed event
+#### Maker Swap Failed with MakerPaymentTransactionFailed Event
 
 ```json
 {
-  "error_events": [
-    "StartFailed",
-    "NegotiateFailed",
-    "TakerFeeValidateFailed",
-    "MakerPaymentTransactionFailed",
-    "MakerPaymentDataSendFailed",
-    "TakerPaymentValidateFailed",
-    "TakerPaymentSpendFailed",
-    "MakerPaymentRefunded",
-    "MakerPaymentRefundFailed"
-  ],
+  "error_events": ["StartFailed","NegotiateFailed","TakerFeeValidateFailed","MakerPaymentTransactionFailed","MakerPaymentDataSendFailed","MakerPaymentWaitConfirmFailed","TakerPaymentValidateFailed","TakerPaymentWaitConfirmFailed","TakerPaymentSpendFailed","MakerPaymentRefunded","MakerPaymentRefundFailed"],
   "events": [
     {
       "event": {
