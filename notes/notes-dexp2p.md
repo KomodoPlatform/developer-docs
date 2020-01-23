@@ -880,3 +880,189 @@ the node already knows what the DEX_pubkey is. it is either generated randomly f
 [5:28 PM]gcharang:got it
 [5:28 PM]jl777c:i just didnt want to constrain things, probably most all usecases will want authenticated
 [5:28 PM]jl777c:but who knows what usecases unauthenticated provides
+
+9:09 PM]jl777c:a much improved new version:
+1. i cant reproduce the occasional crash anymore, under many different configurations
+2. refactored internals a LOT, memory usage is much less and there is no hard limit to tx/sec rate, though you cant sustain the max rate of 16k/sec for more than maxlagtime of 1 minute
+3. latency is improved
+4. duplicates and errors shouldnt be any worse
+5. higher sync rate for lower priorities
+[9:09 PM]jl777c:please regression test to make sure i didnt break any existing functionality
+
+[6:37 AM]jl777c:pushed fix for cancel deadlock
+[6:37 AM]jl777c:also changed how baseamount and relamount are displayed
+[6:37 AM]jl777c:the logic is that if it is more than 1 satoshi, 8 decimals is used, if less, then 15 decimals is used. maybe i should use the same logic for price also
+[6:38 AM]jl777c:wait a bit, syntax error
+[6:42 AM]jl777c:fixed. i had to always used %.08f format for amounts as they are internally 64bits but i made the price display toggle between 8 and 15 decimals based on whether price is >= 0.00000001
+
+6:56 AM]jl777c:now that the crash seems finally fixed, i can continue to add features. cancel all orders for a pubkey was next on my list. i can add a tagA/tagB filter also. that would require 2 calls to cancel all bids and asks
+[6:57 AM]jl777c:also, any other feature requests, you can make. i have things pretty extensible internally now and can issue network wide operations that executes, at most one times. it might not get there due to network congestion
+[7:03 AM]cipi:in mm2 there is the API-call cancel_all_orders which takes base and rel as argument and that also needs to be called twice to remove both bids and asks (base/rel and rel/base), so it would be the same
+i use this call to remove all order from a pair in cases where i can't get a recent price for that pair (coinpaprika down, coin had no volume)
+i don't know how the call is implemented internally in mm2... could be it already has a list of orderids and cancels them one by one... so could be that cancel by id in DEXP2P is enough and the rest is done by mm2, but not sure
+[7:07 AM]jl777c:i have not gotten much feedback at all from the mm2 devs, so i am just proceeding with the assumption that dexp2p could implement the entire live orderbook. if they end up not using it, it will just be a day or two of coding wasted, but not really wasted as it allows us to make sure it is adequate for the task.
+[7:09 AM]jl777c:with DEX_list allowing a low level view of the data from any of the 4 indexes and DEX_orderbook creating ready made orderbooks, it could be than mm2 can just use it as it. since there is no spec for -dexp2p and not much documentation, it is hard for the mm2 team to decide on how much of it to use. maybe if they see they can just use it as the order cache directly, they will. or maybe it will lack some vitally needed functionality or feature, in which case they can use it just as a low level packet fifo
+
+7:19 AM]jl777c:once it is fully working, maybe i will get ambitious some day and port mm1 into it :slight_smile:
+[7:20 AM]jl777c:having a realtime comms channel will make things a lot easier to do, but there is no need for such redundant work and i can see a lot of different usecases for -dexp2p that can use some simple reference implementations
+[7:23 AM]jl777c:not sure if dexp2p even works on non-unix systems and i dont plan on supporting them if it takes a lot of pain
+[7:23 AM]jl777c:but it should just work with windows as i piggybacked onto existing bitcoin peering code
+[7:24 AM]jl777c:and no new dependencies, it is all just C code in komodo_DEX.h
+
+[7:26 AM]Sir Seven:any other feature requests
+smth like DEX_genpubkey pubkey that will generate new pubkey33 according to pubkey given and DEX_setpubkey pubkey33 to make node use it instead.
+The usecases will be - after importing new privkey from other instanse or after generating a brand new one.
+[7:27 AM]jl777c:as long as the pubkey is in the wallet, this can be done
+[7:27 AM]jl777c:but you cant relaunch with the -pubkey= param?
+[7:28 AM]Sir Seven:It's possible, yes, but will be a pain to relaunch for each privkey in wallet.
+[7:28 AM]jl777c:i want to avoid -dexp2p being dependent on the wallet too much to make it easier to make an independent implementation
+[7:28 AM]jl777c:ok, if it helps, i will add it
+
+8:02 AM]cipi:btw, i can cancel all orders for a pair like this
+for i in `komodo-cli -ac_name=DEXP2P DEX_orderbook 10000 0 KMD DGB | jq -r ".[]|.[].id"`; do komodo-cli -ac_name=DEXP2P DEX_cancel $i; done
+
+and the orders are gone from orderbook immediately, even if there are hundreds of them... and under heavy load
+[8:08 AM]jl777c:i tried to make it fast. maybe there is no need for any other cancels?
+[8:09 AM]jl777c:if not needed, that is less bugs for me to worry about. i already have the cancel all coded so maybe i just debug that and you get the single order cancel and the cancel absolutely everything
+[8:09 AM]jl777c:then using code like above you can clear out orderbooks
+[8:13 AM]jl777c:actually with txpowbits of 1, it will be instant, but with production values of around 1 second per command, it would take forever. i think i need to support cancel tagA/tagB directly
+[8:13 AM]jl777c:global commands charge a 8x/16x txpow premium
+[8:15 AM]jl777c:i guess i can lower it to a 2x and 4x premium for cancel id/cancel pubkey, but still it will take a while to issue 100 commands. the problem is that cancel is not just a local command it needs to not only be broadcast networkwide, it needs to run once on all nodes
+[8:15 AM]jl777c:to avoid spam, everything is charging a txpow "fee"
+[8:16 AM]jl777c:it will need to be calibrated to match what is a reasonable execution time for the various commands
+
+8:24 AM]cipi:i think a reasonable execution time also depends on how price updates for existing orders are implemented
+i think in mm2 the old order is canceled and a new one is created... if this takes 1s per pair and you have 60 pairs, it would be probably too much (i normally do price updates every 90s for all pairs)
+but maybe it could be changed, so i don't remove the old order, but only post new ones and the other nodes simply take the order with the most recent timestamp if it finds more than 1 order from one pubkey... on the other hand, this would mean that you can't post more than one order for a pair...
+[8:26 AM]jl777c:if you can do 2 cancels in a second, per CPU core, is that fast enough?
+
+[8:27 AM]cipi:yes, i think that should be enough... the nodes with many pairs also have many cores, so it would work
+[8:28 AM]jl777c:i havent tested issuing requests in parallel, but i think you should be able to calculate the txpow in parallel
+[8:29 AM]cipi:the txpow tells how much cputime is consumed for the operation, right?
+[8:30 AM]jl777c:statistically
+[8:30 AM]jl777c:each bit makes half the remaining hashes invalid
+[8:31 AM]jl777c:so with 12 bits, only 1 in 4096 is valid with a 4 bit premium for cancel that is 1 in 65536
+[8:31 AM]jl777c:but if the baseline needs to be 16 bits, then cancel pow will be 20 bits...
+[8:31 AM]jl777c:i guess  i need to lower it to a premium of 2. one advantage of higher priority is that it propagates a lot better
+[8:32 AM]jl777c:so having it 4 more than baseline would maximize its reaching all nodes
+[8:33 AM]jl777c:need to tweak the exact costs with some benchmarks. maybe someone can get time to calculate statistics on various systems at various priorities (keeping track of what txpowbits is set to for that version)
+[8:37 AM]cipi:is it sufficient to measure the time till DEX_cancel call returns to get the benchmark values? so if i call DEX_cancel couple thousand times i should get a good value.
+[8:37 AM]jl777c:just directly specify the priority with a DEX_broadcast
+[8:37 AM]jl777c:payload of 4 bytes size
+[8:38 AM]jl777c:dont use ffff as the payload that is the special one that blasts
+[8:38 AM]cipi:does it need to be different on each call or can i use the same over and over again?
+[8:38 AM]jl777c:certainly a few thousand times will give a good value
+[8:39 AM]jl777c:you should be able to use the same payload, it calculates a random nonce and also uses timestamp
+
+8:39 AM]jl777c:i have seen occasional collisions from lots of packets in the same second
+[8:41 AM]cipi:you mean collisions like in this output?
+583: del.1511 6a8b77c7, RAM.0 00000000 R.9442956 S.1331073 A.9444060 dup.15533 | L.22010247 A.9057584 coll.19158 | lag  1.839 (3.3881 2.4727 2.8938) err.0 pend.964 T/F 4075966/4066097 | 0 0 0 0 0 0 0 0 0 0 0 0 0 0  1473/sec
+that is from a node that is also a tor relay and does a lot of tor traffic all the time (150-200 MBits in and out all the time)
+[8:44 AM]jl777c:no, that is for an internal hashtable
+[8:45 AM]jl777c:when broadcasting if your packets id matches an already existing one, it will printout "cant issue duplicate order..."
+[8:46 AM]jl777c:i dont flow through the errors yet, but it is very rare
+[8:46 AM]jl777c:literally one in a million
+[8:46 AM]cipi:never saw one of those :slight_smile:
+[8:47 AM]jl777c:i see a few, but only by doing 100 million packets
+[9:49 AM]TonyL:automated process so just needed specify here servers ips, amount of nodes per server and spam duration and starting by one command just as python3 dexp2p_auto_deploy.py
+100 nodes results on latest: https://paste.ubuntu.com/p/PYRbcHX3MC/ (not used rate limiter and any diff defines)
+
+interesting python lib btw: https://parallel-ssh.readthedocs.io/en/latest/index.html
+[1:39 PM]jl777c:network was saturated. you definitely need to add in sleeps, oh i removed them in the core to allow max performance when finding crashes, plus this allows to control it precisely externally
+[5:15 PM]TonyL:https://paste.ubuntu.com/p/N9WmQQZFTH/ exactly same configuration but with rate limiting 1 second each 10
+[5:15 PM]TonyL:from my perspective looks much more better than first one
+[5:17 PM]TonyL:oh, that's not exact configuration, 8 nodes per host also instead of 10 :slight_smile: let me try with 5 and 10 nodes also now to find the better config
+
+5:53 PM]TonyL:https://paste.ubuntu.com/p/vxG9VkJ2V9/ 5 nodes per server with limiter
+https://paste.ubuntu.com/p/N9WmQQZFTH/ 8 nodes per server with limiter
+https://paste.ubuntu.com/p/tWgt4jZcbS/ 10 nodes per server with limiter
+
+
+6:28 PM]jl777c:even the 5 nodes per server is a bit laggy. what are the specifics for the limiter?
+[6:30 PM]jl777c:can you add 100 millseconds pause after each broadcast?
+[6:30 PM]TonyL:
+  
+#!/bin/bash
+
+end=$((SECONDS+$3))
+
+while [ $SECONDS -lt $end ]; do
+  let "c = $SECONDS % 10"
+  if (( $c == 0 ))
+  then
+  sleep 1
+  else
+  TEST="$2"_$(( ( RANDOM % 1000000 )  + 1 ))
+  curl --user test:test --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "DEX_broadcast", "params": ["'"$TEST"'", "0", "'"$1"'", "", "", "0.1", "100"] }' -H 'content-type: text/plain;' http://127.0.0.1:$1/ >> spam_p2p/packages/$2_$1_packages.txt
+  fi
+done
+[6:30 PM]jl777c:that would be 10 per node, per second and 1000 per second today
+[6:30 PM]TonyL:each 10th second it sleep for a second
+[6:30 PM]jl777c:no wonder it saturated
+[6:30 PM]TonyL:oh, should sleep each 10th package
+[6:31 PM]TonyL:lol
+[6:31 PM]jl777c:yes, every 10th, but that makes a fast burst of 10 and if all nodes are doing it, we get a spike of 1000 in a fraction of a second. the buffering should handle it though, that would be a good test
+[6:32 PM]jl777c:maybe do 10 nodes per server and sleep for 1 second after every 5 broadcasts
+[6:32 PM]jl777c:that is 500 per second, so it should be well below saturation
+[6:32 PM]jl777c:if there is a way to do sub-second sleeps, equivalent to usleep() that would be much better control
+[6:32 PM]TonyL:isn't it 50 per second?
+[6:33 PM]TonyL:oh 10*10
+6:35 PM]TonyL:I'm not a bash expert at all but google saying that we can use just a second fractions like a:
+sleep 0.1
+[6:35 PM]TonyL:oh or no, need custom functions and etc
+[6:38 PM]TonyL:Sad that python is not good for stress testing things.
+Will solve it and make spam script works correct after a lunch break
+[6:43 PM]jl777c:at txpowbits of 1,  a single node will blast out 1000 per second. so 100 nodes will be trying to blast out 100,000 per second, for 10 seconds or a million packets in 10 seconds. definitely saturated as the numbers show. the fact it did as well as it did means even under extreme saturation, the worst that happens is packets dont get delivered, but higher probability for higher priority
+[6:44 PM]jl777c:for now just start at 500/sec rate (5 packets, sleep 1 second)
+[6:44 PM]TonyL:yeah, and we testing very extreme case when 10 clients spam non stop from single computer - surprised that it not crashes, server not die and etc
+[6:44 PM]jl777c:that is still 10x more traffic than on a 10 node network, equivalent to 5000/sec on a 10 nodes
+[6:44 PM]jl777c:it is at 32768x production levels possible
+[6:46 PM]kmdkrazy:soooo many  possibilities,  my brain wont stop to focus on one - it just keeps adding more
+
+11:06 PM]jl777c:using this way to validate network config, we can make sure we dont get stuck wondering why the network looks saturated when it is just that the nodes cant really talk to half the other nodes
+[11:07 PM]jl777c:now, my testnet is actually on a single server, but it uses something (proxmox?) to create different nodes, each with its own ip address
+[11:08 PM]jl777c:so maybe that is a way to get to 100 nodes, but it needs to be tested on a single server if you can setup the same things. noashh did the config for the proxmox
+11:17 PM]jl777c:above priority 2 seems to be 100% i sync, lag is good
+[11:17 PM]jl777c:try it without any sleeps
+[11:17 PM]jl777c:the problem is probably sharing the same "network" interface via localhost, probably not designed to be high performance. somehow proxmox makes it fully independent nodes
+[11:18 PM]jl777c:but you are using the same node, just different ports
+[11:18 PM]jl777c:at least we know the reason for the bad performance on prior tests
+[11:24 PM]TonyL:Yep, virtualization or containerization is needed. But was interesting to find out this limit - we use similar nodes starting structure in unit-tests, so know we surely know that it'll fit only for simple request-response tests.
+[11:26 PM]jl777c:i cant predict the lag time with 100 independent nodes, it could be 4 seconds or 10 seconds, if the former, can be tweaked to get to 2 seconds. actually for every general size of network and local connectivity, there will be an optimal set of internal parameters (fanout, maxlag, etc). so we can make sure that the worst performance using the best parameters at each order of magnitude is acceptable
+[11:26 PM]jl777c:then as the network grows, we can simply update the parameters
+[11:26 PM]jl777c:but as i said, impossible to know without running the tests how it will actually do
+
+11:29 PM]jl777c:certainly, and if the 100 test server network doesnt have good performance, it will only be worse with a real 100 different locations
+[11:29 PM]TonyL:yeah, I was not very clever when tested 10 servers with gazillion of packets when single server can't sync 1 package inside
+[11:30 PM]jl777c:after the 100 nodes are working well, i want to verify 1000 nodes. if it scales two orders of magnitude with a couple seconds extra lag, then i think that is sufficient
+[11:30 PM]jl777c:this is why i always say, get ANY working config first
+[11:30 PM]jl777c:without that you can spend months and years wondering where the problem is
+[11:30 PM]TonyL:I've tested single server first, just checked wrong params
+[11:31 PM]TonyL:or maybe it was fine before, thats strange actually. Because I can remember that when I've selected server cpus amount/nodes amount per server I ran same test
+[11:31 PM]TonyL:and numbers in stats were in sync
+[11:31 PM]jl777c:maybe you forgot to check the "reliable networking" checkbox
+
+11:33 PM]jl777c:already saturated, at less than 1000/sec
+[11:33 PM]jl777c:at least the first half dozen priorities are almost all in sync
+[11:34 PM]jl777c:without the sleep, it could be that you are sending out packets so fast, it just cant receive inbound packets. its supposed to be 100% fully duplex... but results show something breaks down without sleep. so even though actual bandwidth used is less than what is supposed to be there, packets are dropped
+[11:35 PM]jl777c:this is what i see on my testnet also. so you now can see an in sync test vs saturated test where the lower priority numbers are very different
+[11:35 PM]jl777c:a lot of times the packets sent locally is not even getting to any other node
+[11:35 PM]TonyL:what if embeed limiter right into the daemon?
+[11:36 PM]jl777c:so clearly if the network is saturated, we cant be 100% in sync, the graceful degradation is to make sure the highest priorities are getting there
+[11:36 PM]jl777c:the issue is that with txpowbits at 15, you wont get much more than 2 packets per second
+[11:36 PM]jl777c:maybe 10 for a fast CPU
+[11:37 PM]jl777c:so there is no point to put in sleeps in the core and we need to make sure it gracefully degrades
+[11:37 PM]jl777c:which i think it is.
+[11:37 PM]jl777c:while waiting for server provisioning, you can validate the percentage syncing of the different priority levels
+[11:38 PM]jl777c:then you can throttle the bandwidth used by having a sleep every packet, every 10, every 20, every 30, ... and we can see how the percentage in sync degrades at the various priority levels
+[11:38 PM]kmdkrazy:FYI  Chewing 
+
+11:44 PM]jl777c:already it will create higher priorities, actually for half of them!
+[11:44 PM]jl777c:50% at specified priority
+[11:44 PM]jl777c:25% at priority+1
+[11:44 PM]jl777c:12.5% at +2
+[11:44 PM]jl777c:...
+[11:44 PM]jl777c:half dropping with each extra priority
+[11:45 PM]jl777c:so you need to record the priority that is returned, (or you can just convert the id to hex and count 0 bits)
+[11:46 PM]jl777c:so after you send out the packets, you can tell what priority each packet was. given that and knowing which packets are in sync, you can get a tally for sync percentage by priority
+[11:49 PM]jl777c:anyway, it seems there are no verified bugs now, so i will go back to writing more of them
