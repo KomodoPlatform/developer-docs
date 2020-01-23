@@ -448,9 +448,22 @@ The `pricescashout` method can be used to cash out the bet referred by "bettxid"
 
 ### Response
 
-| Name     | Type     | Description                               |
-| -------- | -------- | ----------------------------------------- |
-| "result" | (string) | whether the command executed successfully |
+| Name              | Type            | Description                                                                                                           |
+| ----------------- | --------------- | --------------------------------------------------------------------------------------------------------------------- |
+| bets              | (array of json) | the bets that are open currently                                                                                      |
+| positionsize      | (number)        | the amount of native coin used to open the bet                                                                        |
+| profits           | (number)        | the profits that can be actualized if the bet is closed at this moment; the value is nagative if it is a loss         |
+| costbasis         | (number)        | the price that has been locked in as the opening price of the bet                                                     |
+| firstheight       | (number)        |                                                                                                                       |
+| leverage          | (number)        | the leverage used to open the bet                                                                                     |
+| TotalPositionSize | (number)        | the amount of native coin used to open all the bets                                                                   |
+| TotalProfits      | (number)        | the total profits that can be actualized if the bets are closed at this moment; the value is nagative if it is a loss |
+| equity            | (number)        | the amount of native Smart Chain coin that can be redeemed if the bet is cashed out at this moment                    |
+| LastPrice         | (number)        | the last known price                                                                                                  |
+| LastHeight        | (number)        | the block height at which `LastPrice` was noted                                                                       |
+| "hex"             | (string)        | the transaction in hex format; it has to ne broadcasted using the `sendrawtransaction` method                         |
+| "txid"            | (string)        | the transaction id                                                                                                    |
+| "result"          | (string)        | whether the command executed successfully                                                                             |
 
 #### :pushpin: Examples
 
