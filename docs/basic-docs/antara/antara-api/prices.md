@@ -575,13 +575,29 @@ The `pricesinfo` method returns information about the bet referred by the "bettx
 | Name    | Type               | Description                                                                  |
 | ------- | ------------------ | ---------------------------------------------------------------------------- |
 | bettxid | (string)           | the transaction id returned previously by the [pricesbet](#pricesbet) method |
-| height  | (number, optional) |                                                                              |
+| height  | (number, optional) | the height at which the information about the bet is required                |
 
 ### Response
 
-| Name     | Type     | Description                               |
-| -------- | -------- | ----------------------------------------- |
-| "result" | (string) | whether the command executed successfully |
+| Name              | Type            | Description                                                                                                           |
+| ----------------- | --------------- | --------------------------------------------------------------------------------------------------------------------- |
+| rekt              | (number)        | whether the bet is rekt; `0` if false and `1` if true                                                                 |
+| open              | (number)        | whether the bet is open; `0` if false and `1` if true                                                                 |
+| expression        | (string)        | the synthetic expression supplied by the user                                                                         |
+| reduced           | (string)        | the reduced synthetic expression derived from the one supplied by the user                                            |
+| costbasis         | (number)        | the price that has been locked in as the opening price of the bet                                                     |
+| bets              | (array of json) | the bets that are open currently                                                                                      |
+| positionsize      | (number)        | the amount of native coin used to open the bet                                                                        |
+| profits           | (number)        | the profits that can be actualized if the bet is closed at this moment; the value is nagative if it is a loss         |
+| costbasis         | (number)        | the price that has been locked in as the opening price of the bet                                                     |
+| firstheight       | (number)        |                                                                                                                       |
+| leverage          | (number)        | the leverage used to open the bet                                                                                     |
+| TotalPositionSize | (number)        | the amount of native coin used to open all the bets                                                                   |
+| TotalProfits      | (number)        | the total profits that can be actualized if the bets are closed at this moment; the value is nagative if it is a loss |
+| equity            | (number)        | the amount of native Smart Chain coin that can be redeemed if the bet is cashed out at this moment                    |
+| LastPrice         | (number)        | the last known price                                                                                                  |
+| LastHeight        | (number)        | the block height at which `LastPrice` was noted                                                                       |
+| LiquidationPrice  | (number)        | the price at which the bet will be eligible for liquidation                                                           |
 
 #### :pushpin: Examples
 
