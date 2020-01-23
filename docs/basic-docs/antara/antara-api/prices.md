@@ -159,8 +159,6 @@ Each of these operators act on top of the stack in the order from left to right.
 | `***`    | pops three elements from the top of the stack, multiplies them and pushes the result back on to the stack                           |
 | `///`    | pops three elements from the top of the stack, inverts all of them, multiplies them and pushes the result back on to the stack      |
 
-## Prices Antara Module Flow
-
 ## mypriceslist
 
 **mypriceslist [all|open|closed]**
