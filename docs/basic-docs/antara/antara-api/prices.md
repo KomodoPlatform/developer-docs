@@ -662,14 +662,14 @@ The `pricesrefillfund` method adds funds to the house (Global CC address)
 
 ### Arguments
 
-| Name   | Type     | Description |
-| ------ | -------- | ----------- |
-| amount | (amount) |             |
+| Name   | Type     | Description                                                   |
+| ------ | -------- | ------------------------------------------------------------- |
+| amount | (amount) | the amount of coins to be added to the House's public address |
 
 ### Response
 
-| Name     | Type     | Description                               |
-| -------- | -------- | ----------------------------------------- |
+| "hex" | (string) | the transaction in hex format; it has to ne broadcasted using the `sendrawtransaction` method |
+| "txid" | (string) | the transaction id |
 | "result" | (string) | whether the command executed successfully |
 
 #### :pushpin: Examples
