@@ -400,15 +400,19 @@ The `pricesbet` method is used to open a bet. The the resulting transaction id i
 
 ### Arguments
 
-| Name   | Type     | Description |
-| ------ | -------- | ----------- |
-| amount | (number) |             |
+| Name                 | Type     | Description                                                                                            |
+| -------------------- | -------- | ------------------------------------------------------------------------------------------------------ |
+| amount               | (number) | the amount of the Smart Chain's native coin to bet                                                     |
+| leverage             | (number) | the leverage to be used to open the bet; use positive integers for longs, negative integers for shorts |
+| synthetic-expression | (string) | the synthetic expression against which the bet has to be opened                                        |
 
 ### Response
 
-| Name     | Type     | Description                               |
-| -------- | -------- | ----------------------------------------- |
-| "result" | (string) | whether the command executed successfully |
+| Name     | Type     | Description                                                                                   |
+| -------- | -------- | --------------------------------------------------------------------------------------------- |
+| "hex"    | (string) | the transaction in hex format; it has to ne broadcasted using the `sendrawtransaction` method |
+| "txid"   | (string) | the transaction id                                                                            |
+| "result" | (string) | whether the command executed successfully                                                     |
 
 #### :pushpin: Examples
 
