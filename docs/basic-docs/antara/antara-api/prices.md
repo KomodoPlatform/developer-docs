@@ -346,9 +346,21 @@ Optionally, if a pubkey is supplied, this method also returns the corresponding 
 
 ### Response
 
-| Name     | Type     | Description                               |
-| -------- | -------- | ----------------------------------------- |
-| "result" | (string) | whether the command executed successfully |
+| Name                    | Type     | Description                                                                                                          |
+| ----------------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
+| "result"                | (string) | whether the command executed successfully                                                                            |
+| "PricesCCAddress"       | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
+| "PricesCCBalance"       | (number) | the amount of funds in the `PricesCCAddress`                                                                         |
+| "PricesNormalAddress"   | (string) | the unmodified public address generated from the contract's privkey                                                  |
+| "PricesNormalBalance"   | (number) | the amount of funds in the `PricesNormalAddress`                                                                     |
+| "PricesCCTokensAddress" | (string) | the public address where Tokens are locked in the Prices module                                                      |
+| "myCCAddress(Prices)"   | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                  |
+| "myCCbalance(Prices)"   | (number) | the amount of funds in the `myCCAddress(Prices)`                                                                     |
+| "myaddress"             | (string) | the public address of the pubkey used to launch the chain                                                            |
+| "mybalance"             | (number) | the amount of funds in the `myaddress`                                                                               |
+| "myaddr"                | (string) |                                                                                                                      |
+| "houseaddr"             | (string) | the public address of the House                                                                                      |
+| "exposureaddr"          | (string) |                                                                                                                      |
 
 #### :pushpin: Examples
 
