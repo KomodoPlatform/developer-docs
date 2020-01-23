@@ -300,12 +300,15 @@ The `pricesaddfunding` method adds the amount specified by the argument "amount"
 | Name    | Type     | Description                                                                  |
 | ------- | -------- | ---------------------------------------------------------------------------- |
 | bettxid | (string) | the transaction id returned previously by the [pricesbet](#pricesbet) method |
+| amount  | (number) | the amount of funding to be added to the bet                                 |
 
 ### Response
 
-| Name     | Type     | Description                               |
-| -------- | -------- | ----------------------------------------- |
-| "result" | (string) | whether the command executed successfully |
+| Name     | Type     | Description                                                                                   |
+| -------- | -------- | --------------------------------------------------------------------------------------------- |
+| "hex"    | (string) | the transaction in hex format; it has to ne broadcasted using the `sendrawtransaction` method |
+| "txid"   | (string) | the transaction id                                                                            |
+| "result" | (string) | whether the command executed successfully                                                     |
 
 #### :pushpin: Examples
 
