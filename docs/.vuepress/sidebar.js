@@ -394,6 +394,10 @@ var sidebar = [{
                         "Pegs"
                     ],
                     [
+                        "/basic-docs/antara/antara-api/prices.md",
+                        "Prices"
+                    ],
+                    [
                         "/basic-docs/antara/antara-api/rewards.md",
                         "Rewards"
                     ],

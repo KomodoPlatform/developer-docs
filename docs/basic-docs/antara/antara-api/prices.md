@@ -209,14 +209,14 @@ The `prices` method returns samples of the prices feed data that has been oracli
 
 ### Response
 
-| Name          | Type                                 | Description                                             |
-| ------------- | ------------------------------------ | ------------------------------------------------------- |
-| "firstheight" | (number)                             |                                                         |
-| "timestamps"  | (array of numbers)                   | the unix timestamps at which the samples were collected |
-| "pricefeeds"  | (array of jsons)                     | the unix timestamps at which the samples were collected |
-| "name"        | (string)                             |                                                         |
-| "prices"      | (array of arrays containing numbers) |                                                         |
-| "result"      | (string)                             | whether the command executed successfully               |
+| Name          | Type                                 | Description                                                      |
+| ------------- | ------------------------------------ | ---------------------------------------------------------------- |
+| "firstheight" | (number)                             |                                                                  |
+| "timestamps"  | (array of numbers)                   | the unix timestamps at which the samples were collected          |
+| "pricefeeds"  | (array of jsons)                     | the unix timestamps at which the samples were collected          |
+| "name"        | (string)                             | name(symbol) of the price                                        |
+| "prices"      | (array of arrays containing numbers) | mined (actual received) price; correlated price ; smoothed price |
+| "result"      | (string)                             | whether the command executed successfully                        |
 
 #### :pushpin: Examples
 
@@ -291,9 +291,9 @@ The `pricesaddfunding` method adds the amount specified by the argument "amount"
 
 ### Arguments
 
-| Name     | Type     | Description                                                                                                        |
-| -------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
-| pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
+| Name    | Type     | Description                                                                  |
+| ------- | -------- | ---------------------------------------------------------------------------- |
+| bettxid | (string) | the transaction id returned previously by the [pricesbet](#pricesbet) method |
 
 ### Response
 
@@ -417,9 +417,9 @@ The `pricescashout` method can be used to cash out the bet referred by "bettxid"
 
 ### Arguments
 
-| Name     | Type     | Description                                                                                                        |
-| -------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
-| pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
+| Name    | Type     | Description                                                                  |
+| ------- | -------- | ---------------------------------------------------------------------------- |
+| bettxid | (string) | the transaction id returned previously by the [pricesbet](#pricesbet) method |
 
 ### Response
 
