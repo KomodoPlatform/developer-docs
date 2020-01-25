@@ -1,16 +1,32 @@
-# Prices (In development)
+# Prices
 
-::: tip
+::: tip Important Notice
 
-The Prices Antara Module is currently in development. The specifics of the implementation are also subject to change. This document is a Work In Progress.
+The Prices Antara Module is currently in development. 
+
+The specifics of the implementation are subject to change.
+
+Please reach out to the Komodo team for more information before attempting to use this module in a production environment.
 
 :::
 
 ## Introduction
 
-The Prices Antara module implements a decentralized, incentivized margin trading system on a Smart Chain; allows users to open long and short leveraged positions against the House (the module itself). It required the existence of a completely trustless and decentralized price feed module (DTO - A decentralized trustless oracle). So the DTO was implemented by piggybacking on [timestamp consensus rules](https://medium.com/@jameslee777/decentralized-trustless-oracles-dto-by-piggybacking-on-timestamp-consensus-rules-2adce34d67b6). It works by requiring the miners of the Smart Chain to include the required off-chain data as a part of OP_RETURN of the coinbase transaction (The transaction that pays the block reward to the miner). The validation of the off-chain data is part of the consensus rules and if the data is false, the block will be rejected by the network, which incentivizes the miner to be truthful. To achieve consensus, all nodes allow an error of about 1% in the reported data. The DTO provides the required Price feed. For markets like `AMZN/KMD` that don’t exist in real life, [synthetic prices](#an-explanation-on-synthetic-prices-and-their-calculation) can be used.
+The Prices Antara Module offers a decentralized and incentivized margin-trading system on a Smart Chain. This allows users to open long and short leveraged positions against the "House" (the module itself). 
 
-The Prices module can retrieve prices of stocks and cryptocurrencies through the Antara Customization Parameters [ac_stocks](../antara-setup/antara-customizations.md#ac-stocks) and [ac_prices](../antara-setup/antara-customizations.md#ac-prices) respectively. It can also extract data from a web source that can be accessed using the `http/https` protocols and return the data as a json object using the [ac_feeds](../antara-setup/antara-customizations.md#ac-feeds) parameter. It also has a pre-configured feed that always retrieves values for the pairs: `BTC_USD`, `BTC_EUR` and `BTC_GBP`
+##### The Prices Modules Requires a Separate Technology Called a DTO
+
+The creation of the Prices Antara Module required the existence of a separate Antara-based module that provides trustless and decentralized price feeds. The Komodo community calls this separate type of module a "Decentralized Trustless Oracle," or DTO for brevity. 
+
+In order to create the trustless and decentralized price feeds, Komodo's DTO technology relies on [timestamp consensus rules](https://medium.com/@jameslee777/decentralized-trustless-oracles-dto-by-piggybacking-on-timestamp-consensus-rules-2adce34d67b6). 
+
+The DTO requires the miners of the Smart Chain to include the required off-chain data as a part of the OP\_RETURN of the coinbase transaction (the transaction that pays the block reward to the miner).
+
+The validation of the off-chain data is part of the consensus rules. If the data is false, the block is rejected by the network, which incentivizes the miner to be truthful. To achieve consensus, all nodes allow for an error margin of approximately `1%` in the reported data. 
+
+The DTO provides the required price feed. For markets, such as `AMZN/KMD`, that do not exist in real life, the DTO offers [synthetic prices](#an-explanation-on-synthetic-prices-and-their-calculation).
+
+The Prices module can retrieve prices of stocks and cryptocurrencies through the Antara Customization Parameters [ac\_stocks](../antara-setup/antara-customizations.md#ac-stocks) and [ac\_prices](../antara-setup/antara-customizations.md#ac-prices) respectively. It can also extract data from a web source that can be accessed using the `http/https` protocols and return the data as a json object using the [ac\_feeds](../antara-setup/antara-customizations.md#ac-feeds) parameter. It also has a pre-configured feed that always retrieves values for the pairs: `BTC_USD`, `BTC_EUR` and `BTC_GBP`
 
 A player opens a position with the desired betting amount and leverage. They can close the position anytime and receive the current equity that is in a non negative state. When the loss of a player is close to exceeding their position, it is liquidated by incentivized users who will receive a small percentage.
 

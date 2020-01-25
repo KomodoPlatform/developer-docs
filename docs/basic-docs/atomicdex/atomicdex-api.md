@@ -138,7 +138,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## cancel_all_orders
+## cancel\_all\_orders
 
 **cancel_order cancel_by**
 
@@ -213,7 +213,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## cancel_order
+## cancel\_order
 
 **cancel_order uuid**
 
@@ -259,7 +259,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## coins_needed_for_kick_start
+## coins\_needed\_for\_kick\_start
 
 **coins_needed_for_kick_start()**
 
@@ -305,7 +305,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## disable_coin
+## disable\_coin
 
 **disable_coin coin**
 
@@ -706,7 +706,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## get_enabled_coins
+## get\_enabled\_coins
 
 **get_enabled_coins**
 
@@ -779,7 +779,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## get_trade_fee
+## get\_trade\_fee
 
 **get_trade_fee coin**
 
@@ -896,7 +896,7 @@ The `help` method returns the full API documentation in the terminal.
 | ----------------------------------- | ---- | ----------- |
 | (returns the full docs in terminal) |      |             |
 
-## import_swaps
+## import\_swaps
 
 **import_swaps swaps**
 
@@ -946,7 +946,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my_balance
+## my\_balance
 
 **my_balance coin**
 
@@ -994,7 +994,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my_orders
+## my\_orders
 
 **my_orders()**
 
@@ -1160,7 +1160,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my_recent_swaps
+## my\_recent\_swaps
 
 **(from_uuid limit=10)**
 
@@ -1616,7 +1616,7 @@ Response (error)
 
 </div>
 
-## my_swap_status
+## my\_swap\_status
 
 **uuid**
 
@@ -2373,7 +2373,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 </div>
 
-## my_tx_history
+## my\_tx\_history
 
 **(from_id limit=10)**
 
@@ -2620,7 +2620,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## order_status
+## order\_status
 
 **order_status uuid**
 
@@ -2884,7 +2884,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## recover_funds_of_swap
+## recover\_funds\_of\_swap
 
 **recover_funds_of_swap uuid**
 
@@ -3061,7 +3061,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## send_raw_transaction
+## send\_raw\_transaction
 
 **send_raw_transaction coin tx_hex**
 
@@ -3199,7 +3199,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## set_required_confirmations
+## set\_required\_confirmations
 
 **set_required_confirmations coin confirmations**
 
