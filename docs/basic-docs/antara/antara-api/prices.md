@@ -28,7 +28,7 @@ In order to create the trustless and decentralized price feeds, Komodo's DTO tec
 
 The DTO requires the miners of the Smart Chain to include the required off-chain data as a part of the OP\_RETURN in the coinbase transaction (the transaction that pays the block reward to the miner).
 
-The validation of the off-chain data is part of the consensus rules. If the data is false, the block is rejected by the network, which incentivizes the miner to be truthful. To achieve consensus, all nodes allow for an error margin of approximately `1%` in the reported data. 
+The validation of the off-chain data is part of the consensus rules. If the data is false, the block is rejected by the network, which serves as an incentive for the miner to be truthful. To achieve consensus, all nodes allow for an error margin of approximately `1%` in the reported data. 
 
 ##### Manners of Obtaining Data
 
@@ -62,7 +62,7 @@ In a margin-trading system there are two roles: Lender and Trader.
 
 In the example here, Player X is the Trader. 
 
-Lender faciliates Trader in borrowing a multiple ("leverage") of the deposited collateral (`$100`). Thereby the Trader can trade using the total amount (deposit + leverage).
+Lender facilitates Trader in borrowing a multiple ("leverage") of the deposited collateral (`$100`). Thereby the Trader can trade using the total amount (deposit + leverage).
 
 For example, Player X desires to trade with a leverage of `10`. This is `$100 * 10 = $1000` USD.
 
@@ -82,8 +82,8 @@ In many scenarios, a Lender has the ability to liquidate the Trader at any given
 
 The following stop-loss values are common in margin trading:
 
-- A `10x` leverage can tolerate up to a `10%` decrease in price before forced liqiduation occurs
-- A `100x` leverage can tolerate up to a `1%` decrease in price before forced liqidation occurs
+- A `10x` leverage can tolerate up to a `10%` decrease in price before forced liquidation occurs
+- A `100x` leverage can tolerate up to a `1%` decrease in price before forced liquidation occurs
 
 ##### Summary of a Brief Explanation to Margin Trading
 
@@ -128,8 +128,6 @@ In calculating a synthetic price, the Komodo API supports up to three pairs of p
 - divide(`/`)
 
 These operations can be supplied with positive and negative integers. The integers allow the calculation of synthetic prices for baskets <!-- Sidd:What's a basket? --> of assets or indexes. The negative integers can be used to short a price.
-
-<!-- Sidd: there's some information missing below as well. Let's see the example BTC/BCH calculation. -->
 
 For example, the synthetic price of a basket with `3/4` parts BTC and `1/4` parts BCH can be calculated.
 
@@ -536,7 +534,7 @@ The `pricescashout` method can be used to cash out the `bettxid` bet. At the mom
 | equity            | (number)        | the amount of native Smart Chain coin that can be redeemed if the bet is cashed out at this moment                    |
 | LastPrice         | (number)        | the last known price                                                                                                  |
 | LastHeight        | (number)        | the block height at which `LastPrice` was noted                                                                       |
-| "hex"             | (string)        | the transaction in hex format; it has to ne broadcasted using the `sendrawtransaction` method                         |
+| "hex"             | (string)        | the transaction in hex format; broadcast this value using the `sendrawtransaction` method                         |
 | "txid"            | (string)        | the transaction id                                                                                                    |
 | "result"          | (string)        | whether the command executed successfully                                                                             |
 
