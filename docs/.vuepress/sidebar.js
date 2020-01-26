@@ -271,22 +271,22 @@ var sidebar = [
             "/basic-docs/antara/antara-tutorials/advanced-series-6.md",
             "Advanced Series — Miscellaneous"
           ],
-          [
-            "/basic-docs/antara/antara-tutorials/gaming-sdk-tutorial-0.md",
-            "Gaming SDK Tutorial — Getting Started"
-          ],
-          [
-            "/basic-docs/antara/antara-tutorials/gaming-sdk-tutorial-1.md",
-            "Gaming SDK Tutorial — Adding a Gaming System"
-          ],
-          [
-            "/basic-docs/antara/antara-tutorials/gaming-sdk-tutorial-3.md",
-            "Gaming SDK Tutorial — Tic Tac Toe"
-          ],
-          [
-            "/basic-docs/antara/antara-tutorials/gaming-sdk-tutorial-4.md",
-            "Gaming SDK Tutorial — Flappy Bird"
-          ],
+          // [
+          //   "/basic-docs/antara/antara-tutorials/gaming-sdk-tutorial-0.md",
+          //   "Gaming SDK Tutorial — Getting Started"
+          // ],
+          // [
+          //   "/basic-docs/antara/antara-tutorials/gaming-sdk-tutorial-1.md",
+          //   "Gaming SDK Tutorial — Adding a Gaming System"
+          // ],
+          // [
+          //   "/basic-docs/antara/antara-tutorials/gaming-sdk-tutorial-3.md",
+          //   "Gaming SDK Tutorial — Tic Tac Toe"
+          // ],
+          // [
+          //   "/basic-docs/antara/antara-tutorials/gaming-sdk-tutorial-4.md",
+          //   "Gaming SDK Tutorial — Flappy Bird"
+          // ],
           [
             "/basic-docs/antara/antara-tutorials/dilithium-module-tutorial.md",
             "Module Tutorial — Dilithium"
@@ -325,7 +325,7 @@ var sidebar = [
                                ], */
           ["/basic-docs/antara/antara-api/dilithium.md", "Dilithium"],
           ["/basic-docs/antara/antara-api/faucet.md", "Faucet"],
-          ["/basic-docs/antara/antara-api/gaming.md", "Gaming SDK"],
+          // ["/basic-docs/antara/antara-api/gaming.md", "Gaming SDK"],
           ["/basic-docs/antara/antara-api/gateways.md", "Gateways"],
           ["/basic-docs/antara/antara-api/heir.md", "Heir"],
           ["/basic-docs/antara/antara-api/musig.md", "MuSig"],
