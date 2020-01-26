@@ -325,11 +325,7 @@ var sidebar = [
                                ], */
           ["/basic-docs/antara/antara-api/dilithium.md", "Dilithium"],
           ["/basic-docs/antara/antara-api/faucet.md", "Faucet"],
-<<<<<<< HEAD
-          ["/basic-docs/antara/antara-api/gaming.md", "Gaming SDK"],
-=======
           // ["/basic-docs/antara/antara-api/gaming.md", "Gaming SDK"],
->>>>>>> 4a9444b3543719e3c65f7229f25fe786c9a01e1d
           ["/basic-docs/antara/antara-api/gateways.md", "Gateways"],
           ["/basic-docs/antara/antara-api/heir.md", "Heir"],
           ["/basic-docs/antara/antara-api/musig.md", "MuSig"],
