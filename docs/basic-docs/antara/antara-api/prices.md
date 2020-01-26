@@ -14,155 +14,208 @@ Please reach out to the Komodo team for more information before attempting to us
 
 The Prices Antara Module offers a decentralized and incentivized margin-trading system on a Smart Chain. This allows users to open long and short leveraged positions against the "House" (the module itself). 
 
+A player opens a position with the desired betting amount and leverage. They can close the position anytime and receive the current equity that is in a non-negative state. 
+
+When the debt ratio of a player is close to exceeding the allowed limits, other players on the network can liquidate the indebted player's account. The liquidating players thereby receive as an incentive a small percentage of the indebted player's holdings.
+
+For a more detailed explanation of the nature of "leveraged positions" and other terms related to margin trading, please read [this explanation section.](../../../basic-docs/antara/antara-api/prices.html#a-brief-explanation-of-margin-trading-leveraged-trading)
+
 ##### The Prices Modules Requires a Separate Technology Called a DTO
 
-The creation of the Prices Antara Module required the existence of a separate Antara-based module that provides trustless and decentralized price feeds. The Komodo community calls this separate type of module a "Decentralized Trustless Oracle," or DTO for brevity. 
+The creation of the Prices Antara Module required the existence of a separate Antara-based module that provides trustless and decentralized price feeds. The Komodo community named this separate type of module a "Decentralized Trustless Oracle," or DTO for brevity. 
 
 In order to create the trustless and decentralized price feeds, Komodo's DTO technology relies on [timestamp consensus rules](https://medium.com/@jameslee777/decentralized-trustless-oracles-dto-by-piggybacking-on-timestamp-consensus-rules-2adce34d67b6). 
 
-The DTO requires the miners of the Smart Chain to include the required off-chain data as a part of the OP\_RETURN of the coinbase transaction (the transaction that pays the block reward to the miner).
+The DTO requires the miners of the Smart Chain to include the required off-chain data as a part of the OP\_RETURN in the coinbase transaction (the transaction that pays the block reward to the miner).
 
 The validation of the off-chain data is part of the consensus rules. If the data is false, the block is rejected by the network, which incentivizes the miner to be truthful. To achieve consensus, all nodes allow for an error margin of approximately `1%` in the reported data. 
 
+##### Manners of Obtaining Data
+
+The Prices module retrieves prices of stocks and cryptocurrencies through the Antara Customization Parameters [ac\_stocks](../antara-setup/antara-customizations.md#ac-stocks) and [ac\_prices](../antara-setup/antara-customizations.md#ac-prices), respectively.
+
+The module can extract data from a web source that can be accessed using the `http/https` protocols and return the data as a json object using the [ac\_feeds](../antara-setup/antara-customizations.md#ac-feeds) parameter. 
+
+The module also has a pre-configured feed that always retrieves values for the pairs `BTC_USD`, `BTC_EUR` and `BTC_GBP`.
+
 The DTO provides the required price feed. For markets, such as `AMZN/KMD`, that do not exist in real life, the DTO offers [synthetic prices](#an-explanation-on-synthetic-prices-and-their-calculation).
 
-The Prices module can retrieve prices of stocks and cryptocurrencies through the Antara Customization Parameters [ac\_stocks](../antara-setup/antara-customizations.md#ac-stocks) and [ac\_prices](../antara-setup/antara-customizations.md#ac-prices) respectively. It can also extract data from a web source that can be accessed using the `http/https` protocols and return the data as a json object using the [ac\_feeds](../antara-setup/antara-customizations.md#ac-feeds) parameter. It also has a pre-configured feed that always retrieves values for the pairs: `BTC_USD`, `BTC_EUR` and `BTC_GBP`
+##### Manner of Preventing Miner Manipulation 
 
-A player opens a position with the desired betting amount and leverage. They can close the position anytime and receive the current equity that is in a non negative state. When the loss of a player is close to exceeding their position, it is liquidated by incentivized users who will receive a small percentage.
+To counter the possibility of manipulation of price data by a miner (for example, a miner could attempt to take advantage of the `1%` error allowed to win an open bet), when a position is opened the price of purchase is not set until a twenty-four hour period has past. During this period, the module tracks the prices of the relevant currencies. At the end of the period, the module automatically sets the price of purchase for the position based on the price averages.
 
-To counter the possibility of manipulation of Price data by a miner by taking advantage of the 1% allowed error to win an open bet, when a position is opened, the price of purchase is fixed 24 hours later based on the average of the prices in the past 24 hours. For longs, the lock price (cost basis) is the maximum among averages; For shorts it is the minimum among averages. So margin trading in such a system needs some patience.
+For long positions, the lock price (also called the "cost basis") is the maximum among averages; for short positions, the lock price is the minimum among averages.
 
-### A brief explanation of Margin Trading (Leveraged trading)
+Players should not expect high-speed trading in this type of system. 
 
-Let's say you have `$100` and absolutely sure that BTC will moon, margin trading allows you to have a greater Profit percentage than simply buying `$100` worth of BTC and holding it.
+### A Brief Explanation of Margin Trading ("Leveraged Trading")
 
-::: warning
+Assume Player X has `$100` USD and is certain that Bitcoin (BTC) will soon have a large increase in value relative to USD. 
 
-It makes the risk you assume greater as well
+In this type of scenario, Player X can use margin trading to find a greater profit percentage than he would by simply buying `$100` USD worth of BTC and holding it.
 
-:::
+However, margin trading increases the risk placed on Player X.
 
-If you had just bought BTC and sold it after its price increased by `5%`, your profit would be `5%`; i.e., `$5`. Similar calculation for when the price decreases as well.
+If Player X simply buys his BTC and then sells it after its price increases by `5%`, Player X's profit is `5%`, or `$5` USD. Similarly, the loss is `$5` USD if the price decreases by `5%`.
 
-In a Margin trading system, there is always a Lender and a Trader(you). The Lender lets a Trader borrow a multiple (Leverage) of the deposited collateral(`$100`) and lets you trade using the total amount.
+In a margin-trading system there are two roles: Lender and Trader.
 
-For example, if you wanted to trade with a leverage of `10`, the Lender gives you the remaining `$900` and lets you buy BTC worth `$1000` at current market price. Now, if the price increases by `5%` and you sold the BTC, the profit you make is `$50` and if you return the loan(`$900`), you are left with `$150` which amounts to a profit of `50%`.
+In the example here, Player X is the Trader. 
 
-::: tip
+Lender faciliates Trader in borrowing a multiple ("leverage") of the deposited collateral (`$100`). Thereby the Trader can trade using the total amount (deposit + leverage).
 
-In the above scenario, the lender recovered their capital and also received trading fees
+For example, Player X desires to trade with a leverage of `10`. This is `$100 * 10 = $1000` USD.
 
-:::
+Lender gives Player X the remaining `$900` USD. Player X now buys `$1000` USD worth of BTC. 
 
-Now, consider the case of a decrease in price by `5%` after you bought BTC using a leverage of `10`. If you sold the BTC now, you will receive `$950` if you return the loan(`$900`), you are left with `$50` which amounts to a loss of `50%`.
+If the price increases by `5%` and Player X sells their BTC, the profit is `$50` USD. 
 
-If the decrease in price was `10%`, after selling the BTC, you will receive `$900` and after returning the loan, there is `$0` left.
+Player X returns the loan of `$900` and is left with `$150` USD, which amounts to a profit of `50%`.
 
-::: warning
+Alternatively, the price can drop and the Trader can lose higher amounts. In this example, the value of BTC relative to USD drops by `5%`.
 
-Most lenders will liquidate your BTC long before this point. Remember, the house never loses.
+Player X now only has `$950` USD worth of BTC. Player X sells and returns the loan amount of `$900` USD, and has `$50` USD remaining.
 
-:::
+This is now a loss of `50%`.
 
-So by leveraging 10x, 5% volatility causes 50% profit/loss, 10% volatility causes doubling/liquidation,
+In many scenarios, a Lender has the ability to liquidate the Trader at any given time, and will force liquidation before the player can lose more than they are able to immediately repay.
 
-::: tip Liquidation
+The following stop-loss values are common in margin trading:
 
-When your position cannot take anymore loss due to decrease in price, the lender will forcibly sell your Holdings to recoup their capital
+- A `10x` leverage can tolerate up to a `10%` decrease in price before forced liqiduation occurs
+- A `100x` leverage can tolerate up to a `1%` decrease in price before forced liqidation occurs
 
-:::
+##### Summary of a Brief Explanation to Margin Trading
 
-It can be observed that
+Assuming `$0` fees, a player can calculate actual profit or loss percentage by the following formula.
 
-- 10x leverage can tolerate up to 10% decrease in price
-- 100x leverage can tolerate up to 1% decrease in price
+```
+price change in percent * leverage
+```
 
-To summarize the concepts and standardise the terms:
+The Trader's "position" is the amount of coins the player places as a bet.
 
-Assuming `0` fees, you can simply calculate your actual profit/loss percentage as `price change in percent * leverage`
+The Trader's "equity" is the amount of coins the player can withdraw at the current moment. Equity is calculated by the following formula. 
 
-Your `Position` is the amount of coins you are betting with.
+```
+position + (profit or loss)
+```
 
-Your `Equity` is the amount of coins you can withdraw if you cashout at this instance. It is calculated as `Position + (profit or loss)`
+"Cost basis" is the price at which the bet is opened.
 
-`costbasis` is the price at which the bet was opened.
+### Synthetic Prices and Their Calculation
 
-### An Explanation on Synthetic prices and their calculation
+The Prices data on a Smart Chain is made available by an active Decentralized Trustless Oracle (DTO), which is comprised of all nodes and miners on the network.
 
-As the Prices data on the Smart Chain is made available using a Decentralized Trustless Oracle(DTO) made up of all the nodes and miners on the network, it may not always be possible to have access to Price feeds from all the possible markets. There might also be a case where the desired pair doesn't have a real market, yet. In such cases, Price data of two or more different pairs can be used to derive the Price of the desired pair. Such a Price is called `Synthetic Price`.
+There are limitations to a DTO. For example, the DTO cannot offer price feeds for all possible markets across the world. Furthermore, users on the network may desire a trading pair that does not yet have a real market. 
 
-Example: Suppose the DTO for the Smart Chain doesn't supply the Price data for the pair `AMZN/KMD`; but it does supply the Price data for the pairs `AMZN/USD`, `USD/BTC` and `BTC/KMD`
+In such cases, price data of two or more different pairs can be used to derive the price of a desired pair. The resulting price data is called a "Synthetic Price."
 
-We can get the Synthetic Price of `AMZN/KMD` by multiplying the Prices of all the three pairs.
+For example, suppose the DTO for a Smart Chain does not supply the price data for the pair `AMZN/KMD`. However, the chain does supply the price data for the pairs `AMZN/USD`, `USD/BTC` and `BTC/KMD`.
 
-To calculate Synthetic Prices and use their value on the Smart Chain, a simple [Forth](<https://en.wikipedia.org/wiki/Forth_(programming_language)>) like syntax was implemented. It is a Stack based language and supports the usage of Prices of up to 3 pairs and the operations: invert(`!`), multiply(`*`), divide(`/`) along with positive and negative integers. The integers allow the calculation of Synthetic prices for baskets of assets or indexes. The negative integers can be used to short a Price.
+The synthetic price of `AMZN/KMD` is available through considering the prices of all the three pairs.
 
-Example: The synthetic price of a basket with `3/4`parts BTC and `1/4` parts BCH can be calculated.
+##### A Forth-like Syntax for Synthetic Calculations
+
+A simple syntax is offered in the Komodo API for calculating synthetic prices and use their value on the Smart Chain. 
+
+This syntax is based on the [Forth](<https://en.wikipedia.org/wiki/Forth_(programming_language)>) programming language. 
+
+In calculating a synthetic price, the Komodo API supports up to three pairs of prices and offers four operations:
+
+- invert(`!`)
+- multiply(`*`)
+- divide(`/`)
+
+These operations can be supplied with positive and negative integers. The integers allow the calculation of synthetic prices for baskets <!-- Sidd:What's a basket? --> of assets or indexes. The negative integers can be used to short a price.
+
+<!-- Sidd: there's some information missing below as well. Let's see the example BTC/BCH calculation. -->
+
+For example, the synthetic price of a basket with `3/4` parts BTC and `1/4` parts BCH can be calculated.
 
 #### Usage
 
-Let us start with the most basic component: The price feed from the DTO. Each price feed will be represented by a key that looks like `ABC_DEF` ( will be refered to as `price`). This means, the price given is for the asset `ABC` in terms of another asset `DEF`. For example, the price of BTC in terms of USD is denoted by `BTC_USD`
+The data in each price feed of the DTO has a key that appears in the structure of `AAA_BBB`. This is interpreted to mean that the price for the asset `AAA` is provided in the data in terms of another asset `BBB`. 
 
-The assets can be cryptocurrencies, fiat currencies, stocks etc.,
+For example, the price of BTC in terms of USD is denoted by `BTC_USD`
 
-It is essential to understand what a stack is to use the syntax for calculating Synthetic prices.
+##### Understanding Stacks
 
-::: tip On Stacks
+Understanding the concept of a stack is essential when using the Komodo API's syntax for calculating synthetic prices.
 
-Stacks are dynamic data structures that follow the **Last In First Out (LIFO)** principle. The last item to be inserted into a stack is the first one to be deleted from it.
+Stacks are dynamic data structures that follow the **Last In First Out (LIFO)** principle. In other words, the last item to be inserted into a stack is the first one to be deleted from it.
 
-For example, you have a stack of trays on a table. The tray at the top of the stack is the first item to be moved if you require a tray from that stack.
+For example, assume a stack of trays on a table. When a person adds another tray to the stack, they place the tray on top of the stack. When a person removes a tray from the stack, they remove the tray at the top of the stack. Therefore, the last item added to the stack is also the first item removed.
 
-**Inserting and deleting elements**
+##### Inserting and Deleting Elements
 
-Stacks have restrictions on the insertion and deletion of elements. Elements can be inserted or deleted only from one end of the stack i.e. from the **top** . The element at the top is called the **top** element. The operations of inserting and deleting elements are called **push** and **pop** respectively.
+Stacks have restrictions on the insertion and deletion of elements.
 
-When the top element of a stack is deleted, if the stack remains non-empty, then the element just below the previous top element becomes the new top element of the stack.
+Elements can be inserted or deleted only from one end of the stack (the top). The element at the top is called the **top** element.
 
-For example, in the stack of trays, if you take the tray on the top and do not replace it, then the second tray automatically becomes the top element (tray) of that stack.
+The operations of inserting and deleting elements are called **push** and **pop** respectively.
 
-Source: [https://www.hackerearth.com/practice/data-structures/stacks/basics-of-stacks/tutorial/](https://www.hackerearth.com/practice/data-structures/stacks/basics-of-stacks/tutorial/)
+When the top element of a stack is deleted, if the stack remains non-empty, the element just below the previous top element becomes the new top element of the stack.
 
-:::
+For example, in the stack of trays, if a person takes the tray from the top, the tray just below it automatically becomes the top element.
 
-The allowed symbols in our syntax are:
+[Source: Hackerearth.com](https://www.hackerearth.com/practice/data-structures/stacks/basics-of-stacks/tutorial/)
 
-- the prices
+##### Komodo Stack API Symbols
+
+The allowed symbols in the Komodo API's syntax are:
+
+- prices
 - operations: invert(`!`), multiply(`*`), divide(`/`)
 - positive and negative integers
 
 The interpretation of the symbols in all the possible cases is described in the subsequent sections.
 
-We limit the depth of the Stack for Prices to 3 as it appears to be sufficient to calculate all the possible synthetics from the available prices.
+The Komodo API limits the depth of the stack for prices to three, as this appears to be reasonably sufficient data for calculating synthetic prices.
 
-A Synthetic price is calculated by summing the computed prices with integers as `weights`. The `weight` can be any positive or negative integer whose absolute value is less than `2048`. After an operator acts on the stack, a weight must be applied on the top element. If the synthetic price calculation doesn't need inclusion of a weight, set it as "1". A weight consumes the top stack element and adds the value obtained by multiplying it with the weight to an accumulator. The accumulator starts at the value `0` and its value increases with each weight encountered in the syntax.
+##### Synthetic Price Weights
+
+A synthetic price is calculated by summing the computed prices with integers that represent `weights`. 
+
+The `weight` can be any positive or negative integer whose absolute value is less than `2048`.
+
+After an operator acts on the stack, a weight must be applied to the top element. 
+
+If the synthetic price calculation does not require the inclusion of a weight, set the weight's integer value to `1`.
+
+With the weights sets, the module automatically calculates the resulting synthetic price.
 
 ###### Example
 
-- "BTC_USD, 3, KMD_USD, 1" is computed to a index, whose value is `BTC_USD*(3/4) + KMD_USD*(1/4)`
-- To create a spread, use a negative weight for one of the synthetics. "BTC_USD, -2, KMD_USD, 1" gives the spread: `KMD_USD - 2*BTC_USD`. When `KMD_USD` gains 2x more than `BTC_USD` percentage wise, it would be break even.
+"BTC\_USD, 3, KMD\_USD, 1" gives the integer weight of `3` to the price pair of `BTC_USD` and the integer weight of `1` to the price pair of `KMD_USD`. The resulting value is described as `BTC_USD*(3/4) + KMD_USD*(1/4)`.
 
-##### Operations involving 1 price
+A "spread" in trading is a term that describes the amount or distance between the values of the maximum amount at which a buyer is willing to purchase and the minimum amount at which a seller is willing to sell.
+
+To create a spread, use a negative weight for one of the synthetics.
+
+For example, "BTC\_USD, -2, KMD\_USD, 1" gives the spread: `KMD_USD - 2 * BTC_USD`. When `KMD_USD` gains 2x more than `BTC_USD`, percentage wise, the spread would essentially disappear.
+
+##### Operations Involving 1 Price
 
 | Operator      | Function                                                                  |
 | ------------- | ------------------------------------------------------------------------- |
-| `!` (inverse) | pops the top stack element, inverts it and pushes it back on to the stack |
+| `!` (inverse) | pops the top stack element, inverts it, and pushes it back on to the stack |
 
 ###### Example
 
-"BTC_USD, !, 1" is computed to "USD_BTC"
+"BTC\_USD, !, 1" is computed to "USD\_BTC".
 
-##### Operations involving 2 prices
+##### Operations Involving 2 Prices
 
 | Operator | Function                                                                                                                                                                                            |
 | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `*`      | pops two elements from the top of the stack, multiplies them and pushes the result back on to the stack                                                                                             |
-| `/`      | pops two elements from the top of the stack, performs a division with the first element out as the denominator , the second element out as the numerator and pushes the result back on to the stack |
+| `*`      | pops two elements from the top of the stack, multiplies them, and pushes the result back on to the stack                                                                                             |
+| `/`      | pops two elements from the top of the stack, performs a division with the first element as the denominator and the second element as the numerator, and pushes the result back on to the stack |
 
 ###### Example
 
-- "BTC_USD, USD_JPY, \*, 1" is computed to "BTC_JPY"
-- "BTC_EUR, BTC_USD, /, 1" is computed to "USD_EUR"
+- "BTC\_USD, USD\_JPY, \*, 1" is computed to "BTC\_JPY"
+- "BTC\_EUR, BTC\_USD, /, 1" is computed to "USD\_EUR"
 
 ##### Operations involving 3 prices
 
@@ -172,26 +225,26 @@ Each of these operators act on top of the stack in the order from left to right.
 | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `*//`    | pops three elements from the top of the stack, inverts the last two out, multiplies them and pushes the result back on to the stack |
 | `**/`    | pops three elements from the top of the stack, inverts the last one out, multiplies them and pushes the result back on to the stack |
-| `***`    | pops three elements from the top of the stack, multiplies them and pushes the result back on to the stack                           |
-| `///`    | pops three elements from the top of the stack, inverts all of them, multiplies them and pushes the result back on to the stack      |
+| `***`    | pops three elements from the top of the stack, multiplies them, and pushes the result back on to the stack                           |
+| `///`    | pops three elements from the top of the stack, inverts all of them, multiplies them, and pushes the result back on to the stack      |
 
 ## mypriceslist
 
 **mypriceslist [all|open|closed]**
 
-The `mypriceslist` method returns the list of txid's of the bets executed on chain from the user's pubkey. Returns both open and closed bets by default.
+The `mypriceslist` method returns the list of transaction ids (txid) of the bets executed on the Smart Chain from the executing user's pubkey. By default, the method returns both open and closed bets.
 
 ### Arguments
 
 | Name                | Type               | Description                                                                                                                                                                                                            |
 | ------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "all\|open\|closed" | (string, optional) | the filter to apply to the list; can use any one of all,open,closed<br><br>all - lists all of the user's bets <br><br>open - lists the user's bets that are open<br><br>closed - lists the user's bets that are closed |
+| "all\|open\|closed" | (string, optional) | the filter to apply to the list<br><br>**all** - lists all of the user's bets <br><br>**open** - lists the user's bets that are open<br><br>**closed** - lists the user's bets that are closed |
 
 ### Response
 
 | Name  | Type               | Description                                                                |
 | ----- | ------------------ | -------------------------------------------------------------------------- |
-| Array | (array of strings) | An array containing the txid's of the bets that satisfy the applied filter |
+| Array | (array of strings) | an array containing the txid's of the bets that satisfy the applied filter |
 
 #### :pushpin: Examples
 
@@ -213,30 +266,32 @@ Command:
 
 **prices maxsamples**
 
-The `prices` method returns samples of the prices feed data that has been oraclized onto the Smart Chain. The argument "maxsamples" defines the maximum number of samples for each Price to display.
+The `prices` method returns samples of the data that has successfully been added to the Smart Chain via the price-feed oracles. 
+
+The argument `maxsamples` defines the maximum number of samples to display for each price.
 
 ### Arguments
 
 | Name       | Type     | Description                       |
 | ---------- | -------- | --------------------------------- |
-| maxsamples | (number) | maximum number of samples to list |
+| maxsamples | (number) | the maximum number of samples to list |
 
 ### Response
 
 | Name            | Type                                 | Description                                                      |
 | --------------- | ------------------------------------ | ---------------------------------------------------------------- |
-| "firstheight"   | (number)                             |                                                                  |
+| "firstheight"   | (number)                             | <!--Sidd: need info for all missing descriptions -->                                                                 |
 | "timestamps"    | (array of numbers)                   | the unix timestamps at which the samples were collected          |
 | "pricefeeds"    | (array of jsons)                     | the unix timestamps at which the samples were collected          |
-| "name"          | (string)                             | name(symbol) of the price                                        |
-| "prices"        | (array of arrays containing numbers) | mined (actual received) price; correlated price ; smoothed price |
+| "name"          | (string)                             | the name (symbol) of the price                                        |
+| "prices"        | (array of arrays containing numbers) | the mined (actual received) price; correlated price; smoothed price <!-- Sidd: in this context, I don't know what these terms mean, "actual received", "correlated", "smoothed" --> |
 | "result"        | (string)                             | whether the command executed successfully                        |
 | "seed"          | (number)                             |                                                                  |
 | "height"        | (number)                             |                                                                  |
-| "maxsamples"    | (number)                             | maximum number of samples being displayed                        |
+| "maxsamples"    | (number)                             | the maximum number of samples displayed                        |
 | "width"         | (number)                             |                                                                  |
 | "daywindow"     | (number)                             |                                                                  |
-| "numpricefeeds" | (number)                             | total number of price feeds available on the Smart Chain         |
+| "numpricefeeds" | (number)                             | the total number of price feeds available on the Smart Chain         |
 
 #### :pushpin: Examples
 
@@ -289,7 +344,9 @@ Command:
         ]
       ]
     },
-....many more json objects omitted for brevity
+
+    ... omitted for brevity ...
+
   ],
   "result": "success",
   "seed": 1045657799360186951,
@@ -307,7 +364,9 @@ Command:
 
 **pricesaddfunding bettxid amount**
 
-The `pricesaddfunding` method adds the amount specified by the argument "amount" more funding to the bet referred by "bettxid" to reduce the risk of liquidation
+The `pricesaddfunding` method adds the `amount` of funding from the user's wallet to the `bettxid` bet. 
+
+This can reduce the `bettxid` owner's risk of liquidation.
 
 ### Arguments
 
@@ -320,7 +379,7 @@ The `pricesaddfunding` method adds the amount specified by the argument "amount"
 
 | Name     | Type     | Description                                                                                   |
 | -------- | -------- | --------------------------------------------------------------------------------------------- |
-| "hex"    | (string) | the transaction in hex format; it has to ne broadcasted using the `sendrawtransaction` method |
+| "hex"    | (string) | the transaction in hex format; broadcast this value using the **sendrawtransaction** method |
 | "txid"   | (string) | the transaction id                                                                            |
 | "result" | (string) | whether the command executed successfully                                                     |
 
@@ -348,7 +407,7 @@ Command:
 
 **pricesaddress [pubkey]**
 
-The `pricesaddress` method returns information about the Prices module and associated addresses.
+The `pricesaddress` method returns information about the local instance of the Antara Prices Module on the Smart Chain and about associated addresses.
 
 Optionally, if a pubkey is supplied, this method also returns the corresponding Prices CC Address and balance.
 
@@ -410,7 +469,9 @@ Command:
 
 **pricesbet amount leverage "synthetic-expression"**
 
-The `pricesbet` method is used to open a bet. The the resulting transaction id is called the "bettxid" of this bet. Used in most of the subsequent rpc calls
+The `pricesbet` method is used to open a bet. 
+
+The resulting transaction id is called the `bettxid` of this bet and is used in most of the subsequent RPC calls
 
 ### Arguments
 
@@ -418,13 +479,13 @@ The `pricesbet` method is used to open a bet. The the resulting transaction id i
 | -------------------- | -------- | ------------------------------------------------------------------------------------------------------ |
 | amount               | (number) | the amount of the Smart Chain's native coin to bet                                                     |
 | leverage             | (number) | the leverage to be used to open the bet; use positive integers for longs, negative integers for shorts |
-| synthetic-expression | (string) | the synthetic expression against which the bet has to be opened                                        |
+| synthetic-expression | (string) | the synthetic expression against which the bet is opened                                        |
 
 ### Response
 
 | Name     | Type     | Description                                                                                   |
 | -------- | -------- | --------------------------------------------------------------------------------------------- |
-| "hex"    | (string) | the transaction in hex format; it has to ne broadcasted using the `sendrawtransaction` method |
+| "hex"    | (string) | the transaction in hex format; broadcast this value using the `sendrawtransaction` method |
 | "txid"   | (string) | the transaction id                                                                            |
 | "result" | (string) | whether the command executed successfully                                                     |
 
@@ -452,7 +513,7 @@ Command:
 
 **pricescashout bettxid**
 
-The `pricescashout` method can be used to cash out the bet referred by "bettxid". At the moment this method is executed, the user's equity should be positive, the bet should be open and not be rekt already.
+The `pricescashout` method can be used to cash out the `bettxid` bet. At the moment this method is executed, the user's equity must be positive and the bet must be open and not rekt.
 
 ### Arguments
 
@@ -466,12 +527,12 @@ The `pricescashout` method can be used to cash out the bet referred by "bettxid"
 | ----------------- | --------------- | --------------------------------------------------------------------------------------------------------------------- |
 | bets              | (array of json) | the bets that are open currently                                                                                      |
 | positionsize      | (number)        | the amount of native coin used to open the bet                                                                        |
-| profits           | (number)        | the profits that can be actualized if the bet is closed at this moment; the value is nagative if it is a loss         |
+| profits           | (number)        | the profits that can be actualized if the bet is closed at this moment; the value is negative if it is a loss         |
 | costbasis         | (number)        | the price that has been locked in as the opening price of the bet                                                     |
 | firstheight       | (number)        |                                                                                                                       |
 | leverage          | (number)        | the leverage used to open the bet                                                                                     |
 | TotalPositionSize | (number)        | the amount of native coin used to open all the bets                                                                   |
-| TotalProfits      | (number)        | the total profits that can be actualized if the bets are closed at this moment; the value is nagative if it is a loss |
+| TotalProfits      | (number)        | the total profits that can be actualized if the bets are closed at this moment; the value is negative if it is a loss |
 | equity            | (number)        | the amount of native Smart Chain coin that can be redeemed if the bet is cashed out at this moment                    |
 | LastPrice         | (number)        | the last known price                                                                                                  |
 | LastHeight        | (number)        | the block height at which `LastPrice` was noted                                                                       |
@@ -517,7 +578,7 @@ Command:
 
 **pricesgetorderbook**
 
-The `pricesgetorderbook` method shows the currently open bets on chain and their details. It also shows information about the house wallet balance and statistics about the bets on the Smart Chain.
+The `pricesgetorderbook` method shows the currently open bets and their details. The method also shows information about the house wallet's balance and statistics about the bets on the Smart Chain.
 
 ### Arguments
 
@@ -542,9 +603,9 @@ The `pricesgetorderbook` method shows the currently open bets on chain and their
 | DiffLeveragedPosition | (number)        |                                                                                                    |
 | TotalFund             | (number)        | the total amount of the Smart Chain's coins available in the House's public address                |
 | TotalEquity           | (number)        | the total amount of equity across all the bets                                                     |
-| TotalRekt             | (number)        | total number of bets that are already rekt                                                         |
-| TotalBets             | (number)        | total number of active bets                                                                        |
-| TotalCashoutBets      | (number)        | total number of bets that have been cashed out                                                     |
+| TotalRekt             | (number)        | the total number of bets that are already rekt                                                         |
+| TotalBets             | (number)        | the total number of active bets                                                                        |
+| TotalCashoutBets      | (number)        | the total number of bets that have been cashed out                                                     |
 
 #### :pushpin: Examples
 
@@ -597,7 +658,7 @@ Command:
 
 **pricesinfo bettxid [height]**
 
-The `pricesinfo` method returns information about the bet referred by the "bettxid"
+The `pricesinfo` method returns information about the bet referred by the `bettxid` bet.
 
 ### Arguments
 
@@ -617,12 +678,12 @@ The `pricesinfo` method returns information about the bet referred by the "bettx
 | costbasis         | (number)        | the price that has been locked in as the opening price of the bet                                                     |
 | bets              | (array of json) | the bets that are open currently                                                                                      |
 | positionsize      | (number)        | the amount of native coin used to open the bet                                                                        |
-| profits           | (number)        | the profits that can be actualized if the bet is closed at this moment; the value is nagative if it is a loss         |
-| costbasis         | (number)        | the price that has been locked in as the opening price of the bet                                                     |
+| profits           | (number)        | the profits that can be actualized if the bet is closed at this moment; the value is negative if the closing amount is a loss         |
+| costbasis         | (number)        | the opening price of the bet; this value is locked for the duration of the bet                                                     |
 | firstheight       | (number)        |                                                                                                                       |
 | leverage          | (number)        | the leverage used to open the bet                                                                                     |
 | TotalPositionSize | (number)        | the amount of native coin used to open all the bets                                                                   |
-| TotalProfits      | (number)        | the total profits that can be actualized if the bets are closed at this moment; the value is nagative if it is a loss |
+| TotalProfits      | (number)        | the total profits that can be actualized if the bets are closed at this moment; the value is negative if the amount is a loss |
 | equity            | (number)        | the amount of native Smart Chain coin that can be redeemed if the bet is cashed out at this moment                    |
 | LastPrice         | (number)        | the last known price                                                                                                  |
 | LastHeight        | (number)        | the block height at which `LastPrice` was noted                                                                       |
@@ -669,13 +730,13 @@ Command:
 
 **priceslist [all|open|closed]**
 
-The `priceslist` method returns the list of txid's of all the bets executed on chain. Returns both open and closed bets by default.
+The `priceslist` method returns the list of transaction id's (txid) of all the bets executed on chain. The method returns both open and closed bets by default.
 
 ### Arguments
 
 | Name                | Type               | Description                                                                                                                                                                                                            |
 | ------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "all\|open\|closed" | (string, optional) | the filter to apply to the list; can use any one of all,open,closed<br><br>all - lists all of the user's bets <br><br>open - lists the user's bets that are open<br><br>closed - lists the user's bets that are closed |
+| "all\|open\|closed" | (string, optional) | the filter to apply to the list<br><br>**all** - lists all of the user's bets<br><br>**open** - lists the user's bets that are open<br><br>**closed** - lists the user's bets that are closed |
 
 ### Response
 
@@ -703,7 +764,7 @@ Command:
 
 **pricesrefillfund amount**
 
-The `pricesrefillfund` method adds funds to the house (Global CC address)
+The `pricesrefillfund` method adds funds to the house (the Global CC address).
 
 ### Arguments
 
@@ -715,7 +776,7 @@ The `pricesrefillfund` method adds funds to the house (Global CC address)
 
 | Name     | Type     | Description                                                                                   |
 | -------- | -------- | --------------------------------------------------------------------------------------------- |
-| "hex"    | (string) | the transaction in hex format; it has to ne broadcasted using the `sendrawtransaction` method |
+| "hex"    | (string) | the transaction in hex format; broadcast this value using the `sendrawtransaction` method |
 | "txid"   | (string) | the transaction id                                                                            |
 | "result" | (string) | whether the command executed successfully                                                     |
 
@@ -743,7 +804,13 @@ Command:
 
 **pricesrekt bettxid height**
 
-The `pricesrekt` method creates a transaction that liquidates a bet that is rekt(a bet which has `IsRekt: 1` flag in its [pricesinfo](#pricesinfo) call). This call performs some PoW to deter spamming. All nodes on the network are incentivised to execute this transaction as it rewards some of the liquidated funds to the node that created the rekt transaction.
+The `pricesrekt` method creates a transaction that liquidates a bet that is "rekt" — a bet where the debt ratio has exceeded maximum limits and is now open to liquidation.
+
+A bet that is rekt has an `IsRekt: 1` flag in its [pricesinfo](#pricesinfo) call.
+
+The `pricesrekt` call requires some proof-of-work (PoW) activity from the machine of the executing user. This deters spamming.
+
+All nodes on the network are incentivised to execute this transaction as it rewards some of the liquidated funds to the node that created the rekt transaction.
 
 ### Arguments
 
@@ -758,12 +825,12 @@ The `pricesrekt` method creates a transaction that liquidates a bet that is rekt
 | ----------------- | --------------- | --------------------------------------------------------------------------------------------------------------------- |
 | bets              | (array of json) | the bets that are open currently                                                                                      |
 | positionsize      | (number)        | the amount of native coin used to open the bet                                                                        |
-| profits           | (number)        | the profits that can be actualized if the bet is closed at this moment; the value is nagative if it is a loss         |
-| costbasis         | (number)        | the price that has been locked in as the opening price of the bet                                                     |
+| profits           | (number)        | the profits that can be actualized if the bet is closed at this moment; the value is negative if the amount is a loss         |
+| costbasis         | (number)        | the opening price of the bet                                                     |
 | firstheight       | (number)        |                                                                                                                       |
 | leverage          | (number)        | the leverage used to open the bet                                                                                     |
 | TotalPositionSize | (number)        | the amount of native coin used to open all the bets                                                                   |
-| TotalProfits      | (number)        | the total profits that can be actualized if the bets are closed at this moment; the value is nagative if it is a loss |
+| TotalProfits      | (number)        | the total profits that can be actualized if the bets are closed at this moment; the value is negative if this amount is a loss |
 | equity            | (number)        | the amount of native Smart Chain coin that can be redeemed if the bet is cashed out at this moment                    |
 | LastPrice         | (number)        | the last known price                                                                                                  |
 | LastHeight        | (number)        | the block height at which `LastPrice` was noted                                                                       |
