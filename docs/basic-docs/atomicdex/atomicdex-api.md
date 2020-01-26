@@ -138,7 +138,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## cancel_all_orders
+## cancel\_all\_orders
 
 **cancel_order cancel_by**
 
@@ -213,7 +213,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## cancel_order
+## cancel\_order
 
 **cancel_order uuid**
 
@@ -259,7 +259,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## coins_needed_for_kick_start
+## coins\_needed\_for\_kick\_start
 
 **coins_needed_for_kick_start()**
 
@@ -305,7 +305,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## disable_coin
+## disable\_coin
 
 **disable_coin coin**
 
@@ -706,7 +706,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## get_enabled_coins
+## get\_enabled\_coins
 
 **get_enabled_coins**
 
@@ -779,7 +779,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## get_trade_fee
+## get\_trade\_fee
 
 **get_trade_fee coin**
 
@@ -896,7 +896,7 @@ The `help` method returns the full API documentation in the terminal.
 | ----------------------------------- | ---- | ----------- |
 | (returns the full docs in terminal) |      |             |
 
-## import_swaps
+## import\_swaps
 
 **import_swaps swaps**
 
@@ -946,7 +946,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my_balance
+## my\_balance
 
 **my_balance coin**
 
@@ -994,7 +994,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my_orders
+## my\_orders
 
 **my_orders()**
 
@@ -1160,7 +1160,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my_recent_swaps
+## my\_recent\_swaps
 
 **(from_uuid limit=10)**
 
@@ -1205,17 +1205,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "skipped": 1,
     "swaps": [
       {
-        "error_events": [
-          "StartFailed",
-          "NegotiateFailed",
-          "TakerFeeValidateFailed",
-          "MakerPaymentTransactionFailed",
-          "MakerPaymentDataSendFailed",
-          "TakerPaymentValidateFailed",
-          "TakerPaymentSpendFailed",
-          "MakerPaymentRefunded",
-          "MakerPaymentRefundFailed"
-        ],
+        "error_events": ["StartFailed","NegotiateFailed","TakerFeeValidateFailed","MakerPaymentTransactionFailed","MakerPaymentDataSendFailed","MakerPaymentWaitConfirmFailed","TakerPaymentValidateFailed","TakerPaymentWaitConfirmFailed","TakerPaymentSpendFailed","MakerPaymentRefunded","MakerPaymentRefundFailed"],
         "events": [
           {
             "event": {
@@ -1398,18 +1388,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "uuid": "6bf6e313-e610-4a9a-ba8c-57fc34a124aa"
       },
       {
-        "error_events": [
-          "StartFailed",
-          "NegotiateFailed",
-          "TakerFeeSendFailed",
-          "MakerPaymentValidateFailed",
-          "TakerPaymentTransactionFailed",
-          "TakerPaymentDataSendFailed",
-          "TakerPaymentWaitForSpendFailed",
-          "MakerPaymentSpendFailed",
-          "TakerPaymentRefunded",
-          "TakerPaymentRefundFailed"
-        ],
+        "error_events": ["StartFailed","NegotiateFailed","TakerFeeSendFailed","MakerPaymentValidateFailed","MakerPaymentWaitConfirmFailed","TakerPaymentTransactionFailed","TakerPaymentWaitConfirmFailed","TakerPaymentDataSendFailed","TakerPaymentWaitForSpendFailed","MakerPaymentSpendFailed","TakerPaymentRefunded","TakerPaymentRefundFailed"],
         "events": [
           {
             "event": {
@@ -1637,7 +1616,7 @@ Response (error)
 
 </div>
 
-## my_swap_status
+## my\_swap\_status
 
 **uuid**
 
@@ -1679,23 +1658,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 <collapse-text hidden title="Response">
 
-#### Successful Taker swap
+#### Successful Taker Swap
 
 ```json
 {
   "result": {
-    "error_events": [
-      "StartFailed",
-      "NegotiateFailed",
-      "TakerFeeSendFailed",
-      "MakerPaymentValidateFailed",
-      "TakerPaymentTransactionFailed",
-      "TakerPaymentDataSendFailed",
-      "TakerPaymentWaitForSpendFailed",
-      "MakerPaymentSpendFailed",
-      "TakerPaymentRefunded",
-      "TakerPaymentRefundFailed"
-    ],
+    "error_events": ["StartFailed","NegotiateFailed","TakerFeeSendFailed","MakerPaymentValidateFailed","MakerPaymentWaitConfirmFailed","TakerPaymentTransactionFailed","TakerPaymentWaitConfirmFailed","TakerPaymentDataSendFailed","TakerPaymentWaitForSpendFailed","MakerPaymentSpendFailed","TakerPaymentRefunded","TakerPaymentRefundFailed"],
     "events": [
       {
         "event": {
@@ -1909,22 +1877,11 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 }
 ```
 
-#### Taker swap failed with MakerPaymentSpendFailed event
+#### Taker Swap Failed with MakerPaymentSpendFailed Event
 
 ```json
 {
-  "error_events": [
-    "StartFailed",
-    "NegotiateFailed",
-    "TakerFeeSendFailed",
-    "MakerPaymentValidateFailed",
-    "TakerPaymentTransactionFailed",
-    "TakerPaymentDataSendFailed",
-    "TakerPaymentWaitForSpendFailed",
-    "MakerPaymentSpendFailed",
-    "TakerPaymentRefunded",
-    "TakerPaymentRefundFailed"
-  ],
+  "error_events": ["StartFailed","NegotiateFailed","TakerFeeSendFailed","MakerPaymentValidateFailed","MakerPaymentWaitConfirmFailed","TakerPaymentTransactionFailed","TakerPaymentWaitConfirmFailed","TakerPaymentDataSendFailed","TakerPaymentWaitForSpendFailed","MakerPaymentSpendFailed","TakerPaymentRefunded","TakerPaymentRefundFailed"],
   "events": [
     {
       "event": {
@@ -2118,22 +2075,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 }
 ```
 
-#### Successful Maker swap
+#### Successful Maker Swap
 
 ```json
 {
   "result": {
-    "error_events": [
-      "StartFailed",
-      "NegotiateFailed",
-      "TakerFeeValidateFailed",
-      "MakerPaymentTransactionFailed",
-      "MakerPaymentDataSendFailed",
-      "TakerPaymentValidateFailed",
-      "TakerPaymentSpendFailed",
-      "MakerPaymentRefunded",
-      "MakerPaymentRefundFailed"
-    ],
+    "error_events": ["StartFailed","NegotiateFailed","TakerFeeValidateFailed","MakerPaymentTransactionFailed","MakerPaymentDataSendFailed","MakerPaymentWaitConfirmFailed","TakerPaymentValidateFailed","TakerPaymentWaitConfirmFailed","TakerPaymentSpendFailed","MakerPaymentRefunded","MakerPaymentRefundFailed"],
     "events": [
       {
         "event": {
@@ -2319,21 +2266,11 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 }
 ```
 
-#### Maker swap failed with MakerPaymentTransactionFailed event
+#### Maker Swap Failed with MakerPaymentTransactionFailed Event
 
 ```json
 {
-  "error_events": [
-    "StartFailed",
-    "NegotiateFailed",
-    "TakerFeeValidateFailed",
-    "MakerPaymentTransactionFailed",
-    "MakerPaymentDataSendFailed",
-    "TakerPaymentValidateFailed",
-    "TakerPaymentSpendFailed",
-    "MakerPaymentRefunded",
-    "MakerPaymentRefundFailed"
-  ],
+  "error_events": ["StartFailed","NegotiateFailed","TakerFeeValidateFailed","MakerPaymentTransactionFailed","MakerPaymentDataSendFailed","MakerPaymentWaitConfirmFailed","TakerPaymentValidateFailed","TakerPaymentWaitConfirmFailed","TakerPaymentSpendFailed","MakerPaymentRefunded","MakerPaymentRefundFailed"],
   "events": [
     {
       "event": {
@@ -2436,7 +2373,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 </div>
 
-## my_tx_history
+## my\_tx\_history
 
 **(from_id limit=10)**
 
@@ -2683,7 +2620,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## order_status
+## order\_status
 
 **order_status uuid**
 
@@ -2947,7 +2884,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## recover_funds_of_swap
+## recover\_funds\_of\_swap
 
 **recover_funds_of_swap uuid**
 
@@ -3124,7 +3061,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## send_raw_transaction
+## send\_raw\_transaction
 
 **send_raw_transaction coin tx_hex**
 
@@ -3262,7 +3199,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## set_required_confirmations
+## set\_required\_confirmations
 
 **set_required_confirmations coin confirmations**
 

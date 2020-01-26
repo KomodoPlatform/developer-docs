@@ -79,7 +79,9 @@ As time progresses, the difference in price between the user's tokenized cryptoc
 
 :::tip Note
 
-The below rules of liquidation are only applicable when the Global debt ratio (the ratio of all the users' deposits and debts at current prices) is more than `60%`. If the Global debt ratio is lower than `60%`, no account is in danger of liquidation regardless of their individual debt ratio.
+The rules of liquidation found below are applicable only when the "global-debt ratio" — the ratio of all user deposits and debts at current prices on the Smart Chain — is higher than `60%`. 
+
+If the global-debt ratio is lower than `60%`, no accounts are in danger of liquidation, regardless of their individual debt ratio.
 
 :::
 
@@ -107,7 +109,7 @@ Should the debt of a user's account surpass the `90%` threshold, the account ent
 
 Here, a third-party user can gain an immediate `5%` rate of return by sending `USDK` coins to the Pegs Module to liquidate the indebted user's account. The third-party user must deposit `USDK` to cover the user's whole debt, valued at 90% of the indebted account's `KMD` tokens, according to current prices.
 
-In return, the liquidating user receives `95%` of the `KMD` tokens in the indebted user's account. These `KMD` tokens can be redeemed on the `KMD` chain and if sold at the current price, will give `5%` profit.
+In return, the liquidating user receives `95%` of the `KMD` tokens in the indebted user's account. These `KMD` tokens can be redeemed on the `KMD` chain and, if sold at the current price, provide a `5%` profit.
 
 The `USDK` coins sent by the liquidating user are burned.
 

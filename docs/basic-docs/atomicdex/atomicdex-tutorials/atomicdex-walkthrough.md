@@ -272,9 +272,9 @@ The call will return a similar result:
 
 This is the current orderbook.
 
-Now, you'll notice that the output isn't easily readable in your Terminal. Here's where we should start using `jq`.
+Notice that the output is not easily readable in the terminal. This is where we start using `jq`.
 
-You may remember that we installed a software called `jq` during the setup process. `jq` is optional, but it is recommended as it makes reading the output in the terminal easier.
+You may remember that we installed software called `jq` during the setup process. `jq` is optional, but it is recommended as it makes reading the output in the terminal easier.
 
 To activate `jq`, simply add the following to the end of any command: `| jq`.
 

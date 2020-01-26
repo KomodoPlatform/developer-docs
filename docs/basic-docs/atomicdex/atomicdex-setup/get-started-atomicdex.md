@@ -98,7 +98,7 @@ rustup install nightly-2019-10-06
 rustup default nightly-2019-10-06
 ```
 
-Optional, skip this step if it fails
+(Optional) Skip this step if it fails.
 
 ```bash
 rustup component add rustfmt-preview
@@ -124,7 +124,7 @@ In your terminal, make the file executable by changing into the directory where 
 chmod +x jq
 ```
 
-Then execute the file.
+Execute the file.
 
 ##### Windows:
 
@@ -139,7 +139,7 @@ cd ~
 git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2 --single-branch && cd atomicDEX-API
 ```
 
-Compile the source code:
+Compile the source code.
 
 ```bash
 cargo build --features native -vv
@@ -147,19 +147,19 @@ cargo build --features native -vv
 
 #### MacOS
 
-If the above command results in an error, use the following command
+If the above command results in an error, use the following command instead.
 
 ```bash
 LIBRARY_PATH=/usr/local/opt/openssl/lib cargo build --features native -vv
 ```
 
-or you may link `libcrypto` permanently to `/usr/local/lib`
+Alternatively, create a permanent link called `libcrypto` to `/usr/local/lib`.
 
 ```bash
 ln -s /usr/local/opt/openssl/lib/libcrypto.a /usr/local/lib
 ```
 
-If everything installed successfully you should see something similar:
+If everything installed successfully, a response that is similar to the following should appear.
 
 ```
 “Finished dev [optimized + debuginfo] target(s) in 3m 33s”
