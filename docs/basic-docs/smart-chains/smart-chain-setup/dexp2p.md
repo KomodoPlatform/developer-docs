@@ -327,4 +327,8 @@ This method gives info and stats related to the p2p data layer.
 
 ## DEX_cancel
 
+## DEX_publish
+
+## DEX_subscribe
+
 ------->

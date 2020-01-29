@@ -1090,3 +1090,317 @@ while waiting, i will make new bugs with the reliable file transfer layer. that 
 [5:13 PM]jl777c:keep in mind, there could end up being thousands of messages per second, continuously, so being able to keep up with that, while being able to make queries efficiently... that is the main problem that -dexp2p solved. if you have a specific requirement that is not covered, let me know. i will be adding more third layers on top of the basic messaging layer to make it easy to solve other usecases, but the primary usecase for -dexp2p is the scalable DEX orderbook
 
 5:15 PM]jl777c:i think having a way to query all priority 4+ data will help solve the bootstrapping issue and it also works for the file sync layer
+
+[7:33 PM]jl777c:@artem.pikulin updated so that any message with priority of 4 or more will be automatically propagated to new nodes, even if they arrive 59 minutes after the packet was created
+[7:34 PM]jl777c:@TonyL this feature might affect some tests if any node is left running
+[7:35 PM]jl777c:one quick is that if a node goes offline and comes back online right away, most of the other nodes will most likely think that it has all the messages that it had before going offline
+[7:35 PM]jl777c:this decentralized memory effect will come in very handy for file level things and turned out i didnt need any new protocol messages, there is a #define KOMODO_DEX_VIPLEVEL 4
+[7:36 PM]jl777c:that can be changed to a different value if 16x the normal pow is not the right amount. i also reduced txpowbits back to 1, it is just so hard to see 10 packets per second from 10 blaster nodes and all CPU at 100%...
+[7:37 PM]jl777c:without sleeps, a blasting node wont have enough CPU to keep up.
+[7:38 PM]jl777c:also the VIP bootstrapping (and it also works to get closer to 100% sync for VIP packets) could make the lag stats look worse as it might arrive up to a minute late and still be included in the stats. anything over MAXLAG wont affect the stats, but there wasnt an easy way to tell if a packet arrived due to lag or its vipness
+[7:39 PM]jl777c:i use a decentralized process to get the VIP packets in sync, ie. if any of your peers notices that you dont have a VIP packet, it will ping you about it. then the node uses the normal request process to pull the missing VIP packet
+[7:40 PM]jl777c:not sure i would consider it a bug if there isnt 100% sync for VIP packets, would like to see how well in sync the VIP packets are
+[7:40 PM]jl777c:note: for networks not subject to saturation, you can set the VIP level to 0
+[7:41 PM]jl777c:@gcharang some details for documentation, VIP priority is subject to change
+
+3:36 PM]jl777c:it should print different types of hex strings when you issue the cancel
+[3:36 PM]jl777c:8chars for cancel of id
+[3:36 PM]jl777c:66 chars for cancel pubkey
+[3:36 PM]jl777c:lenA,tagA,lenB,tagB for cancel by tag pair
+[3:37 PM]jl777c:it will be a hexstring that is sent to DEX_broadcast internally. before it was getting semi-random data, usually the pubkey for the payload, so cancelling all orders
+
+5:12 PM]jl777c:the DEX_publish filename will split up the file into 4kb fragments and send them to tagA/tagB of filename/data with volA incrementing
+[5:13 PM]jl777c:after all the fragments are sent, it will broadcast a set of locators to filename/locators
+[5:13 PM]jl777c:this is all under a specific publishers pubkey
+[5:14 PM]jl777c:so a file is really pubkey+filename, filename limited to 15 chars and should be located in the dir that komodod was launched
+[5:15 PM]jl777c:for now, this is just a convenient way to blast up to 400MB of data in one command
+[5:16 PM]jl777c:but now this is working, the next step is to reconstruct the file on a remote node using DEX_subscribe
+all it has to do is get the set of locators with filename/locators and then magically request any missing blocks
+[5:17 PM]jl777c:the "magically" part i still need to figure out the best way to do, also it seems there should be some tagA that has a list of published files. this way you can browse a list of available files and then recreate any specific one
+
+5:21 PM]jl777c:it wont be hard to add a paywall before a specific file is broadcast and since it only exists for one hour (or less), the same content can be sold over and over
+[5:22 PM]jl777c:anyway, i am just working on the low level functionality and streaming data is a very good test for network efficiency and accuracy as it will be very easy to see if the data is messed up or not
+
+5:36 PM]jl777c:the volA/volB fields are proving to be useful outside of orderbooks, using it to encode things like fragment number, filesize, etc.
+[5:37 PM]jl777c:DEX_publish now sends a payload that is the SHA256 of the file that was broadcast in the "files"/fname tags, doing a DEX_list 0 0 files will list all files from all publeys
+[5:38 PM]jl777c:while there is nothing at the low level that prevents broadcasting the same filename again from the same pubkey, i will put a check in to prevent that at the rpc level. this will avoid file name collisions in innocent cases
+
+6:23 PM]jl777c:i will be implementing support for streaming files
+[6:24 PM]jl777c:basically that is an append only log
+[6:24 PM]jl777c:so just stream the debug.log and it would replicate on all nodes that DEX_subscribe to it
+
+7:49 PM]jl777c:this has a lot of baggage from komodod, the actual dexp2p code is just 2500 lines of C
+[7:49 PM]jl777c:but i guess even with the entire komodod, when stripped, it is 17MB
+[8:18 PM]kmdkrazy:I was going to ask how to build  a nspv / dexp2p only node -- and was wondering if dexp2p could be deployed in a wasm compatable web browser -- but I am just waiting for this first phase to get to production -- my  guess is yes and to"wait for it" -- Streaming  data  with decentralized personal websites and selling/distributing "things" is my  usecase and will probably be where I will  finally hang  my hat and get to work. - waiting is painful - 17mb   -"According to the website HTTP Archive, which regularly studies the top 10,000 most-visited sites online, the average web page now weighs in at about 1.3 megabytes" - I 
+ guess a dexp2p "client" could be made smaller - Back to work, Thank you!
+[8:28 PM]jl777c:dexp2p client would fit in a 512kb or less, with nsPV support, but that would be a fair amount of refactoring
+[8:29 PM]jl777c:-dexp2p option currently drags in the rest of the code
+[8:29 PM]jl777c:it would need to be ported into libnspv to have a chance to be able to be put into wasm
+
+9:16 PM]jl777c:@gcharang @SHossain @Sir Seven @TonyL primitive support for DEX_publish and DEX_subscribe is in the latest version. it might be fast enough for smallish (<100MB files) to stream, but it isnt very efficient yet, just the first version that was able to sync file to the network. for now it is just to make sure that a static file is transferred properly. 
+
+DEX_publish filename 0 <- this will publish the local file at lowest priority above the VIP priority level
+DEX_list 0 0 files <- this will show a list of all the published files, it will have the sha256 filehash
+
+9:17 PM]jl777c:if you know the filename already you can directly do: DEX_list 0 0 filename locators and get the id from the most recent published by a pubkey
+[9:17 PM]jl777c:using that id: DEX_subscribe filename 0 id <- that should recreate the file locally
+[9:19 PM]jl777c:to test a basic streaming, start the streaming video recorder and get the filename. then every second do a DEX_publish. horribly inefficient, but if it is the only thing streaming maybe it will be fast enough. on the receiving side, do the DEX_subsribe in a loop with a one second pause.
+[9:20 PM]jl777c:probably it is too inefficient to be transfering the entire file every second, but things are setup so it wont be that much more work to broadcast and update just the new data
+[9:21 PM]jl777c:of course, the file contents can be anything from text files to video files
+
+7:33 AM]jl777c:you need to DEX_list 0 0 published_file locators
+[7:33 AM]jl777c:you subscribe to the locators id
+[7:33 AM]jl777c:the files tag is for validating the sha256 and to find what files exist
+[7:34 AM]jl777c:think of it this way. at first you have no idea what files are published. how can you discover what files exist?
+answer: DEX_list tagA:files
+[7:35 AM]jl777c:once you know the filename, you dont need to do the tagA files search anymore, as you know the filename
+[7:35 AM]jl777c:given a filename, you need a set of locators
+[7:35 AM]jl777c:to do that you search tagA:filename tagB:locators
+
+9:05 AM]jl777c:fixed the DEX_subscribe so it only updates the new data for a file, but the DEX_publish is still brute force. there is a file size limit of about 500MB (for now). this means you can do a DEX_subscribe every second in a loop (with new id), and performance should still be decent.
+[9:05 AM]jl777c:it also doesnt handle missing data (yet)
+[9:05 AM]jl777c:but on a network that isnt saturated, it seems very unlikely to have missing data
+[9:12 AM]jl777c:increased the filesize limit to 4GB, that should be sufficient
+[9:45 AM]jl777c:@Sir Seven i added an optional parameter to DEX_subscribe. you can set the id to 0 and specify a pubkey. in that case it will automatically do the filename/locators query for that publisher and use the id of the most recent
+[9:46 AM]jl777c:so now you can just do a loop with DEX_subscribe filename 0 0 <pubkey> and it will keep the published file in sync locally
+
+1:46 PM]jl777c:i am not integrating dexp2p into the blockchain side yet, everything is free other than the configurable txpow costs
+[1:47 PM]jl777c:file transfer is very easy to test now:
+DEX_publish filename 0
+on any node: DEX_subscribe filename 0 0 publisherpubkey
+[1:47 PM]jl777c:it goes at network bandwidth speeds (with txpowbits set at low level of 1)
+2:03 PM]TonyL:with text file worked without problems for me
+[2:03 PM]jl777c:try a bigger file
+[2:04 PM]jl777c:and we can setup a video streamer that should work until the file gets too big, publish side improvements are next to allow sustained streaming. just curious how big the file can get before it is too slow
+[2:04 PM]jl777c:i guess the silly publish logic also makes the subscribe side do redundant operations, but it is all set to be efifcient when the publish side isnt so silly
+
+2:08 PM]TonyL:
+ ./komodo-cli -ac_name=DEXFILE DEX_subscribe  LABS-bs.tar.gz 0 0 01572aaf4131ca39d92adc296978c0f5598e07ad2c5760a7367903236f91f48914
+{
+  "result": "error",
+  "error": "tags mismatch",
+  "tagA": "testfile.txt",
+  "filename": "LABS-bs.tar.gz",
+  "tagB": "locators"
+}
+[2:09 PM]TonyL:from another node I've executed ./komodo-cli -ac_name=DEXFILE DEX_publish LABS-bs.tar.gz 0
+[2:09 PM]jl777c:even the same publisher can (and will have) many different locators for the same name
+[2:09 PM]TonyL:it's not completed yet tho, not produced any output
+[2:09 PM]jl777c:tagA needs to match the filename
+
+2:29 PM]jl777c:currently it only works with 100% sync
+[2:29 PM]jl777c:but getting the send side working is more important as for VIP packets, we seem to have 100% sync most all the time
+[2:30 PM]jl777c:also, not decided the best way to retrieve any missing packets, leaning toward a decentralized delivery
+[2:30 PM]jl777c:due to the filename limitation, might need to have a naming layer that maps from 15 chars to normal full paths
+[2:31 PM]jl777c:but of course, that is just  a matter to make a simple naming layer tagA:filename tagB:fullpath, well a modified full path relative to home directory
+[2:31 PM]jl777c:all this can be built on top of DEX_publish/DEX_subscribe
+
+2:33 PM]TonyL:also, not decided the best way to retrieve any missing packets, leaning toward a decentralized delivery maybe like a mark packages filesum:piecenumber and if node don't have filesum:piecenumber it starting to ask another peers it's connected to if they got this one
+[2:33 PM]TonyL:but it sounds like an easy DDoS :sweat_smile:
+[2:34 PM]jl777c:yes, that is the problem to solve, but i have a very promising idea
+[2:34 PM]jl777c:@Sir Seven why not filename/metadata and the metadata can be JSON that includes fullpath?
+
+[2:35 PM]Sir Seven:>>metadata can be JSON that includes fullpath?
+Sounds like a good idea, actually.
+[2:35 PM]jl777c:it happens
+[2:35 PM]Sir Seven:But tags have limit in chars.
+[2:35 PM]jl777c:so?
+[2:35 PM]jl777c:payload doesnt
+[2:36 PM]jl777c:26^15 = 1.677259342285726e21
+[2:36 PM]jl777c:sufficiently large name space for all the files you can ever make
+[2:36 PM]jl777c:remember the benefit is that tagA gets fully indexed
+
+2:36 PM]TonyL:but to where can I write Content-MD5 lets say?
+[2:36 PM]jl777c:along with tagA/tagB
+[2:37 PM]jl777c:make JSON for whatever metadata you want, broadcast to filename/metadata with the hex of the JSON as the payload
+[2:37 PM]jl777c:DEX_get can they extract the hex, which converts right into the JSON
+[2:38 PM]TonyL:yep, I've understood the idea, and then we'll need to prove md5sum of metadata with md5sum
+[2:39 PM]jl777c:but there is already a sha256 sum
+[2:39 PM]jl777c:in the files/filename message
+[2:40 PM]jl777c:so the publisher posts what the sha256 sum is and the receiver can verify it, i will add automatic compare to the subscribe process
+
+2:41 PM]jl777c:i decided to use the tagA/tagB mechanism to build most of the pub/sub, instead of creating new internals
+[2:42 PM]jl777c:that is how it came together so fast
+[2:42 PM]jl777c:i also serves as a good testing of the tag indexing
+
+2:42 PM]jl777c:do a DEX_list 0 0 filename "locators"
+[2:43 PM]jl777c:if it isnt there yet, then it is still processing
+[2:43 PM]jl777c:another message that is sent is "files"/filename
+[2:43 PM]jl777c:that way, all nodes (including publisher) can tell what files are published
+
+2:47 PM]jl777c:yes, timeout probably affected things
+[2:48 PM]jl777c:amountA is the file size, amountB is the number of locators
+[2:59 PM]jl777c:@TonyL pushed a hardfork version that is limited to 500MB file (test with 100MB or smaller first) also changed network parameters to make it a bit faster, it is hardforking change
+[3:00 PM]jl777c:you will see on the subscribe side: write:... prints, that appears for each fragment written to disk
+[3:08 PM]jl777c:this allows to verify the efficiency of the subscribe process. currently, if you have a publish in a loop and a subscribe in a loop, it is making all new locators so it would be creating redundant messages, but now there seems to be no bugs with basic functionality i can optimize the publish side
+[3:55 PM]TonyL:with 100mb file worked good
+[4:29 PM]SHossain:i spoke to my DC. they can provide 61 ipv4 addresses as a package. created a support ticket to get that. need to drive down to my DC on Wednesday to install Vmware ESXi.
+[4:37 PM]jl777c:it is very useful to have a bank of ipv4 addresses
+[4:40 PM]jl777c:calibrated the network settings to allow 500kb/sec, which is 4mbits, should be plenty even with 50% loss of bandwidth due to retries
+[4:42 PM]jl777c:finding a few issues with large files, probably will need to implement the logic to retrieve missing fragments before improving publish
+[5:01 PM]jl777c:networking problem was a false alert, i just had many non-updated nodes in the testnet. sync is back to 100%
+[5:06 PM]SHossain:i'll update both my nodes now
+
+5:15 PM]jl777c:good. maybe you can test the streaming setup gcharang came up with?
+[5:20 PM]gcharang:obs: https://obsproject.com/ to create a file that keeps increasing in size (set the output format to mkv)
+vlc:  https://www.videolan.org/index.html to play a file that is being constructed
+[5:24 PM]SHossain:sure. let me get in speed
+[5:33 PM]SHossain:doing the recommended setup by @gcharang
+[5:37 PM]jl777c:you will also need to make a shell script that loops on the subscribe on the receive side, probably put a 1 second sleep on it and a shell script loop on the publish side, but without a 1 second sleep
+[6:13 PM]SHossain:@gcharang what will be the streaming service in setup?
+[6:14 PM]gcharang:dexp2p is the streaming service :sweat_smile: 
+in obs, select the option to save video to file
+[6:14 PM]SHossain:oh. so, if i have a .mp4 already i can use that without using OBS?
+[6:15 PM]gcharang:yes, you can just stream it to the network using dexp2p and on another node, use subscribe to recreate it and play using vlc
+[6:15 PM]gcharang:but mp4 files can't be played properly when they are incomplete
+[6:16 PM]SHossain:i see. i will to try both option. but, instead of using .mp4 i will convert that to .mkv
+
+
+7:02 PM]jl777c:
+while true
+do
+./komodo-cli -ac_name=DEXP2P DEX_publish mkv1.mkv 0
+sleep 1
+done
+[7:02 PM]jl777c:both publishing and subscribing need to be called in a loop to make it stream
+[7:02 PM]jl777c:if you think about what publish does, this will make more sense
+[7:03 PM]jl777c:it is taking a snapshot of the current file, making fragments out of it and broadcasting each one to the network
+[7:03 PM]jl777c:then also posting a locators file, so any other node can reconstruct it
+[7:03 PM]jl777c:and also sending a message to files/filename so people can get a list of all the available files
+[7:04 PM]jl777c:if any part of the file changes, of course, the existing fragments might be obsolete
+[7:04 PM]SHossain:thanks. just getting my head around this streaming
+[7:04 PM]SHossain:will upload the video to my server and start streaming from there and will subscribe from my local computer
+[7:05 PM]jl777c:just think of it as sending a file to the network
+[7:05 PM]jl777c:and the file just keeps growing in size, so you send the updated parts
+[7:05 PM]gcharang:
+will upload the video to my server and start streaming from there and will subscribe from my local computer
+fyi, this won't help in testing the streaming of a file growing in size
+[7:06 PM]jl777c:i did just fix one of the last (i hope) bugs with the incremental publish, so definitely update
+[7:06 PM]jl777c:you just want to DEX_publish a filename that is growing in size
+[7:06 PM]jl777c:be it a debug.liog
+[7:06 PM]jl777c:or a video file
+[7:06 PM]jl777c:or audio file
+[7:06 PM]jl777c:or a novel
+[7:07 PM]SHossain:got it.
+[7:09 PM]jl777c:the processing of a 200mb publish now takes about 3 minutes the first time and 6 seconds the second time, when there are no changes
+[7:10 PM]jl777c:so with a 30 seconds of buffering, this is actually good enough up to those file sizes. i am doing a compare of 100% of the file to catch any changes. if that is changed to just the last block, it will take only milliseconds to do a new DEX_publish
+[7:11 PM]jl777c:so its getting closer and closer to being useful
+[7:12 PM]jl777c:speed is up to 1MB/sec, and if there are no bugs, i will add a mode for append only files (actually just the last fragment will be allowed to change until it becomes full)
+[7:13 PM]jl777c:then it should be able to continously stream until it hits the 1GB file limit. probably we can say that is big enough as it will be taking 15 minutes to broadcast, which is already 25% of the purgelimit
+
+7:19 PM]jl777c:latest code seems to work as expected for me. there is a printout each time a new packet is broadcast and also when a fragment is saved locally. the publish will do subscribe calls automatically to sync and have the same data other nodes would have, and you can see it "write..." when it updates. each printed line requires network wide action (at least for the nodes that are subscribed)
+[7:20 PM]jl777c:plz ask any questions, been a long day, not sure how much longer i will be online
+[7:22 PM]jl777c:the biggest thing left is the request for missing data, though i am not seeing any need for this so far, still we cant expect the sync to always be 100%, so it is needed. i think after that will just be some small features and bug fixes and the DEX_publish/DEX_subscribe layer will be done. i had allocated this entire week for this so lets find any and all bugs while it is fresh.
+[7:22 PM]jl777c:for now dont go over 1GB, and i expect streaming to bog down when the file gets to around 50MB due to the latency, still it is a good test
+
+9:11 PM]jl777c:let me know how big the stream file gets when the playback starts getting inconsistent
+[9:11 PM]jl777c:the packets are already broadcast to the network , so any node that is in sync will be able to reconstruct the video stream
+
+[9:30 PM]jl777c:the locators id has to change, otherwise the data represented by the locators cant change
+[9:30 PM]jl777c:in
+[9:30 PM]jl777c:DEX_stats, is the output matching on both your nodes?
+[9:30 PM]jl777c:it seems that maybe some sleeps need to be added in the scripts
+
+9:31 PM]jl777c:yes, each id is the latest id from publish
+
+9:48 PM]jl777c:dont run script on subscriber side
+[9:48 PM]jl777c:manually do DEX_subscribe filename 0 0 <pubkey>
+[9:48 PM]jl777c:and make sure it updates the id and doesnt make errors
+
+9:52 PM]jl777c:so the bug seems to be the auto-fetching of the id
+[9:52 PM]jl777c:it always returns the first one?
+[9:52 PM]jl777c:if using id 0 and relying on pubkey?
+[9:53 PM]jl777c:this will be a pain to do, but if you can manually copy paste the new ids, it will likely keep the streaming player happy
+[9:53 PM]jl777c:and i will need to duplicate this unchanging id bug to get the streaming to work
+[9:54 PM]SHossain:i used id = 0 and it fetched the full stream of 197MB
+[9:55 PM]SHossain:shall i try the script with id=0 on subscriber node?
+[9:55 PM]SHossain:to see if the file continues to grow
+[9:55 PM]jl777c:what id were you using in the subscriber script??
+[9:55 PM]SHossain:the id from the output of first node
+[9:55 PM]jl777c:then of course it wont change
+[9:55 PM]jl777c:same id ->same data
+[9:55 PM]jl777c:use 0, for it to auto fetch
+[9:55 PM]jl777c:bug was in your script
+[9:56 PM]SHossain:ok. yes
+[9:56 PM]jl777c:it should just be DEX_subscribe filename 0 0 <pubkey>
+
+10:41 PM]jl777c:@SHossain the next test is to see how many streams can be done at the same time. my estimate is that we can do 1000 10kb packets per second, so that is 10MB/sec of bandwidth, if each stream is using 512 kbits/sec that means we can support about 20 streams at once
+
+10:49 PM]jl777c:i am starting to think about how to integrate dexp2p to the coin side of things. keeping in mind that even KMD can run -dexp2p nodes, that means we can make enhanced KMD functionality. a simple feature to add would be a paywall which would add an address and amount needed for a DEX_publish, at first it would just publish that this file would be available if enough funds are sent to the address. then when the funds arrive, the next call to DEX_publish would work normally. it does require trust in the publisher, but it seems the same as for any web purchase
+[10:49 PM]jl777c:open to other ideas on what sort of payments linkages are desired for dexp2p
+[10:51 PM]jl777c:the content seller should share the paid funds with the nodes that run the dexp2p, so you can make money by running a node, or by selling content. i will need to add network stats tagA, handle registrations (so you can have a handle, pubkey and payment address linked). then the payments can pay to the top N nodes (based on current statistics) in a single sendmany payment along with payment to the content seller
+[10:51 PM]jl777c:something like that
+[10:52 PM]jl777c:the payments layer will be next, after the file layer is done
+[10:52 PM]jl777c:i would also like to be able to substitute payment in lieu of txpow as the txpow really slows things down for large files
+
+11:13 PM]kmdkrazy:Advertisers will pay through nspv pay per click depending on the content - corporation can pay for storage and use....average Joe that only used 5gb has to share 10gb to get personal storage free
+[11:14 PM]SHossain:though receiving file size is increasing
+[11:14 PM]jl777c:seems network is close to saturation, indeed i will need to add a way to fill in the missing fragments
+[11:14 PM]jl777c:it will make the file the full size if it gets the last fragment, just that it will have gaps in the data
+[11:14 PM]kmdkrazy:I have more methods written down at my office
+
+11:16 PM]jl777c:you could pay a storage provider to store your data for you long term, it wouldnt be trustless, but rather the model of having a business who needs to provide good service to keep getting paid. the payments could be made incrementally over the duration of the storage contract
+[11:17 PM]jl777c:@SHossain the missing data wouldnt align to frames, so it would likely be all broken when there is a missing fragment
+[11:17 PM]jl777c:at least we know how to force the network into this state of missing fragments, that is required step to validate the request command i will implement next
+
+[11:18 PM]jl777c:i solved how to make it realtime performance regardless of filesize. a bit tricky, but i should have it done this week
+
+11:37 PM]Mark81:and to find it i need publisher public hash?
+[11:38 PM]SHossain:yes
+[11:38 PM]jl777c:you can DEX_list 0 0 files
+[11:38 PM]jl777c:it will list all published files
+
+11:38 PM]SHossain:when you use DEX_publish, you will see your pubkey33
+[11:38 PM]jl777c:from that you can find pubkeys
+[11:38 PM]jl777c:and filenames
+[11:38 PM]SHossain:DEX_stats also lists publishers pubkey
+[11:38 PM]SHossain:i mean for your own node
+[11:39 PM]SHossain:let me write a blog post about it then
+[11:39 PM]jl777c:if you dont start with -pubkey= then it will generate a session specific keypair
+[11:39 PM]jl777c:pubkey needs to be for an address in your wallet
+
+12:30 AM]jl777c:there is no place to upload as the lifetime is one hour, however one thing i wrote above is you can submit (encrypted) data to a service provider who will store it for you for a specified amount of time, with progress payments along the way
+
+1:38 PM]jl777c:@SHossain updated with new version that improved efficiency of the sending. still not totally optimized, but it should be much better. i think it might be able to stream all the way to 1GB size now, though it will get a bit inefficient toward the end when each update will broadcast almost 1MB of locators. to improve this more would need to handle incremental updating on the subscribe side, but that is not so urgent if we can stream all the way to 1GB file. there is a new flag for DEX_publish at the end that defaults to 0, if set to 1, it will rescan the entire file for changes. if 0, it just checks the very end of the file
+[1:39 PM]jl777c:so i think now, it should be able to handle multiple streams at the same time much better also
+[1:39 PM]jl777c:i have found some files that are getting decryption errors and that needs to be tracked down and fixed, so probably will be a while before any more pub/sub improvements
+
+7:36 PM]SHossain:i can start again with rescan flag when i'm back
+[7:37 PM]jl777c:yes, please. and i will start on a way to automatically get the missing blocks (even though they should already get there as they are VIP blocks..., so this will take a while to find and fix the sync bug and add a mechanism that allows to request the missing)
+
+12:37 AM]SHossain:i just downloaded it again without any error on the computer that doesn't have issue to download
+[12:37 AM]jl777c:subscribe DOESNT download
+[12:37 AM]jl777c:it only constructs a file out of the messages you already have in RAM
+[12:37 AM]jl777c:so if you have it 100% in RAM, it wont have errors
+
+12:37 AM]jl777c:if you dont, it will have errors
+[12:38 AM]SHossain:not 100% synced
+[12:38 AM]SHossain:sorry, i meant the constructs bit but used download instead
+[12:39 AM]jl777c:it is a bit different than other methods, i understand it will take a bit of time to get used to how it is working
+
+1:11 AM]jl777c:i have just 2 things left to fix:
+a) get sync from 99.99% to 100%
+b) automatically compare sha256 from files/filename vs what subscribe gets
+
+if you have any other issues for the DEX_publish/DEX_subscribe layer, let me know sooner than later. i am about to move to the payments layer. fixing bugs while it is top of mind goes 10x to 100x faster
+
+1:14 AM]kmdkrazy:would  ther  be   a reason why subscribe is not saving filename? @SHossain
+[1:15 AM]SHossain:how it's being saved now?
+[1:15 AM]jl777c:subscribe doesnt save filename
+[1:15 AM]kmdkrazy:while true
+do
+./komodo-cli -ac_name=DEXP2P DEX_subscribe movie3.mkv 0 0 0145a9c3bc35372ff3b7f4301ed380d152d17c3d43da3d651a9cd196221a437f46
+sleep 5
+done
+[1:15 AM]jl777c:unless you mean saving the file
+[1:15 AM]SHossain:the format is filename.extension.pubkey33
+[1:16 AM]kmdkrazy:file not in folder to view
+[1:16 AM]jl777c:movie3.mkv.0145a9c3bc35372ff3b7f4301ed380d152d17c3d43da3d651a9cd196221a437f46 doesnt exist?
+[1:16 AM]SHossain:so, it would be movie3.mkv.0145a9c3bc35372ff3b7f4301ed380d152d17c3d43da3d651a9cd196221a437f46 for you
+
+1:24 AM]kmdkrazy:can  ALL codecs be streamed?
+[1:24 AM]SHossain:you can stream ANY file type
+[1:25 AM]kmdkrazy:i thought packet losses on some formats screw it up
+[1:25 AM]SHossain:.txt .pdf .log .exe .doc .docx .mp4 .kmv .avi .3gp etc...
+[1:25 AM]jl777c:the idea is that when i get sync from 99.99% to 100%, there wont be any packet loss
+[1:25 AM]SHossain:virtually anything as long as the size doesn't exceed 1GB
