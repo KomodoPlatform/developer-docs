@@ -59,23 +59,25 @@ This method can be used to broadcast any data to the p2p network, which will be 
 
 #### Response
 
-| Name      | Type     | Description                                                                                                                                                             |
-| --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| timestamp | (number) | UNIX timestamp at which the datablob was created                                                                                                                        |
-| id        | (number) | short hash of the datablob; can be treated as a unique id most of the time                                                                                              |
-| hash      | (string) | hash of the datablob                                                                                                                                                    |
-| tagA      | (string) | `tagA` of the datablob                                                                                                                                                  |
-| tagB      | (string) | `tagB` of the datablob                                                                                                                                                  |
-| pubkey    | (string) | the `pubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `pubkey` can decrypt the datablob                     |
-| payload   | (string) | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
-| hex       | (number) | whether the `payload` is in hexadecimal format; `0` when `false` and `1` when `true`                                                                                    |
-| error     | (string) | errors if any                                                                                                                                                           |
-| senderpub | (string) | the `DEX_pubkey` of the sender                                                                                                                                          |
-| amountA   | (string) | amount associated with `tagA` (volumeA)                                                                                                                                 |
-| amountB   | (string) | amount associated with `tagB` (volumeB)                                                                                                                                 |
-| priority  | (number) | the priority with which the datablob will be routed by the network                                                                                                      |
-| recvtime  | (number) | the unix timestamp at which the datablob was first observed by the node                                                                                                 |
-| cancelled | (number) | whether the `datablob` is set to be purged prematurely; in the context of AtomicDEX orders, it means the order has been cancelled; `0` when `false` and `1` when `true` |
+| Name         | Type     | Description                                                                                                                                                             |
+| ------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| timestamp    | (number) | UNIX timestamp at which the datablob was created                                                                                                                        |
+| id           | (number) | short hash of the datablob; can be treated as a unique id most of the time                                                                                              |
+| hash         | (string) | hash of the datablob                                                                                                                                                    |
+| tagA         | (string) | `tagA` of the datablob                                                                                                                                                  |
+| tagB         | (string) | `tagB` of the datablob                                                                                                                                                  |
+| pubkey       | (string) | the `pubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `pubkey` can decrypt the datablob                     |
+| payload      | (string) | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
+| hex          | (number) | whether the `payload` is in hexadecimal format; `0` when `false` and `1` when `true`                                                                                    |
+| decrypted    | (number) | the decrypted payload; available only to the node with the recipient `DEX_pubkey`                                                                                       |
+| decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`; available only to the node with the recipient `DEX_pubkey`                |
+| error        | (string) | errors if any                                                                                                                                                           |
+| senderpub    | (string) | the `DEX_pubkey` of the sender                                                                                                                                          |
+| amountA      | (string) | amount associated with `tagA` (volumeA)                                                                                                                                 |
+| amountB      | (string) | amount associated with `tagB` (volumeB)                                                                                                                                 |
+| priority     | (number) | the priority with which the datablob will be routed by the network                                                                                                      |
+| recvtime     | (number) | the unix timestamp at which the datablob was first observed by the node                                                                                                 |
+| cancelled    | (number) | whether the `datablob` is set to be purged prematurely; in the context of AtomicDEX orders, it means the order has been cancelled; `0` when `false` and `1` when `true` |
 
 #### :pushpin: Examples
 
@@ -263,23 +265,25 @@ This method returns an order's data by its id.
 
 #### Response
 
-| Name      | Type     | Description                                                                                                                                                             |
-| --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| timestamp | (number) | UNIX timestamp at which the datablob was created                                                                                                                        |
-| id        | (number) | short hash of the datablob; can be treated as a unique id most of the time                                                                                              |
-| hash      | (string) | hash of the datablob                                                                                                                                                    |
-| tagA      | (string) | `tagA` of the datablob                                                                                                                                                  |
-| tagB      | (string) | `tagB` of the datablob                                                                                                                                                  |
-| pubkey    | (string) | the `pubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `pubkey` can decrypt the datablob                     |
-| payload   | (string) | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
-| hex       | (number) | whether the `payload` is in hexadecimal format; `0` when `false` and `1` when `true`                                                                                    |
-| error     | (string) | errors if any                                                                                                                                                           |
-| senderpub | (string) | the `DEX_pubkey` of the sender                                                                                                                                          |
-| amountA   | (string) | amount associated with `tagA` (volumeA)                                                                                                                                 |
-| amountB   | (string) | amount associated with `tagB` (volumeB)                                                                                                                                 |
-| priority  | (number) | the priority with which the datablob will be routed by the network                                                                                                      |
-| recvtime  | (number) | the unix timestamp at which the datablob was first observed by the node                                                                                                 |
-| cancelled | (number) | whether the `datablob` is set to be purged prematurely; in the context of AtomicDEX orders, it means the order has been cancelled; `0` when `false` and `1` when `true` |
+| Name         | Type     | Description                                                                                                                                                             |
+| ------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| timestamp    | (number) | UNIX timestamp at which the datablob was created                                                                                                                        |
+| id           | (number) | short hash of the datablob; can be treated as a unique id most of the time                                                                                              |
+| hash         | (string) | hash of the datablob                                                                                                                                                    |
+| tagA         | (string) | `tagA` of the datablob                                                                                                                                                  |
+| tagB         | (string) | `tagB` of the datablob                                                                                                                                                  |
+| pubkey       | (string) | the `pubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `pubkey` can decrypt the datablob                     |
+| payload      | (string) | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
+| hex          | (number) | whether the `payload` is in hexadecimal format; `0` when `false` and `1` when `true`                                                                                    |
+| decrypted    | (number) | the decrypted payload; available only to the node with the recipient `DEX_pubkey`                                                                                       |
+| decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`; available only to the node with the recipient `DEX_pubkey`                |
+| error        | (string) | errors if any                                                                                                                                                           |
+| senderpub    | (string) | the `DEX_pubkey` of the sender                                                                                                                                          |
+| amountA      | (string) | amount associated with `tagA` (volumeA)                                                                                                                                 |
+| amountB      | (string) | amount associated with `tagB` (volumeB)                                                                                                                                 |
+| priority     | (number) | the priority with which the datablob will be routed by the network                                                                                                      |
+| recvtime     | (number) | the unix timestamp at which the datablob was first observed by the node                                                                                                 |
+| cancelled    | (number) | whether the `datablob` is set to be purged prematurely; in the context of AtomicDEX orders, it means the order has been cancelled; `0` when `false` and `1` when `true` |
 
 #### :pushpin: Examples
 
