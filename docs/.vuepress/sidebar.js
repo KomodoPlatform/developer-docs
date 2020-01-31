@@ -115,6 +115,10 @@ var sidebar = [
           [
             "/basic-docs/smart-chains/smart-chain-setup/nspv.md",
             "nSPV (Enhanced Lite Mode)"
+          ],
+          [
+            "/basic-docs/smart-chains/smart-chain-setup/dexp2p.md",
+            "Enhanced p2p messaging/data transmission layer"
           ]
         ]
       },
