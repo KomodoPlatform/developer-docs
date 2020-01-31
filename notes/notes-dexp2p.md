@@ -1404,3 +1404,55 @@ done
 [1:25 AM]SHossain:.txt .pdf .log .exe .doc .docx .mp4 .kmv .avi .3gp etc...
 [1:25 AM]jl777c:the idea is that when i get sync from 99.99% to 100%, there wont be any packet loss
 [1:25 AM]SHossain:virtually anything as long as the size doesn't exceed 1GB
+
+2:04 PM]Sir Seven:If you try to publish file after cancelling order - daemon stops responding to rpcs.
+AE:
+./komodo-cli -ac_name=DEXP2P DEX_broadcast messagehere 4 BTC KMD pubkey33 100 20
+./komodo-cli -ac_name=DEXP2P DEX_cancel id
+./komodo-cli -ac_name=DEXP2P DEX_publish publish.tar.gz 0
+Here DEX_publish will fail by timeout, as any other rpc after it.
+[2:10 PM]jl777c:what id is being cancelled?
+[2:10 PM]jl777c:does it matter, or does it need to be the broadcast right before that is cancelled
+[2:13 PM]jl777c:i do DEX_get after the cancel and it works
+[2:15 PM]Sir Seven:DEX_get works after cancel, yes. Problem occur right after you issue DEX_publish call.
+
+2:15 PM]Sir Seven:DEX_get works after cancel, yes. Problem occur right after you issue DEX_publish call.
+[2:16 PM]Sir Seven:id being cancelled is id of order broadcasted in 1st call above.
+[2:17 PM]Sir Seven:Something like this:
+1. broadcast a new order.
+2. cancel it.
+3. publish any file.
+
+12:28 AM]jl777c:update: only id with a pubkey can be cancelled, by that pubkey. that is why cancel wasnt working for me.
+
+5:14 PM]jl777c:@SHossain pushed a version that has initial implementation to request the missing blocks. when you do a subscribe, if there are any fragments missing, it will broadcast and 'R' request to the network. this will make all nodes behave like the VIP block has just arrived and will do the normal pinging to all their neighbors. which should allow the node that is missing the block to pull it from a neighbor
+[5:14 PM]jl777c:so do the tests where you were getting 99.99% in sync, but had a few missing and see if this makes it any better, without having negative effects, like longer lag, or increased duplicates, etc.
+[5:15 PM]jl777c:i still cant duplicate the cancel + publish deadlock and am waiting for more info @Sir Seven assuming the retrieval of the missing blocks work, that is about the only thing left that i know of before i can start on the payments layer
+[5:16 PM]jl777c:@TonyL it would be interesting to see if video can be streamed on the 100 node network
+
+6:52 PM]jl777c:so sparse networks can stream too
+[6:52 PM]jl777c:at least a mini network of 3
+[6:53 PM]SHossain:i can run the subscribe script on bystander node if you like
+[6:53 PM]SHossain:only can't watch the video
+[6:53 PM]jl777c:no
+[6:53 PM]jl777c:this is the worst config for streaming, so that is the best one to use for testing
+[6:53 PM]jl777c:still streaming?
+[6:53 PM]SHossain:yes, still streaming
+[6:53 PM]jl777c:and DEX.log is growing on which nodes?
+[6:56 PM]SHossain:6.4MB on bystander node and 3.4MB on subscriber's node
+[6:57 PM]SHossain:3.6MB on publisher node
+[6:57 PM]SHossain:growing on bystander node
+
+
+8:54 PM]jl777c:here is a workaround that should keep things better in sync. do a DEX_broadcast with a higher priority, something like 8 that will dramatically reduce the chance of the locators to not get to the other nodes. then with a 90 second buffer it should sync better
+[8:55 PM]jl777c:while these results are pretty good, actually better than i expected as it was just the first level of REQUEST, it is clear i need a fallback in case the REQUEST doesnt bring in the missing. that wont be ready until next week
+
+9:00 PM]jl777c:it really isnt a streaming friendly protocol now on the locators side, so maybe i need to improve that too, however duplicating these missing data cases is very good as it is getting not so easy to do. it could be that priority 8 and 90 seconds buffer without DEX.log will be sufficient to get to 200 to 500 MB
+
+[9:04 PM]jl777c:i want to get test results with the current REQUEST method. then i will lower the data blocks to priority of 0 and see if we can maintain the same performance. if so, that will make it much better as currently it is using VIP priority for data, which is a bit of overkill
+[9:06 PM]jl777c:ok, so you are running several tests to see how far it gets and after that i will know what the next steps should be
+
+4:37 AM]Sir Seven:Okay. DEX_publish will be locked only after DEX_cancel.
+No matter if you cancel order by id, pubkey pr tags.
+Withought using DEX_cancel -> all works just fine, and no calls will be locked after DEX_cancel except publish.
+AE: broadcast -> cancel -> broadcast have no issues.
