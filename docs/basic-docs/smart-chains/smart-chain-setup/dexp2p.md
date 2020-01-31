@@ -249,6 +249,70 @@ Cancel all orders published for a specific `base/rel` pair
 
 </collapse-text>
 
+## DEX_get
+
+**DEX_get id**
+
+This method returns an order's data by its id.
+
+#### Arguments
+
+| Name | Type     | Description             |
+| ---- | -------- | ----------------------- |
+| id   | (number) | short hash of the order |
+
+#### Response
+
+| Name      | Type     | Description                                                                                                                                                             |
+| --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| timestamp | (number) | UNIX timestamp at which the datablob was created                                                                                                                        |
+| id        | (number) | short hash of the datablob; can be treated as a unique id most of the time                                                                                              |
+| hash      | (string) | hash of the datablob                                                                                                                                                    |
+| tagA      | (string) | `tagA` of the datablob                                                                                                                                                  |
+| tagB      | (string) | `tagB` of the datablob                                                                                                                                                  |
+| pubkey    | (string) | the `pubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `pubkey` can decrypt the datablob                     |
+| payload   | (string) | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
+| hex       | (number) | whether the `payload` is in hexadecimal format; `0` when `false` and `1` when `true`                                                                                    |
+| error     | (string) | errors if any                                                                                                                                                           |
+| senderpub | (string) | the `DEX_pubkey` of the sender                                                                                                                                          |
+| amountA   | (string) | amount associated with `tagA` (volumeA)                                                                                                                                 |
+| amountB   | (string) | amount associated with `tagB` (volumeB)                                                                                                                                 |
+| priority  | (number) | the priority with which the datablob will be routed by the network                                                                                                      |
+| recvtime  | (number) | the unix timestamp at which the datablob was first observed by the node                                                                                                 |
+| cancelled | (number) | whether the `datablob` is set to be purged prematurely; in the context of AtomicDEX orders, it means the order has been cancelled; `0` when `false` and `1` when `true` |
+
+#### :pushpin: Examples
+
+##### Command
+
+```bash
+./komodo-cli -ac_name=DEXP2P DEX_get 2432811744
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "timestamp": 1580471428,
+  "id": 2432811744,
+  "hash": "072e1c1049d1af9a0b67d532c20986a2a77dd1351a947388771efa1fadeba0f4",
+  "tagA": "BTC",
+  "tagB": "KMD",
+  "pubkey": "01faed489d5ae6d66e6fb7f69a15aeb81051bd02169d29eb8883260f3798e40778",
+  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063e37a33b88b9ee79d4eac4535cfb496674e6b33fe66afb71700000000000000000000000000000000b5e5ed2e51a6fac458ee6533a1a60bac9d43944494b8",
+  "hex": 1,
+  "error": "wrong sender",
+  "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "amountA": "0.10000000",
+  "amountB": "100.00000000",
+  "priority": 5,
+  "recvtime": 1580471428,
+  "cancelled": 0
+}
+```
+
+</collapse-text>
+
 ## DEX_list
 
 **DEX_list stopat minpriority tagA tagB pubkey33 [minA maxA minB maxB [stophash]]**
