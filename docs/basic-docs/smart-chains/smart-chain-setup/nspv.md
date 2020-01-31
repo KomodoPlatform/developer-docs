@@ -86,7 +86,7 @@ The `magic` number can also be seen in the terminal as a `stdout` printout when 
 
 ###### Example
 
-```
+```bash
 >>>>>>>>>> COIN: p2p.40264 rpc.40265 magic.fe1c3450 4263261264 350689 coins
 ```
 
@@ -96,7 +96,7 @@ The `magic` number can also be seen in the terminal as a `stdout` printout when 
 
 To start the nSPV client for a specific Smart Chain after its data has been added to the coins file, execute the following.
 
-```
+```bash
 ./nspv COIN
 ```
 
@@ -288,20 +288,21 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getinfo", "pa
 
 ## getnewaddress
 
-**getnewaddress**
+**getnewaddress [lang]**
 
 Use this method to create a new address.
 
 #### Arguments
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |             |
+| Name | Type              | Description                                                                                                                                                                                      |
+| ---- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| lang | (string,optional) | the language in which the seed words are to be generated; can be one of: "english", "french", "italian", "japanese", "korean", "russian", "spanish", "chinese_simplified", "chinese_traditional" |
 
 #### Response
 
 | Name       | Type     | Description                                            |
 | ---------- | -------- | ------------------------------------------------------ |
+| seed       | (string) | seed phrase of the generated address                   |
 | wif        | (string) | wifkey of the generated address                        |
 | address    | (string) | the generated address                                  |
 | pubkey     | (string) | pubkey of the generated address                        |
@@ -310,7 +311,7 @@ Use this method to create a new address.
 
 #### :pushpin: Examples
 
-##### Command
+##### Command (Without arguments)
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getnewaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -320,9 +321,31 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getnewaddress
 
 ```json
 {
-  "wif": "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "address": "Rxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "pubkey": "03xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "seed": "shiver heart abuse xxx xxx xxx xxx xxx xxx xxx xxx xxx",
+  "wif": "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "address": "RL5kuVuiJQQcDdaooYerKUxvcXwq8jb71d",
+  "pubkey": "03b983f01e528356dfc32b49fc2a830013a28fc95b569b7559b09729912d29f5c5",
+  "wifprefix": 188,
+  "compressed": 1
+}
+```
+
+</collapse-text>
+
+##### Command (To get the seed words in italian)
+
+```bash
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getnewaddress", "params": ["italian"] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "seed": "agitare busta rinnovo xxx xxxx xxx xxx xxxx xxx xxx xxx xxxx",
+  "wif": "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "address": "RFKVh3xE3ygK9smStgurByLZ2b3Nksm9bQ",
+  "pubkey": "033b8705127f19a6e5de646f3c46590b9196acfc01d68740f0872547677da3d8bf",
   "wifprefix": 188,
   "compressed": 1
 }
