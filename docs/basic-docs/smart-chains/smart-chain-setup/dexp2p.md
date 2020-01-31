@@ -321,14 +321,3 @@ This method gives info and stats related to the p2p data layer.
 ```
 
 </collapse-text>
-<!------
-
-## DEX_setpubkey
-
-## DEX_cancel
-
-## DEX_publish
-
-## DEX_subscribe
-
-------->
