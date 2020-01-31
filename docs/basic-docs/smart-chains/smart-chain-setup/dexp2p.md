@@ -1,7 +1,7 @@
 # Enhanced Peer to Peer data broadcast and synchronisation between Nodes of a Smart Chain
 
 :::tip Note
-This Peer to Peer Messaging Enhancement technology is in development. The specifics of the implementation are also subject to change. This document is a Work In Progress.
+This Peer to Peer Messaging Enhancement technology is in development. The specifics of the implementation are subject to change. This document is a Work In Progress.
 :::
 
 ## Introduction
@@ -69,8 +69,10 @@ This method can be used to broadcast any data to the p2p network, which will be 
 | pubkey    | (string) | the `pubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `pubkey` can decrypt the datablob                     |
 | payload   | (string) | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
 | hex       | (number) | whether the `payload` is in hexadecimal format; `0` when `false` and `1` when `true`                                                                                    |
-| amountA   | (number) | amount associated with `tagA` (volumeA)                                                                                                                                 |
-| amountB   | (number) | amount associated with `tagB` (volumeB)                                                                                                                                 |
+| error     | (string) | errors if any                                                                                                                                                           |
+| senderpub | (string) | the `DEX_pubkey` of the sender                                                                                                                                          |
+| amountA   | (string) | amount associated with `tagA` (volumeA)                                                                                                                                 |
+| amountB   | (string) | amount associated with `tagB` (volumeB)                                                                                                                                 |
 | priority  | (number) | the priority with which the datablob will be routed by the network                                                                                                      |
 | recvtime  | (number) | the unix timestamp at which the datablob was first observed by the node                                                                                                 |
 | cancelled | (number) | whether the `datablob` is set to be purged prematurely; in the context of AtomicDEX orders, it means the order has been cancelled; `0` when `false` and `1` when `true` |
@@ -87,18 +89,160 @@ This method can be used to broadcast any data to the p2p network, which will be 
 
 ```json
 {
-  "timestamp": 1578774049,
-  "id": 3023765995,
-  "hash": "eb013bb4ea9bc47d813a5d7b2217c7974eaf174b5470a3f7b20e939c503ee0d4",
+  "timestamp": 1580471428,
+  "id": 2432811744,
+  "hash": "072e1c1049d1af9a0b67d532c20986a2a77dd1351a947388771efa1fadeba0f4",
   "tagA": "BTC",
   "tagB": "KMD",
-  "destpub": "01faed489d5ae6d66e6fb7f69a15aeb81051bd02169d29eb8883260f3798e40778",
-  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d0633f58a584d2eea6328cad6014ea41508d0fc788053672219000000000000000000000000000000000a8506b53e6fd01d878cccab596f1aac5b34950f17721",
+  "pubkey": "01faed489d5ae6d66e6fb7f69a15aeb81051bd02169d29eb8883260f3798e40778",
+  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063e37a33b88b9ee79d4eac4535cfb496674e6b33fe66afb71700000000000000000000000000000000b5e5ed2e51a6fac458ee6533a1a60bac9d43944494b8",
   "hex": 1,
-  "amountA": 0.1,
-  "amountB": 100,
-  "priority": 6,
-  "recvtime": 1579522631,
+  "error": "wrong sender",
+  "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "amountA": "0.10000000",
+  "amountB": "100.00000000",
+  "priority": 5,
+  "recvtime": 1580471428,
+  "cancelled": 0
+}
+```
+
+</collapse-text>
+
+## DEX_cancel
+
+**DEX_cancel id [pubkey33 [tagA tagB]]**
+
+This method can be used to cancel an order issued by the user's node. A node can cancel only the orders that were broadcasted using its current `DEX_pubkey`.
+
+<!----
+FIXME:
+"Orders that are  broadcasted without a pubkey can not be canceled" - get clarification from from Sirseven
+---->
+
+#### Arguments
+
+| Name     | Type               | Description                                                                |
+| -------- | ------------------ | -------------------------------------------------------------------------- |
+| id       | (number, optional) | short hash of the datablob; can be treated as a unique id most of the time |
+| pubkey33 | (string, optional) | the `pubkey` the payload is tagged with                                    |
+| tagA     | (string, optional) | `tagA` of the datablob                                                     |
+| tagB     | (string, optional) | `tagB` of the datablob                                                     |
+
+#### Response
+
+| Name         | Type     | Description                                                                                                                                                             |
+| ------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| timestamp    | (number) | UNIX timestamp at which the datablob was created                                                                                                                        |
+| id           | (number) | short hash of the datablob; can be treated as a unique id most of the time                                                                                              |
+| hash         | (string) | hash of the datablob                                                                                                                                                    |
+| tagA         | (string) | `tagA` of the datablob                                                                                                                                                  |
+| tagB         | (string) | `tagB` of the datablob                                                                                                                                                  |
+| pubkey       | (string) | the `pubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `pubkey` can decrypt the datablob                     |
+| payload      | (string) | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
+| hex          | (number) | whether the `payload` is in hexadecimal format; `0` when `false` and `1` when `true`                                                                                    |
+| decrypted    | (number) | the decrypted payload; available only to the node with the recipient `DEX_pubkey`                                                                                       |
+| decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`; available only to the node with the recipient `DEX_pubkey`                |
+| error        | (string) | errors if any                                                                                                                                                           |
+| senderpub    | (string) | the `DEX_pubkey` of the sender                                                                                                                                          |
+| amountA      | (string) | amount associated with `tagA` (volumeA)                                                                                                                                 |
+| amountB      | (string) | amount associated with `tagB` (volumeB)                                                                                                                                 |
+| priority     | (number) | the priority with which the datablob will be routed by the network                                                                                                      |
+| recvtime     | (number) | the unix timestamp at which the datablob was first observed by the node                                                                                                 |
+| cancelled    | (number) | whether the `datablob` is set to be purged prematurely; in the context of AtomicDEX orders, it means the order has been cancelled; `0` when `false` and `1` when `true` |
+
+#### :pushpin: Examples
+
+##### Command (Using the id)
+
+Cancel an order by its "id"
+
+```bash
+./komodo-cli -ac_name=DEXP2P DEX_cancel 2432811744
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "timestamp": 1580475219,
+  "id": 673100032,
+  "hash": "0710eb81d2061ad610f66dfe43d4c814b4644a57633e7f9fe9557462fa349605",
+  "tagA": "cancel",
+  "tagB": "",
+  "pubkey": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063ae2a67c540fdfe162f287bda6fd7fa8348373292d6fa61450000000000000000000000000000000034776c72512cdaef45dbd54dcc161adb5acd9f02",
+  "hex": 1,
+  "decrypted": "e0c20191",
+  "decryptedhex": 1,
+  "amountA": "0.00000000",
+  "amountB": "0.00000000",
+  "priority": 8,
+  "recvtime": 1580475219,
+  "cancelled": 0
+}
+```
+
+</collapse-text>
+
+##### Command (Using the pubkey)
+
+Cancel all orders tagged with a "pubkey"
+
+```bash
+./komodo-cli -ac_name=DEXP2P DEX_cancel "" 01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "timestamp": 1580477389,
+  "id": 820606976,
+  "hash": "0780970ea30e2aa7f7b5d5cfd2ac61493301b883db7fad17ad6479472d442ef3",
+  "tagA": "cancel",
+  "tagB": "",
+  "pubkey": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d06315a69a48086cb634506c2fdbabccaa40b06e5e4355503f6c00000000000000000000000000000000f26b764ccddca46aaac93ac02c5f4e2c1f1388af7876c9297d835e40e8a368536dea018fa374f914b2d62888ac4fdf627d",
+  "hex": 1,
+  "decrypted": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "decryptedhex": 1,
+  "amountA": "0.00000000",
+  "amountB": "0.00000000",
+  "priority": 11,
+  "recvtime": 1580477389,
+  "cancelled": 0
+}
+```
+
+</collapse-text>
+
+##### Command (Using the tags tagA and tagB)
+
+Cancel all orders published for a specific `base/rel` pair
+
+```bash
+./komodo-cli -ac_name=DEXP2P DEX_cancel "" "" "KMD" "BTC"
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "timestamp": 1580477489,
+  "id": 1361541632,
+  "hash": "07a07712851c911f6dbc1d63cadbd2eeb666329307e01211f16e0594d4706fe3",
+  "tagA": "cancel",
+  "tagB": "",
+  "pubkey": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d06366bfe76902e72060a193dc5c3d8c35a57a6227a35133788600000000000000000000000000000000efe08540f37f0263a9ba2c438ef210df93ce78bd6bf2d414",
+  "hex": 1,
+  "decrypted": "034b4d4403425443",
+  "decryptedhex": 1,
+  "amountA": "0.00000000",
+  "amountB": "0.00000000",
+  "priority": 9,
+  "recvtime": 1580477489,
   "cancelled": 0
 }
 ```
@@ -149,8 +293,10 @@ This method can be used to filter and list data from the "Data Mempool" of the n
 | destpub   | (string)        | the `destpubkey` to which the payload is encrypted to                                                                                                                   |
 | payload   | (string)        | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
 | hex       | (boolean)       | whether the `payload` is in hexadecimal format                                                                                                                          |
-| amountA   | (number)        | amount associated with `tagA` (volumeA)                                                                                                                                 |
-| amountB   | (number)        | amount associated with `tagB` (volumeB)                                                                                                                                 |
+| error     | (string)        | errors if any                                                                                                                                                           |
+| senderpub | (string)        | the `DEX_pubkey` of the sender                                                                                                                                          |
+| amountA   | (string)        | amount associated with `tagA` (volumeA)                                                                                                                                 |
+| amountB   | (string)        | amount associated with `tagB` (volumeB)                                                                                                                                 |
 | priority  | (number)        | the priority with which the datablob will be routed by the network                                                                                                      |
 | recvtime  | (number)        | the unix timestamp at which the datablob was first observed by the node                                                                                                 |
 | cancelled | (number)        | whether the `datablob` is set to be purged prematurely; in the context of AtomicDEX orders, it means the order has been cancelled; `0` when `false` and `1` when `true` |
@@ -174,18 +320,20 @@ This method can be used to filter and list data from the "Data Mempool" of the n
   "result": "success",
   "matches": [
     {
-      "timestamp": 1579522631,
-      "id": 1296510848,
-      "hash": "015f8e9a41f97b8c13fafa64fed361c500dd0939131915d6805c10fed475ceeb",
+      "timestamp": 1580471428,
+      "id": 2432811744,
+      "hash": "072e1c1049d1af9a0b67d532c20986a2a77dd1351a947388771efa1fadeba0f4",
       "tagA": "BTC",
       "tagB": "KMD",
-      "pubkey": "",
-      "payload": "hello",
-      "hex": 0,
-      "amountA": 1,
-      "amountB": 999,
-      "priority": 7,
-      "recvtime": 1579522631,
+      "pubkey": "01faed489d5ae6d66e6fb7f69a15aeb81051bd02169d29eb8883260f3798e40778",
+      "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063e37a33b88b9ee79d4eac4535cfb496674e6b33fe66afb71700000000000000000000000000000000b5e5ed2e51a6fac458ee6533a1a60bac9d43944494b8",
+      "hex": 1,
+      "error": "wrong sender",
+      "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+      "amountA": "0.10000000",
+      "amountB": "100.00000000",
+      "priority": 5,
+      "recvtime": 1580471428,
       "cancelled": 0
     }
   ],
@@ -223,11 +371,11 @@ This method interprets the datablobs as orders for AtomicDEX and displays releva
 | Name       | Type            | Description                                                                          |
 | ---------- | --------------- | ------------------------------------------------------------------------------------ |
 | asks       | (array of json) | all the asks for the base coin named by `tagA` w.r.t to the rel coin named by `tagB` |
-| price      | (number)        | the price offered; calculated as `amountB/amountA` of the datablob                   |
-| baseamount | (number)        | the volume of the base coin offered; `amountA` of the datablob                       |
-| relamount  | (number)        | the volume of the base coin offered; `amountB` of the datablob                       |
+| price      | (string)        | the price offered; calculated as `amountB/amountA` of the datablob                   |
+| baseamount | (string)        | the volume of the base coin offered; `amountA` of the datablob                       |
+| relamount  | (string)        | the volume of the base coin offered; `amountB` of the datablob                       |
 | priority   | (number)        | the priority of the order                                                            |
-| pubkey     | (number)        | the pubkey associated with the order                                                 |
+| pubkey     | (string)        | the pubkey associated with the order                                                 |
 | timestamp  | (number)        | the timestamp of the order                                                           |
 | hash       | (number)        | the hash of the order                                                                |
 | id         | (number)        | the short hash of the order ; can be treated as an unique id                         |
