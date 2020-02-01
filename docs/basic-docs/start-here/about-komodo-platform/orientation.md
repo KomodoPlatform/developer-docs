@@ -32,9 +32,9 @@ Beginner-level knowledge should be sufficient for the majority of the site. For 
 
 If you do not have these prerequisite experiences, we encourage you to reach out to our community on [<b>Discord.</b>](https://komodoplatform.com/discord) There are thousands of free tutorials online that can help you quickly cover these topics. We will be happy to help you in your search.
 
-### A Note Regarding Komodo Language Compatability 
+### A Note Regarding Komodo Language Compatibility 
 
-Komodo is a highly capable blockchain technology, and it is designed for compatability with essentially all mainstream programming languages. However, not all developers will need to use its most advanced aspects.
+Komodo is a highly capable blockchain technology, and it is designed for compatibility with essentially all mainstream programming languages. However, not all developers will need to use its most advanced aspects.
 
 #### A Normal Developer in the Komodo Ecosystem
 
