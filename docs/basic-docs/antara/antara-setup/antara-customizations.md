@@ -106,10 +106,10 @@ Let the 4 bit binary number be `wxyz`
 
 w,x,y,z are bit4, bit3, bit2 and bit1 respectively
 
-if z = 1 : DTO is enabled and miners are required to add some data to the coinbase transaction's [OP_RETURN](../../../basic-docs/antara/antara-tutorials/advanced-series-3.html#response-annotated)
-if y = 1 : the data miners will write is prices of BTC vs fiat pairs viz., BTC_USD, BTC_GBP, BTC_EUR and Major fiat vs USD pairs
-if x = 1 : the data miners will write is prices of Cryptocurrencies included in the [-ac_prices](#ac-prices) parameter
-if w = 1 : the data miners will write is prices of Stocks included in the [-ac_stocks](#ac-stocks) parameter
+- if z = 1 : DTO is enabled and miners are required to add some data to the coinbase transaction's [OP_RETURN](../../../basic-docs/antara/antara-tutorials/advanced-series-3.html#response-annotated)
+- if y = 1 : the data miners will write is prices of BTC vs fiat pairs viz., BTC_USD, BTC_GBP, BTC_EUR and Major fiat vs USD pairs
+- if x = 1 : the data miners will write is prices of Cryptocurrencies included in the [-ac_prices](#ac-prices) parameter
+- if w = 1 : the data miners will write is prices of Stocks included in the [-ac_stocks](#ac-stocks) parameter
 
 ### Examples
 
@@ -145,9 +145,7 @@ Setting `ac_cc=1` permits Antara on the Smart Chain, but will not allow the Smar
 
 ### ac_cc=2 to 99
 
-The values of `2` through `99` (inclusive) indicate Smart Chains that can validate transactions that occur on other Smart Chains on the same cluster (i.e. the same `ac_cc` value), but their coins are not fungible.
-
-However, coins are not fungible, and therefore cannot be transferred between blockchains.
+The values of `2` through `99` (inclusive) indicate Smart Chains that can validate transactions that occur on other Smart Chains on the same cluster (i.e. the same `ac_cc` value), but their coins are not fungible and therefore cannot be transferred between blockchains.
 
 ### ac_cc=100 to 9999
 
@@ -404,6 +402,184 @@ Use the [getblocksubsidy](../../../basic-docs/smart-chains/smart-chain-api/minin
 
 :::
 
+## ac_feeds 
+
+::: tip Note
+
+The ac_feeds customization is in development. Please reach out to the Komodo team for more information or to use this customization in a production environment.
+
+:::
+
+:::tip Note
+
+The ac_feeds parameter is directly relevant to the [Prices Antara module](../antara-api/prices.md). The Prices module also requires the inclusion of the following parameters in the launch command of a Smart Chain: [-ac_cbopret](#ac-cbopret), [-ac_cc=n (where n >=2)](#ac-cc) .
+
+:::
+
+The `ac_feeds` parameter supports the retrieval of data from sources accessed using the `http/https` protocols and which return data as a json object. 
+
+The [Antara Prices Module](#prices.html) has an internal parser that processes the json object using the [RFC 6901 'Json Pointer' addressing](https://tools.ietf.org/html/rfc6901). The internal parser extracts the value specified by the json pointer or calculates the average value for the specified value paths, as explained below.
+
+This parameter also allows the addition of a custom shared object library (a `.so` file) that has the necessary parsing function to retrieve values from the json object returned by a web api. This feature can be used when the json object returned is non-standard and the internal parser's features are not sufficient. In this event, the parsing function takes the json object and several configuration options, such as `customdata`, as arguments and returns the price. The configuration options inform the function about the location of the price data within the json object.
+
+The value of this parameter is a quoted string that contains a json array of feed-configuration options.
+
+### Basic Usage
+
+```bash
+-ac_feeds='[{"name":"stocks", "url":"https://api.iextrading.com/1.0/tops/last?symbols=AAPL,ADBE", "results":[{"symbol":"AAPL","valuepath":"/0/price"}, {"symbol":"ADBE","valuepath":"/1/price"}], "multiplier":1000000, "interval":120 }, {configuration object for another feed ...}]'
+```
+
+Each json object in the above json array defines a unique Feed. The json array includes details such as the Feed's name, the web api's url, the symbol for each of the items in the feed, and the path to acquire the price data for an item from the json returned from the web api.
+
+##### ac_feeds Example
+
+```json
+{
+  "name": "stocks",
+  "url": "https://api.iextrading.com/1.0/tops/last?symbols=AAPL,ADBE",
+  "results": [
+    { "symbol": "AAPL", "valuepath": "/0/price" },
+    { "symbol": "ADBE", "valuepath": "/1/price" }
+  ],
+  "multiplier": 1000000,
+  "interval": 120
+}
+```
+
+The above configuration object defines a single feed named "stocks" that contains prices of the symbols `AAPL` and `ADBE` retreived from the web api with the "url": `https://api.iextrading.com/1.0/tops/last?symbols=AAPL,ADBE`. 
+
+The returned data is a json array and is processed by ac_feeds's internal parser to set the prices of the symbols `AAPL` and `ADBE` based on the data in the json array. This data is found in the `results` key.
+
+```json
+{ "symbol": "AAPL", "valuepath": "/0/price" }
+```
+
+The value of the key named `symbol` sets the symbol for the item in the price feed.
+
+The value of the key named `valuepath` is a json "pointer" that indicates the method to extract the value of the price matching the symbol in the response. For example, when the parser encounters the value `"/0/price"`, the parser selects the `0th` element of the json array and reads the value of the key named `price`.
+
+The value of the key named `multiplier` is the number by which the value extracted should be multiplied before being added to the feed. This convers numbers with decimal paces into integers.
+
+The value of the key named `interval` is the time in seconds between each refresh of the data from the web api. The minimum value is `120`.
+
+#### Polling the Same url Multiple Times
+
+The following example can be useful when polling the same url multiple times with a fixed subset of changing.
+
+```bash
+-ac_feeds='[{"name":"metals", "url":"https://forex-data-feed.swissquote.com/public-quotes/bboquotes/instrument/%s/USD", "substitutes":["XAU","XPT"], "quote":"USD", "results":{"averagevaluepaths":["/*/spreadProfilePrices/*/ask","/*/spreadProfilePrices/*/bid"] }, "multiplier":10000, "interval":120 }]'
+```
+
+The above example has the configuration for a single feed named "metals" that allows for the retrieval of the prices `XAU/USD` (`XAU_USD`) and `XPT/USD` (`XPT_USD`) symbols from the web api hosted by `forex-data-feed.swissquote.com`. 
+
+The key `url` has the actual address of the web api, with `%s` included to denote "substitute". All the urls formed by the substitution `%s` and with elements of the array stored in the key named `substitues` are polled. Their responses are processed and added to the feed. As before, the key named "results" holds the data that indicates the method for processing the responses.
+
+```json
+{
+  "averagevaluepaths": [
+    "/*/spreadProfilePrices/*/ask",
+    "/*/spreadProfilePrices/*/bid"
+  ]
+}
+```
+
+In this case, the `results` object indicates that the price value to be added to the feed is the average of all values retrived from the responses based on the json pointers `"/*/spreadProfilePrices/*/ask"` and `"/*/spreadProfilePrices/*/bid"`. 
+
+Note the '\*' symbols in the json pointers. These indicate that the response is an array and all the elements of the array will be used in the calculation of the average. When the key `substitutes` is used in the configuration, the `result` parameter is a json object and is applied to the resulting json response from polling each url formed by using each substitute.
+
+There is also an optional parameter named `quote` which is added to the symbol of the price in the feed. For example, using the values `"quote":"USD"` displays the prices as `XAU_USD` and `XPT_USD` in the feed. The `quote` value can also be empty if the strings in the array `substitutes` are complete symbols.
+
+#### Method of Handling when the Internal Parser is Inadequate
+
+When the internal parser of the `ac_feeds` customization is inadequate for parsing responses from a web API, the following example can be of assistance.
+
+```bash
+-ac_feeds='[{"name":"metals", "url":"https://forex-data-feed.swissquote.com/public-quotes/bboquotes/instrument/%s/USD", "substitutes":["XAU","XPT"], "quote":"USD", "customlib":"libpricessampleparser.so", "results":{"customdata":"/0/spreadProfilePrices/0/ask"}, "multiplier":10000, "interval":120 }]'
+```
+
+This feed configuration has a custom parser. 
+
+The feed is differentiated from the previous feed by the `customlib` key, which contains the name of a shared library that contains the custom parser, and the `customdata` key, which is arbitraty data passed to the custom parser function in the shared library.
+
+#### -ac\_feed Parameters
+
+| Parameter     | Type                                   | Description                                                                                                                                                                                                                                                                               | Example                                                                                                                |
+| ------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| "name"        | (mandatory, string)                    | the name of the configuration item                                                                                                                                                                                                                                                                | `"name":"stocks"`                                                                                                      |
+| "url"         | (mandatory, string)                    | the url of the web api to be polled; if the url contains `%s`, the configuration must also contain the `substitutes` parameter                                                                                                                                                                | with no `%s` - "url": `https://api.trade.com/1.0/` <br><br> with `%s`: "url" - `https://api.fin.com/api/?symbol=%sBTC` |
+| "substitutes" | (optional, array of strings)           | a list of strings to substitute '%s' symbols in the `url` parameter to create requests; this supposes that each request returns a single value. If there is no `substitutes` key array in the configuration, then a poll may return many values                                                                  | `"substitutes":["XAU","XPT"]`                                                                                          |
+| "quote"       | (optional, string)                     | the string to be added to each string in the `substitutes` parameter to form a symbol of a currency pair, such as ``"USD_BTC"`, to represent the price data retreived from the feed                                                                                                                 | `"quote":"BTC"`                                                                                                        |
+| "customlib"   | (optional, string)                     | the name of the custom-parser library                                                                                                                                                                                                                                                             | `"customlib": "libmyparser.so"`                                                                                        |
+| "results"     | (mandatory, json object or json array) | contains parameters to parse the json response from the web api; this is an **object** if the parameter `substitutes` is present (in this case, the substitute is applied to the response from each poll, thus making the response arrive at one value <!-- Sidd: i'm not sure I understood all of this -->). Otherwise, the value is an **array** (this event allows for the retrieval of several values from the response). | see the structure and examples in the succeeding tables                                                                |
+| "multiplier"  | (optional, number)                     | an integer multiplier that indicates the value by which the result(s) should be multiplied to create an integer; the default value is `1`                                                                                                                                                                                                                           | for forex prices, `"multiplier":10000` <br><br> for cryptocurrencies, `"multiplier":100000000`                         |
+| "interval"    | (optional, number)                     | the poll interval, given in seconds; this value should be greater than or equal to `120`; the default value is `120`                                                                                                                                                                                                      | `"interval":180`                                                                                                       |
+
+#### Results Array Members
+
+| Name           | Type                         | Description                                                                                                                                                                                                           | Example                                            |
+| -------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| "symbol"       | (optional, string)           | the symbol to be displayed in the feed for the value retrieved                                                                                                                                                  | `"symbol":"USD_BTC"`                               |
+| "valuepath"    | (optional, string)           | a json pointer to the value                                                                                                                                                                                         | `"valuepath":"/BTC/price"`                         |
+| "averagepaths" | (optional, array of strings) | a list of json pointers to values. If present, the average is calculated. In the position where an array index is expected in the json pointer, the value can be '\*' -- this instructs the parser to use all available array elements | `"averagepaths":["/prices/*/bid", /prices/*/ask"]` |
+| "customdata"   | (optional, string)           | arbitrary data passed to the custom lib function                                                                                                                                                                      | `"customlib":"/price"`                             |
+
+:::tip Notes
+
+- The "results" array must be comprised of objects if the "substitutes" parameter is NOT used
+- If no custom library (customlib) is used, the "symbol" property should be set
+- If no custom library (customlib) is used, either the "valuepath" or the "averagepaths" property should be set
+
+:::
+
+#### Results Object Members
+
+| Name           | Type                         | Description                                                                                                                                                                                                           | Example                                            |
+| -------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| "valuepath"    | (optional, string)           | the json pointer to the value                                                                                                                                                                                         | `"valuepath":"/BTC/price"`                         |
+| "averagepaths" | (optional, array of strings) | a list of json pointers that point to values. If present, the average is calculated. In the position where an array index is expected in the json pointer, the value can be '\*' -- this denotes that the parser must use all the available array elements | `"averagepaths":["/prices/*/bid", /prices/*/ask"]` |
+| "customdata"   | (optional, string)           | arbitrary data passed to the customlib function                                                                                                                                                                      | `"customlib":"/price"`                             |
+
+:::tip Notes
+
+- "results" must be an object if the "substitutes" parameter is used
+- The "symbol" parameter is not used in the "results" object as the symbol names are constructed from the strings in the "substitutes" array and in the optional "quote" property
+- If no custom library (customlib) is used, then either the "valuepath" or the "averagepaths" property should be set in each array item
+
+:::
+
+#### Specification for the Custom Parser Library
+
+The custom json parser is a shared library that should be placed along with the Komodo source code with building instructions in the `src/cc/priceslibs` directory.
+
+The custom library should implement a single function written in the C-language with its declaration specified in the file `pricesfeeds.h` as follows:
+
+```cpp
+extern "C" {
+    int pricesJsonParser(const char *sjson /*in*/, const char *symbol /*in*/, const char *customdata, uint32_t multiplier /*in*/, uint32_t *value /*out*/);
+}
+```
+
+On each call, the function should retrieve a single value and place it in the '\*value' variable.
+
+The function receives the following parameters:
+
+- A string with the json returned by web api
+- The symbol to retrieve
+- Custom data from the configuration
+  - The custom data might contain hints on how to find the value in the json object
+- A multiplier used to convert the price value to integer
+
+The function should return `1` for the `success` scenario and `0` if the function could not extract the value.
+
+For an example implementation, see the custom parser lib example in the file named `PricesResultParserSample.cpp` in the directory `src/cc/priceslibs` in the Komodo source code.
+
+#### Initializing Price Feed Configuration
+
+The configuration object is named `feedconfig` and is found in the file `src/cc/pricesfeeds.cpp`. 
+
+Use an existing configuration (config) item with `name="basic"` as an example.
+
 ## ac_founders
 
 The `ac_founders` parameter creates a "founder's reward."
@@ -430,7 +606,7 @@ Use `ac_script` to send the founder's reward to a multi-signature address.
 
 Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
 
-## ac\_founders\_reward
+## ac_founders_reward
 
 The `ac_founders_reward` parameter functions in a manner that is similar to a combination of the `ac_perc` and `ac_founders` parameters.
 

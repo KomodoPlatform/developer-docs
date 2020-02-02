@@ -1,6 +1,6 @@
 # DEX Walkthrough
 
-Now that you have MarketMaker 2.0 (MM2) installed you are ready for your first atomic swap!
+Now that you have MarketMaker 2.0 (MM2) [installed](../atomicdex-setup/get-started-atomicdex.md) you are ready for your first atomic swap!
 
 Since we're testing MM2 as a back end, we're going to be doing a few things that a normal user will not be expected to do once we have a GUI or TUI/CLI available. We are working with Ideas By Nature, a user-experience and user-interface design firm, to facilitate this.
 
@@ -12,8 +12,27 @@ In the Komodo ecosystem we use two blockchain coins, RICK and MORTY, for testing
 
 Let's set up a file in the `~/atomicDEX-API/target/debug` directory to import the settings for these test coins. Make a file called `coins` and place the following text into it:
 
-```
-[{"coin":"RICK","asset":"RICK","fname":"RICK (TESTCOIN)","rpcport":25435,"txversion":4,"overwintered":1,"mm2":1},{"coin":"MORTY","asset":"MORTY","fname":"MORTY (TESTCOIN)","rpcport":16348,"txversion":4,"overwintered":1,"mm2":1}]
+```json
+[
+  {
+    "coin": "RICK",
+    "asset": "RICK",
+    "fname": "RICK (TESTCOIN)",
+    "rpcport": 25435,
+    "txversion": 4,
+    "overwintered": 1,
+    "mm2": 1
+  },
+  {
+    "coin": "MORTY",
+    "asset": "MORTY",
+    "fname": "MORTY (TESTCOIN)",
+    "rpcport": 16348,
+    "txversion": 4,
+    "overwintered": 1,
+    "mm2": 1
+  }
+]
 ```
 
 Save this file. MM2 will search for it automatically on launch.
@@ -36,7 +55,7 @@ We have our initial materials, let's launch the software.
 
 Look at the following command below, but don't execute it yet:
 
-```
+```bash
 stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
 ```
 
@@ -44,17 +63,17 @@ Replace `YOUR_PASSPHRASE_HERE` and `YOUR_PASSWORD_HERE` with your actual passphr
 
 Here is an approximate interpretation of the arguments in the command, to help you see what's happening:
 
-| Argument     | (Value)              | Description                                                                                                 |
-| ------------ | -------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Argument     | (Value)              | Description                                                                                                                          |
+| ------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | gui          | MM2GUI               | information about your GUI; place essential info about your application (name, version, etc.) here. For example: AtomicDEX iOS 1.0.1 |
-| netid        | 9999                 | this tells MM2 which network to join. 9999 is a private test network we use here. 0 is the default network. |
-| passphrase   | YOUR_PASSPHRASE_HERE | your passphrase; this is the source of each of your coins' private keys                                     |
-| rpc_password | YOUR_PASSWORD_HERE   | your password for protected RPC methods (userpass)                                                          |
-| userhome     | /\${HOME#"/"}        | the path to your home, called from your environment variables and entered as a regular expression           |
+| netid        | 9999                 | this tells MM2 which network to join. 9999 is a private test network we use here. 0 is the default network.                          |
+| passphrase   | YOUR_PASSPHRASE_HERE | your passphrase; this is the source of each of your coins' private keys                                                              |
+| rpc_password | YOUR_PASSWORD_HERE   | your password for protected RPC methods (userpass)                                                                                   |
+| userhome     | /\${HOME#"/"}        | the path to your home, called from your environment variables and entered as a regular expression                                    |
 
 Having executed the command, you should see output similar to the following:
 
-```
+```bash
 29 19:39:41, lp_coins:796] ticker = "BTC", method = Some("enable"), block_count = 0 😅 2019-01-29 20:39:41 +0100 [coin KMD no-conf] Warning, coin KMD is used without a corresponding configuration.
 cant open.(/root/.komodo/komodo.conf)
 29 19:39:41, lp_coins:796] ticker = "KMD", method = Some("enable"), block_count = 0
@@ -75,7 +94,7 @@ _LPaddpeer 127.0.0.85 -> numpeers.3
 
 The terminal will then repeat similar output to the following every so often:
 
-```
+```bash
 04 21:28:47, peers:996] investigate_peer] ip 54.36.126.42 preferred port 7803
 04 21:28:47, peers:355] Sending a ping to V4(54.36.126.42:7803)…
 04 21:29:08, lp_signatures:613] lp_notify_recv] hailed by peer: 54.36.126.42
@@ -87,9 +106,9 @@ If you see something similar, MarketMaker 2.0 is up and running!
 
 When using MarketMaker 2.0 (MM2) software on a VPS without accompanying tools such as `tmux` or `screen`, Komodo recommends that the user add the command `nohup` to the MM2 launch command. This addition ensures that the MM2 instance is not shutdown when the user logs out.
 
-Example: 
+Example:
 
-```
+```bash
 stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
 ```
 
@@ -103,19 +122,19 @@ Userpass will be renamed to <b>rpc_password</b> for clarity in the near future
 
 Make a new file in the `~/atomicDEX-API/target/debug` directory called `userpass` and enter the following text, including the `rpc_password` you specified earlier:
 
-```
+```bash
 export userpass="RPC_PASSWORD"
 ```
 
 Save it, and then in the terminal execute:
 
-```
+```bash
 source userpass
 ```
 
 Test it by executing:
 
-```
+```bash
 echo $userpass
 ```
 
@@ -135,28 +154,38 @@ We'll tell MM2 that we're ready to activate these coins now.
 
 Execute the following command:
 
-```
+```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"RICK\",\"servers\":[{\"url\":\"electrum1.cipig.net:10017\"},{\"url\":\"electrum2.cipig.net:10017\"},{\"url\":\"electrum3.cipig.net:10017\"}]}"
 ```
 
 You should get a similar response:
 
-```
-{"address":"RLgAgBFHFbG2ma9MDTHyKL5vovftMepBkE","coin":"RICK",balance":16.95595733,"result":"success"}
+```json
+{
+  "address": "RLgAgBFHFbG2ma9MDTHyKL5vovftMepBkE",
+  "coin": "RICK",
+  "balance": 16.95595733,
+  "result": "success"
+}
 ```
 
 You are now connected to the RICK test-blockchain network.
 
 Let's connect to MORTY (note it uses a different Electrum port).
 
-```
+```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"MORTY\",\"servers\":[{\"url\":\"electrum1.cipig.net:10018\"},{\"url\":\"electrum2.cipig.net:10018\"},{\"url\":\"electrum3.cipig.net:10018\"}]}"
 ```
 
 You should get a similar response:
 
-```
-{"address":"RLgAgBFHFbG2ma9MDTHyKL5vovftMepBkE","coin":"MORTY","balance":11.27710708,"result":"success"}
+```json
+{
+  "address": "RLgAgBFHFbG2ma9MDTHyKL5vovftMepBkE",
+  "coin": "MORTY",
+  "balance": 11.27710708,
+  "result": "success"
+}
 ```
 
 You are now connected to the MORTY test-blockchain network.
@@ -183,14 +212,18 @@ In a minute or so a few MORTY coins will arrive in your address.
 
 You can check by executing this command:
 
-```
+```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_balance\",\"coin\":\"MORTY\"}"
 ```
 
 You should see a similar response:
 
-```
-{"address":"RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ","balance":77.7,"coin":"MORTY"}
+```json
+{
+  "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
+  "balance": 77.7,
+  "coin": "MORTY"
+}
 ```
 
 You now have MORTY.
@@ -201,7 +234,7 @@ MarketMaker 2.0 uses a decentralized orderbook to allow users to buy and sell fr
 
 To see the orderbook's current state, execute the following command:
 
-```
+```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"orderbook\",\"base\":\"RICK\",\"rel\":\"MORTY\"}"
 ```
 
@@ -209,13 +242,37 @@ This sends a request to MM2 to see who is willing to give up RICK for MORTY.
 
 The call will return a similar result:
 
-```
-{"bids":[],"numbids":0,"biddepth":0,"asks":[{"coin":"RICK","address":"RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh","price":0.89999998,"numutxos":0,"avevolume":0,"maxvolume":10855.85028615,"depth":0,"pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12","age":5,"zcredits":0}],"numasks":1,"askdepth":0,"base":"RICK","rel":"MORTY","timestamp":1549319941,"netid":9999}
+```json
+{
+  "bids": [],
+  "numbids": 0,
+  "biddepth": 0,
+  "asks": [
+    {
+      "coin": "RICK",
+      "address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
+      "price": 0.89999998,
+      "numutxos": 0,
+      "avevolume": 0,
+      "maxvolume": 10855.85028615,
+      "depth": 0,
+      "pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+      "age": 5,
+      "zcredits": 0
+    }
+  ],
+  "numasks": 1,
+  "askdepth": 0,
+  "base": "RICK",
+  "rel": "MORTY",
+  "timestamp": 1549319941,
+  "netid": 9999
+}
 ```
 
 This is the current orderbook.
 
-Now, you'll notice that the output isn't easily readable. Here's where we should start using `jq`.
+Notice that the output is not easily readable in the terminal. This is where we start using `jq`.
 
 You may remember that we installed software called `jq` during the setup process. `jq` is optional, but it is recommended as it makes reading the output in the terminal easier.
 
@@ -223,7 +280,7 @@ To activate `jq`, simply add the following to the end of any command: `| jq`.
 
 For example:
 
-```
+```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"orderbook\",\"base\":\"RICK\",\"rel\":\"MORTY\"}" | jq
 ```
 
@@ -243,7 +300,7 @@ Here's the response:
     {
       "coin": "RICK",
       "address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
-      "price": 1,
+      "price": 2,
       "numutxos": 0,
       "avevolume": 0,
       "maxvolume": 10855.85028615,
@@ -275,10 +332,10 @@ They are willing to give up RICK for MORTY.
 "rel": "MORTY",
 ```
 
-They are asking for `1` MORTY for every 1 RICK.
+They are asking `2` MORTY for every `1` RICK.
 
 ```
-"price": 1,
+"price": 2,
 ```
 
 They have a total of `10855.85028615` available to trade.
@@ -291,25 +348,25 @@ They have a total of `10855.85028615` available to trade.
 
 Let's create a RICK/MORTY `buy` order
 
-```
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"RICK\",\"rel\":\"MORTY\",\"volume\":\"1\",\"price\":\"1\"}" | jq
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"RICK\",\"rel\":\"MORTY\",\"volume\":\"1\",\"price\":\"2\"}" | jq
 ```
 
 You should receive a similar response:
 
-```
+```json
 {
-    "result": {
-        "action": "Buy",
-        "base": "RICK",
-        "base_amount": "1",
-        "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
-        "method": "request",
-        "rel": "MORTY",
-        "rel_amount": "1",
-        "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-        "uuid": "288743e2-92a5-471e-92d5-bb828a2303c3"
-    }
+  "result": {
+    "action": "Buy",
+    "base": "RICK",
+    "base_amount": "1",
+    "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+    "method": "request",
+    "rel": "MORTY",
+    "rel_amount": "2",
+    "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+    "uuid": "288743e2-92a5-471e-92d5-bb828a2303c3"
+  }
 }
 ```
 
@@ -321,7 +378,7 @@ From here, everything is automated.
 
 If your order is matched you will see something similar in terminal output:
 
-```
+```bash
 26 10:51:50, lp_ordermatch:333] Entering the taker_swap_loop RICK/MORTY
 26 10:51:51, lp_ordermatch:490] CONNECTED.({"dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920","maker_order_uuid":"cbe664e7-3be5-4b45-9bd0-03c6a785e636","method":"connected","sender_pubkey":"199fe4169c30f464bc022273de0c893b4e2864128cdc9f7126fa24bc0910fd0e","taker_order_uuid":"c4d1b840-ebe8-4e44-9cb8-f6c767d3972f"})
 26 10:52:12, lp_swap:1629] Received 'negotiation@c4d1b840-ebe8-4e44-9cb8-f6c767d3972f' (69 bytes, crc 794323698)
@@ -354,13 +411,13 @@ If your order is matched you will see something similar in terminal output:
 
 When you see that last line, you know that your swap went through:
 
-```
+```bash
 29 22:48:03, lp_ordermatch:781] Swap finished successfully
 ```
 
 Let's check by looking at your RICK balance. Execute this command:
 
-```
+```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_balance\",\"coin\":\"RICK\"}" | jq
 ```
 
@@ -381,7 +438,7 @@ Congratulations! You are one of the first people in history to trade a currency 
 
 When you are finished, exit using the following command:
 
-```
+```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"stop\"}"
 ```
 

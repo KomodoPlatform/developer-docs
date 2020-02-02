@@ -62,7 +62,7 @@ sudo apt-get upgrade -y
 #### Install the dependency packages
 
 ```bash
-sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool libncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libqrencode-dev libdb++-dev ntp ntpdate nano software-properties-common curl libevent-dev libcurl4-gnutls-dev cmake clang libsodium-dev -y
+sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget curl bsdmainutils automake cmake clang ntp ntpdate nano -y
 ```
 
 This action takes some time, depending on your Internet connection. Let the process run in the background.
@@ -70,7 +70,7 @@ This action takes some time, depending on your Internet connection. Let the proc
 Once completed, follow the steps below to install Komodo.
 
 ::: tip Note
-At some point during the installation process, you will see a warning, "libgmp headers missing". This can safely be ignored.
+At some point during the installation process, you may see a warning, "libgmp headers missing". This can safely be ignored.
 :::
 
 #### Clone the Komodo Repository

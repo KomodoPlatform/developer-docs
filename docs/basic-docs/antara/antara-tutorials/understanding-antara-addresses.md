@@ -53,7 +53,7 @@ To do this, first stop the daemon.
 Then relaunch your daemon using the required parameters, and make sure to include your pubkey as an additional parameter. For example:
 
 ```bash
-./komodo-cli -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=777 -pubkey=DO_NOT_USE_ADDRESS019a79b0921a1be6d3ca6f9e8a050feb14eb845fe46b9d756
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=777 -pubkey=DO_NOT_USE_ADDRESS019a79b0921a1be6d3ca6f9e8a050feb14eb845fe46b9d756
 ```
 
 #### CC Addresses
