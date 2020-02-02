@@ -18,7 +18,7 @@ The following concepts are relatively simple, once understood.
 
 However, gaining an understanding of how these UTXO-based contracts function is not a topic that can be approached through a simple blog post. 
 
-A reader that is charged with representing Komodo on this topic is encouraged to dedicate several hours of time to studying these topics. 
+Any Komodo team member representing Komodo on these topics will need several to dedicate several hours of time to gain a working understanding of these topics. 
 
 This topic can (and in the future likely will) require an entire textbook for a reader to gain masterful understanding. 
 
@@ -32,7 +32,7 @@ When questions arise during the course of study, please reach out to @Bryan\_Beu
 
 UTXOs are a fundamental aspect of blockchain protocols. Yet, understanding what they are and how they function can sometimes be surprisingly difficult. 
 
-The Official Komodo Documentation contains detailed explanations of UTXOs, and the reader is encouraged to read through the linked article below before continuing further in the discussion.
+The Official Komodo Documentation contains detailed explanations of UTXOs, and the discussion recommends the reader to read through the linked article below before continuing further in the discussion.
 
 [Link to Introduction to UTXO Documentation Explanation](http://developers.komodoplatform.com/basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept)
 
@@ -50,7 +50,7 @@ This creates a new UTXO in the destination address.
 
 ## Digging Deeper Into UTXOs
 
-To understand how Interledger, Komodo, and Cardano function in regards to UTXO contracts, the reader is requested to also read the following article.
+To understand how Interledger, Komodo, and Cardano function in regards to UTXO contracts, the discussion requests the reader to also read the following article.
 
 Read only up to the heading, "Formation of a Transaction," and then stop. The reader will return to finish this article later.
 
@@ -62,7 +62,7 @@ These terms stand for "vector in" and "vector out."
 
 The inward vector consumes money from an unspent transaction (thus rendering that transaction "spent"), and allocates the money to outward vectors. The outward vectors are new "unspent transactions," or UTXOs.
 
-Furthermore, the reader is introduced to the concept of a "Bitcoin Script." This is where the relevant portion of the discussion here truly begins. 
+Furthermore, the article introduces the reader to the concept of a "Bitcoin Script." This is where the relevant portion of the discussion here truly begins. 
 
 Before discussing Bitcoin Scripts, the following summary of UTXO structure and terminology is provided. 
 
@@ -108,7 +108,7 @@ Each amount of coins in the destination address is now a new "unspent transactio
 
 Bitcoin Script is a separate programming language. All transactions that are executed on a Bitcoin-based blockchain, such as Komodo, rely for their foundation on Bitcoin Script. 
 
-This language is purposefully limited. More details about Bitcoin Script can be found at the linked address below. The reader is encouraged to read this content.
+This language is purposefully limited. More details about Bitcoin Script can be found at the linked address below. The discussion here encourages the reader to read this content.
 
 For now, read only up to the heading, "Gas-based Smart Contract Platforms," and then stop for now. Later in this discussion, the reader will return to this section and read the remaining content.
 
