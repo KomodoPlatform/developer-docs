@@ -1633,6 +1633,8 @@ The `my_swap_status` method returns the data of an atomic swap executed on a MM2
 | Structure      | Type                       | Description                                                                                                                                                                                                                                                                    |
 | -------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | events         | array of objects           | the events that occurred during the swap                                                                                                                                                                                                                                       |
+| events.type    | string                     | event type; the list of events types with their data structure is available below                                                                                                                                                                                              |
+| events.data    | object                     | additional data of the event; the list of events with their data structure is available below                                                                                                                                                                                  |
 | success_events | array of strings           | a list of events that gained a `success` swap state; the contents are listed in the order in which they should occur in the `events` array                                                                                                                                     |
 | error_events   | array of strings           | a list of events that fell into an `error` swap state; if at least 1 of the events happens, the swap is considered a failure                                                                                                                                                   |
 | type           | string                     | whether the node acted as a market `Maker` or `Taker`                                                                                                                                                                                                                          |
@@ -1645,6 +1647,186 @@ The `my_swap_status` method returns the data of an atomic swap executed on a MM2
 | taker_amount   | string (numeric, optional) | the amount of coins to be swapped by taker                                                                                                                                                                                                                                     |
 | my_info        | object (optional)          | this object maps event data to make displaying swap data in a GUI simpler (`my_coin`, `my_amount`, etc.)                                                                                                                                                                       |
 | recoverable    | bool                       | whether the swap can be recovered using the `recover_funds_of_swap` API command. Important note: MM2 does not record the state regarding whether the swap was recovered or not. MM2 allows as many calls to the `recover_funds_of_swap` method as necessary, in case of errors |
+
+#### Maker swap events
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="">
+
+##### Started
+
+`Started` event indicates that mandatory pre-checks (available balance, etc.) have passed and swap has started successfully.  
+Swap goes to negotiation stage after this event occurs.
+
+| Structure                   | Type                              | Description                                                                                                                                                                                                                                                                    |
+| --------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| taker_coin                  | string                            | ticker of taker coin                                                                                                                                                                                                                                   |
+| maker_coin                  | string                            | ticker of maker coin                                                                                                                                                                                                                                   |
+| taker                       | string (hexadecimal)              | p2p ID of taker node                                                                                                                                                                                                                                |                                                                                                                                                                                                                         |
+| secret                      | string (hexadecimal)              | random secret which hash will be used to lock atomic swap payments |
+| secret_hash                 | string (hexadecimal)              | hash of swap secret |
+| my_persistent_pub           | string (hexadecimal)              | persistent secp256k1 public key of maker node |
+| lock_duration               | number (integer)                  | lock duration of swap payments in seconds, transaction can be refunded by sender when lock duration is passed; taker payment is locked for lock duration, maker payment is locked for lock duration * 2 |
+| maker_amount                | string (numeric)                  | the amount of coins to be swapped by maker |
+| taker_amount                | string (numeric)                  | the amount of coins to be swapped by taker |
+| maker_payment_confirmations | number (integer)                  | required number of blockchain confirmations for maker payment |
+| taker_payment_confirmations | number (integer)                  | required number of blockchain confirmations for taker payment |
+| maker_payment_lock          | number (UTC timestamp in seconds) | maker payment is locked until this timestamp |
+| uuid                        | string                            | swap uuid |
+| started_at                  | number (UTC timestamp in seconds) | timestamp at the start of the swap |
+| maker_coin_start_block      | number (integer)                  | maker coin block number at the start of the swap |
+| taker_coin_start_block      | number (integer)                  | taker coin block number at the start of the swap |
+
+##### StartFailed
+
+`StartFailed` event indicates that some of the pre-checks was not passed so swap could not be started.
+Swap finishes immediately when this event occurs.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| error                  | string                            | error description with stack trace                      |
+
+##### Negotiated
+
+`Negotiated` event indicates that maker has received and validated swap negotiation data from taker.
+Maker starts waiting for taker to send the dex fee after this event occurs.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| taker_payment_locktime | number (UTC timestamp in seconds) | taker payment is locked until this timestamp            |
+| taker_pubkey           | string (hexadecimal)              | persistent secp256k1 public key of taker node           |
+
+##### NegotiateFailed
+
+`NegotiateFailed` event indicates that taker negotiation data was not received or not passed the validation.
+Swap finishes immediately when this event occurs.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| error                  | string                            | error description with stack trace                      |
+
+##### TakerFeeValidated
+
+`TakerFeeValidated` event indicates that maker has received and validated dex fee data from taker.  
+Maker sends his payment after this event occurs.
+Data structure of this event is same as `withdraw` response, but it will be changed in near future.
+
+##### TakerFeeValidateFailed
+
+`TakerFeeValidateFailed` event indicates that taker dex fee data was not received or not passed the validation.
+Swap finishes immediately when this event occurs.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| error                  | string                            | error description with stack trace                      |
+
+##### MakerPaymentTransactionFailed
+
+`MakerPaymentTransactionFailed` event indicates that maker was not able to broadcast his payment transaction to maker coin blockchain.
+Swap finishes immediately when this event occurs.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| error                  | string                            | error description with stack trace                      |
+
+##### MakerPaymentSent
+
+`MakerPaymentSent` event indicates that maker has broadcast the maker payment transaction.  
+Maker starts waiting for taker to send his payment after this event occurs.
+Data structure of this event is same as `withdraw` response, it will be changed in near future.
+
+##### MakerPaymentDataSendFailed
+
+`MakerPaymentDataSendFailed` event indicates that maker was not able to send his payment data to taker due to network error.
+When this event occurs maker starts waiting for maker payment lock time expiration to issue a refund.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| error                  | string                            | error description with stack trace                      |
+
+##### MakerPaymentWaitConfirmFailed
+
+`MakerPaymentWaitConfirmFailed` event indicates that maker payment transaction did not reach the required number of confirmations before internal timeout expiration.
+When this event occurs maker starts waiting for maker payment lock time expiration to issue a refund.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| error                  | string                            | error description with stack trace                      |
+
+##### TakerPaymentReceived
+
+`TakerPaymentReceived` event indicates that maker received the taker payment transaction data.  
+Maker starts waiting for taker payment confirmation after this event occurs.
+Data structure of this event is same as `withdraw` response, it will be changed in near future.
+
+##### TakerPaymentWaitConfirmStarted
+
+`TakerPaymentReceived` event indicates that maker started waiting for taker payment confirmation.  
+This event does not have additional data.
+
+##### TakerPaymentValidateFailed
+
+`TakerPaymentValidateFailed` event indicates that taker payment did not pass the validation, for example it has invalid amount or locked with incorrect hash or timestamp.
+When this event occurs maker starts waiting for maker payment lock time expiration to issue a refund.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| error                  | string                            | error description with stack trace                      |
+
+##### TakerPaymentWaitConfirmFailed
+
+`MakerPaymentWaitConfirmFailed` event indicates that taker payment transaction did not reach the required number of confirmations before internal timeout expiration.
+When this event occurs maker starts waiting for maker payment lock time expiration to issue a refund.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| error                  | string                            | error description with stack trace                      |
+
+##### TakerPaymentValidatedAndConfirmed
+
+`TakerPaymentValidatedAndConfirmed` event indicates that maker validated taker payment and payment was confirmed required number of times.  
+Maker attempts to spend the taker payment after this event occurs.
+This event does not have additional data.
+
+##### TakerPaymentSpendFailed
+
+`TakerPaymentSpendFailed` event indicates that maker payment was not able to spend taker payment.
+When this event occurs maker starts waiting for maker payment lock time expiration to issue a refund.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| error                  | string                            | error description with stack trace                      |
+
+##### TakerPaymentSpent
+
+`TakerPaymentSpent` event indicates that maker has broadcast the taker payment spend transaction.  
+Swap finishes immediately when this event occurs.
+Data structure of this event is same as `withdraw` response, it will be changed in near future.
+
+##### MakerPaymentRefundFailed
+
+`MakerPaymentRefundFailed` event indicates that maker was not able to broadcast a refund transaction to maker coin blockchain.
+Swap finishes immediately when this event occurs.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| error                  | string                            | error description with stack trace                      |
+
+##### MakerPaymentRefunded
+
+`MakerPaymentRefunded` event indicates that maker has broadcast the maker payment refund transaction.  
+Swap finishes immediately when this event occurs.
+Data structure of this event is same as `withdraw` response, it will be changed in near future.
+
+##### Finished
+
+`Finished` event indicates that swap was finished.  
+This event does not have additional data.
+
+</collapse-text>
+
+</div>
 
 #### :pushpin: Examples
 
