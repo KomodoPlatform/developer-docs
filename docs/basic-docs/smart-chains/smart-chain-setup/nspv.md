@@ -91,7 +91,7 @@ The `magic` number can also be found from the terminal as a `stdout` printout wh
 ```
 
 The hex extracted is `fe1c3450`
-And the magic value to be used in the coins file is `50341cfe`
+The magic value to be used in the coins file is `50341cfe`
 
 :::
 
