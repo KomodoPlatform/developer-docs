@@ -91,7 +91,7 @@ The `magic` number can also be found from the terminal as a `stdout` printout wh
 ```
 
 The hex extracted is `fe1c3450`
-And the magic value to be used in the coins file is `50341cfe`
+The magic value for the coins file is `50341cfe`
 
 :::
 
@@ -303,14 +303,14 @@ Use this method to create a new address.
 
 #### Response
 
-| Name       | Type     | Description                                            |
-| ---------- | -------- | ------------------------------------------------------ |
-| seed       | (string) | seed phrase of the generated address                   |
-| wif        | (string) | wifkey of the generated address                        |
-| address    | (string) | the generated address                                  |
-| pubkey     | (string) | pubkey of the generated address                        |
-| wifprefix  | (number) | prefix of the generated wifkey; depends on the network |
-| compressed | (number) | whether the wifkey generated is compressed             |
+| Name       | Type     | Description                                                                                                                                       |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| seed       | (string) | seed phrase of the generated address; currently generates a phrase with `23` seed words compatible with the other wallets in the Komodo Ecosystem |
+| wif        | (string) | wifkey of the generated address                                                                                                                   |
+| address    | (string) | the generated address                                                                                                                             |
+| pubkey     | (string) | pubkey of the generated address                                                                                                                   |
+| wifprefix  | (number) | prefix of the generated wifkey; depends on the network                                                                                            |
+| compressed | (number) | whether the wifkey generated is compressed                                                                                                        |
 
 #### :pushpin: Examples
 
