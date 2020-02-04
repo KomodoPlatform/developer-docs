@@ -63,16 +63,16 @@ Copy the following code to the file named `coins` (located at the root level of 
 
 #### Property Descriptions
 
-| Name    | Type     | Description                                                                                                                                                                                                                        |
-| ------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin    | (string) | the ticker of the coin                                                                                                                                                                                                             |
-| asset   | (string) | the `-ac_name` parameter used to start the Smart Chain                                                                                                                                                                             |
-| fname   | (string) | the full name of the Smart Chain                                                                                                                                                                                                   |
-| rpcport | (number) | the RPC port the Smart Chain's daemon uses to receive RPC commands                                                                                                                                                                 |
-| mm2     | (number) | set this value to `1` if this coin has been tested and proves capable of functioning on MarketMaker 2.0 software                                                                                                                   |
-| p2p     | (number) | the p2p port the Smart Chain's daemon uses to communicate with other nodes                                                                                                                                                         |
-| magic   | (string) | the netmagic number for this Smart Chain. The decimal value of `magic` can be obtained by executing the `getinfo` RPC on a full node on the Smart Chain network. Convert the decimal value to hex and serialize it into 4 hexbytes |
-| nSPV    | (string) | the ip addresses of the full nodes on the Smart Chain network                                                                                                                                                                      |
+| Name    | Type     | Description                                                                                                                                                                                                                         |
+| ------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin    | (string) | the ticker of the coin                                                                                                                                                                                                              |
+| asset   | (string) | the `-ac_name` parameter used to start the Smart Chain                                                                                                                                                                              |
+| fname   | (string) | the full name of the Smart Chain                                                                                                                                                                                                    |
+| rpcport | (number) | the RPC port the Smart Chain's daemon uses to receive RPC commands                                                                                                                                                                  |
+| mm2     | (number) | set this value to `1` if this coin has been tested and proves capable of functioning on MarketMaker 2.0 software                                                                                                                    |
+| p2p     | (number) | the p2p port the Smart Chain's daemon uses to communicate with other nodes                                                                                                                                                          |
+| magic   | (string) | the netmagic number for this Smart Chain. The decimal value of `magic` can be obtained by executing the `getinfo` RPC on a full node on the Smart Chain network. Convert the decimal value to hex and serialize it into 4 hexbytes; |
+| nSPV    | (string) | the ip addresses of the full nodes on the Smart Chain network                                                                                                                                                                       |
 
 ::: tip
 
@@ -82,13 +82,16 @@ If you find that the direction of `magic` is wrong, try reversing the order of t
 
 ::: tip
 
-The `magic` number can also be seen in the terminal as a `stdout` printout when the daemon is launched.
+The `magic` number can also be found from the terminal as a `stdout` printout when the daemon is launched. Look for the line that starts with `>>>>>>>>>>` , extract the hex part of the string `magic.xxxxxxxx` and reverse its byte order.
 
 ###### Example
 
-```
+```bash
 >>>>>>>>>> COIN: p2p.40264 rpc.40265 magic.fe1c3450 4263261264 350689 coins
 ```
+
+The hex extracted is `fe1c3450`
+The magic value for the coins file is `50341cfe`
 
 :::
 
@@ -96,7 +99,7 @@ The `magic` number can also be seen in the terminal as a `stdout` printout when 
 
 To start the nSPV client for a specific Smart Chain after its data has been added to the coins file, execute the following.
 
-```
+```bash
 ./nspv COIN
 ```
 
@@ -288,20 +291,21 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getinfo", "pa
 
 ## getnewaddress
 
-**getnewaddress**
+**getnewaddress [lang]**
 
 Use this method to create a new address.
 
 #### Arguments
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |             |
+| Name | Type              | Description                                                                                                                                                                                      |
+| ---- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| lang | (string,optional) | the language in which the seed words are to be generated; can be one of: "english", "french", "italian", "japanese", "korean", "russian", "spanish", "chinese_simplified", "chinese_traditional" |
 
 #### Response
 
 | Name       | Type     | Description                                            |
 | ---------- | -------- | ------------------------------------------------------ |
+| seed       | (string) | seed phrase of the generated address                   |
 | wif        | (string) | wifkey of the generated address                        |
 | address    | (string) | the generated address                                  |
 | pubkey     | (string) | pubkey of the generated address                        |
@@ -310,7 +314,7 @@ Use this method to create a new address.
 
 #### :pushpin: Examples
 
-##### Command
+##### Command (Without arguments)
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getnewaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -320,9 +324,31 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getnewaddress
 
 ```json
 {
-  "wif": "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "address": "Rxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "pubkey": "03xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "seed": "shiver heart abuse xxx xxx xxx xxx xxx xxx xxx xxx xxx",
+  "wif": "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "address": "RL5kuVuiJQQcDdaooYerKUxvcXwq8jb71d",
+  "pubkey": "03b983f01e528356dfc32b49fc2a830013a28fc95b569b7559b09729912d29f5c5",
+  "wifprefix": 188,
+  "compressed": 1
+}
+```
+
+</collapse-text>
+
+##### Command (To get the seed words in italian)
+
+```bash
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getnewaddress", "params": ["italian"] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "seed": "agitare busta rinnovo xxx xxxx xxx xxx xxxx xxx xxx xxx xxxx",
+  "wif": "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "address": "RFKVh3xE3ygK9smStgurByLZ2b3Nksm9bQ",
+  "pubkey": "033b8705127f19a6e5de646f3c46590b9196acfc01d68740f0872547677da3d8bf",
   "wifprefix": 188,
   "compressed": 1
 }
