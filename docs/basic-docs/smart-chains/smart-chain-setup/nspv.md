@@ -63,16 +63,16 @@ Copy the following code to the file named `coins` (located at the root level of 
 
 #### Property Descriptions
 
-| Name    | Type     | Description                                                                                                                                                                                                                        |
-| ------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin    | (string) | the ticker of the coin                                                                                                                                                                                                             |
-| asset   | (string) | the `-ac_name` parameter used to start the Smart Chain                                                                                                                                                                             |
-| fname   | (string) | the full name of the Smart Chain                                                                                                                                                                                                   |
-| rpcport | (number) | the RPC port the Smart Chain's daemon uses to receive RPC commands                                                                                                                                                                 |
-| mm2     | (number) | set this value to `1` if this coin has been tested and proves capable of functioning on MarketMaker 2.0 software                                                                                                                   |
-| p2p     | (number) | the p2p port the Smart Chain's daemon uses to communicate with other nodes                                                                                                                                                         |
-| magic   | (string) | the netmagic number for this Smart Chain. The decimal value of `magic` can be obtained by executing the `getinfo` RPC on a full node on the Smart Chain network. Convert the decimal value to hex and serialize it into 4 hexbytes |
-| nSPV    | (string) | the ip addresses of the full nodes on the Smart Chain network                                                                                                                                                                      |
+| Name    | Type     | Description                                                                                                                                                                                                                         |
+| ------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin    | (string) | the ticker of the coin                                                                                                                                                                                                              |
+| asset   | (string) | the `-ac_name` parameter used to start the Smart Chain                                                                                                                                                                              |
+| fname   | (string) | the full name of the Smart Chain                                                                                                                                                                                                    |
+| rpcport | (number) | the RPC port the Smart Chain's daemon uses to receive RPC commands                                                                                                                                                                  |
+| mm2     | (number) | set this value to `1` if this coin has been tested and proves capable of functioning on MarketMaker 2.0 software                                                                                                                    |
+| p2p     | (number) | the p2p port the Smart Chain's daemon uses to communicate with other nodes                                                                                                                                                          |
+| magic   | (string) | the netmagic number for this Smart Chain. The decimal value of `magic` can be obtained by executing the `getinfo` RPC on a full node on the Smart Chain network. Convert the decimal value to hex and serialize it into 4 hexbytes; |
+| nSPV    | (string) | the ip addresses of the full nodes on the Smart Chain network                                                                                                                                                                       |
 
 ::: tip
 
@@ -84,11 +84,16 @@ If you find that the direction of `magic` is wrong, try reversing the order of t
 
 The `magic` number can also be seen in the terminal as a `stdout` printout when the daemon is launched.
 
+The `magic` number can also be found from the terminal as a `stdout` printout when the daemon is launched. Look for the line that starts with `>>>>>>>>>>` , extract the hex part of the string `magic.xxxxxxxx` and reverse its byte order.
+
 ###### Example
 
 ```bash
 >>>>>>>>>> COIN: p2p.40264 rpc.40265 magic.fe1c3450 4263261264 350689 coins
 ```
+
+The hex extracted is `fe1c3450`
+And the magic value is `50341cfe`
 
 :::
 
