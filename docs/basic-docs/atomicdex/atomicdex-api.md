@@ -1804,6 +1804,14 @@ When this event occurs maker starts waiting for maker payment lock time expirati
 Swap finishes immediately when this event occurs.
 Data structure of this event is same as `withdraw` response, it will be changed in near future.
 
+##### MakerPaymentWaitRefundStarted
+
+`MakerPaymentWaitRefundStarted` event indicates that maker started waiting for lock time expiration to refund the payment.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| wait_until             | number (UTC timestamp)            | timestamp upon which a refund will occur                |
+
 ##### MakerPaymentRefundFailed
 
 `MakerPaymentRefundFailed` event indicates that maker was not able to broadcast a refund transaction to maker coin blockchain.
@@ -1998,6 +2006,14 @@ Swap finishes immediately when this event occurs.
 `MakerPaymentSpent` event indicates that taker spent maker payment.
 Swap finishes immediately when this event occurs.
 Data structure of this event is same as `withdraw` response, it will be changed in near future.
+
+##### TakerPaymentWaitRefundStarted
+
+`TakerPaymentWaitRefundStarted` event indicates that taker started waiting for lock time expiration to refund the payment.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| wait_until             | number (UTC timestamp)            | time stamp upon which a refund will occur               |
 
 ##### TakerPaymentRefundFailed
 
