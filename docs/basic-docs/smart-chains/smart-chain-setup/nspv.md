@@ -82,8 +82,6 @@ If you find that the direction of `magic` is wrong, try reversing the order of t
 
 ::: tip
 
-The `magic` number can also be seen in the terminal as a `stdout` printout when the daemon is launched.
-
 The `magic` number can also be found from the terminal as a `stdout` printout when the daemon is launched. Look for the line that starts with `>>>>>>>>>>` , extract the hex part of the string `magic.xxxxxxxx` and reverse its byte order.
 
 ###### Example
@@ -93,7 +91,7 @@ The `magic` number can also be found from the terminal as a `stdout` printout wh
 ```
 
 The hex extracted is `fe1c3450`
-And the magic value is `50341cfe`
+And the magic value to be used in the coins file is `50341cfe`
 
 :::
 
