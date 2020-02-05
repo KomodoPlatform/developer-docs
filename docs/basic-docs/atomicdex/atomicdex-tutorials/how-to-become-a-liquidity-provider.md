@@ -134,31 +134,40 @@ source $HOME/.cargo/env
 ##### Command
 
 ```bash
-rustup install nightly-2019-10-06
+rustup install nightly-2020-02-01
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup install nightly-2019-10-06
-info: syncing channel updates for 'nightly-2019-10-06-x86_64-unknown-linux-gnu'
-info: latest update on 2019-10-06, rust version 1.40.0-nightly (787005079 2019-10-04)
-info: downloading component 'rustc'
- 65.7 MiB /  65.7 MiB (100 %)  10.6 MiB/s ETA:   0 s
-info: downloading component 'rust-std'
-173.8 MiB / 173.8 MiB (100 %)  10.9 MiB/s ETA:   0 s
+$ rustup install nightly-2020-02-01  
+info: syncing channel updates for 'nightly-2020-02-01-x86_64-apple-darwin'
+471.5 KiB / 471.5 KiB (100 %) 334.7 KiB/s in  1s ETA:  0s
+info: latest update on 2020-02-01, rust version 1.42.0-nightly (cd1ef390e 2020-01-31)
 info: downloading component 'cargo'
-  4.7 MiB /   4.7 MiB (100 %)   1.7 MiB/s ETA:   0 s
+3.9 MiB /   3.9 MiB (100 %) 282.4 KiB/s in 14s ETA:  0s
+info: downloading component 'clippy'
+1.4 MiB /   1.4 MiB (100 %) 280.0 KiB/s in  5s ETA:  0s
 info: downloading component 'rust-docs'
- 11.7 MiB /  11.7 MiB (100 %)   1.8 MiB/s ETA:   0 s
-info: installing component 'rustc'
-info: installing component 'rust-std'
+12.1 MiB /  12.1 MiB (100 %) 284.8 KiB/s in 46s ETA:  0s
+info: downloading component 'rust-std'
+16.4 MiB /  16.4 MiB (100 %) 313.6 KiB/s in  1m  3s ETA:  0s
+info: downloading component 'rustc'
+55.6 MiB /  55.6 MiB (100 %) 304.0 KiB/s in  3m 30s ETA:  0s    
+info: downloading component 'rustfmt'
+2.2 MiB /   2.2 MiB (100 %) 256.6 KiB/s in  9s ETA:  0s
 info: installing component 'cargo'
+info: installing component 'clippy'
 info: installing component 'rust-docs'
+12.1 MiB /  12.1 MiB (100 %)   8.6 MiB/s in  1s ETA:  0s
+info: installing component 'rust-std'
+info: installing component 'rustc'
+55.6 MiB /  55.6 MiB (100 %)  14.6 MiB/s in  3s ETA:  0s
+info: installing component 'rustfmt'
 
-  nightly-2019-10-06-x86_64-unknown-linux-gnu installed - rustc 1.40.0-nightly (787005079 2019-10-04)
+nightly-2020-02-01-x86_64-apple-darwin installed - rustc 1.42.0-nightly (cd1ef390e 2020-01-31)
 
-
+info: checking for self-updates
 ```
 
 </collapse-text>
@@ -166,17 +175,17 @@ info: installing component 'rust-docs'
 ##### Command
 
 ```bash
-rustup default nightly-2019-10-06
+rustup default nightly-2020-02-01
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup default nightly-2019-10-06
-info: using existing install for 'nightly-2019-10-06-x86_64-unknown-linux-gnu'
-info: default toolchain set to 'nightly-2019-10-06-x86_64-unknown-linux-gnu'
+$ rustup default nightly-2020-02-01
+info: using existing install for 'nightly-2020-02-01-x86_64-apple-darwin'
+info: default toolchain set to 'nightly-2020-02-01-x86_64-apple-darwin'
 
-  nightly-2019-10-06-x86_64-unknown-linux-gnu unchanged - rustc 1.40.0-nightly (787005079 2019-10-04)
+nightly-2020-02-01-x86_64-apple-darwin unchanged - rustc 1.42.0-nightly (cd1ef390e 2020-01-31)
 
 ```
 
