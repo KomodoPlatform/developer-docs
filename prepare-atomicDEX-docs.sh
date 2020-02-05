@@ -16,6 +16,7 @@ clone_repo() {
 
 update_repo(){
   rsync -avh --delete ./docs/basic-docs/atomicdex/ ./AtomicDEX-docs/docs/basic-docs/atomicdex/
+  rsync -avh --delete ./docs/.vuepress/public/ ./AtomicDEX-docs/docs/.vuepress/public/
 }
 
 clone_repo

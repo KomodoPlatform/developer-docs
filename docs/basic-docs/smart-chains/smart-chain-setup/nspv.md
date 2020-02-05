@@ -303,14 +303,14 @@ Use this method to create a new address.
 
 #### Response
 
-| Name       | Type     | Description                                            |
-| ---------- | -------- | ------------------------------------------------------ |
-| seed       | (string) | seed phrase of the generated address                   |
-| wif        | (string) | wifkey of the generated address                        |
-| address    | (string) | the generated address                                  |
-| pubkey     | (string) | pubkey of the generated address                        |
-| wifprefix  | (number) | prefix of the generated wifkey; depends on the network |
-| compressed | (number) | whether the wifkey generated is compressed             |
+| Name       | Type     | Description                                                                                                                                       |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| seed       | (string) | seed phrase of the generated address; currently generates a phrase with `23` seed words compatible with the other wallets in the Komodo Ecosystem |
+| wif        | (string) | wifkey of the generated address                                                                                                                   |
+| address    | (string) | the generated address                                                                                                                             |
+| pubkey     | (string) | pubkey of the generated address                                                                                                                   |
+| wifprefix  | (number) | prefix of the generated wifkey; depends on the network                                                                                            |
+| compressed | (number) | whether the wifkey generated is compressed                                                                                                        |
 
 #### :pushpin: Examples
 
