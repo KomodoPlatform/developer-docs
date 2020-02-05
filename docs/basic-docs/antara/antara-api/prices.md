@@ -38,7 +38,7 @@ The module can extract data from a web source that can be accessed using the `ht
 
 The module also has a pre-configured feed that always retrieves values for the pairs `BTC_USD`, `BTC_EUR` and `BTC_GBP`.
 
-The DTO provides the required price feed. For markets, such as `AMZN/KMD`, that do not exist in real life, the DTO offers [synthetic prices](#an-explanation-on-synthetic-prices-and-their-calculation).
+The DTO provides the required price feed. For markets, such as `AMZN/KMD`, that do not exist in real life, the DTO offers [synthetic prices](#synthetic-prices-and-their-calculation).
 
 ##### Manner of Preventing Miner Manipulation 
 
