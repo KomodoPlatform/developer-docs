@@ -84,27 +84,28 @@ This method can be used to broadcast any data to the p2p network, which will be 
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_broadcast "hello" 5 "BTC" "KMD" "01faed489d5ae6d66e6fb7f69a15aeb81051bd02169d29eb8883260f3798e40778" "0.1" "100"
+./komodo-cli -ac_name=DEXP2P DEX_broadcast "hello" 5 "BTC" "KMD" "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063" "0.1" "100"
 ```
 
 <collapse-text hidden title="Response">
 
 ```json
 {
-  "timestamp": 1580471428,
-  "id": 2432811744,
-  "hash": "072e1c1049d1af9a0b67d532c20986a2a77dd1351a947388771efa1fadeba0f4",
+  "timestamp": 1581510301,
+  "id": 2122297120,
+  "hash": "07f2fae7a7c024015c42c5c42e50c49dfd909926d27a0e7aefac1b1c5027ccc4",
   "tagA": "BTC",
   "tagB": "KMD",
-  "pubkey": "01faed489d5ae6d66e6fb7f69a15aeb81051bd02169d29eb8883260f3798e40778",
-  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063e37a33b88b9ee79d4eac4535cfb496674e6b33fe66afb71700000000000000000000000000000000b5e5ed2e51a6fac458ee6533a1a60bac9d43944494b8",
+  "pubkey": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063db161df4a00f1f24ce4e50310e45e86d67209f461f294c430000000000000000000000000000000082058a046b30feb5869c7fd22b45504b5b942989d0ca",
   "hex": 1,
-  "error": "wrong sender",
+  "decrypted": "hello",
+  "decryptedhex": 0,
   "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
   "amountA": "0.10000000",
   "amountB": "100.00000000",
   "priority": 5,
-  "recvtime": 1580471428,
+  "recvtime": 1581510301,
   "cancelled": 0
 }
 ```
@@ -285,27 +286,28 @@ This method returns an order's data by its id.
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_get 2432811744
+./komodo-cli -ac_name=DEXP2P DEX_get 2122297120
 ```
 
 <collapse-text hidden title="Response">
 
 ```json
 {
-  "timestamp": 1580471428,
-  "id": 2432811744,
-  "hash": "072e1c1049d1af9a0b67d532c20986a2a77dd1351a947388771efa1fadeba0f4",
+  "timestamp": 1581510301,
+  "id": 2122297120,
+  "hash": "07f2fae7a7c024015c42c5c42e50c49dfd909926d27a0e7aefac1b1c5027ccc4",
   "tagA": "BTC",
   "tagB": "KMD",
-  "pubkey": "01faed489d5ae6d66e6fb7f69a15aeb81051bd02169d29eb8883260f3798e40778",
-  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063e37a33b88b9ee79d4eac4535cfb496674e6b33fe66afb71700000000000000000000000000000000b5e5ed2e51a6fac458ee6533a1a60bac9d43944494b8",
+  "pubkey": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063db161df4a00f1f24ce4e50310e45e86d67209f461f294c430000000000000000000000000000000082058a046b30feb5869c7fd22b45504b5b942989d0ca",
   "hex": 1,
-  "error": "wrong sender",
+  "decrypted": "hello",
+  "decryptedhex": 0,
   "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
   "amountA": "0.10000000",
   "amountB": "100.00000000",
   "priority": 5,
-  "recvtime": 1580471428,
+  "recvtime": 1581510301,
   "cancelled": 0
 }
 ```
@@ -356,8 +358,10 @@ This method can be used to filter and list data from the "Data Mempool" of the n
 | destpub   | (string)        | the `destpubkey` to which the payload is encrypted to                                                                                                                   |
 | payload   | (string)        | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
 | hex       | (boolean)       | whether the `payload` is in hexadecimal format                                                                                                                          |
-| error     | (string)        | errors if any                                                                                                                                                           |
-| senderpub | (string)        | the `DEX_pubkey` of the sender                                                                                                                                          |
+| decrypted    | (number) | the decrypted payload; available only to the node with the recipient `DEX_pubkey`                                                                                       |
+| decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`; available only to the node with the recipient `DEX_pubkey`                |
+| error     | (string)        | errors if any; the error says `"wrong sender"` if the actual `DEX_pubkey` of the sender is different from the claimed one                                                                                                                                                           |
+| senderpub | (string)        | the actual `DEX_pubkey` of the sender                                                                                                                                          |
 | amountA   | (string)        | amount associated with `tagA` (volumeA)                                                                                                                                 |
 | amountB   | (string)        | amount associated with `tagB` (volumeB)                                                                                                                                 |
 | priority  | (number)        | the priority with which the datablob will be routed by the network                                                                                                      |
@@ -383,22 +387,23 @@ This method can be used to filter and list data from the "Data Mempool" of the n
   "result": "success",
   "matches": [
     {
-      "timestamp": 1580471428,
-      "id": 2432811744,
-      "hash": "072e1c1049d1af9a0b67d532c20986a2a77dd1351a947388771efa1fadeba0f4",
-      "tagA": "BTC",
-      "tagB": "KMD",
-      "pubkey": "01faed489d5ae6d66e6fb7f69a15aeb81051bd02169d29eb8883260f3798e40778",
-      "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063e37a33b88b9ee79d4eac4535cfb496674e6b33fe66afb71700000000000000000000000000000000b5e5ed2e51a6fac458ee6533a1a60bac9d43944494b8",
-      "hex": 1,
-      "error": "wrong sender",
-      "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
-      "amountA": "0.10000000",
-      "amountB": "100.00000000",
-      "priority": 5,
-      "recvtime": 1580471428,
-      "cancelled": 0
-    }
+  "timestamp": 1581510301,
+  "id": 2122297120,
+  "hash": "07f2fae7a7c024015c42c5c42e50c49dfd909926d27a0e7aefac1b1c5027ccc4",
+  "tagA": "BTC",
+  "tagB": "KMD",
+  "pubkey": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063db161df4a00f1f24ce4e50310e45e86d67209f461f294c430000000000000000000000000000000082058a046b30feb5869c7fd22b45504b5b942989d0ca",
+  "hex": 1,
+  "decrypted": "hello",
+  "decryptedhex": 0,
+  "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "amountA": "0.10000000",
+  "amountB": "100.00000000",
+  "priority": 5,
+  "recvtime": 1581510301,
+  "cancelled": 0
+}
   ],
   "tagA": "BTC",
   "tagB": "",
@@ -495,15 +500,65 @@ This method interprets the datablobs as orders for AtomicDEX and displays releva
 
 ## DEX_publish
 
-**DEX_publish filename priority rescan**
+**DEX_publish filename priority sliceid**
 
 This method allows a user to publish a file to the p2p Data Network. The file is broken into chunks and sent using the datablobs
+
+#### Arguments
+
+| Name     | Type     | Description                                                                                                         |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
+| filename | (string) | the name of the file to be published; the file must be present in the directory from which the shell command is executed |
+| priority | (number) | the minimum priority above the default VIP priority level to be used for broadcasting the involved datablobs; if VIP priority level is `txpow_bits = 5` and this parameter is set to `3`, the datablobs created will have a minimum priority level of `8` |
+| sliceid | (number) |  |
+
+#### Response
+
+| Name        | Type     | Description                                   |
+| ----------- | -------- | --------------------------------------------- |
+| fname       | (string) | the name of the file                                              |
+| id          | (number) |                                               |
+| senderpub   | (string) | the `DEX_pubkey` of the file's sender                                              |
+| filesize    | (number) | the size of the file                                              |
+| fragments   | (number) |                                               |
+| numlocators | (number) |                                               |
+| filehash    | (string) |                                               |
+| checkhash   | (string) |                                               |
+| result      | (string) | whether the command was successfully executed |
+
+#### :pushpin: Examples
+
+##### Command
+
+```bash
+./komodo-cli -ac_name=DEXP2P DEX_publish m.mkv 5
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "fname": "m.mkv",
+  "id": 3066883072,
+  "senderpub": "0118500131b0097e3f2fc8dcf50d691d92569a4c262e5316978c79347d05999364",
+  "filesize": 4820415,
+  "fragments": 483,
+  "numlocators": 483,
+  "filehash": "ab100868752b84c6e0ae55b347ef72156439e6632fe387faa9ac7b04c6302d2b",
+  "checkhash": "ab100868752b84c6e0ae55b347ef72156439e6632fe387faa9ac7b04c6302d2b",
+  "result": "success"
+}
+```
+
+</collapse-text>
 
 ## DEX_setpubkey
 
 **DEX_setpubkey pubkey33**
 
-This method allows a user to change the `DEX_pubkey` used by the node. If this method is used with a pubkey not owned by the node, the datablobs created/broadcast by this node can't be authenticated by the other nodes and can cause unpredictable behavior. 
+This method allows a user set the `DEX_pubkey` used by the node. Can only be used once per daemon start. It can't be used to change the pubkey that has already been set using the `-pubkey` launch parameter.
+
+If this method is used with a pubkey not owned by the node, the datablobs created/broadcast by this node can't be authenticated by the other nodes and can cause unpredictable behavior. 
 
 #### Arguments
 
@@ -511,21 +566,27 @@ This method allows a user to change the `DEX_pubkey` used by the node. If this m
 | -------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
 | pubkey33 | (string) | a regular pubkey to be used to create the `DEX_pubkey`; recommended to use a pubkey of an address owned by the node |
 
-
 #### Response
 
-| Name               | Type     | Description                                                                                   |
-| ------------------ | -------- | --------------------------------------------------------------------------------------------- |
-| result             | (string) | whether the command was successfully executed                                                 |
-| publishable_pubkey | (string) | the pubkey to be shared with another user for receiving encrypted data packets                |
-| perfstats          | (string) | A string containing stats about the datablobs and the "Data mempool" the local node is seeing |
+| Name               | Type     | Description                                                                                                                                                                |
+| ------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result             | (string) | whether the command was successfully executed                                                                                                                              |
+| publishable_pubkey | (string) | the pubkey to be shared with another user for receiving encrypted data packets                                                                                             |
+| secpkey            | (string) | the regular pubkey to be shared with another user for receiving encrypted data packets                                                                                     |
+| recvaddr           | (string) | the regular public address associated with the `secpkey`; this will be the R-address used for a `subatomic swap`                                                                                                                    |
+| recvZaddr          | (string) | the value of the launch parameter `-recvZaddr` used when launching the node; it is the z-address of Pirate in the context of `subatomic swaps`                                                                                                                                                                           |
+| handle             | (string) | the value of the launch parameter `-handle` used when launching the node; it is the "username" associated with the node in the context of `subatomic swaps`                                                                                                                                                                              |
+| txpowbits          | (number) | the default number bits being used for txpow; the higher this value, the more resource intensive it is to send spam transactions                                           |
+| vip                | (number) | the minimum number of txpow bits to be present in a datablob for it to be considered a VIP; VIP datablobs are prioritised for routing by all nodes on the `dexp2p` network; if a node notices its peer not having a VIP datablob it knows about, it will ping the peer about it even if the VIP datablob was received by it a long time before then; this property is useful for helping newer nodes bootstrap important datablobls in saturated networks    |
+| cmdpriority        | (number) | the number of txpow bits being used for datablobs generated by commands; Example: [DEX_cancel](#DEX_cancel)                                                                                                                                                                             |
+| perfstats          | (string) | a string containing stats about the datablobs and the "Data mempool" the local node is seeing                                                                              |
 
 #### :pushpin: Examples
 
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_setpubkey 02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567
+./komodo-cli -ac_name=DEXP2P DEX_setpubkey 03ac42ded82688c381563d2e123a2eaf54b29d9fd15a8bd4f9f2727dbfe9be1688
 ```
 
 <collapse-text hidden title="Response">
@@ -533,8 +594,15 @@ This method allows a user to change the `DEX_pubkey` used by the node. If this m
 ```json
 {
   "result": "success",
-  "publishable_pubkey": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
-  "perfstats": "RAM.17 0f2ea8fd R.2 S.30 A.17 dup.0 | L.4 A.2 coll.0 | lag (2.0010 2.0001 2.0000) err.0 pend.0 T/F 0/0 | 0 0 0 0 0 0 1 3 2 0 0 1 3 7  0/sec"
+  "publishable_pubkey": "01d8fa7059137996cbb933ba45f618f57e361fa56087ae4fd275cc058a1aaf3b63",
+  "secpkey": "03ac42ded82688c381563d2e123a2eaf54b29d9fd15a8bd4f9f2727dbfe9be1688",
+  "recvaddr": "RTteDcwszpLbd2S6uw5ib2wqC9vjSE8N4Q",
+  "recvZaddr": "",
+  "handle": "",
+  "txpowbits": 4,
+  "vip": 5,
+  "cmdpriority": 7,
+  "perfstats": "RAM.5 10c0e280 R.0 S.5 A.5 dup.0 | L.0 A.0 coll.0 | lag (0.0000 0.0000 0.0000) err.0 pend.0 T/F 0/0 | 0 0 0 0 0 2 1 0 2 0 0 0 0 0  0/sec"
 }
 ```
 
@@ -554,11 +622,19 @@ This method gives info and stats related to the p2p data layer.
 
 #### Response
 
-| Name               | Type     | Description                                                                                   |
-| ------------------ | -------- | --------------------------------------------------------------------------------------------- |
-| result             | (string) | whether the command was successfully executed                                                 |
-| publishable_pubkey | (string) | the pubkey to be shared with another user for receiving encrypted data packets                |
-| perfstats          | (string) | A string containing stats about the datablobs and the "Data mempool" the local node is seeing |
+| Name               | Type     | Description                                                                                                                                                                |
+| ------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result             | (string) | whether the command was successfully executed                                                                                                                              |
+| publishable_pubkey | (string) | the pubkey to be shared with another user for receiving encrypted data packets                                                                                             |
+| secpkey            | (string) | the regular pubkey to be shared with another user for receiving encrypted data packets                                                                                     |
+| recvaddr           | (string) | the regular public address associated with the `secpkey`; this will be the R-address used for a `subatomic swap`                                                                                                                    |
+| recvZaddr          | (string) | the value of the launch parameter `-recvZaddr` used when launching the node; it is the z-address of Pirate in the context of `subatomic swaps`                                                                                                                                                                           |
+| handle             | (string) | the value of the launch parameter `-handle` used when launching the node; it is the "username" associated with the node in the context of `subatomic swaps`                                                                                                                                                                              |
+| txpowbits          | (number) | the default number bits being used for txpow; the higher this value, the more resource intensive it is to send spam transactions                                           |
+| vip                | (number) | the minimum number of txpow bits to be present in a datablob for it to be considered a VIP; VIP datablobs are prioritised for routing by all nodes on the `dexp2p` network; if a node notices its peer not having a VIP datablob it knows about, it will ping the peer about it even if the VIP datablob was received by it a long time before then; this property is useful for helping newer nodes bootstrap important datablobls in saturated networks    |
+| cmdpriority        | (number) | the number of txpow bits being used for datablobs generated by commands; Example: [DEX_cancel](#DEX_cancel)                                                                                                                                                                             |
+| perfstats          | (string) | a string containing stats about the datablobs and the "Data mempool" the local node is seeing                                                                              |
+
 
 #### :pushpin: Examples
 
@@ -573,8 +649,15 @@ This method gives info and stats related to the p2p data layer.
 ```json
 {
   "result": "success",
-  "publishable_pubkey": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
-  "perfstats": "RAM.14289 27787115 R.0 S.27408 A.14291 dup.0 | L.0 A.0 coll.0 | lag  (0.0000 0.0000 0.0000) err.0 pend.0 T/F 0/0 | 0 2 1 9 15 32 46 125 197 425 896 1781 3531 7229  873/sec\n"
+  "publishable_pubkey": "01e727e5e4711e7b4aacabf000fec7309ca317d621a26ba83923cfac0ed395a93e",
+  "secpkey": "03c144dbb2002f0731417f2ba09fe2a61c853f0b7ceffb9d7718efd32470ad9e28",
+  "recvaddr": "RKnGqmg4My1mtNuLEz8uAaxSEQ4fAVviZA",
+  "recvZaddr": "zs1dqweh8w8h62vcalet5ztlq2u8359v0s29tqsz6xu7lf4f2vrmwhs4vrcwtmgrd9mteg4ux3aprk",
+  "handle": "gcharang_bob",
+  "txpowbits": 4,
+  "vip": 5,
+  "cmdpriority": 7,
+  "perfstats": "RAM.139 0cb9bb60 R.139 S.0 A.139 dup.0 | L.278 A.139 coll.0 | lag (0.0000 0.0000 0.0000) err.0 pend.0 T/F 0/0 | 1 1 0 2 6 9 17 32 71 0 0 0 0 0  0/sec"
 }
 ```
 
