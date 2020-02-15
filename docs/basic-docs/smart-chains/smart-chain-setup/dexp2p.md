@@ -63,7 +63,7 @@ This method can be used to broadcast any data to the p2p network, which will be 
 | ------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | timestamp    | (number) | UNIX timestamp at which the datablob was created                                                                                                                        |
 | id           | (number) | short hash of the datablob; can be treated as a unique id most of the time                                                                                              |
-| hash         | (string) | hash of the datablob                                                                                                                                                    |
+| hash         | (string) | hash of the datablob; the payload is hashed like so: `sha256(curve25519(sha256(payload)))`, the `curve25519` hash is included to make the process fpga resistant; there are no known ASICS for it                                                                                                                                                    |
 | tagA         | (string) | `tagA` of the datablob                                                                                                                                                  |
 | tagB         | (string) | `tagB` of the datablob                                                                                                                                                  |
 | pubkey       | (string) | the `pubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `pubkey` can decrypt the datablob                     |
@@ -519,8 +519,8 @@ This method allows a user to publish a file to the p2p Data Network. The file is
 | fname       | (string) | the name of the file                                              |
 | id          | (number) |                                               |
 | senderpub   | (string) | the `DEX_pubkey` of the file's sender                                              |
-| filesize    | (number) | the size of the file                                              |
-| fragments   | (number) |                                               |
+| filesize    | (number) | the size of the file in bytes                                              |
+| fragments   | (number) | the number of fragments the file has been broken down into; each fragment has a maximum size of `10000 byte`                                              |
 | numlocators | (number) |                                               |
 | filehash    | (string) |                                               |
 | checkhash   | (string) |                                               |
