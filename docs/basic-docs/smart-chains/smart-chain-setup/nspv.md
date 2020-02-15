@@ -12,6 +12,8 @@ More details are available in the blog posts [here](https://medium.com/@jameslee
 
 ## Installation
 
+Follow the instructions below to set up an nSPV client.
+
 ```bash
 sudo apt-get update
 sudo apt-get upgrade -y
@@ -76,27 +78,6 @@ Copy the following code to the file named `coins` (located at the root level of 
 
 ::: tip
 
-If you find that the direction of `magic` is wrong, try reversing the order of the numbers.
-
-:::
-
-::: tip
-
-The `magic` number can also be found from the terminal as a `stdout` printout when the daemon is launched. Look for the line that starts with `>>>>>>>>>>` , extract the hex part of the string `magic.xxxxxxxx` and reverse its byte order.
-
-###### Example
-
-```bash
->>>>>>>>>> COIN: p2p.40264 rpc.40265 magic.fe1c3450 4263261264 350689 coins
-```
-
-The hex extracted is `fe1c3450`
-The magic value for the coins file is `50341cfe`
-
-:::
-
-::: tip
-
 To start the nSPV client for a specific Smart Chain after its data has been added to the coins file, execute the following.
 
 ```bash
@@ -105,17 +86,31 @@ To start the nSPV client for a specific Smart Chain after its data has been adde
 
 :::
 
-## Interacting with the nSPV Client
+#### Tips and Suggestions for Working with the Magic Number
 
-::: tip
+The magic number is a unique number that the daemon uses for identification purposes.
+
+If the direction of the `magic` number appears to be incorrect, try reversing the order of the numbers.
+
+The `magic` number can also be found from the terminal as a `stdout` printout when launching the daemon. Look for the line that starts with `>>>>>>>>>>` , extract the hex portion of the string (`magic.xxxxxxxx`), and reverse its byte order.
+
+###### Example
+
+```bash
+>>>>>>>>>> COIN: p2p.40264 rpc.40265 magic.fe1c3450 4263261264 350689 coins
+```
+
+The hex extracted is `fe1c3450`.
+
+Therefore the magic value for the coins file is `50341cfe`
+
+## Interacting with the nSPV Client
 
 The port in each of these examples is the port on which the nSPV client listens for RPC commands.
 
 For KMD, the port is `7771`. For any other Smart Chain, the port is the `rpcport` specified in the `coins` file.
 
 This behaviour can be bypassed by setting the [-p](../../../basic-docs/smart-chains/smart-chain-setup/nspv.html#p) parameter.
-
-:::
 
 #### curl Commands Using Named Parameters
 
@@ -126,13 +121,6 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 ```
 
 #### curl Command Using the json2.0 Interface
-
-<!--
-
-Sidd: There was a mention below of a "doc", but I am assuming that the doc in question is this document, and that the following example is a good template to use?
-
-gcharang: yes, the doc mentioned is the current document and the parameters' order should be as listed for each method; the example is good
--->
 
 When using this format for any RPC that requires parameters (also called "arguments"), provide the parameters in the order they are given in this documentation.
 
@@ -1109,7 +1097,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "logout", "par
 
 ## mempool
 
-**mempool address isCC memfunc [txid vout evalcode ccfunc]]]**
+**mempool address isCC memfunc [txid vout evalcode ccfunc]**
 
 This method returns the current transactions in the mempool. The various parameters can be used to filter the transactions.
 

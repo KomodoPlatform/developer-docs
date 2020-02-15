@@ -2966,7 +2966,7 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ## sendtoaddress
 
-**sendtoaddress "address" amount ( "comment" "comment-to" subtractfeefromamount )**
+**sendtoaddress "address" amount ( "comment" "comment-to" subtractfeefromamount "OP_RETURN")**
 
 The `sendtoaddress` method sends an amount to a given address. The amount is real and is rounded to the nearest 0.00000001.
 
@@ -2979,6 +2979,7 @@ The `sendtoaddress` method sends an amount to a given address. The amount is rea
 | "comment"             | (string, optional)                 | a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet                               |
 | "comment-to"          | (string, optional)                 | a comment to store the name of the person or organization to which you're sending the transaction; this is stored in your local wallet file only |
 | subtractfeefromamount | (boolean, optional, default=false) | when `true`, the fee will be deducted from the amount being sent                                                                                 |
+| OP_RETURN | (string, optional) | the hexdata to be stored as part of the `OP_RETURN` of the transaction; the number of characters must be even, the user may add a padding `0` at the beginning if necessary ;available in `master` branch after the Notary Network Upgrade of 2020                                                                                 |
 
 ### Response
 
@@ -3034,6 +3035,22 @@ Command:
 
 ```bash
 c5727cafd7d6dfc888d4a0596dc58bfafb24859e29f827e1bf1443037d8461fc
+```
+
+</collapse-text>
+
+Command:
+
+```bash
+./komodo-cli sendtoaddress "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" 0.1 "" "" false "c5727cafd7d6dfc888d4a0596dc58bfafb24859e29f827e1bf1443037d8461fc"
+```
+
+
+<collapse-text hidden title="Response">
+
+
+```bash
+48945fb179a5703b9c6f691e50f9ad1527b426803720bea3efffff092d63fec2
 ```
 
 </collapse-text>
