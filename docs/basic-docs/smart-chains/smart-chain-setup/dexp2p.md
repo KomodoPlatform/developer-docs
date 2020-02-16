@@ -37,7 +37,7 @@ Launch Parameters:
 ./komodod -ac_name=DEXP2P -dexp2p=2 -ac_supply=999999 -addnode=37.9.62.186 -addnode=94.130.224.11
 ```
 
-You might want to add the parameter `-pubkey` with the value as your pubkey for convenient testing of encrypted "datablobs" across different sessions
+You might want to add the parameter `-pubkey` with the value as your pubkey for convenient testing of encrypted "datablobs" across multiple daemon restarts
 
 ## DEX_broadcast
 
