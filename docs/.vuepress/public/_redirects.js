@@ -56,7 +56,7 @@ var redirectAliases = {
   "/basic-docs/komodo-api/rawtransactions.html": "/basic-docs/smart-chains/smart-chain-api/rawtransactions.html",
   "/basic-docs/antara/komodo-api/rawtransactions.html": "/basic-docs/smart-chains/smart-chain-api/rawtransactions.html",
   "/basic-docs/komodo-api/util.html": "/basic-docs/smart-chains/smart-chain-api/util.html",
-  "/basic-docs/komodo-api/wallet.html": "/basic-docs/smart-chains/smart-chain-api/wallet.html",
+  "/basic-docs/antara/komodo-api/wallet.html": "/basic-docs/smart-chains/smart-chain-api/wallet.html",
   "/basic-docs/installations/common-runtime-parameters.html": "/basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html",
   "/basic-docs/installations/creating-asset-chains.html": "/basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html",
   "/basic-docs/basic-docs/smart-chains/smart-chain-setup/installing-from-source.html": "/basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html",
