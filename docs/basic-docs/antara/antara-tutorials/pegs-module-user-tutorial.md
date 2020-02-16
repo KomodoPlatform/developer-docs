@@ -12,7 +12,7 @@ For questions and assistance, please reach out to the Komodo team using the `#cc
 
 ## Tutorial Overview
 
-This tutorial uses the `USDKTEST` test and development Smart Chain to introduce the process and workflow of a user of the [Pegs Antara Module.](./pegs.html)
+This tutorial uses the `USDKTEST` test and development Smart Chain to introduce the process and workflow of a user of the [Pegs Antara Module.](../antara-api/pegs.html)
 
 #### Tutorial Outline
 
