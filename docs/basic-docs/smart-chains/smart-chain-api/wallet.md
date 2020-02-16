@@ -2979,7 +2979,7 @@ The `sendtoaddress` method sends an amount to a given address. The amount is rea
 | "comment"             | (string, optional)                 | a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet                               |
 | "comment-to"          | (string, optional)                 | a comment to store the name of the person or organization to which you're sending the transaction; this is stored in your local wallet file only |
 | subtractfeefromamount | (boolean, optional, default=false) | when `true`, the fee will be deducted from the amount being sent                                                                                 |
-| OP_RETURN | (string, optional) | the hexdata to be stored as part of the `OP_RETURN` of the transaction; the number of characters must be even, the user may add a padding `0` at the beginning if necessary ;available in `master` branch after the Notary Network Upgrade of 2020                                                                                 |
+| OP_RETURN | (string, optional) | the hexdata to be stored as part of the `OP_RETURN` of the transaction; the number of characters must be even, the user may add a padding `0` at the beginning if necessary; available in `master` branch after the Notary Network Upgrade of 2020                                                                                 |
 
 ### Response
 
