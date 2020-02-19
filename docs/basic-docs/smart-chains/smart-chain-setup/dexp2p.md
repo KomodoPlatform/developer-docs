@@ -69,8 +69,8 @@ This method can be used to broadcast any data to the p2p network, which will be 
 | pubkey       | (string) | the `pubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `pubkey` can decrypt the datablob                     |
 | payload      | (string) | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
 | hex          | (number) | whether the `payload` is in hexadecimal format; `0` when `false` and `1` when `true`                                                                                    |
-| decrypted    | (number) | the decrypted payload; available only to the node with the recipient `DEX_pubkey`                                                                                       |
-| decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`; available only to the node with the recipient `DEX_pubkey`                |
+| decrypted    | (number) | the decrypted payload;                                                                                        |
+| decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`;                 |
 | error        | (string) | errors if any                                                                                                                                                           |
 | senderpub    | (string) | the `DEX_pubkey` of the sender                                                                                                                                          |
 | amountA      | (string) | amount associated with `tagA` (volumeA)                                                                                                                                 |
@@ -134,13 +134,13 @@ This method can be used to cancel an order issued by the user's node. A node can
 | timestamp    | (number) | UNIX timestamp at which the datablob was created                                                                                                                        |
 | id           | (number) | short hash of the datablob; can be treated as a unique id most of the time                                                                                              |
 | hash         | (string) | hash of the datablob                                                                                                                                                    |
-| tagA         | (string) | `tagA` of the datablob                                                                                                                                                  |
+| tagA         | (string) | `tagA` of the datablob; it's value is `"cancel"` and it lets other nodes on the network                                                                                                                                                    |
 | tagB         | (string) | `tagB` of the datablob                                                                                                                                                  |
 | pubkey       | (string) | the `pubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `pubkey` can decrypt the datablob                     |
 | payload      | (string) | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
 | hex          | (number) | whether the `payload` is in hexadecimal format; `0` when `false` and `1` when `true`                                                                                    |
-| decrypted    | (number) | the decrypted payload; available only to the node with the recipient `DEX_pubkey`                                                                                       |
-| decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`; available only to the node with the recipient `DEX_pubkey`                |
+| decrypted    | (number) | the decrypted payload; when the byte order is reversed and converted to decimal, gives the id to be cancelled                                                                                       |
+| decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`;                 |
 | error        | (string) | errors if any                                                                                                                                                           |
 | senderpub    | (string) | the `DEX_pubkey` of the sender                                                                                                                                          |
 | amountA      | (string) | amount associated with `tagA` (volumeA)                                                                                                                                 |
@@ -271,8 +271,8 @@ This method returns an order's data by its id.
 | pubkey       | (string) | the `pubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `pubkey` can decrypt the datablob                     |
 | payload      | (string) | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
 | hex          | (number) | whether the `payload` is in hexadecimal format; `0` when `false` and `1` when `true`                                                                                    |
-| decrypted    | (number) | the decrypted payload; available only to the node with the recipient `DEX_pubkey`                                                                                       |
-| decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`; available only to the node with the recipient `DEX_pubkey`                |
+| decrypted    | (number) | the decrypted payload;                                                                                        |
+| decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`;                 |
 | error        | (string) | errors if any                                                                                                                                                           |
 | senderpub    | (string) | the `DEX_pubkey` of the sender                                                                                                                                          |
 | amountA      | (string) | amount associated with `tagA` (volumeA)                                                                                                                                 |
@@ -358,8 +358,8 @@ This method can be used to filter and list data from the "Data Mempool" of the n
 | destpub   | (string)        | the `destpubkey` to which the payload is encrypted to                                                                                                                   |
 | payload   | (string)        | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
 | hex       | (boolean)       | whether the `payload` is in hexadecimal format                                                                                                                          |
-| decrypted    | (number) | the decrypted payload; available only to the node with the recipient `DEX_pubkey`                                                                                       |
-| decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`; available only to the node with the recipient `DEX_pubkey`                |
+| decrypted    | (number) | the decrypted payload;                                                                                        |
+| decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`;                 |
 | error     | (string)        | errors if any; the error says `"wrong sender"` if the actual `DEX_pubkey` of the sender is different from the claimed one                                                                                                                                                           |
 | senderpub | (string)        | the actual `DEX_pubkey` of the sender                                                                                                                                          |
 | amountA   | (string)        | amount associated with `tagA` (volumeA)                                                                                                                                 |
@@ -508,22 +508,22 @@ This method allows a user to publish a file to the p2p Data Network. The file is
 
 | Name     | Type     | Description                                                                                                         |
 | -------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
-| filename | (string) | the name of the file to be published; the file must be present in the directory from which the shell command is executed |
+| filename | (string) | the name of the file to be published; the file must be present in the directory from which the command to start the Komodo daemon(`komodod`) was issued; not to be confused with the directory in which `komodod` is present |
 | priority | (number) | the minimum priority above the default VIP priority level to be used for broadcasting the involved datablobs; if VIP priority level is `txpow_bits = 5` and this parameter is set to `3`, the datablobs created will have a minimum priority level of `8` |
-| sliceid | (number) |  |
+| sliceid | (number) | id of the slice to publish; if it is an integer greater than or equal to `1`, this method will publish only the mentioned slice of the file; if set to `0`, it scans the datablobs received from the network and republishes the missing ones  |
 
 #### Response
 
 | Name        | Type     | Description                                   |
 | ----------- | -------- | --------------------------------------------- |
 | fname       | (string) | the name of the file                                              |
-| id          | (number) |                                               |
+| id          | (number) | the id of the published file                                              |
 | senderpub   | (string) | the `DEX_pubkey` of the file's sender                                              |
 | filesize    | (number) | the size of the file in bytes                                              |
 | fragments   | (number) | the number of fragments the file has been broken down into; each fragment has a maximum size of `10000 byte`                                              |
-| numlocators | (number) |                                               |
-| filehash    | (string) |                                               |
-| checkhash   | (string) |                                               |
+| numlocators | (number) | the number of locators of the published file                                              |
+| filehash    | (string) | the hash of the file                                              |
+| checkhash   | (string) | the hash of the file based on all the fragments the node has currently available                                             |
 | result      | (string) | whether the command was successfully executed |
 
 #### :pushpin: Examples
