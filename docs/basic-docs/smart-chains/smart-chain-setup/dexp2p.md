@@ -29,12 +29,12 @@ cd komodo
 
 ## Launch
 
-Currently, this technology is being tested on a testchain named `DEXP2P`
+Currently, this technology is being tested on a testchain named `DORN`
 
 Launch Parameters:
 
 ```bash
-./komodod -ac_name=DEXP2P -dexp2p=2 -ac_supply=999999 -addnode=37.9.62.186 -addnode=94.130.224.11
+./komodod -ac_name=DORN -ac_cc=2 -ac_supply=1000000 -ac_reward=100000000 -addnode=136.243.58.134 -dexp2p=2 
 ```
 
 You might want to add the parameter `-pubkey` with the value as your pubkey for convenient testing of encrypted "datablobs" across multiple daemon restarts
@@ -88,7 +88,7 @@ Note that, an attacker with large resources will be able to tell the ip address 
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_anonsend "hello" 6 012767b0e6d680cf65b1993ddb4ccbb7f1acd027a04ed93c0b06f97714284e214d
+./komodo-cli -ac_name=DORN DEX_anonsend "hello" 6 012767b0e6d680cf65b1993ddb4ccbb7f1acd027a04ed93c0b06f97714284e214d
 ```
 
 <collapse-text hidden title="Response">
@@ -123,7 +123,7 @@ The receiving node can find all the messages sent to using the [DEX_anaonsend](#
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_list "" 0 "anon" "" "" "" ""
+./komodo-cli -ac_name=DORN DEX_list "" 0 "anon" "" "" "" ""
 ```
 
 <collapse-text hidden title="Response">
@@ -207,7 +207,7 @@ This method can be used to broadcast any data to the p2p network, which will be 
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_broadcast "hello" 5 "BTC" "KMD" "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063" "0.1" "100"
+./komodo-cli -ac_name=DORN DEX_broadcast "hello" 5 "BTC" "KMD" "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063" "0.1" "100"
 ```
 
 <collapse-text hidden title="Response">
@@ -279,7 +279,7 @@ This method can be used to cancel an order issued by the user's node. A node can
 Cancel an order by its "id"
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_cancel 2432811744
+./komodo-cli -ac_name=DORN DEX_cancel 2432811744
 ```
 
 <collapse-text hidden title="Response">
@@ -311,7 +311,7 @@ Cancel an order by its "id"
 Cancel all orders tagged with a "pubkey"
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_cancel "" 01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063
+./komodo-cli -ac_name=DORN DEX_cancel "" 01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063
 ```
 
 <collapse-text hidden title="Response">
@@ -343,7 +343,7 @@ Cancel all orders tagged with a "pubkey"
 Cancel all orders published for a specific `base/rel` pair
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_cancel "" "" "KMD" "BTC"
+./komodo-cli -ac_name=DORN DEX_cancel "" "" "KMD" "BTC"
 ```
 
 <collapse-text hidden title="Response">
@@ -409,7 +409,7 @@ This method returns an order's data by its id.
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_get 2122297120
+./komodo-cli -ac_name=DORN DEX_get 2122297120
 ```
 
 <collapse-text hidden title="Response">
@@ -502,7 +502,7 @@ This method can be used to filter and list data from the "Data Mempool" of the n
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_list "" 0 "BTC" "" "" "" "" "" "" ""
+./komodo-cli -ac_name=DORN DEX_list "" 0 "BTC" "" "" "" "" "" "" ""
 ```
 
 <collapse-text hidden title="Response">
@@ -587,7 +587,7 @@ This method interprets the datablobs as orders for AtomicDEX and displays releva
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_orderbook 10 0 KMD BTC
+./komodo-cli -ac_name=DORN DEX_orderbook 10 0 KMD BTC
 ```
 
 <collapse-text hidden title="Response">
@@ -636,7 +636,7 @@ Example:
 Command to filter the datablobs to get information on all the files published and available on the network
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_list 0 0 files
+./komodo-cli -ac_name=DORN DEX_list 0 0 files
 ```
 
 <collapse-text hidden title="Response">
@@ -713,7 +713,7 @@ The value of the key named `"matches"` is a JSON array. In it, we can see only o
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_publish roadmap2020.pdf 3
+./komodo-cli -ac_name=DORN DEX_publish roadmap2020.pdf 3
 ```
 
 <collapse-text hidden title="Response">
@@ -768,7 +768,7 @@ If this method is used with a pubkey not owned by the node, the datablobs create
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_setpubkey 03ac42ded82688c381563d2e123a2eaf54b29d9fd15a8bd4f9f2727dbfe9be1688
+./komodo-cli -ac_name=DORN DEX_setpubkey 03ac42ded82688c381563d2e123a2eaf54b29d9fd15a8bd4f9f2727dbfe9be1688
 ```
 
 <collapse-text hidden title="Response">
@@ -823,7 +823,7 @@ This method gives info and stats related to the p2p data layer.
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_stats
+./komodo-cli -ac_name=DORN DEX_stats
 ```
 
 <collapse-text hidden title="Response">
