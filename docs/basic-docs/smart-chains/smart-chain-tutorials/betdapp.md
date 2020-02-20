@@ -1,4 +1,4 @@
-# Testing the dexp2p based realtime betting App
+# Testing the dexp2p based realtime P2P betting App
 
 ::: tip Note
 This tech is in development. The specifics of the implementation are subject to change. This document is a Work In Progress.
@@ -6,7 +6,7 @@ This tech is in development. The specifics of the implementation are subject to 
 
 ## Introduction
 
-This is a C program that just issues RPC calls and automates several steps required to make a p2p betting game. This program uses the the DEXP2P Peer to Peer messaging layer for communication between nodes.
+This is a C program that just issues RPC calls and automates several steps required to create a p2p betting game. This program uses the the DEXP2P Peer to Peer messaging layer for communication between nodes.
 
 The bet is a double or nothing game, where you will either get double the money you bet or nothing at all.
 
