@@ -153,6 +153,14 @@ var sidebar = [
           [
             "/basic-docs/smart-chains/smart-chain-tutorials/smart-chain-api-basics.md",
             "Smart Chain API Basics"
+          ],
+          [
+            "/basic-docs/smart-chains/smart-chain-tutorials/betdapp.md",
+            "Automated P2P betting game"
+          ],
+          [
+            "/basic-docs/smart-chains/smart-chain-tutorials/get-new-pubkey.md",
+            "Retrieve Pubkey,Address and Privkey"
           ]
         ]
       },
