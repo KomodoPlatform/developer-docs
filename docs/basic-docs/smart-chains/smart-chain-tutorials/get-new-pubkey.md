@@ -53,7 +53,7 @@ Output:
 UrunDGyFJu5UFZG7BnFx9R6iaPmWaBX8iqHzRpFRjNp8kBEQYKNt
 ```
 
-## To summarise the relevant data
+## Summary of the relevant data collected
 
 ```bash
 address: RDomQ4tftJGjcHBVpAUx549jZfxtJx74r5
