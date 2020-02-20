@@ -21,7 +21,7 @@ This p2p data transmission and synchronisation layer can be used for any generic
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev python-zmq zlib1g-dev wget curl bsdmainutils automake cmake clang libsodium-dev libcurl4-gnutls-dev libssl-dev git unzip python jq htop -y
-git clone https://github.com/jl777/komodo -b DEX --single-branch
+git clone https://github.com/jl777/komodo -b jl777 --single-branch
 cd komodo
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh -j$(nproc)
