@@ -129,5 +129,3 @@ cd ~/komodo/src
 - replace `<amount to bet>` with the total amount to bet
 
 Now, the program should execute and start betting with the Bob node. In each step, the program bets only `1/1000` th of the total bet value
-
-
