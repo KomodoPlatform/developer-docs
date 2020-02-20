@@ -39,6 +39,129 @@ Launch Parameters:
 
 You might want to add the parameter `-pubkey` with the value as your pubkey for convenient testing of encrypted "datablobs" across multiple daemon restarts
 
+## DEX_anonsend
+
+**DEX_anonsend message priority destpub33**
+
+This method can be used by a user to broadcast any data to the p2p network without authenticating themselves. It will be added to the "Data Mempools" of all the nodes with the parameter `-dexp2p` set to `1` or `2`, but can only be decrypted by the node whose `DEX_pubkey` is `destpub33`.
+
+::: tip Note
+
+This is achieved by first encrypting the message to the `DEX_pubkey` : `destpub33` and then encrypt it again using a publicly known privatekey. This makes it so that, the datablob looks the same regardless who sent it, and only the node with `DEX_pubkey` set to `destpub33` will be able to decrypt it.
+
+Note that, an attacker with large resources will be able to tell the ip address of the node which published the data packet and if the node publishes other datablobs that reveal its `DEX_pubkey`, then further link it. But, it is not possible for anyone to know who the intended recipient is.
+
+:::
+
+#### Arguments
+
+| Name      | Type            | Description                                                                                                                                                             |
+| --------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|message|(string) |the message to be sent|
+|priority|(number)|the priority with which the anonymous message has to be sent |
+|destpub33|(string) |the `DEX_pubkey` of the recipient node|
+
+#### Response
+
+| Name      | Type            | Description                                                                                                                                                             |
+| --------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| timestamp | (number)        | UNIX timestamp at which the datablob was created                                                                                                                        |
+| id        | (number)        | short hash of the datablob; can be treated as a unique id most of the time                                                                                              |
+| hash      | (string)        | hash of the datablob                                                                                                                                                    |
+| tagA      | (string)        | `tagA` of the datablob; is set to the value "anon"                                                                                                                                                  |
+| tagB      | (string)        | `tagB` of the datablob; is empty for this datablob                                                                                                                                                  |
+| pubkey      | (string)        | the public `DEX_pubkey` that was used to authenticate the datablob                                                                                                                                                  |
+| payload   | (string)        | all the data being sent in the datablob; contains the data,tags,volumes etc.,                                                                                           |
+| hex       | (boolean)       | whether the `payload` is in hexadecimal format                                                                                                                          |
+| decrypted    | (number) | the decrypted payload;                                                                                        |
+| decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`;                 |
+| senderpub | (string)        | the actual `DEX_pubkey` of the sender                                                                                                                                          |
+| amountA   | (string)        | amount associated with `tagA` (volumeA)                                                                                                                                 |
+| amountB   | (string)        | amount associated with `tagB` (volumeB)                                                                                                                                 |
+| priority  | (number)        | the priority with which the datablob will be routed by the network                                                                                                      |
+| recvtime  | (number)        | the unix timestamp at which the datablob was first observed by the node                                                                                                 |
+| cancelled | (number)        | whether the `datablob` is set to be purged prematurely; in the context of AtomicDEX orders, it means the order has been cancelled; `0` when `false` and `1` when `true` |
+
+
+#### :pushpin: Examples
+
+##### Command
+
+```bash
+./komodo-cli -ac_name=DEXP2P DEX_anonsend "hello" 6 012767b0e6d680cf65b1993ddb4ccbb7f1acd027a04ed93c0b06f97714284e214d
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "timestamp": 1582121955,
+  "id": 1382744064,
+  "hash": "0700b02645281e947840db05439de8b1c2d38e1aac34c864558f86e845abac0f",
+  "tagA": "anon",
+  "tagB": "",
+  "pubkey": "011259ec21d31a30898d7cd1609f80d9668b4778e3d97e941044b39f0c44d2e51b",
+  "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063b5a6f12f8925545dab0f65a2589f272653b9db3e99fdcc76000000000000000000000000000000009e1d68cc7d8fa2d25eddbadebca787be37ccf36cf8dd964dd95c3775dfd7d04164f9e9f358c095a92bf1ea7541677ab3355c931b54471fcfeeae34bdfc8496615d1e754829a59357ff2efbee396fc6fb8d4c2770088531a23e2bcb87fdfa9b24d212c6731664a8d8a1f84c56f8efbbad08659d7387f0a02c7b516482b8872ec8ab85704ff293bd809acd84666b66b03d05a7de0523236812e988ba047a87da7176fa6113ad5047cb2c90dc1a0940dbcf67e52d64f70b2ae4a6bc10288a8b60daf243f0b9a7d1e51809ed48ef9c7f46b370974ca6694291a800f9d28868c79427254b1b12ad8a325da12fee9e707afb9398f00468ae54c26383243b9f2a013b50bc9ce0f81a446350f9767213f6738027f9e1cfa37244a40dbd73c308b9108ae5d9196f79c6f9e474ace0afbad6253ec69c78243e6a9d3ff3c2c7bf08db91c1878ce6a1a68a59dd635278d8266ccb5335b8c3b7ea9882ab40335615cb01e1f72922e9a71047fe9e49b49e17610ffcffb07d66d6ea1f3e568ff6f6039878afaa5d9ffe8d45e600c27f3dad5b83171589c76d0b3c3dfc7e5a4156283f038f245ba915fd869ef87e15c8d06ae178f983b9961f991e7c57b0db169fdd5a8783be87d22cc07f2ca79bd677506e70f6f03f9efb0a2b35b3b4352cd8f532bd325e23c9f23d7e707f5d8d8da9340d0963cec714009d6b2e73de757b37e9f938334545fa2dbcd3b07cc67f4722cf74c9dad52989f5706ba283a30c50de1a38c43d33393095ea91c09528004c424f2102a8e1050c7b45887e71169ea0b83740ff5231eead0d35539928d2bb080519fa36c49d9e8fa567ea4b599da83b609fc4e8c44074a20eea1a220cfc059048a1ac25df1b7b53d22c8593f9bf913a93aa5917ec1a0a5a87ce95dc9b8f090f67d5a16e2f19aab2ecc901f21f08eecc3c8a1998f1b05370804f5ef3b3b1ccb42c01b18f56b00dc69f3a5b59ca3bfb1d083e6f14d3d5d7943a991bd9c6fbb97041c39a3a5e9dd0990a0c6a78bc4f7c0cf58b66c24be050d338d7d28a0f33c13a08623dea3ccc05f1cb1f05f82357e59ec6e394d6fac32b59ec9424a9c75de522f24071b20553f2933caa33150de3d23b112523bdd0d4e3abb3a87e372c98a4ea25fee0c6cf40388548f9b42181ddf629c44b3fb9ffc4d30fdced6bc80e12c230b39b388187b9d3ee30a5b601bbeb115648c727ead14ee9a71f4bafd1bfbd154c03e8c1e85beb198a212e433e591aa80f5b98688f29de4077c1e8bae7edc74076952ea74b9ee00543c72a743184668ceaa80532b513200ad6ad0b67b7f913cd30e3c1ba9f8eaacdc518d62f515835247b488caa37d6aaed7ffcd523c7b6cf15f54b4d60240e7ba5cf713d884fd48c1caa797b72b4c161a89f1c71f35ffaf7db8c8b1670421f8c21395bfe455ce82bacb25ac93c6a887ccb21c41c74ff74139d2201b69af0852cc6fb2cef6af711e52986ca09cc558a040fcf31c91c518d1abc520a6d592aabf3aba8d839466597650f66fa153b2a5cb1f8f74faf680defc3b5546a673505c11ee5905f7960b3afbb3de3ca96ff04762afa8355609d937754557bc5ed0de5dc2d2a72fac4a256b296758d8d18c3a62045b3dec8a72ff9c45a9d77f007b713fead9ebb9eadeaf35e0684075ef34463c2c48221a9811df7f04190c74e6a7a279ccd6b3ea6b39e61269863ebc5c6fc1b0b29f34e44",
+  "hex": 1,
+  "decrypted": "1259ec21d31a30898d7cd1609f80d9668b4778e3d97e941044b39f0c44d2e51b595677ddb50546ed90b3b580d377cf83c3ffa7009996a55900000000000000000000000000000000a3a93c0cbd0b1edd933f251bcd15a67d7ca223b59d22e588a55ac9254ff8b3d8c257dc57d355c1e58c839d74938be45c7b214a5fcbe44821599997b38d904bcc20b66663470a27c940d3cf0cfec4533fef53ecc68608a38f9994521fd4b5452a11023446bf76b896734bf9163e84bc9b312fc53874b6dde1e0ad1699f63858d1290c1b78fddf18730bb537416871f8ff3276bdec6f62c8ce6fa17819097cbd1ce16c78b6965444ee7a8bd5b60850fad7b8e54b08f44ebba7406f32ba138c53e5708b8186863ec07da4027d24bea06f8be356cf6b727924ac51efa7a1415b7e2c634511cb84cdf4eea3e7ce4a5948e91c857ec2e71a10e7ab48c7d879035cf0774a1c5dc4c9afb02a7346da1b825a221baff2cb6ab9caa7f9529a9c95fc28364939aee684adaf4fbaac8e0643b0f44e6f1d97e4315444f92295d3d24df7c4b6fdab62b2ad5e06722b61839c4953986a0202631610116c12e1ccdf7bb78cccdba27ba18caeefc8d8dab90993e3993de1c05d7432d1012182d44a1fbac1b9707d62afa72fdf541ad79a4d57e4a509e4e9b862e38a0560c9e79693c546c955426ad1ff8e65059a98f741c96b0a7832a728e5e911197a2e6e74f0fd2e677fd245fc67bd9645b27906c217d17397f4b2c4d4e5b2b1f823cc09f0431432b3708b91dad0d929efd685eb3f61f550b8067458e6c58ff00212a28a87dff830c8014b3b23b35017f14ce74e2b723644423897f81635ba22cec5e4611b4d94f7f40cab7b1cee03d428f3210e69cc6b9491cf0ca81a7d5c0f819818ef4e30614c5e8e633fa569711168fb993521ec37e1527abfaf813933aa2fb72e5cf9d2e6c7466fec7df8a33c6ee2d96959d82672dada84bd343ad99e42642bc45a052f021f93471274228b4766f8c7d44767487bc4b6afd861be3898ee2e1866c3f9cd043e7d6ad331f5028817d755fe9f866342342902ebf309d47b99db5f0e1559c585031a83dcde839b0eeac73991a56775aaf375e7949b632d6e4f168901fa41672935d2f8b503b1c9a16bb6bced2eeab714d2529472c35694ade0b671ab60414b69d5349212812f589d119f5197e16df264dc054f9cf0715991934c82f728475c395d58ee328391625a49bd537777c67fb771b5b3588a61a2d472b119fb47ad320bf7c52090d56305ebd7d6a66ee5d583fd41e9564e565b373f0925aadb29006eaa5d2c6072634fbc0484295fe324dc6a546059f4955ea19dd32b58d5064793ef101b86834ef63d4db8a45c5b3bb850978bf61be83bc74b9437dde1f63302e8a40e7c6b07463ecc1d06a3ede7c5ec56f819c4b20c25c459232af13b1cc266c9a145972296a398a7827e44bf3f5785cb75495345e93739732e8e60bf6d7c874c9af43c3a785c037b493b35293d7aabade9afd8565d89b75899e9fc7a6f90a4deaad4a8d2dd39d36ebb06eebd3e0b034c8a1cb3ff25aaaa6ad1b143349d3f536a81f75a09fa9cdf97bb409aa39abe6e2f6c19c2ff903067fb2d59779219da6272a2ffbc64babedf232220a7c6891a2a2c4d2a0e252f7100e4bb2005a437b59fc23858367e0054197ac55d4a1b7526cab549",
+  "decryptedhex": 1,
+  "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "amountA": "0.00000000",
+  "amountB": "0.00000000",
+  "priority": 16,
+  "recvtime": 1582121955,
+  "cancelled": 0
+}
+```
+
+</collapse-text>
+
+The receiving node can find all the messages sent to using the [DEX_anaonsend](#DEX_anaonsend) command by using the method [DEX_list](#DEX_list) for listing all the the datablobs with `tagA` set to `"anon"`and looking for the matches that have the keys `"anonmsg"` and `"anonsender"` in them.
+
+#### :pushpin: Examples
+
+##### Command
+
+```bash
+./komodo-cli -ac_name=DEXP2P DEX_list "" 0 "anon" "" "" "" ""
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "matches": [
+    {
+      "timestamp": 1582121848,
+      "id": 127520768,
+      "hash": "07009d7950140c7fb40d9af5db18cb17d145e977587c9c436c304357b0c910c1",
+      "tagA": "anon",
+      "tagB": "",
+      "pubkey": "011259ec21d31a30898d7cd1609f80d9668b4778e3d97e941044b39f0c44d2e51b",
+      "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d0639dbf65e5ff38e9f39ed3d57513149e4b3af53e558459b49c0000000000000000000000000000000033cff9ea15df9af7f567eb723009c19ce044fe0c14ad78448c2271b728817004006a337d1a93e143dbe8b7478cfc826b4507e2c042937e2384ded8b5c2ab7def8708a268f4050eb86f89d315dcdd43a28bed8acc6ef444fa0dff5bb3369fecb6543064d7ddda83d6293ed223dfb1f73c91b7f4a52704d4d129d989cd3cd28e1ccd4fc6016365a9a8894e9c68ca5c21c104d3908aeafef4de766fcaae799db518cfec5f62784de983f8740eb1933a973e3f9b823f59fd5d3f35fe6ae38b0d20074d4f31e996d3b2e8f24e1edecd5697b520dd7dd811dcf353bc6e9a40ca9aca1b7886da443d89e3c69a9d795292d3a4059564fb6f6c807f6058e7711a640165aaeeb5a517c482f06d5819b425013ded1e58f7a1cea4a4e2d0a08e676b04dda763b078af6b3071beaecf4e632b7f702a91139788d80232cf83b3bc4618523c4723c712c701de86fc938d82c10d91312c6da97b6dd8a9601abab70f86dad45d03e3929b9aebc79a77a344157d1cf00217e0732c05d779deb228be037221373d0b71e6aaed268d84188999a2feaef4a110dbdbfa82282317ef6da05a8c7a81d8d5ef1e40a76b2502b81c528d9f728088340a028db75dd0e12b9f8ee8f88a30ad4364fb67d2cad84a8c05513d099c5ed2b13badd20a47c83ebbff930da1633f032a4092110f7574173143c90c9c2ef422ca610dfecf94367af88634656ef68908486cd906296286e8dbdeb83e168c575b38f2bc274e27ed717075c430e3269ae9991e1abfbb8d5a3a3f3725cb0e47a551e01e460ad3fb7ec0a0c0f7b09cb12b2f1962d3d98b8df2ffe6b4afca95b73679b30cde4ddc92c0eef5496f4f986a1691b23ae835405eafcf36c34e9d4d9807f7e864bf60d32eb0f1cd43ab9e375c9077495fd9e012f7e45e29fc72fbd3cf9945b7d5b0afcfd0db53ca5a5f6b6a952ed91d4106007949f8f83bb07fa2418a8199f27ad9eabd46e7235d6b98392a7f0f1db80ad648dc165c8cd8c67f97a3fe0c89efd39b3754476048334b1b0788b82c5910c1492595d69012d5480c35480626eebd979072b189f63ba284585c16351fec44bd8d8eba6e5fdb15ef36807ba9f2eebf932e339acaed5f9827cbfe27e69586c0c28e6c219ea2cf1f759bbef00aad17973d47e0f96b3e0abde459749c5655935f31a6e605ab9e61180d87475477dd26a3e5ae67ae209fe22f024ab50a3ab277c61235dbfb442a2a2c345e57d480471a99fe712254d8abba37fc173cfa1b22dddabc5eeff4396189be394bdb428e5d65531eb94012628aa49d644600093272de4175263610d713a069808643f4f2b8a69798fb1aefade26c5dee412da43c5f17aebde3f8951e5e2e9b05c0ea07b913422bcb0f16fe643911a3ecc8189fb9b96cc28925bd59aa7769904bdd55802732d70d02f96cfc2a324d51fa2870d0e6da84a52be3bb5b1016871a76767b36c9d66786b9b7e2a00dff589c3f55fd5fce851029d3f542e1af975c3d786149f42719049352a0573beb567f8e7cb4c5703f3668cf01ca6f84f83efd810c523db91332c540434efc3ade0229a07406b02e5ff35d9b7e9b0212f062bf5f75ba67e4eff1a5cc71602bbef27edbad99c45ec62b8b1a595ece67a573f59b0552d7ea57edace16cd2c40d2745f192397328c216949e370d1eca7280fb770c4a0c0deae1c9906146232410180c4d781b116a5373a8508e26bf",
+      "hex": 1,
+      "decrypted": "1259ec21d31a30898d7cd1609f80d9668b4778e3d97e941044b39f0c44d2e51bebb5f4271913895cc1b7556971d474e3c70ba3be8e532e340000000000000000000000000000000075a95ec3eb34710598e7fb1c04036b8b54605973a4f8b7647c8292a5f5c39b491f6aadc5f18e6f6a377197ff9d2284028c5d3ecafebc8701b7094d16f7884821753f60e56f89ab5cf5fce5d61fab5a0af55fa7c1f21b1e3d9eb219c1b10db7437d43e419ffa11554a68a3b527058c882367a62343c602e53cb81d13e0d9013a8d5ee5de9fbd25fa36323ba40728c49d15b38a78ac25269481224b1fb7d6c40d404a5b5018395c44acc3202214cdd89be1f78dcf40316a3c58c794761111b54fe7f397c79129e523d8cbede01c01fca7190f654e0265924e3a3df4aac8bd7159b8474b5a7e816908292c0e69add982b8cec35d4a8e7e5e7f41b68d4168b717e376a70b00b14ad4f0fa8c00e8250fbb0bac9b219a37fc935bd81af43c07adac0e67ac722b5091e8b866b50ae19488021abf8ae2c41157fdac12596b861628fcad69a10430ff2647058dc68815c8445a0b57928c85c0ae2ff4f16362860751d8cca58ecbc0da5b50eb921a8fc5524c07497a7021610900eeea204ec6ba91bf215de3b65f27bce94136f5f90051c88f3ac9612e8ae5278c05ab2e42aaee00aedc54f2da06fcd1fbd38d332e811110569b141a58c74e082bee036cc03f22a9323414856b3b4d43a0ab329f33af538b37c3aae90ae4d42655b1376da9306de5d88e9deccedf7a6b72675517285734a1ae43801d627bd2a74ef5711d1dd1270a00c8bf617a1a90b33079f64ebba506710cfbfa11a0db52f3c2843e1d7ced2a1a1a1ee91eb41005cc5b2cfef009b80baf0dece078a098c9691cf83534d82af8e5473730b60c6b7fe530a1dfb848383dd23bd869c02419887dda3184ad12596b7f7169b9bf62b09e17b4f3793098db44f16e1e4f225b427c82cb1f1ac40f0db3e71c8e6d236872e94c89e504cbd188f735e270697d0fc56ef2f0deadbfe29f7051288c63a26d74103671f904957c091b38527b1385a9bfc347d7421a1644f532301a59e37345abdbaa252c593a9b821dbd404264476d206257e399956e6f1078c3a4741cfd368233f825dec791b9a87e9fed95a9dccd8360e0eb488061f97c8e8325053d769073cf34a0bb0344db3f0ce493aa888de9ba70baed7470c92f9a06928b4c081772385bbadccd0fbc6754edeea94158a75919a05b8cac9bbb7ff48e5b4907d3e9d24490992c95d5bed399811cea1f45e2df2277b358565e28b70b59ba81952ef72e005b7524c252c99567b2ba8a1d56a508892e1d4436aa497c1f3564b8e9a661488b21dc59c3be70e4a9c651acab9276bfbdc96fd36c6075c0b8a10c79009c2c0d3a917f06873b00f32105532d94a64915c620de0b61a074516817b7b6d365339a66a0b10f945300251bbeeba6579df157bc0d609ad83e729dbd46c78ed12b7db3152ebeb430f498b51b6dca104dc44dbe0c573ae4a547ae7f57e9ca83083e9f73009dd9c5bf8423c71f308c763f2b25641d06db162e16df9d4f752ba85d2e82ce83fe7c6d0cf6032c5b54406e8afb49c58738ae242a8f5394f0720416c928e2e0a97f823f05031e7327e73c531ff872acca1003c11c19cb105a49f3b1b6fc87a861fbdf41a1fb1",
+      "decryptedhex": 1,
+      "anonmsg": "hello",
+      "anonsender": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+      "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+      "amountA": "0.00000000",
+      "amountB": "0.00000000",
+      "priority": 12,
+      "recvtime": 1582121849,
+      "cancelled": 0
+    }
+  ],
+  "tagA": "anon",
+  "tagB": "",
+  "pubkey": "",
+  "n": 1
+}
+```
+
+</collapse-text>
+
 ## DEX_broadcast
 
 **DEX_broadcast hex [priority [tagA [tagB [pubkey33 [volA [volB]]]]]]**
@@ -63,7 +186,7 @@ This method can be used to broadcast any data to the p2p network, which will be 
 | ------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | timestamp    | (number) | UNIX timestamp at which the datablob was created                                                                                                                        |
 | id           | (number) | short hash of the datablob; can be treated as a unique id most of the time                                                                                              |
-| hash         | (string) | hash of the datablob; the payload is hashed like so: `sha256(curve25519(sha256(payload)))`, the `curve25519` hash is included to make the process fpga resistant; there are no known ASICS for it                                                                                                                                                    |
+| hash         | (string) | hash of the datablob; the payload is hashed like so: `sha256(curve25519(sha256(payload)))`, the `curve25519` hash is included to make the process FPGA resistant to deter spammers; there are no known ASICS for it                                                                                                                                                    |
 | tagA         | (string) | `tagA` of the datablob                                                                                                                                                  |
 | tagB         | (string) | `tagB` of the datablob                                                                                                                                                  |
 | pubkey       | (string) | the `pubkey` the payload is tagged with; if `tagA` is "inbox", the payload is encrypted and only the owner of the `pubkey` can decrypt the datablob                     |
@@ -360,6 +483,8 @@ This method can be used to filter and list data from the "Data Mempool" of the n
 | hex       | (boolean)       | whether the `payload` is in hexadecimal format                                                                                                                          |
 | decrypted    | (number) | the decrypted payload;                                                                                        |
 | decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`;                 |
+|anonmsg|(string)|the decrypted anonymous message received by the node from a `anonsender` who most likely used the [DEX_anonsend](#DEX_anonsend) method |
+|anonsender|(string)| the `DEX_pubkey` of the anon message sender    |
 | error     | (string)        | errors if any; the error says `"wrong sender"` if the actual `DEX_pubkey` of the sender is different from the claimed one                                                                                                                                                           |
 | senderpub | (string)        | the actual `DEX_pubkey` of the sender                                                                                                                                          |
 | amountA   | (string)        | amount associated with `tagA` (volumeA)                                                                                                                                 |
@@ -502,28 +627,85 @@ This method interprets the datablobs as orders for AtomicDEX and displays releva
 
 **DEX_publish filename priority sliceid**
 
-This method allows a user to publish a file to the p2p Data Network. The file is broken into chunks and sent using the datablobs
+This method allows a user to publish a file to the p2p Data Network. The file is broken into fragments and broadcast to the network using the datablobs. Take a look at the response of [DEX_broadcast](#DEX_broadcast) for a list of all the keys available in a datablob. The `DEX_publish` method utilises the datablobs to
+
+1) Inform the network that a file is published; this datablob contains the `DEX_pubkey` of the sender, the name of the file published, its SHA256 hash, its size, number of datablobs that have been used to send all the data of the file to the network (fragments); the datablobs of this type can be found using their `tagA`, which is set to `files`.
+
+Example:
+
+Command to filter the datablobs to get information on all the files published and available on the network
+
+```bash
+./komodo-cli -ac_name=DEXP2P DEX_list 0 0 files
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "matches": [
+    {
+      "timestamp": 1582183470,
+      "id": 1580385280,
+      "hash": "07402ce325367f64f4276859068be88285ab4e7ebcdc66ff2c813f6bcb80f3dd",
+      "tagA": "files",
+      "tagB": "roadmap2020.pdf",
+      "pubkey": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+      "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063bc425beee3aa7d8042639c535c73f65a736c7a75c946c566000000000000000000000000000000005c61e593eda86ba22df912417873c8bd7a95bd85bc6e981151f0115f1014daf7c5173e7e3f74ba3fb367697fca650756",
+      "hex": 1,
+      "decrypted": "8ed81c26721dcce7bfd1a811f301ec84a2f79389ab86cb45e481ab3f5f40f85d",
+      "decryptedhex": 1,
+      "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+      "amountA": "0.02049320",
+      "amountB": "0.00000205",
+      "priority": 10,
+      "recvtime": 1582183471,
+      "cancelled": 0
+    }
+  ],
+  "tagA": "files",
+  "tagB": "",
+  "pubkey": "",
+  "n": 1
+}
+```
+
+</collapse-text>
+
+The value of the key named `"matches"` is a JSON array. In it, we can see only one JSON. It means that, there is only `1` file that is currently published and available on the network. In that JSON, we can see that `tagA` is `files`, which we filtered for. The rest of the relevant keys are as follows
+
+- `"tagB"` set to `"roadmap2020.pdf"`; it is the name of the file
+- `"pubkey"` set to `"01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063"`; it is the `DEX_pubkey` of the publisher
+- `"decrypted"` set to `"8ed81c26721dcce7bfd1a811f301ec84a2f79389ab86cb45e481ab3f5f40f85d"`; it is the SHA256 hash of the file
+- `"amountA"` set to `"0.02049320"`; the value encodes the size of the file; to get the size in bytes, multiply the value with `10^8`
+- `"amountB"` set to `"0.00000205"`; the value encodes the number of datablobs used to broadcast the file; to get the number, multiply the value with `10^8`
+<!----
+2) Inform the network about the 
+
+----->
+
 
 #### Arguments
 
 | Name     | Type     | Description                                                                                                         |
 | -------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
-| filename | (string) | the name of the file to be published; the file must be present in the directory from which the command to start the Komodo daemon(`komodod`) was issued; not to be confused with the directory in which `komodod` is present |
-| priority | (number) | the minimum priority above the default VIP priority level to be used for broadcasting the involved datablobs; if VIP priority level is `txpow_bits = 5` and this parameter is set to `3`, the datablobs created will have a minimum priority level of `8` |
-| sliceid | (number) | id of the slice to publish; if it is an integer greater than or equal to `1`, this method will publish only the mentioned slice of the file; if set to `0`, it scans the datablobs received from the network and republishes the missing ones  |
+| filename | (string) | the name of the file to be published; the file must be present in the working directory from which the command to start the Komodo daemon(`komodod`) was issued; not to be confused with the directory in which `komodod` is present |
+| priority | (number) | the minimum priority above the default VIP priority level to be used for broadcasting the involved datablobs; if VIP priority level is `txpow_bits = 5` and this parameter is set to `3`, the datablobs created will have a minimum priority level of `8`; if the command is issued by a publisher node after it is restarted to republish an already published file, and the priority is set to VIP level or more, the node will automatically fetch all the relevant datablobs from the network |
+| sliceid | (number) | if set to `0`, it publishes the file; if set to `0` and the file is already published, it scans the datablobs present in the "Data mempool" and republishes the missing ones; id of the slice to publish; if it is an integer greater than or equal to `1`, this method will publish only the mentioned slice of the file, each slice is sized 1 MB from the beginning of the file; this parameter is used by the [DEX_stream](#DEX_stream) method  |
 
 #### Response
 
 | Name        | Type     | Description                                   |
 | ----------- | -------- | --------------------------------------------- |
 | fname       | (string) | the name of the file                                              |
-| id          | (number) | the id of the published file                                              |
+| id          | (number) | the id of the published file; the same file if published multiple times will have different `id`s                                              |
 | senderpub   | (string) | the `DEX_pubkey` of the file's sender                                              |
 | filesize    | (number) | the size of the file in bytes                                              |
 | fragments   | (number) | the number of fragments the file has been broken down into; each fragment has a maximum size of `10000 byte`                                              |
 | numlocators | (number) | the number of locators of the published file                                              |
-| filehash    | (string) | the hash of the file                                              |
-| checkhash   | (string) | the hash of the file based on all the fragments the node has currently available                                             |
+| filehash    | (string) | the SHA256 hash of the file as indicated by the publishing node                                              |
+| checkhash   | (string) | the SHA256 hash of the file based on all the fragments the node has currently available                                             |
 | result      | (string) | whether the command was successfully executed |
 
 #### :pushpin: Examples
@@ -531,21 +713,21 @@ This method allows a user to publish a file to the p2p Data Network. The file is
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DEXP2P DEX_publish m.mkv 5
+./komodo-cli -ac_name=DEXP2P DEX_publish roadmap2020.pdf 3
 ```
 
 <collapse-text hidden title="Response">
 
 ```json
 {
-  "fname": "m.mkv",
-  "id": 3066883072,
-  "senderpub": "0118500131b0097e3f2fc8dcf50d691d92569a4c262e5316978c79347d05999364",
-  "filesize": 4820415,
-  "fragments": 483,
-  "numlocators": 483,
-  "filehash": "ab100868752b84c6e0ae55b347ef72156439e6632fe387faa9ac7b04c6302d2b",
-  "checkhash": "ab100868752b84c6e0ae55b347ef72156439e6632fe387faa9ac7b04c6302d2b",
+  "fname": "roadmap2020.pdf",
+  "id": 3277545472,
+  "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "filesize": 2049320,
+  "fragments": 205,
+  "numlocators": 205,
+  "filehash": "8ed81c26721dcce7bfd1a811f301ec84a2f79389ab86cb45e481ab3f5f40f85d",
+  "checkhash": "8ed81c26721dcce7bfd1a811f301ec84a2f79389ab86cb45e481ab3f5f40f85d",
   "result": "success"
 }
 ```
@@ -663,3 +845,8 @@ This method gives info and stats related to the p2p data layer.
 
 </collapse-text>
 
+<!----
+DEX_stream filename priority
+DEX_streamsub filename priority pubkey
+DEX_subscribe filename priority id [publisher33]
+---->
