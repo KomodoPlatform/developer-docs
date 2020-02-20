@@ -128,6 +128,6 @@ cd ~/komodo/src
 - replace `<id of bet datablob>` with the id noted before
 - replace `<amount to bet>` with the total amount to bet
 
-Now, the program should execute and start betting with the bob. In each step, the program bets only `1/1000` th of the total bet value
+Now, the program should execute and start betting with the Bob node. In each step, the program bets only `1/1000` th of the total bet value
 
 
