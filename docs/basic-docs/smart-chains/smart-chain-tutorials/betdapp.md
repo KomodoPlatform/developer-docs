@@ -6,7 +6,9 @@ This tech is in development. The specifics of the implementation are subject to 
 
 ## Introduction
 
-This is a C program that just issues RPC calls and automates several steps required to create a p2p betting game. This program uses the the DEXP2P Peer to Peer messaging layer for communication between nodes.
+This is a C program that issues RPC calls and automates several steps required to create a p2p betting game. It uses the the DEXP2P Peer to Peer messaging layer for communication between nodes and the blockchain layer for payments.
+
+This program serves to demonstrate the capabilities the [DEXP2P messaging layer](https://docs.komodoplatform.com/basic-docs/smart-chains/smart-chain-setup/dexp2p.html) opens up for all Smart Chains. A similar program can be written using any Programming Language that has a library to issue RPC calls.
 
 The bet is a double or nothing game, where you will either get double the money you bet or nothing at all.
 
