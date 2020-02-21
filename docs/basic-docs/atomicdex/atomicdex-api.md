@@ -3742,7 +3742,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my\_balance
+## show\_priv\_key
 
 **show_priv_key coin**
 
