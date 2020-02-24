@@ -116,7 +116,7 @@ Note that, an attacker with large resources will be able to tell the ip address 
 
 </collapse-text>
 
-The receiving node can find all the messages sent to using the [DEX_anaonsend](#DEX_anaonsend) command by using the method [DEX_list](#DEX_list) for listing all the the datablobs with `tagA` set to `"anon"`and looking for the matches that have the keys `"anonmsg"` and `"anonsender"` in them.
+The receiving node can find all the messages sent to it through the [DEX_anaonsend](#DEX_anaonsend) method by using the method [DEX_list](#DEX_list) for listing all the the datablobs with `tagA` set to `"anon"`and looking for the matches that have the keys `"anonmsg"` and `"anonsender"` in them.
 
 #### :pushpin: Examples
 
@@ -629,7 +629,7 @@ This method interprets the datablobs as orders for AtomicDEX and displays releva
 
 This method allows a user to publish a file to the p2p Data Network. The file is broken into fragments and broadcast to the network using the datablobs. Take a look at the response of [DEX_broadcast](#DEX_broadcast) for a list of all the keys available in a datablob. The `DEX_publish` method utilises the datablobs to
 
-1) Inform the network that a file is published; this datablob contains the `DEX_pubkey` of the sender, the name of the file published, its SHA256 hash, its size, number of datablobs that have been used to send all the data of the file to the network (fragments); the datablobs of this type can be found using their `tagA`, which is set to `files`.
+1) Indicate to the network that a file is published; this datablob contains the `DEX_pubkey` of the sender, the name of the file published, its SHA256 hash, its size, number of datablobs that have been used to send all the data of the file to the network (fragments); the datablobs of this type can be found using their `tagA`, which is set to `files`.
 
 Example:
 
@@ -680,10 +680,11 @@ The value of the key named `"matches"` is a JSON array. In it, we can see only o
 - `"decrypted"` set to `"8ed81c26721dcce7bfd1a811f301ec84a2f79389ab86cb45e481ab3f5f40f85d"`; it is the SHA256 hash of the file
 - `"amountA"` set to `"0.02049320"`; the value encodes the size of the file; to get the size in bytes, multiply the value with `10^8`
 - `"amountB"` set to `"0.00000205"`; the value encodes the number of datablobs used to broadcast the file; to get the number, multiply the value with `10^8`
-<!----
-2) Inform the network about the 
 
------>
+<!----
+2) Inform the network about the ids of the datablobs that contain the actual file data;  
+
+------>
 
 
 #### Arguments
@@ -848,5 +849,11 @@ This method gives info and stats related to the p2p data layer.
 <!----
 DEX_stream filename priority
 DEX_streamsub filename priority pubkey
-DEX_subscribe filename priority id [publisher33]
+
+
+
+ DEX_subscribe
+
+**DEX_subscribe filename priority id [publisher33]**
+
 ---->

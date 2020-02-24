@@ -404,7 +404,8 @@ var sidebar = {
         [
           "/qa/adb-logcat.md",
           "Use adb to collect GUI logs of the AtomicDEX android app"
-        ]
+        ],
+        ["/qa/extract-swap-data-atomicDEX-log.md", "How to extract swap data from a AtomicDEX mobile log file"]
       ]
     }
   ],
