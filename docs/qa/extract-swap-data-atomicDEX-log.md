@@ -1,4 +1,3 @@
-
 # How to extract swap data from a AtomicDEX mobile log file
 
 Create a file named `parse_logs.py` and copy the code from below into it.
