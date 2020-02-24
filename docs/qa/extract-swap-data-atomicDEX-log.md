@@ -1,10 +1,11 @@
 # How to extract swap data from a AtomicDEX mobile log file
 
-Create a file named `parse_logs.py` and copy the code from below into it.
+Create a file named `parse_logs.py` and copy the code below into it.
 
 ::: tip Note
 
-The following script is from https://github.com/smk762/pytomicDEX/blob/master/scripts/parse_logs.py
+- the following code is from [https://github.com/smk762/pytomicDEX/blob/master/scripts/parse_logs.py](https://github.com/smk762/pytomicDEX/blob/master/scripts/parse_logs.py)
+- we assume that `python3` is already installed in your system 
 
 :::
 

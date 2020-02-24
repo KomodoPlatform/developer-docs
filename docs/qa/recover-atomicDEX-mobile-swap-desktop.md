@@ -4,7 +4,7 @@ If for any reason, you don't want to/can't recover a stuck/timed out/failed swap
 
 - First, export the log file from your AtomicDEX mobile (Settings -> "Share log File") and transfer it to your Desktop.
 - Follow the instructions in [this linked guide](./extract-swap-data-atomicDEX-log.html) to extract the swap data from the log file into a format usable by `mm2`
-- It should create two directories named files "MAKER" and "TAKER" and files named `<uuid>.json` in the appropriate directory. `uuid` is the swap id from the AtomicDEX mobile app
+- It should create two directories named "MAKER" and "TAKER" and files named `<uuid>.json` in the appropriate directory. `uuid` is the swap id from the AtomicDEX mobile app
 - Find the file named after your stuck swap's id and save it in a accessible location. Also note if it was in the directory named "MAKER" or "TAKER" 
 - Follow the instructions in [this linked guide](./atomicDEX-quickstart.html) to download, configure and setup AtomicDEX on your desktop. When creating the file `MM2.json` as described in the guide, use the seed words from AtomicDEX mobile as the value for the key `"passphrase"`
 - Once `mm2` is up and running, open a new terminal window and export the `rpc_password` as value to the environment variable named `userpass`.
@@ -83,4 +83,4 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 }
 ```
 
-Please contact us in the [Discord server](https://komodoplatform.com/discord) if any step is unclear. When in doubt, ask first before following a step.
+Please contact us in the [Discord server](https://komodoplatform.com/discord) if any step is unclear. When in doubt, ask first before executing a command.
