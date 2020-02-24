@@ -3746,14 +3746,14 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **show_priv_key coin**
 
-The `show_priv_key` method returns the private key of the specified `coin` in format compatible with `coin` wallets.
-The output can be used for `importprivkey` method (UTXO coins) or as private key for MyEtherWallet (ETH/ERC20).
+The `show_priv_key` method returns the private key of the specified `coin` in a format compatible with `coin` wallets.
+The output can be used for the `importprivkey` method (UTXO coins) or as a private key for MyEtherWallet (ETH/ERC20).
 
 #### Arguments
 
 | Structure | Type   | Description                                  |
 | --------- | ------ | -------------------------------------------- |
-| coin      | string | the name of the coin to show the private key |
+| coin      | string | the name of the coin of the private key to show |
 
 #### Response
 
