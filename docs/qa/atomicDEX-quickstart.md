@@ -2,7 +2,7 @@
 
 Download the latest release of AtomicDEX-API for your OS from [https://github.com/KomodoPlatform/atomicDEX-API/releases](https://github.com/KomodoPlatform/atomicDEX-API/releases)
 
-- If the latest release tag is `beta-2.0.1683`, the download links are available should be [https://github.com/KomodoPlatform/atomicDEX-API/releases/tag/beta-2.0.1683](https://github.com/KomodoPlatform/atomicDEX-API/releases/tag/beta-2.0.1683)
+- If the latest release tag is `beta-2.0.1683`, the download links should be available at [https://github.com/KomodoPlatform/atomicDEX-API/releases/tag/beta-2.0.1683](https://github.com/KomodoPlatform/atomicDEX-API/releases/tag/beta-2.0.1683)
 - Scroll down to the bottom of the page and expand the "Assets" section by clicking on it
 - To download, click on the link that has the words "mm2", "Release" and the name of your OS in it
 - Extract the downloaded file into a new folder named `AtomicDEX`
