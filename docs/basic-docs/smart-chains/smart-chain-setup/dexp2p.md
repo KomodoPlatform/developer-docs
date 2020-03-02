@@ -815,7 +815,7 @@ The value of the key named `"matches"` is a JSON array. The length of the array 
 :::tip Note
 
 - we recommend to publish only one file at a time
-- it is also recommended to not issue the `stop` command to the daemon while a file is being published; doing so will make the daemon stop receiving further RPC, but it continues to publish the datablobs containing the data of the file; once that is done, the daemon shuts down; note that, the daemon publishs neither the datablob with `tagA` set to `files` and `tagB` set to the file name nor the `locators` datblob, which results in no other node able to use the [DEX_subscribe](#dex-subscribe) RPC to download the file
+- it is also recommended to not issue the `stop` command to the daemon while a file is being published; doing so will make the daemon stop receiving further RPC, but it continues to publish the datablobs containing the data of the file; once that is done, the daemon shuts down; note that, the daemon publishes neither the datablob with `tagA` set to `files` and `tagB` set to the file name nor the `locators` datblob, which results in no other node able to use the [DEX_subscribe](#dex-subscribe) RPC to download the file
 
 :::
 
