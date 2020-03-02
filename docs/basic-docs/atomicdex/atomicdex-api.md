@@ -444,11 +444,11 @@ For terminal interface examples, see the examples section below.
 | servers                           | array of objects                                 | the list of Electrum servers to which you want to connect                                                                                                            |
 | servers.url                       | string                                           | server url                                                                                                                                                           |
 | servers.protocol                  | string                                           | the transport protocol that MM2 will use to connect to the server. Possible values: `TCP`, `SSL`. Default value: `TCP`                                               |
-| servers.disable_cert_verification | bool                                             | when set to true, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). Default value is `false`. <b>Use at your own risk</b> |
+| servers.disable\_cert\_verification | bool                                             | when set to true, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). Default value is `false`. <b>Use at your own risk</b> |
 | mm2                               | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1`                                   |
-| tx_history                        | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                |
-| required_confirmations            | number                                           | the number of confirmations for which MM2 will wait for the selected coin atomic swap transactions                                                                   |
-| requires_notarization             | bool                                             | whether the node should wait for notarization of the selected coin atomic swap transactions; applicable only for coins using Komodo dPoW                                  |
+| tx\_history                        | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                |
+| required\_confirmations            | number                                           | the number of confirmations for which MM2 must wait for the selected coin to perform the atomic swap transactions                                                                   |
+| requires\_notarization             | bool                                             | whether the node should wait for a notarization of the selected coin that is performing the atomic swap transactions applicable only for coins using Komodo dPoW                                  |
 
 #### Response
 
@@ -456,10 +456,10 @@ For terminal interface examples, see the examples section below.
 | ---------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                                                                                                                                                                  |
 | balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                                                                                                                                                                      |
-| locked_by_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
+| locked\_by\_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
 | coin                   | string           | the ticker of the enabled coin                                                                                                                                                                                                                           |
-| required_confirmations | number           | MM2 will wait for the this number of transaction confirmations during the swap                                                                                                                                                                           |
-| requires_notarization  | bool             | whether the node will wait for notarization of the selected coin atomic swap transactions; applicable only for coins using Komodo dPoW                                  |
+| required_confirmations | number           | the number of transaction confirmations for which MM2 must wait during the atomic swap process                                                                                                                                                                           |
+| requires_notarization  | bool             | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions; applicable only for coins using Komodo dPoW                                  |
 | result                 | string           | the result of the request; this value either indicates `success`, or an error, or another type of failure                                                                                                                                                |
 
 #### :pushpin: Examples
@@ -610,8 +610,8 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | gas_station_url       | string (optional for ETH/ERC20)                  | url of [ETH gas station API](https://docs.ethgasstation.info/); MM2 uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; when this parameter is set, MM2 will request the current gas price from Station for new transactions, and this often results in lower fees |
 | mm2                   | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1`                                                                                                                                                                                  |
 | tx_history            | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                                                                                                                                                               |
-| required_confirmations| number                                           | the number of confirmations for which MM2 will wait for the selected coin atomic swap transactions; applicable only for coins using Komodo dPoW                                                                    |
-| requires_notarization | bool                                             | whether the node should wait for notarization of the selected coin atomic swap transactions; applicable only for coins using Komodo dPoW                                  |
+| required_confirmations| number                                           | the number of confirmations for which MM2 must wait for the selected coin to perform the atomic swap transactions; applicable only for coins using Komodo dPoW                                                                    |
+| requires_notarization | bool                                             | whether the node should wait for a notarization of the selected coin that is performing the atomic swap transactions applicable only for coins using Komodo dPoW                                  |
 
 #### Response
 
@@ -622,7 +622,7 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | locked_by_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
 | coin                   | string           | the ticker of enabled coin                                                                                                                                                                                                                               |
 | required_confirmations | number           | MM2 will wait for the this number of coin's transaction confirmations during the swap                                                                                                                                                                    |
-| requires_notarization  | bool             | whether the node will wait for notarization of the selected coin atomic swap transactions                                 |
+| requires_notarization  | bool             | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions                                 |
 | result                 | string           | the result of the request; this value either indicates `success`, or an error or other type of failure                                                                                                                                                   |
 
 #### :pushpin: Examples
@@ -3760,13 +3760,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## set\_required\_confirmations
 
-**set_required_confirmations coin confirmations**
+**set\_required\_confirmations coin confirmations**
 
-The `set_required_confirmations` method sets the number of confirmations for which MM2 will wait for the selected coin.
+The `set_required_confirmations` method sets the number of confirmations for which MM2 must wait for the selected coin.
 
 ::: tip Note
 
-Please note that this setting is _**not**_ persistent. The value must be reset in the coins file on restart.
+This setting is _**not**_ persistent. The value must be reset in the coins file on restart.
 
 :::
 
@@ -3813,13 +3813,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## set\_requires\_notarization
 
-**set_requires_notarization coin requires_notarization**
+**set\_requires\_notarization coin requires\_notarization**
 
-The `set_requires_notarization` method sets whether MM2 will wait for dPoW notarization of atomic swap transactions of the selected coin .
+The `set_requires_notarization` method indicates whether MM2 must wait for a dPoW notarization of the given atomic swap transactions.
 
 ::: tip Note
 
-Please note that this setting is _**not**_ persistent. The value must be reset in the coins file on restart.
+This setting is _**not**_ persistent. The value must be reset in the coins file on restart.
 
 :::
 
@@ -3828,14 +3828,14 @@ Please note that this setting is _**not**_ persistent. The value must be reset i
 | Structure             | Type   | Description                            |
 | --------------------- | ------ | -------------------------------------- |
 | coin                  | string | the ticker of the selected coin        |
-| requires_notarization | bool   | whether the node should wait for dPoW notarization of atomic swap transactions       |
+| requires\_notarization | bool   | whether the node should wait for dPoW notarization of atomic swap transactions       |
 
 #### Response
 
 | Structure                    | Type   | Description                                |
 | ---------------------------- | ------ | ------------------------------------------ |
 | result.coin                  | string | the coin selected in the request           |
-| result.requires_notarization | bool   | whether the node will wait for dPoW notarization of atomic swap transactions |
+| result.requires\_notarization | bool   | whether the node must wait for a dPoW notarization of the atomic swap transactions |
 
 #### :pushpin: Examples
 
