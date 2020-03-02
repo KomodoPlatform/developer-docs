@@ -902,7 +902,7 @@ This method allows a user to download a file that has been published to the `dex
 | filename | (string)     | the name of the file to download            |
 | priority | (number)     |  the priority above the default value of the command priority with which the node should create a datablob if it needs to request missing blocks; can be `0` most of the time             |
 | id | (string, deprecated)     | DEPRECATED; use the value `0` in its place id of the datablob that contains the `locators` information for the file the user wants to download; find the `locators` datablob by filtering the avaialble datablobs with `tagA` set to the file's name and `tagB` set to the word `locators`           |
-| publisher33 | (string)     | the `DEX_pubkey` of the file's publisher; this parameter is ignored if the `id` paramter is provided             |
+| publisher33 | (string)     | the `DEX_pubkey` of the file's publisher             |
 
 #### Response
 
