@@ -901,8 +901,8 @@ This method allows a user to download a file that has been published to the `dex
 | ------ | ---- | ----------- |
 | filename | (string)     | the name of the file to download            |
 | priority | (number)     |  the priority above the default value of the command priority with which the node should create a datablob if it needs to request missing blocks; can be `0` most of the time             |
-| id | (string)     | id of the datablob that contains the `locators` information for the file the user wants to download; find the `locators` datablob by filtering the avaialble datablobs with `tagA` set to the file's name and `tagB` set to the word `locators`           |
-| publisher33 | (string, optional)     | the `DEX_pubkey` of the file's publisher; this parameter is ignored if the `id` paramter is provided             |
+| id | (string, deprecated)     | DEPRECATED; use the value `0` in its place id of the datablob that contains the `locators` information for the file the user wants to download; find the `locators` datablob by filtering the avaialble datablobs with `tagA` set to the file's name and `tagB` set to the word `locators`           |
+| publisher33 | (string)     | the `DEX_pubkey` of the file's publisher; this parameter is ignored if the `id` paramter is provided             |
 
 #### Response
 
@@ -923,7 +923,7 @@ This method allows a user to download a file that has been published to the `dex
 ##### Command
 
 ```bash
-./komodo-cli -ac_name=DORN DEX_subscribe "roadmap2020.pdf" 0 4181200704 01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063
+./komodo-cli -ac_name=DORN DEX_subscribe "roadmap2020.pdf" 0 0 01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063
 ```
 
 <collapse-text hidden title="Response">
