@@ -8,7 +8,7 @@ This Peer to Peer Messaging Enhancement technology is in development. The specif
 
 All the nodes of a Smart Chain started with the **Optional** parameter `-dexp2p` (set to `1` or `2`) start listening and propagating data packets broadcasted by other nodes on the network. These data packets don't necessarily contain the Smart Chain's transactions, are stored in a node's RAM and dropped after 1 hour.
 
-Let's call this local data stored as "Data Mempool" as opposed to the "Mempool/Transaction Mempool" that stores just the unconfirmed transactions of the Smart Chain. The data is transmitted from from one node to another in the form of "datablobs". A "datablob" contains the timestamp, the data itself (encrypted if a destination pubkey is provided, see: [DEX_broadcast](#DEX_broadcast)), a nonce, the SHA256 hash of the payload and other metadata.
+Let's call this local data stored as "Data Mempool" as opposed to the "Mempool/Transaction Mempool" that stores just the unconfirmed transactions of the Smart Chain. The data is transmitted from from one node to another in the form of "datablobs". A "datablob" contains the timestamp, the data itself (encrypted if a destination pubkey is provided, see: [DEX_broadcast](#dex-broadcast)), a nonce, the SHA256 hash of the payload and other metadata.
 
 - if `-dexp2p=1` is used, the node will participate in the p2p data network but doesn't respond to requests from nSPV superlight clients
 - if `-dexp2p=2` is used, the node will participate in the p2p data network and also responds to requests from nSPV superlight clients
@@ -38,6 +38,34 @@ Launch Parameters:
 ```
 
 You might want to add the parameter `-pubkey` with the value as your pubkey for convenient testing of encrypted "datablobs" across multiple daemon restarts
+
+## Daemon Output
+
+After the initial output common to all the daemons is printed, a daemon started with the `-dexp2p=2` command starts printing statistics about the datablobs it has seen and the state of the `dexp2p` network from its perspective. Most of the stats from the daemon output can also be accessed through the [DEX_stats](#dex-stats) RPC
+
+Example:
+
+```bash
+2040: del.0 00000000, RAM.207 84b824a6 R.0 S.621 A.621 dup.0 | L.0 A.0 coll.0 | lag  0.000 (0.0000 0.0000 0.0000) err.0 pend.0 T/F 414/414 | 0 0 0 0 0 0 1 1 6 4 10 31 46 108  3/sec
+```
+
+### Explanation
+
+- `2040` is the time in seconds since the last purge of the datablobs stored in the node's RAM; calculated as `unixtimestamp % purgetime` ; `%` means [modulo](https://en.wikipedia.org/wiki/Modulo_operation) and the default purge time is `1 hour`  
+- `del.0` means `0` datablobs were purged by the node in the last minute
+- `00000000` is the checksum of the purged datablobs in the last second (for performance reasons)
+- `RAM.207` means there are currently `207` datablobs in the node's RAM
+- `84b824a6` is the checksum of all the datablobs in the RAM
+- `R.0 S.621 A.621` means the node Received `0` messages, Sent `621` messages, Added `621` messages; there are no right or wrong `R` and `S` values; ideally, all the nodes that don't publish/stream should have the same R and S values; but, some nodes may have larger `S` values than `R` based on connectivity, network topology and which datablobs its peers already have
+- `dup.0` means the node received `0` duplicate datablobs; high amount of duplicates is bad as it wastes bandwidth
+- `L.0 A.0 coll.0` these are some stats for internal tracking/debugging and should not be relevant to a user/developer  
+- `lag  0.000 (0.0000 0.0000 0.0000)` in this string, the number right beside the word `lag` is the average lag over different windows of datablobs. The numbers in the brackets denote the actual lags in the different windows. The different windows are: `fast window`, `medium window`, `long window` which mean the most recent `1000`, `10000`, `100000` datablobs respectively; there might be huge values of lag recorded within the `first minute` of starting the node as VIP datablobs from other nodes start arriving even though they weren't published recently
+- `err.0` means `0` non-VIP datablobs were received with over `1 minute` lag
+- `pend.0` means there are `0` pending datablobs to be received from the network
+- `T/F 414/414` means `414` datablobs were purged by the node the the datablobs are first `Truncated` and then their memory `Freed`; this number together with the value of `RAM` (number of datablobs currently in `RAM`) can be treated as the total number of datablobs processed by the node since its launch 
+- `0 0 0 0 0 0 1 1 6 4 10 31 46 108` these numbers are the total number of datablobs in the node's RAM classified by their priority; the rightmost number gives the total number of datablobs with priority `0`, the one left to it gives the total number of datablobs with priority `1` amd so on.... ; the left most number gives the total number of datablobs with priority greater than `13`
+- `3/sec` is the number of datablobs per second for the last minute
+
 
 ## DEX_anonsend
 
@@ -116,7 +144,7 @@ Note that, an attacker with large resources will be able to tell the ip address 
 
 </collapse-text>
 
-The receiving node can find all the messages sent to it through the [DEX_anaonsend](#DEX_anaonsend) method by using the method [DEX_list](#DEX_list) for listing all the the datablobs with `tagA` set to `"anon"`and looking for the matches that have the keys `"anonmsg"` and `"anonsender"` in them.
+The receiving node can find all the messages sent to it through the [DEX_anaonsend](#DEX_anaonsend) method by using the method [DEX_list](#dex-list) for listing all the the datablobs with `tagA` set to `"anon"`and looking for the matches that have the keys `"anonmsg"` and `"anonsender"` in them.
 
 #### :pushpin: Examples
 
@@ -176,7 +204,7 @@ This method can be used to broadcast any data to the p2p network, which will be 
 | priority | (string, optional)             | the priority with which other nodes will route the data; can be an integer between `0` to `16` <br><br> increasing the priority of a data broadcast increases the time taken by a CPU to create it; this is achieved by changing a "nonce" in the "datablob" until the lowest bits of the SHA256 hash match `011101110111` (`0x777`) and each of the next "priority" number of bits to `0` <br> <br> **Example:** if priority is set to `5`, the lowest bits of the hash will be `01110111011100000`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | tagA     | (string, optional)             | the first tag to be associated with the data; an index associated to a tag is created in the RAM of a node and is used for quick data lookups; limited to 15 characters ;in the context of a atomicDEX order, `tagA` is the "base" (maker) coin being traded; <br> <br> if all the three values: `tagA`, `tagB` and `pubkey33` are set to `""` ie., unspecified, `tagA` defaults to the value "general"; <br> <br> if `tagA` is set to `"inbox"`, then the data is encrypted to the destination pubkey set using the `pubkey33` parameter ; all the other nodes on the network can propagate the data; but, only the node that owns the destination pubkey is able to decrypt it; if `tagA` is not set to "inbox", the data is encrypted to a publicly known keypair so that the sender pubkey can be authenticated                                                                                                                                                                                                                                                                                                                                                    |
 | tagB     | (string, optional)             | the second tag to be associated with the data; an index associated to a tag is created in the RAM of a node and is used for quick data lookups; limited to 15 characters; in the context of a atomicDEX order, `tagB` is the "rel" (taker) coin being traded                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| pubkey33 | (string, optional)             | the pubkey which is associated with the datablob, called the `DEX_pubkey`; this is not a regular pubkey that starts with `02` or `03`, it starts with `01`; it can be found from the output of the [DEX_stats](#DEX_stats) RPC; it is also printed in the STDOUT of the `komodod` in a line that starts with `DEX_pubkey.(` <br> <br> if the node is started with the `-pubkey` parameter using a regular pubkey owned by the node, its privatekey is used to create the corresponding `DEX_pubkey` and printed; else, a keypair is generated for the particular session and its privatekey is used to create the corresponding `DEX_pubkey` and printed <br> <br> if the `tagA` is set to "inbox", the datablob is encrypted to the `DEX_pubkey` specified by the `pubkey33` parameter; if `tagA` is not set to "inbox", the datablob is authenticated by the `DEX_pubkey` provided through the `pubkey33` parameter by encrypting it to a publicly known keypair; if `tagA` is not set to "inbox" and the parameter `pubkey33` is set to `""`, i.e., unspecified, the datablob is not authenticated by any `DEX_pubkey` and broadcasted to the network un-encrypted; |
+| pubkey33 | (string, optional)             | the pubkey which is associated with the datablob, called the `DEX_pubkey`; this is not a regular pubkey that starts with `02` or `03`, it starts with `01`; it can be found from the output of the [DEX_stats](#dex-stats) RPC; it is also printed in the STDOUT of the `komodod` in a line that starts with `DEX_pubkey.(` <br> <br> if the node is started with the `-pubkey` parameter using a regular pubkey owned by the node, its privatekey is used to create the corresponding `DEX_pubkey` and printed; else, a keypair is generated for the particular session and its privatekey is used to create the corresponding `DEX_pubkey` and printed <br> <br> if the `tagA` is set to "inbox", the datablob is encrypted to the `DEX_pubkey` specified by the `pubkey33` parameter; if `tagA` is not set to "inbox", the datablob is authenticated by the `DEX_pubkey` provided through the `pubkey33` parameter by encrypting it to a publicly known keypair; if `tagA` is not set to "inbox" and the parameter `pubkey33` is set to `""`, i.e., unspecified, the datablob is not authenticated by any `DEX_pubkey` and broadcasted to the network un-encrypted; |
 | volA     | (float - 8 decimals, optional) | in the context of a atomicDEX order, volume of the coin denoted by `tagA`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | volB     | (float - 8 decimals, optional) | in the context of a atomicDEX order, volume of the coin denoted by `tagB`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
@@ -460,11 +488,11 @@ This method can be used to filter and list data from the "Data Mempool" of the n
 
 ::: tip How to use the DEX_list RPC periodically to filter the datablobs received by the node and get each datablob exactly once?
 
-- call [DEX_list](#DEX_list) with both `stopat` and `stophash` set to `""` and the rest of the filters as necessary
+- call [DEX_list](#dex-list) with both `stopat` and `stophash` set to `""` and the rest of the filters as necessary
 - the response will contain all the available datablobs sorted in the order: "latest" to "oldest"
 - let the `id` of the latest datablob(first one in the list) be `id_1` and its `hash` be `hash_1`
-- if we call [DEX_list](#DEX_list) again with `stopat` set to `id_1` and `stophash` set to `""` (rest of the filters are the same), the response will contain all the newer datablobs till the datablob that has the `id` equal to `id_1` (excluding it)
-- alternatively, if we call [DEX_list](#DEX_list) with stopat set to `""` and `stophash` set to `hash_1` (rest of the filters are the same), the response will contain all the newer datablobs till the datablob that has the `hash` set to `hash_1` (excluding it)
+- if we call [DEX_list](#dex-list) again with `stopat` set to `id_1` and `stophash` set to `""` (rest of the filters are the same), the response will contain all the newer datablobs till the datablob that has the `id` equal to `id_1` (excluding it)
+- alternatively, if we call [DEX_list](#dex-list) with stopat set to `""` and `stophash` set to `hash_1` (rest of the filters are the same), the response will contain all the newer datablobs till the datablob that has the `hash` set to `hash_1` (excluding it)
 
 :::
 
@@ -483,7 +511,7 @@ This method can be used to filter and list data from the "Data Mempool" of the n
 | hex       | (boolean)       | whether the `payload` is in hexadecimal format                                                                                                                          |
 | decrypted    | (number) | the decrypted payload;                                                                                        |
 | decryptedhex | (number) | whether the decrypted payload is in hexadecimal format; `0` when `false` and `1` when `true`;                 |
-|anonmsg|(string)|the decrypted anonymous message received by the node from a `anonsender` who most likely used the [DEX_anonsend](#DEX_anonsend) method |
+|anonmsg|(string)|the decrypted anonymous message received by the node from a `anonsender` who most likely used the [DEX_anonsend](#dex-anonsend) method |
 |anonsender|(string)| the `DEX_pubkey` of the anon message sender    |
 | error     | (string)        | errors if any; the error says `"wrong sender"` if the actual `DEX_pubkey` of the sender is different from the claimed one                                                                                                                                                           |
 | senderpub | (string)        | the actual `DEX_pubkey` of the sender                                                                                                                                          |
@@ -627,7 +655,7 @@ This method interprets the datablobs as orders for AtomicDEX and displays releva
 
 **DEX_publish filename priority sliceid**
 
-This method allows a user to publish a file to the p2p Data Network. The file is broken into fragments and broadcast to the network using the datablobs. Take a look at the response of [DEX_broadcast](#DEX_broadcast) for a list of all the keys available in a datablob. The `DEX_publish` method utilises the datablobs to
+This method allows a user to publish a file to the p2p Data Network. The file is broken into fragments and broadcast to the network using the datablobs. Take a look at the response of [DEX_broadcast](#dex-broadcast) for a list of all the keys available in a datablob. The `DEX_publish` method utilises the datablobs to
 
 1) Indicate to the network that a file is published; this datablob contains the `DEX_pubkey` of the sender, the name of the file published, its SHA256 hash, its size, number of datablobs that have been used to send all the data of the file to the network (fragments); the datablobs of this type can be found using their `tagA`, which is set to `files`.
 
@@ -789,8 +817,8 @@ The value of the key named `"matches"` is a JSON array. The length of the array 
 | Name     | Type     | Description                                                                                                         |
 | -------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
 | filename | (string) | the name of the file to be published; the name must be less than 15 characters long; the file must be present in the working directory from which the command to start the Komodo daemon(`komodod`) was issued; not to be confused with the directory in which `komodod` is present |
-| priority | (number) | the minimum priority above the default VIP priority level to be used for broadcasting the involved datablobs; if VIP priority level is `txpow_bits = 5` and this parameter is set to `3`, the datablobs created will have a minimum priority level of `8`; if the command is issued by a publisher node after it is restarted to republish an already published file, and the priority is set to VIP level or more, the node will automatically fetch all the relevant datablobs from the network |
-| sliceid | (number) | if set to `0`, it publishes the file; if set to `0` and the file is already published, it scans the datablobs present in the "Data mempool" and republishes the missing ones; if the value is an integer greater than `0`, it is the id of the slice to publish; this method treats the file as a number of 1 MB sized slices and publishs only the mentioned slice of the file; this functionality is used by the [DEX_stream](#DEX_stream) method  |
+| priority | (number) | the minimum priority to be used for the broadcasted datablobs that contain the file's data; set this value above the `VIP_PRIORITY` level for prioritised transmission of the datablobs; for the `VIP_PRIORITY` being used by your node, see the value of `vip` in the response to the [DEX_stats](#dex-stats) RPC    |
+| sliceid | (number) | if set to `0`, it publishes the file; if set to `0` and the file is already published, it scans the datablobs present in the "Data mempool" and republishes the missing ones; if the value is an integer greater than `0`, it is the id of the slice to publish; this method treats the file as a number of 1 MB sized slices and publishs only the mentioned slice of the file; this functionality is used by the [DEX_stream](#dex-stream) method  |
 
 #### Response
 
@@ -858,7 +886,7 @@ If this method is used with a pubkey not owned by the node, the datablobs create
 | handle             | (string) | the value of the launch parameter `-handle` used when launching the node; it is the "username" associated with the node in the context of `subatomic swaps`                                                                                                                                                                              |
 | txpowbits          | (number) | the default number bits being used for txpow; the higher this value, the more resource intensive it is to send spam transactions                                           |
 | vip                | (number) | the minimum number of txpow bits to be present in a datablob for it to be considered a VIP; VIP datablobs are prioritised for routing by all nodes on the `dexp2p` network; if a node notices its peer not having a VIP datablob it knows about, it will ping the peer about it even if the VIP datablob was received by it a long time before then; this property is useful for helping newer nodes bootstrap important datablobls in saturated networks    |
-| cmdpriority        | (number) | the number of txpow bits being used for datablobs generated by commands; Example: [DEX_cancel](#DEX_cancel)                                                                                                                                                                             |
+| cmdpriority        | (number) | the number of txpow bits being used for datablobs generated by commands; Example: [DEX_cancel](#dex-cancel)                                                                                                                                                                             |
 | perfstats          | (string) | a string containing stats about the datablobs and the "Data mempool" the local node is seeing                                                                              |
 
 #### :pushpin: Examples
@@ -912,8 +940,8 @@ This method gives info and stats related to the p2p data layer.
 | handle             | (string) | the value of the launch parameter `-handle` used when launching the node; it is the "username" associated with the node in the context of `subatomic swaps`                                                                                                                                                                              |
 | txpowbits          | (number) | the default number bits being used for txpow; the higher this value, the more resource intensive it is to send spam transactions                                           |
 | vip                | (number) | the minimum number of txpow bits to be present in a datablob for it to be considered a VIP; VIP datablobs are prioritised for routing by all nodes on the `dexp2p` network; if a node notices its peer not having a VIP datablob it knows about, it will ping the peer about it even if the VIP datablob was received by it a long time before then; this property is useful for helping newer nodes bootstrap important datablobls in saturated networks    |
-| cmdpriority        | (number) | the number of txpow bits being used for datablobs generated by commands; Example: [DEX_cancel](#DEX_cancel)                                                                                                                                                                             |
-| perfstats          | (string) | a string containing stats about the datablobs and the "Data mempool" the local node is seeing                                                                              |
+| cmdpriority        | (number) | the number of txpow bits being used for datablobs generated by commands; Example: [DEX_cancel](#dex-cancel)                                                                                                                                                                             |
+| perfstats          | (string) | a string containing stats about the datablobs and the "Data mempool" the local node is seeing; Example: `RAM.207 50c5ce3d R.0 S.414 A.414 dup.0 | L.0 A.0 coll.0 | lag (0.0000 0.0000 0.0000) err.0 pend.0 T/F 207/207 | 0 0 0 0 0 1 0 1 3 4 5 32 62 99  0/sec`; for explanation on what each part of the string means, see the [Daemon Output](#daemon-output) section                                                                              |
 
 
 #### :pushpin: Examples
@@ -952,7 +980,7 @@ DEX_streamsub filename priority pubkey
 
 **DEX_subscribe filename priority id [publisher33]**
 
-This method allows a user to download a file that has been published to the `dexp2p` network using the [DEX_publish](#DEX_publish) method.
+This method allows a user to download a file that has been published to the `dexp2p` network using the [DEX_publish](#dex-publish) method.
 
 #### Arguments
 
