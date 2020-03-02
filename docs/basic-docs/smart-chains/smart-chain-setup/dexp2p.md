@@ -636,7 +636,7 @@ Example:
 Command to filter the datablobs to get information on all the files published and available on the network
 
 ```bash
-./komodo-cli -ac_name=DORN DEX_list 0 0 files
+./komodo-cli -ac_name=DORN DEX_list 0 0 "files"
 ```
 
 <collapse-text hidden title="Response">
@@ -646,21 +646,21 @@ Command to filter the datablobs to get information on all the files published an
   "result": "success",
   "matches": [
     {
-      "timestamp": 1582183470,
-      "id": 1580385280,
-      "hash": "07402ce325367f64f4276859068be88285ab4e7ebcdc66ff2c813f6bcb80f3dd",
+      "timestamp": 1583133132,
+      "id": 612508960,
+      "hash": "075222485238880d01d4f2f45bb1c458132279c4df4c18938b5f6b2b97f34332",
       "tagA": "files",
       "tagB": "roadmap2020.pdf",
       "pubkey": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
-      "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063bc425beee3aa7d8042639c535c73f65a736c7a75c946c566000000000000000000000000000000005c61e593eda86ba22df912417873c8bd7a95bd85bc6e981151f0115f1014daf7c5173e7e3f74ba3fb367697fca650756",
+      "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d06359b4e682c3e712ca637f96f7c48f9febd20760b5c1bd1868000000000000000000000000000000007623541bb93c35b1248460b1793cfb3e712c874216a272440edc73bb6ddf160657851f50b7bbcb33fc581f1e5ec3501c",
       "hex": 1,
       "decrypted": "8ed81c26721dcce7bfd1a811f301ec84a2f79389ab86cb45e481ab3f5f40f85d",
       "decryptedhex": 1,
       "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
       "amountA": "0.02049320",
       "amountB": "0.00000205",
-      "priority": 10,
-      "recvtime": 1582183471,
+      "priority": 5,
+      "recvtime": 1583133133,
       "cancelled": 0
     }
   ],
@@ -681,26 +681,64 @@ The value of the key named `"matches"` is a JSON array. In it, we can see only o
 - `"amountA"` set to `"0.02049320"`; the value encodes the size of the file; to get the size in bytes, multiply the value with `10^8`
 - `"amountB"` set to `"0.00000205"`; the value encodes the number of datablobs used to broadcast the file; to get the number, multiply the value with `10^8`
 
-<!----
-2) Inform the network about the ids of the datablobs that contain the actual file data;  
+2) Inform the network about the ids of the datablobs that contain the actual file data; this is done by broadcasting a datablob that contains this information. This datablob has `tagA` as the filename and `tagB` as the word `locators`
 
------->
+Example:
 
+Command to filter the datablobs to get the datablob that contains the locators information of a published file whose name is `roadmap2020.pdf`
+
+```bash
+./komodo-cli -ac_name=DORN DEX_list 0 0 "roadmap2020.pdf" "locators"
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "matches": [
+    {
+      "timestamp": 1583133132,
+      "id": 4181200704,
+      "hash": "07f48093ef4402a46703e38566f6b8616a2bd60fbcb4121e645ac122f1abc507",
+      "tagA": "roadmap2020.pdf",
+      "tagB": "locators",
+      "pubkey": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+      "payload": "e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d06399cdf089b12873e23a752f0b2ad9e6f8b31b4f0629ac157400000000000000000000000000000000f8157d7e85cff371213d997f02e41a7fc28d7a328ff0be98fb348eb9efe16cf0dba971e1eb1c63761abe120e168a97208de2601bd58399a8f1ab928d4734b32f8fc33277c7567c2a3fc089e3835144dda94d0e6418ac5137f6c771501104f3922cfeba5689e8d76f43f20c1ae2b801a2d5b964f5af5268f4eb80b7399e7f917dc18afc4d48785cf526c187f3090856ed7c3bbad2b7fd47d70f70cea80bbf6d75e7ab78040bd3a650e659c83adcebd803e6897c748ebf4901433e2d7a780459a522009c2093b9823ca864e6efea410dc422c49ecf84333acedaddc66ca391a5d01d47f64743da6fd54cb5b95067a7930e00e59a0752ba3ed78893741f816d8ae9169d83015d243854ff77b0dfbeff85770d0913d1b90a5ba00a43c6845a7955c2fce8373d45f19a81fc2406d27b3c7ae31f3bd94f7096339f33c0ad0a78a588a5fc4b2168f279f429ec1579c4fb2d5c47bb9f3ffc31aa375248a8be759b504d48372eef4e91fe0be0557d71ec0eaf896fdcfb1ffac5b655b092cb8b19134e8959911713dcdf870c8f5375a132b4aabb5f31e07b3c570e069eb881df11717ffe1e7bfd3a199c013774497be2b5d399434db5416fbd97c8efc214e6460b0f1fd465224330de88794a81ee3b8a5484ba02af12711430b2e472873d245ee7ff293e82da1c632bcad64a714fc5b329a314a81b4eab16c4f3e02edd88adc07ee25866b34507c552f4eeb7d08256308aaad4bd145f59105f92c2a188f8a6218098d737596cf5978ff71d748b643df0dce16c0398acfe67ac77848b52d1bc2d94b679b4e0a37dc8ae9e74fedfb27f61ab551c4ad3eb4967823c6f22bb89420997cbeaf1355ad4b77b0203768664363a0eae751ba462685aee072d8b38071fdd50592cbda1c22458740dc162ed0d11208ca1307d0217cab2e7e0e19b8adf96c4f26344748910d88924ebd063e6a9bac4feea1240222d7d7da56f2a978d9348abadd48805c0317f7a8bf89c4646db053a301db62d5a1ba714d42f20cc56c85959cfdf6dda91ff495bf22d07be9dd6e048338a5abababe58afa33ceddbb1eea5dcfb86ee16c6238f1d3c1fd4ea04b0184e76d37fccade962d6f1be9340950a7e5795638acd94b0e4d2505e7af352944bf08d4e5697c806d80aa27ae9979292f9db9023e5dedd3a1b07b68b8cf695697e4b1f7f43a52a57f78b923cacaa5a6a0834ee34fc8f79c5908ce1161823eb5a2389904700828a3c70839fb1692c457538b5ea1f3a8edfb7229e627595b784c042c681667d94a0c0bd90532b9223f2da8d387d92451f8c6b46156032e70304e17d7cf1af6e5fee5b0929e374a54ac6c59c58fcaf0df9d6ce07debb23e0404a9464e42f893368eb5dc78215669fb58cb64254b666e34f35e657a7bd41dd6dac29244980b493013d88128d0aaf1003ae277374d64ba867ef3b3d585d5e552046d37e5b6956f4fa03dd706f1710155f8f18b711f77b754f5115dee144713c67312c4be484b719bca40a6e1eb0610493431ed6a091400f512c5f61d6d3c48cf11d3c7e4a97d4c66e4b5c809ace54fe7292390cd8f6d6926cc60b2076fbde92242f472d8ae371d56da6a0160a7d0ed661c6ab1a46e201d66d15036dbfb79d23079c8b9c55a9a1b5fd1ec03a01a3834c74bce535a5df6c230a51812c3b05661852206015f3fcaf93c5d5094697d0269115d9b586fe06cf94925733d706f38ceaaf5c951a17e50b9dfb94b3e7e7e68c28c62c57c832f3c8ca237a6d4dec2205427d101ef98981027e177d75592239abaadf18c921de73eaf0a1d9c2c1fb9a024b4d135b3b5fee16b1c466e31b334e71cfe5dc653956d4f46f460eaf6b005eebc5883d84d69ef2255a4b4766584237cf0e1f759348c39b3522deda89a234e654d0ef6987e59748b96713bd8737070bd172e218c399883aca265f148282c4566cc6aa598b76c2abcc761bbd43fc4dafbde08bac911f39b6bad4dc04cb714ddbcbe40f8c6554520cdc28ba484365ea27b2abd8e1ba642cf65b911f0a8d313f5318ed15c49adfaf8b2ba4dd120686ff2970a6e491a1c4b441ba7e2cccbd30acc8b17db4f1a2a04faaf263a4d5f0eb423042d9a3382f5e69e4e213005a4a610b53cde586819c46ff02814af45b76b6e88a3f29000e97710ce11f9b932ad4cc934ae78c53b6708c0da7b39f97902b4f0aeddbb8f455de3b157cbd39a34fba989533b3250b75b8b7c54ec44606d9e4222a05efcc6b2caf8e535286e34fa89bd8f253cdadceb931cdbeeb3923a55b599a7e104e05681206671ea3de0e85877667a820ee1292365db2ebaa6a69f6bfa8b15281754cfa52bf971332c8e8634e",
+      "hex": 1,
+      "decrypted": "0000000000000000f0d0d777c8b15c5e325096e2c8b15c5efcdc5398c8b15c5ed0f4dc2dc8b15c5e86710b15c8b15c5e7c8a0196c8b15c5e90485b8fc8b15c5e24a4e437c8b15c5e1be36edcc8b15c5e17477050c8b15c5e84a1c23fc8b15c5e8c9b0e67c8b15c5e349f8745c8b15c5e2df0c878c9b15c5ea8813bfbc9b15c5e5184d8e9c9b15c5e6feff863c9b15c5e7245e7c7c9b15c5e5e45bcd1c9b15c5ed4c28612c9b15c5ecc73160bc9b15c5e18e23196c9b15c5eab0158b6c9b15c5efa18d0ecc9b15c5e8319c73ec9b15c5e59474c2ec9b15c5e0c007108c9b15c5e0efd5d7bc9b15c5e92daa5c7c9b15c5e306e4e97c9b15c5e96c67f95c9b15c5e55ce859cc9b15c5e7f09b8aac9b15c5e71567a1ec9b15c5e01a550a2c9b15c5e845d5437c9b15c5ee4d3e63ec9b15c5ef0221eeec9b15c5e3faad430c9b15c5e03345654c9b15c5ec3a67339c9b15c5e88d05608c9b15c5ead5a5b7dc9b15c5e4a44eaadc9b15c5ee5aa9b83c9b15c5ea0ee76ccc9b15c5e1c305f86c9b15c5ee6b5991dc9b15c5ea743a239c9b15c5e9f614664c9b15c5efa77b3e2c9b15c5ec866e333c9b15c5e9266335ac9b15c5e108431aac9b15c5e359dd61fc9b15c5e3b05545dc9b15c5e6a202972c9b15c5e92d2a54ac9b15c5e610a3af3c9b15c5ea6f54144c9b15c5eda82431ac9b15c5ef7149357c9b15c5eafd0c1dac9b15c5e31de5c27c9b15c5e91aa89b2c9b15c5ea8d42409c9b15c5e0b3f08a3c9b15c5e6c9fa418c9b15c5eaab23219c9b15c5e2549f4eac9b15c5e8108b265c9b15c5e44812defc9b15c5eff3a6563c9b15c5ea3ca6382c9b15c5e41d03a46c9b15c5e42c96100c9b15c5ea465aad5c9b15c5e651df8fbc9b15c5e294164f3c9b15c5e3008c129c9b15c5eb057ca36c9b15c5e83bd7654c9b15c5e94f8f2c3c9b15c5e64574935c9b15c5e0e88ec1dc9b15c5e85238b48c9b15c5ef7721c5ccab15c5e2d536d91cab15c5ea3a456cccab15c5eccb84d51cab15c5ef69bb145cab15c5ebfcfc482cab15c5e9c55539ccab15c5ebaf46fd2cab15c5ee7d7ddb5cab15c5ea0977be2cab15c5e8d55d9c7cab15c5e8973bd61cab15c5e75c6119acab15c5e25dfb912cab15c5e84298d34cab15c5ea486d6cbcab15c5e8a236499cab15c5e4754adb6cab15c5e15ca24e4cab15c5ea6004b05cab15c5eea399503cab15c5ead9d8e7dcab15c5ed77cc616cab15c5e88a3ab14cab15c5e4df5ce3acab15c5eb85d3468cab15c5e683b8324cab15c5e7b29c8c1cab15c5ec2fd8bb9cab15c5e145e8812cab15c5e773fad80cab15c5e6571c1a1cab15c5eee734f31cab15c5e4b9e0e27cab15c5e709c4d46cab15c5ee7cbcf59cab15c5ec87e4554cab15c5e7c194974cab15c5ef87aead1cab15c5ecfb318b7cab15c5e97b3cd9acab15c5e156945dacab15c5e42b7cacbcab15c5eadc45b9bcab15c5eaa3864dfcab15c5e1361f3c1cab15c5ea34000cdcab15c5e18f92be5cab15c5e46189473cab15c5e322d2e09cab15c5e8f1ba3e3cab15c5ea8b61d80cab15c5ecaef0d5dcab15c5e38e587f3cbb15c5e6bfd388ecbb15c5e3879f068cbb15c5e9b02cccbcbb15c5efd15e702cbb15c5e49f3d144cbb15c5e54636568cbb15c5efcd7306ccbb15c5e92fefc75cbb15c5ed39b93f1cbb15c5e64611045cbb15c5e96d89c3fcbb15c5e653ff581cbb15c5ed20cbf02cbb15c5e19868170cbb15c5e52907df3cbb15c5e86fe3d96cbb15c5ed8e7e5fccbb15c5ef4157aadcbb15c5e02de281acbb15c5e66a3310bcbb15c5e56fc208dcbb15c5e8a694821cbb15c5e4f1ba990cbb15c5eae2e5c34cbb15c5e26e43b75cbb15c5e80c8a7ddcbb15c5e1a52a6eacbb15c5ede47eeeccbb15c5ec9d52965cbb15c5e3079dcafcbb15c5eb1ed054dcbb15c5e6436d343cbb15c5e0de1666ccbb15c5e41ea6097cbb15c5e1f0477bfcbb15c5e1d5a514dcbb15c5ecd73a3fecbb15c5e12375204cbb15c5e2a154d2ecbb15c5e8394f1adcbb15c5e244fd82ecbb15c5e2525344dcbb15c5e576c6cc3cbb15c5e71bd3b93cbb15c5e9e2b2181cbb15c5eefb267f3cbb15c5eac7f59a6cbb15c5eae16f7d8cbb15c5eafc56965cbb15c5e94e0d353cbb15c5e32a5d5c5cbb15c5e7fe5283acbb15c5e292ddd6ecbb15c5ee1bf4a9ecbb15c5e44fdc900cbb15c5e15d9fcb3cbb15c5e58917ed0cbb15c5ebc484fe7cbb15c5ec7d56387cbb15c5e7a4f5e36cbb15c5ec980d4f9cbb15c5eb546a7a4cbb15c5e10aca75bccb15c5e7852b27eccb15c5ef35bc132ccb15c5e",
+      "decryptedhex": 1,
+      "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+      "amountA": "0.02049320",
+      "amountB": "0.00000205",
+      "priority": 6,
+      "recvtime": 1583133133,
+      "cancelled": 0
+    }
+  ],
+  "tagA": "roadmap2020.pdf",
+  "tagB": "locators",
+  "pubkey": "",
+  "n": 1
+}
+```
+
+</collapse-text>
 
 #### Arguments
 
 | Name     | Type     | Description                                                                                                         |
 | -------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
-| filename | (string) | the name of the file to be published; the file must be present in the working directory from which the command to start the Komodo daemon(`komodod`) was issued; not to be confused with the directory in which `komodod` is present |
+| filename | (string) | the name of the file to be published; the name must be less than 15 characters long; the file must be present in the working directory from which the command to start the Komodo daemon(`komodod`) was issued; not to be confused with the directory in which `komodod` is present |
 | priority | (number) | the minimum priority above the default VIP priority level to be used for broadcasting the involved datablobs; if VIP priority level is `txpow_bits = 5` and this parameter is set to `3`, the datablobs created will have a minimum priority level of `8`; if the command is issued by a publisher node after it is restarted to republish an already published file, and the priority is set to VIP level or more, the node will automatically fetch all the relevant datablobs from the network |
-| sliceid | (number) | if set to `0`, it publishes the file; if set to `0` and the file is already published, it scans the datablobs present in the "Data mempool" and republishes the missing ones; id of the slice to publish; if it is an integer greater than or equal to `1`, this method will publish only the mentioned slice of the file, each slice is sized 1 MB from the beginning of the file; this parameter is used by the [DEX_stream](#DEX_stream) method  |
+| sliceid | (number) | if set to `0`, it publishes the file; if set to `0` and the file is already published, it scans the datablobs present in the "Data mempool" and republishes the missing ones; if the value is an integer greater than `0`, it is the id of the slice to publish; this method treats the file as a number of 1 MB sized slices and publishs only the mentioned slice of the file; this functionality is used by the [DEX_stream](#DEX_stream) method  |
 
 #### Response
 
 | Name        | Type     | Description                                   |
 | ----------- | -------- | --------------------------------------------- |
 | fname       | (string) | the name of the file                                              |
-| id          | (number) | the id of the published file; the same file if published multiple times will have different `id`s                                              |
+| id          | (number) | the id of the published file's locators datablob                                              |
 | senderpub   | (string) | the `DEX_pubkey` of the file's sender                                              |
 | filesize    | (number) | the size of the file in bytes                                              |
 | fragments   | (number) | the number of fragments the file has been broken down into; each fragment has a maximum size of `10000 byte`                                              |
@@ -849,11 +887,60 @@ This method gives info and stats related to the p2p data layer.
 <!----
 DEX_stream filename priority
 DEX_streamsub filename priority pubkey
+---->
 
-
-
- DEX_subscribe
+## DEX_subscribe
 
 **DEX_subscribe filename priority id [publisher33]**
 
----->
+This method allows a user to download a file that has been published to the `dexp2p` network using the [DEX_publish](#DEX_publish) method.
+
+#### Arguments
+
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| filename | (string)     | the name of the file to download            |
+| priority | (number)     |  the priority above the default value of the command priority with which the node should create a datablob if it needs to request missing blocks; can be `0` most of the time             |
+| id | (string)     | id of the datablob that contains the `locators` information for the file the user wants to download; find the `locators` datablob by filtering the avaialble datablobs with `tagA` set to the file's name and `tagB` set to the word `locators`           |
+| publisher33 | (string, optional)     | the `DEX_pubkey` of the file's publisher; this parameter is ignored if the `id` paramter is provided             |
+
+#### Response
+
+| Name        | Type     | Description                                   |
+| ----------- | -------- | --------------------------------------------- |
+| fname       | (string) | the name of the file                                              |
+| id          | (number) | the id of the published file's locators datablob                                              |
+| senderpub   | (string) | the `DEX_pubkey` of the file's sender                                              |
+| filesize    | (number) | the size of the file in bytes                                              |
+| fragments   | (number) | the number of fragments the file has been broken down into; each fragment has a maximum size of `10000 byte`                                              |
+| numlocators | (number) | the number of locators of the published file                                              |
+| filehash    | (string) | the SHA256 hash of the file as indicated by the publishing node                                              |
+| checkhash   | (string) | the SHA256 hash of the file based on all the fragments the node has currently available                                             |
+| result      | (string) | whether the command was successfully executed |
+
+#### :pushpin: Examples
+
+##### Command
+
+```bash
+./komodo-cli -ac_name=DORN DEX_subscribe "roadmap2020.pdf" 0 4181200704 01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "fname": "roadmap2020.pdf",
+  "id": 4181200704,
+  "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "filesize": 2049320,
+  "fragments": 205,
+  "numlocators": 205,
+  "filehash": "8ed81c26721dcce7bfd1a811f301ec84a2f79389ab86cb45e481ab3f5f40f85d",
+  "checkhash": "8ed81c26721dcce7bfd1a811f301ec84a2f79389ab86cb45e481ab3f5f40f85d",
+  "result": "success"
+}
+```
+
+</collapse-text>
+

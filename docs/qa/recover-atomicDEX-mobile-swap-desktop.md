@@ -55,7 +55,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 }
 ```
 
-- Make sure the address and balance in the above response match the values shown in AtomicDEX mobile. If the address does not match, the `"passphrase"` (seed words) in `MM2.json` is incorrect. Stop `mm2`, , delete the directory named `DB`, correct the passphrase and repeat all the steps from before. If the balance is `0`, your connection might have an issue. Likely a firewall is blocking it.
+- Make sure the address and balance in the above response match the values shown in AtomicDEX mobile. If the address does not match, the `"passphrase"` (seed words) in `MM2.json` is incorrect. Stop `mm2`, delete the directory named `DB`, correct the passphrase and repeat all the steps from before. If the balance is `0`, either the electrum server's addresses you are using are incorrect or your connection might have an issue. Likely a firewall is blocking it.
 
 :::warning Caution
 
