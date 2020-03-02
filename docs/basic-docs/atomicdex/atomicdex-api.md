@@ -447,6 +447,8 @@ For terminal interface examples, see the examples section below.
 | servers.disable_cert_verification | bool                                             | when set to true, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). Default value is `false`. <b>Use at your own risk</b> |
 | mm2                               | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1`                                   |
 | tx_history                        | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                |
+| required_confirmations            | number                                           | the number of confirmations for which MM2 will wait for the selected coin atomic swap transactions                                                                   |
+| requires_notarization             | bool                                             | whether the node should wait for notarization of the selected coin atomic swap transactions; applicable only for coins using Komodo dPoW                                  |
 
 #### Response
 
@@ -457,6 +459,7 @@ For terminal interface examples, see the examples section below.
 | locked_by_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
 | coin                   | string           | the ticker of the enabled coin                                                                                                                                                                                                                           |
 | required_confirmations | number           | MM2 will wait for the this number of transaction confirmations during the swap                                                                                                                                                                           |
+| requires_notarization  | bool             | whether the node will wait for notarization of the selected coin atomic swap transactions; applicable only for coins using Komodo dPoW                                  |
 | result                 | string           | the result of the request; this value either indicates `success`, or an error, or another type of failure                                                                                                                                                |
 
 #### :pushpin: Examples
@@ -480,6 +483,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "balance": "10",
   "locked_by_swaps": "0",
   "required_confirmations": 1,
+  "requires_notarization": false,
   "result": "success"
 }
 ```
@@ -506,7 +510,36 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
   "locked_by_swaps": "0",
-  "required_confirmations":1,
+  "required_confirmations": 1,
+  "requires_notarization": false,
+  "result": "success"
+}
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (With `required_confirmations` and `requires_notarization` arguments)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"servers\":[{\"url\":\"localhost:20025\",\"protocol\":\"SSL\",\"disable_cert_verification\":true},{\"url\":\"localhost:10025\"}],\"required_confirmations\":10,\"requires_notarization\":true}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (Success)
+
+```bash
+{
+  "coin": "HELLOWORLD",
+  "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
+  "balance": "10",
+  "locked_by_swaps": "0",
+  "required_confirmations": 10,
+  "requires_notarization": true,
   "result": "success"
 }
 ```
@@ -577,6 +610,8 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | gas_station_url       | string (optional for ETH/ERC20)                  | url of [ETH gas station API](https://docs.ethgasstation.info/); MM2 uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; when this parameter is set, MM2 will request the current gas price from Station for new transactions, and this often results in lower fees |
 | mm2                   | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1`                                                                                                                                                                                  |
 | tx_history            | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                                                                                                                                                               |
+| required_confirmations| number                                           | the number of confirmations for which MM2 will wait for the selected coin atomic swap transactions; applicable only for coins using Komodo dPoW                                                                    |
+| requires_notarization | bool                                             | whether the node should wait for notarization of the selected coin atomic swap transactions; applicable only for coins using Komodo dPoW                                  |
 
 #### Response
 
@@ -587,6 +622,7 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | locked_by_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
 | coin                   | string           | the ticker of enabled coin                                                                                                                                                                                                                               |
 | required_confirmations | number           | MM2 will wait for the this number of coin's transaction confirmations during the swap                                                                                                                                                                    |
+| requires_notarization  | bool             | whether the node will wait for notarization of the selected coin atomic swap transactions                                 |
 | result                 | string           | the result of the request; this value either indicates `success`, or an error or other type of failure                                                                                                                                                   |
 
 #### :pushpin: Examples
@@ -610,6 +646,35 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "balance": "10",
   "locked_by_swaps": "0",
   "required_confirmations": 1,
+  "requires_notarization": false,
+  "result": "success"
+}
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (With `required_confirmations` and `requires_notarization` arguments)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\",\"required_confirmations\":10,\"requires_notarization\":true}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+  "coin": "HELLOWORLD",
+  "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
+  "balance": "10",
+  "locked_by_swaps": "0",
+  "required_confirmations": 10,
+  "requires_notarization": true,
   "result": "success"
 }
 ```
@@ -637,6 +702,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "balance": "50",
   "locked_by_swaps": "0",
   "required_confirmations": 1,
+  "requires_notarization": false,
   "result": "success"
 }
 ```
@@ -664,6 +730,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "balance": "50",
   "locked_by_swaps": "0",
   "required_confirmations": 1,
+  "requires_notarization": false,
   "result": "success"
 }
 ```
@@ -690,6 +757,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
   "locked_by_swaps": "0",
+  "required_confirmations": 1,
+  "requires_notarization": false,
   "result": "success"
 }
 ```
@@ -3734,6 +3803,59 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "result": {
     "coin": "ETOMIC",
     "confirmations": 3
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
+## set\_requires\_notarization
+
+**set_requires_notarization coin requires_notarization**
+
+The `set_requires_notarization` method sets whether MM2 will wait for dPoW notarization of atomic swap transactions of the selected coin .
+
+::: tip Note
+
+Please note that this setting is _**not**_ persistent. The value must be reset in the coins file on restart.
+
+:::
+
+#### Arguments
+
+| Structure             | Type   | Description                            |
+| --------------------- | ------ | -------------------------------------- |
+| coin                  | string | the ticker of the selected coin        |
+| requires_notarization | bool   | whether the node should wait for dPoW notarization of atomic swap transactions       |
+
+#### Response
+
+| Structure                    | Type   | Description                                |
+| ---------------------------- | ------ | ------------------------------------------ |
+| result.coin                  | string | the coin selected in the request           |
+| result.requires_notarization | bool   | whether the node will wait for dPoW notarization of atomic swap transactions |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"set_requires_notarization\",\"coin\":\"RICK\",\"requires_notarization\":true}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "result": {
+    "coin": "ETOMIC",
+    "requires_notarization": true
   }
 }
 ```
