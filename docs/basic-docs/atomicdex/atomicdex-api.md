@@ -1284,6 +1284,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
                 "maker_coin": "BEER",
                 "maker_coin_start_block": 154221,
                 "maker_payment_confirmations": 1,
+                "maker_payment_requires_nota": false,
                 "maker_payment_lock": 1561545442,
                 "my_persistent_pub": "02031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
                 "secret": "ea774bc94dce44c138920c6e9255e31d5645e60c0b64e9a059ab025f1dd2fdc6",
@@ -1293,6 +1294,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
                 "taker_coin": "PIZZA",
                 "taker_coin_start_block": 141363,
                 "taker_payment_confirmations": 1,
+                "taker_payment_requires_nota": true,
                 "uuid": "6bf6e313-e610-4a9a-ba8c-57fc34a124aa"
               },
               "type": "Started"
@@ -1741,7 +1743,9 @@ The swap goes to the negotiation stage after this event occurs.
 | maker_amount                | string (numeric)                  | the amount of coins to be swapped by maker |
 | taker_amount                | string (numeric)                  | the amount of coins to be swapped by taker |
 | maker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for maker payment |
+| maker_payment_requires_nota | bool                              | whether dPoW notarization is required for maker payment; can be null; available since `beta-2.0.1738` |
 | taker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for taker payment |
+| taker_payment_requires_nota | bool                              | whether dPoW notarization is required for taker payment; can be null; available since `beta-2.0.1738` |
 | maker_payment_lock          | number (UTC timestamp in seconds) | the maker payment is locked until this timestamp |
 | uuid                        | string                            | the swap uuid |
 | started_at                  | number (UTC timestamp in seconds) | the timestamp at the start of the swap |
@@ -1972,7 +1976,9 @@ The swap goes to negotiation stage after this event occurs.
 | maker_amount                | string (numeric)                  | the amount of coins to be swapped by maker |
 | taker_amount                | string (numeric)                  | the amount of coins to be swapped by taker |
 | maker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for maker payment |
+| maker_payment_requires_nota | bool                              | whether dPoW notarization is required for maker payment; can be null; available since `beta-2.0.1738` |
 | taker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for taker payment |
+| taker_payment_requires_nota | bool                              | whether dPoW notarization is required for taker payment; can be null; available since `beta-2.0.1738` |
 | taker_payment_lock          | number (UTC timestamp in seconds) | the taker payment is locked until this timestamp |
 | uuid                        | string                            | the swap uuid |
 | started_at                  | number (UTC timestamp in seconds) | the timestamp at the start of the swap |
@@ -2233,6 +2239,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
             "maker_coin": "BEER",
             "maker_coin_start_block": 154187,
             "maker_payment_confirmations": 1,
+            "maker_payment_requires_nota": null,
             "maker_payment_wait": 1561492367,
             "my_persistent_pub": "02031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
             "started_at": 1561481967,
@@ -2240,6 +2247,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
             "taker_coin": "BCH",
             "taker_coin_start_block": 588576,
             "taker_payment_confirmations": 1,
+            "taker_payment_requires_nota": null,
             "taker_payment_lock": 1561513167,
             "uuid": "491df802-43c3-4c73-85ef-1c4c49315ac6"
           },
