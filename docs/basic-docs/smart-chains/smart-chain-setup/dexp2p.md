@@ -144,7 +144,7 @@ Note that, an attacker with large resources will be able to tell the ip address 
 
 </collapse-text>
 
-The receiving node can find all the messages sent to it through the [DEX_anaonsend](#DEX_anaonsend) method by using the method [DEX_list](#dex-list) for listing all the the datablobs with `tagA` set to `"anon"`and looking for the matches that have the keys `"anonmsg"` and `"anonsender"` in them.
+The receiving node can find all the messages sent to it through the [DEX_anonsend](#DEX_anonsend) method by using the method [DEX_list](#dex-list) for listing all the the datablobs with `tagA` set to `"anon"`and looking for the matches that have the keys `"anonmsg"` and `"anonsender"` in them.
 
 #### :pushpin: Examples
 
