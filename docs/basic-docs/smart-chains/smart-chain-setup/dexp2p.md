@@ -66,18 +66,17 @@ Example:
 - `0 0 0 0 0 0 1 1 6 4 10 31 46 108` these numbers are the total number of datablobs in the node's RAM classified by their priority; the rightmost number gives the total number of datablobs with priority `0`, the one left to it gives the total number of datablobs with priority `1` amd so on.... ; the left most number gives the total number of datablobs with priority greater than `13`
 - `3/sec` is the number of datablobs per second for the last minute
 
-
 ## DEX_anonsend
 
 **DEX_anonsend message priority destpub33**
 
-This method can be used by a user to broadcast any data to the p2p network without authenticating themselves. It will be added to the "Data Mempools" of all the nodes with the parameter `-dexp2p` set to `1` or `2`, but can only be decrypted by the node whose `DEX_pubkey` is `destpub33`.
+This method can be used by a user to broadcast any message to the p2p network without revealing either the `DEX_pubkey`s involved or the contents of the message to the network. The datablob so created will be added to the "Data Mempools" of all the nodes with the parameter `-dexp2p` set to `1` or `2`, but can only be decrypted by the node whose `DEX_pubkey` is `destpub33`. The recipient node can also see the `DEX_pubkey` of the sender.
 
 ::: tip Note
 
-This is achieved by first encrypting the message to the `DEX_pubkey` : `destpub33` and then encrypt it again using a publicly known privatekey. This makes it so that, the datablob looks the same regardless who sent it, and only the node with `DEX_pubkey` set to `destpub33` will be able to decrypt it.
+This is achieved by first encrypting the message to the `DEX_pubkey` : `destpub33` and then encrypting it again using a publicly known key pair. This makes it so that, the datablob looks the same regardless who sent it, and only the node with `DEX_pubkey` set to `destpub33` will be able to decrypt it.
 
-Note that, an attacker with large resources will be able to tell the ip address of the node which published the data packet and if the node publishes other datablobs that reveal its `DEX_pubkey`, then further link it. But, it is not possible for anyone to know who the intended recipient is.
+Note that, an attacker with large resources will be able to tell the ip address of the node which published the data packet and if the node publishes other datablobs that reveal its `DEX_pubkey`, thereby linking them. But, it is not possible for anyone to know who the intended recipient is.
 
 :::
 
