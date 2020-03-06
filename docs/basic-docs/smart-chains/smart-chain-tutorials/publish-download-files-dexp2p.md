@@ -218,5 +218,5 @@ Example:
 ./komodo-cli -ac_name=DORN DEX_subscribe "<file name>" 0 0 <sender pubkey>
 ```
 
-- In the above command, replace the text `<file name>` with the name of the file (`tagB` from the previous [DEX_list](../smart-chain-setup/dexp2p.html#dex-list) response) and the text <sender pubkey> with the sender's pubkey (`pubkey` from the previous [DEX_list](../smart-chain-setup/dexp2p.html#dex-list) response)
+- In the above command, replace the text `<file name>` with the name of the file (`tagB` from the previous [DEX_list](../smart-chain-setup/dexp2p.html#dex-list) response) and the text `<sender pubkey>` with the sender's pubkey (`pubkey` from the previous [DEX_list](../smart-chain-setup/dexp2p.html#dex-list) response)
 - The file will be downloaded to the directory where the `komodod` binary used to launch the Smart Chain is present
