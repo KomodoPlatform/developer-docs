@@ -1019,9 +1019,15 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **list_banned_pubkeys**
 
-Some cases of swap failures are considered as reason for other node ban, for example when market taker does not follow the atomic swap protocol by not sending the dex fee.
-The `list_banned_pubkeys` method returns the list of other nodes public keys that have been banned as result of such swaps.
-The node ignores orders and order matching requests received from banned nodes.
+The `list_banned_pubkeys` method returns a list of public keys of nodes that are banned from interacting with the node executing the method.
+
+Banned nodes cannot complete orders and order matching requests with the node executing the method.
+
+::: tip
+
+Some cases of swap failures give cause for banning a node. For example, a market taker may not follow the atomic-swap protocol by not sending the dex fee. The <b>list\_banned\_pubkeys</b> method is useful in these circumstances.
+
+:::
 
 #### Arguments
 
@@ -1034,7 +1040,7 @@ The node ignores orders and order matching requests received from banned nodes.
 | Structure       | Type             | Description                                                                                                                                                                                                                                              |
 | ------------------------ | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result                   | map of objects (key - pubkey in hexadecimal representation)  | the list of pubkeys banned by current node                                                                                                                                                                                                                    |
-| result.*.caused_by_swap  | string | the uuid of swap that triggered the ban                                                                                                                                                                                                                     |
+| result.*.caused_by_swap  | string | the uuid of the swap that triggered the ban                                                                                                                                                                                                                     |
 | result.*.caused_by_event | object | the swap event that triggered the ban                                                                                                                                                                                                                   |                                                                                                                                                                                            
 
 #### :pushpin: Examples
@@ -1138,8 +1144,8 @@ The `my_orders` method returns the data of all active orders created by the MM2 
 
 | Structure    | Type           | Description                                           |
 | ------------ | -------------- | ----------------------------------------------------- |
-| maker_orders | map of objects | orders that are currently active in market maker mode |
-| taker_orders | map of objects | orders that are currently active in market taker mode |
+| maker_orders | map of objects | orders that are currently active in market-maker mode |
+| taker_orders | map of objects | orders that are currently active in market-taker mode |
 
 #### :pushpin: Examples
 
@@ -4007,15 +4013,15 @@ The `stop` method stops the MM2 software.
 
 **unban_pubkeys unban_by**
 
-The `unban_pubkeys` removes the selected pubkeys from black list allowing to receive orders and order matching requests from unbanned nodes.
+The `unban_pubkeys` method removes the selected pubkeys from the black list, allowing the node executing the method to receive orders and order matching requests from the unbanned nodes.
 
 #### Arguments
 
 | Structure             | Type   | Description                                                                                                                      |
 | --------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| unban_by              | object | pubkeys matching this condition are removed from black list                                                                                    |
+| unban_by              | object | pubkeys matching this condition are removed from the black list                                                                                    |
 | unban_by.type         | string | `All` to unban all pubkeys; `Few` to unban several selected pubkeys |
-| cancel_by.data        | array of strings (hexadecimal) | pubkeys that should be removed from black list; must be present with `Few` type |
+| cancel_by.data        | array of strings (hexadecimal) | pubkeys that should be removed from the black list; must be present with `Few` type |
 
 #### Response
 
@@ -4024,7 +4030,7 @@ The `unban_pubkeys` removes the selected pubkeys from black list allowing to rec
 | result                    | object                   |                                                                                                                |
 | result.still_banned       | map of objects           | the pubkeys that remain banned                                                                                      |
 | result.unbanned           | map of objects           | data of unbanned pubkeys  |
-| result.were_not_banned    | array of strings         | the pubkeys that were not black listed before `unban_pubkeys` call   |
+| result.were_not_banned    | array of strings         | the pubkeys that were not black listed before the `unban_pubkeys` call   |
 
 #### :pushpin: Examples
 
