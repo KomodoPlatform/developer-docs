@@ -32,8 +32,7 @@ The Pegs Antara Module requires interactivity with several additional Antara Mod
   - These tokens can be spent and traded as actual cryptocurrency; the user who returns them to the Gateways Module at a later time will unlock and receive the associated external funds
 - The [Oracles](./oracles.html) Module
   - This module uses an [oraclefeed](https://github.com/KomodoPlatform/komodo/blob/master/src/cc/dapps/oraclefeed.c) app to provide information to the Gateways Module about tokens a user deposits
-- The Prices Module
-  - (Documentation for this module is coming soon)
+- The [Prices](./prices.html) Module
   - The Prices Module obtains data from a range of external sources (defined by a developer) and makes this information available on the Pegs Smart Chain
   - This module utilizes functionality from the Oracles Module to transfer the obtained data from the real world into the digital world
   - The Prices Module is responsible for tracking the value of an external asset (including assets external to the Komodo ecosystem) for on-chain price mimicry
