@@ -158,6 +158,7 @@ var sidebar = [
             "/basic-docs/smart-chains/smart-chain-tutorials/betdapp.md",
             "Automated P2P betting game"
           ],
+          ["/basic-docs/smart-chains/smart-chain-tutorials/publish-download-files-dexp2p.md", "How to publish and download files using the DEXP2P layer"],
           [
             "/basic-docs/smart-chains/smart-chain-tutorials/get-new-pubkey.md",
             "Retrieve Pubkey,Address and Privkey"
