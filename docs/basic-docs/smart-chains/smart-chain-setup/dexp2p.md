@@ -658,7 +658,7 @@ This method allows a user to publish a file to the p2p Data Network. The file is
 
 :::tip Note
 
-- we recommend to publish only one file at a time
+- we recommend to publishing only one file at a time
 - there is a detailed explanation on how publishing and subscribing works [here](../smart-chain-tutorials/publish-download-files-dexp2p.html)
 - it is also recommended to not issue the `stop` command to the daemon while a file is being published; doing so will make the daemon stop receiving further RPC, but it continues to publish the datablobs containing the data of the file; once that is done, the daemon shuts down; note that, the daemon publishes neither the datablob with `tagA` set to `files` and `tagB` set to the file name nor the `locators` datblob, which results in no other node able to use the [DEX_subscribe](#dex-subscribe) RPC to construct the file
   
@@ -825,10 +825,131 @@ This method gives info and stats related to the p2p data layer.
 
 </collapse-text>
 
-<!----
-DEX_stream filename priority
-DEX_streamsub filename priority pubkey
----->
+## DEX_stream
+
+**DEX_stream filename priority**
+
+This method allows a user to stream a file to the `DEXP2P` Network of the Smart Chain. It is different from [DEX_publish](#dex-publish) in that, `DEX_stream` can help stream a file while it is increasing in size. When the command is issued, it checks the file's size and if it is more than 1 MB, publishes as many slices of size 1 MB as possible similar to how [DEX_publish](#dex-publish) does it. If the command was issued when the size was less than 1 MB or if there is no new slice to publish (caused by a recent issuance of the same command), then it does nothing and informs the user about the reason.
+
+To continuously stream, it is recommended to repeatedly issue the command with a small `sleep/wait` between each issuance.
+
+A detailed explanation on how the command works and its usage can be found [in this linked tutorial](../smart-chain-tutorials/streaming-dexp2p.md)
+
+#### Arguments
+
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| filename | (string) | the name of the file to be published; the name must be less than 15 characters long; the file must be present in the working directory from which the command to start the Komodo daemon(`komodod`) was issued; not to be confused with the directory in which `komodod` is present |
+| priority | (number) | the minimum priority to be used for the broadcasted datablobs that contain the file's data; set this value above the `VIP_PRIORITY` level for prioritised transmission of the datablobs; for the `VIP_PRIORITY` being used by your node, see the value of `vip` in the response to the [DEX_stats](#dex-stats) RPC    |
+
+#### Response (when publish suceeds)
+
+| Name        | Type     | Description                                   |
+| ----------- | -------- | --------------------------------------------- |
+| fname       | (string) | the name of the file being published; here, the file referred to is the slice being published, not the actual file; the number appended after the actual file's name is a count of the number of bytes of the actual file that exist before this slice                                                |
+| id          | (number) | the id of the published file's locators datablob                                              |
+| senderpub   | (string) | the `DEX_pubkey` of the file's sender                                              |
+| filesize    | (number) | the size of the file in bytes                                              |
+| fragments   | (number) | the number of fragments the file has been broken down into; each fragment has a maximum size of `10000 byte`                                              |
+| numlocators | (number) | the number of locators of the published file                                              |
+| filehash    | (string) | the SHA256 hash of the file as indicated by the publishing node                                              |
+| checkhash   | (string) | the SHA256 hash of the file based on all the fragments the node has currently available                                             |
+| result      | (string) | whether the command was successfully executed |
+
+#### Response (when there is some type of error)
+
+| Name        | Type     | Description                                   |
+| ----------- | -------- | --------------------------------------------- |
+| result      | (string) | whether the command was successfully executed |
+| warning      | (string) | information about the error faced |
+| filename       | (string) | the name of the file being streamed; here, the file referred to is the actual file being streamed |
+| filesize    | (number) | the current size of the file in bytes    |
+| offset0    | (number) | the total number bytes of the actual file that have already been published using slices  |
+| available    | (number) | the total number bytes of the actual file that are available to be published after the last publish    |
+| needed    | (number) | the total number bytes of the actual file that are needed for publishing the next slice    |
+
+#### :pushpin: Examples
+
+##### Command
+
+```bash
+./komodo-cli -ac_name=DORN DEX_stream 13-48-39.mkv 0
+```
+
+Response when the file size was less than 1 MB
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "warning": "not enough data to extend stream",
+  "filename": "13-48-39.mkv",
+  "filesize": 961101,
+  "offset0": 0,
+  "available": 961101,
+  "needed": 1000000
+}
+```
+
+</collapse-text>
+
+##### Command
+
+```bash
+./komodo-cli -ac_name=DORN DEX_stream 13-48-39.mkv 0
+```
+
+Response when the above command was issued the first time after the file size increased to more than 1 MB 
+
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "fname": "13-48-39.mkv.0",
+  "id": 3681903744,
+  "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "filesize": 1000000,
+  "fragments": 100,
+  "numlocators": 100,
+  "filehash": "caac6d0f50335df53510db620da63f04a2b77d16b5f4566c3ad120ef560cc466",
+  "checkhash": "caac6d0f50335df53510db620da63f04a2b77d16b5f4566c3ad120ef560cc466",
+  "result": "success"
+}
+```
+
+</collapse-text>
+
+##### Command
+
+```bash
+./komodo-cli -ac_name=DORN DEX_stream 13-48-39.mkv 0
+```
+
+Response when the above command was issued the second time after the file size increased to more than 1 MB 
+
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "warning": "not enough data to extend stream",
+  "filename": "13-48-39.mkv",
+  "filesize": 1458334,
+  "offset0": 1000000,
+  "available": 458334,
+  "needed": 1000000
+}
+```
+
+</collapse-text>
+
+## DEX_streamsub
+
+**DEX_streamsub filename priority pubkey**
+
 
 ## DEX_subscribe
 
