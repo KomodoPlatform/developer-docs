@@ -829,7 +829,12 @@ This method gives info and stats related to the p2p data layer.
 
 **DEX_stream filename priority**
 
-This method allows a user to stream a file to the `DEXP2P` Network of the Smart Chain. It is different from [DEX_publish](#dex-publish) in that, `DEX_stream` can help stream a file while it is increasing in size. When the command is issued, it checks the file's size and if it is more than 1 MB, publishes as many slices of size 1 MB as possible similar to how [DEX_publish](#dex-publish) does it. If the command was issued when the size was less than 1 MB or if there is no new slice to publish (caused by a recent issuance of the same command), then it does nothing and informs the user about the reason.
+This method allows a user to stream a file to the `DEXP2P` Network of the Smart Chain. It is different from [DEX_publish](#dex-publish) in that, `DEX_stream` can help stream a file while it is increasing in size. When the command is issued, it checks the file's size and if it is more than 1 MB and the first slice hasn't been published yet, the command publishes a slice of size 1 MB using [DEX_publish](#dex-publish) internally. The command must be issued each time a new slice has to be published. If the command was issued when the size was less than 1 MB or if there is no new slice to publish, then it does nothing and informs the user about the reason.
+
+Example:
+
+- When the command was issued, if the size was `0.86 MB`,  it will returns warning.
+- When the command was issued, if the size was `4.42 MB` and `4` slices were already published by previous issuances of the command, it returns a warning.
 
 To continuously stream, it is recommended to repeatedly issue the command with a small `sleep/wait` between each issuance.
 
@@ -839,7 +844,7 @@ A detailed explanation on how the command works and its usage can be found [in t
 
 | Name   | Type | Description |
 | ------ | ---- | ----------- |
-| filename | (string) | the name of the file to be published; the name must be less than 15 characters long; the file must be present in the working directory from which the command to start the Komodo daemon(`komodod`) was issued; not to be confused with the directory in which `komodod` is present |
+| filename | (string) | the name of the file to be streamed; the name must be less than 15 characters long; the file must be present in the working directory from which the command to start the Komodo daemon(`komodod`) was issued; not to be confused with the directory in which `komodod` is present |
 | priority | (number) | the minimum priority to be used for the broadcasted datablobs that contain the file's data; set this value above the `VIP_PRIORITY` level for prioritised transmission of the datablobs; for the `VIP_PRIORITY` being used by your node, see the value of `vip` in the response to the [DEX_stats](#dex-stats) RPC    |
 
 #### Response (when publish suceeds)
@@ -850,7 +855,7 @@ A detailed explanation on how the command works and its usage can be found [in t
 | id          | (number) | the id of the published file's locators datablob                                              |
 | senderpub   | (string) | the `DEX_pubkey` of the file's sender                                              |
 | filesize    | (number) | the size of the file in bytes                                              |
-| fragments   | (number) | the number of fragments the file has been broken down into; each fragment has a maximum size of `10000 byte`                                              |
+| fragments   | (number) | the number of fragments the file has been broken down into; each fragment has a maximum size of `10000 bytes`                                              |
 | numlocators | (number) | the number of locators of the published file                                              |
 | filehash    | (string) | the SHA256 hash of the file as indicated by the publishing node                                              |
 | checkhash   | (string) | the SHA256 hash of the file based on all the fragments the node has currently available                                             |
@@ -950,6 +955,62 @@ Response when the above command was issued the second time after the file size i
 
 **DEX_streamsub filename priority pubkey**
 
+This method allows a user to assemble a file being streamed to the DEXP2P network using the [DEX_stream](#dex-stream) command. When this command is issued for the first time, it downloads the first slice if available. On further issuance, it downloads the next slice each time and appends the downloaded slice to the file assembled till then.
+
+To continuously build the file as more slices are available in the  "data Mempool", it is recommended to repeatedly issue the command with a small `sleep/wait` between each issuance.
+
+A detailed explanation on how the command works and its usage can be found [in this linked tutorial](../smart-chain-tutorials/streaming-dexp2p.md)
+
+#### Arguments
+
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| filename | (string) | the name of the file to be assembled; the name must be less than 15 characters long; the file must be created in the working directory from which the command to start the Komodo daemon(`komodod`) was issued; not to be confused with the directory in which `komodod` is present |
+| priority | (number) | the minimum priority to be used for the broadcasted datablobs that contain the file's data; set this value above the `VIP_PRIORITY` level for prioritised transmission of the datablobs; for the `VIP_PRIORITY` being used by your node, see the value of `vip` in the response to the [DEX_stats](#dex-stats) RPC    |
+| pubkey | (string) |the `DEX_pubkey` of the node that is streaming the file|
+
+#### Response 
+
+| Name        | Type     | Description                                   |
+| ----------- | -------- | --------------------------------------------- |
+| fname       | (string) | the name of the file being downloaded; here, the file referred to is the slice being published, not the actual file; the number appended after the actual file's name is a count of the number of bytes of the actual file that exist before this slice                                                |
+| id          | (number) | the id of the file's locators datablob                                              |
+| senderpub   | (string) | the `DEX_pubkey` of the file's sender                                              |
+| filesize    | (number) | the size of the file in bytes                                              |
+| fragments   | (number) | the number of fragments the file has been broken down into; each fragment has a maximum size of `10000 bytes`                                              |
+| numlocators | (number) | the number of locators of the published file                                              |
+| filehash    | (string) | the SHA256 hash of the file as indicated by the publishing node                                              |
+| checkhash   | (string) | the SHA256 hash of the file based on all the fragments the node has currently available                                             |
+| result      | (string) | whether the command was successfully executed |
+| warning | (string) | warnings/errors if any|
+
+#### :pushpin: Examples
+
+##### Command
+
+```bash
+./komodo-cli -ac_name=DORN DEX_streamsub 18-27-14.mkv 5
+```
+
+Response when the command downloaded the 6th slice
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "fname": "18-27-14.mkv.5000000",
+  "id": 615349056,
+  "senderpub": "01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063",
+  "filesize": 1000000,
+  "fragments": 100,
+  "numlocators": 100,
+  "filehash": "062a550e7072f4602ea5707478e3a1d56babf284c32d67d65fc1662e4b53284b",
+  "checkhash": "062a550e7072f4602ea5707478e3a1d56babf284c32d67d65fc1662e4b53284b",
+  "result": "success"
+}
+```
+
+</collapse-text>
 
 ## DEX_subscribe
 
