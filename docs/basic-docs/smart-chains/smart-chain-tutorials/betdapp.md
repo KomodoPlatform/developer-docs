@@ -1,4 +1,4 @@
-# Testing the dexp2p based realtime P2P betting App
+# Testing the [DEXP2P](../smart-chain-setup/dexp2p.html) based realtime P2P betting App
 
 ::: tip Note
 This tech is in development. The specifics of the implementation are subject to change. This document is a Work In Progress.
@@ -22,7 +22,7 @@ The bet is a double or nothing game, where you will either get double the money 
 ### Dependencies
 
 ```bash
-sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget curl bsdmainutils automake cmake clang ntp ntpdate nano -y
+sudo apt-get install g++-8 gcc-8 build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget curl bsdmainutils automake cmake clang ntp ntpdate nano -y
 ```
 
 ### Build Komodo
@@ -45,8 +45,8 @@ sudo ln -sf /home/$USER/komodo/src/komodo-cli /usr/local/bin/komodo-cli
 ### Compile the `betdapp` binary
 
 ```bash
-cd ~/komodo/src
-gcc -o betdapp cc/dapps/betdapp.c -lm
+cd ~/komodo/src/cc/dapps
+./make_betdapp.sh
 ```
 
 ## Launch parameters of the "DORN" smart chain
