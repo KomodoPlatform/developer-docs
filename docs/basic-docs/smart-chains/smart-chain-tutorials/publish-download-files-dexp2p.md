@@ -66,7 +66,7 @@ The method then splits the file's data into fragments and broadcasts each fragme
 
 Example:
 
-Command to filter the datablobs to get the datablobs that contains the data a published file whose name is `roadmap2020.pdf`
+Command to filter the datablobs to get the datablobs that contains the data of a published file whose name is `roadmap2020.pdf`
 
 ```bash
 ./komodo-cli -ac_name=DORN DEX_list 0 0 "roadmap2020.pdf" "data"
@@ -108,7 +108,7 @@ Command to filter the datablobs to get the datablobs that contains the data a pu
 
 </collapse-text>
 
-The value of the key named `"matches"` is a JSON array. The length of the array is `205`, same as the number of fragments as indicated by the previous datablobs (file info datablob and the locators datablob). In it, we can see a datablob that contains data from the published file. In the JSON that represents the datablob, we can see that `tagA` is the file name and `tagB` is the word `data`, which we filtered for. The rest of the relevant keys are as follows
+The value of the key named `"matches"` is a JSON array. The length of the array is `205`, same as the number of fragments as indicated by the previous datablob (file info datablob). In it, we can see a datablob that contains data from the published file. In the JSON that represents the datablob, we can see that `tagA` is the file name and `tagB` is the word `data`, which we filtered for. The rest of the relevant keys are as follows
 
 - `"pubkey"` set to `"01e28518858aa3515163a67deee2b19f0d30e4fa237f0aec255e4c94db0fe8d063"`; it is the `DEX_pubkey` of the publisher
 - the value of the key named `"decrypted"` contains the the actual data of the file broadcasted using this datablob;  
