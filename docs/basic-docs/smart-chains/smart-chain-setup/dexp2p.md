@@ -29,7 +29,7 @@ cd komodo
 
 ## Launch
 
-Currently, this technology is being tested on a testchain named `DORN`
+Currently, this technology is being tested on a test chain named `DORN`
 
 Launch Parameters:
 
@@ -668,7 +668,7 @@ This method allows a user to publish a file to the p2p Data Network. The file is
 
 | Name     | Type     | Description                                                                                                         |
 | -------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
-| filename | (string) | the name of the file to be published; the name must be less than 15 characters long; the file must be present in the working directory from which the command to start the Komodo daemon(`komodod`) was issued; not to be confused with the directory in which `komodod` is present |
+| filename | (string) | the name of the file to be published; the name must be less than 15 characters long; the file must be present in the working directory from which the command to start the Komodo daemon(`komodod`) was issued; not to be confused with the directory in which `komodod` is present; if the file is not found in the working directory, it is then searched in the user's `~/dexp2p` directory and `/usr/local/dexp2p` directory in Linux/MacOS and in `%APPDATA%\dexp2p` in Windows |
 | priority | (number) | the minimum priority to be used for the broadcasted datablobs that contain the file's data; set this value above the `VIP_PRIORITY` level for prioritised transmission of the datablobs; for the `VIP_PRIORITY` being used by your node, see the value of `vip` in the response to the [DEX_stats](#dex-stats) RPC    |
 | sliceid | (number) | if set to `0`, it publishes the file; if set to `0` and the file is already published, it scans the datablobs present in the "Data mempool" and republishes the missing ones; if the value is an integer greater than `0`, it is the id of the slice to publish; this method treats the file as a number of 1 MB sized slices and publishs only the mentioned slice of the file; this functionality is used by the [DEX_stream](#dex-stream) method  |
 
