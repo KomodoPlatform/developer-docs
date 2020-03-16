@@ -209,7 +209,8 @@ In a P2PK transaction, the software checks the cryptographic signature of the pu
 
 These simple transactions are common in coinbase transactions. (Recall that a coinbase transaction is the transaction that mints new coins onto a blockchain. Coinbase transactions are most frequently encountered as block rewards for miners/stakers, and in the Gensis Block of a chain.)
 
-If the reader would like a more thorough technical explanation of P2PK transactions, tutorials and explanations abound across the web. [Here is one such example.](https://learnmeabitcoin.com/glossary/p2pk)
+If the reader would like a more thorough technical explanation of P2PK transactions, tutorials and explanations abound across the web. [Here is one such example.](https://komodoplatform.com/p2pk-pay-to-pubkey/
+)
 
 #### Quantum Computers, Cold Addresses, and Change
 
@@ -239,7 +240,7 @@ Transactions that send funds to a cold address are called "Pay to Pubkey Hash" t
 
 When performing a P2PKH transaction, the protocol has a few extra steps to perform. The protocol must check that the hash of the pubkey (which is included as a part of the cold address) is appropriately matched to the pubkey itself. The structure of a P2PKH transaction includes opreturns that instruct the daemon to perform these verification steps.
 
-The Internet contains many thorough explanations of P2PKH transactions. For more information, [here is one such tutorial.](https://learnmeabitcoin.com/glossary/p2pkh)
+The Internet contains many thorough explanations of P2PKH transactions. For more information, [here is one such tutorial.](https://komodoplatform.com/p2pkh-pay-to-pubkey-hash/)
 
 Once a cold address is associated with a pubkey, the Bitcoin protocol no longer attempts to use these quantum-secure P2PKH transactions, as they require an extra 25 bytes of data space. Instead, the protocol reverts to the original P2PK transactions.
 
@@ -255,7 +256,7 @@ This method allows the user to lock their funds to the hash of a script.  The sc
 
 To unlock the funds, a user provides the original script. The blockchain daemon checks that the script matches the hash, executes the script, and the funds are unlocked.
 
-For more information about P2SH transactions, [a useful tutorial can be found here.](https://learnmeabitcoin.com/glossary/p2sh)
+For more information about P2SH transactions, [a useful tutorial can be found here.](https://komodoplatform.com/p2sh-pay-to-script-hash/)
 
 #### Understanding Op Codes
 
