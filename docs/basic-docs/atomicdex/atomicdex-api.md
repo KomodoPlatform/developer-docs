@@ -1015,6 +1015,65 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
+## list\_banned\_pubkeys
+
+**list_banned_pubkeys**
+
+Some cases of swap failures are considered as reason for other node ban, for example when market taker does not follow the atomic swap protocol by not sending the dex fee.
+The `list_banned_pubkeys` method returns the list of other nodes public keys that have been banned as result of such swaps.
+The node ignores orders and order matching requests received from banned nodes.
+
+#### Arguments
+
+| Structure | Type   | Description                                  |
+| --------- | ------ | -------------------------------------------- |
+| (none)    |        |                                              |
+
+#### Response
+
+| Structure       | Type             | Description                                                                                                                                                                                                                                              |
+| ------------------------ | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                   | map of objects (key - pubkey in hexadecimal representation)  | the list of pubkeys banned by current node                                                                                                                                                                                                                    |
+| result.*.caused_by_swap  | string | the uuid of swap that triggered the ban                                                                                                                                                                                                                     |
+| result.*.caused_by_event | object | the swap event that triggered the ban                                                                                                                                                                                                                   |                                                                                                                                                                                            
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"list_banned_pubkeys\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+  "result":{
+    "15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732":{
+      "caused_by_event":{
+        "event":{
+          "data":{
+            "error":"taker_swap:547] \"taker_swap:543] timeout (180.0 > 180.0)\""
+          },
+          "type":"NegotiateFailed"
+        },
+        "type":"Taker"
+      },
+      "caused_by_swap":"e8400870-e85a-42af-bb4f-9658ac86ffdf"
+    }
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
 ## my\_balance
 
 **my_balance coin**
@@ -3943,6 +4002,90 @@ The `stop` method stops the MM2 software.
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    |      |             |
+
+## unban\_pubkeys
+
+**unban_pubkeys unban_by**
+
+The `unban_pubkeys` removes the selected pubkeys from black list allowing to receive orders and order matching requests from unbanned nodes.
+
+#### Arguments
+
+| Structure             | Type   | Description                                                                                                                      |
+| --------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| unban_by              | object | pubkeys matching this condition are removed from black list                                                                                    |
+| unban_by.type         | string | `All` to unban all pubkeys; `Few` to unban several selected pubkeys |
+| cancel_by.data        | array of strings (hexadecimal) | pubkeys that should be removed from black list; must be present with `Few` type |
+
+#### Response
+
+| Structure                 | Type                     | Description                                                                                                    |
+| ------------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| result                    | object                   |                                                                                                                |
+| result.still_banned       | map of objects           | the pubkeys that remain banned                                                                                      |
+| result.unbanned           | map of objects           | data of unbanned pubkeys  |
+| result.were_not_banned    | array of strings         | the pubkeys that were not black listed before `unban_pubkeys` call   |
+
+#### :pushpin: Examples
+
+#### Command (All pubkeys)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"unban_pubkeys\",\"unban_by\":{\"type\":\"All\"}}"
+```
+
+#### Command (Unban selected pubkeys)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"unban_pubkeys\",\"unban_by\":{\"type\":\"Few\",\"data\":[\"15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732\",\"16d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732\"]}}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+  "result":{
+    "still_banned":{
+     "25d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732":{
+       "caused_by_event":{
+         "event":{
+           "data":{
+             "error":"taker_swap:547] \"taker_swap:543] timeout (180.0 > 180.0)\""
+           },
+           "type":"NegotiateFailed"
+         },
+         "type":"Taker"
+       },
+       "caused_by_swap":"a87f4187-fac3-49d9-a517-f50b7530be40"
+     }
+    },
+    "unbanned":{
+      "15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732":{
+        "caused_by_event":{
+          "event":{
+            "data":{
+              "error":"taker_swap:547] \"taker_swap:543] timeout (180.0 > 180.0)\""
+            },
+            "type":"NegotiateFailed"
+          },
+          "type":"Taker"
+        },
+        "caused_by_swap":"f87f4187-fac3-49d9-a517-f50b7530be40"
+      }
+    },
+    "were_not_banned":["16d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732"]
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
 
 ## version
 
