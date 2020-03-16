@@ -236,13 +236,15 @@ setstakingsplit
 
 **setstakingsplit split_percentage**
 
-The `setstakingsplit` method allows the user to decide what happens to a UTXO that was able to successfully stake a block in the POS64 staking system (a Smart Chain started using the [-ac_staked](../../antara/antara-setup/antara-customizations.md#ac-staked) parameter). The argument `split_percentage` defines the percentage of the staking UTXO value to leave in the same address. The rest of of the staking UTXO value is added to the new UTXO created to the coinbase address.
+The `setstakingsplit` method allows the user to decide what happens to a UTXO that is successfully able to stake a block in the POS64 staking system (i.e. a Smart Chain started using the [-ac_staked](../../antara/antara-setup/antara-customizations.md#ac-staked) parameter). 
+
+The argument `split_percentage` defines the percentage of the staking UTXO value to leave in the same address. The rest of of the staking UTXO value is added to the new UTXO created to the coinbase address.
 
 Examples:
 
-- `split_percentage` = `0` will merge the staking UTXO value and the coinbase value to coinbase address
-- `split_percentage` = `50` will take half of the staking UTXO value and sends it to the coinbase address 
-- `split_percentage` = `100` won't change the staking UTXO 
+- `split_percentage` = `0` merges the staking UTXO value and the coinbase value to the coinbase address
+- `split_percentage` = `50` takes half of the staking UTXO value and sends it to the coinbase address 
+- `split_percentage` = `100` does not change the staking UTXO 
 
 ### Arguments
 
