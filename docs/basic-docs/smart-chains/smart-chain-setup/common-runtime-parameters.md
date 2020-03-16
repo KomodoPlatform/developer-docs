@@ -534,7 +534,9 @@ Using stopat as a runtime parameter:
 komodod -stopat=1000000
 ```
 
-## splitperc
+<!---FIXME: Needs confirmation from alright
+
+ splitperc
 
 The `splitperc` parameter allows the user to decide what happens to a UTXO that was able to successfully stake a block in the POS64 staking system (a Smart Chain started using the [-ac_staked](../../antara/antara-setup/antara-customizations.md#ac-staked) Antara customization parameter). Its value defines the percentage of the staking UTXO value to leave in the same address. The rest of of the staking UTXO value is added to the new UTXO created to the coinbase address.
 
@@ -551,7 +553,7 @@ Using splitperc as a runtime parameter:
 ```bash
 komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 -ac_staked=20 -splitperc=50
 ```
-
+--->
 ## testnode
 
 The `testnode` parameter allows the daemon to mine without being connected to any other peers. This is useful for debugging and testing.

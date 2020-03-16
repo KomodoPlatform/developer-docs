@@ -230,7 +230,9 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 </collapse-text>
 
-## setstakingsplit
+<!-------- FIXME: get confirmation from alright
+
+setstakingsplit
 
 **setstakingsplit split_percentage**
 
@@ -287,3 +289,4 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 ```
 
 </collapse-text>
+-------->
