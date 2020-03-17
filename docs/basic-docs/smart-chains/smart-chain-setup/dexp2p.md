@@ -63,7 +63,7 @@ Example:
 - `err.0` means `0` non-VIP datablobs were received with over `1 minute` lag
 - `pend.0` means there are `0` pending datablobs to be received from the network
 - `T/F 414/414` means `414` datablobs were purged by the node the the datablobs are first `Truncated` and then their memory `Freed`; this number together with the value of `RAM` (number of datablobs currently in `RAM`) can be treated as the total number of datablobs processed by the node since its launch 
-- `0 0 0 0 0 0 1 1 6 4 10 31 46 108` these numbers are the total number of datablobs in the node's RAM classified by their priority; the rightmost number gives the total number of datablobs with priority `0`, the one left to it gives the total number of datablobs with priority `1` amd so on.... ; the left most number gives the total number of datablobs with priority greater than `13`
+- `0 0 0 0 0 0 1 1 6 4 10 31 46 108` these numbers are the total number of datablobs in the node's RAM classified by their priority; the rightmost number gives the total number of datablobs with priority `0`, the one left to it gives the total number of datablobs with priority `1` and so on.... ; the left most number gives the total number of datablobs with priority greater than `13`
 - `3/sec` is the number of datablobs per second for the last minute
 
 ## DEX_anonsend
