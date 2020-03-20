@@ -16,6 +16,10 @@ Once unzipped, the executables do not require installation. Simply find `komodod
 
 You may also build `komodod` and `komodo-cli` from source. This is not required, but it is considered the best practice. Building from source enables you to receive the latest patches and security upgrades the moment they are pushed to the `komodod` source.
 
+#### Using the official Docker image
+
+A Docker image based on the Ubuntu OS that has the Komodo software built from multiple branches like `dev`,`beta`,`research` can be found at [https://hub.docker.com/r/komodoofficial/komodo](https://hub.docker.com/r/komodoofficial/komodo). An example of how the image can be used is available in this [github repository](https://github.com/tonymorony/komodo_docker_tests).
+
 #### See the Smart Chains Documentation for Further Details
 
 Please see the full [Smart Chains](../../../basic-docs/smart-chains/introduction-to-smart-chain-documentation.html) technical documentation for full software explanations.
@@ -29,6 +33,10 @@ You will find [a walkthrough on building from source here.](../../../basic-docs/
 The following links contain downloadable AtomicDEX software. Simply download the files appropriate for your operating system, extract them to your desired location, and double click the application to begin.
 
 [<b>Link to AtomicDEX Software - Simple Installations</b>](https://github.com/KomodoPlatform/atomicDEX-API/releases)
+
+#### Using the official Docker image
+
+A Docker image based on the Ubuntu OS that has the AtomicDEX software can be found at [https://hub.docker.com/r/komodoofficial/atomicdexapi](https://hub.docker.com/r/komodoofficial/atomicdexapi). An explanation of how the image can be used is available in the "Overview" section of the previously linked webpage.
 
 #### Additional AtomicDEX Documentation
 
