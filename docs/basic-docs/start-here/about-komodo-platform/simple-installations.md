@@ -18,7 +18,11 @@ You may also build `komodod` and `komodo-cli` from source. This is not required,
 
 #### Using the official Docker image
 
-A Docker image based on the Ubuntu OS that has the Komodo software built from multiple branches like `dev`,`beta`,`research` can be found at [https://hub.docker.com/r/komodoofficial/komodo](https://hub.docker.com/r/komodoofficial/komodo). An example of how the image can be used is available in this [github repository](https://github.com/tonymorony/komodo_docker_tests).
+Komodo offers a Docker image that has pre-built versions of the Komodo software. The image is based on the Ubuntu operating system and offers different versions of the software that are built from different Komodo Github repositories, such as the `dev`, `beta`, and `research` branches.
+
+The Docker image can be found here: [https://hub.docker.com/r/komodoofficial/komodo](https://hub.docker.com/r/komodoofficial/komodo). 
+
+An example of how the image can be used is available in this [github repository](https://github.com/tonymorony/komodo_docker_tests).
 
 #### See the Smart Chains Documentation for Further Details
 
@@ -36,7 +40,11 @@ The following links contain downloadable AtomicDEX software. Simply download the
 
 #### Using the official Docker image
 
-A Docker image based on the Ubuntu OS that has the AtomicDEX software can be found at [https://hub.docker.com/r/komodoofficial/atomicdexapi](https://hub.docker.com/r/komodoofficial/atomicdexapi). An explanation of how the image can be used is available in the "Overview" section of the previously linked webpage.
+Komodo offers a Docker image that features the AtomicDEX software. This Docker image is based on the Ubuntu (Linux) operating system. 
+
+The image can be found here: [https://hub.docker.com/r/komodoofficial/atomicdexapi](https://hub.docker.com/r/komodoofficial/atomicdexapi). 
+
+An explanation of how the image can be used is available in the "Overview" section of the above linked webpage.
 
 #### Additional AtomicDEX Documentation
 
