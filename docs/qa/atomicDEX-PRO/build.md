@@ -36,10 +36,9 @@ chmod +x cmake-3.16.5-Linux-x86_64.sh
 - Install the latest version of `clang` (clang-8 minimum) and related tools
 
 ```bash
-wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-sudo apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial main"
-sudo apt-get update
-sudo apt-get install -y clang-9 lldb-9 lld-9 clangd-9
+wget https://apt.llvm.org/llvm.sh
+chmod +x llvm.sh
+sudo ./llvm.sh 9
 ```
 
 Set the recently installed clang version to be used
@@ -61,12 +60,9 @@ Take note of the response and follow the instructions there to add a string simi
 
 ```bash
 sudo apt-get install -y ninja-build git
-wget https://apt.llvm.org/llvm.sh
-chmod +x llvm.sh
-sudo ./llvm.sh 9
 ```
 
-### Download and Build
+### Clone and Build
 
 ```bash
 git clone https://github.com/KomodoPlatform/atomicDEX-Pro
