@@ -72,6 +72,6 @@ sudo ./llvm.sh 9
 git clone https://github.com/KomodoPlatform/atomicDEX-Pro
 cd atomicDEX-Pro/atomic_qt/ci_tools_atomic_dex
 nimble build
-./ci_tools_atomic_dex.exe build release # release version
-./ci_tools_atomic_dex.exe build debug # debug version
+./ci_tools_atomic_dex build debug  # debug version
+./ci_tools_atomic_dex build release # release version
 ```
