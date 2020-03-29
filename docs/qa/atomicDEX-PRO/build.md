@@ -33,13 +33,13 @@ chmod +x cmake-3.16.5-Linux-x86_64.sh
 ./cmake-3.16.5-Linux-x86_64.sh
 ```
 
-- Install the latest version of `clang` (clang-8 minimum)
+- Install the latest version of `clang` (clang-8 minimum) and related tools
 
 ```bash
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
 sudo apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial main"
 sudo apt-get update
-sudo apt-get install -y clang-9
+sudo apt-get install -y clang-9 lldb-9 lld-9 clangd-9
 ```
 
 Set the recently installed clang version to be used
