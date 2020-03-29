@@ -33,6 +33,18 @@ chmod +x cmake-3.16.5-Linux-x86_64.sh
 ./cmake-3.16.5-Linux-x86_64.sh
 ```
 
+- Install `gcc-9` and `g++-9`
+
+```bash
+sudo add-apt-repository ppa:jonathonf/gcc-9.0
+sudo apt-get update
+sudo apt-get install gcc-9 g++-9
+```
+
+<!----
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-9
+----->
+
 - Install the latest version of `clang` (clang-8 minimum) and related tools
 
 ```bash
