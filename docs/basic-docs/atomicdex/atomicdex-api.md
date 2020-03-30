@@ -44,18 +44,23 @@ The `buy` method issues a buy request and attempts to match an order from the or
 
 ::: tip
 
-Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from the market. If your order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice method.](../../../basic-docs/atomicdex/atomicdex-api.html#setprice)
+Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from the market. If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice method.](../../../basic-docs/atomicdex/atomicdex-api.html#setprice)
 
 :::
 
 #### Arguments
 
-| Structure | Type                       | Description                                                                   |
-| --------- | -------------------------- | ----------------------------------------------------------------------------- |
-| base      | string                     | the name of the coin the user desires to receive                              |
-| rel       | string                     | the name of the coin the user desires to sell                                 |
-| price     | numeric string or rational | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| volume    | numeric string or rational | the amount of coins the user is willing to receive of the `base` coin         |
+| Structure       | Type                       | Description                                                                   |
+| --------------- | -------------------------- | ----------------------------------------------------------------------------- |
+| base            | string                     | the name of the coin the user desires to receive                              |
+| rel             | string                     | the name of the coin the user desires to sell                                 |
+| price           | numeric string or rational | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| volume          | numeric string or rational | the amount of coins the user is willing to receive of the `base` coin         |
+| match_by        | object                     | the created order will be matched using this condition                        |
+| match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
+| match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
+| order_type      | object                     | the type of the order        |
+| order_type.type | string                     | `GoodTillCancelled` order will be `converted` maker order if it is not matched in 30 seconds, it will stay in orderbook until explicitly cancelled; `FillOrKill` to cancel the order if it is not matched in 30 seconds; Default is `GoodTillCancelled` |
 
 #### Response
 
@@ -3458,6 +3463,7 @@ The `orderbook` method requests from the network the currently available orders 
 | rel            | string           | the name of the coin the user will trade                                      |
 | timestamp      | number           | the timestamp of the orderbook request                                        |
 | netid          | number           | the id of the network on which the request is made (default is `0`)           |
+| uuid           | string           | the uuid of order                                                             |
 
 #### :pushpin: Examples
 
@@ -3607,12 +3613,17 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 
 #### Arguments
 
-| Structure | Type                       | Description                                                                       |
-| --------- | -------------------------- | --------------------------------------------------------------------------------- |
-| base      | string                     | the name of the coin the user desires to sell                                     |
-| rel       | string                     | the name of the coin the user desires to receive                                  |
-| price     | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin |
-| volume    | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin                |
+| Structure       | Type                       | Description                                                                       |
+| --------------- | -------------------------- | --------------------------------------------------------------------------------- |
+| base            | string                     | the name of the coin the user desires to sell                                     |
+| rel             | string                     | the name of the coin the user desires to receive                                  |
+| price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin |
+| volume          | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin                |
+| match_by        | object                     | the created order will be matched using this condition                        |
+| match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
+| match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
+| order_type      | object                     | the type of the order        |
+| order_type.type | string                     | `GoodTillCancelled` order will be `converted` maker order if it is not matched in 30 seconds, it will stay in orderbook until explicitly cancelled; `FillOrKill` to cancel the order if it is not matched in 30 seconds; Default is `GoodTillCancelled` |
 
 #### Response
 
