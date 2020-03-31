@@ -56,11 +56,11 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | rel             | string                     | the name of the coin the user desires to sell                                 |
 | price           | numeric string or rational | the price in `rel` the user is willing to pay per one unit of the `base` coin |
 | volume          | numeric string or rational | the amount of coins the user is willing to receive of the `base` coin         |
-| match_by        | object                     | the created order will be matched using this condition; *important:* this condition is not applied after `GoodTillCancelled` order conversion to `maker` request |
-| match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
+| match_by        | object                     | the created order is matched using this condition. *Important:* This condition is not applied after a `GoodTillCancelled` order is converted to a `maker` request |
+| match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; default is `Any` |
 | match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
 | order_type      | object                     | the type of the order        |
-| order_type.type | string                     | `GoodTillCancelled` order will be `converted` maker order if it is not matched in 30 seconds, it will stay in orderbook until explicitly cancelled; `FillOrKill` to cancel the order if it is not matched in 30 seconds; Default is `GoodTillCancelled` |
+| order_type.type | string                     | there are two types from which to choose: `GoodTillCancelled` and `FillOrKill`. The `GoodTillCancelled` order is automatically converted to a `maker` order if the order is not matched in 30 seconds, and this `maker` order stays in the orderbook until explicitly cancelled. On the other hand, a `FillOrKill` order is cancelled if it is not matched within 30 seconds. The default type is `GoodTillCancelled` |
 
 #### Response
 
@@ -69,16 +69,16 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | result                 | object   | the resulting order object                                                                                                                                                                                      |
 | result.action          | string   | the action of the request (`Buy`)                                                                                                                                                                               |
 | result.base            | string   | the base currency of request                                                                                                                                                                                    |
-| result.base_amount     | string   | the resulting amount of base currency that will be received if the order matches (in decimal representation)                                                                                                    |
-| result.base_amount_rat | rational | the resulting amount of base currency that will be received if the order matches (in rational representation)                                                                                                   |
+| result.base_amount     | string   | the resulting amount of base currency that is received if the order matches (in decimal representation)                                                                                                    |
+| result.base_amount_rat | rational | the resulting amount of base currency that is received if the order matches (in rational representation)                                                                                                   |
 | result.rel             | string   | the rel currency of the request                                                                                                                                                                                 |
-| result.rel_amount      | string   | the maximum amount of `rel` coin that will be spent to buy the `base_amount` (according to `price`, in decimal representation)                                                                                  |
-| result.rel_amount_rat  | rational | the maximum amount of `rel` coin that will be spent to buy the `base_amount` (according to `price`, in rational representation)                                                                                 |
+| result.rel_amount      | string   | the maximum amount of `rel` coin that is spent in order to buy the `base_amount` (according to `price`, in decimal representation)                                                                                  |
+| result.rel_amount_rat  | rational | the maximum amount of `rel` coin that is spent in order to buy the `base_amount` (according to `price`, in rational representation)                                                                                 |
 | result.method          | string   | this field is used for internal P2P interactions; the value is always equal to "request"                                                                                                                        |
-| result.dest_pub_key    | string   | reserved for future use. `dest_pub_key` will allow the user to choose the P2P node that will be eligible to match with the request. This value defaults to a "zero pubkey", which means `anyone` can be a match |
+| result.dest_pub_key    | string   | reserved for future use. `dest_pub_key` allows the user to choose the P2P node that is eligible to match with the request. This value defaults to a "zero pubkey", which means `anyone` can be a match |
 | result.sender_pubkey   | string   | the public key of this node                                                                                                                                                                                     |
 | result.uuid            | string   | the request uuid                                                                                                                                                                                                |
-| result.match_by        | object                     | the created order will be matched using this condition                        |
+| result.match_by        | object                     | the created order is matched using this condition                        |
 | result.match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
 | result.match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
                                                                                                                                                                
@@ -195,7 +195,7 @@ The `cancel_all_orders` cancels the active orders created by the MM2 node by spe
 | cancel_by.data        | object | additional data the cancel condition; present with `Pair` and `Coin` types                                                       |
 | cancel_by.data.base   | string | base coin of the pair; `Pair` type only                                                                                          |
 | cancel_by.data.rel    | string | rel coin of the pair; `Pair` type only                                                                                           |
-| cancel_by.data.ticker | string | order will be cancelled if it uses `ticker` as base or rel; `Coin` type only                                                     |
+| cancel_by.data.ticker | string | order is cancelled if it uses `ticker` as base or rel; `Coin` type only                                                     |
 
 #### Response
 
@@ -894,7 +894,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **get_trade_fee coin**
 
-The `get_trade_fee` method returns the approximate amount of the miner fee that will be paid per swap transaction.
+The `get_trade_fee` method returns the approximate amount of the miner fee that is paid per swap transaction.
 
 This amount should be multiplied by 2 and deducted from the volume on `buy/sell` calls when the user is about to trade the entire balance of the selected coin.
 
@@ -909,7 +909,7 @@ This amount should be multiplied by 2 and deducted from the volume on `buy/sell`
 | Structure     | Type             | Description                                                                                                                                                |
 | ------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result        | object           | an object containing the relevant information                                                                                                              |
-| result.coin   | string           | the fee will be paid from the user's balance of this coin. This coin name may differ from the requested coin. For example ERC20 fees are paid by ETH (gas) |
+| result.coin   | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example ERC20 fees are paid by ETH (gas) |
 | result.amount | string (numeric) | the approximate fee amount to be paid per swap transaction                                                                                                 |
 
 #### :pushpin: Examples
@@ -3669,11 +3669,11 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | rel             | string                     | the name of the coin the user desires to receive                                  |
 | price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin |
 | volume          | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin                |
-| match_by        | object                     | the created order will be matched using this condition; *important:* this condition is not applied after `GoodTillCancelled` order conversion to `maker` request            |
+| match_by        | object                     | the created order is matched using this condition; *important:* this condition is not applied after `GoodTillCancelled` order conversion to `maker` request            |
 | match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
 | match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
 | order_type      | object                     | the type of the order        |
-| order_type.type | string                     | `GoodTillCancelled` order will be `converted` maker order if it is not matched in 30 seconds, it will stay in orderbook until explicitly cancelled; `FillOrKill` to cancel the order if it is not matched in 30 seconds; Default is `GoodTillCancelled` |
+| order_type.type | string                     | there are two types from which to choose: `GoodTillCancelled` and `FillOrKill`. The `GoodTillCancelled` order is automatically converted to a `maker` order if the order is not matched in 30 seconds, and this `maker` order stays in the orderbook until explicitly cancelled. On the other hand, a `FillOrKill` order is cancelled if it is not matched within 30 seconds. The default type is `GoodTillCancelled` |
 
 #### Response
 
@@ -3682,16 +3682,16 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | result                 | object   | the resulting order object                                                                                                                                                                                      |
 | result.action          | string   | the action of the request (`Sell`)                                                                                                                                                                              |
 | result.base            | string   | the base currency of the request                                                                                                                                                                                |
-| result.base_amount     | string   | the resulting amount of base currency that will be sold if the order matches (in decimal representation)                                                                                                        |
-| result.base_amount_rat | rational | the resulting amount of base currency that will be sold if the order matches (in rational representation)                                                                                                       |
+| result.base_amount     | string   | the resulting amount of base currency that is sold if the order matches (in decimal representation)                                                                                                        |
+| result.base_amount_rat | rational | the resulting amount of base currency that is sold if the order matches (in rational representation)                                                                                                       |
 | result.rel             | string   | the rel currency of the request                                                                                                                                                                                 |
-| result.rel_amount      | string   | the minimum amount of `rel` coin that will be received to sell the `base_amount` of `base` (according to `price`, in decimal representation)                                                                    |
-| result.rel_amount_rat  | rational | the minimum amount of `rel` coin that will be received to sell the `base_amount` of `base` (according to `price`, in rational representation)                                                                   |
+| result.rel_amount      | string   | the minimum amount of `rel` coin that must be received in order to sell the `base_amount` of `base` (according to `price`, in decimal representation)                                                                    |
+| result.rel_amount_rat  | rational | the minimum amount of `rel` coin that must be received in order to sell the `base_amount` of `base` (according to `price`, in rational representation)                                                                   |
 | result.method          | string   | this field is used for internal P2P interactions; the value is always equal to "request"                                                                                                                        |
-| result.dest_pub_key    | string   | reserved for future use. The `dest_pub_key` will allow the user to choose the P2P node that is be eligible to match with the request. This value defaults to "zero pubkey", which means that `anyone` can match |
+| result.dest_pub_key    | string   | reserved for future use. The `dest_pub_key` allows the user to choose the P2P node that is eligible to match with the request. This value defaults to "zero pubkey", meaning that `anyone` can match |
 | result.sender_pubkey   | string   | the public key of our node                                                                                                                                                                                      |
 | result.uuid            | string   | the request uuid                                                                                                                                                                                                |
-| result.match_by        | object           | the created order will be matched using this condition                        |
+| result.match_by        | object           | the created order is matched using this condition                        |
 | result.match_by.type   | string           | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
 | result.match_by.data   | array of strings | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
 
@@ -4240,7 +4240,7 @@ This method generates a raw transaction which should then be broadcast using [se
 | Structure     | Type             | Description                                                                                                                               |
 | ------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | coin          | string           | the name of the coin the user desires to withdraw                                                                                         |
-| to            | string           | coins will be withdrawn to this address                                                                                                   |
+| to            | string           | coins are withdrawn to this address                                                                                                   |
 | amount        | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                                                          |
 | max           | bool             | withdraw the maximum available amount                                                                                                     |
 | fee.type      | string           | type of transaction fee; possible values: `UtxoFixed`, `UtxoPerKbyte`, `EthGas`                                                           |
@@ -4252,8 +4252,8 @@ This method generates a raw transaction which should then be broadcast using [se
 
 | Structure         | Type             | Description                                                                                                                                                                   |
 | ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| from              | array of strings | coins will be withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                              |
-| to                | array of strings | coins will be withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                      |
+| from              | array of strings | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                              |
+| to                | array of strings | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                      |
 | my_balance_change | string (numeric) | the expected balance of change in `my_address` after the transaction broadcasts                                                                                               |
 | received_by_me    | string (numeric) | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that MM2 send change to `my_address` |
 | spent_by_me       | string (numeric) | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                    |
