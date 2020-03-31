@@ -44,18 +44,23 @@ The `buy` method issues a buy request and attempts to match an order from the or
 
 ::: tip
 
-Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from the market. If your order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice method.](../../../basic-docs/atomicdex/atomicdex-api.html#setprice)
+Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from the market. If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice method.](../../../basic-docs/atomicdex/atomicdex-api.html#setprice)
 
 :::
 
 #### Arguments
 
-| Structure | Type                       | Description                                                                   |
-| --------- | -------------------------- | ----------------------------------------------------------------------------- |
-| base      | string                     | the name of the coin the user desires to receive                              |
-| rel       | string                     | the name of the coin the user desires to sell                                 |
-| price     | numeric string or rational | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| volume    | numeric string or rational | the amount of coins the user is willing to receive of the `base` coin         |
+| Structure       | Type                       | Description                                                                   |
+| --------------- | -------------------------- | ----------------------------------------------------------------------------- |
+| base            | string                     | the name of the coin the user desires to receive                              |
+| rel             | string                     | the name of the coin the user desires to sell                                 |
+| price           | numeric string or rational | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| volume          | numeric string or rational | the amount of coins the user is willing to receive of the `base` coin         |
+| match_by        | object                     | the created order will be matched using this condition; *important:* this condition is not applied after `GoodTillCancelled` order conversion to `maker` request |
+| match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
+| match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
+| order_type      | object                     | the type of the order        |
+| order_type.type | string                     | `GoodTillCancelled` order will be `converted` maker order if it is not matched in 30 seconds, it will stay in orderbook until explicitly cancelled; `FillOrKill` to cancel the order if it is not matched in 30 seconds; Default is `GoodTillCancelled` |
 
 #### Response
 
@@ -73,7 +78,10 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | result.dest_pub_key    | string   | reserved for future use. `dest_pub_key` will allow the user to choose the P2P node that will be eligible to match with the request. This value defaults to a "zero pubkey", which means `anyone` can be a match |
 | result.sender_pubkey   | string   | the public key of this node                                                                                                                                                                                     |
 | result.uuid            | string   | the request uuid                                                                                                                                                                                                |
-
+| result.match_by        | object                     | the created order will be matched using this condition                        |
+| result.match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
+| result.match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
+                                                                                                                                                               
 #### :pushpin: Examples
 
 #### Command (decimal representation)
@@ -86,6 +94,36 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]]}"
+```
+
+#### Command (GoodTillCancelled type)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"order_type\":{\"type\":\"GoodTillCancelled\"}}"
+```
+
+#### Command (FillOrKill type)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"order_type\":{\"type\":\"FillOrKill\"}}"
+```
+
+#### Command (match by Any)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Any\"}}"
+```
+
+#### Command (match by Pubkeys)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Pubkeys\",\"data\":[\"1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a\"]}}"
+```
+
+#### Command (match by Orders)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Orders\",\"data\":[\"d14452bb-e82d-44a0-86b0-10d4cdcb8b24\"]}}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -114,6 +152,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     ],
     "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
     "uuid": "288743e2-92a5-471e-92d5-bb828a2303c3"
+  },
+  "match_by":{
+    "data":["1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a"],
+    "type":"Pubkeys"
   }
 }
 ```
@@ -1276,7 +1318,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
             [1, [1]]
           ],
           "sender_pubkey": "031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
-          "uuid": "ea199ac4-b216-4a04-9f08-ac73aa06ae37"
+          "uuid": "ea199ac4-b216-4a04-9f08-ac73aa06ae37",
+          "match_by":{
+            "type":"Any"
+          }
+        },
+        "order_type":{
+          "type":"GoodTillCancelled"
         }
       }
     }
@@ -3404,7 +3452,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         [1, [1]]
       ],
       "sender_pubkey": "031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
-      "uuid": "ea199ac4-b216-4a04-9f08-ac73aa06ae37"
+      "uuid": "ea199ac4-b216-4a04-9f08-ac73aa06ae37",
+      "match_by":{
+        "type":"Any"
+      } 
+    },
+    "order_type":{
+      "type":"GoodTillCancelled"
     }
   },
   "type": "Taker"
@@ -3458,6 +3512,7 @@ The `orderbook` method requests from the network the currently available orders 
 | rel            | string           | the name of the coin the user will trade                                      |
 | timestamp      | number           | the timestamp of the orderbook request                                        |
 | netid          | number           | the id of the network on which the request is made (default is `0`)           |
+| uuid           | string           | the uuid of order                                                             |
 
 #### :pushpin: Examples
 
@@ -3492,7 +3547,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       ],
       "pubkey": "631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
       "age": 1,
-      "zcredits": 0
+      "zcredits": 0,
+      "uuid":"6343b2b1-c896-47d4-b0f2-a11798f654ed"
     }
   ],
   "base": "HELLO",
@@ -3601,18 +3657,23 @@ The `sell` method issues a sell request and attempts to match an order from the 
 
 ::: tip
 
-Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from market. If your order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
+Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from market. If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
 
 :::
 
 #### Arguments
 
-| Structure | Type                       | Description                                                                       |
-| --------- | -------------------------- | --------------------------------------------------------------------------------- |
-| base      | string                     | the name of the coin the user desires to sell                                     |
-| rel       | string                     | the name of the coin the user desires to receive                                  |
-| price     | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin |
-| volume    | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin                |
+| Structure       | Type                       | Description                                                                       |
+| --------------- | -------------------------- | --------------------------------------------------------------------------------- |
+| base            | string                     | the name of the coin the user desires to sell                                     |
+| rel             | string                     | the name of the coin the user desires to receive                                  |
+| price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin |
+| volume          | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin                |
+| match_by        | object                     | the created order will be matched using this condition; *important:* this condition is not applied after `GoodTillCancelled` order conversion to `maker` request            |
+| match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
+| match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
+| order_type      | object                     | the type of the order        |
+| order_type.type | string                     | `GoodTillCancelled` order will be `converted` maker order if it is not matched in 30 seconds, it will stay in orderbook until explicitly cancelled; `FillOrKill` to cancel the order if it is not matched in 30 seconds; Default is `GoodTillCancelled` |
 
 #### Response
 
@@ -3630,6 +3691,9 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | result.dest_pub_key    | string   | reserved for future use. The `dest_pub_key` will allow the user to choose the P2P node that is be eligible to match with the request. This value defaults to "zero pubkey", which means that `anyone` can match |
 | result.sender_pubkey   | string   | the public key of our node                                                                                                                                                                                      |
 | result.uuid            | string   | the request uuid                                                                                                                                                                                                |
+| result.match_by        | object           | the created order will be matched using this condition                        |
+| result.match_by.type   | string           | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
+| result.match_by.data   | array of strings | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
 
 #### :pushpin: Examples
 
@@ -3643,6 +3707,36 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]]}"
+```
+
+#### Command (GoodTillCancelled type)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"order_type\":{\"type\":\"GoodTillCancelled\"}}"
+```
+
+#### Command (FillOrKill type)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"order_type\":{\"type\":\"FillOrKill\"}}"
+```
+
+#### Command (match by Any)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Any\"}}"
+```
+
+#### Command (match by Pubkeys)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Pubkeys\",\"data\":[\"1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a\"]}}"
+```
+
+#### Command (match by Orders)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Orders\",\"data\":[\"d14452bb-e82d-44a0-86b0-10d4cdcb8b24\"]}}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -3670,7 +3764,11 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       [1, [1]]
     ],
     "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-    "uuid": "d14452bb-e82d-44a0-86b0-10d4cdcb8b24"
+    "uuid": "d14452bb-e82d-44a0-86b0-10d4cdcb8b24",
+    "match_by":{
+      "data":["1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a"],
+      "type":"Pubkeys"
+    }
   }
 }
 ```
