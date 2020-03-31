@@ -405,27 +405,30 @@ var sidebar = {
           "/qa/adb-logcat.md",
           "Use adb to collect GUI logs of the AtomicDEX android app"
         ],
-        ["/qa/extract-swap-data-atomicDEX-log.md", "How to extract swap data from a AtomicDEX mobile log file"],
-        ["/qa/recover-atomicDEX-mobile-swap-desktop.md", "How to recover a swap that failed in AtomicDEX mobile using CLI on a Desktop"]
+        [
+          "/qa/extract-swap-data-atomicDEX-log.md",
+          "How to extract swap data from a AtomicDEX mobile log file"
+        ],
+        [
+          "/qa/recover-atomicDEX-mobile-swap-desktop.md",
+          "How to recover a swap that failed in AtomicDEX mobile using CLI on a Desktop"
+        ]
       ]
     },
     {
       title: "AtomicDEX-CLI",
       collapsable: true,
       children: [
-
         ["/qa/atomicDEX-quickstart.md", "Start using or testing AtomicDEX"]
       ]
     },
     {
-      title: "AtomicDEX-PRO",
+      title: "AtomicDEX-Desktop",
       collapsable: true,
       children: [
-        [
-          "/qa/atomicDEX-PRO/build.md",
-          "Build AtomicDEX Desktop from source"
-        ]]
-    },
+        ["/qa/atomicDEX-PRO/build.md", "Build AtomicDEX Desktop from source"]
+      ]
+    }
   ],
   "/": sidebarImport
 };
