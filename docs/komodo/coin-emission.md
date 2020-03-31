@@ -5,6 +5,16 @@ New KMD coins are created in two ways:
 1. Mining (Normal mining - `25%` and notary mining - `75%`)
 2. [Rewards](../whitepaper/chapter8.html#rewards) (~ `5.1%` reward to active users that have atleast `10 KMD`)
 
+:::tip Note
+
+The emission schedule for KMD is as follows:
+
+- 3 KMD per block till the block height of KMD reaches `7777777`. This is the same block height at which Reward creation stops
+- 2 KMD per block from the block height `7777777` till the block height of KMD reaches `2 * 7777777`
+- 1 KMD per block from the block height `2 * 7777777` till forever
+
+:::
+
 Let us explore the amount of KMD created each year through these two mechanisms.
 
 ## Mining

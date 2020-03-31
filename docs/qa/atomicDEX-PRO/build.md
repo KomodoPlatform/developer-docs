@@ -83,3 +83,15 @@ nimble build
 ./ci_tools_atomic_dex build debug  # debug version
 ./ci_tools_atomic_dex build release # release version
 ```
+
+- The last line of the build output in your terminal gives the compiled executable's location
+- If debug version was built, it will be found in the `build-Debug/` directory
+- If release version was built, it will be found in the `build-Release/` directory
+
+Example:
+
+The location of the built executable for debug version can be in
+
+```bash
+build-Debug/bin/AntaraAtomicDexAppDir/usr/bin
+```
