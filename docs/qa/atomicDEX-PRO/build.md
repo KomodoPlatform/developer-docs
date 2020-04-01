@@ -74,6 +74,16 @@ Take note of the response and follow the instructions there to add a string simi
 sudo apt-get install -y ninja-build git
 ```
 
+- Install `libwally`
+
+```bash
+git clone https://github.com/KomodoPlatform/libwally-core.git
+cd libwally-core
+./tools/autogen.sh
+./configure --disable-shared
+sudo make -j2 install
+```
+
 ### Clone and Build
 
 ```bash
