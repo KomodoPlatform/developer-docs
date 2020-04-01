@@ -78,7 +78,7 @@ sudo apt-get install -y ninja-build git
 
 ```bash
 git clone https://github.com/KomodoPlatform/atomicDEX-Pro
-cd atomicDEX-Pro/atomic_qt/ci_tools_atomic_dex
+cd atomicDEX-Pro/ci_tools_atomic_dex
 nimble build
 ./ci_tools_atomic_dex build debug  # debug version
 ./ci_tools_atomic_dex build release # release version
