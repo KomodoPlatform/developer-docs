@@ -28,7 +28,7 @@ You have to look at your QT installation and set the above variables. It changes
 
 ```bash
 cd ~
-curl https://github.com/Kitware/CMake/releases/download/v3.16.5/cmake-3.16.5-Linux-x86_64.sh
+wget https://github.com/Kitware/CMake/releases/download/v3.16.5/cmake-3.16.5-Linux-x86_64.sh
 chmod +x cmake-3.16.5-Linux-x86_64.sh
 ./cmake-3.16.5-Linux-x86_64.sh
 ```
