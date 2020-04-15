@@ -60,7 +60,7 @@ Here is the xml file:
 
 Here is the desktop file:
 
-```txt
+```
 [Desktop Entry]
 Type=Application
 Name=flappy-bird
@@ -300,7 +300,7 @@ int main() {
 
 The project tree should now be as follows. 
 
-```txt
+```
 ./flappy-bird
 ├── assets
 │  ├── config
