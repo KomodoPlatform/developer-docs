@@ -30,7 +30,7 @@ The reader will need to create a new default Smart Chain either way as a part of
 
 The module we refer to here is the [<b>Faucet Antara Module</b>](../../../basic-docs/antara/antara-api/faucet.html)
 
-#### On the Relevant of the Faucet Module
+#### On the Relevance of the Faucet Module
 
 The Faucet Module allows a user to tap into existing funds on a public Smart Chain.  This module provides a simple example of the nature of an Antara Module for our study.  
 
