@@ -86,7 +86,8 @@ Usage:
 
 The block template produced using this mode doesn't have the `"coinbasetxn": { ... }` json object but adds the coinbase transaction to the `"transactions":[ ... ]` array, just like a regular transaction.
 
-Now the pool software can use the `"transactions":[ ... ]` array to create a block and take fees in the payment processor. The `knomp` [fork](https://github.com/blackjok3rtt/knomp) by [@blackjok3rtt](https://github.com/blackjok3rtt) uses this mode.
+Now the pool software can use the `"transactions":[ ... ]` array to create a block and take fees in the payment processor.
+Team member, `Blackjok3r`, developed a coinbase-override method for this purpose. Please see [this repo](https://github.com/webworker01/knomp/#disable-coinbase-mode) for details.
 
 ### Arguments
 
