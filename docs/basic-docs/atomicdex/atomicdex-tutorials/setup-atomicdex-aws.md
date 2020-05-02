@@ -45,14 +45,14 @@ aws ec2 authorize-security-group-ingress --region us-east-1 --group-name sgMM2 -
 aws ec2 run-instances --region us-east-1 --image-id ami-083d24fb90054e5f0 --count 1 --instance-type t3.micro --key-name mm2Keypair --security-group-ids $sgID --user-data file://atomicDEX_API_setup.txt
 ```
 
-If you see an error similar to the following, click the link then click the button "Continue to Subscribe" and then click the button "Accept Terms"
+If you see an error similar to the following, click the given link, then click the button "Continue to Subscribe" and then click the button "Accept Terms"
 
-```
+```bash
 An error occurred (OptInRequired) when calling the RunInstances operation: In order to use this AWS Marketplace product you need to accept terms and subscribe. To do so please visit https://aws.amazon.com/marketplace/pp?sku=auhljmclkudu651zy27rih2x2
 ```
 
 Wait for the Subscription to be processed and issue the last command again.
-You can verify that the instance has launched by visiting the page [https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:sort=instanceId](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:sort=instanceId)
+You can verify that the instance has been launched successfully by visiting the page [https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:sort=instanceId](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:sort=instanceId)
 
 From that screen, copy the "IPv4 Public IP" of the instance and replace the text `REPLACE_PUBLIC_IP` in the following command with it.
 
@@ -61,4 +61,4 @@ nodeIp=REPLACE_PUBLIC_IP
 ssh -o IdentitiesOnly=yes -i ~/.ssh/mm2.pem admin@$nodeIp 'curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"RPC_PASS_PLEASE_REPLACE\",\"method\":\"version\"}"'
 ```
 
-Simply replace the "curl" part from the last command to use [different RPC](https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html) 
+Simply replace the "curl" part from the last command to use [different RPC](https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html)
