@@ -1,9 +1,13 @@
-# How to Setup and use AtomicDEX-API on a AWS EC2 instance
+# How to Setup and use the AtomicDEX API on an AWS EC2 instance
 
 ## Create the AtomicDEX setup script
 
 - Create a file named `atomicDEX_API_setup.txt`
-- Add the following code to it after replacing the text `SEED_WORDS_PLEASE_REPLACE` with your Seed words that will be used to generate addresses and the text `RPC_PASS_PLEASE_REPLACE` with a strong password you will use to authenticate yourself while communicating with the AtomicDEX-API
+- Copy the code below into the file
+- In the code, find the text, `SEED_WORDS_PLEASE_REPLACE`, and replace it with custom seed words of your own 
+  - These seed words are used to generate new blockchain addresses, and therefore the seed words should be treated like a unique password
+- Find the text, `RPC_PASS_PLEASE_REPLACE`, and replace this also with a strong password
+  - This is used to authenticate yourself while communicating with the AtomicDEX API
 
 ```bash
 #!/bin/bash
@@ -17,23 +21,25 @@ unzip *Linux-Release.zip
 
 ## Install AWS CLI , get AWS access credentials
 
-Installation
+#### Installation
 
 ```bash
 sudo apt-get install awscli
 ```
 
-To get the access credentials, login to your AWS account, create an IAM user as described in the post [https://tntdrive.com/where-do-i-get-my-access-keys.aspx#create-iam-user-and-keys](https://tntdrive.com/where-do-i-get-my-access-keys.aspx#create-iam-user-and-keys) while selecting the policy `AmazonEC2FullAccess` instead of `AmazonS3FullAccess`. Note down the "Access key ID" and "Secret access key"
+To obtain access credentials, log in to your AWS account and create an IAM user as described in this linked post [https://tntdrive.com/where-do-i-get-my-access-keys.aspx#create-iam-user-and-keys.](https://tntdrive.com/where-do-i-get-my-access-keys.aspx#create-iam-user-and-keys) While following the post, make sure to select the policy `AmazonEC2FullAccess` instead of `AmazonS3FullAccess`. Copy the "Access key ID" and "Secret access key" to another location while completing the post's instructions; these are necessary later.
 
-Make sure the SSH directory exists
+Make sure the SSH directory exists.
 
 ```bash
 mkdir -p ~/.ssh/
 ```
 
-## Create a EC2 Instance
+## Create an EC2 Instance
 
-Open a terminal, navigate to the directory where the file `atomicDEX_API_setup.txt` is located, and issue the following commands after changing the text `REPLACE_ACCESS_KEY_ID` with "Access key ID" and `REPLACE_SECRET_ACCESS_KEY` with "Secret access key". You can also change the region where the EC2 instance is hosted by changing all instances of `us-east-1` in the commands
+Open a terminal, navigate to the directory where the file `atomicDEX_API_setup.txt` is located, and issue the following commands.
+
+In the terminal commands below, note that you must first change the texts `REPLACE_ACCESS_KEY_ID` and `REPLACE_SECRET_ACCESS_KEY` with your "Access key ID" and "Secret access key" obtained during the setup procedure. If necessary, also change the region where the EC2 instance is hosted by changing all instances of `us-east-1` in the commands.
 
 ```bash
 export AWS_ACCESS_KEY_ID=REPLACE_ACCESS_KEY_ID
@@ -45,20 +51,21 @@ aws ec2 authorize-security-group-ingress --region us-east-1 --group-name sgMM2 -
 aws ec2 run-instances --region us-east-1 --image-id ami-083d24fb90054e5f0 --count 1 --instance-type t3.micro --key-name mm2Keypair --security-group-ids $sgID --user-data file://atomicDEX_API_setup.txt
 ```
 
-If you see an error similar to the following, click the given link, then click the button "Continue to Subscribe" and then click the button "Accept Terms"
+If you see an error similar to the following, click the link that is found in the error. On the page to which your browser is directed click the button "Continue to Subscribe" and then click the button "Accept Terms".
 
 ```bash
 An error occurred (OptInRequired) when calling the RunInstances operation: In order to use this AWS Marketplace product you need to accept terms and subscribe. To do so please visit https://aws.amazon.com/marketplace/pp?sku=auhljmclkudu651zy27rih2x2
 ```
 
 Wait for the Subscription to be processed and issue the last command again.
-You can verify that the instance has been launched successfully by visiting the page [https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:sort=instanceId](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:sort=instanceId)
 
-From that screen, copy the "IPv4 Public IP" of the instance and replace the text `REPLACE_PUBLIC_IP` in the following command with it.
+Verify that the instance launched successfully by visiting [this linked page.](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:sort=instanceId)
+
+From the linked page above, copy the "IPv4 Public IP" of the instance and use it to replace the text `REPLACE_PUBLIC_IP` in the following command.
 
 ```bash
 nodeIp=REPLACE_PUBLIC_IP
 ssh -o IdentitiesOnly=yes -i ~/.ssh/mm2.pem admin@$nodeIp 'curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"RPC_PASS_PLEASE_REPLACE\",\"method\":\"version\"}"'
 ```
 
-Simply replace the "curl" part from the last command to use [different RPC](https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html)
+Edit the command above as necessary to exchange one curl command for another from [the AtomicDEX API.](https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html)
