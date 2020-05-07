@@ -30,7 +30,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 
 ### 3rd Party Server
 
-- **HUSH:** [https://github.com/myhush/hush3](https://github.com/KomodoPlatform/komodo) Branch: `v3.3.1`
+- **HUSH:** [https://github.com/myhush/hush3](https://github.com/myhush/hush3) Branch: `v3.3.1`
 - **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master`
 - **GAME:** [https://github.com/gamecredits-project/GameCredits.git](https://github.com/gamecredits-project/GameCredits.git) Branch: `master`
 - **GIN:** [https://github.com/GIN-coin/gincoin-core.git](https://github.com/GIN-coin/gincoin-core.git) Branch: `master`
