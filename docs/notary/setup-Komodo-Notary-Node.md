@@ -26,11 +26,11 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 ### Main Server
 
 - **BTC:** [https://github.com/bitcoin/bitcoin](https://github.com/bitcoin/bitcoin) Branch: `0.16`
-- **HUSH:** [https://github.com/KomodoPlatform/komodo](https://github.com/KomodoPlatform/komodo) Branch: `hush3` , commit: `cc35198f1da23a617caf95ed087033d8dfb8ce89`
 - **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.6.0-7` . It should point to the commit: `249191886b59929575953425656d4a31328758eb`
 
 ### 3rd Party Server
 
+- **HUSH:** [https://github.com/myhush/hush3](https://github.com/myhush/hush3) Branch: `v3.3.1`
 - **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master`
 - **GAME:** [https://github.com/gamecredits-project/GameCredits.git](https://github.com/gamecredits-project/GameCredits.git) Branch: `master`
 - **GIN:** [https://github.com/GIN-coin/gincoin-core.git](https://github.com/GIN-coin/gincoin-core.git) Branch: `master`
@@ -344,17 +344,6 @@ Restrict access to the `bitcoin.conf` file
 chmod 600 ~/.bitcoin/bitcoin.conf
 ```
 
-### HUSH3
-
-#### Clone HUSH3 source and compile
-
-```bash
-cd ~
-git clone https://github.com/KomodoPlatform/komodo --branch hush3 --single-branch hush3
-cd hush3 && git checkout cc35198f1da23a617caf95ed087033d8dfb8ce89
-./zcutil/build.sh -j$(nproc)
-```
-
 ### VerusCoin (VRSC)
 
 #### Clone VRSC source and compile
@@ -381,7 +370,6 @@ For the first time sync, we will run all the coin daemons normally. Make sure yo
 ```bash
 komodod &
 bitcoind &
-~/hush3/src/hushd &
 verusd &
 ```
 
@@ -401,15 +389,13 @@ Commands to tail `debug.log`
 tail -f ~/.bitcoin/debug.log
 # KMD
 tail -f ~/.komodo/debug.log
-# HUSH3
-tail -f ~/.komodo/HUSH3/debug.log
 # SUPERNET
 tail -f ~/.komodo/SUPERNET/debug.log
 # VRSC
 tail -f ~/.komodo/VRSC/debug.log
 ```
 
-For any other Komodo Smart Chain, use the example of HUSH3 or SUPERNET and change the path with the coin name that you are looking for accordingly. You can now wait for all the coins to finish syncing. Just double check the blocks you've downloaded with an explorer to verify.
+For any other Komodo Smart Chain, use the example of SUPERNET and change the path with the coin name that you are looking for accordingly. You can now wait for all the coins to finish syncing. Just double check the blocks you've downloaded with an explorer to verify.
 
 ### Import your main private key
 
@@ -420,7 +406,6 @@ Feel free to import these as the daemons are syncing.
 ```bash
 komodo-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 bitcoin-cli importprivkey WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
-komodo-cli -ac_name=HUSH3 importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 komodo-cli -ac_name=VRSC importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 ```
 
@@ -458,7 +443,6 @@ Never use `kill -9` to kill any Coin daemon if you don't like corrupt databases.
 ```bash
 komodo-cli stop
 bitcoin-cli stop
-komodo-cli -ac_name=HUSH3 stop
 komodo-cli -ac_name=VRSC stop
 ```
 
@@ -482,6 +466,17 @@ To complete setting up your main server, go to the [Set 'ulimit' parameters on U
 ## 3rd Party Server Setup
 
 The instructions below are only required on your 3rd party server, which is the one that will be notarising 3rd party coins to Komodo.
+
+### HUSH3
+
+#### Clone HUSH3 source and compile
+
+```bash
+cd ~
+git clone https://github.com/myhush/hush3 --branch v3.3.1 --single-branch hush3
+cd hush3
+./zcutil/build.sh -j$(nproc)
+```
 
 ### Chips
 
@@ -808,6 +803,7 @@ chipsd &
 gamecreditsd &
 einsteiniumd &
 gincoind &
+~/hush3/src/hushd &
 ```
 
 Now wait for all the chains to finish syncing. This might take about 8-10 hours depending on your machine and internet connection. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories.
@@ -825,6 +821,8 @@ tail -f ~/.gamecredits/debug.log
 tail -f ~/.einsteinium/debug.log
 # GIN
 tail -f ~/.gincoincore/debug.log
+# HUSH
+tail -f ~/.komodo/HUSH3/debug.log
 ```
 
 You can now wait for all the coins to finish syncing. Just double check the block you've downloaded with an explorer to verify.
@@ -837,6 +835,7 @@ Feel free to import your addresses whilst your daemons are syncing.
 
 ```bash
 komodo-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+komodo-cli -ac_name=HUSH3 importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 chips-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 gamecredits-cli importprivkey Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
 einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
@@ -869,6 +868,7 @@ Never use `kill -9` to kill any Coin daemon if you don't like corrupt databases.
 
 ```bash
 komodo-cli stop
+komodo-cli -ac_name=HUSH3 stop
 chips-cli stop
 gamecredits-cli stop
 einsteinium-cli stop
@@ -940,7 +940,6 @@ Here is an example of a Main Server start script that will start Notary easy min
 #!/bin/bash
 source ~/komodo/src/pubkey.txt
 bitcoind &
-~/hush3/src/hushd -pubkey=$pubkey &
 ~/VerusCoin/src/verusd -pubkey=$pubkey &
 sleep 60
 cd komodo/src
@@ -961,6 +960,7 @@ gincoind -pubkey=$pubkey &
 sleep 60
 cd komodo/src
 ./komodod -pubkey=$pubkey &
+~/hush3/src/hushd &
 ```
 
 Make the file executable:
