@@ -93,7 +93,7 @@ The instructions below are required on both of your servers.
 ### Install Required Dependencies
 
 ```bash
-sudo apt-get install libboost-system-dev libboost-filesystem-dev libboost-test-dev libboost-thread-dev build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev python-zmq zlib1g-dev wget curl bsdmainutils automake cmake clang libsodium-dev libcurl4-gnutls-dev libssl-dev git unzip python jq htop -y
+sudo apt-get install libevent-dev libboost-all-dev build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev python-zmq zlib1g-dev wget curl bsdmainutils automake cmake clang libsodium-dev libcurl4-gnutls-dev libssl-dev git unzip python jq htop -y
 ```
 
 ### Install `nanomsg`
