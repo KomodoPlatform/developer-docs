@@ -35,6 +35,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 - **GAME:** [https://github.com/gamecredits-project/GameCredits.git](https://github.com/gamecredits-project/GameCredits.git) Branch: `master`
 - **GIN:** [https://github.com/GIN-coin/gincoin-core.git](https://github.com/GIN-coin/gincoin-core.git) Branch: `master`
 - **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `dev`
+- **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master`
 
 ## Requirements
 
@@ -191,6 +192,9 @@ EMC2 WIF: T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
 
 GIN Address: Gdw3mTUaLRAgK7A2iZ8K4suQVnx7VRJ9rf
 GIN WIF: WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
+
+AYA Address: AVjkMgFfmMZbpFvmTxCcxadnD6g1EdQue3
+AYA WIF: T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
 ```
 
 CHIPS, all Komodo Smart Chains and Komodo source forks including HUSH3 and VRSC use the same address and WIF format as Komodo (KMD).
@@ -466,6 +470,82 @@ To complete setting up your main server, go to the [Set 'ulimit' parameters on U
 ## 3rd Party Server Setup
 
 The instructions below are only required on your 3rd party server, which is the one that will be notarising 3rd party coins to Komodo.
+
+### Aryacoin (AYA)
+
+#### Step 1: Clone AYA source
+
+```bash
+cd ~
+git clone https://github.com/sillyghost/AYAv2.git -b master --single-branch
+cd AYAv2
+```
+
+#### Step 2: Create a build script
+
+Name the script as `build.sh` inside the `~/AYAv2` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
+
+```bash
+#!/bin/bash
+# AYA build script for Ubuntu & Debian 9 v.3 (c) Decker (and webworker)
+berkeleydb () {
+    AYA_ROOT=$(pwd)
+    AYA_PREFIX="${AYA_ROOT}/db4"
+    mkdir -p $AYA_PREFIX
+    wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
+    echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
+    tar -xzvf db-4.8.30.NC.tar.gz
+    cd db-4.8.30.NC/build_unix/
+    ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$AYA_PREFIX
+    make install
+    cd $AYA_ROOT
+}
+buildAYA () {
+    git pull
+    ./autogen.sh
+    ./configure LDFLAGS="-L${AYA_PREFIX}/lib/" CPPFLAGS="-I${AYA_PREFIX}/include/" --with-gui=no --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm --enable-static --disable-shared --with-incompatible-bdb
+    make -j$(nproc)
+}
+berkeleydb
+buildAYA
+echo "Done building AYA!"
+sudo ln -sf /home/$USER/AYAv2/src/aryacoin-cli /usr/local/bin/aryacoin-cli
+sudo ln -sf /home/$USER/AYAv2/src/aryacoind /usr/local/bin/aryacoind
+```
+
+#### Step 3: Make the script executable and run it
+
+```bash
+chmod +x build.sh
+./build.sh
+```
+
+#### Step 4: Create AYA data dir, `aryacoin.conf` file and restrict access to it
+
+```bash
+cd ~
+mkdir .aryacoin
+nano ~/.aryacoin/aryacoin.conf
+```
+
+Insert the following contents inside the `aryacoin.conf` file and save it. (change the `rpcuser` and `rpcpassword` values)
+
+```bash
+server=1
+daemon=1
+txindex=1
+rpcuser=user
+rpcpassword=password
+bind=127.0.0.1
+rpcbind=127.0.0.1
+rpcallowip=127.0.0.1
+```
+
+Restrict access to the `aryacoin.conf` file
+
+```bash
+chmod 600 ~/.aryacoin/aryacoin.conf
+```
 
 ### HUSH3
 
@@ -823,6 +903,8 @@ tail -f ~/.einsteinium/debug.log
 tail -f ~/.gincoincore/debug.log
 # HUSH
 tail -f ~/.komodo/HUSH3/debug.log
+# AYA
+tail -f ~/.aryacoin/debug.log
 ```
 
 You can now wait for all the coins to finish syncing. Just double check the block you've downloaded with an explorer to verify.
@@ -840,6 +922,7 @@ chips-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 gamecredits-cli importprivkey Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
 einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
 gincoin-cli importprivkey WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
+aryacoin-cli importprivkey T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
 ```
 
 This may take some time and will display the coin name and address after each import. You can tail the coin specific `debug.log` files to check the progress.
@@ -873,6 +956,7 @@ chips-cli stop
 gamecredits-cli stop
 einsteinium-cli stop
 gincoin-cli stop
+aryacoin-cli stop
 ```
 
 ---
@@ -961,6 +1045,7 @@ sleep 60
 cd komodo/src
 ./komodod -pubkey=$pubkey &
 ~/hush3/src/hushd &
+aryacoind &
 ```
 
 Make the file executable:
