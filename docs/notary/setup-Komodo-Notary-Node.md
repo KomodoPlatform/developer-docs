@@ -884,6 +884,7 @@ gamecreditsd &
 einsteiniumd &
 gincoind &
 ~/hush3/src/hushd &
+aryacoind &
 ```
 
 Now wait for all the chains to finish syncing. This might take about 8-10 hours depending on your machine and internet connection. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories.
