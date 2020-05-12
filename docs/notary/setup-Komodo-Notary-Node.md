@@ -291,6 +291,8 @@ berkeleydb () {
     wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
     echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
     tar -xzvf db-4.8.30.NC.tar.gz
+    # Uncomment the following line in case of Debian 10
+    # sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
     cd db-4.8.30.NC/build_unix/
 
     ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$BITCOIN_PREFIX
@@ -495,6 +497,8 @@ berkeleydb () {
     wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
     echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
     tar -xzvf db-4.8.30.NC.tar.gz
+    # Uncomment the following line in case of Debian 10
+    # sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
     cd db-4.8.30.NC/build_unix/
     ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$AYA_PREFIX
     make install
@@ -634,10 +638,10 @@ mkdir -p $GAMECREDITS_PREFIX
 wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
 echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
 tar -xzvf db-4.8.30.NC.tar.gz
+# Uncomment the following line in case of Debian 10
+# sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
 cd db-4.8.30.NC/build_unix/
-
 ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$GAMECREDITS_PREFIX
-
 make -j$(nproc)
 make install
 cd $GAMECREDITS_ROOT
@@ -732,6 +736,8 @@ berkeleydb () {
     wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
     echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
     tar -xzvf db-4.8.30.NC.tar.gz
+    # Uncomment the following line in case of Debian 10
+    # sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
     cd db-4.8.30.NC/build_unix/
 
     ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$EMC2_PREFIX
@@ -813,6 +819,8 @@ berkeleydb () {
     wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
     echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
     tar -xzvf db-4.8.30.NC.tar.gz
+    # Uncomment the following line in case of Debian 10
+    # sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
     cd db-4.8.30.NC/build_unix/
 
     ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$GIN_PREFIX
