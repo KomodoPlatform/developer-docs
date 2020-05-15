@@ -29,13 +29,15 @@ The `numerator` and `denominator` are BigInteger numbers represented as a sign a
 
 ## batch requests
 
-Batching allows to send several requests at the same time as array filled with request objects.
-Results are returned in order of received requests.
+A batch request is a method for sending several unique requests to the network all at once. 
+
+The requests are sent as an array filled with request objects. Results are returned in the order of received requests.
 
 ::: tip
 
-It is *not* recommended to send requests that may depend on each other, for example coin activation and balance requests in same batch.
-The result of such request will be not deterministic, balance request may be whether successful or not depending on the order of request execution that is not guaranteed.
+Avoid sending requests that depend on each other. For example, do not send a coin activation and a balance request to that coin in the same batch.
+
+Such requests result in non-deterministic behavior, as the AtomicDEX/MM2 software may or may not execute the requests in the desired order.
 
 :::
 
@@ -49,7 +51,7 @@ The result of such request will be not deterministic, balance request may be whe
 
 | Structure       | Type                | Description                                                                                                                                                                                                     |
 | --------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| (none)          | array of objects    | the results in order of received requests; may contain null elements                                                                                                                                                     |
+| (none)          | array of objects    | the results, provided in the order of received requests; this may contain null elements                                                                                                                                                     |
 
 #### :pushpin: Examples
 
