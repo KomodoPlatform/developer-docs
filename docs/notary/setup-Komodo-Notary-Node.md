@@ -45,28 +45,22 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 
 Komodo Notary Node currently only works on Linux. To setup Komodo Notary Node be sure you have a solid server with the following minimum requirements:
 
-- CPU: A good CPU (Xeon/i7)
-
-- RAM: 64GB
-
-- Disk: 500GB SSD
-
-- Bandwidth: 100Mbps
-
+- OS: Ubuntu 18.x or Debian 10.x is recommended.
+- CPU: A High-Performance CPU (e.g. Xeon, i7/i9, Ryzen, EPYC, etc.)
+- RAM: 64 GB or more
+- Disk: 1 TB SSD or greater
+- Bandwidth: 100 Mbps or higher
 - Location: The region where you were elected (refer to Komodo region documentation, but you should already know based on elections)
 
 #### 3rd Party Server
 
 At the moment the current minimum server specs are listed below, however, this may change as more 3rd party coins require notarising.
 
-- CPU: A good CPU (8 threads minimum)
-
-- RAM: 16Gb
-
-- Disk: 256Gb SSD
-
-- Bandwidth: 100Mbps
-
+- OS: Ubuntu 18.x or Debian 10.x is recommended.
+- CPU: A High-Performance CPU (e.g. Xeon, i7/i9, Ryzen, EPYC, etc.)
+- RAM: 32 GB or more
+- Disk: 500 GB SSD or greater
+- Bandwidth: 100 Mbps or higher
 - Location: Within the same region as your main server (not required to be in the same datacenter)
 
 ### Operating System
@@ -294,9 +288,7 @@ berkeleydb () {
     # Uncomment the following line in case of Debian 10
     # sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
     cd db-4.8.30.NC/build_unix/
-
     ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$BITCOIN_PREFIX
-
     make install
     cd $BITCOIN_ROOT
 }
