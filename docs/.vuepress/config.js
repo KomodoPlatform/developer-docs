@@ -64,7 +64,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   base: "/",
   description: "Documentation for developers building on Komodo",
   themeConfig: {
-    repo: "komodoplatform/developer-docs/tree/sidd",
+    repo: "komodoplatform/developer-docs",
     repoLabel: "Github",
     docsDir: "docs",
     editLinks: true,
