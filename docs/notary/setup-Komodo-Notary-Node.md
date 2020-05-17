@@ -285,8 +285,14 @@ berkeleydb () {
     wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
     echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
     tar -xzvf db-4.8.30.NC.tar.gz
-    # Uncomment the following line in case of Debian 10
-    # sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+    if [ -f /etc/debian_version ]; then
+        DEBIAN_VERSION=$(cat /etc/debian_version)
+        DEBIAN_VERSION=${DEBIAN_VERSION%.*}
+        if [ "$DEBIAN_VERSION" -eq 10 ]; then
+            #https://www.fsanmartin.co/compiling-berkeley-db-4-8-30-in-ubuntu-19/
+            sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+        fi
+    fi
     cd db-4.8.30.NC/build_unix/
     ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$BITCOIN_PREFIX
     make install
@@ -489,8 +495,14 @@ berkeleydb () {
     wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
     echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
     tar -xzvf db-4.8.30.NC.tar.gz
-    # Uncomment the following line in case of Debian 10
-    # sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+    if [ -f /etc/debian_version ]; then
+        DEBIAN_VERSION=$(cat /etc/debian_version)
+        DEBIAN_VERSION=${DEBIAN_VERSION%.*}
+        if [ "$DEBIAN_VERSION" -eq 10 ]; then
+            #https://www.fsanmartin.co/compiling-berkeley-db-4-8-30-in-ubuntu-19/
+            sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+        fi
+    fi
     cd db-4.8.30.NC/build_unix/
     ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$AYA_PREFIX
     make install
@@ -568,18 +580,70 @@ sudo ln -sf /home/$USER/hush3/src/hushd /usr/local/bin/hushd
 ```bash
 cd ~
 git clone https://github.com/jl777/chips3 -b dev
-cd chips3
+cd chips3 
+```
+
+#### Step 2: Build
+
+##### Ubuntu 18.04
+
+```bash
 ./build.sh
 ```
 
-#### Step 2: Symlink the compiled binaries
+##### Debian 10
+
+Replace the contents of the `build.sh` file with the following code
+
+```bash
+#!/bin/bash
+
+berkeleydb() {
+    CHIPS_ROOT=$(pwd)
+    CHIPS_PREFIX="${CHIPS_ROOT}/db4"
+    mkdir -p $CHIPS_PREFIX
+    wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
+    echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
+    tar -xzvf db-4.8.30.NC.tar.gz
+    if [ -f /etc/debian_version ]; then
+        DEBIAN_VERSION=$(cat /etc/debian_version)
+        DEBIAN_VERSION=${DEBIAN_VERSION%.*}
+        if [ "$DEBIAN_VERSION" -eq 10 ]; then
+            #https://www.fsanmartin.co/compiling-berkeley-db-4-8-30-in-ubuntu-19/
+            sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+        fi
+    fi
+    cd db-4.8.30.NC/build_unix/
+    ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$CHIPS_PREFIX
+    make install
+    cd $CHIPS_ROOT
+}
+
+buildCHIPS() {
+    git pull
+    ./autogen.sh
+    ./configure LDFLAGS="-L${CHIPS_PREFIX}/lib/" CPPFLAGS="-I${CHIPS_PREFIX}/include/" --with-gui=no --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm --enable-static --disable-shared
+    make -j$(nproc)
+}
+berkeleydb
+buildCHIPS
+echo "Done building CHIPS!"
+```
+
+then, run the script
+
+```bash
+./build.sh
+```
+
+#### Step 3: Symlink the compiled binaries
 
 ```shell
 sudo ln -sf /home/$USER/chips3/src/chips-cli /usr/local/bin/chips-cli
 sudo ln -sf /home/$USER/chips3/src/chipsd /usr/local/bin/chipsd
 ```
 
-#### Step 3: Create CHIPS data dir, `chips.conf` file and restrict access to it
+#### Step 4: Create CHIPS data dir, `chips.conf` file and restrict access to it
 
 ```bash
 cd ~
@@ -637,8 +701,14 @@ mkdir -p $GAMECREDITS_PREFIX
 wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
 echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
 tar -xzvf db-4.8.30.NC.tar.gz
-# Uncomment the following line in case of Debian 10
-# sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+if [ -f /etc/debian_version ]; then
+        DEBIAN_VERSION=$(cat /etc/debian_version)
+        DEBIAN_VERSION=${DEBIAN_VERSION%.*}
+        if [ "$DEBIAN_VERSION" -eq 10 ]; then
+            #https://www.fsanmartin.co/compiling-berkeley-db-4-8-30-in-ubuntu-19/
+            sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+        fi
+    fi
 cd db-4.8.30.NC/build_unix/
 ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$GAMECREDITS_PREFIX
 make -j$(nproc)
@@ -735,12 +805,16 @@ berkeleydb () {
     wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
     echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
     tar -xzvf db-4.8.30.NC.tar.gz
-    # Uncomment the following line in case of Debian 10
-    # sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+    if [ -f /etc/debian_version ]; then
+        DEBIAN_VERSION=$(cat /etc/debian_version)
+        DEBIAN_VERSION=${DEBIAN_VERSION%.*}
+        if [ "$DEBIAN_VERSION" -eq 10 ]; then
+            #https://www.fsanmartin.co/compiling-berkeley-db-4-8-30-in-ubuntu-19/
+            sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+        fi
+    fi
     cd db-4.8.30.NC/build_unix/
-
     ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$EMC2_PREFIX
-
     make install
     cd $EMC2_ROOT
 }
@@ -818,12 +892,16 @@ berkeleydb () {
     wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
     echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
     tar -xzvf db-4.8.30.NC.tar.gz
-    # Uncomment the following line in case of Debian 10
-    # sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+    if [ -f /etc/debian_version ]; then
+        DEBIAN_VERSION=$(cat /etc/debian_version)
+        DEBIAN_VERSION=${DEBIAN_VERSION%.*}
+        if [ "$DEBIAN_VERSION" -eq 10 ]; then
+            #https://www.fsanmartin.co/compiling-berkeley-db-4-8-30-in-ubuntu-19/
+            sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+        fi
+    fi
     cd db-4.8.30.NC/build_unix/
-
     ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$GIN_PREFIX
-
     make install
     cd $GIN_ROOT
 }
