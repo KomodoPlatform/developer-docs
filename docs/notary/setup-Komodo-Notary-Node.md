@@ -545,13 +545,20 @@ chmod 600 ~/.aryacoin/aryacoin.conf
 
 ### HUSH3
 
-#### Clone HUSH3 source and compile
+#### Step 1: Clone HUSH3 source and compile
 
 ```bash
 cd ~
 git clone https://github.com/myhush/hush3 --branch v3.3.1 --single-branch hush3
 cd hush3
 ./zcutil/build.sh -j$(nproc)
+```
+
+#### Step 2: Symlink the compiled binaries
+
+```shell
+sudo ln -sf /home/$USER/hush3/src/hush-cli /usr/local/bin/hush-cli
+sudo ln -sf /home/$USER/hush3/src/hushd /usr/local/bin/hushd
 ```
 
 ### Chips
