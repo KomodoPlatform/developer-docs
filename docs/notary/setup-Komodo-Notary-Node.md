@@ -630,6 +630,12 @@ buildCHIPS
 echo "Done building CHIPS!"
 ```
 
+then, run the script
+
+```bash
+./build.sh
+```
+
 #### Step 3: Symlink the compiled binaries
 
 ```shell
