@@ -111,7 +111,7 @@ sudo ldconfig
 
 ```bash
 cd ~
-git clone https://github.com/KomodoPlatform/komodo -b master --single-branch
+git clone https://github.com/KomodoPlatform/komodo -b master
 cd komodo
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh -j$(nproc)
@@ -207,7 +207,7 @@ On both servers:
 
 ```bash
 cd ~
-git clone https://github.com/KomodoPlatform/dPoW -b master --single-branch
+git clone https://github.com/KomodoPlatform/dPoW -b master
 cd dPoW/iguana
 ./m_notary_build
 ```
@@ -268,7 +268,7 @@ The instructions below are only required on your main server, which is the one t
 
 ```bash
 cd ~
-git clone https://github.com/bitcoin/bitcoin -b 0.16 --single-branch
+git clone https://github.com/bitcoin/bitcoin -b 0.16
 cd bitcoin
 ```
 
@@ -348,7 +348,7 @@ chmod 600 ~/.bitcoin/bitcoin.conf
 
 ```bash
 cd ~
-git clone https://github.com/VerusCoin/VerusCoin -b v0.6.0-7 --single-branch
+git clone https://github.com/VerusCoin/VerusCoin -b v0.6.0-7
 cd VerusCoin
 ./zcutil/build.sh -j$(nproc)
 ```
@@ -471,7 +471,7 @@ The instructions below are only required on your 3rd party server, which is the 
 
 ```bash
 cd ~
-git clone https://github.com/sillyghost/AYAv2.git -b master --single-branch
+git clone https://github.com/sillyghost/AYAv2.git -b master
 cd AYAv2
 ```
 
@@ -549,7 +549,7 @@ chmod 600 ~/.aryacoin/aryacoin.conf
 
 ```bash
 cd ~
-git clone https://github.com/myhush/hush3 --branch v3.3.1 --single-branch hush3
+git clone https://github.com/myhush/hush3 -b v3.3.1
 cd hush3
 ./zcutil/build.sh -j$(nproc)
 ```
@@ -567,7 +567,7 @@ sudo ln -sf /home/$USER/hush3/src/hushd /usr/local/bin/hushd
 
 ```bash
 cd ~
-git clone https://github.com/jl777/chips3 -b dev --single-branch
+git clone https://github.com/jl777/chips3 -b dev
 cd chips3
 ./build.sh
 ```
@@ -618,7 +618,7 @@ chmod 600 ~/.chips/chips.conf
 
 ```bash
 cd ~
-git clone https://github.com/gamecredits-project/GameCredits -b master --single-branch
+git clone https://github.com/gamecredits-project/GameCredits -b master
 cd GameCredits
 ```
 
@@ -718,7 +718,7 @@ chmod 600 ~/.gamecredits/gamecredits.conf
 
 ```bash
 cd ~
-git clone https://github.com/emc2foundation/einsteinium -b master --single-branch
+git clone https://github.com/emc2foundation/einsteinium -b master
 cd einsteinium
 ```
 
@@ -801,7 +801,7 @@ chmod 600 ~/.einsteinium/einsteinium.conf
 
 ```bash
 cd ~
-git clone https://github.com/GIN-coin/gincoin-core -b master --single-branch
+git clone https://github.com/GIN-coin/gincoin-core -b master
 cd gincoin-core
 ```
 
