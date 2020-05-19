@@ -1113,7 +1113,7 @@ bitcoind &
 ~/VerusCoin/src/verusd -pubkey=$pubkey &
 sleep 60
 cd komodo/src
-./komodod -gen -genproclimit=1 -notary -pubkey=$pubkey &
+./komodod -gen -genproclimit=1 -notary -pubkey=$pubkey -minrelaytxfee=0.000035 -opretmintxfee=0.004 &
 sleep 600
 ./assetchains
 ```
