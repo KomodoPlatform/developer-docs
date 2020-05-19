@@ -26,7 +26,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 ### Main Server
 
 - **BTC:** [https://github.com/bitcoin/bitcoin](https://github.com/bitcoin/bitcoin) Branch: `0.16`
-- **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.6.0-7` . It should point to the commit: `249191886b59929575953425656d4a31328758eb`
+- **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.6.4-3` . It should point to the commit: `391c403814d25434b75cd3a82e1d79dfeb8ab0eb`
 
 ### 3rd Party Server
 
@@ -354,8 +354,9 @@ chmod 600 ~/.bitcoin/bitcoin.conf
 
 ```bash
 cd ~
-git clone https://github.com/VerusCoin/VerusCoin -b v0.6.0-7
+git clone https://github.com/VerusCoin/VerusCoin -b master
 cd VerusCoin
+git checkout 391c403
 ./zcutil/build.sh -j$(nproc)
 ```
 
