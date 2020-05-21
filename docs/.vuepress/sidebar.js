@@ -377,6 +377,10 @@ var sidebar = [
             "How to Become a Liquidity Provider",
           ],
           [
+            "/basic-docs/atomicdex/atomicdex-tutorials/atomicdex-metrics.md",
+            "DEX Metrics",
+          ],
+          [
             "/basic-docs/atomicdex/atomicdex-tutorials/additional-information-about-atomicdex.md",
             "Additional Information About AtomicDEX",
           ],
