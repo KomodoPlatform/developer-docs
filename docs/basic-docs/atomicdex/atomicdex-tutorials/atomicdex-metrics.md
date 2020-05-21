@@ -219,7 +219,7 @@ Click the `Metrics` menu and select one of the available options. These should b
 
 </div>
 
-Optionally, follow the hint to add rate in the previous screen by clicking `Fix by adding rate()`, to get the following screen
+Optionally, follow the hint to add `rate` in the previous screen by clicking `Fix by adding rate()`. This results in the following screen.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -227,7 +227,7 @@ Optionally, follow the hint to add rate in the previous screen by clicking `Fix 
 
 </div>
 
-Click the `Save` button and set a name for the dashboard when asked.
+Click the `Save` button and set a name for the dashboard.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -235,7 +235,7 @@ Click the `Save` button and set a name for the dashboard when asked.
 
 </div>
 
-Now you have a Graphana dashboard with a panel that shows a graph of the `rpc_client_traffic_in` 
+Now you have a Graphana dashboard with a panel that shows a graph of the `rpc_client_traffic_in`.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
