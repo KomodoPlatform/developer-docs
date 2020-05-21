@@ -3,6 +3,7 @@
 MarketMaker 2.0 (MM2) collects data metrics that allow interested users to view the history of events of a MM2 session. For example, metrics recorded by MM2 include incoming and outgoing traffic.
 
 The metrics can be:
+
 - Recorded to a log file at a specified frequency
 - Requested using AtomicDEX API in JSON format
 - Visualized using Prometheus and Grafana
@@ -66,11 +67,11 @@ The response should be similar to the following.
 
 ## Prometheus Integration
 
-MarketMaker 2.0 supports integration with Prometheus. This software allows users to configure an elegant dashboard using built-in [graphs,](https://prometheus.io/docs/prometheus/latest/getting_started/#using-the-expression-browser) or to export data for graphical processing using [Grafana](https://prometheus.io/docs/visualization/grafana/).
+MarketMaker 2.0 supports integration with Prometheus. This software allows users to setup automated scraping of metrics at regular intervals and enables sophisticated queries on the stored [timeseries](https://en.wikipedia.org/wiki/Time_series) data. It also allows users to configure an elegant dashboard using built-in [graphs,](https://prometheus.io/docs/prometheus/latest/getting_started/#using-the-expression-browser) or to export data for graphical processing using [Grafana](https://prometheus.io/docs/visualization/grafana/).
 
-Prometheus scrapes metrics using an HTTP pull model. 
+Prometheus scrapes metrics using an HTTP pull model.
 
-To provide Prometheus with the ability to scrape the metrics at `localhost:9001`, initiate MM2 with the following additional argument:
+To provide Prometheus with the ability to scrape the metrics at [localhost:9001](localhost:9001), initiate MM2 with the following additional argument:
 
 ```
 \"prometheusport\":9001
@@ -158,8 +159,86 @@ docker-compose up
 
 ### Using the graphing interface
 
-To use Prometheus's built-in graph expressions, navigate to `http://localhost:9090/graph` and use the `Graph` tab.
+#### Prometheus
 
-To use Grafana, navigate to `http://localhost:3000` and log in using the default credentials: `admin` / `admin`.
+Once the docker containers are up and running, navigate to [http://localhost:9090/graph](http://localhost:9090/graph) and use the `Graph` tab to use Prometheus's built-in graph expressions.
 
-For more information see the [Prometheus guide.](https://prometheus.io/docs/visualization/grafana/#using) 
+To visualize one of the available metrics, click on the dropdown menu highlighted in the following picture, select a metric and then click execute.
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+
+<img src="/prom-metric-selection.png">
+
+</div>
+
+The graphical representation of the metric can be viewed in the `Graph` tab.
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+
+<img src="/prom-graph-example.png">
+
+</div>
+
+More graphs can be added to the same page using the "Add Graph" button available.
+
+#### Graphana
+
+Graphana can access data scraped by Prometheus and it can analyze, transform and display it in a variety of ways. For more information see the [Prometheus guide.](https://prometheus.io/docs/visualization/grafana/#using)
+
+To use Grafana, navigate to [http://localhost:3000](http://localhost:3000) and log in using the default credentials: `admin` / `admin`. When offered to set a new password, do so and remember it.
+
+Next, navigate to [http://localhost:3000/dashboards](http://localhost:3000/dashboards) and click on the `New Dashboard` button
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+
+<img src="/graphana-new-dashboard.png">
+
+</div>
+
+Next, click the `Add Panel` button
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+
+<img src="/graphana-add-panel.png">
+
+</div>
+
+In the next screen, select `Prometheus` as the provider from the drop down menu in the `Query` tab. 
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+
+<img src="/graphana-select-prometheus.png">
+
+</div>
+
+Click the `Metrics` menu and select one of the available options. These should be the same ones available directly in the Graphs tab of Prometheus: [http://localhost:9090/graph](http://localhost:9090/graph).
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+
+<img src="/graphana-select-metric.png">
+
+</div>
+
+Optionally, follow the hint to add rate in the previous screen by clicking `Fix by adding rate()`, to get the following screen
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+
+<img src="/graphana-rate-applied.png">
+
+</div>
+
+Click the `Save` button and set a name for the dashboard when asked.
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+
+<img src="/graphana-save-panel.png">
+
+</div>
+
+Now you have a Graphana dashboard with a panel that shows a graph of the `rpc_client_traffic_in` 
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+
+<img src="/graphana-dashboard.png">
+
+</div>
