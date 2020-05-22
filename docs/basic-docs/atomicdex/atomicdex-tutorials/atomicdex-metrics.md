@@ -181,9 +181,9 @@ The graphical representation of the metric can be viewed in the `Graph` tab.
 
 More graphs can be added to the same page using the "Add Graph" button available.
 
-#### Graphana
+#### Grafana
 
-Graphana can access data scraped by Prometheus and it can analyze, transform and display it in a variety of ways. For more information see the [Prometheus guide.](https://prometheus.io/docs/visualization/grafana/#using)
+Grafana can access data scraped by Prometheus and it can analyze, transform and display it in a variety of ways. For more information see the [Prometheus guide.](https://prometheus.io/docs/visualization/grafana/#using)
 
 To use Grafana, navigate to [http://localhost:3000](http://localhost:3000) and log in using the default credentials: `admin` / `admin`. When offered to set a new password, do so and remember it.
 
@@ -191,7 +191,7 @@ Next, navigate to [http://localhost:3000/dashboards](http://localhost:3000/dashb
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="/graphana-new-dashboard.png">
+<img src="/grafana-new-dashboard.png">
 
 </div>
 
@@ -199,7 +199,7 @@ Next, click the `Add Panel` button
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="/graphana-add-panel.png">
+<img src="/grafana-add-panel.png">
 
 </div>
 
@@ -207,7 +207,7 @@ In the next screen, select `Prometheus` as the provider from the drop down menu 
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="/graphana-select-prometheus.png">
+<img src="/grafana-select-prometheus.png">
 
 </div>
 
@@ -215,7 +215,7 @@ Click the `Metrics` menu and select one of the available options. These should b
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="/graphana-select-metric.png">
+<img src="/grafana-select-metric.png">
 
 </div>
 
@@ -223,7 +223,7 @@ Optionally, follow the hint to add `rate` in the previous screen by clicking `Fi
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="/graphana-rate-applied.png">
+<img src="/grafana-rate-applied.png">
 
 </div>
 
@@ -231,14 +231,14 @@ Click the `Save` button and set a name for the dashboard.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="/graphana-save-panel.png">
+<img src="/grafana-save-panel.png">
 
 </div>
 
-Now you have a Graphana dashboard with a panel that shows a graph of the `rpc_client_traffic_in`.
+Now you have a Grafana dashboard with a panel that shows a graph of the `rpc_client_traffic_in`.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="/graphana-dashboard.png">
+<img src="/grafana-dashboard.png">
 
 </div>
