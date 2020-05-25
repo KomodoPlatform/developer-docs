@@ -1328,6 +1328,7 @@ See also <b>dumpprivkey</b>.
 | "privkey" | (string, required)                | the private key (see [dumpprivkey](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#dumpprivkey)) |
 | "label"   | (string, optional, default="")    | an optional label                                                          |
 | rescan    | (boolean, optional, default=true) | rescan the wallet for transactions                                         |
+| block     | (integer, optional)               | block height to rescan from                                               |
 
 ### Response
 
@@ -1358,6 +1359,22 @@ Command:
 
 ```bash
 ./komodo-cli importprivkey "DONOTUSExxxxxxxxxxxxxxxxxxxxj4Xu9jjinhLpffhdtoKg5gar2" "testing" false
+```
+
+
+<collapse-text hidden title="Response">
+
+
+```bash
+RFtA32tttJm89VWRWPCQtV8bkQ1FvE1MBG
+```
+
+</collapse-text>
+
+Command:
+
+```bash
+./komodo-cli importprivkey "DONOTUSExxxxxxxxxxxxxxxxxxxxj4Xu9jjinhLpffhdtoKg5gar2" "testing" true 1762762
 ```
 
 

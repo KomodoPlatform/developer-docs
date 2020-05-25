@@ -604,7 +604,7 @@ Use `ac_pubkey` to send the founder's reward to a normal address.
 
 Use `ac_script` to send the founder's reward to a multi-signature address.
 
-Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
+Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member `Blackjok3r`'s modifications to knomp using the [disable-cb feature](https://github.com/webworker01/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
 
 ## ac_founders_reward
 
@@ -721,7 +721,7 @@ For example, if `-ac_reward=100000000` and `-ac_perc=10000000`, for each block m
 The maximum amount of coins created via this method across all transactions per block is capped at `(1000000 * <percentage>)`.
 
 ::: tip
-Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding pubkey. This only affects a miner trying to use a stratum. Team member, [Blackjok3r](https://github.com/blackjok3rtt/), developed a coinbase-override method for this purpose. Please see [this repo](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode) for details.
+Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding pubkey. This only affects a miner trying to use a stratum. Team member, `Blackjok3r`, developed a coinbase-override method for this purpose. Please see [this repo](https://github.com/webworker01/knomp/#disable-coinbase-mode) for details.
 :::
 
 #### ac_perc with ac_founders

@@ -27,14 +27,79 @@ The `numerator` and `denominator` are BigInteger numbers represented as a sign a
 
 `[-1,[1,1]]` represents `-1000000000000000000000000000000010000000000000000000000000000000` = `-4294967297`
 
-<!--
+## batch requests
 
-Sidd: The following was removed from the first sentence above. The readability here is difficult, and if all versions of MM2 going forward offer num-rational crate, there is no need to include the version number, I believe? Let me know if we should still keep it.
+A batch request is a method for sending several unique requests to the network all at once. 
 
+The requests are sent as an array filled with request objects. Results are returned in the order of received requests.
 
-Starting from 2.0.1319_mm2_059381c81 version MM2
+::: tip
 
--->
+Avoid sending requests that depend on each other. For example, do not send a coin activation and a balance request to that coin in the same batch.
+
+Such requests result in non-deterministic behavior, as the AtomicDEX/MM2 software may or may not execute the requests in the desired order.
+
+:::
+
+#### Arguments
+
+| Structure       | Type                       | Description                                                                   |
+| --------------- | -------------------------- | ----------------------------------------------------------------------------- |
+| (none)          | array of objects           | request objects to be executed in parallel                                                     |
+
+#### Response
+
+| Structure       | Type                | Description                                                                                                                                                                                                     |
+| --------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| (none)          | array of objects    | the results, provided in the order of received requests; this may contain null elements                                                                                                                                                     |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "[
+{\"method\":\"electrum\",\"coin\":\"RICK\",\"servers\":[{\"url\":\"electrum1.cipig.net:10017\"},{\"url\":\"electrum2.cipig.net:10017\"},{\"url\":\"electrum3.cipig.net:10017\"}],\"userpass\":\"$userpass\",\"mm2\":1},
+{\"method\":\"electrum\",\"coin\":\"MORTY\",\"servers\":[{\"url\":\"electrum1.cipig.net:10018\"},{\"url\":\"electrum2.cipig.net:10018\"},{\"url\":\"electrum3.cipig.net:10018\"}],\"userpass\":\"$userpass\",\"mm2\":1},
+{\"method\":\"electrum\",\"coin\":\"RICK\",\"servers\":[{\"url\":\"electrum1.cipig.net:10017\"},{\"url\":\"electrum2.cipig.net:10017\"},{\"url\":\"electrum3.cipig.net:10017\"}],\"userpass\":\"invalid userpass\",\"mm2\":1}
+]"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+[
+  {
+    "address":"RR5ecgYgykX8NCjR5zjiHMLy7F62LZUecQ",
+    "balance":"9.8688213",
+    "coin":"RICK",
+    "locked_by_swaps":"0",
+    "required_confirmations":1,
+    "requires_notarization":false,
+    "result":"success"
+  },
+  {
+    "address":"RR5ecgYgykX8NCjR5zjiHMLy7F62LZUecQ",
+    "balance":"4.40662368",
+    "coin":"MORTY",
+    "locked_by_swaps":"0",
+    "required_confirmations":1,
+    "requires_notarization":false,
+    "result":"success"
+  },
+  {
+    "error":"rpc:295] Userpass is invalid!"
+  }
+]
+```
+
+</collapse-text>
+
+</div>
 
 ## buy
 
@@ -44,18 +109,23 @@ The `buy` method issues a buy request and attempts to match an order from the or
 
 ::: tip
 
-Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from the market. If your order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice method.](../../../basic-docs/atomicdex/atomicdex-api.html#setprice)
+Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from the market. If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice method.](../../../basic-docs/atomicdex/atomicdex-api.html#setprice)
 
 :::
 
 #### Arguments
 
-| Structure | Type                       | Description                                                                   |
-| --------- | -------------------------- | ----------------------------------------------------------------------------- |
-| base      | string                     | the name of the coin the user desires to receive                              |
-| rel       | string                     | the name of the coin the user desires to sell                                 |
-| price     | numeric string or rational | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| volume    | numeric string or rational | the amount of coins the user is willing to receive of the `base` coin         |
+| Structure       | Type                       | Description                                                                   |
+| --------------- | -------------------------- | ----------------------------------------------------------------------------- |
+| base            | string                     | the name of the coin the user desires to receive                              |
+| rel             | string                     | the name of the coin the user desires to sell                                 |
+| price           | numeric string or rational | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| volume          | numeric string or rational | the amount of coins the user is willing to receive of the `base` coin         |
+| match_by        | object                     | the created order is matched using this condition. *Important:* This condition is not applied after a `GoodTillCancelled` order is converted to a `maker` request |
+| match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; default is `Any` |
+| match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
+| order_type      | object                     | the type of the order        |
+| order_type.type | string                     | there are two types from which to choose: `GoodTillCancelled` and `FillOrKill`. The `GoodTillCancelled` order is automatically converted to a `maker` order if the order is not matched in 30 seconds, and this `maker` order stays in the orderbook until explicitly cancelled. On the other hand, a `FillOrKill` order is cancelled if it is not matched within 30 seconds. The default type is `GoodTillCancelled` |
 
 #### Response
 
@@ -64,16 +134,19 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | result                 | object   | the resulting order object                                                                                                                                                                                      |
 | result.action          | string   | the action of the request (`Buy`)                                                                                                                                                                               |
 | result.base            | string   | the base currency of request                                                                                                                                                                                    |
-| result.base_amount     | string   | the resulting amount of base currency that will be received if the order matches (in decimal representation)                                                                                                    |
-| result.base_amount_rat | rational | the resulting amount of base currency that will be received if the order matches (in rational representation)                                                                                                   |
+| result.base_amount     | string   | the resulting amount of base currency that is received if the order matches (in decimal representation)                                                                                                    |
+| result.base_amount_rat | rational | the resulting amount of base currency that is received if the order matches (in rational representation)                                                                                                   |
 | result.rel             | string   | the rel currency of the request                                                                                                                                                                                 |
-| result.rel_amount      | string   | the maximum amount of `rel` coin that will be spent to buy the `base_amount` (according to `price`, in decimal representation)                                                                                  |
-| result.rel_amount_rat  | rational | the maximum amount of `rel` coin that will be spent to buy the `base_amount` (according to `price`, in rational representation)                                                                                 |
+| result.rel_amount      | string   | the maximum amount of `rel` coin that is spent in order to buy the `base_amount` (according to `price`, in decimal representation)                                                                                  |
+| result.rel_amount_rat  | rational | the maximum amount of `rel` coin that is spent in order to buy the `base_amount` (according to `price`, in rational representation)                                                                                 |
 | result.method          | string   | this field is used for internal P2P interactions; the value is always equal to "request"                                                                                                                        |
-| result.dest_pub_key    | string   | reserved for future use. `dest_pub_key` will allow the user to choose the P2P node that will be eligible to match with the request. This value defaults to a "zero pubkey", which means `anyone` can be a match |
+| result.dest_pub_key    | string   | reserved for future use. `dest_pub_key` allows the user to choose the P2P node that is eligible to match with the request. This value defaults to a "zero pubkey", which means `anyone` can be a match |
 | result.sender_pubkey   | string   | the public key of this node                                                                                                                                                                                     |
 | result.uuid            | string   | the request uuid                                                                                                                                                                                                |
-
+| result.match_by        | object                     | the created order is matched using this condition                        |
+| result.match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
+| result.match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
+                                                                                                                                                               
 #### :pushpin: Examples
 
 #### Command (decimal representation)
@@ -86,6 +159,36 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]]}"
+```
+
+#### Command (GoodTillCancelled type)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"order_type\":{\"type\":\"GoodTillCancelled\"}}"
+```
+
+#### Command (FillOrKill type)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"order_type\":{\"type\":\"FillOrKill\"}}"
+```
+
+#### Command (match by Any)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Any\"}}"
+```
+
+#### Command (match by Pubkeys)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Pubkeys\",\"data\":[\"1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a\"]}}"
+```
+
+#### Command (match by Orders)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Orders\",\"data\":[\"d14452bb-e82d-44a0-86b0-10d4cdcb8b24\"]}}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -114,6 +217,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     ],
     "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
     "uuid": "288743e2-92a5-471e-92d5-bb828a2303c3"
+  },
+  "match_by":{
+    "data":["1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a"],
+    "type":"Pubkeys"
   }
 }
 ```
@@ -153,7 +260,7 @@ The `cancel_all_orders` cancels the active orders created by the MM2 node by spe
 | cancel_by.data        | object | additional data the cancel condition; present with `Pair` and `Coin` types                                                       |
 | cancel_by.data.base   | string | base coin of the pair; `Pair` type only                                                                                          |
 | cancel_by.data.rel    | string | rel coin of the pair; `Pair` type only                                                                                           |
-| cancel_by.data.ticker | string | order will be cancelled if it uses `ticker` as base or rel; `Coin` type only                                                     |
+| cancel_by.data.ticker | string | order is cancelled if it uses `ticker` as base or rel; `Coin` type only                                                     |
 
 #### Response
 
@@ -594,7 +701,7 @@ The following information can assist the user/developer in connecting AtomicDEX 
 - Swap smart contract on the ETH mainnet: [0x8500AFc0bc5214728082163326C2FF0C73f4a871](https://etherscan.io/address/0x8500AFc0bc5214728082163326C2FF0C73f4a871)
   - Main-net nodes maintained by the Komodo team: <b>http://eth1.cipig.net:8555</b>, <b>http://eth2.cipig.net:8555</b>, <b>http://eth3.cipig.net:8555</b>
 - Swap smart contract on the Ropsten testnet: [0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94](https://ropsten.etherscan.io/address/0x7bc1bbdd6a0a722fc9bffc49c921b685ecb84b94)
-  - Ropsten node maintained by the Komodo team: <b>http://195.201.0.6:8545</b>
+  - Ropsten node maintained by the Komodo team: <b>http://eth-ropsten.cipig.net:8645</b>
 
 To use AtomicDEX software on another Ethereum-based network, such as the Kovan testnet or ETC, deploy the Etomic swap contract code from the repository linked below. Use of this code requires either an ETH node setup or access to a public service such as [Infura.](https://infura.io/)
 
@@ -686,7 +793,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 #### Command (for Ethereum and ERC20-based blockchains)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://195.201.0.6:8545\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://eth-ropsten.cipig.net:8645\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\"}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -714,7 +821,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 #### Command (for Ethereum and ERC20-based blockchains with gas_station_url)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://195.201.0.6:8545\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\",\"gas_station_url\":\"https://ethgasstation.info/json/ethgasAPI.json\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://eth-ropsten.cipig.net:8645\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\",\"gas_station_url\":\"https://ethgasstation.info/json/ethgasAPI.json\"}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -852,7 +959,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **get_trade_fee coin**
 
-The `get_trade_fee` method returns the approximate amount of the miner fee that will be paid per swap transaction.
+The `get_trade_fee` method returns the approximate amount of the miner fee that is paid per swap transaction.
 
 This amount should be multiplied by 2 and deducted from the volume on `buy/sell` calls when the user is about to trade the entire balance of the selected coin.
 
@@ -867,7 +974,7 @@ This amount should be multiplied by 2 and deducted from the volume on `buy/sell`
 | Structure     | Type             | Description                                                                                                                                                |
 | ------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result        | object           | an object containing the relevant information                                                                                                              |
-| result.coin   | string           | the fee will be paid from the user's balance of this coin. This coin name may differ from the requested coin. For example ERC20 fees are paid by ETH (gas) |
+| result.coin   | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example ERC20 fees are paid by ETH (gas) |
 | result.amount | string (numeric) | the approximate fee amount to be paid per swap transaction                                                                                                 |
 
 #### :pushpin: Examples
@@ -1282,7 +1389,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
             [1, [1]]
           ],
           "sender_pubkey": "031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
-          "uuid": "ea199ac4-b216-4a04-9f08-ac73aa06ae37"
+          "uuid": "ea199ac4-b216-4a04-9f08-ac73aa06ae37",
+          "match_by":{
+            "type":"Any"
+          }
+        },
+        "order_type":{
+          "type":"GoodTillCancelled"
         }
       }
     }
@@ -3410,7 +3523,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         [1, [1]]
       ],
       "sender_pubkey": "031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
-      "uuid": "ea199ac4-b216-4a04-9f08-ac73aa06ae37"
+      "uuid": "ea199ac4-b216-4a04-9f08-ac73aa06ae37",
+      "match_by":{
+        "type":"Any"
+      } 
+    },
+    "order_type":{
+      "type":"GoodTillCancelled"
     }
   },
   "type": "Taker"
@@ -3464,6 +3583,7 @@ The `orderbook` method requests from the network the currently available orders 
 | rel            | string           | the name of the coin the user will trade                                      |
 | timestamp      | number           | the timestamp of the orderbook request                                        |
 | netid          | number           | the id of the network on which the request is made (default is `0`)           |
+| uuid           | string           | the uuid of order                                                             |
 
 #### :pushpin: Examples
 
@@ -3498,7 +3618,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       ],
       "pubkey": "631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
       "age": 1,
-      "zcredits": 0
+      "zcredits": 0,
+      "uuid":"6343b2b1-c896-47d4-b0f2-a11798f654ed"
     }
   ],
   "base": "HELLO",
@@ -3607,18 +3728,23 @@ The `sell` method issues a sell request and attempts to match an order from the 
 
 ::: tip
 
-Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from market. If your order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
+Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from market. If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
 
 :::
 
 #### Arguments
 
-| Structure | Type                       | Description                                                                       |
-| --------- | -------------------------- | --------------------------------------------------------------------------------- |
-| base      | string                     | the name of the coin the user desires to sell                                     |
-| rel       | string                     | the name of the coin the user desires to receive                                  |
-| price     | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin |
-| volume    | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin                |
+| Structure       | Type                       | Description                                                                       |
+| --------------- | -------------------------- | --------------------------------------------------------------------------------- |
+| base            | string                     | the name of the coin the user desires to sell                                     |
+| rel             | string                     | the name of the coin the user desires to receive                                  |
+| price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin |
+| volume          | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin                |
+| match_by        | object                     | the created order is matched using this condition; *important:* this condition is not applied after `GoodTillCancelled` order conversion to `maker` request            |
+| match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
+| match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
+| order_type      | object                     | the type of the order        |
+| order_type.type | string                     | there are two types from which to choose: `GoodTillCancelled` and `FillOrKill`. The `GoodTillCancelled` order is automatically converted to a `maker` order if the order is not matched in 30 seconds, and this `maker` order stays in the orderbook until explicitly cancelled. On the other hand, a `FillOrKill` order is cancelled if it is not matched within 30 seconds. The default type is `GoodTillCancelled` |
 
 #### Response
 
@@ -3627,15 +3753,18 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | result                 | object   | the resulting order object                                                                                                                                                                                      |
 | result.action          | string   | the action of the request (`Sell`)                                                                                                                                                                              |
 | result.base            | string   | the base currency of the request                                                                                                                                                                                |
-| result.base_amount     | string   | the resulting amount of base currency that will be sold if the order matches (in decimal representation)                                                                                                        |
-| result.base_amount_rat | rational | the resulting amount of base currency that will be sold if the order matches (in rational representation)                                                                                                       |
+| result.base_amount     | string   | the resulting amount of base currency that is sold if the order matches (in decimal representation)                                                                                                        |
+| result.base_amount_rat | rational | the resulting amount of base currency that is sold if the order matches (in rational representation)                                                                                                       |
 | result.rel             | string   | the rel currency of the request                                                                                                                                                                                 |
-| result.rel_amount      | string   | the minimum amount of `rel` coin that will be received to sell the `base_amount` of `base` (according to `price`, in decimal representation)                                                                    |
-| result.rel_amount_rat  | rational | the minimum amount of `rel` coin that will be received to sell the `base_amount` of `base` (according to `price`, in rational representation)                                                                   |
+| result.rel_amount      | string   | the minimum amount of `rel` coin that must be received in order to sell the `base_amount` of `base` (according to `price`, in decimal representation)                                                                    |
+| result.rel_amount_rat  | rational | the minimum amount of `rel` coin that must be received in order to sell the `base_amount` of `base` (according to `price`, in rational representation)                                                                   |
 | result.method          | string   | this field is used for internal P2P interactions; the value is always equal to "request"                                                                                                                        |
-| result.dest_pub_key    | string   | reserved for future use. The `dest_pub_key` will allow the user to choose the P2P node that is be eligible to match with the request. This value defaults to "zero pubkey", which means that `anyone` can match |
+| result.dest_pub_key    | string   | reserved for future use. The `dest_pub_key` allows the user to choose the P2P node that is eligible to match with the request. This value defaults to "zero pubkey", meaning that `anyone` can match |
 | result.sender_pubkey   | string   | the public key of our node                                                                                                                                                                                      |
 | result.uuid            | string   | the request uuid                                                                                                                                                                                                |
+| result.match_by        | object           | the created order is matched using this condition                        |
+| result.match_by.type   | string           | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
+| result.match_by.data   | array of strings | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
 
 #### :pushpin: Examples
 
@@ -3649,6 +3778,36 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]]}"
+```
+
+#### Command (GoodTillCancelled type)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"order_type\":{\"type\":\"GoodTillCancelled\"}}"
+```
+
+#### Command (FillOrKill type)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"order_type\":{\"type\":\"FillOrKill\"}}"
+```
+
+#### Command (match by Any)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Any\"}}"
+```
+
+#### Command (match by Pubkeys)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Pubkeys\",\"data\":[\"1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a\"]}}"
+```
+
+#### Command (match by Orders)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Orders\",\"data\":[\"d14452bb-e82d-44a0-86b0-10d4cdcb8b24\"]}}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -3676,7 +3835,11 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       [1, [1]]
     ],
     "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-    "uuid": "d14452bb-e82d-44a0-86b0-10d4cdcb8b24"
+    "uuid": "d14452bb-e82d-44a0-86b0-10d4cdcb8b24",
+    "match_by":{
+      "data":["1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a"],
+      "type":"Pubkeys"
+    }
   }
 }
 ```
@@ -4148,7 +4311,7 @@ This method generates a raw transaction which should then be broadcast using [se
 | Structure     | Type             | Description                                                                                                                               |
 | ------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | coin          | string           | the name of the coin the user desires to withdraw                                                                                         |
-| to            | string           | coins will be withdrawn to this address                                                                                                   |
+| to            | string           | coins are withdrawn to this address                                                                                                   |
 | amount        | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                                                          |
 | max           | bool             | withdraw the maximum available amount                                                                                                     |
 | fee.type      | string           | type of transaction fee; possible values: `UtxoFixed`, `UtxoPerKbyte`, `EthGas`                                                           |
@@ -4160,8 +4323,8 @@ This method generates a raw transaction which should then be broadcast using [se
 
 | Structure         | Type             | Description                                                                                                                                                                   |
 | ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| from              | array of strings | coins will be withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                              |
-| to                | array of strings | coins will be withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                      |
+| from              | array of strings | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                              |
+| to                | array of strings | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                      |
 | my_balance_change | string (numeric) | the expected balance of change in `my_address` after the transaction broadcasts                                                                                               |
 | received_by_me    | string (numeric) | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that MM2 send change to `my_address` |
 | spent_by_me       | string (numeric) | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                    |

@@ -1,63 +1,80 @@
-require('dotenv').config()
+require("dotenv").config();
 var redirectAliases = require("./public/_redirects.js");
 var sidebarImport = require("./sidebar.js");
-var algoliaSecret = require("./algolia-secret.js")
+var algoliaSecret = require("./algolia-secret.js");
 module.exports = {
   plugins: [
     [
       "redirect",
       {
-        alias: redirectAliases
-      }
-    ]
+        alias: redirectAliases,
+      },
+    ],
+    [
+      "vuepress-plugin-medium-zoom",
+      {
+        //selector: ".my-wrapper .my-img",
+        delay: 1000,
+        options: {
+          margin: 24,
+          background: "#026782",
+          scrollOffset: 0,
+        },
+      },
+    ],
   ],
   head: [
-    ["script", {}, `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    [
+      "script",
+      {},
+      `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PC28587');`],
+})(window,document,'script','dataLayer','GTM-PC28587');`,
+    ],
     [
       "link",
       {
         rel: "icon",
-        href: "KMD_Mark_Black.png"
-      }
+        href: "KMD_Mark_Black.png",
+      },
     ],
     [
       "meta",
       {
         name: "twitter:card",
-        content: "summary_large_image"
-      }
+        content: "summary_large_image",
+      },
     ],
     [
       "meta",
       {
         name: "twitter:site",
-        content: "@komodoplatform"
-      }
+        content: "@komodoplatform",
+      },
     ],
     [
       "meta",
       {
         name: "twitter:title",
-        content: "Komodo Developer Documentation"
-      }
+        content: "Komodo Developer Documentation",
+      },
     ],
     [
       "meta",
       {
         name: "twitter:description",
-        content: "Documentation for developers building on the Komodo Platform"
-      }
+        content: "Documentation for developers building on the Komodo Platform",
+      },
     ],
     [
       "meta",
       {
         name: "twitter:image",
-        content: "https://developers.komodoplatform.com/start-here-pics/Dev_Docs_Introduction_small.png"
-      }
+        content:
+          "https://developers.komodoplatform.com/start-here-pics/Dev_Docs_Introduction_small.png",
+      },
     ],
   ],
   title: "Komodo Documentation",
@@ -74,22 +91,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     logo: "/KMD_Horiz_White.svg",
     algolia: {
       apiKey: algoliaSecret.key,
-      indexName: 'komodoplatform'
+      indexName: "komodoplatform",
     },
-    nav: [{
+    nav: [
+      {
         text: "Start Here",
-        link: "/basic-docs/start-here/about-komodo-platform/about-komodo-platform.md"
+        link:
+          "/basic-docs/start-here/about-komodo-platform/about-komodo-platform.md",
       },
       {
         text: "KomodoPlatform.com",
-        link: "https://komodoplatform.com"
-      }
+        link: "https://komodoplatform.com",
+      },
     ],
     sidebar: {
       "/basic-docs/": sidebarImport,
 
       // Repeat everything from above
-      "/": sidebarImport
-    }
-  }
+      "/": sidebarImport,
+    },
+  },
 };
