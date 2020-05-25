@@ -107,7 +107,7 @@ sudo ldconfig
 
 ## Install Komodo by compiling it from source
 
-### Clone the source, checkout `beta` branch and compile
+### Clone the source, checkout `master` branch and compile
 
 ```bash
 cd ~
