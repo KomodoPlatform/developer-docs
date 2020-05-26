@@ -36,7 +36,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 - **GIN:** [https://github.com/GIN-coin/gincoin-core.git](https://github.com/GIN-coin/gincoin-core.git) Branch: `master`
 - **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `dev`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master`
-- **MCL:** [https://github.com/marmarachain/Marmara-v.1.0.git](https://github.com/marmarachain/Marmara-v.1.0.git) Branch: `master` Commit: `84c1471f63c5e5d4e4bd0a6624d0502f681b1887`
+- **MCL:** [https://github.com/marmarachain/Marmara-v.1.0.git](https://github.com/marmarachain/Marmara-v.1.0.git) Branch: `master` Commit: `9013c5cb1bc88cf5db5910e4f251f56757385f5f`
 
 
 ## Requirements
@@ -1021,7 +1021,7 @@ chmod 600 ~/.gincoincore/gincoin.conf
 cd ~
 git clone https://github.com/marmarachain/Marmara-v.1.0 -b master
 cd Marmara-v.1.0
-git checkout 84c1471f63c5e5d4e4bd0a6624d0502f681b1887
+git checkout 9013c5cb1bc88cf5db5910e4f251f56757385f5f
 ./zcutil/build.sh -j$(nproc)
 ```
 
