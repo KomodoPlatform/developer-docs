@@ -36,6 +36,8 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 - **GIN:** [https://github.com/GIN-coin/gincoin-core.git](https://github.com/GIN-coin/gincoin-core.git) Branch: `master`
 - **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `dev`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master`
+- **MCL:** [https://github.com/marmarachain/Marmara-v.1.0.git](https://github.com/marmarachain/Marmara-v.1.0.git) Branch: `master` Commit: `84c1471f63c5e5d4e4bd0a6624d0502f681b1887`
+
 
 ## Requirements
 
@@ -1011,6 +1013,18 @@ Restrict access to the `gincoin.conf` file
 chmod 600 ~/.gincoincore/gincoin.conf
 ```
 
+### MarmaraChain (MCL)
+
+#### Step 1: Clone MCL source and compile
+
+```bash
+cd ~
+git clone https://github.com/marmarachain/Marmara-v.1.0 -b master
+cd Marmara-v.1.0
+git checkout 84c1471f63c5e5d4e4bd0a6624d0502f681b1887
+./zcutil/build.sh -j$(nproc)
+```
+
 ### Start the daemons and sync all the chains
 
 For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarisation.
@@ -1025,6 +1039,7 @@ einsteiniumd &
 gincoind &
 ~/hush3/src/hushd &
 aryacoind &
+~/Marmara-v.1.0/src/komodod -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 ```
 
 Now wait for all the chains to finish syncing. This might take about 8-10 hours depending on your machine and internet connection. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories.
@@ -1046,6 +1061,8 @@ tail -f ~/.gincoincore/debug.log
 tail -f ~/.komodo/HUSH3/debug.log
 # AYA
 tail -f ~/.aryacoin/debug.log
+# MCL
+tail -f ~/.komodo/MCL/debug.log
 ```
 
 You can now wait for all the coins to finish syncing. Just double check the block you've downloaded with an explorer to verify.
@@ -1064,6 +1081,7 @@ gamecredits-cli importprivkey Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiEr
 einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
 gincoin-cli importprivkey WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
 aryacoin-cli importprivkey T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
+komodo-cli -ac_name=MCL importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 ```
 
 This may take some time and will display the coin name and address after each import. You can tail the coin specific `debug.log` files to check the progress.
@@ -1098,6 +1116,7 @@ gamecredits-cli stop
 einsteinium-cli stop
 gincoin-cli stop
 aryacoin-cli stop
+komodo-cli -ac_name=MCL stop
 ```
 
 ---
