@@ -21,7 +21,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 ### Both Servers
 
 - **KMD:** [https://github.com/KomodoPlatform/komodo](https://github.com/KomodoPlatform/komodo) Branch: `master`
-- **Iguana (no autosplit):** [https://github.com/KomodoPlatform/dPoW](https://github.com/KomodoPlatform/dPoW) Branch: `master`
+- **Iguana (no autosplit):** [https://github.com/KomodoPlatform/dPoW](https://github.com/KomodoPlatform/dPoW) Branch: `s4`
 
 ### Main Server
 
@@ -207,7 +207,7 @@ On both servers:
 
 ```bash
 cd ~
-git clone https://github.com/KomodoPlatform/dPoW -b master
+git clone https://github.com/KomodoPlatform/dPoW -b s4
 cd dPoW/iguana
 ./m_notary_build
 ```
