@@ -1039,7 +1039,7 @@ einsteiniumd &
 gincoind &
 ~/hush3/src/hushd &
 aryacoind &
-~/Marmara-v.1.0/src/komodod -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+~/Marmara-v.1.0/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 ```
 
 Now wait for all the chains to finish syncing. This might take about 8-10 hours depending on your machine and internet connection. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories.
@@ -1201,11 +1201,12 @@ chipsd -pubkey=$pubkey &
 gamecreditsd -pubkey=$pubkey &
 einsteiniumd -pubkey=$pubkey &
 gincoind -pubkey=$pubkey &
+~/hush3/src/hushd -pubkey=$pubkey &
+aryacoind -pubkey=$pubkey &
+~/Marmara-v.1.0/src/komodod -ac_name=MCL -pubkey=$pubkey -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 sleep 60
 cd komodo/src
-./komodod -pubkey=$pubkey &
-~/hush3/src/hushd &
-aryacoind &
+./komodod -notary -pubkey=$pubkey &
 ```
 
 Make the file executable:
