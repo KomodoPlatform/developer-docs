@@ -8,7 +8,18 @@ Komodo highly recommends that the developer use the rational number type when ca
 
 The MM2 API typically will return both the rational number type as well as the decimal representation, but the decimal representation should be considered only a convenience feature for readability.
 
-The number is represented in JSON as follows:
+The number can be represented in JSON in 2 formats:
+
+1. Fraction object containing numerator and denominator as numeric strings as follows:
+
+```json
+{
+  "numer": "10000",
+  "denom": "3000"
+}
+```
+
+2. Format supplied by `num-rational` crate:
 
 ```json
 [
@@ -155,10 +166,29 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":"\"1\"",\"price\":"\"1\""}"
 ```
 
-#### Command (rational representation)
+#### Command (rational representation in num-rational crate format)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]]}"
+```
+
+#### Command (rational representation as fraction object)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"buy",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
+  },
+  "price":{
+    "numer":"2",
+    "denom":"1"
+  }
+}'
 ```
 
 #### Command (GoodTillCancelled type)
@@ -3571,9 +3601,11 @@ The `orderbook` method requests from the network the currently available orders 
 | coin           | string           | the name of the `base` coin; the user desires this                            |
 | address        | string           | the address offering the trade                                                |
 | price          | string (decimal) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| price_rat      | rational         | the price in rational representation                                          |
+| price_rat      | rational         | the price in num-rational crate format             |
+| price_fraction | object (rational)| the price represented as object                                |
 | maxvolume      | string (decimal) | the maximum amount of `base` coin the offer provider is willing to sell       |
-| max_volume_rat | rational         | the max volume in rational representation                                     |
+| max_volume_rat | rational         | the max volume in num-rational crate format                                      |
+| max_volume_fraction | object (rational) | the max volume represented as object                                      |
 | pubkey         | string           | the pubkey of the offer provider                                              |
 | age            | number           | the age of the offer (in seconds)                                             |
 | zcredits       | number           | the zeroconf deposit amount                                                   |
@@ -3611,11 +3643,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         [1, [4]],
         [1, [3]]
       ],
+      "price_fraction":{
+        "numer":"4",
+        "denom":"3"
+      },
       "maxvolume": 997.0,
       "max_volume_rat": [
         [1, [997]],
         [1, [1]]
       ],
+      "max_volume_fraction":{
+        "numer":"997",
+        "denom":"1"
+      },
       "pubkey": "631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
       "age": 1,
       "zcredits": 0,
@@ -3774,10 +3814,29 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":"\"1\"",\"price\":"\"1\""}"
 ```
 
-#### Command (rational representation)
+#### Command (rational representation in num-rational crate format)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]]}"
+```
+
+#### Command (rational representation as fraction object)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"sell",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
+  },
+  "price":{
+    "numer":"2",
+    "denom":"1"
+  }
+}'
 ```
 
 #### Command (GoodTillCancelled type)
@@ -3948,6 +4007,38 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BASE\",\"rel\":\"REL\",\"price\":\"0.9\",\"max\":true}"
+```
+
+#### Command (rational representation in num-rational crate format)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"setprice",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":[[1,[1]],[1,[1]]],
+  "price":[[1,[1]],[1,[1]]]
+}'
+```
+
+#### Command (rational representation as fraction object)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"setprice",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
+  },
+  "price":{
+    "numer":"2",
+    "denom":"1"
+  }
+}'
 ```
 
 <div style="margin-top: 0.5rem;">
