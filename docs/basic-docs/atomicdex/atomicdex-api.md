@@ -4,13 +4,13 @@
 
 MM2 now offers the [num-rational crate](https://crates.io/crates/num-rational) feature. This is used to represent order volumes and prices.
 
-Komodo highly recommends that the developer use the rational number type when calculating an order's price and volume. This avoids rounding and precision errors when calculating numbers such as `1/3`, as these cannot be represented as a finite decimal.
+Komodo highly recommends that the developer use the rational number type when calculating an order's price and volume. This avoids rounding and precision errors when calculating numbers, such as `1/3`, as these cannot be represented as a finite decimal.
 
 The MM2 API typically will return both the rational number type as well as the decimal representation, but the decimal representation should be considered only a convenience feature for readability.
 
-The number can be represented in JSON in 2 formats:
+The number can be represented in the following two JSON formats:
 
-1. Fraction object containing numerator and denominator as numeric strings as follows:
+1. As a fraction object that contains a numerator and a denominator as numeric strings, as follows:
 
 ```json
 {
@@ -19,7 +19,7 @@ The number can be represented in JSON in 2 formats:
 }
 ```
 
-2. Format supplied by `num-rational` crate:
+2. As a unique format supplied by the `num-rational` crate:
 
 ```json
 [
@@ -28,11 +28,9 @@ The number can be represented in JSON in 2 formats:
 ]
 ```
 
-The first item, `[1,[0,1]]`, is the `numerator`.
+In the above unique format, the first item `[1,[0,1]]` is the `numerator` and the second item `[1,[1]]` is the `denominator`.
 
-The second item, `[1,[1]]`, is the `denominator`.
-
-The `numerator` and `denominator` are BigInteger numbers represented as a sign and uint32 array (where numbers are 32 bit parts of big integer in little endian order).
+The `numerator` and `denominator` are BigInteger numbers represented as a sign and a uint32 array (where numbers are 32-bit parts of big integer in little-endian order).
 
 `[1,[0,1]]` represents `+0000000000000000000000000000000010000000000000000000000000000000` = `4294967296`
 
@@ -3602,10 +3600,10 @@ The `orderbook` method requests from the network the currently available orders 
 | address        | string           | the address offering the trade                                                |
 | price          | string (decimal) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
 | price_rat      | rational         | the price in num-rational crate format             |
-| price_fraction | object (rational)| the price represented as object                                |
+| price_fraction | object (rational)| the price represented as an object                                |
 | maxvolume      | string (decimal) | the maximum amount of `base` coin the offer provider is willing to sell       |
 | max_volume_rat | rational         | the max volume in num-rational crate format                                      |
-| max_volume_fraction | object (rational) | the max volume represented as object                                      |
+| max_volume_fraction | object (rational) | the max volume represented as an object                                      |
 | pubkey         | string           | the pubkey of the offer provider                                              |
 | age            | number           | the age of the offer (in seconds)                                             |
 | zcredits       | number           | the zeroconf deposit amount                                                   |
@@ -3820,7 +3818,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]]}"
 ```
 
-#### Command (rational representation as fraction object)
+#### Command (rational representation as a fraction object)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data '{
