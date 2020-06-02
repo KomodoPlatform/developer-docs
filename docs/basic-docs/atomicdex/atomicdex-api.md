@@ -118,7 +118,8 @@ The `buy` method issues a buy request and attempts to match an order from the or
 
 ::: tip
 
-Buy and sell methods always create the `taker` order first. A `taker` order must pay a `dexfee` during the swap as it is taking liquidity from the market. The `dexfee` is calculated as "`0.0001 TAKER COIN` or `1/777th` the size of the desired order, whichever is greater". If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
+- Buy and sell methods always create the `taker` order first. A `taker` order must pay a `dexfee` during the swap as it is taking liquidity from the market. The `dexfee` is calculated as "`0.0001 TAKER COIN` or `1/777th` the size of the desired order, whichever is greater". If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
+- To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit( `0.00777` ) to the value of a trade. See the description of the `volume` argument for more info. 
 
 :::
 
@@ -129,7 +130,7 @@ Buy and sell methods always create the `taker` order first. A `taker` order must
 | base            | string                     | the name of the coin the user desires to receive                              |
 | rel             | string                     | the name of the coin the user desires to sell                                 |
 | price           | numeric string or rational | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| volume          | numeric string or rational | the amount of coins the user is willing to receive of the `base` coin         |
+| volume          | numeric string or rational | the amount of coins the user is willing to receive of the `base` coin; the following values must be greater than or equal to `0.00777`: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>          |
 | match_by        | object                     | the created order is matched using this condition. *Important:* This condition is not applied after a `GoodTillCancelled` order is converted to a `maker` request |
 | match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; default is `Any` |
 | match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
@@ -3766,7 +3767,8 @@ The `sell` method issues a sell request and attempts to match an order from the 
 
 ::: tip
 
-Buy and sell methods always create the `taker` order first. A `taker` order must pay a `dexfee` during the swap as it is taking liquidity from the market. The `dexfee` is calculated as "`0.0001 TAKER COIN` or `1/777th` the size of the desired order, whichever is greater". If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
+- Buy and sell methods always create the `taker` order first. A `taker` order must pay a `dexfee` during the swap as it is taking liquidity from the market. The `dexfee` is calculated as "`0.0001 TAKER COIN` or `1/777th` the size of the desired order, whichever is greater". If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
+- To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit( `0.00777` ) to the value of a trade. See the description of the `volume` argument for more info. 
 
 :::
 
@@ -3777,7 +3779,7 @@ Buy and sell methods always create the `taker` order first. A `taker` order must
 | base            | string                     | the name of the coin the user desires to sell                                     |
 | rel             | string                     | the name of the coin the user desires to receive                                  |
 | price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin |
-| volume          | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin                |
+| volume          | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin; the following values must be greater than or equal to `0.00777`: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>             |
 | match_by        | object                     | the created order is matched using this condition; *important:* this condition is not applied after `GoodTillCancelled` order conversion to `maker` request            |
 | match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
 | match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
@@ -3964,6 +3966,12 @@ The `setprice` method places an order on the orderbook, and it relies on this no
 
 The `setprice` order is always considered a `sell`, for internal implementation convenience.
 
+::: tip
+
+To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit( `0.00777` ) to the value of a trade. See the description of the `volume` argument for more info. 
+
+:::
+
 #### Arguments
 
 | Structure       | Type                       | Description                                                                                                              |
@@ -3971,7 +3979,7 @@ The `setprice` order is always considered a `sell`, for internal implementation 
 | base            | string                     | the name of the coin the user desires to sell                                                                            |
 | rel             | string                     | the name of the coin the user desires to receive                                                                         |
 | price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                        |
-| volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`                                      |
+| volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to `0.00777`: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                                       |
 | max             | bool                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                |
 | cancel_previous | bool                       | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior |
 
