@@ -118,7 +118,7 @@ The `buy` method issues a buy request and attempts to match an order from the or
 
 ::: tip
 
-Buy and sell methods always create the `taker` order first. A `taker` order must pay an additional 1/777 fee of the trade amount during the swap as it is taking liquidity from the market. If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
+Buy and sell methods always create the `taker` order first. A `taker` order must pay a `dexfee` during the swap as it is taking liquidity from the market. The `dexfee` is calculated as "`0.0001 TAKER COIN` or `1/777th` the size of the desired order, whichever is greater". If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
 
 :::
 
@@ -3766,7 +3766,7 @@ The `sell` method issues a sell request and attempts to match an order from the 
 
 ::: tip
 
-Buy and sell methods always create the `taker` order first. A `taker` order must pay an additional 1/777 fee of the trade amount during the swap as it is taking liquidity from the market. If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
+Buy and sell methods always create the `taker` order first. A `taker` order must pay a `dexfee` during the swap as it is taking liquidity from the market. The `dexfee` is calculated as "`0.0001 TAKER COIN` or `1/777th` the size of the desired order, whichever is greater". If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
 
 :::
 
