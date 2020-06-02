@@ -1226,7 +1226,7 @@ cd ~
 
 **Make sure all daemons started properly before starting iguana in the next step.**
 
-## Start `iguana`
+## Start `iguana` and dPoW process
 
 Once all required daemons are running, we have funds on all coins(DM @kolo with your addresses if you need coins), we can go ahead and start `iguana`.
 
@@ -1239,27 +1239,11 @@ cd ~/dPoW/iguana
 
 You can use the `m_notary` script if you wish, but this will issue a `git pull` command to update the repo, remove old iguana, compile fresh and start the whole process. This can take about 10 minutes maximum to finish. You will see `INIT with 64 notaries` once the process finishes.
 
-#### Start dPoW process
-
-After you see `INIT with 64 notaries`, you can safely start dPoW process. Just issue the following command from inside `iguana` dir to start with it.
-
-```bash
-./dpowassets
-```
-
 ### 3rd Party Server
 
 ```bash
 cd ~/dPoW/iguana
 ./m_notary_3rdparty
-```
-
-#### Start dPoW process
-
-After you see `INIT with 64 notaries`, you can safely start dPoW process. Just issue the following command from inside `iguana` dir to start with it.
-
-```bash
-./dpowassets_3rdparty
 ```
 
 ## NN Scripts
