@@ -109,7 +109,7 @@ Taker will need two transactions to perform her swap. One transaction will cover
 
 ::: tip
 
-The `dexfee` is actually calculated as "`0.0001 TAKER COIN` or `1/777th` the size of the desired order, whichever is greater"
+The `dexfee` is actually calculated as "the greater of either `0.0001 TAKER COIN` or `1/777th` the size of the desired order"
 
 :::
 
