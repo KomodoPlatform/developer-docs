@@ -3,26 +3,27 @@ var redirectAliases = require("./public/_redirects.js");
 var sidebarImport = require("./sidebar.js");
 var algoliaSecret = require("./algolia-secret.js");
 module.exports = {
-  plugins: [
-    [
-      "redirect",
-      {
-        alias: redirectAliases,
+  plugins: {
+    redirect: {
+      alias: redirectAliases,
+    },
+    "@vuepress/last-updated": {
+      transformer: (timestamp) => {
+        // Don't forget to install moment yourself
+        const moment = require("moment");
+        return moment(timestamp).fromNow();
       },
-    ],
-    [
-      "vuepress-plugin-medium-zoom",
-      {
-        //selector: ".my-wrapper .my-img",
-        delay: 1000,
-        options: {
-          margin: 24,
-          background: "#026782",
-          scrollOffset: 0,
-        },
+    },
+    "vuepress-plugin-medium-zoom": {
+      //selector: ".my-wrapper .my-img",
+      delay: 1000,
+      options: {
+        margin: 24,
+        background: "#026782",
+        scrollOffset: 0,
       },
-    ],
-  ],
+    },
+  },
   head: [
     [
       "script",
@@ -86,7 +87,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     docsDir: "docs",
     editLinks: true,
     editLinkText: "Suggest an improvement for this page",
-    lastUpdated: "Last Updated",
+    //lastUpdated: "Last Updated",
     // sidebarDepth: 3,
     logo: "/KMD_Horiz_White.svg",
     algolia: {
