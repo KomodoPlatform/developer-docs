@@ -27,7 +27,7 @@ module.exports = {
     },
   },
   head: [
-    [
+    /*[
       "script",
       {},
       `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -35,7 +35,7 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PC28587');`,
-    ],
+    ],*/
     [
       "link",
       {
@@ -96,7 +96,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     docsDir: "docs",
     editLinks: true,
     editLinkText: "Suggest an improvement for this page",
-    lastUpdated: "Last Updated",
+    //lastUpdated: "Last Updated",
     logo: "/KMD_Horiz_White.svg",
     algolia: {
       apiKey: algoliaSecret.key,

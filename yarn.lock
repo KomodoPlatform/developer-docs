@@ -921,6 +921,13 @@
   dependencies:
     cross-spawn "^6.0.5"
 
+"@vuepress/plugin-last-updated@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@vuepress/plugin-last-updated/-/plugin-last-updated-1.5.0.tgz#080ff0d8d8a4dbf5ead83802b4b9dfbf531e50e4"
+  integrity sha512-qZpxJ0BDofyMdrALuJI4dqtSbP1uSK6X4/kh+P+eLKCWongRIvPCq5eH75xTbn94EIH6N65AgqCbPiZCN4eOKA==
+  dependencies:
+    cross-spawn "^6.0.5"
+
 "@vuepress/plugin-nprogress@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@vuepress/plugin-nprogress/-/plugin-nprogress-1.3.0.tgz#8cdb7cc7b881e838035b2041e209da959998b8e2"
