@@ -77,7 +77,7 @@ To provide Prometheus with the ability to scrape the metrics at [localhost:9001]
 \"prometheusport\":9001
 ```
 
-You may optionally specify the username and password for Promotheus to enforce basic authorization security. For this effect, add one more argument as follows:
+You may optionally specify the username and password for Prometheus to enforce basic authorization security. For this effect, add one more argument as follows:
 
 ```
 \"prometheus_credentials\":\"PROM_USERNAME:PROM_PASSWORD\"

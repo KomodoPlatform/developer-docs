@@ -4,11 +4,22 @@
 
 MM2 now offers the [num-rational crate](https://crates.io/crates/num-rational) feature. This is used to represent order volumes and prices.
 
-Komodo highly recommends that the developer use the rational number type when calculating an order's price and volume. This avoids rounding and precision errors when calculating numbers such as `1/3`, as these cannot be represented as a finite decimal.
+Komodo highly recommends that the developer use the rational number type when calculating an order's price and volume. This avoids rounding and precision errors when calculating numbers, such as `1/3`, as these cannot be represented as a finite decimal.
 
 The MM2 API typically will return both the rational number type as well as the decimal representation, but the decimal representation should be considered only a convenience feature for readability.
 
-The number is represented in JSON as follows:
+The number can be represented in the following two JSON formats:
+
+1. As a fraction object that contains a numerator and a denominator as numeric strings, as follows:
+
+```json
+{
+  "numer": "10000",
+  "denom": "3000"
+}
+```
+
+2. As a unique format supplied by the `num-rational` crate:
 
 ```json
 [
@@ -17,11 +28,9 @@ The number is represented in JSON as follows:
 ]
 ```
 
-The first item, `[1,[0,1]]`, is the `numerator`.
+In the above unique format, the first item `[1,[0,1]]` is the `numerator` and the second item `[1,[1]]` is the `denominator`.
 
-The second item, `[1,[1]]`, is the `denominator`.
-
-The `numerator` and `denominator` are BigInteger numbers represented as a sign and uint32 array (where numbers are 32 bit parts of big integer in little endian order).
+The `numerator` and `denominator` are BigInteger numbers represented as a sign and a uint32 array (where numbers are 32-bit parts of big integer in little-endian order).
 
 `[1,[0,1]]` represents `+0000000000000000000000000000000010000000000000000000000000000000` = `4294967296`
 
@@ -109,7 +118,8 @@ The `buy` method issues a buy request and attempts to match an order from the or
 
 ::: tip
 
-Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from the market. If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice method.](../../../basic-docs/atomicdex/atomicdex-api.html#setprice)
+- Buy and sell methods always create the `taker` order first. A `taker` order must pay a `dexfee` during the swap as it is taking liquidity from the market. The `dexfee` is calculated as "the greater of either `0.0001 TAKER COIN` or `1/777th` the size of the desired order". If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
+- To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit( `0.00777` ) to the value of a trade. See the description of the `volume` argument for more info. 
 
 :::
 
@@ -120,7 +130,7 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | base            | string                     | the name of the coin the user desires to receive                              |
 | rel             | string                     | the name of the coin the user desires to sell                                 |
 | price           | numeric string or rational | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| volume          | numeric string or rational | the amount of coins the user is willing to receive of the `base` coin         |
+| volume          | numeric string or rational | the amount of coins the user is willing to receive of the `base` coin; the following values must be greater than or equal to `0.00777`: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>          |
 | match_by        | object                     | the created order is matched using this condition. *Important:* This condition is not applied after a `GoodTillCancelled` order is converted to a `maker` request |
 | match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; default is `Any` |
 | match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
@@ -155,10 +165,29 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":"\"1\"",\"price\":"\"1\""}"
 ```
 
-#### Command (rational representation)
+#### Command (rational representation in num-rational crate format)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]]}"
+```
+
+#### Command (rational representation as fraction object)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"buy",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
+  },
+  "price":{
+    "numer":"2",
+    "denom":"1"
+  }
+}'
 ```
 
 #### Command (GoodTillCancelled type)
@@ -1126,9 +1155,15 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **list_banned_pubkeys**
 
-Some cases of swap failures are considered as reason for other node ban, for example when market taker does not follow the atomic swap protocol by not sending the dex fee.
-The `list_banned_pubkeys` method returns the list of other nodes public keys that have been banned as result of such swaps.
-The node ignores orders and order matching requests received from banned nodes.
+The `list_banned_pubkeys` method returns a list of public keys of nodes that are banned from interacting with the node executing the method.
+
+Banned nodes cannot complete orders and order matching requests with the node executing the method.
+
+::: tip
+
+Some cases of swap failures give cause for banning a node. For example, a market taker may not follow the atomic-swap protocol by not sending the dex fee. The <b>list\_banned\_pubkeys</b> method is useful in these circumstances.
+
+:::
 
 #### Arguments
 
@@ -1141,7 +1176,7 @@ The node ignores orders and order matching requests received from banned nodes.
 | Structure       | Type             | Description                                                                                                                                                                                                                                              |
 | ------------------------ | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result                   | map of objects (key - pubkey in hexadecimal representation)  | the list of pubkeys banned by current node                                                                                                                                                                                                                    |
-| result.*.caused_by_swap  | string | the uuid of swap that triggered the ban                                                                                                                                                                                                                     |
+| result.*.caused_by_swap  | string | the uuid of the swap that triggered the ban                                                                                                                                                                                                                     |
 | result.*.caused_by_event | object | the swap event that triggered the ban                                                                                                                                                                                                                   |                                                                                                                                                                                            
 
 #### :pushpin: Examples
@@ -1245,8 +1280,8 @@ The `my_orders` method returns the data of all active orders created by the MM2 
 
 | Structure    | Type           | Description                                           |
 | ------------ | -------------- | ----------------------------------------------------- |
-| maker_orders | map of objects | orders that are currently active in market maker mode |
-| taker_orders | map of objects | orders that are currently active in market taker mode |
+| maker_orders | map of objects | orders that are currently active in market-maker mode |
+| taker_orders | map of objects | orders that are currently active in market-taker mode |
 
 #### :pushpin: Examples
 
@@ -3565,9 +3600,11 @@ The `orderbook` method requests from the network the currently available orders 
 | coin           | string           | the name of the `base` coin; the user desires this                            |
 | address        | string           | the address offering the trade                                                |
 | price          | string (decimal) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| price_rat      | rational         | the price in rational representation                                          |
+| price_rat      | rational         | the price in num-rational crate format             |
+| price_fraction | object (rational)| the price represented as an object                                |
 | maxvolume      | string (decimal) | the maximum amount of `base` coin the offer provider is willing to sell       |
-| max_volume_rat | rational         | the max volume in rational representation                                     |
+| max_volume_rat | rational         | the max volume in num-rational crate format                                      |
+| max_volume_fraction | object (rational) | the max volume represented as an object                                      |
 | pubkey         | string           | the pubkey of the offer provider                                              |
 | age            | number           | the age of the offer (in seconds)                                             |
 | zcredits       | number           | the zeroconf deposit amount                                                   |
@@ -3605,11 +3642,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         [1, [4]],
         [1, [3]]
       ],
+      "price_fraction":{
+        "numer":"4",
+        "denom":"3"
+      },
       "maxvolume": 997.0,
       "max_volume_rat": [
         [1, [997]],
         [1, [1]]
       ],
+      "max_volume_fraction":{
+        "numer":"997",
+        "denom":"1"
+      },
       "pubkey": "631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
       "age": 1,
       "zcredits": 0,
@@ -3722,7 +3767,8 @@ The `sell` method issues a sell request and attempts to match an order from the 
 
 ::: tip
 
-Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from market. If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
+- Buy and sell methods always create the `taker` order first. A `taker` order must pay a `dexfee` during the swap as it is taking liquidity from the market. The `dexfee` is calculated as "the greater of either `0.0001 TAKER COIN` or `1/777th` the size of the desired order". If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
+- To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit( `0.00777` ) to the value of a trade. See the description of the `volume` argument for more info. 
 
 :::
 
@@ -3733,7 +3779,7 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | base            | string                     | the name of the coin the user desires to sell                                     |
 | rel             | string                     | the name of the coin the user desires to receive                                  |
 | price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin |
-| volume          | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin                |
+| volume          | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin; the following values must be greater than or equal to `0.00777`: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>             |
 | match_by        | object                     | the created order is matched using this condition; *important:* this condition is not applied after `GoodTillCancelled` order conversion to `maker` request            |
 | match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
 | match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
@@ -3768,10 +3814,29 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":"\"1\"",\"price\":"\"1\""}"
 ```
 
-#### Command (rational representation)
+#### Command (rational representation in num-rational crate format)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]]}"
+```
+
+#### Command (rational representation as a fraction object)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"sell",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
+  },
+  "price":{
+    "numer":"2",
+    "denom":"1"
+  }
+}'
 ```
 
 #### Command (GoodTillCancelled type)
@@ -3901,6 +3966,12 @@ The `setprice` method places an order on the orderbook, and it relies on this no
 
 The `setprice` order is always considered a `sell`, for internal implementation convenience.
 
+::: tip
+
+To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit( `0.00777` ) to the value of a trade. See the description of the `volume` argument for more info. 
+
+:::
+
 #### Arguments
 
 | Structure       | Type                       | Description                                                                                                              |
@@ -3908,7 +3979,7 @@ The `setprice` order is always considered a `sell`, for internal implementation 
 | base            | string                     | the name of the coin the user desires to sell                                                                            |
 | rel             | string                     | the name of the coin the user desires to receive                                                                         |
 | price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                        |
-| volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`                                      |
+| volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to `0.00777`: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                                       |
 | max             | bool                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                |
 | cancel_previous | bool                       | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior |
 
@@ -3942,6 +4013,38 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BASE\",\"rel\":\"REL\",\"price\":\"0.9\",\"max\":true}"
+```
+
+#### Command (rational representation in num-rational crate format)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"setprice",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":[[1,[1]],[1,[1]]],
+  "price":[[1,[1]],[1,[1]]]
+}'
+```
+
+#### Command (rational representation as fraction object)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"setprice",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
+  },
+  "price":{
+    "numer":"2",
+    "denom":"1"
+  }
+}'
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -4170,15 +4273,15 @@ The `stop` method stops the MM2 software.
 
 **unban_pubkeys unban_by**
 
-The `unban_pubkeys` removes the selected pubkeys from black list allowing to receive orders and order matching requests from unbanned nodes.
+The `unban_pubkeys` method removes the selected pubkeys from the black list, allowing the node executing the method to receive orders and order matching requests from the unbanned nodes.
 
 #### Arguments
 
 | Structure             | Type   | Description                                                                                                                      |
 | --------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| unban_by              | object | pubkeys matching this condition are removed from black list                                                                                    |
+| unban_by              | object | pubkeys matching this condition are removed from the black list                                                                                    |
 | unban_by.type         | string | `All` to unban all pubkeys; `Few` to unban several selected pubkeys |
-| cancel_by.data        | array of strings (hexadecimal) | pubkeys that should be removed from black list; must be present with `Few` type |
+| cancel_by.data        | array of strings (hexadecimal) | pubkeys that should be removed from the black list; must be present with `Few` type |
 
 #### Response
 
@@ -4187,7 +4290,7 @@ The `unban_pubkeys` removes the selected pubkeys from black list allowing to rec
 | result                    | object                   |                                                                                                                |
 | result.still_banned       | map of objects           | the pubkeys that remain banned                                                                                      |
 | result.unbanned           | map of objects           | data of unbanned pubkeys  |
-| result.were_not_banned    | array of strings         | the pubkeys that were not black listed before `unban_pubkeys` call   |
+| result.were_not_banned    | array of strings         | the pubkeys that were not black listed before the `unban_pubkeys` call   |
 
 #### :pushpin: Examples
 

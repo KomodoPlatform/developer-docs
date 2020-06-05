@@ -40,7 +40,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "link",
       {
         rel: "icon",
-        href: "KMD_Mark_Black.png",
+        href: "/KMD_Mark_Black.png",
       },
     ],
     [
