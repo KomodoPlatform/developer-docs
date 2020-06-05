@@ -22,6 +22,7 @@ deploy:
     skip-cleanup: true
     github-token: "$GH_TOKEN"
     local-dir: AtomicDEX-docs
+    keep_history: true
     target_branch: master
     repo: komodoplatform/AtomicDEX-docs
     on:
