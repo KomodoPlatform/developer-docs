@@ -4,6 +4,7 @@ node_js:
 install:
   - yarn install
 script:
+  - git fetch --unshallow
   - ./algolia-key.sh
   - yarn docs:build
   - echo 'docs.komodoplatform.com' > docs/.vuepress/dist/CNAME
