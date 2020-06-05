@@ -7371,6 +7371,11 @@ vuepress-plugin-dehydrate@^1.0.0:
   dependencies:
     "@vuepress/shared-utils" "^1.2.0"
 
+vuepress-plugin-google-tag-manager@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/vuepress-plugin-google-tag-manager/-/vuepress-plugin-google-tag-manager-0.0.4.tgz#e7f9947f5eba15e96ebea92f251dbc71318d1aef"
+  integrity sha512-mADSK1hn1UF2OHi6xjTAkcPiunT+iMbbkGM3/BpErHQTx9wpVEh2xDxBiqa2Sy0jvjQUn5vXg/nIjm1VRv4FPA==
+
 vuepress-plugin-medium-zoom@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/vuepress-plugin-medium-zoom/-/vuepress-plugin-medium-zoom-1.1.8.tgz#bb1ea5cdd50efd218b385b5f5fe46c3e1d2d4ec1"
