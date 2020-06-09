@@ -115,19 +115,19 @@ You need to add the following info in JSON format to [coins](https://github.com/
 - The icon file must be in the **.png** format.
 - Dimentions of icon file: `82x82` pixels.
 - The icon file's name **MUST** be in **small letters**.
-- The icon file should be submitted to the directory: [icons](https://github.com/jl777/coins/blob/master/icons) through a Pull Request.
+- The icon file should be submitted to the directory: [icons](https://github.com/KomodoPlatform/coins/blob/master/icons) through a Pull Request.
 
 ## 3. Explorer URL (Required)
 
-- Explorer file name must be coin's ticker name matching the `"coin"` value as specified in [coins](https://github.com/jl777/coins/blob/master/coins) file.
+- Explorer file name must be coin's ticker name matching the `"coin"` value as specified in [coins](https://github.com/KomodoPlatform/coins/blob/master/coins) file.
 - Explorer file name must not have any file extension. It is a file without any `.` extension.
 - Explorer file name must be all in **capital** letters.
 - It must have a valid JSON array with at least one Explorer URL in it. It's better if there are more than one explorer URLs in this JSON array. Example: `["http://example1.com/tx/","http://example2.com/tx/"]`.
-- The URL of Explorer must be pointing to the transactions URL. Check BTC file for an example: [explorers/BTC](https://github.com/jl777/coins/blob/master/explorers/BTC) , which has `["https://www.blocktrail.com/BTC/tx/"]`. This explorer's URL is used to show in graphical applications to link to the transactions like this [example link](https://www.blocktrail.com/BTC/tx/5268d045196e940ca8ba53b442c38a0f8c159002c912f8427239153dce984cc3) . Make sure this URL ends with `/`.
+- The URL of Explorer must be pointing to the transactions URL. Check BTC file for an example: [explorers/BTC](https://github.com/KomodoPlatform/coins/blob/master/explorers/BTC) , which has `["https://www.blocktrail.com/BTC/tx/"]`. This explorer's URL is used to show in graphical applications to link to the transactions like this [example link](https://www.blocktrail.com/BTC/tx/5268d045196e940ca8ba53b442c38a0f8c159002c912f8427239153dce984cc3) . Make sure this URL ends with `/`.
 
 ## 4. Electrum Servers (Optional)
 
-- Electrum file name must be coin's ticker name matching the `"coin"` value as specified in the [coins](https://github.com/jl777/coins/blob/master/coins) file.
+- Electrum file name must be coin's ticker name matching the `"coin"` value as specified in the [coins](https://github.com/KomodoPlatform/coins/blob/master/coins) file.
 - Electrum file name must not have any file extension. It is a file without any `.` extension.
 - Electrum file name must be in all **capital** letters.
 - It must be a valid JSON format as shown in the following example:
@@ -135,7 +135,7 @@ You need to add the following info in JSON format to [coins](https://github.com/
 ```json
 [
   {
-    "electrum1.example.com": 12345,
+    "url": "electrum1.example.com:12345",
     "contact": [
       {
         "email": "electrum1_admin_email@example.com"
@@ -161,7 +161,7 @@ You need to add the following info in JSON format to [coins](https://github.com/
     ]
   },
   {
-    "electrum2.example.com": 12345,
+    "url":"electrum2.example.com:12345",
     "contact": [
       {
         "email": "electrum2_admin_email@example.com"
