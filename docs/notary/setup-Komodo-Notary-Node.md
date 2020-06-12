@@ -32,7 +32,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 - **HUSH:** [https://github.com/myhush/hush3](https://github.com/myhush/hush3) Tag: `v3.3.1`
 - **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master`
 - **GAME:** [https://github.com/gamecredits-project/GameCredits.git](https://github.com/gamecredits-project/GameCredits.git) Branch: `master`
-- **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `dev`
+- **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `master` . Commit: `31d59f9d8fa4a8e00dd474ef0561a5b174056d86`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master` . Commit: `fd94422aff2886919dc963d85c313df4dfb0d770`
 - **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.7.0` . Commit: `c1057a53938fdd453d484486687d3b610de1990c`
 <!--
@@ -577,7 +577,7 @@ sudo ln -sf /home/$USER/hush3/src/hushd /usr/local/bin/hushd
 cd ~
 git clone https://github.com/jl777/chips3 -b master
 cd chips3
-git checkout 65c1d27
+git checkout 31d59f9
 ```
 
 #### Step 2: Build
