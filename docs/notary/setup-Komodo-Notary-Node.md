@@ -26,7 +26,6 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 ### Main Server
 
 - **BTC:** [https://github.com/bitcoin/bitcoin](https://github.com/bitcoin/bitcoin) Branch: `0.16`
-- **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.6.4-3` . Commit: `391c403814d25434b75cd3a82e1d79dfeb8ab0eb`
 
 ### 3rd Party Server
 
@@ -35,6 +34,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 - **GAME:** [https://github.com/gamecredits-project/GameCredits.git](https://github.com/gamecredits-project/GameCredits.git) Branch: `master`
 - **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `dev`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master`
+- **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.7.0` . Commit: `c1057a53938fdd453d484486687d3b610de1990c`
 <!--
 - **MCL:** [https://github.com/marmarachain/Marmara-v.1.0.git](https://github.com/marmarachain/Marmara-v.1.0.git) Branch: `master` Commit: `9013c5cb1bc88cf5db5910e4f251f56757385f5f`
 -->
@@ -356,24 +356,6 @@ Restrict access to the `bitcoin.conf` file
 chmod 600 ~/.bitcoin/bitcoin.conf
 ```
 
-### VerusCoin (VRSC)
-
-#### Clone VRSC source and compile
-
-```bash
-cd ~
-git clone https://github.com/VerusCoin/VerusCoin -b master
-cd VerusCoin
-git checkout 391c403
-./zcutil/build.sh -j$(nproc)
-```
-
-Symlink the compiled binary
-
-```bash
-sudo ln -sf /home/$USER/VerusCoin/src/verusd /usr/local/bin/verusd
-```
-
 ### Start the daemons and sync all the chains
 
 For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarisation.
@@ -383,7 +365,6 @@ For the first time sync, we will run all the coin daemons normally. Make sure yo
 ```bash
 komodod &
 bitcoind &
-verusd &
 ```
 
 ### Start Komodo and all the Smart Chains
@@ -404,8 +385,6 @@ tail -f ~/.bitcoin/debug.log
 tail -f ~/.komodo/debug.log
 # SUPERNET
 tail -f ~/.komodo/SUPERNET/debug.log
-# VRSC
-tail -f ~/.komodo/VRSC/debug.log
 ```
 
 For any other Komodo Smart Chain, use the example of SUPERNET and change the path with the coin name that you are looking for accordingly. You can now wait for all the coins to finish syncing. Just double check the blocks you've downloaded with an explorer to verify.
@@ -419,7 +398,6 @@ Feel free to import these as the daemons are syncing.
 ```bash
 komodo-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 bitcoin-cli importprivkey WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
-komodo-cli -ac_name=VRSC importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 ```
 
 - For all other Komodo Smart Chains, use the following command to import privkey
@@ -456,7 +434,6 @@ Never use `kill -9` to kill any Coin daemon if you don't like corrupt databases.
 ```bash
 komodo-cli stop
 bitcoin-cli stop
-komodo-cli -ac_name=VRSC stop
 ```
 
 For all other Komodo Smart Chains, use the following command to `stop` the daemons.
@@ -928,6 +905,24 @@ git checkout 9013c5cb1bc88cf5db5910e4f251f56757385f5f
 ```
 -->
 
+### VerusCoin (VRSC)
+
+#### Step 1: Clone VRSC source and compile
+
+```bash
+cd ~
+git clone https://github.com/VerusCoin/VerusCoin -b master
+cd VerusCoin
+git checkout c1057a539
+./zcutil/build.sh -j$(nproc)
+```
+
+Symlink the compiled binary
+
+```bash
+sudo ln -sf /home/$USER/VerusCoin/src/verusd /usr/local/bin/verusd
+```
+
 ### Start the daemons and sync all the chains
 
 For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarisation.
@@ -941,6 +936,7 @@ gamecreditsd &
 einsteiniumd &
 ~/hush3/src/hushd &
 aryacoind &
+verusd &
 #~/Marmara-v.1.0/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 ```
 
@@ -963,6 +959,8 @@ tail -f ~/.komodo/HUSH3/debug.log
 tail -f ~/.aryacoin/debug.log
 # MCL
 #tail -f ~/.komodo/MCL/debug.log
+# VRSC
+tail -f ~/.komodo/VRSC/debug.log
 ```
 
 You can now wait for all the coins to finish syncing. Just double check the block you've downloaded with an explorer to verify.
@@ -981,6 +979,7 @@ gamecredits-cli importprivkey Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiEr
 einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
 aryacoin-cli importprivkey T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
 #komodo-cli -ac_name=MCL importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+komodo-cli -ac_name=VRSC importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 ```
 
 This may take some time and will display the coin name and address after each import. You can tail the coin specific `debug.log` files to check the progress.
@@ -1015,6 +1014,7 @@ gamecredits-cli stop
 einsteinium-cli stop
 aryacoin-cli stop
 #komodo-cli -ac_name=MCL stop
+komodo-cli -ac_name=VRSC stop
 ```
 
 ---
