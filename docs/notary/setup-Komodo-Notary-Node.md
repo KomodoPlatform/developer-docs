@@ -33,7 +33,6 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 - **HUSH:** [https://github.com/myhush/hush3](https://github.com/myhush/hush3) Tag: `v3.3.1`
 - **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master`
 - **GAME:** [https://github.com/gamecredits-project/GameCredits.git](https://github.com/gamecredits-project/GameCredits.git) Branch: `master`
-- **GIN:** [https://github.com/GIN-coin/gincoin-core.git](https://github.com/GIN-coin/gincoin-core.git) Branch: `master`
 - **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `dev`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master`
 <!--
@@ -186,9 +185,6 @@ GAME WIF: Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
 
 EMC2 Address: EdF2quz8nWrJDwTbbTTieFYUMGfPsVB5dv
 EMC2 WIF: T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
-
-GIN Address: Gdw3mTUaLRAgK7A2iZ8K4suQVnx7VRJ9rf
-GIN WIF: WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
 
 AYA Address: AVjkMgFfmMZbpFvmTxCcxadnD6g1EdQue3
 AYA WIF: T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
@@ -918,102 +914,6 @@ Restrict access to the `einsteinium.conf` file
 chmod 600 ~/.einsteinium/einsteinium.conf
 ```
 
-### GinCoin (GIN)
-
-#### Step 1: Clone GIN source
-
-```bash
-cd ~
-git clone https://github.com/GIN-coin/gincoin-core -b master
-cd gincoin-core
-```
-
-#### Step 2: Create a build script
-
-Name the script as `build.sh` inside the `~/gincoin-core` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
-
-```bash
-#!/bin/bash
-berkeleydb () {
-    GIN_ROOT=$(pwd)
-    GIN_PREFIX="${GIN_ROOT}/db4"
-    mkdir -p $GIN_PREFIX
-    wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
-    echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
-    tar -xzvf db-4.8.30.NC.tar.gz
-    cat <<-EOL >atomic-builtin-test.cpp
-        #include <stdint.h>
-        #include "atomic.h"
-
-        int main() {
-        db_atomic_t *p; atomic_value_t oldval; atomic_value_t newval;
-        __atomic_compare_exchange(p, oldval, newval);
-        return 0;
-        }
-EOL
-    if g++ atomic-builtin-test.cpp -I./db-4.8.30.NC/dbinc -DHAVE_ATOMIC_SUPPORT -DHAVE_ATOMIC_X86_GCC_ASSEMBLY -o atomic-builtin-test 2>/dev/null; then
-        echo "No changes to bdb source are needed ..."
-        rm atomic-builtin-test 2>/dev/null
-    else
-        echo "Updating atomic.h file ..."
-        sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
-    fi
-    cd db-4.8.30.NC/build_unix/
-    ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$GIN_PREFIX
-    make install
-    cd $GIN_ROOT
-}
-
-buildgin () {
-    git pull
-    make clean
-    ./autogen.sh
-    ./configure LDFLAGS="-L${GIN_PREFIX}/lib/" CPPFLAGS="-I${GIN_PREFIX}/include/" --with-gui=no --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm --enable-static --disable-shared --without-gui
-    make -j$(nproc)
-}
-
-berkeleydb
-buildgin
-
-sudo ln -sf /home/$USER/gincoin-core/src/gincoin-cli /usr/local/bin/gincoin-cli
-sudo ln -sf /home/$USER/gincoin-core/src/gincoind /usr/local/bin/gincoind
-```
-
-#### Step 3: Make the script executable and run it
-
-```bash
-chmod +x build.sh
-./build.sh
-```
-
-#### Step 4: Create GIN data dir, `gincoin.conf` file and restrict access to it
-
-```bash
-cd ~
-mkdir .gincoincore
-nano ~/.gincoincore/gincoin.conf
-```
-
-Insert the following contents inside the `gincoin.conf` file and save it. (change the `rpcuser` and `rpcpassword` values)
-
-```bash
-rpcuser=user
-rpcpassword=password
-server=1
-daemon=1
-txindex=1
-litemode=1
-bind=127.0.0.1
-rpcbind=127.0.0.1
-rpcallowip=127.0.0.1
-```
-
-Restrict access to the `gincoin.conf` file
-
-```bash
-chmod 600 ~/.gincoincore/gincoin.conf
-```
-
 <!--
 ### MarmaraChain (MCL)
 
@@ -1039,7 +939,6 @@ komodod &
 chipsd &
 gamecreditsd &
 einsteiniumd &
-gincoind &
 ~/hush3/src/hushd &
 aryacoind &
 #~/Marmara-v.1.0/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
@@ -1058,8 +957,6 @@ tail -f ~/.chips/debug.log
 tail -f ~/.gamecredits/debug.log
 # EMC2
 tail -f ~/.einsteinium/debug.log
-# GIN
-tail -f ~/.gincoincore/debug.log
 # HUSH
 tail -f ~/.komodo/HUSH3/debug.log
 # AYA
@@ -1082,7 +979,6 @@ komodo-cli -ac_name=HUSH3 importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U
 chips-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 gamecredits-cli importprivkey Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
 einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
-gincoin-cli importprivkey WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
 aryacoin-cli importprivkey T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
 #komodo-cli -ac_name=MCL importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 ```
@@ -1117,7 +1013,6 @@ komodo-cli -ac_name=HUSH3 stop
 chips-cli stop
 gamecredits-cli stop
 einsteinium-cli stop
-gincoin-cli stop
 aryacoin-cli stop
 #komodo-cli -ac_name=MCL stop
 ```
@@ -1203,7 +1098,6 @@ source ~/komodo/src/pubkey.txt
 chipsd -pubkey=$pubkey &
 gamecreditsd -pubkey=$pubkey &
 einsteiniumd -pubkey=$pubkey &
-gincoind -pubkey=$pubkey &
 ~/hush3/src/hushd -pubkey=$pubkey &
 aryacoind -pubkey=$pubkey &
 #~/Marmara-v.1.0/src/komodod -ac_name=MCL -pubkey=$pubkey -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
