@@ -575,8 +575,9 @@ sudo ln -sf /home/$USER/hush3/src/hushd /usr/local/bin/hushd
 
 ```bash
 cd ~
-git clone https://github.com/jl777/chips3 -b dev
-cd chips3 
+git clone https://github.com/jl777/chips3 -b master
+cd chips3
+git checkout 65c1d27
 ```
 
 #### Step 2: Build
