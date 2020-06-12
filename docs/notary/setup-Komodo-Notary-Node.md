@@ -33,7 +33,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 - **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master`
 - **GAME:** [https://github.com/gamecredits-project/GameCredits.git](https://github.com/gamecredits-project/GameCredits.git) Branch: `master`
 - **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `dev`
-- **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master` . Commit: `aa6d65b412954fea3063215daecac96cf03fee03`
+- **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master` . Commit: `fd94422aff2886919dc963d85c313df4dfb0d770`
 - **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.7.0` . Commit: `c1057a53938fdd453d484486687d3b610de1990c`
 <!--
 - **MCL:** [https://github.com/marmarachain/Marmara-v.1.0.git](https://github.com/marmarachain/Marmara-v.1.0.git) Branch: `master` Commit: `9013c5cb1bc88cf5db5910e4f251f56757385f5f`
@@ -465,7 +465,7 @@ The instructions below are only required on your 3rd party server, which is the 
 cd ~
 git clone https://github.com/sillyghost/AYAv2.git -b master
 cd AYAv2
-git checkout aa6d65b4
+git checkout fd94422
 ```
 
 #### Step 2: Create a build script
