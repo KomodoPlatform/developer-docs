@@ -4,7 +4,7 @@
 This guide is here to give guidance and a general understanding on building a Komodo Notary Node server. It is possible that some instructions could be deprecated by the time you read it. It describes how to build the two required notary node servers: **Mainnet** and **Third Party(3P)**.
 :::
 
-Note that, whenever the "Main Server" is referenced, it is referring to the server that is used to notarise Komodo and Smart Chains to Bitcoin. Whenever "3rd Party server" is referenced, it is referring to the server that is used to notarise any 3rd party coin to Komodo.
+Note that, whenever the "Main Server" is referenced, it is referring to the server that is used to notarize Komodo and Smart Chains to Bitcoin. Whenever "3rd Party server" is referenced, it is referring to the server that is used to notarize any 3rd party coin to Komodo.
 
 This guide will explain how to setup your Main Server, then go through the process of setting up the 3rd Party Server separately. After that there are instructions on how to create your Notary Node `pubkeys`, import them to your servers and then, create a basic start script for each server. Having a second server (or VM) is now a requirement for Komodo Notary Nodes. There are ways to have a single server and then creating separate virtual machines on it, instead of having two separate servers. This guide won't touch on how to do that.
 
@@ -56,7 +56,7 @@ Komodo Notary Node currently only works on Linux. To setup Komodo Notary Node be
 
 #### 3rd Party Server
 
-At the moment the current minimum server specs are listed below, however, this may change as more 3rd party coins require notarising.
+At the moment the current minimum server specs are listed below, however, this may change as more 3rd party coins require notarizing.
 
 - OS: Ubuntu 18.x or Debian 10.x is recommended.
 - CPU: A High-Performance CPU (e.g. Xeon, i7/i9, Ryzen, EPYC, etc.)
@@ -259,7 +259,7 @@ chmod 700 wp_7779
 
 ## Main Server Setup
 
-The instructions below are only required on your main server, which is the one that will be notarising Komodo, all the Smart Chains and runtime forks to Bitcoin.
+The instructions below are only required on your main server, which is the one that will be notarizing Komodo, all the Smart Chains and runtime forks to Bitcoin.
 
 ### Bitcoin
 
@@ -358,7 +358,7 @@ chmod 600 ~/.bitcoin/bitcoin.conf
 
 ### Start the daemons and sync all the chains
 
-For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarisation.
+For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarization.
 
 ### Start the coins
 
@@ -455,7 +455,7 @@ To complete setting up your main server, go to the [Set 'ulimit' parameters on U
 
 ## 3rd Party Server Setup
 
-The instructions below are only required on your 3rd party server, which is the one that will be notarising 3rd party coins to Komodo.
+The instructions below are only required on your 3rd party server, which is the one that will be notarizing 3rd party coins to Komodo.
 
 ### Aryacoin (AYA)
 
@@ -927,7 +927,7 @@ sudo ln -sf /home/$USER/VerusCoin/src/verusd /usr/local/bin/verusd
 
 ### Start the daemons and sync all the chains
 
-For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarisation.
+For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarization.
 
 ### Start the coins
 
