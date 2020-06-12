@@ -1246,6 +1246,10 @@ cd ~/dPoW/iguana
 ./m_notary_3rdparty
 ```
 
+## Firewall and Ports
+
+Enable `ufw` and close all routes except `ssh`. Then allow p2p ports of all the coins in their respective servers. Allow iguana's p2p ports: `17775` in main server and `17776` in the 3p server.
+
 ## NN Scripts
 
 There are many open sourced scripts for managing your Komodo Notary Node servers. If you're having trouble with something, you can have a look at [these tools](https://github.com/KomodoPlatform/komodotools), or ask the other NN's, who will show you the scripts they use to overcome issues. With that being said, if you find a way to make a job easier or find a way to better the ecosystem, please let the rest of the NN OPs know, we would love to hear it.
