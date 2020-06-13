@@ -372,7 +372,6 @@ bitcoind &
 
 ```bash
 cp -f ~/dPoW/iguana/assetchains.old ~/komodo/src/
-chmod +x ~/komodo/src/assetchains.old
 cd ~/komodo/src
 ./assetchains.old
 ```
