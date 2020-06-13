@@ -371,6 +371,8 @@ bitcoind &
 ### Start Komodo and all the Smart Chains
 
 ```bash
+cp -f ~/dPoW/iguana/assetchains.old ~/komodo/src/
+chmod +x ~/komodo/src/assetchains.old
 cd ~/komodo/src
 ./assetchains.old
 ```
@@ -1085,6 +1087,7 @@ Here is an example of a Main Server start script that will start Notary easy min
 
 ```bash
 #!/bin/bash
+cp -f ~/dPoW/iguana/assetchains.json ~/komodo/src/
 source ~/komodo/src/pubkey.txt
 bitcoind &
 sleep 60
