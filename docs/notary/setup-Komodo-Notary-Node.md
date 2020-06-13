@@ -4,7 +4,7 @@
 This guide is here to give guidance and a general understanding on building a Komodo Notary Node server. It is possible that some instructions could be deprecated by the time you read it. It describes how to build the two required notary node servers: **Mainnet** and **Third Party(3P)**.
 :::
 
-Note that, whenever the "Main Server" is referenced, it is referring to the server that is used to notarise Komodo and Smart Chains to Bitcoin. Whenever "3rd Party server" is referenced, it is referring to the server that is used to notarise any 3rd party coin to Komodo.
+Note that, whenever the "Main Server" is referenced, it is referring to the server that is used to notarize Komodo and Smart Chains to Bitcoin. Whenever "3rd Party server" is referenced, it is referring to the server that is used to notarize any 3rd party coin to Komodo.
 
 This guide will explain how to setup your Main Server, then go through the process of setting up the 3rd Party Server separately. After that there are instructions on how to create your Notary Node `pubkeys`, import them to your servers and then, create a basic start script for each server. Having a second server (or VM) is now a requirement for Komodo Notary Nodes. There are ways to have a single server and then creating separate virtual machines on it, instead of having two separate servers. This guide won't touch on how to do that.
 
@@ -20,24 +20,24 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 
 ### Both Servers
 
-- **KMD:** [https://github.com/KomodoPlatform/komodo](https://github.com/KomodoPlatform/komodo) Branch: `master`
+- **KMD:** [https://github.com/KomodoPlatform/komodo](https://github.com/KomodoPlatform/komodo) Branch: `master` , tag: `0.6.0`
 - **Iguana (no autosplit):** [https://github.com/KomodoPlatform/dPoW](https://github.com/KomodoPlatform/dPoW) Branch: `s4`
 
 ### Main Server
 
 - **BTC:** [https://github.com/bitcoin/bitcoin](https://github.com/bitcoin/bitcoin) Branch: `0.16`
-- **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.6.4-3` . It should point to the commit: `391c403814d25434b75cd3a82e1d79dfeb8ab0eb`
 
 ### 3rd Party Server
 
 - **HUSH:** [https://github.com/myhush/hush3](https://github.com/myhush/hush3) Tag: `v3.3.1`
-- **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master`
-- **GAME:** [https://github.com/gamecredits-project/GameCredits.git](https://github.com/gamecredits-project/GameCredits.git) Branch: `master`
-- **GIN:** [https://github.com/GIN-coin/gincoin-core.git](https://github.com/GIN-coin/gincoin-core.git) Branch: `master`
-- **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `dev`
-- **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master`
+- **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master` . Commit: `70d7dc2b94e0b275f026ae51fda2a23725929bfd`
+- **GAME:** [https://github.com/gamecredits-project/GameCredits.git](https://github.com/gamecredits-project/GameCredits.git) Branch: `master` . Commit: `025f105fc69f41ba1fbf599137aed08e18620dc3`
+- **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `master` . Commit: `31d59f9d8fa4a8e00dd474ef0561a5b174056d86`
+- **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master` . Commit: `fd94422aff2886919dc963d85c313df4dfb0d770`
+- **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.7.0-1` . Commit: `9d4787b057409668819b73c784697ebe2e6cdb54`
+<!--
 - **MCL:** [https://github.com/marmarachain/Marmara-v.1.0.git](https://github.com/marmarachain/Marmara-v.1.0.git) Branch: `master` Commit: `9013c5cb1bc88cf5db5910e4f251f56757385f5f`
-
+-->
 
 ## Requirements
 
@@ -56,7 +56,7 @@ Komodo Notary Node currently only works on Linux. To setup Komodo Notary Node be
 
 #### 3rd Party Server
 
-At the moment the current minimum server specs are listed below, however, this may change as more 3rd party coins require notarising.
+At the moment the current minimum server specs are listed below, however, this may change as more 3rd party coins require notarizing.
 
 - OS: Ubuntu 18.x or Debian 10.x is recommended.
 - CPU: A High-Performance CPU (e.g. Xeon, i7/i9, Ryzen, EPYC, etc.)
@@ -115,6 +115,7 @@ sudo ldconfig
 cd ~
 git clone https://github.com/KomodoPlatform/komodo -b master
 cd komodo
+git checkout 0.6.0
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh -j$(nproc)
 ```
@@ -185,9 +186,6 @@ GAME WIF: Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
 
 EMC2 Address: EdF2quz8nWrJDwTbbTTieFYUMGfPsVB5dv
 EMC2 WIF: T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
-
-GIN Address: Gdw3mTUaLRAgK7A2iZ8K4suQVnx7VRJ9rf
-GIN WIF: WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
 
 AYA Address: AVjkMgFfmMZbpFvmTxCcxadnD6g1EdQue3
 AYA WIF: T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
@@ -262,7 +260,7 @@ chmod 700 wp_7779
 
 ## Main Server Setup
 
-The instructions below are only required on your main server, which is the one that will be notarising Komodo, all the Smart Chains and runtime forks to Bitcoin.
+The instructions below are only required on your main server, which is the one that will be notarizing Komodo, all the Smart Chains and runtime forks to Bitcoin.
 
 ### Bitcoin
 
@@ -359,34 +357,15 @@ Restrict access to the `bitcoin.conf` file
 chmod 600 ~/.bitcoin/bitcoin.conf
 ```
 
-### VerusCoin (VRSC)
-
-#### Clone VRSC source and compile
-
-```bash
-cd ~
-git clone https://github.com/VerusCoin/VerusCoin -b master
-cd VerusCoin
-git checkout 391c403
-./zcutil/build.sh -j$(nproc)
-```
-
-Symlink the compiled binary
-
-```bash
-sudo ln -sf /home/$USER/VerusCoin/src/verusd /usr/local/bin/verusd
-```
-
 ### Start the daemons and sync all the chains
 
-For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarisation.
+For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarization.
 
 ### Start the coins
 
 ```bash
 komodod &
 bitcoind &
-verusd &
 ```
 
 ### Start Komodo and all the Smart Chains
@@ -407,8 +386,6 @@ tail -f ~/.bitcoin/debug.log
 tail -f ~/.komodo/debug.log
 # SUPERNET
 tail -f ~/.komodo/SUPERNET/debug.log
-# VRSC
-tail -f ~/.komodo/VRSC/debug.log
 ```
 
 For any other Komodo Smart Chain, use the example of SUPERNET and change the path with the coin name that you are looking for accordingly. You can now wait for all the coins to finish syncing. Just double check the blocks you've downloaded with an explorer to verify.
@@ -422,7 +399,6 @@ Feel free to import these as the daemons are syncing.
 ```bash
 komodo-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 bitcoin-cli importprivkey WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
-komodo-cli -ac_name=VRSC importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 ```
 
 - For all other Komodo Smart Chains, use the following command to import privkey
@@ -459,7 +435,6 @@ Never use `kill -9` to kill any Coin daemon if you don't like corrupt databases.
 ```bash
 komodo-cli stop
 bitcoin-cli stop
-komodo-cli -ac_name=VRSC stop
 ```
 
 For all other Komodo Smart Chains, use the following command to `stop` the daemons.
@@ -481,7 +456,7 @@ To complete setting up your main server, go to the [Set 'ulimit' parameters on U
 
 ## 3rd Party Server Setup
 
-The instructions below are only required on your 3rd party server, which is the one that will be notarising 3rd party coins to Komodo.
+The instructions below are only required on your 3rd party server, which is the one that will be notarizing 3rd party coins to Komodo.
 
 ### Aryacoin (AYA)
 
@@ -491,6 +466,7 @@ The instructions below are only required on your 3rd party server, which is the 
 cd ~
 git clone https://github.com/sillyghost/AYAv2.git -b master
 cd AYAv2
+git checkout fd94422
 ```
 
 #### Step 2: Create a build script
@@ -600,8 +576,9 @@ sudo ln -sf /home/$USER/hush3/src/hushd /usr/local/bin/hushd
 
 ```bash
 cd ~
-git clone https://github.com/jl777/chips3 -b dev
-cd chips3 
+git clone https://github.com/jl777/chips3 -b master
+cd chips3
+git checkout 31d59f9
 ```
 
 #### Step 2: Build
@@ -714,6 +691,7 @@ chmod 600 ~/.chips/chips.conf
 cd ~
 git clone https://github.com/gamecredits-project/GameCredits -b master
 cd GameCredits
+git checkout 025f105
 ```
 
 #### Step 2: Create a build script
@@ -829,6 +807,7 @@ chmod 600 ~/.gamecredits/gamecredits.conf
 cd ~
 git clone https://github.com/emc2foundation/einsteinium -b master
 cd einsteinium
+git checkout 70d7dc2	
 ```
 
 #### Step 2: Create a build script
@@ -917,102 +896,7 @@ Restrict access to the `einsteinium.conf` file
 chmod 600 ~/.einsteinium/einsteinium.conf
 ```
 
-### GinCoin (GIN)
-
-#### Step 1: Clone GIN source
-
-```bash
-cd ~
-git clone https://github.com/GIN-coin/gincoin-core -b master
-cd gincoin-core
-```
-
-#### Step 2: Create a build script
-
-Name the script as `build.sh` inside the `~/gincoin-core` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
-
-```bash
-#!/bin/bash
-berkeleydb () {
-    GIN_ROOT=$(pwd)
-    GIN_PREFIX="${GIN_ROOT}/db4"
-    mkdir -p $GIN_PREFIX
-    wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
-    echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
-    tar -xzvf db-4.8.30.NC.tar.gz
-    cat <<-EOL >atomic-builtin-test.cpp
-        #include <stdint.h>
-        #include "atomic.h"
-
-        int main() {
-        db_atomic_t *p; atomic_value_t oldval; atomic_value_t newval;
-        __atomic_compare_exchange(p, oldval, newval);
-        return 0;
-        }
-EOL
-    if g++ atomic-builtin-test.cpp -I./db-4.8.30.NC/dbinc -DHAVE_ATOMIC_SUPPORT -DHAVE_ATOMIC_X86_GCC_ASSEMBLY -o atomic-builtin-test 2>/dev/null; then
-        echo "No changes to bdb source are needed ..."
-        rm atomic-builtin-test 2>/dev/null
-    else
-        echo "Updating atomic.h file ..."
-        sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
-    fi
-    cd db-4.8.30.NC/build_unix/
-    ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$GIN_PREFIX
-    make install
-    cd $GIN_ROOT
-}
-
-buildgin () {
-    git pull
-    make clean
-    ./autogen.sh
-    ./configure LDFLAGS="-L${GIN_PREFIX}/lib/" CPPFLAGS="-I${GIN_PREFIX}/include/" --with-gui=no --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm --enable-static --disable-shared --without-gui
-    make -j$(nproc)
-}
-
-berkeleydb
-buildgin
-
-sudo ln -sf /home/$USER/gincoin-core/src/gincoin-cli /usr/local/bin/gincoin-cli
-sudo ln -sf /home/$USER/gincoin-core/src/gincoind /usr/local/bin/gincoind
-```
-
-#### Step 3: Make the script executable and run it
-
-```bash
-chmod +x build.sh
-./build.sh
-```
-
-#### Step 4: Create GIN data dir, `gincoin.conf` file and restrict access to it
-
-```bash
-cd ~
-mkdir .gincoincore
-nano ~/.gincoincore/gincoin.conf
-```
-
-Insert the following contents inside the `gincoin.conf` file and save it. (change the `rpcuser` and `rpcpassword` values)
-
-```bash
-rpcuser=user
-rpcpassword=password
-server=1
-daemon=1
-txindex=1
-litemode=1
-bind=127.0.0.1
-rpcbind=127.0.0.1
-rpcallowip=127.0.0.1
-```
-
-Restrict access to the `gincoin.conf` file
-
-```bash
-chmod 600 ~/.gincoincore/gincoin.conf
-```
-
+<!--
 ### MarmaraChain (MCL)
 
 #### Step 1: Clone MCL source and compile
@@ -1024,10 +908,29 @@ cd Marmara-v.1.0
 git checkout 9013c5cb1bc88cf5db5910e4f251f56757385f5f
 ./zcutil/build.sh -j$(nproc)
 ```
+-->
+
+### VerusCoin (VRSC)
+
+#### Step 1: Clone VRSC source and compile
+
+```bash
+cd ~
+git clone https://github.com/VerusCoin/VerusCoin -b master
+cd VerusCoin
+git checkout 9d4787b
+./zcutil/build.sh -j$(nproc)
+```
+
+Symlink the compiled binary
+
+```bash
+sudo ln -sf /home/$USER/VerusCoin/src/verusd /usr/local/bin/verusd
+```
 
 ### Start the daemons and sync all the chains
 
-For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarisation.
+For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarization.
 
 ### Start the coins
 
@@ -1036,10 +939,10 @@ komodod &
 chipsd &
 gamecreditsd &
 einsteiniumd &
-gincoind &
 ~/hush3/src/hushd &
 aryacoind &
-~/Marmara-v.1.0/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+verusd &
+#~/Marmara-v.1.0/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 ```
 
 Now wait for all the chains to finish syncing. This might take about 8-10 hours depending on your machine and internet connection. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories.
@@ -1055,14 +958,14 @@ tail -f ~/.chips/debug.log
 tail -f ~/.gamecredits/debug.log
 # EMC2
 tail -f ~/.einsteinium/debug.log
-# GIN
-tail -f ~/.gincoincore/debug.log
 # HUSH
 tail -f ~/.komodo/HUSH3/debug.log
 # AYA
 tail -f ~/.aryacoin/debug.log
 # MCL
-tail -f ~/.komodo/MCL/debug.log
+#tail -f ~/.komodo/MCL/debug.log
+# VRSC
+tail -f ~/.komodo/VRSC/debug.log
 ```
 
 You can now wait for all the coins to finish syncing. Just double check the block you've downloaded with an explorer to verify.
@@ -1079,9 +982,9 @@ komodo-cli -ac_name=HUSH3 importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U
 chips-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 gamecredits-cli importprivkey Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
 einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
-gincoin-cli importprivkey WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
 aryacoin-cli importprivkey T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
-komodo-cli -ac_name=MCL importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+#komodo-cli -ac_name=MCL importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+komodo-cli -ac_name=VRSC importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 ```
 
 This may take some time and will display the coin name and address after each import. You can tail the coin specific `debug.log` files to check the progress.
@@ -1114,9 +1017,9 @@ komodo-cli -ac_name=HUSH3 stop
 chips-cli stop
 gamecredits-cli stop
 einsteinium-cli stop
-gincoin-cli stop
 aryacoin-cli stop
-komodo-cli -ac_name=MCL stop
+#komodo-cli -ac_name=MCL stop
+komodo-cli -ac_name=VRSC stop
 ```
 
 ---
@@ -1184,7 +1087,6 @@ Here is an example of a Main Server start script that will start Notary easy min
 #!/bin/bash
 source ~/komodo/src/pubkey.txt
 bitcoind &
-~/VerusCoin/src/verusd -pubkey=$pubkey &
 sleep 60
 cd komodo/src
 ./komodod -gen -genproclimit=1 -notary -pubkey=$pubkey -minrelaytxfee=0.000035 -opretmintxfee=0.004 &
@@ -1200,10 +1102,10 @@ source ~/komodo/src/pubkey.txt
 chipsd -pubkey=$pubkey &
 gamecreditsd -pubkey=$pubkey &
 einsteiniumd -pubkey=$pubkey &
-gincoind -pubkey=$pubkey &
 ~/hush3/src/hushd -pubkey=$pubkey &
 aryacoind -pubkey=$pubkey &
-~/Marmara-v.1.0/src/komodod -ac_name=MCL -pubkey=$pubkey -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+~/VerusCoin/src/verusd -pubkey=$pubkey &
+#~/Marmara-v.1.0/src/komodod -ac_name=MCL -pubkey=$pubkey -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 sleep 60
 cd komodo/src
 ./komodod -notary -pubkey=$pubkey &
@@ -1245,6 +1147,10 @@ You can use the `m_notary` script if you wish, but this will issue a `git pull` 
 cd ~/dPoW/iguana
 ./m_notary_3rdparty
 ```
+
+## Firewall and Ports
+
+Enable `ufw` and close all routes except `ssh`. Then allow p2p ports of all the coins in their respective servers. Allow iguana's p2p ports: `17775` in main server and `17776` in the 3p server.
 
 ## NN Scripts
 
