@@ -30,11 +30,11 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 ### 3rd Party Server
 
 - **HUSH:** [https://github.com/myhush/hush3](https://github.com/myhush/hush3) Tag: `v3.3.1`
-- **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master`
-- **GAME:** [https://github.com/gamecredits-project/GameCredits.git](https://github.com/gamecredits-project/GameCredits.git) Branch: `master`
+- **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master` . Commit: `70d7dc2b94e0b275f026ae51fda2a23725929bfd`
+- **GAME:** [https://github.com/gamecredits-project/GameCredits.git](https://github.com/gamecredits-project/GameCredits.git) Branch: `master` . Commit: `025f105fc69f41ba1fbf599137aed08e18620dc3`
 - **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `master` . Commit: `31d59f9d8fa4a8e00dd474ef0561a5b174056d86`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master` . Commit: `fd94422aff2886919dc963d85c313df4dfb0d770`
-- **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.7.0` . Commit: `c1057a53938fdd453d484486687d3b610de1990c`
+- **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.7.0-1` . Commit: `9d4787b057409668819b73c784697ebe2e6cdb54`
 <!--
 - **MCL:** [https://github.com/marmarachain/Marmara-v.1.0.git](https://github.com/marmarachain/Marmara-v.1.0.git) Branch: `master` Commit: `9013c5cb1bc88cf5db5910e4f251f56757385f5f`
 -->
@@ -691,6 +691,7 @@ chmod 600 ~/.chips/chips.conf
 cd ~
 git clone https://github.com/gamecredits-project/GameCredits -b master
 cd GameCredits
+git checkout 025f105
 ```
 
 #### Step 2: Create a build script
@@ -806,6 +807,7 @@ chmod 600 ~/.gamecredits/gamecredits.conf
 cd ~
 git clone https://github.com/emc2foundation/einsteinium -b master
 cd einsteinium
+git checkout 70d7dc2	
 ```
 
 #### Step 2: Create a build script
@@ -916,7 +918,7 @@ git checkout 9013c5cb1bc88cf5db5910e4f251f56757385f5f
 cd ~
 git clone https://github.com/VerusCoin/VerusCoin -b master
 cd VerusCoin
-git checkout c1057a539
+git checkout 9d4787b
 ./zcutil/build.sh -j$(nproc)
 ```
 
