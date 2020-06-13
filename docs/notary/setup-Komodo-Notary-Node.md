@@ -20,7 +20,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 
 ### Both Servers
 
-- **KMD:** [https://github.com/KomodoPlatform/komodo](https://github.com/KomodoPlatform/komodo) Branch: `master`
+- **KMD:** [https://github.com/KomodoPlatform/komodo](https://github.com/KomodoPlatform/komodo) Branch: `master` , tag: `0.6.0`
 - **Iguana (no autosplit):** [https://github.com/KomodoPlatform/dPoW](https://github.com/KomodoPlatform/dPoW) Branch: `s4`
 
 ### Main Server
