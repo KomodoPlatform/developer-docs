@@ -20,7 +20,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 
 ### Both Servers
 
-- **KMD:** [https://github.com/KomodoPlatform/komodo](https://github.com/KomodoPlatform/komodo) Tree: `e159b4e7a40d3886519401c4074e957a1f9d42ba`
+- **KMD:** [https://github.com/KomodoPlatform/komodo/tree/e159b4e7a40d3886519401c4074e957a1f9d42ba](https://github.com/KomodoPlatform/komodo/tree/e159b4e7a40d3886519401c4074e957a1f9d42ba) Tree: `e159b4e7a40d3886519401c4074e957a1f9d42ba`
 - **Iguana (no autosplit):** [https://github.com/KomodoPlatform/dPoW](https://github.com/KomodoPlatform/dPoW) Branch: `master`
 
 ### Main Server
