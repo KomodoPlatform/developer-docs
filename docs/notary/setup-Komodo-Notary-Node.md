@@ -20,7 +20,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 
 ### Both Servers
 
-- **KMD:** [https://github.com/KomodoPlatform/komodo](https://github.com/KomodoPlatform/komodo) Branch: `dev` , Commit: `e159b4e7a40d3886519401c4074e957a1f9d42ba`
+- **KMD:** [https://github.com/KomodoPlatform/komodo](https://github.com/KomodoPlatform/komodo) Tree: `e159b4e7a40d3886519401c4074e957a1f9d42ba`
 - **Iguana (no autosplit):** [https://github.com/KomodoPlatform/dPoW](https://github.com/KomodoPlatform/dPoW) Branch: `master`
 
 ### Main Server
@@ -114,7 +114,7 @@ sudo ldconfig
 
 ```bash
 cd ~
-git clone https://github.com/KomodoPlatform/komodo -b dev
+git clone https://github.com/KomodoPlatform/komodo
 cd komodo
 git checkout e159b4e
 ./zcutil/fetch-params.sh
