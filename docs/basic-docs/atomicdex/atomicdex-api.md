@@ -112,7 +112,7 @@ curl --url "http://127.0.0.1:7783" --data "[
 
 ## buy
 
-**buy base rel price volume**
+**buy base rel price volume (match_by order_type base_confs base_nota rel_confs rel_nota)**
 
 The `buy` method issues a buy request and attempts to match an order from the orderbook based on the provided arguments.
 
@@ -136,6 +136,10 @@ The `buy` method issues a buy request and attempts to match an order from the or
 | match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
 | order_type      | object                     | the type of the order        |
 | order_type.type | string                     | there are two types from which to choose: `GoodTillCancelled` and `FillOrKill`. The `GoodTillCancelled` order is automatically converted to a `maker` order if the order is not matched in 30 seconds, and this `maker` order stays in the orderbook until explicitly cancelled. On the other hand, a `FillOrKill` order is cancelled if it is not matched within 30 seconds. The default type is `GoodTillCancelled` |
+| base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set |
+| base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set |
+| rel_confs       | number                     | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set |
+| rel_nota        | bool                       | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set |
 
 #### Response
 
@@ -156,6 +160,10 @@ The `buy` method issues a buy request and attempts to match an order from the or
 | result.match_by        | object                     | the created order is matched using this condition                        |
 | result.match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
 | result.match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
+| result.conf_settings.base_confs   | number          | number of required blockchain confirmations for base coin atomic swap transaction      |
+| result.conf_settings.base_nota    | bool            | whether dPoW notarization is required for base coin atomic swap transaction            |
+| result.conf_settings.rel_confs    | number          | number of required blockchain confirmations for rel coin atomic swap transaction       |
+| result.conf_settings.rel_nota     | bool            | whether dPoW notarization is required for rel coin atomic swap transaction             |
                                                                                                                                                                
 #### :pushpin: Examples
 
@@ -187,6 +195,29 @@ curl --url "http://127.0.0.1:7783" --data '{
     "numer":"2",
     "denom":"1"
   }
+}'
+```
+
+#### Command (with confirmations and notarization settings)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"buy",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
+  },
+  "price":{
+    "numer":"2",
+    "denom":"1"
+  },
+  "base_confs": 2,
+  "base_nota": true,
+  "rel_confs": 5,
+  "rel_nota": false  
 }'
 ```
 
@@ -245,11 +276,17 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       [1, [1]]
     ],
     "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-    "uuid": "288743e2-92a5-471e-92d5-bb828a2303c3"
-  },
-  "match_by":{
-    "data":["1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a"],
-    "type":"Pubkeys"
+    "uuid": "288743e2-92a5-471e-92d5-bb828a2303c3",
+    "match_by":{
+      "data":["1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a"],
+      "type":"Pubkeys"
+    },
+    "conf_settings":{
+      "base_confs":2,
+      "base_nota":true,
+      "rel_confs":5,
+      "rel_nota":false
+    }
   }
 }
 ```
@@ -1004,7 +1041,9 @@ This amount should be multiplied by 2 and deducted from the volume on `buy/sell`
 | ------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result        | object           | an object containing the relevant information                                                                                                              |
 | result.coin   | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example ERC20 fees are paid by ETH (gas) |
-| result.amount | string (numeric) | the approximate fee amount to be paid per swap transaction                                                                                                 |
+| result.amount | string (numeric) | the approximate fee amount to be paid per swap transaction in decimal representation                                                                                                |
+| result.amount_rat | rational     | the approximate fee amount to be paid per swap transaction in rational representation                                                                                                 |
+| result.amount_fraction | fraction| the approximate fee amount to be paid per swap transaction in fraction representation                                                                                                |
 
 #### :pushpin: Examples
 
@@ -1022,9 +1061,14 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result": {
-    "amount": "0.00096041",
-    "coin": "BTC"
+  "result":{
+    "amount":"0.00042049",
+    "amount_fraction":{
+      "denom":"100000000",
+      "numer":"42049"
+    },
+    "amount_rat":[[1,[42049]],[1,[100000000]]],
+    "coin":"BTC"
   }
 }
 ```
@@ -1047,9 +1091,14 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result": {
-    "amount": "0.00121275",
-    "coin": "ETH"
+  "result":{
+    "amount":"0.00594",
+    "amount_fraction":{
+      "denom":"50000",
+      "numer":"297"
+    },
+    "amount_rat":[[1,[297]],[1,[50000]]],
+    "coin":"ETH"
   }
 }
 ```
@@ -1072,9 +1121,14 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result": {
-    "amount": "0.00121275",
-    "coin": "ETH"
+  "result":{
+    "amount":"0.00594",
+    "amount_fraction":{
+      "denom":"50000",
+      "numer":"297"
+    },
+    "amount_rat":[[1,[297]],[1,[50000]]],
+    "coin":"ETH"
   }
 }
 ```
@@ -1208,6 +1262,52 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       },
       "caused_by_swap":"e8400870-e85a-42af-bb4f-9658ac86ffdf"
     }
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
+## max\_taker\_vol 
+
+**max_taker_vol coin**
+
+The `max_taker_vol` method returns the maximum available volume for buy/sell methods for selected `coin`.
+This takes the dex fee and blockchain miner fees into account. The result should be used as is for `sell` method or divided by price for `buy` method.
+
+#### Arguments
+
+| Structure | Type   | Description                                                     |
+| --------- | ------ | --------------------------------------------------------------- |
+| coin      | string | the name of the coin to retrieve the max available taker volume | 
+
+#### Response
+
+| Structure | Type     | Description                                               |
+| --------- | -------- | --------------------------------------------------------- |
+| coin      | fraction | the max available taker volume in fraction representation | 
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"method\":\"max_taker_vol\",\"coin\":\"RICK\",\"userpass\":\"$userpass\",\"mm2\":1}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+  "result":{
+    "denom":"38900000000",
+    "numer":"309786160299"
   }
 }
 ```
@@ -3761,7 +3861,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## sell
 
-**sell base rel price volume**
+**sell base rel price volume (match_by order_type base_confs base_nota rel_confs rel_nota)**
 
 The `sell` method issues a sell request and attempts to match an order from the orderbook based on the provided arguments.
 
@@ -3785,6 +3885,10 @@ The `sell` method issues a sell request and attempts to match an order from the 
 | match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
 | order_type      | object                     | the type of the order        |
 | order_type.type | string                     | there are two types from which to choose: `GoodTillCancelled` and `FillOrKill`. The `GoodTillCancelled` order is automatically converted to a `maker` order if the order is not matched in 30 seconds, and this `maker` order stays in the orderbook until explicitly cancelled. On the other hand, a `FillOrKill` order is cancelled if it is not matched within 30 seconds. The default type is `GoodTillCancelled` |
+| base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set |
+| base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set |
+| rel_confs       | number                     | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set |
+| rel_nota        | bool                       | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set |
 
 #### Response
 
@@ -3805,6 +3909,10 @@ The `sell` method issues a sell request and attempts to match an order from the 
 | result.match_by        | object           | the created order is matched using this condition                        |
 | result.match_by.type   | string           | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
 | result.match_by.data   | array of strings | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
+| result.conf_settings.base_confs   | number          | number of required blockchain confirmations for base coin atomic swap transaction      |
+| result.conf_settings.base_nota    | bool            | whether dPoW notarization is required for base coin atomic swap transaction            |
+| result.conf_settings.rel_confs    | number          | number of required blockchain confirmations for rel coin atomic swap transaction       |
+| result.conf_settings.rel_nota     | bool            | whether dPoW notarization is required for rel coin atomic swap transaction             |
 
 #### :pushpin: Examples
 
@@ -3836,6 +3944,29 @@ curl --url "http://127.0.0.1:7783" --data '{
     "numer":"2",
     "denom":"1"
   }
+}'
+```
+
+#### Command (with confirmations and notarization settings)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"sell",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
+  },
+  "price":{
+    "numer":"2",
+    "denom":"1"
+  },
+  "base_confs": 2,
+  "base_nota": true,
+  "rel_confs": 5,
+  "rel_nota": false
 }'
 ```
 
@@ -3898,6 +4029,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "match_by":{
       "data":["1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a"],
       "type":"Pubkeys"
+    },
+    "conf_settings":{
+      "base_confs":2,
+      "base_nota":true,
+      "rel_confs":5,
+      "rel_nota":false
     }
   }
 }
@@ -3960,7 +4097,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"send_raw_transaction\",
 
 ## setprice
 
-**setprice base rel price (volume max cancel_previous=true)**
+**setprice base rel price (volume max cancel_previous=true base_confs base_nota rel_confs rel_nota)**
 
 The `setprice` method places an order on the orderbook, and it relies on this node acting as a `maker`, also called a `Bob` node.
 
@@ -3982,6 +4119,10 @@ To prevent a user from making trades in which the transaction fees may end up co
 | volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to `0.00777`: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                                       |
 | max             | bool                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                |
 | cancel_previous | bool                       | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior |
+| base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set |
+| base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set |
+| rel_confs       | number                     | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set |
+| rel_nota        | bool                       | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set |
 
 #### Response
 
@@ -4000,6 +4141,10 @@ To prevent a user from making trades in which the transaction fees may end up co
 | result.matches          | object           | contains the map of ongoing matches with other orders, empty as the order was recently created            |
 | result.started_swaps    | array of strings | uuids of swaps that were initiated by the order                                                           |
 | result.uuid             | string           | uuid of the created order                                                                                 |
+| result.conf_settings.base_confs   | number          | number of required blockchain confirmations for base coin atomic swap transaction      |
+| result.conf_settings.base_nota    | bool            | whether dPoW notarization is required for base coin atomic swap transaction            |
+| result.conf_settings.rel_confs    | number          | number of required blockchain confirmations for rel coin atomic swap transaction       |
+| result.conf_settings.rel_nota     | bool            | whether dPoW notarization is required for rel coin atomic swap transaction             |
 
 #### :pushpin: Examples
 
@@ -4047,6 +4192,29 @@ curl --url "http://127.0.0.1:7783" --data '{
 }'
 ```
 
+#### Command (with confirmations and notarization settings)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"setprice",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
+  },
+  "price":{
+    "numer":"2",
+    "denom":"1"
+  },
+  "base_confs": 2,
+  "base_nota": true,
+  "rel_confs": 5,
+  "rel_nota": false  
+}'
+```
+
 <div style="margin-top: 0.5rem;">
 
 <collapse-text hidden title="Response">
@@ -4076,7 +4244,13 @@ curl --url "http://127.0.0.1:7783" --data '{
       [1, [1]]
     ],
     "started_swaps": [],
-    "uuid": "6a242691-6c05-474a-85c1-5b3f42278f41"
+    "uuid": "6a242691-6c05-474a-85c1-5b3f42278f41",
+    "conf_settings":{
+      "base_confs":2,
+      "base_nota":true,
+      "rel_confs":5,
+      "rel_nota":false
+    }
   }
 }
 ```
