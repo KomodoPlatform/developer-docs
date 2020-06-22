@@ -91,6 +91,7 @@ module.exports = {
     editLinks: true,
     editLinkText: "Suggest an improvement for this page",
     //lastUpdated: "Last Updated",
+    // sidebarDepth: 3,
     logo: "/KMD_Horiz_White.svg",
     algolia: {
       apiKey: algoliaSecret.key,
