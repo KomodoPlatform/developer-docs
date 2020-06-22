@@ -1152,7 +1152,7 @@ cd ~/dPoW/iguana
 
 ## Firewall and Ports
 
-Enable `ufw` and close all routes except `ssh`. Then allow p2p ports of all the coins in their respective servers. Allow iguana's p2p ports: `17775` in main server and `17776` in the 3p server.
+Enable `ufw` and close all routes except `ssh`. Then allow p2p ports of all the coins in their respective servers. Allow iguana's p2p ports: `17773` in main server and `17774` in the 3p server.
 
 ## NN Scripts
 
