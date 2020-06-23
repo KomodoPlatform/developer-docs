@@ -3615,6 +3615,7 @@ The `orderbook` method requests from the network the currently available orders 
 | timestamp      | number           | the timestamp of the orderbook request                                        |
 | netid          | number           | the id of the network on which the request is made (default is `0`)           |
 | uuid           | string           | the uuid of order                                                             |
+| is_mine        | bool             | whether the order is placed by me
 
 #### :pushpin: Examples
 
@@ -3658,7 +3659,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       "pubkey": "631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
       "age": 1,
       "zcredits": 0,
-      "uuid":"6343b2b1-c896-47d4-b0f2-a11798f654ed"
+      "uuid": "6343b2b1-c896-47d4-b0f2-a11798f654ed",
+      "is_mine": false
     }
   ],
   "base": "HELLO",
