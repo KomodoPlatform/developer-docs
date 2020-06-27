@@ -35,10 +35,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 - **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `master` . Commit: `31d59f9d8fa4a8e00dd474ef0561a5b174056d86`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master` . Commit: `fd94422aff2886919dc963d85c313df4dfb0d770`
 - **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.7.0-3` . Commit: `5611c0a8ee95d143372f6d9708b42d14022c5692`
-
-<!--
-**MCL:** [https://github.com/marmarachain/Marmara-v.1.0.git](https://github.com/marmarachain/Marmara-v.1.0.git) Branch: `master` Commit: `9013c5cb1bc88cf5db5910e4f251f56757385f5f`
--->
+- **MCL:** [https://github.com/marmarachain/Marmara-v.1.0.git](https://github.com/marmarachain/Marmara-v.1.0.git) Branch: `master` Commit: `03dd78037067ebb27af8b33f6adcdbede3813007`
 
 ## Requirements
 
@@ -898,7 +895,6 @@ Restrict access to the `einsteinium.conf` file
 chmod 600 ~/.einsteinium/einsteinium.conf
 ```
 
-<!--
 ### MarmaraChain (MCL)
 
 #### Step 1: Clone MCL source and compile
@@ -907,10 +903,9 @@ chmod 600 ~/.einsteinium/einsteinium.conf
 cd ~
 git clone https://github.com/marmarachain/Marmara-v.1.0 -b master
 cd Marmara-v.1.0
-git checkout 9013c5cb1bc88cf5db5910e4f251f56757385f5f
+git checkout 03dd780
 ./zcutil/build.sh -j$(nproc)
 ```
--->
 
 ### VerusCoin (VRSC)
 
@@ -944,7 +939,7 @@ einsteiniumd &
 ~/hush3/src/hushd &
 aryacoind &
 verusd &
-#~/Marmara-v.1.0/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+~/Marmara-v.1.0/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 ```
 
 Now wait for all the chains to finish syncing. This might take about 8-10 hours depending on your machine and internet connection. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories.
@@ -965,7 +960,7 @@ tail -f ~/.komodo/HUSH3/debug.log
 # AYA
 tail -f ~/.aryacoin/debug.log
 # MCL
-#tail -f ~/.komodo/MCL/debug.log
+tail -f ~/.komodo/MCL/debug.log
 # VRSC
 tail -f ~/.komodo/VRSC/debug.log
 ```
@@ -985,7 +980,7 @@ chips-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 gamecredits-cli importprivkey Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
 einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
 aryacoin-cli importprivkey T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
-#komodo-cli -ac_name=MCL importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+komodo-cli -ac_name=MCL importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 komodo-cli -ac_name=VRSC importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 ```
 
@@ -1020,7 +1015,7 @@ chips-cli stop
 gamecredits-cli stop
 einsteinium-cli stop
 aryacoin-cli stop
-#komodo-cli -ac_name=MCL stop
+komodo-cli -ac_name=MCL stop
 komodo-cli -ac_name=VRSC stop
 ```
 
@@ -1107,7 +1102,7 @@ einsteiniumd -pubkey=$pubkey &
 ~/hush3/src/hushd -pubkey=$pubkey &
 aryacoind -pubkey=$pubkey &
 ~/VerusCoin/src/verusd -pubkey=$pubkey &
-#~/Marmara-v.1.0/src/komodod -ac_name=MCL -pubkey=$pubkey -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+~/Marmara-v.1.0/src/komodod -ac_name=MCL -pubkey=$pubkey -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 sleep 60
 cd komodo/src
 ./komodod -notary -pubkey=$pubkey &
