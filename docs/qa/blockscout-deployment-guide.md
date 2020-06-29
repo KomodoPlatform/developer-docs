@@ -1,14 +1,14 @@
 # Blockscout deployment guide
 
-This guide uses following software versions:  (actual at the moment of writing)
+This guide currently uses the following software versions:
 
-- ubuntu-18.04 (bionic) server
-- Openethereum (Parity) v3.0.1-stable
-- BlockScout v3.2.0
+- Ubuntu-18.04 (Bionic) server
+- Openethereum (Parity): `v3.0.1-stable`
+- BlockScout: `v3.2.0`
 
 ## General Pre-Requirements
 
-Linux(Ubuntu || CentOS) server with root access, 4+ TB storage for [BlockScout database](https://docs.blockscout.com/for-developers/information-and-settings/database-storage-requirements), 2+ TB storage for [ETH Mainnet archive](https://openethereum.github.io/wiki/FAQ#what-are-the-parity-ethereum-disk-space-needs-and-overall-hardware-requirements)
+Linux(Ubuntu or CentOS) server with root access, `4+ TB` storage for [BlockScout database](https://docs.blockscout.com/for-developers/information-and-settings/database-storage-requirements), 2+ TB storage for [ETH Mainnet archive](https://openethereum.github.io/wiki/FAQ#what-are-the-parity-ethereum-disk-space-needs-and-overall-hardware-requirements)
 
 Prepare user with sudo privileges, ssh access, domain name, ensure basic server security
 
