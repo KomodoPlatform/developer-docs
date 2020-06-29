@@ -3,20 +3,20 @@
 This guide currently uses the following software versions:
 
 - Ubuntu-18.04 (Bionic) server
-- Openethereum (Parity): `v3.0.1-stable`
+- Openethereum (Parity): [v3.0.1-stable](https://github.com/openethereum/openethereum/releases/tag/v3.0.1)
 - BlockScout: `v3.2.0`
 
 ## General Pre-Requirements
 
-Linux(Ubuntu or CentOS) server with root access, `4+ TB` storage for [BlockScout database](https://docs.blockscout.com/for-developers/information-and-settings/database-storage-requirements), 2+ TB storage for [ETH Mainnet archive](https://openethereum.github.io/wiki/FAQ#what-are-the-parity-ethereum-disk-space-needs-and-overall-hardware-requirements)
+Linux(Ubuntu or CentOS) server with root access, `4+ TB` storage for [BlockScout database](https://docs.blockscout.com/for-developers/information-and-settings/database-storage-requirements), `2+ TB` storage for [ETH Mainnet archive node](https://openethereum.github.io/wiki/FAQ#what-are-the-parity-ethereum-disk-space-needs-and-overall-hardware-requirements)
 
-Prepare user with sudo privileges, ssh access, domain name, ensure basic server security
+Create a user with sudo privileges, ssh access, domain name, ensure basic server security
 
 ::: tip Note
 
-- bash commands below are for reference only, please do not copy/paste them mindlessly, or you may expect encountering brocken links and weird paths.
-- Commands noted with `\$` should be executed as your user, under whom blockscout service will be running. `\#` meant to be ran as root. `\=#` commands are executed in psql.
-- [Blockscout reqs](https://docs.blockscout.com/for-developers/information-and-settings/requirements) seems to be outdated, you may use latest stable releases instead. Anyway, you will be notified by BlockScout later down the road if some binary version is not supported.
+- bash commands below are for reference only, please do not copy/paste them mindlessly, or else you may expect to encounter broken links and weird paths.
+- Commands marked with `\$` should be executed as your user, under whom the blockscout service will be running. `\#` means the command should be run as root. `\=#` commands are executed in psql.
+- [Blockscout reqs](https://docs.blockscout.com/for-developers/information-and-settings/requirements) seems to be outdated, you may use latest stable releases instead. Anyway, you will be notified by BlockScout later if some binary version is not supported.
 
 :::
 
@@ -26,17 +26,17 @@ Prepare user with sudo privileges, ssh access, domain name, ensure basic server 
 
 Prepare storage
 
-Make sure your user has access to storage mount/path AE: `/mnt/openeth/storage/path`
+Make sure your user has access to the storage mount/path AE: `/mnt/openeth/storage/path`
 
 ### Get binary
 
 Install basic deps: `build-essential cmake libudev-dev`
 
-Download latest precompiled version [here](https://github.com/openethereum/openethereum/releases)
+Download the latest precompiled version from [here](https://github.com/openethereum/openethereum/releases)
 
 ```bash
 \$ sudo apt-get update && sudo apt-get upgrade -y
-\$ sudo apt-get install libudev-dev zip unzip -y
+\$ sudo apt-get install libudev-dev zip unzip build-essential cmake -y
 \$ wget https://github.com/openethereum/openethereum/releases/download/version/openethereum-linux-version.zip
 \$ unzip -o openethereum-linux-version.zip -d openethereum
 \$ cd openethereum
@@ -45,8 +45,8 @@ Download latest precompiled version [here](https://github.com/openethereum/opene
 
 ### Configuration
 
-Create empty log file 
- 
+Create an empty log file
+
 ```bash
 \$ touch /mnt/openeth/storage/path/config/example.log
 ```
@@ -68,7 +68,7 @@ log_file = "/mnt/openeth/storage/path/config/example.log"
 
 ```
 
-Prepare systemd service file
+Prepare the `systemd` service file
 
 ```bash
 \$ sudo nano /etc/systemd/system/openethereum.service
@@ -88,12 +88,12 @@ WantedBy=default.target
 ```
 
 ::: tip Note
-Official iunstruction can be found [here](https://docs.blockscout.com/for-developers/information-and-settings/client-settings-parity-geth-ganache#parity-client).
+Official instructions can be found [here](https://docs.blockscout.com/for-developers/information-and-settings/client-settings-parity-geth-ganache#parity-client).
 :::
 
-Configure firewall for openethereum client (`ports 30303/tcp, 8545/tcp, 8546/tcp`)
+Allow the ports used by the openethereum client (`ports 30303/tcp, 8545/tcp, 8546/tcp`) through your firewall.
 
-Test systemd service
+Test the `systemd` service
 
 ```bash
 \$ sudo systemctl daemon-reload
@@ -114,7 +114,7 @@ Prepare and mount storage for BlockScout DB
 
 ### Install PostgreSQL
 
-[PostgreSQL downloads](https://www.postgresql.org/download/) page suggests to use distribution-based repos, example for Ubuntu:
+[PostgreSQL downloads](https://www.postgresql.org/download/) page suggests usage of different repositories based on the OS. For example, in Ubuntu:
 
 ```bash
 \$ sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
@@ -124,12 +124,13 @@ Prepare and mount storage for BlockScout DB
 ```
 
 ::: tip Note
-BlockScout supports psql 10.3+ versions, same as in example above
+BlockScout supports psql versions: `10.3+`, same as in the above example.
 :::
 
 ### PostgreSQL configuration
 
-Create database, user and set userpassword
+Create a database, user and set userpassword
+
 ```bash
 \# adduser dbusername
 \# passwd dbusername
@@ -143,11 +144,11 @@ Create database, user and set userpassword
 ```
 
 ::: tip Note
-PSQL user should be first created as general user with `adduser`. dbusername system password should not be the same to his/her database dbuserpassword. dbuserpassowrd will be parsed by BlockScout as part of DB link, thus it's recommended to omit problematic charactrers in database password
+PSQL user should be first created as general user with `adduser`. dbusername system password should not be the same to his/her database dbuserpassword. dbuserpassowrd will be parsed by BlockScout as part of DB link, thus it's recommended to omit problematic characters in the database password
 :::
 
 Set your storage path as psql datadir
- 
+
 ```bash
 \$ nano /etc/postgresql/10/main/postgresql.conf
 
@@ -159,13 +160,13 @@ data_directory = '/mnt/psql/storage/path'          # use data in another directo
 Make sure postgres user has right permissions on storage dir.
 
 Start psql
- 
+
 ```bash
 \$ sudo systemctl start postgresql
 ```
- 
+
 Validate data directory path
- 
+
 ```bash
 \# su - postgres
 \$ psql
@@ -178,9 +179,9 @@ Validate data directory path
 
 \=# \q
 ```
- 
+
 Make sure your user has blockscout db access
- 
+
 ```bash
 \# su - dbusername
 \$ psql -d blockscout
@@ -317,7 +318,6 @@ Command above will generate and enable self-signed ssl certs, you need to replac
 You may use [certbot](https://certbot.eff.org/instructions) (letsencrypt) to do it, don't forget to set user permissions
 and configure file `/path/to/blockscout/config/dev.exs`, see example below:
 
-
 ```bash
 \$  nano /path/to/blockscout/config/dev.exs
 ...
@@ -331,6 +331,7 @@ config :block_scout_web, BlockScoutWeb.Endpoint,
   ]
 ...
 ```
+
 If using certbot, add cert renewal to crontab
 
 ### Set BlockScout as systemd service
@@ -360,14 +361,14 @@ Set your start script as service:
  [Unit]
  Description=Blockscout
  After=network.target
- 
+
  [Service]
  User=youruser
  Group=yourusergroup
  WorkingDirectory=/full/path/to/blockscout
  ExecStart=/bin/bash /path/to/blockscout/start.sh
  KillSignal=SIGHUP
- 
+
  [Install]
  WantedBy=default.target
 ```
