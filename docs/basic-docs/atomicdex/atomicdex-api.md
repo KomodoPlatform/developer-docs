@@ -629,7 +629,6 @@ For terminal interface examples, see the examples section below.
 | ---------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                                                                                                                                                                  |
 | balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                                                                                                                                                                      |
-| locked\_by\_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
 | coin                   | string           | the ticker of the enabled coin                                                                                                                                                                                                                           |
 | required_confirmations | number           | the number of transaction confirmations for which MM2 must wait during the atomic swap process                                                                                                                                                                           |
 | requires_notarization  | bool             | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions; applicable only for coins using Komodo dPoW                                  |
@@ -654,7 +653,6 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
-  "locked_by_swaps": "0",
   "required_confirmations": 1,
   "requires_notarization": false,
   "result": "success"
@@ -682,7 +680,6 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
-  "locked_by_swaps": "0",
   "required_confirmations": 1,
   "requires_notarization": false,
   "result": "success"
@@ -710,7 +707,6 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
-  "locked_by_swaps": "0",
   "required_confirmations": 10,
   "requires_notarization": true,
   "result": "success"
@@ -792,7 +788,6 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | ---------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                                                                                                                                                                  |
 | balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                                                                                                                                                                      |
-| locked_by_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
 | coin                   | string           | the ticker of enabled coin                                                                                                                                                                                                                               |
 | required_confirmations | number           | MM2 will wait for the this number of coin's transaction confirmations during the swap                                                                                                                                                                    |
 | requires_notarization  | bool             | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions                                 |
@@ -817,7 +812,6 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
-  "locked_by_swaps": "0",
   "required_confirmations": 1,
   "requires_notarization": false,
   "result": "success"
@@ -845,7 +839,6 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
-  "locked_by_swaps": "0",
   "required_confirmations": 10,
   "requires_notarization": true,
   "result": "success"
@@ -873,7 +866,6 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "ETH",
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
   "balance": "50",
-  "locked_by_swaps": "0",
   "required_confirmations": 1,
   "requires_notarization": false,
   "result": "success"
@@ -901,7 +893,6 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "ETH",
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
   "balance": "50",
-  "locked_by_swaps": "0",
   "required_confirmations": 1,
   "requires_notarization": false,
   "result": "success"
@@ -929,7 +920,6 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
-  "locked_by_swaps": "0",
   "required_confirmations": 1,
   "requires_notarization": false,
   "result": "success"
@@ -1334,7 +1324,6 @@ The `my_balance` method returns the current balance of the specified `coin`.
 | --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | address         | string           | the address that holds the coins                                                                                                                                                                                                                         |
 | balance         | string (numeric) | the number of coins in the address                                                                                                                                                                                                                       |
-| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
 | coin            | string           | the name of the coin                                                                                                                                                                                                                                     |
 
 #### :pushpin: Examples
@@ -1355,8 +1344,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 {
   "address": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
   "balance": "60.00253836",
-  "coin": "HELLOWORLD",
-  "locked_by_swaps": "0"
+  "coin": "HELLOWORLD"
 }
 ```
 
