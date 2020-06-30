@@ -129,11 +129,15 @@ BlockScout supports psql versions: `10.3+`, same as in the above example.
 
 ### PostgreSQL configuration
 
-Create a database, user and set userpassword
-Create a new user in the OS and set a password using 
+Create a new user in the OS and set a password using `adduser`
 
 ```bash
 \# adduser dbusername
+```
+
+Create a database, user and set userpassword
+
+```bash
 \# su - postgres
 \$ createuser --interactive dbusername
 \$ createdb blockscout
@@ -144,7 +148,7 @@ Create a new user in the OS and set a password using
 ```
 
 ::: tip Note
-PSQL user should be first created as general user with `adduser`. dbusername system password should not be the same to his/her database dbuserpassword. dbuserpassowrd will be parsed by BlockScout as part of DB link, thus it's recommended to omit problematic characters in the database password
+PSQL user should be first created as a general user with `adduser`. The user's system password should not be the same as their database `dbuserpassword`. `dbuserpassword` will be parsed by BlockScout as part of the DB link, thus it's recommended to omit problematic characters in the database password
 :::
 
 Set your storage path as psql datadir
@@ -157,7 +161,7 @@ data_directory = '/mnt/psql/storage/path'          # use data in another directo
 ...
 ```
 
-Make sure postgres user has right permissions on storage dir.
+Make sure the PSQL user has the right permissions on storage dir.
 
 Start psql
 
@@ -187,7 +191,7 @@ Make sure your user has blockscout db access
 \$ psql -d blockscout
 ```
 
-Open PostgreSQL port on firewall `5432/tcp`
+Open the PostgreSQL port on firewall: `5432/tcp`
 
 Enable postgresql as service
 
@@ -229,7 +233,7 @@ Check version and installation:
 
 ### Elixir
 
-Download precompiled release from [github](https://github.com/elixir-lang/elixir/releases)
+Download pre-compiled release from [github](https://github.com/elixir-lang/elixir/releases)
 
 ```bash
 \$ wget https://github.com/elixir-lang/elixir/releases/download/tag/Precompiled.zip
@@ -261,7 +265,7 @@ You can get Node.js [here](https://nodejs.org/en/download/) or in your distro re
 \$ sudo apt-get install -y nodejs
 ```
 
-heck Node version:
+Check Node version:
 
 ```bash
 \$ nodejs --version
@@ -280,7 +284,7 @@ Generate DB secret and export it to bash:
 
 ```bash
 \$ mix phx.gen.secret    # in blockscout base dir
-\$ export SECRET_KEY_BASE=generatedAboveSecret/PasteHere
+\$ export SECRET_KEY_BASE=<generatedAboveSecret/PasteHere>
 ```
 
 Set required env variables, example below is suited for Ethereum Mainnet and Parity(Openethereum)
@@ -314,9 +318,8 @@ Enable SSL:
 \$ cd apps/block_scout_web; mix phx.gen.cert blockscout blockscout.local; cd -
 ```
 
-Command above will generate and enable self-signed ssl certs, you need to replace them with real ones.
-You may use [certbot](https://certbot.eff.org/instructions) (letsencrypt) to do it, don't forget to set user permissions
-and configure file `/path/to/blockscout/config/dev.exs`, see example below:
+The above command will generate and enable self-signed ssl certs, you need to replace them with real ones.
+You may use [certbot](https://certbot.eff.org/instructions) (letsencrypt) to do it, don't forget to set user permissions and configure the file: `/path/to/blockscout/config/dev.exs`, see example below:
 
 ```bash
 \$  nano /path/to/blockscout/config/dev.exs
