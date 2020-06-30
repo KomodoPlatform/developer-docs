@@ -15,7 +15,7 @@ Create a user with sudo privileges, ssh access, domain name, ensure basic server
 ::: tip Note
 
 - bash commands below are for reference only, please do not copy/paste them mindlessly, or else you may expect to encounter broken links and weird paths.
-- Commands marked with `\$` should be executed as your user, under whom the blockscout service will be running. `\#` means the command should be run as root. `\=#` commands are executed in psql.
+- Commands marked with `\$` should be executed as your user, under whom the blockscout service will be running. `\#` means the command should be run as root. `\=\#` commands are executed in psql.
 - [Blockscout reqs](https://docs.blockscout.com/for-developers/information-and-settings/requirements) seems to be outdated, you may use latest stable releases instead. Anyway, you will be notified by BlockScout later if some binary version is not supported.
 
 :::
@@ -130,17 +130,17 @@ BlockScout supports psql versions: `10.3+`, same as in the above example.
 ### PostgreSQL configuration
 
 Create a database, user and set userpassword
+Create a new user in the OS and set a password using 
 
 ```bash
 \# adduser dbusername
-\# passwd dbusername
 \# su - postgres
 \$ createuser --interactive dbusername
 \$ createdb blockscout
 \$ psql
-\=# ALTER USER dbusername WITH PASSWORD 'dbuserpassword';
-\=# GRANT ALL PRIVILEGES ON blockscout TO dbusername;
-\=# \q
+\=\# ALTER USER dbusername WITH PASSWORD 'dbuserpassword';
+\=\# GRANT ALL PRIVILEGES ON blockscout TO dbusername;
+\=\# \q
 ```
 
 ::: tip Note
@@ -170,14 +170,14 @@ Validate data directory path
 ```bash
 \# su - postgres
 \$ psql
-\=# SHOW data_directory;
+\=\# SHOW data_directory;
 
     data_directory
 ---------------------
  /mnt/psql/storage/path
 (1 row)
 
-\=# \q
+\=\# \q
 ```
 
 Make sure your user has blockscout db access
