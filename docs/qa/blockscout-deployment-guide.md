@@ -191,7 +191,7 @@ Make sure your user has blockscout db access
 \$ psql -d blockscout
 ```
 
-Open the PostgreSQL port on firewall: `5432/tcp`
+Optionally, you might open the PostgreSQL port on your firewall: `5432/tcp` to access it from a remote computer, but we don't recommend it.
 
 Enable postgresql as service
 
