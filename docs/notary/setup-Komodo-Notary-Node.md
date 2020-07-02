@@ -34,7 +34,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 - **GAME:** [https://github.com/gamecredits-project/GameCredits.git](https://github.com/gamecredits-project/GameCredits.git) Branch: `master` . Commit: `025f105fc69f41ba1fbf599137aed08e18620dc3` **GAME is not ready for Season 4 at the time of writing this note(June 14th, 12:25 AM UTC), we will update this document when the update for GAME is ready or if it should be removed**
 - **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `master` . Commit: `31d59f9d8fa4a8e00dd474ef0561a5b174056d86`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master` . Commit: `fd94422aff2886919dc963d85c313df4dfb0d770`
-- **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.7.0-3` . Commit: `5611c0a8ee95d143372f6d9708b42d14022c5692`
+- **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.7.0-4` . Commit: `ab82cc9aad27db997d8dd9d30ebd973a78c22abc`
 - **MCL:** [https://github.com/marmarachain/Marmara-v.1.0.git](https://github.com/marmarachain/Marmara-v.1.0.git) Branch: `master` Commit: `03dd78037067ebb27af8b33f6adcdbede3813007`
 
 ## Requirements
@@ -915,7 +915,7 @@ git checkout 03dd780
 cd ~
 git clone https://github.com/VerusCoin/VerusCoin -b master
 cd VerusCoin
-git checkout 5611c0a
+git checkout ab82cc9
 ./zcutil/build.sh -j$(nproc)
 ```
 
