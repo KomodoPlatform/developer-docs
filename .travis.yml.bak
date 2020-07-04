@@ -1,13 +1,13 @@
-language: node_js
-node_js:
-  - lts/*
-install:
-  - yarn install
+dist: xenial
+sudo: required
+services:
+  - docker
 script:
-  - git fetch --unshallow
-  - ./algolia-key.sh
-  - yarn docs:build
-  - echo 'developers.komodoplatform.com' > docs/.vuepress/dist/CNAME
+  - docker build -t komodo_docs_image .
+  - docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) -e ALGOLIAKEY=$ALGOLIAKEY komodo_docs_image
+  - cd docs/.vuepress/dist/
+  - echo 'developers.komodoplatform.com' > CNAME
+  - cd -
   - ./prepare-atomicDEX-docs.sh
 
 deploy:
@@ -22,7 +22,6 @@ deploy:
     skip-cleanup: true
     github-token: "$GH_TOKEN"
     local-dir: AtomicDEX-docs
-    keep_history: true
     target_branch: master
     repo: komodoplatform/AtomicDEX-docs
     on:

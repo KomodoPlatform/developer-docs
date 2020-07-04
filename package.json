@@ -9,7 +9,9 @@
   "author": "Contributors from Komodo Platform",
   "license": "MIT",
   "devDependencies": {
+    "moment": "^2.27.0",
     "vuepress": "^1.0.2",
+    "vuepress-plugin-google-tag-manager": "^0.0.4",
     "vuepress-plugin-medium-zoom": "^1.1.8",
     "vuepress-plugin-redirect": "1.2.0-alpha.0"
   },
