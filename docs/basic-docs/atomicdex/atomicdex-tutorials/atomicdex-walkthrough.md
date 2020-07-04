@@ -253,14 +253,29 @@ The call will return a similar result:
     {
       "coin": "RICK",
       "address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
-      "price": 0.89999998,
-      "numutxos": 0,
-      "avevolume": 0,
-      "maxvolume": 10855.85028615,
-      "depth": 0,
+      "price": "0.89999998",
+      "price_rat": [
+        [1, [813957463, 471859]],
+        [1, [0, 524288]]
+      ],
+      "price_fraction": {
+        "numer": "2026619787280727",
+        "denom": "2251799813685248"
+      },
+      "maxvolume": "10855.85028615",
+      "max_volume_rat": [
+        [1, [3593286463, 1389548]],
+        [1, [0, 128]]
+      ],
+      "max_volume_fraction": {
+        "numer": "5968066809508671",
+        "denom": "549755813888"
+      },
       "pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
       "age": 5,
-      "zcredits": 0
+      "zcredits": 0,
+      "uuid": "5bff6021-b086-477e-b874-f45d898933fe",
+      "is_mine": false
     }
   ],
   "numasks": 1,
@@ -302,14 +317,29 @@ Here's the response:
     {
       "coin": "RICK",
       "address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
-      "price": 2,
-      "numutxos": 0,
-      "avevolume": 0,
-      "maxvolume": 10855.85028615,
-      "depth": 0,
+      "price": "2",
+      "price_rat": [
+        [1, [2]],
+        [1, [1]]
+      ],
+      "price_fraction": {
+        "numer": "2",
+        "denom": "1"
+      },
+      "maxvolume": "10855.85028615",
+      "max_volume_rat": [
+        [1, [3593286463, 1389548]],
+        [1, [0, 128]]
+      ],
+      "max_volume_fraction": {
+        "numer": "5968066809508671",
+        "denom": "549755813888"
+      },
       "pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
       "age": 9,
-      "zcredits": 0
+      "zcredits": 0,
+      "uuid": "5bff6021-b086-477e-b874-f45d898933fe",
+      "is_mine": false
     }
   ],
   "numasks": 1,
