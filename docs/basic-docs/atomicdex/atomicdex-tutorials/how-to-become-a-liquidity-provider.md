@@ -532,14 +532,29 @@ See this [linked document](../../../basic-docs/atomicdex/atomicdex-api.html#orde
    {
      "coin": "KMD",
      "address": "RT9MpMyucqXiX8bZLimXBnrrn2ofmdGNKd",
-     "price": 0.013215470000000002,
-     "numutxos": 0,
-     "avevolume": 0,
-     "maxvolume": 485.99773485000003,
-     "depth": 0,
+     "price": "0.013215470000000002",
+     "price_rat": [
+       [1, [1536963325, 1773750]],
+       [1, [0, 134217728]]
+     ],
+     "price_fraction": {
+       "numer": "7618199778243325",
+       "denom": "576460752303423488"
+     },
+     "maxvolume": "485.99773485000003",
+     "max_volume_rat": [
+       [1, [1550366371, 995323]],
+       [1, [0, 2048]]
+     ],
+     "max_volume_fraction": {
+       "numer": "4274881284322979",
+       "denom": "8796093022208"
+     },
      "pubkey": "1bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8",
      "age": 10,
-     "zcredits": 0
+     "zcredits": 0,
+     "uuid": "ac058b00-24e0-40e1-82f0-0ec4131450c5",
+     "is_mine": false
    }
  ],
  "base": "KMD",
@@ -548,14 +563,30 @@ See this [linked document](../../../basic-docs/atomicdex/atomicdex-api.html#orde
    {
      "coin": "LTC",
      "address": "Ld6814QT6fyChvvX3gmhNHbRDyiMBvPr9s",
-     "price": 0.011956849349654498,
-     "numutxos": 0,
-     "avevolume": 0,
-     "maxvolume": 1.03403044,
+     "price": "0.011956849349654498",
+     "price_rat": [
+       [1, [1238828453, 401205]],
+       [1, [0, 33554432]]
+     ],
+     "price_fraction": {
+       "numer": "1723163592820133",
+       "denom": "144115188075855872"
+     },
+     "maxvolume": "1.03403044",
+     "max_volume_rat": [
+       [1, [3226923691, 542129]],
+       [1, [0, 524288]]
+     ],
+     "max_volume_fraction": {
+       "numer": "2328429552136875",
+       "denom": "2251799813685248"
+     },
      "depth": 0,
      "pubkey": "1bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8",
      "age": 11,
-     "zcredits": 0
+     "zcredits": 0,
+     "uuid": "80019ae0-5a42-40db-bc49-18975987e45b",
+     "is_mine": false
    }
  ],
  "netid": 9999,
@@ -585,14 +616,29 @@ Display the LTC/KMD Orderbook.
    {
      "coin": "LTC",
      "address": "Ld6814QT6fyChvvX3gmhNHbRDyiMBvPr9s",
-     "price": 83.19879514,
-     "numutxos": 0,
-     "avevolume": 0,
-     "maxvolume": 1.03403044,
-     "depth": 0,
+     "price": "83.19879514",
+     "price_rat": [
+       [1, [255867351, 1363129]],
+       [1, [0, 16384]]
+     ],
+     "price_fraction": {
+       "numer": "5854594731096535",
+       "denom": "70368744177664"
+     },
+     "maxvolume": "1.03403044",
+     "max_volume_rat": [
+       [1, [3226923691, 542129]],
+       [1, [0, 524288]]
+     ],
+     "max_volume_fraction": {
+       "numer": "2328429552136875",
+       "denom": "2251799813685248"
+     },
      "pubkey": "1bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8",
      "age": 9,
-     "zcredits": 0
+     "zcredits": 0,
+     "uuid": "80019ae0-5a42-40db-bc49-18975987e45b",
+     "is_mine": false
    }
  ],
  "base": "LTC",
@@ -601,14 +647,29 @@ Display the LTC/KMD Orderbook.
    {
      "coin": "KMD",
      "address": "RT9MpMyucqXiX8bZLimXBnrrn2ofmdGNKd",
-     "price": 75.27507393894138,
-     "numutxos": 0,
-     "avevolume": 0,
-     "maxvolume": 485.99773485000003,
-     "depth": 0,
+     "price": "75.27507393894138",
+     "price_rat": [
+       [1, [3018734531, 308326]],
+       [1, [0, 4096]]
+     ],
+     "price_fraction": {
+       "numer": "1324253105241027",
+       "denom": "17592186044416"
+     },
+     "maxvolume": "485.99773485000003",
+     "max_volume_rat": [
+       [1, [1550366371, 995323]],
+       [1, [0, 2048]]
+     ],
+     "max_volume_fraction": {
+       "numer": "4274881284322979",
+       "denom": "8796093022208"
+     },
      "pubkey": "1bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8",
      "age": 10,
-     "zcredits": 0
+     "zcredits": 0,
+     "uuid": "ac058b00-24e0-40e1-82f0-0ec4131450c5",
+     "is_mine": false
    }
  ],
  "netid": 9999,
