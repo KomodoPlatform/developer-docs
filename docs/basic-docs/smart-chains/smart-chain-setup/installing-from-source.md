@@ -77,9 +77,8 @@ At some point during the installation process, you may see a warning, "libgmp he
 
 ```bash
 cd ~
-git clone https://github.com/jl777/komodo
+git clone https://github.com/KomodoPlatform/komodo
 cd komodo
-git checkout dev
 ```
 
 #### Fetch the Zcash Parameters
@@ -261,7 +260,7 @@ brew install wget
 #### Clone the Komodo repository
 
 ```bash
-git clone https://github.com/jl777/komodo
+git clone https://github.com/KomodoPlatform/komodo
 ```
 
 #### Fetch the Zcash Parameters:
@@ -426,9 +425,8 @@ Press <enter> to keep the current choice[*], or type selection number: 1
 #### Clone the Komodo Repository
 
 ```bash
-git clone https://github.com/jl777/komodo
+git clone https://github.com/KomodoPlatform/komodo
 cd komodo
-git checkout dev
 ```
 
 #### Fetch the Zcash Parameters
