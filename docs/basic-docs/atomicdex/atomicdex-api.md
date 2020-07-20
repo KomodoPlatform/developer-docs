@@ -482,8 +482,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **convertaddress coin from to_address_format**
 
-The `convertaddress` method converts an input address to a specified address format. 
-For example, this method can be used to convert a BCH address from legacy to cash address format and vice versa. 
+The `convertaddress` method converts an input address to a specified address format.
+
+For example, this method can be used to convert a BCH address from legacy to cash address format and vice versa.
+
 Or this can be used to convert an ETH address from single to mixed case checksum format.
 
 #### Arguments
@@ -4602,7 +4604,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **validateaddress coin address**
 
-The `validateaddress` method checks if an input string is valid address of the coin.
+The `validateaddress` method checks if an input string is a valid address of the specified coin.
 
 #### Arguments
 
@@ -4615,7 +4617,7 @@ The `validateaddress` method checks if an input string is valid address of the c
 
 | Structure       | Type              | Description                                        |
 | --------------- | ----------------- | -------------------------------------------------- |
-| result.is_valid | bool              | whether input string is valid coin address         |
+| result.is_valid | bool              | whether input string is a valid coin address         |
 | result.reason   | string (optional) | the reason why input string is not a valid address |
 
 #### :pushpin: Examples
