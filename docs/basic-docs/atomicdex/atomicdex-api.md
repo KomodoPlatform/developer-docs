@@ -478,6 +478,90 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
+## convertaddress
+
+**convertaddress coin from to_address_format**
+
+The `convertaddress` method converts an input address to a specified address format.
+
+For example, this method can be used to convert a BCH address from legacy to cash address format and vice versa.
+
+Or this can be used to convert an ETH address from single to mixed case checksum format.
+
+#### Arguments
+
+| Structure         | Type   | Description                                                   |
+| ----------------- | ------ | ------------------------------------------------------------- |
+| coin              | string | the name of the coin address context                          |
+| from              | string | input address                                                 |
+| to_address_format | object | address format to which the input address should be converted |
+| to_address_format.format  | string (enum) | address format to which the input address should be converted, possible values: `mixedcase` for ETH/ERC20 coins; `cashaddress` or `standard` for UTXO coins |
+| to_address_format.network | string (enum) | network prefix for `cashaddress` format. Possible values: `bitcoincash` for BCH mainnet; `bchtest` for BCH testnet; `bchreg` for BCH regtest |
+
+#### Response
+
+| Structure               | Type             | Description                                                                      |
+| ----------------------- | ---------------- | -------------------------------------------------------------------------------- |
+| result.address          | string           | the result of address conversion                                                 |
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### :pushpin: Examples
+
+#### Command (ETH single case address to mixed checksum)
+   
+```bash  
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"ETH","from","0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359", "to_address_format":{"format":"mixedcase"}}"
+```
+     
+#### Response
+
+```json
+{
+  "result":{
+    "address":"0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359"
+  }
+}
+```
+
+#### Command (BCH legacy to cash address)
+
+```bash
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"BCH","from","1DmFp16U73RrVZtYUbo2Ectt8mAnYScpqM","to_address_format":{"format":"cashaddress","network":"bitcoincash"}}"
+```
+
+#### Response
+
+```json
+{
+  "result":{
+    "address":"bitcoincash:qzxqqt9lh4feptf0mplnk58gnajfepzwcq9f2rxk55"
+  }
+}
+```
+
+#### Command (BCH cash address to legacy):
+
+```bash
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"BCH","from","bitcoincash:qzxqqt9lh4feptf0mplnk58gnajfepzwcq9f2rxk55","to_address_format":{"format":"standard"}}"
+```
+
+#### Response:
+
+```json
+{
+  "result":{
+    "address":"1DmFp16U73RrVZtYUbo2Ectt8mAnYScpqM"
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
 ## disable\_coin
 
 **disable_coin coin**
@@ -4516,6 +4600,73 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
+## validateaddress
+
+**validateaddress coin address**
+
+The `validateaddress` method checks if an input string is a valid address of the specified coin.
+
+#### Arguments
+
+| Structure | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| coin      | string | the coin to validate address for        |
+| address   | string | the input string to validate            |
+
+#### Response
+
+| Structure       | Type              | Description                                        |
+| --------------- | ----------------- | -------------------------------------------------- |
+| result.is_valid | bool              | whether input string is a valid coin address         |
+| result.reason   | string (optional) | the reason why input string is not a valid address |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"validateaddress","coin":"RICK","address","RRnMcSeKiLrNdbp91qNVQwwXx5azD4S4CD"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (valid address)
+
+```json
+{
+  "result":{
+    "is_valid":true
+  }
+}
+```
+
+#### Response (invalid cash address)
+
+```json
+{
+  "result":{
+    "is_valid":false,
+    "reason":"utxo:415] Checksum verification failed"
+  }
+}
+```
+
+#### Response (invalid ETH address)
+
+```json
+{
+  "result":{
+    "is_valid":false,
+    "reason":"eth:360] eth:2522] Invalid address checksum"
+  }
+}
+```
+
+</collapse-text>
+
+</div>
 
 ## version
 
