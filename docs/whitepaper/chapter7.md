@@ -120,8 +120,7 @@ same KMD addresses accessed by the user.
 
 Therefore, users in the Komodo ecosystem have access to Jumblr’s privacy tech-
 nology without any further effort. Developers of standalone GUI applications for the
-Komodo ecosystem can integrate Jumblr commands into user interfaces in any de-
-sired manner.
+Komodo ecosystem can integrate Jumblr commands into user interfaces in any desired manner.
 
 There are two main commands, or API calls, available:
 
@@ -324,8 +323,7 @@ to delay the period of execution between the two commands.
 
 We also developed Jumblr to have additional inherent protections against the Timing Attack for cases where users desire a more immediate transfer. Assuming Jumblr
 is activated on the user’s local computer, as soon as Jumblr detects a new deposit
-in the `<KMDaddress>`, it can begin the anonymization process. However, Jumblr de-
-liberately delays its own progress to provide a layer of security against The Timing
+in the `<KMDaddress>`, it can begin the anonymization process. However, Jumblr deliberately delays its own progress to provide a layer of security against The Timing
 Attack.
 
 Recall that all user actions are clustered around block numbers that are multiples
