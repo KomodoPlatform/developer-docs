@@ -1302,7 +1302,8 @@ The `kmd_rewards_info` method returns rewards info of unspent outputs.
 | result.amount          | string (numeric)           | the transaction output’s amount                                                                      |
 | result.locktime        | number (integer)           | the transaction output is locked until this timestamp                                                |
 | result.accrued_rewards | object                     | either the amount of accrued rewards or the reason why they are not accrued                          |
-| result.accrue_stop_at  | number (integer, optional) | the rewards accruing stop at this time for the given transaction (empty if the tx is not mined yet)  |
+| result.accrue_start_at | number (integer)           | the rewards start to accrue at this time for the given transaction                                   |
+| result.accrue_stop_at  | number (integer, optional) | the rewards stop to accrue at this time for the given transaction (empty if the tx is not mined yet) |
 
 Where the `result.accrued_rewards` either
 
