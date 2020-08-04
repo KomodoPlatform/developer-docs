@@ -1285,6 +1285,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 The `kmd_rewards_info` method returns rewards info of unspent outputs.
 
+::: tip Note
+
+This method only works when KMD coin is activated.
+
+:::
+
 #### Arguments
 
 | Structure | Type | Description |
