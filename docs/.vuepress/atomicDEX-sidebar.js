@@ -45,6 +45,10 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex/atomicdex-tutorials/setup-atomicdex-aws.md",
           "How to Setup and use AtomicDEX-API on a AWS EC2 instance",
         ],
+        /* [
+          "/basic-docs/atomicdex/atomicdex-tutorials/coins-file-update.md",
+          "How to update the coins file to work with the latest atomicDEX-API",
+        ]*/
       ],
     },
     {
