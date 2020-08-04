@@ -1293,17 +1293,17 @@ The `kmd_rewards_info` method returns rewards info of unspent outputs.
 
 #### Response
 
-| Structure              | Type                       | Description                                                                                          |
-| ---------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------- |
-| result                 | array of objects           | the rewards info; each element corresponds to an unspent output and contains additional rewards info |
-| result.tx_hash         | string                     | the hash of the transaction                                                                          |
-| result.height          | number (integer, optional) | the block height transaction mined in (empty if the tx is not mined yet)                             |
-| result.output_index    | number (integer)           | the zero-based index of the output in the transaction’s list of outputs                              |
-| result.amount          | string (numeric)           | the transaction output’s amount                                                                      |
-| result.locktime        | number (integer)           | the transaction output is locked until this timestamp                                                |
-| result.accrued_rewards | object                     | either the amount of accrued rewards or the reason why they are not accrued                          |
-| result.accrue_start_at | number (integer)           | the rewards start to accrue at this time for the given transaction                                   |
-| result.accrue_stop_at  | number (integer, optional) | the rewards stop to accrue at this time for the given transaction (empty if the tx is not mined yet) |
+| Structure              | Type                       | Description                                                                                                                                  |
+| ---------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                 | array of objects           | the rewards info; each element corresponds to an unspent output and contains additional rewards info                                         |
+| result.tx_hash         | string                     | the hash of the transaction                                                                                                                  |
+| result.height          | number (integer, optional) | the block height transaction mined in (empty if the tx is not mined yet)                                                                     |
+| result.output_index    | number (integer)           | the zero-based index of the output in the transaction’s list of outputs                                                                      |
+| result.amount          | string (numeric)           | the transaction output’s amount                                                                                                              |
+| result.locktime        | number (integer)           | the transaction output is locked until this timestamp                                                                                        |
+| result.accrued_rewards | object                     | either the amount of accrued rewards or the reason why they are not accrued                                                                  |
+| result.accrue_start_at | number (integer, optional) | the rewards start to accrue at this time for the given transaction (empty if the rewards will never be accrued)                              |
+| result.accrue_stop_at  | number (integer, optional) | the rewards stop to accrue at this time for the given transaction (empty if the tx is not mined yet or if the rewards will never be accrued) |
 
 Where the `result.accrued_rewards` either
 
