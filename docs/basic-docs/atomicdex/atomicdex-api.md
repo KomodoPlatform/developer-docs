@@ -478,6 +478,90 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
+## convertaddress
+
+**convertaddress coin from to_address_format**
+
+The `convertaddress` method converts an input address to a specified address format.
+
+For example, this method can be used to convert a BCH address from legacy to cash address format and vice versa.
+
+Or this can be used to convert an ETH address from single to mixed case checksum format.
+
+#### Arguments
+
+| Structure         | Type   | Description                                                   |
+| ----------------- | ------ | ------------------------------------------------------------- |
+| coin              | string | the name of the coin address context                          |
+| from              | string | input address                                                 |
+| to_address_format | object | address format to which the input address should be converted |
+| to_address_format.format  | string (enum) | address format to which the input address should be converted, possible values: `mixedcase` for ETH/ERC20 coins; `cashaddress` or `standard` for UTXO coins |
+| to_address_format.network | string (enum) | network prefix for `cashaddress` format. Possible values: `bitcoincash` for BCH mainnet; `bchtest` for BCH testnet; `bchreg` for BCH regtest |
+
+#### Response
+
+| Structure               | Type             | Description                                                                      |
+| ----------------------- | ---------------- | -------------------------------------------------------------------------------- |
+| result.address          | string           | the result of address conversion                                                 |
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### :pushpin: Examples
+
+#### Command (ETH single case address to mixed checksum)
+   
+```bash  
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"ETH","from","0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359", "to_address_format":{"format":"mixedcase"}}"
+```
+     
+#### Response
+
+```json
+{
+  "result":{
+    "address":"0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359"
+  }
+}
+```
+
+#### Command (BCH legacy to cash address)
+
+```bash
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"BCH","from","1DmFp16U73RrVZtYUbo2Ectt8mAnYScpqM","to_address_format":{"format":"cashaddress","network":"bitcoincash"}}"
+```
+
+#### Response
+
+```json
+{
+  "result":{
+    "address":"bitcoincash:qzxqqt9lh4feptf0mplnk58gnajfepzwcq9f2rxk55"
+  }
+}
+```
+
+#### Command (BCH cash address to legacy):
+
+```bash
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"BCH","from","bitcoincash:qzxqqt9lh4feptf0mplnk58gnajfepzwcq9f2rxk55","to_address_format":{"format":"standard"}}"
+```
+
+#### Response:
+
+```json
+{
+  "result":{
+    "address":"1DmFp16U73RrVZtYUbo2Ectt8mAnYScpqM"
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
 ## disable\_coin
 
 **disable_coin coin**
@@ -1188,6 +1272,97 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       "1af6bb5e-e131-4b06-b235-36fae8daab0a": "lp_swap:424] File already exists"
     }
   }
+}
+```
+
+</collapse-text>
+
+</div>
+
+## kmd\_rewards\_info
+
+**kmd_rewards_info**
+
+The `kmd_rewards_info` method returns information about the active user rewards that can be claimed by an address's unspent outputs.
+
+::: tip Note
+
+This method only works when the KMD coin is activated.
+
+:::
+
+#### Arguments
+
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |             |
+
+#### Response
+
+| Structure              | Type                       | Description                                                                                                                                  |
+| ---------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                 | array of objects           | the rewards info; each element corresponds to an unspent output and contains detailed information about the active user rewards corresponding to it                                         |
+| result.tx_hash         | string                     | the hash of the transaction                                                                                                                  |
+| result.height          | number (integer, optional) | the height of the block in which the transaction was included (empty if the tx is not mined yet)                                                                     |
+| result.output_index    | number (integer)           | the zero-based index of the output in the transaction’s list of outputs                                                                      |
+| result.amount          | string (numeric)           | the transaction output’s value                                                                                                              |
+| result.locktime        | number (integer)           | the transaction output's locktime                                                                                        |
+| result.accrued_rewards | object                     | the amount of accrued rewards if they exist or the reason for their non existence                                                                  |
+| result.accrue_start_at | number (integer, optional) | the rewards start to accrue at this time for the given transaction (empty if the rewards will never accrue to it)                              |
+| result.accrue_stop_at  | number (integer, optional) | the rewards stop to accrue at this time for the given transaction (empty if the tx is not mined yet or if rewards will never accrue to it) |
+
+Where the `result.accrued_rewards` has either
+
+| Structure | Type             | Description                   |
+| --------- | ---------------- | ----------------------------- |
+| Accrued   | string (numeric) | the amount of accrued rewards |
+
+or
+
+| Structure        | Type   | Description                            |
+| ---------------- | ------ | -------------------------------------- |
+| NotAccruedReason | string | the reason why rewards are not accrued |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"kmd_rewards_info"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+  "result": [
+    {
+      "accrue_stop_at":1596144028,
+      "accrued_rewards":{
+         "Accrued":"0.00450984"
+      },
+      "amount":"47.99897112",
+      "height":1986467,
+      "input_index":1,
+      "locktime":1596099388,
+      "tx_hash":"016bfb8fcf8704a30b5daf6b4bcce9d7e848141b53df44a5eae3db4279227401"
+    },
+    {
+      "accrue_stop_at":1596142801,
+      "accrued_rewards":{
+        "NotAccruedReason":"UtxoAmountLessThanTen"
+      },
+      "amount":"0.5",
+      "height":1986481,
+      "input_index":0,
+      "locktime":1596098161,
+      "tx_hash":"762d02d9d52faf365b55375da5e61ce34bb0ea391fbcb23e74b2adf8165f1bbb"
+    }
+  ]
 }
 ```
 
@@ -4516,6 +4691,73 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
+## validateaddress
+
+**validateaddress coin address**
+
+The `validateaddress` method checks if an input string is a valid address of the specified coin.
+
+#### Arguments
+
+| Structure | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| coin      | string | the coin to validate address for        |
+| address   | string | the input string to validate            |
+
+#### Response
+
+| Structure       | Type              | Description                                        |
+| --------------- | ----------------- | -------------------------------------------------- |
+| result.is_valid | bool              | whether input string is a valid coin address         |
+| result.reason   | string (optional) | the reason why input string is not a valid address |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"validateaddress","coin":"RICK","address","RRnMcSeKiLrNdbp91qNVQwwXx5azD4S4CD"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (valid address)
+
+```json
+{
+  "result":{
+    "is_valid":true
+  }
+}
+```
+
+#### Response (invalid cash address)
+
+```json
+{
+  "result":{
+    "is_valid":false,
+    "reason":"utxo:415] Checksum verification failed"
+  }
+}
+```
+
+#### Response (invalid ETH address)
+
+```json
+{
+  "result":{
+    "is_valid":false,
+    "reason":"eth:360] eth:2522] Invalid address checksum"
+  }
+}
+```
+
+</collapse-text>
+
+</div>
 
 ## version
 
