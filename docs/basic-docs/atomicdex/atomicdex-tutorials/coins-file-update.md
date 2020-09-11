@@ -65,7 +65,9 @@ Success
   "mm2":1,
   "required_confirmations":2,
   "requires_notarization":true,
-  "protocol":"UTXO"
+  "protocol":{
+    "type":"UTXO"
+  }
 }
 ```
 
@@ -96,7 +98,8 @@ Success
   "rpcport":80,
   "mm2":1,
   "protocol":{
-    "ERC20":{
+    "type":"ERC20",
+    "protocol_data":{
       "platform":"ETH",
       "contract_address":"0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2"
     }
