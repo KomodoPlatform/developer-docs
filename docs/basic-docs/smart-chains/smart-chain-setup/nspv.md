@@ -18,7 +18,7 @@ Follow the instructions below to set up an nSPV client.
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get install build-essential pkg-config libc6-dev m4 libsodium-dev curl libevent-dev git cmake nano wget ntp ntpdate automake unzip autoconf libtool -y
-git clone https://github.com/jl777/libnspv
+git clone https://github.com/KomodoPlatform/libnspv
 cd libnspv
 ./autogen.sh
 ./configure
