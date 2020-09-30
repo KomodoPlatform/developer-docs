@@ -56,7 +56,7 @@ All coins that are built on the BTC and ETH core software can be added to Market
 
 To add your BTC or ETH-based coin to MM2, first follow the linked checklist below:
 
-[Link to checklist for adding coin to MM2](https://github.com/jl777/coins#0-the-coin-must-be-tested-with-barterdex-atomic-swaps)
+[Link to checklist for adding coin to MM2](https://github.com/KomodoPlatform/coins#about-this-repository)
 
 Upon completing the checklist, please submit your proposed coin configuration files to the same repository with a pull request. 
 

@@ -254,14 +254,14 @@ cargo build --features native -vv
 ##### Command
 
 ```bash
-cd ~/atomicDEX-API/target/debug ; wget https://raw.githubusercontent.com/jl777/coins/master/coins
+cd ~/atomicDEX-API/target/debug ; wget https://raw.githubusercontent.com/KomodoPlatform/coins/master/coins
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ cd ~/atomicDEX-API/target/debug; wget https://raw.githubusercontent.com/jl777/coins/master/coins
---2019-07-20 05:27:50--  https://raw.githubusercontent.com/jl777/coins/master/coins
+$ cd ~/atomicDEX-API/target/debug; wget https://raw.githubusercontent.com/KomodoPlatform/coins/master/coins
+--2019-07-20 05:27:50--  https://raw.githubusercontent.com/KomodoPlatform/coins/master/coins
 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.8.133
 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.8.133|:443... connected.
 HTTP request sent, awaiting response...
