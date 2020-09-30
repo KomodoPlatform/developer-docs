@@ -675,13 +675,13 @@ The value of the `mm2` parameter informs the software as to whether the `coin` i
 
 ::: tip
 
-GUI software developers may refer to the `coins` file [in this link](https://github.com/jl777/coins) for the default coin json configuration.
+GUI software developers may refer to the `coins` file [in this link](https://github.com/KomodoPlatform/coins) for the default coin json configuration.
 
 :::
 
 Volunteers are welcome to test coins with AtomicDEX software at any time. After testing a coin, please create a pull request with the desired coin configuration and successful swap details using the guide linked below.
 
-[Guide to Submitting Coin Test Results](https://github.com/jl777/coins#0-the-coin-must-be-tested-with-barterdex-atomic-swaps)
+[Guide to Submitting Coin Test Results](https://github.com/KomodoPlatform/coins#about-this-repository)
 
 ##### Examples of the Parameter Settings
 
@@ -3412,7 +3412,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 ## my\_tx\_history
 
-**(from_id limit=10)**
+**(from_id limit=10 max=false)**
 
 The `my_tx_history` method returns the blockchain transactions involving the MM2 node's coin address.
 
@@ -3423,7 +3423,8 @@ The coin that is used must have `tx_history` set to true in its [enable](../../.
 | Structure | Type   | Description                                                                                                                                                                                 |
 | --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | coin      | string | the name of the coin for the history request                                                                                                                                                |
-| limit     | number | limits the number of returned transactions                                                                                                                                                  |
+| limit     | number | limits the number of returned transactions; ignored if `max = true`                                                                                                                                                  |
+| max       | bool   | whether to return all available records; defaults to `false`                                                                                                                                                 |
 | from_id   | string | MM2 will skip records until it reaches this ID, skipping the `from_id` as well; track the `internal_id` of the last displayed transaction to find the value of this field for the next page |
 
 #### Response
@@ -3450,6 +3451,12 @@ The coin that is used must have `tx_history` set to true in its [enable](../../.
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_tx_history\",\"coin\":\"RICK\",\"limit\":1,\"from_id\":\"1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1\"}"
+```
+
+#### Command (max = true)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_tx_history\",\"coin\":\"RICK\",\"max\":true,\"from_id\":\"1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1\"}"
 ```
 
 <div style="margin-top: 0.5rem;">
