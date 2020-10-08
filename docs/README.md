@@ -1,3 +1,15 @@
+---
+title: Komodo Documentation
+description: Documentation for developers building on the Komodo Platform.
+
+tags:
+  - Komodo
+  - docs
+  - developers
+  - blockchain
+
+---
+
 <!--Sidd: Since the below HTML content is not a repeating element, I'm not going to create a unique component, nor a separate CSS class at this time.-->
 
 <div>

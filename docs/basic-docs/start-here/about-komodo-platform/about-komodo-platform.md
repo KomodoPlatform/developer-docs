@@ -13,7 +13,7 @@ With these four pillars in place, users of all types will find powerful, customi
 
 <div style="clear: both; margin-top: 1.4rem; margin-right: 1.3rem; float: left; display: block;">
 
-<img style="padding: 0.2rem; height: 6rem;" src="/Documentation_Portal_Icons/Security/Security_Light.svg">
+<img style="padding: 0.2rem; height: 6rem;" src="/Documentation_Portal_Icons/Security/Security_Light.png">
 
 </div>
 
@@ -37,7 +37,7 @@ Secure your project with the power of the Bitcoin network via Komodo’s delayed
 
 <div style="clear: both; margin-top: 1.4rem; margin-right: 1.3rem; float: left; display: block;">
 
-<img style="padding: 0.2rem; height: 6rem;" src="/Documentation_Portal_Icons/Scalability/Scalability_Light.svg">
+<img style="padding: 0.2rem; height: 6rem;" src="/Documentation_Portal_Icons/Scalability/Scalability_Light.png">
 
 </div>
 
@@ -63,7 +63,7 @@ Developers and their users have a full Smart Chain all to themselves, and can co
 
 <div style="clear: both; margin-top: 1.4rem; margin-right: 1.3rem; float: left; display: block;">
 
-<img style="padding: 0.2rem; height: 6rem;" src="/Documentation_Portal_Icons/Interoperability/Interoperability_Light.svg">
+<img style="padding: 0.2rem; height: 6rem;" src="/Documentation_Portal_Icons/Interoperability/Interoperability_Light.png">
 
 </div>
 
