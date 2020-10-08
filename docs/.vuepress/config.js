@@ -2,11 +2,22 @@ require("dotenv").config();
 var redirectAliases = require("./public/_redirects.js");
 var sidebarImport = require("./sidebar.js");
 var algoliaSecret = require("./algolia-secret.js");
+
+const autometa_options = {
+  schema: true,
+  site: {
+    name: "Komodo Documentation",
+    twitter: "komodoplatform",
+  },
+  canonical_base: "https://developers.komodoplatform.com",
+};
+
 module.exports = {
   plugins: {
     redirect: {
       alias: redirectAliases,
     },
+    autometa: autometa_options,
     "@vuepress/last-updated": {
       transformer: (timestamp) => {
         // Don't forget to install moment yourself
@@ -35,7 +46,7 @@ module.exports = {
         href: "/KMD_Mark_Black.png",
       },
     ],
-    [
+    /* [
       "meta",
       {
         name: "twitter:card",
@@ -70,7 +81,7 @@ module.exports = {
         content:
           "https://developers.komodoplatform.com/start-here-pics/Dev_Docs_Introduction_small.png",
       },
-    ],
+    ], */
   ],
   title: "Komodo Documentation",
   base: "/",
