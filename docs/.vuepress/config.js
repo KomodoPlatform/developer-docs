@@ -46,6 +46,14 @@ module.exports = {
         href: "/KMD_Mark_Black.png",
       },
     ],
+    [
+      "meta",
+      {
+        name: "twitter:image",
+        content:
+          "https://developers.komodoplatform.com/start-here-pics/Dev_Docs_Introduction_small.png",
+      },
+    ],
     /* [
       "meta",
       {
@@ -74,14 +82,7 @@ module.exports = {
         content: "Documentation for developers building on the Komodo Platform",
       },
     ],
-    [
-      "meta",
-      {
-        name: "twitter:image",
-        content:
-          "https://developers.komodoplatform.com/start-here-pics/Dev_Docs_Introduction_small.png",
-      },
-    ], */
+   */
   ],
   title: "Komodo Documentation",
   base: "/",
