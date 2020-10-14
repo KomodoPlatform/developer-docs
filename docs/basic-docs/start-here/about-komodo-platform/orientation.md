@@ -60,7 +60,7 @@ Creating and experimenting with Komodo Smart Chains is completely free.
 
 #### Production Smart Chains Typically Require Komodo's Security Services
 
-In nearly all circumstances, a Smart Chain is only secure once it receives the Komodo dPoW Security Service.
+In most circumstances, a Smart Chain is only secure once it receives the Komodo dPoW Security Service.
 
 Please reach out to our bizdev team for a cost quote.
 
