@@ -62,13 +62,12 @@ Creating and experimenting with Komodo Smart Chains is completely free.
 
 In nearly all circumstances, a Smart Chain is only secure once it receives the Komodo dPoW Security Service.
 
-Please reach out to our third-party service providers for a cost quote.
+Please reach out to our bizdev team for a cost quote.
 
-Our third-party providers are available on our [<b>Discord</b>](https://komodoplatform.com/discord) live-chat server. Their usernames are:
+Our bizdev team members are available on our [<b>Discord</b>](https://komodoplatform.com/discord) live-chat server. Their usernames are:
 
-- @siu
-- @ptyx
-- @bitcoinbenny
+- `ptyx#6840`
+- `polycryptoblog#1173`
 
 ::: tip
 We have a limited supply of early-adopter discounts. Please inquire while supply last.
