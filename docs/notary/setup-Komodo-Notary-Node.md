@@ -465,7 +465,7 @@ git checkout fd94422
 
 #### Step 2: Create a build script
 
-Name the script as `build.sh` inside the `~/AYAv2` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
+Name the script as `build.sh` inside the `~/AYAv2` dir for easy compiling and add the contents below to the script. The script will also create symlinks for the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
 
 ```bash
 #!/bin/bash
@@ -691,7 +691,7 @@ git checkout 70d7dc2
 
 #### Step 2: Create a build script
 
-Name the script as `build.sh` inside the `~/einsteinium` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
+Name the script as `build.sh` inside the `~/einsteinium` dir for easy compiling and add the contents below to the script. The script will also create symlinks for the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
 
 ```bash
 #!/bin/bash
