@@ -35,6 +35,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master` . Commit: `fd94422aff2886919dc963d85c313df4dfb0d770`
 - **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.7.0-4` . Commit: `ab82cc9aad27db997d8dd9d30ebd973a78c22abc`
 - **MCL:** [https://github.com/marmarachain/Marmara-v.1.0.git](https://github.com/marmarachain/Marmara-v.1.0.git) Branch: `master` Commit: `03dd78037067ebb27af8b33f6adcdbede3813007`
+- **GLEEC** [https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux/tree/b4ffcc9b4ed829cefb1afc27e1c81a7e5be4cffd](https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux/tree/b4ffcc9b4ed829cefb1afc27e1c81a7e5be4cffd) Tree: `b4ffcc9b4ed829cefb1afc27e1c81a7e5be4cffd`
 
 ## Requirements
 
@@ -775,6 +776,102 @@ Restrict access to the `einsteinium.conf` file
 chmod 600 ~/.einsteinium/einsteinium.conf
 ```
 
+### GleecBTC (GLEEC)
+
+#### Step 1: Clone GleecBTC source
+
+```bash
+cd ~
+git clone https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux
+cd ~/GleecBTC-FullNode-Win-Mac-Linux
+git checkout b4ffcc9
+```
+
+#### Step 2: Create a build Script
+
+- Create a file named `build.sh` in the `~/GleecBTC-FullNode-Win-Mac-Linux` directory and copy the contents of the following code block into it
+
+```bash
+#!/bin/bash
+# GleecBTC build script for Ubuntu & Debian 9 v.3 (c) Decker (and webworker)
+berkeleydb () {
+    GleecBTC_ROOT=$(pwd)
+    GleecBTC_PREFIX="${GleecBTC_ROOT}/db4"
+    mkdir -p $GleecBTC_PREFIX
+    wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
+    echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
+    tar -xzvf db-4.8.30.NC.tar.gz
+    cat <<-EOL >atomic-builtin-test.cpp
+        #include <stdint.h>
+        #include "atomic.h"
+
+        int main() {
+        db_atomic_t *p; atomic_value_t oldval; atomic_value_t newval;
+        __atomic_compare_exchange(p, oldval, newval);
+        return 0;
+        }
+EOL
+    if g++ atomic-builtin-test.cpp -I./db-4.8.30.NC/dbinc -DHAVE_ATOMIC_SUPPORT -DHAVE_ATOMIC_X86_GCC_ASSEMBLY -o atomic-builtin-test 2>/dev/null; then
+        echo "No changes to bdb source are needed ..."
+        rm atomic-builtin-test 2>/dev/null
+    else
+        echo "Updating atomic.h file ..."
+        sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+    fi
+    cd db-4.8.30.NC/build_unix/
+    ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$GleecBTC_PREFIX
+    make install
+    cd $GleecBTC_ROOT
+}
+buildGleecBTC () {
+    git pull
+    ./autogen.sh
+    ./configure LDFLAGS="-L${GleecBTC_PREFIX}/lib/" CPPFLAGS="-I${GleecBTC_PREFIX}/include/" --with-gui=no --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm --enable-static --disable-shared --with-incompatible-bdb
+    make -j$(nproc)
+}
+berkeleydb
+buildGleecBTC
+echo "Done building GleecBTC!"
+sudo ln -sf /home/$USER/GleecBTC-FullNode-Win-Mac-Linux/src/gleecbtc-cli /usr/local/bin/gleecbtc-cli
+sudo ln -sf /home/$USER/GleecBTC-FullNode-Win-Mac-Linux/src/gleecbtcd /usr/local/bin/gleecbtcd
+```
+
+#### Step 3: Make the script executable and run it
+
+```bash
+chmod +x build.sh
+./build.sh
+```
+
+- Supply your `sudo` password when asked, so that the daemon and cli can be symlinked to your `/usr/local/bin` directory
+
+#### Step 4: Create GleecBTC data dir, gleecbtc.conf file and restrict access to it
+
+```bash
+cd ~
+mkdir .gleecbtc
+nano ~/.gleecbtc/gleecbtc.conf
+```
+
+Insert the following contents inside the gleecbtc.conf file and save it. (change the rpcuser and rpcpassword values)
+
+```bash
+server=1
+daemon=1
+txindex=1
+rpcuser=user
+rpcpassword=password
+bind=127.0.0.1
+rpcbind=127.0.0.1
+rpcallowip=127.0.0.1
+```
+
+Restrict access to the gleecbtc.conf file
+
+```bash
+chmod 600 ~/.gleecbtc/gleecbtc.conf
+```
+
 ### MarmaraChain (MCL)
 
 #### Step 1: Clone MCL source and compile
@@ -819,6 +916,7 @@ einsteiniumd &
 aryacoind &
 verusd &
 ~/Marmara-v.1.0/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+gleecbtcd &
 ```
 
 Now wait for all the chains to finish syncing. This might take about 8-10 hours depending on your machine and internet connection. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories.
@@ -840,6 +938,8 @@ tail -f ~/.aryacoin/debug.log
 tail -f ~/.komodo/MCL/debug.log
 # VRSC
 tail -f ~/.komodo/VRSC/debug.log
+# GLEEC
+tail -f ~/.komodo/gleecbtc/debug.log
 ```
 
 You can now wait for all the coins to finish syncing. Just double check the block you've downloaded with an explorer to verify.
@@ -858,6 +958,7 @@ einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsN
 aryacoin-cli importprivkey T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
 komodo-cli -ac_name=MCL importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 komodo-cli -ac_name=VRSC importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+gleecbtc-cli importprivkey AhXsCzbmiZUyMCZyPqjYMhLxBxcFBP6tQSLrCpTpfYkvjJEMthcW
 ```
 
 This may take some time and will display the coin name and address after each import. You can tail the coin specific `debug.log` files to check the progress.
@@ -892,6 +993,7 @@ einsteinium-cli stop
 aryacoin-cli stop
 komodo-cli -ac_name=MCL stop
 komodo-cli -ac_name=VRSC stop
+gleecbtc-cli stop
 ```
 
 ---
@@ -980,6 +1082,7 @@ aryacoind -pubkey=$pubkey &
 sleep 60
 cd komodo/src
 ./komodod -notary -pubkey=$pubkey &
+gleecbtcd -pubkey=$pubkey &
 ```
 
 Make the file executable:
