@@ -872,6 +872,13 @@ Restrict access to the gleecbtc.conf file
 chmod 600 ~/.gleecbtc/gleecbtc.conf
 ```
 
+:::tip Note
+
+GleecBTC's rpc calls are similar to BTC's after version `v0.18`. So familiar commands like `getinfo` don't work, and `validateaddress` doesn't output `ismine` info. To check if your address was imported, use `getaddressinfo` and check the `ismine` key in the response.
+
+
+:::
+
 ### MarmaraChain (MCL)
 
 #### Step 1: Clone MCL source and compile
