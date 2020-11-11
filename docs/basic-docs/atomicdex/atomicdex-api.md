@@ -2260,7 +2260,7 @@ The `StartFailed` event indicates that some of the pre-checks did not pass, and 
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2270,10 +2270,10 @@ The `Negotiated` event indicates that maker has received and validated swap nego
 
 Maker starts waiting for taker to send the dex fee after this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| taker_payment_locktime | number (UTC timestamp in seconds) | the taker payment is locked until this timestamp            |
-| taker_pubkey           | string (hexadecimal)              | a persistent secp256k1 public key of taker node           |
+| taker_payment_locktime | number (UTC timestamp in seconds) | the taker payment is locked until this timestamp        |
+| taker_pubkey           | string (hexadecimal)              | a persistent secp256k1 public key of taker node         |
 
 ##### NegotiateFailed
 
@@ -2281,7 +2281,7 @@ The `NegotiateFailed` event indicates that taker negotiation data was not receiv
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2291,11 +2291,10 @@ The `TakerFeeValidated` event indicates that maker received and validated dex fe
 
 Maker sends their payment after this event occurs.
 
-::: tip
-
-The Data structure of this event is the same as the `withdraw` response. This aspect is currently under development.
-
-:::
+| Structure              | Type                              | Description                                             |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| tx_hash                | string                            | the hash of the transaction                             |
+| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
 
 ##### TakerFeeValidateFailed
 
@@ -2303,7 +2302,7 @@ The `TakerFeeValidateFailed` event indicates that taker dex fee data was not rec
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2313,7 +2312,7 @@ The `MakerPaymentTransactionFailed` event indicates that maker was not able to b
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2323,18 +2322,17 @@ The `MakerPaymentSent` event indicates that maker has broadcast the maker paymen
 
 Maker starts waiting for taker to send his payment after this event occurs.
 
-::: tip
-
-The data structure of this event is the same as the `withdraw` response. This aspect is currently under development.
-
-:::
+| Structure              | Type                              | Description                                             |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| tx_hash                | string                            | the hash of the transaction                             |
+| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
 
 ##### MakerPaymentDataSendFailed
 
 The `MakerPaymentDataSendFailed` event indicates that maker was not able to send his payment data to taker due to a network error.
 When this event occurs, maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2344,7 +2342,7 @@ The `MakerPaymentWaitConfirmFailed` event indicates that maker payment transacti
 
 When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2354,11 +2352,10 @@ The `TakerPaymentReceived` event indicates that maker received the taker payment
 
 Maker starts waiting for taker payment confirmation after this event occurs.
 
-::: tip
-
-The data structure of this event is the same as the `withdraw` response. This aspect is currently under development.
-
-:::
+| Structure              | Type                              | Description                                             |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| tx_hash                | string                            | the hash of the transaction                             |
+| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
 
 ##### TakerPaymentWaitConfirmStarted
 
@@ -2372,7 +2369,7 @@ The `TakerPaymentValidateFailed` event indicates that taker payment did not pass
 
 When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2382,7 +2379,7 @@ The `MakerPaymentWaitConfirmFailed` event indicates that the taker payment trans
 
 When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2410,11 +2407,10 @@ The `TakerPaymentSpent` event indicates that maker has broadcast the **taker pay
 
 Maker starts waiting for **taker payment spend** confirmation after this event occurs.
 
-::: tip
-
-The data structure of this event is the same as the `withdraw` response. This aspect is currently under development.
-
-:::
+| Structure              | Type                              | Description                                             |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| tx_hash                | string                            | the hash of the transaction                             |
+| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
 
 ##### TakerPaymentSpendConfirmStarted
 
@@ -2428,7 +2424,7 @@ The `TakerPaymentSpendConfirmFailed` event indicates that the **taker payment sp
 
 Maker attempts to refund the maker payment.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2438,19 +2434,15 @@ The `TakerPaymentSpendConfirmed` event indicates that the taker payment spend tr
 
 The swap finishes immediately when this event occurs.
 
-::: tip
-
 This event does not have additional data.
-
-:::
 
 ##### MakerPaymentWaitRefundStarted
 
 The `MakerPaymentWaitRefundStarted` event indicates that maker started waiting for lock time expiration to refund the payment.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| wait_until             | number (UTC timestamp)            | the timestamp at which a refund will occur                |
+| wait_until             | number (UTC timestamp)            | the timestamp at which a refund will occur              |
 
 ##### MakerPaymentRefundFailed
 
@@ -2458,7 +2450,7 @@ The `MakerPaymentRefundFailed` event indicates that maker was not able to broadc
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2468,11 +2460,10 @@ The `MakerPaymentRefunded` event indicates that maker has broadcast the maker pa
 
 The swap finishes immediately when this event occurs.
 
-::: tip
-
-The data structure of this event is the same as the `withdraw` response. This aspect is currently under development.
-
-:::
+| Structure              | Type                              | Description                                             |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| tx_hash                | string                            | the hash of the transaction                             |
+| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
 
 ##### Finished
 
@@ -2522,7 +2513,7 @@ The `StartFailed` event indicates that some of the pre-checks did not pass, and 
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2533,9 +2524,9 @@ The `Negotiated` event indicates that taker has received and validated swap nego
 Taker sends dex fee after this event occurs.
 
 | Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
-| ---------------------- | --------------------------------- | ------------------------------------------------------------- |
+| ---------------------- | --------------------------------- | ----------------------------------------------------------------- |
 | maker_payment_locktime | number (UTC timestamp in seconds) | the maker payment is locked until this timestamp                  |
-| maker_pubkey           | string (hexadecimal)              | a persistent secp256k1 public key of maker node                 |
+| maker_pubkey           | string (hexadecimal)              | a persistent secp256k1 public key of maker node                   |
 | secret_hash            | string (hexadecimal)              | the swap payments are expected to be locked with this secret hash |
 
 ##### NegotiateFailed
@@ -2544,7 +2535,7 @@ The `NegotiateFailed` event indicates that maker negotiation data was not receiv
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2554,11 +2545,10 @@ The `TakerFeeSent` event indicates that taker broadcast the dex fee transaction.
 
 Taker starts waiting for maker payment after this event occurs.
 
-::: tip
-
-The data structure of this event is the same as the `withdraw` response. This aspect is currently under development.
-
-:::
+| Structure              | Type                              | Description                                             |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| tx_hash                | string                            | the hash of the transaction                             |
+| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
 
 ##### TakerFeeSendFailed
 
@@ -2566,7 +2556,7 @@ The `TakerFeeSendFailed` event indicates that the taker dex fee transaction fail
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2576,7 +2566,7 @@ The `MakerPaymentValidateFailed` event indicates that taker was not able to rece
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2586,11 +2576,10 @@ The `MakerPaymentReceived` event indicates that taker received the maker payment
 
 Taker starts waiting for transaction confirmation after this event occurs.
 
-::: tip
-
-The data structure of this event is the same as the `withdraw` response. This aspect is currently under development.
-
-:::
+| Structure              | Type                              | Description                                             |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| tx_hash                | string                            | the hash of the transaction                             |
+| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
 
 ##### MakerPaymentWaitConfirmStarted
 
@@ -2604,7 +2593,7 @@ The `MakerPaymentWaitConfirmFailed` event indicates that the maker payment trans
 
 Taker swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2622,11 +2611,10 @@ The `TakerPaymentSent` event indicates that taker broadcast taker payment transa
 
 Taker starts waiting for maker to spend this transaction.
 
-::: tip
-
-The data structure of this event is the same as the `withdraw` response. This aspect is currently under development.
-
-:::
+| Structure              | Type                              | Description                                             |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| tx_hash                | string                            | the hash of the transaction                             |
+| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
 
 ##### TakerPaymentTransactionFailed
 
@@ -2634,7 +2622,7 @@ The `TakerPaymentTransactionFailed` event indicates that taker failed to broadca
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2644,7 +2632,7 @@ The `TakerPaymentWaitConfirmFailed` event indicates that the taker payment trans
 
 When this event occurs taker starts waiting for taker payment lock time expiration to issue a refund.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2654,7 +2642,7 @@ The `TakerPaymentDataSendFailed` event indicates that taker was not able to send
 
 When this event occurs taker starts waiting for taker payment lock time expiration to issue a refund.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2664,11 +2652,10 @@ The `TakerPaymentSpent` event indicates that maker spent taker payment and taker
 
 When this event occurs taker extracts the secret from the transaction and attempts to spend maker payment.
 
-::: tip
-
-The data structure of this event is the same as the `withdraw` response. This aspect is currently under development.
-
-:::
+| Structure              | Type                              | Description                                             |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| tx_hash                | string                            | the hash of the transaction                             |
+| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
 
 ##### TakerPaymentWaitForSpendFailed
 
@@ -2676,7 +2663,7 @@ The `TakerPaymentWaitForSpendFailed` event indicates that maker did not spend ta
 
 When this event occurs taker attempts to refund the payment.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2686,7 +2673,7 @@ The `MakerPaymentSpendFailed` event indicates that taker failed to broadcast **m
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2696,26 +2683,25 @@ The `MakerPaymentSpent` event indicates that taker spent maker payment.
 
 The swap finishes immediately when this event occurs.
 
-::: tip
-
-The data structure of this event is the same as the `withdraw` response. This aspect is currently under development.
-
-:::
+| Structure              | Type                              | Description                                             |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| tx_hash                | string                            | the hash of the transaction                             |
+| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
 
 ##### TakerPaymentWaitRefundStarted
 
 `TakerPaymentWaitRefundStarted` event indicates that taker started waiting for lock time expiration to refund the payment.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| wait_until             | number (UTC timestamp)            | the timestamp at which a refund will occur               |
+| wait_until             | number (UTC timestamp)            | the timestamp at which a refund will occur              |
 
 ##### TakerPaymentRefundFailed
 
 `TakerPaymentRefundFailed` event indicates that taker was not able to broadcast a refund transaction to taker coin blockchain.
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2725,11 +2711,10 @@ The `TakerPaymentRefunded` event indicates that taker broadcast the taker paymen
 
 The swap finishes immediately when this event occurs.
 
-::: tip
-
-The data structure of this event is the same as the `withdraw` response. This aspect is currently under development.
-
-:::
+| Structure              | Type                              | Description                                             |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| tx_hash                | string                            | the hash of the transaction                             |
+| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
 
 ##### Finished
 
