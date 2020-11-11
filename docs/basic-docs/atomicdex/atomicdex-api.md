@@ -559,11 +559,11 @@ curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"co
 ```
 
 #### Command (Qtum wallet address to QRC20 contract address)
-   
-```bash  
+
+```bash
 curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"QRC20","from","qKVvtDqpnFGDxsDzck5jmLwdnD2jRH6aM8", "to_address_format":{"format":"contract"}}"
 ```
-     
+
 #### Response
 
 ```json
@@ -575,11 +575,11 @@ curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"co
 ```
 
 #### Command (QRC20 contract address to Qtum wallet address)
-   
-```bash  
+
+```bash
 curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"QRC20","from","0x1549128bbfb33b997949b4105b6a6371c998e212", "to_address_format":{"format":"wallet"}}"
 ```
-     
+
 #### Response
 
 ```json
