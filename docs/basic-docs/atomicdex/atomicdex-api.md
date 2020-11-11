@@ -2400,7 +2400,7 @@ The `TakerPaymentSpendFailed` event indicates that maker payment was not able to
 
 When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                             |
 | ---------------------- | --------------------------------- | ------------------------------------------------------- |
 | error                  | string                            | error description with stack trace                      |
 
@@ -2408,11 +2408,39 @@ When this event occurs maker starts waiting for **maker payment lock time expira
 
 The `TakerPaymentSpent` event indicates that maker has broadcast the **taker payment spend** transaction.  
 
-The swap finishes immediately when this event occurs.
+Maker starts waiting for **taker payment spend** confirmation after this event occurs.
 
 ::: tip
 
 The data structure of this event is the same as the `withdraw` response. This aspect is currently under development.
+
+:::
+
+##### TakerPaymentSpendConfirmStarted
+
+The `TakerPaymentSpendConfirmStarted` event indicates that maker started waiting for **taker payment spend** transaction confirmation.  
+
+This event does not have additional data.
+
+##### TakerPaymentSpendConfirmFailed
+
+The `TakerPaymentSpendConfirmFailed` event indicates that the **taker payment spend** transaction did not reach the required number of confirmations before the **maker payment lock time expiration** or the **taker payment spend** transaction rejected for some reason.
+
+Maker attempts to refund the maker payment.
+
+| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ------------------------------------------------------- |
+| error                  | string                            | error description with stack trace                      |
+
+##### TakerPaymentSpendConfirmed
+
+The `TakerPaymentSpendConfirmed` event indicates that the taker payment spend transaction was confirmed the required number of times.
+
+The swap finishes immediately when this event occurs.
+
+::: tip
+
+This event does not have additional data.
 
 :::
 
@@ -2456,7 +2484,7 @@ This event does not have additional data.
 
 </div>
 
-#### Taker swap events
+#### Taker Swap Events
 
 <div style="margin-top: 0.5rem;">
 
