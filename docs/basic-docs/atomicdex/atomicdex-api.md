@@ -511,11 +511,11 @@ Or this can be used to convert an ETH address from single to mixed case checksum
 #### :pushpin: Examples
 
 #### Command (ETH single case address to mixed checksum)
-   
+
 ```bash  
 curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"ETH","from","0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359", "to_address_format":{"format":"mixedcase"}}"
 ```
-     
+
 #### Response
 
 ```json
@@ -542,7 +542,7 @@ curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"co
 }
 ```
 
-#### Command (BCH cash address to legacy):
+#### Command (BCH cash address to legacy)
 
 ```bash
 curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"BCH","from","bitcoincash:qzxqqt9lh4feptf0mplnk58gnajfepzwcq9f2rxk55","to_address_format":{"format":"standard"}}"
