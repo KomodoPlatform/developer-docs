@@ -18,7 +18,7 @@ The reward comes from an opportunity provided by our unique security system, dPo
 
 To earn rewards in the full amount of 5.1%, users must move their funds on the blockchain at least once per month. The reward is calculated as a part of the utxo transfer process. The KMD code only calculates rewards for utxos up to one month, and then stops. By simply sending the full balance of a wallet to the same receiving address, a user can generate a new utxo. In this manner, the user can claim their current rewards, and continue receiving them for at least one month.
 
-The KMD 5.1% reward will continue for a period of approximately twelve to fourteen years. When Komodo’s overall coin supply reaches ~200M, this reward will also discontinue. Specifically, the reward will cease when the KMD chain reaches a block height of 7777777.
+The KMD 5.1% reward will continue for a period of approximately twelve to fourteen years. Specifically, the reward will cease when the KMD chain reaches a block height of 7777777.
 
 Note that no one is forced into using KMD in our ecosystem. We are often asked why we chose this route, as the free nature of the Komodo ecosystem can be in direct contrast to the philosophies of many other ecosystems and exchanges. Other ecosystems often require users to use the developer’s coin.
 
