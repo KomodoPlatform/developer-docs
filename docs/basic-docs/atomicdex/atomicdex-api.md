@@ -730,9 +730,7 @@ For terminal interface examples, see the examples section below.
 The following information can assist the user/developer in connecting AtomicDEX software to the Qtum network:
 
 - Swap smart contract on the Qtum mainnet: [0x2f754733acd6d753731c00fee32cb484551cc15d](https://qtum.info/contract/2f754733acd6d753731c00fee32cb484551cc15d)
-  - Main-net nodes maintained by the Komodo team: <b>electrum1.cipig.net:10050</b>, <b>electrum2.cipig.net:10050</b>, <b>electrum3.cipig.net:10050</b>, <b>electrum1.cipig.net:20050</b>, <b>electrum2.cipig.net:20050</b>, <b>electrum3.cipig.net:20050</b>
 - Swap smart contract on the Qtum testnet: [0xba8b71f3544b93e2f681f996da519a98ace0107a](https://testnet.qtum.info/contract/ba8b71f3544b93e2f681f996da519a98ace0107a)
-  - Test-net nodes maintained by the Komodo team: <b>electrum1.cipig.net:10071</b>, <b>electrum2.cipig.net:10071</b>, <b>electrum3.cipig.net:10071</b>, <b>electrum1.cipig.net:20071</b>, <b>electrum2.cipig.net:20071</b>, <b>electrum3.cipig.net:20071</b>
 
 To use AtomicDEX software on another QRC20-based network, deploy the Etomic swap contract code from the repository linked below. Use of this code requires either an ETH node setup or access to a public service such as [Infura.](https://infura.io/)
 
