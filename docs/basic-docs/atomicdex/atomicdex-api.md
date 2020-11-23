@@ -725,6 +725,19 @@ Set the value of the `mm2` parameter in the [coins](../../../basic-docs/atomicde
 
 For terminal interface examples, see the examples section below.
 
+#### Using AtomicDEX Software on an QRC20-Based Network
+
+The following information can assist the user/developer in connecting AtomicDEX software to the QRC20-based network:
+
+- Swap smart contract on the QRC20 mainnet: [0x2f754733acd6d753731c00fee32cb484551cc15d](https://qtum.info/contract/2f754733acd6d753731c00fee32cb484551cc15d)
+  - Main-net nodes maintained by the Komodo team: <b>http://electrum1.cipig.net:10050</b>, <b>http://electrum2.cipig.net:10050</b>, <b>http://electrum3.cipig.net:10050</b>, <b>http://electrum1.cipig.net:20050</b>, <b>http://electrum2.cipig.net:20050</b>, <b>http://electrum3.cipig.net:20050</b>
+- Swap smart contract on the QRC20 testnet: [0xba8b71f3544b93e2f681f996da519a98ace0107a](https://testnet.qtum.info/contract/ba8b71f3544b93e2f681f996da519a98ace0107a)
+  - Test-net nodes maintained by the Komodo team: <b>http://electrum1.cipig.net:10071</b>, <b>http://electrum2.cipig.net:10071</b>, <b>electrum3.cipig.net:10071</b>, <b>http://electrum1.cipig.net:20071</b>, <b>http://electrum2.cipig.net:20071</b>, <b>http://electrum3.cipig.net:20071</b>
+
+To use AtomicDEX software on another QRC20-based network, deploy the Etomic swap contract code from the repository linked below. Use of this code requires either an ETH node setup or access to a public service such as [Infura.](https://infura.io/)
+
+[Link to repository code for Ethereum-based networks](https://github.com/artemii235/etomic-swap)
+
 #### Arguments
 
 | Structure                           | Type                                             | Description                                                                                                                                                          |
@@ -885,7 +898,7 @@ For utxo-based coins the daemon of this blockchain must also be running on the u
 
 The MM2 node's coin address needs to be imported manually into the coin daemon using the [importaddress](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#importaddress) call.
 
-Native mode is available for utxo-based coins only; this includes Bitcoin and Bitcoin-based forks. Native mode for QRC20-based coins is in development yet. Native mode is not available for ETH/ERC20.
+Native mode for QRC20-based coins is in development yet.
 
 :::
 
