@@ -727,14 +727,20 @@ For terminal interface examples, see the examples section below.
 
 #### Using AtomicDEX Software on an Qtum Network
 
-The following information can assist the user/developer in connecting AtomicDEX software to the Qtum network:
+The following information can assist the user/developer in using QRC20 tokens with AtomicDEX software on the Qtum network:
 
 - Swap smart contract on the Qtum mainnet: [0x2f754733acd6d753731c00fee32cb484551cc15d](https://qtum.info/contract/2f754733acd6d753731c00fee32cb484551cc15d)
 - Swap smart contract on the Qtum testnet: [0xba8b71f3544b93e2f681f996da519a98ace0107a](https://testnet.qtum.info/contract/ba8b71f3544b93e2f681f996da519a98ace0107a)
 
-To use AtomicDEX software on another QRC20-based network, deploy the Etomic swap contract code from the repository linked below. Use of this code requires either an ETH node setup or access to a public service such as [Infura.](https://infura.io/)
+To use AtomicDEX software on another Qtum-based network, deploy the Etomic swap contract code from the repository linked below. Use of this code requires a Qtum node setup.
 
 [Link to repository code for Ethereum-based networks](https://github.com/artemii235/etomic-swap)
+
+::: tip
+
+Smart contract deployment is similar to [creating QRC20 tokens](https://docs.qtum.site/en/QRC20-Token-Introduce.html#creating-qrc20-tokens).
+
+:::
 
 #### Arguments
 
