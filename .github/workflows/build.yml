@@ -1,0 +1,32 @@
+name: Build and Deploy doc sites  
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+      with:
+        fetch-depth: '0'
+
+
+    - name: Build and Deploy to gh_pages
+      uses: KomodoPlatform/vuepress-deploy@master
+      env:
+        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ALGOLIA_SECRET: ${{secrets.ALGOLIA_SECRET}}
+        TARGET_REPO: ${{ github.repository }}
+        TARGET_BRANCH: gh_pages
+        BUILD_SCRIPT: ./algolia-key.sh && yarn && yarn docs:build && echo 'developers.komodoplatform.com' > docs/.vuepress/dist/CNAME && ./prepare-atomicDEX-docs.sh
+        BUILD_DIR: docs/.vuepress/dist/
+
+    - name: Deploy updated files to atomicdex-docs
+      uses: KomodoPlatform/vuepress-deploy@master
+      env:
+        ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
+        TARGET_REPO: ${{ github.repository_owner }}/AtomicDEX-docs
+        TARGET_BRANCH: master
+        BUILD_DIR: AtomicDEX-docs
