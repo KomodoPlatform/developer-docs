@@ -29,7 +29,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 
 ### 3rd Party Server
 
-- **HUSH:** [https://github.com/MyHush/hush3/tree/7f7876d2084daebc89b1914c870fa407c4fbef4e](https://github.com/MyHush/hush3/tree/7f7876d2084daebc89b1914c870fa407c4fbef4e) Tree: `7f7876d2084daebc89b1914c870fa407c4fbef4e` . **The Hush coin's codebase is ready for Season 4 Activation in 3P node at the time of writing this note(June 17th, 08:57 AM UTC)**
+- **Powerblockcoin:** [https://github.com/pbcllc/powerblockcoin-core/tree/51f456afda4dea643a27341d3b5762769937675e](https://github.com/pbcllc/powerblockcoin-core/tree/51f456afda4dea643a27341d3b5762769937675e) Tree: `51f456afda4dea643a27341d3b5762769937675e`
 - **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master` . Commit: `70d7dc2b94e0b275f026ae51fda2a23725929bfd`
 - **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `master` . Commit: `31d59f9d8fa4a8e00dd474ef0561a5b174056d86`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master` . Commit: `fd94422aff2886919dc963d85c313df4dfb0d770`
@@ -186,7 +186,7 @@ AYA Address: AVjkMgFfmMZbpFvmTxCcxadnD6g1EdQue3
 AYA WIF: T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
 ```
 
-CHIPS, all Komodo Smart Chains and Komodo source forks including HUSH3 and VRSC use the same address and WIF format as Komodo (KMD).
+CHIPS, all Komodo Smart Chains and Komodo source forks like VRSC use the same address and WIF format as Komodo (KMD).
 
 It is recommended that you write down the randomly generated seed (24 words) in a piece of paper and type directly into your server. Do not keep the seed saved in your local computer.
 
@@ -547,25 +547,6 @@ Restrict access to the `aryacoin.conf` file
 chmod 600 ~/.aryacoin/aryacoin.conf
 ```
 
-### HUSH3
-
-#### Step 1: Clone HUSH3 source and compile
-
-```bash
-cd ~
-git clone https://github.com/myhush/hush3
-cd hush3
-git checkout 7f7876d
-./zcutil/build.sh -j$(nproc)
-```
-
-#### Step 2: Symlink the compiled binaries
-
-```shell
-sudo ln -sf /home/$USER/hush3/src/hush-cli /usr/local/bin/hush-cli
-sudo ln -sf /home/$USER/hush3/src/hushd /usr/local/bin/hushd
-```
-
 ### Chips
 
 #### Step 1: Clone CHIPS source
@@ -876,7 +857,6 @@ chmod 600 ~/.gleecbtc/gleecbtc.conf
 
 GleecBTC's rpc calls are similar to BTC's after version `v0.18`. So familiar commands like `getinfo` don't work, and `validateaddress` doesn't output `ismine` info. To check if your address was imported, use `getaddressinfo` and check the `ismine` key in the response.
 
-
 :::
 
 ### MarmaraChain (MCL)
@@ -909,6 +889,110 @@ Symlink the compiled binary
 sudo ln -sf /home/$USER/VerusCoin/src/verusd /usr/local/bin/verusd
 ```
 
+### Powerblockcoin (PBC)
+
+#### Step 1: Clone powerblockcoin-core source
+
+```bash
+cd ~
+git clone https://github.com/pbcllc/powerblockcoin-core
+cd ~/powerblockcoin-core
+git checkout 51f456a
+```
+
+#### Build
+
+- Create a file named `build.sh` in the `~/powerblockcoin-core` directory and copy the contents of the following code block into it
+
+```bash
+#!/bin/bash
+# Powerblockcoin build script for Ubuntu & Debian 9 v.3 (c) Decker (and webworker)
+berkeleydb () {
+    Powerblockcoin_ROOT=$(pwd)
+    Powerblockcoin_PREFIX="${Powerblockcoin_ROOT}/db4"
+    mkdir -p $Powerblockcoin_PREFIX
+    wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
+    echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
+    tar -xzvf db-4.8.30.NC.tar.gz
+    cat <<-EOL >atomic-builtin-test.cpp
+        #include <stdint.h>
+        #include "atomic.h"
+
+        int main() {
+        db_atomic_t *p; atomic_value_t oldval; atomic_value_t newval;
+        __atomic_compare_exchange(p, oldval, newval);
+        return 0;
+        }
+EOL
+    if g++ atomic-builtin-test.cpp -I./db-4.8.30.NC/dbinc -DHAVE_ATOMIC_SUPPORT -DHAVE_ATOMIC_X86_GCC_ASSEMBLY -o atomic-builtin-test 2>/dev/null; then
+        echo "No changes to bdb source are needed ..."
+        rm atomic-builtin-test 2>/dev/null
+    else
+        echo "Updating atomic.h file ..."
+        sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+    fi
+    cd db-4.8.30.NC/build_unix/
+    ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$Powerblockcoin_PREFIX
+    make install
+    cd $Powerblockcoin_ROOT
+}
+buildPowerblockcoin () {
+    git pull
+    ./autogen.sh
+    ./configure LDFLAGS="-L${Powerblockcoin_PREFIX}/lib/" CPPFLAGS="-I${Powerblockcoin_PREFIX}/include/" --with-gui=no --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm --enable-static --disable-shared --with-incompatible-bdb
+    make -j$(nproc)
+}
+berkeleydb
+buildPowerblockcoin
+echo "Done building Powerblockcoin!"
+sudo ln -sf /home/$USER/powerblockcoin-core/src/powerblockcoin-cli /usr/local/bin/powerblockcoin-cli
+sudo ln -sf /home/$USER/powerblockcoin-core/src/powerblockcoind /usr/local/bin/powerblockcoind
+```
+
+#### Step 3: Make the script executable and run it
+
+```bash
+chmod +x build.sh
+./build.sh
+```
+
+- Supply your `sudo` password when asked, so that the daemon and cli can be symlinked to your `/usr/local/bin` directory
+
+#### Step 4: Create Powerblockcoin data dir, powerblockcoin.conf file and restrict access to it
+
+```bash
+cd ~
+mkdir .powerblockcoin
+nano ~/.powerblockcoin/powerblockcoin.conf
+```
+
+Insert the following contents inside the powerblockcoin.conf file and save it. (change the rpcuser and rpcpassword values)
+
+```bash
+server=1
+daemon=1
+txindex=1
+rpcuser=user
+rpcpassword=password
+bind=127.0.0.1
+rpcbind=127.0.0.1
+rpcallowip=127.0.0.1
+```
+
+Restrict access to the powerblockcoin.conf file
+
+```bash
+chmod 600 ~/.powerblockcoin/powerblockcoin.conf
+```
+
+::: tip Note
+
+Powerblockcoin's address and wif format are the same as KMD. You can import your 3p KMD node's wif into the Powerblockcoin daemon directly.
+
+Powerblockcoin's rpc calls are similar to BTC's after version `v0.16`. So instead of `getinfo`, use other rpc like `getblockchaininfo`, `getnetworkinfo`, `getwalletinfo`, `getmininginfo` for the appropriate fields.
+
+:::
+
 ### Start the daemons and sync all the chains
 
 For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarization.
@@ -919,7 +1003,7 @@ For the first time sync, we will run all the coin daemons normally. Make sure yo
 komodod &
 chipsd &
 einsteiniumd &
-~/hush3/src/hushd &
+powerblockcoind &
 aryacoind &
 verusd &
 ~/Marmara-v.1.0/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
@@ -937,8 +1021,8 @@ tail -f ~/.komodo/debug.log
 tail -f ~/.chips/debug.log
 # EMC2
 tail -f ~/.einsteinium/debug.log
-# HUSH
-tail -f ~/.komodo/HUSH3/debug.log
+# Powerblockcoin
+tail -f ~/.powerblockcoin/debug.log
 # AYA
 tail -f ~/.aryacoin/debug.log
 # MCL
@@ -959,7 +1043,7 @@ Feel free to import your addresses whilst your daemons are syncing.
 
 ```bash
 komodo-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
-komodo-cli -ac_name=HUSH3 importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+powerblockcoin-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 chips-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
 aryacoin-cli importprivkey T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
@@ -994,7 +1078,7 @@ Never use `kill -9` to kill any Coin daemon if you don't like corrupt databases.
 
 ```bash
 komodo-cli stop
-komodo-cli -ac_name=HUSH3 stop
+powerblockcoin-cli stop
 chips-cli stop
 einsteinium-cli stop
 aryacoin-cli stop
@@ -1082,7 +1166,7 @@ Here is an example of a 3rd Party Server start script :
 source ~/komodo/src/pubkey.txt
 chipsd -pubkey=$pubkey &
 einsteiniumd -pubkey=$pubkey &
-~/hush3/src/hushd -pubkey=$pubkey &
+powerblockcoind -pubkey=$pubkey &
 aryacoind -pubkey=$pubkey &
 ~/VerusCoin/src/verusd -pubkey=$pubkey &
 ~/Marmara-v.1.0/src/komodod -ac_name=MCL -pubkey=$pubkey -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
