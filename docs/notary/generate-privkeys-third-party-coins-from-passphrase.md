@@ -36,6 +36,7 @@ git submodule update --init --recursive
 
 ```bash
 $ php genkomodo.php
+
              Passphrase: 'myverysecretandstrongpassphrase_noneabletobrute'
 
 [ BTC ]
@@ -92,15 +93,24 @@ Uncompressed Public Key: 04a854251adfee222bede8396fed0756985d4ea905f72611740867c
        Uncompressed WIF: 7ez2sQEEbST7ZQQpZqJyF1fTM7C6wPEx4tvjjeWKa82GSwnepa2
   Compressed Address: Gdw3mTUaLRAgK7A2iZ8K4suQVnx7VRJ9rf
 Uncompressed Address: Ggp1ptwEfNV6FCkbafczxeNoCA9LcND32e
-[ SUQA ]
-         Network Prefix: 3F
+[ AYA ]
+         Network Prefix: 17
   Compressed Public Key: 02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1
 Uncompressed Public Key: 04a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1767ae7bed159fca39dc26e2f9de31817bd32e0d6c5a870801bcd81fb7f1c2030
             Private Key: 907ece717a8f94e07de7bf6f8b3e9f91abb8858ebf831072cdbb9016ef53bc5d
-         Compressed WIF: VLbKFL17mvvJ8QEm5PU4fdGKYhvSN7GUv6qGi47kXqicD1GyyMiz
-       Uncompressed WIF: 7RNpdn61dTiXcfLtDmxyZmU2wJt5PTLpZRRz2bh3cXyYzcZxDiN
-  Compressed Address: ShP8PAvn5vkakweCL3THC1i5EQPhFCZEYr
-Uncompressed Address: SkG6ScPSQt4zh3EmC9wy5nBTvmavMv6xv2
+         Compressed WIF: T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
+       Uncompressed WIF: 6vDezJMXr5a8bMdJd5ezFxURCbeJdthgkqNNNMNbhhsjbJoAQhU
+  Compressed Address: Abrzzq1FgiDY3c4jMG8Xnzpc4E5xqktXhz
+Uncompressed Address: Aejy4GTv1fXwyhfJDNdDgmHzkbHBwVxnvD
+[ GleecBTC ]
+         Network Prefix: 23
+  Compressed Public Key: 02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1
+Uncompressed Public Key: 04a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1767ae7bed159fca39dc26e2f9de31817bd32e0d6c5a870801bcd81fb7f1c2030
+            Private Key: 907ece717a8f94e07de7bf6f8b3e9f91abb8858ebf831072cdbb9016ef53bc5d
+         Compressed WIF: AhXsCzbmiZUyMCZyPqjYMhLxBxcFBP6tQSLrCpTpfYkvjJEMthcW
+       Uncompressed WIF: 3CT2QZXzFrVzdJ81zjm5PMvTYwHbUjAVQtWRHj26My8gpHMRMYn
+  Compressed Address: FRvEp8aiCsn3rojmeJ8McW63cHBHKoxKbV
+Uncompressed Address: FUoCsa3NXq6TnuLLWQd3WGZSJeNWVgWuPR
 [ ETH/ERC20 ]
    ETH/ERC20 Address: 0x85FE0A232fA144921d880BE72A3C5515e5C17A8c
 ```

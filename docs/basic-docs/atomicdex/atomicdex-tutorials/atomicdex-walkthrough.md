@@ -38,9 +38,9 @@ Let's set up a file in the `~/atomicDEX-API/target/debug` directory to import th
 Save this file. MM2 will search for it automatically on launch.
 
 ::: tip
-The `coins` file in [this linked repository](https://github.com/jl777/coins) contains the standard coin configuration file used in GUI software.
+The `coins` file in [this linked repository](https://github.com/KomodoPlatform/coins) contains the standard coin configuration file used in GUI software.
 
-The `electrum server configuration` for enabling coins can also be found in the the [electrums directory](https://github.com/jl777/coins/tree/master/electrums) in the JL777-coins repository. 
+The `electrum server configuration` for enabling coins can also be found in the the [electrums directory](https://github.com/KomodoPlatform/coins/tree/master/electrums) in the KomodoPlatform-coins repository. 
 :::
 
 #### RPC password

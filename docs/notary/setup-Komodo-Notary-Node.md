@@ -31,11 +31,11 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 
 - **Powerblockcoin:** [https://github.com/pbcllc/powerblockcoin-core/tree/51f456afda4dea643a27341d3b5762769937675e](https://github.com/pbcllc/powerblockcoin-core/tree/51f456afda4dea643a27341d3b5762769937675e) Tree: `51f456afda4dea643a27341d3b5762769937675e`
 - **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master` . Commit: `70d7dc2b94e0b275f026ae51fda2a23725929bfd`
-- **GAME:** [https://github.com/gamecredits-project/GameCredits.git](https://github.com/gamecredits-project/GameCredits.git) Branch: `master` . Commit: `025f105fc69f41ba1fbf599137aed08e18620dc3` **GAME is not ready for Season 4 at the time of writing this note(June 14th, 12:25 AM UTC), we will update this document when the update for GAME is ready or if it should be removed**
 - **CHIPS:** [https://github.com/jl777/chips3.git](https://github.com/jl777/chips3.git) Branch: `master` . Commit: `31d59f9d8fa4a8e00dd474ef0561a5b174056d86`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master` . Commit: `fd94422aff2886919dc963d85c313df4dfb0d770`
 - **VRSC:** [https://github.com/VerusCoin/VerusCoin](https://github.com/VerusCoin/VerusCoin) Tag: `v0.7.0-4` . Commit: `ab82cc9aad27db997d8dd9d30ebd973a78c22abc`
 - **MCL:** [https://github.com/marmarachain/Marmara-v.1.0.git](https://github.com/marmarachain/Marmara-v.1.0.git) Branch: `master` Commit: `03dd78037067ebb27af8b33f6adcdbede3813007`
+- **GLEEC** [https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux/tree/b4ffcc9b4ed829cefb1afc27e1c81a7e5be4cffd](https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux/tree/b4ffcc9b4ed829cefb1afc27e1c81a7e5be4cffd) Tree: `b4ffcc9b4ed829cefb1afc27e1c81a7e5be4cffd`
 
 ## Requirements
 
@@ -178,9 +178,6 @@ BTC WIF: L24bEAJSkFCdjoQNEcboWfJdsLGLmkBgfGb4TSHnbhEmU9jenaes
 
 KMD Address: RVNKRr2uxPMxJeDwFnTKjdtiLtcs7UzCZn
 KMD WIF: UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
-
-GAME Address: Gdw3mTUaLRAgK7A2iZ8K4suQVnx7VRJ9rf
-GAME WIF: Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
 
 EMC2 Address: EdF2quz8nWrJDwTbbTTieFYUMGfPsVB5dv
 EMC2 WIF: T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
@@ -469,7 +466,7 @@ git checkout fd94422
 
 #### Step 2: Create a build script
 
-Name the script as `build.sh` inside the `~/AYAv2` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
+Name the script as `build.sh` inside the `~/AYAv2` dir for easy compiling and add the contents below to the script. The script will also create symlinks for the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
 
 ```bash
 #!/bin/bash
@@ -663,122 +660,6 @@ Restrict access to the `chips.conf` file
 chmod 600 ~/.chips/chips.conf
 ```
 
-### GameCredits (GAME)
-
-#### Step 1: Clone GAME source
-
-```bash
-cd ~
-git clone https://github.com/gamecredits-project/GameCredits -b master
-cd GameCredits
-git checkout 025f105
-```
-
-#### Step 2: Create a build script
-
-Name the script as `build.sh` inside the `~/GameCredits` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
-
-```bash
-#!/bin/bash
-# GameCredits build script for Ubuntu & Debian 9 v.3 (c) Decker
-
-# Step 1: Build BDB 4.8
-GAMECREDITS_ROOT=$(pwd)
-GAMECREDITS_PREFIX="${GAMECREDITS_ROOT}/db4"
-mkdir -p $GAMECREDITS_PREFIX
-wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
-echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
-tar -xzvf db-4.8.30.NC.tar.gz
-    cat <<-EOL >atomic-builtin-test.cpp
-        #include <stdint.h>
-        #include "atomic.h"
-
-        int main() {
-        db_atomic_t *p; atomic_value_t oldval; atomic_value_t newval;
-        __atomic_compare_exchange(p, oldval, newval);
-        return 0;
-        }
-EOL
-    if g++ atomic-builtin-test.cpp -I./db-4.8.30.NC/dbinc -DHAVE_ATOMIC_SUPPORT -DHAVE_ATOMIC_X86_GCC_ASSEMBLY -o atomic-builtin-test 2>/dev/null; then
-        echo "No changes to bdb source are needed ..."
-        rm atomic-builtin-test 2>/dev/null
-    else
-        echo "Updating atomic.h file ..."
-        sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
-    fi
-cd db-4.8.30.NC/build_unix/
-../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$GAMECREDITS_PREFIX
-make -j$(nproc)
-make install
-cd $GAMECREDITS_ROOT
-
-# Step 2: Build OpenSSL (libssl-dev) 1.0.x
-version=1.0.2o
-mkdir -p openssl_build
-wget -qO- http://www.openssl.org/source/openssl-$version.tar.gz | tar xzv
-cd openssl-$version
-export CFLAGS=-fPIC
-./config no-shared --prefix=$GAMECREDITS_ROOT/openssl_build
-make -j$(nproc)
-make install
-cd ..
-
-export PKG_CONFIG_PATH="$GAMECREDITS_ROOT/openssl_build/pkgconfig"
-export CXXFLAGS+=" -I$GAMECREDITS_ROOT/openssl_build/include/ -I${GAMECREDITS_PREFIX}/include/"
-export LDFLAGS+=" -L$GAMECREDITS_ROOT/openssl_build/lib -L${GAMECREDITS_PREFIX}/lib/ -static"
-export LIBS+="-ldl"
-
-# p.s. for Debian added -ldl in LDFLAGS it's enough, but on Ubuntu linker doesn't recognize it, so,
-# we moved -ldl to LIBS and added -static to LDFLAGS, because linker on Ubuntu doesn't understan that
-# it should link librypto.a statically.
-#
-# Or we can build OpenSSL 1.0.x as shared (instead of no-shared) and use:
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/$USER/GameCredits/openssl_build/lib before
-# starting gamecreditsd.
-
-# Step 3: Build GameCredits daemon
-./autogen.sh
-./configure --with-gui=no --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm --enable-static --disable-shared
-make -j$(nproc)
-
-sudo ln -sf /home/$USER/GameCredits/src/gamecredits-cli /usr/local/bin/gamecredits-cli
-sudo ln -sf /home/$USER/GameCredits/src/gamecreditsd /usr/local/bin/gamecreditsd
-```
-
-#### Step 3: Make the script executable and run it
-
-```bash
-chmod +x build.sh
-./build.sh
-```
-
-#### Step 4: Create GAME data dir, `gamecredits.conf` file and restrict access to it
-
-```bash
-cd ~
-mkdir .gamecredits
-nano ~/.gamecredits/gamecredits.conf
-```
-
-Insert the following contents inside the `gamecredits.conf` file and save it. (change the `rpcuser` and `rpcpassword` values)
-
-```bash
-server=1
-daemon=1
-txindex=1
-rpcuser=user
-rpcpassword=password
-bind=127.0.0.1
-rpcbind=127.0.0.1
-rpcallowip=127.0.0.1
-```
-
-Restrict access to the `gamecredits.conf` file
-
-```bash
-chmod 600 ~/.gamecredits/gamecredits.conf
-```
-
 ### Einsteinium (EMC2)
 
 #### Step 1: Clone EMC2 source
@@ -792,7 +673,7 @@ git checkout 70d7dc2
 
 #### Step 2: Create a build script
 
-Name the script as `build.sh` inside the `~/einsteinium` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
+Name the script as `build.sh` inside the `~/einsteinium` dir for easy compiling and add the contents below to the script. The script will also create symlinks for the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
 
 ```bash
 #!/bin/bash
@@ -874,6 +755,102 @@ Restrict access to the `einsteinium.conf` file
 
 ```bash
 chmod 600 ~/.einsteinium/einsteinium.conf
+```
+
+### GleecBTC (GLEEC)
+
+#### Step 1: Clone GleecBTC source
+
+```bash
+cd ~
+git clone https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux
+cd ~/GleecBTC-FullNode-Win-Mac-Linux
+git checkout b4ffcc9
+```
+
+#### Step 2: Create a build Script
+
+- Create a file named `build.sh` in the `~/GleecBTC-FullNode-Win-Mac-Linux` directory and copy the contents of the following code block into it
+
+```bash
+#!/bin/bash
+# GleecBTC build script for Ubuntu & Debian 9 v.3 (c) Decker (and webworker)
+berkeleydb () {
+    GleecBTC_ROOT=$(pwd)
+    GleecBTC_PREFIX="${GleecBTC_ROOT}/db4"
+    mkdir -p $GleecBTC_PREFIX
+    wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
+    echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
+    tar -xzvf db-4.8.30.NC.tar.gz
+    cat <<-EOL >atomic-builtin-test.cpp
+        #include <stdint.h>
+        #include "atomic.h"
+
+        int main() {
+        db_atomic_t *p; atomic_value_t oldval; atomic_value_t newval;
+        __atomic_compare_exchange(p, oldval, newval);
+        return 0;
+        }
+EOL
+    if g++ atomic-builtin-test.cpp -I./db-4.8.30.NC/dbinc -DHAVE_ATOMIC_SUPPORT -DHAVE_ATOMIC_X86_GCC_ASSEMBLY -o atomic-builtin-test 2>/dev/null; then
+        echo "No changes to bdb source are needed ..."
+        rm atomic-builtin-test 2>/dev/null
+    else
+        echo "Updating atomic.h file ..."
+        sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
+    fi
+    cd db-4.8.30.NC/build_unix/
+    ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$GleecBTC_PREFIX
+    make install
+    cd $GleecBTC_ROOT
+}
+buildGleecBTC () {
+    git pull
+    ./autogen.sh
+    ./configure LDFLAGS="-L${GleecBTC_PREFIX}/lib/" CPPFLAGS="-I${GleecBTC_PREFIX}/include/" --with-gui=no --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm --enable-static --disable-shared --with-incompatible-bdb
+    make -j$(nproc)
+}
+berkeleydb
+buildGleecBTC
+echo "Done building GleecBTC!"
+sudo ln -sf /home/$USER/GleecBTC-FullNode-Win-Mac-Linux/src/gleecbtc-cli /usr/local/bin/gleecbtc-cli
+sudo ln -sf /home/$USER/GleecBTC-FullNode-Win-Mac-Linux/src/gleecbtcd /usr/local/bin/gleecbtcd
+```
+
+#### Step 3: Make the script executable and run it
+
+```bash
+chmod +x build.sh
+./build.sh
+```
+
+- Supply your `sudo` password when asked, so that the daemon and cli can be symlinked to your `/usr/local/bin` directory
+
+#### Step 4: Create GleecBTC data dir, gleecbtc.conf file and restrict access to it
+
+```bash
+cd ~
+mkdir .gleecbtc
+nano ~/.gleecbtc/gleecbtc.conf
+```
+
+Insert the following contents inside the gleecbtc.conf file and save it. (change the rpcuser and rpcpassword values)
+
+```bash
+server=1
+daemon=1
+txindex=1
+rpcuser=user
+rpcpassword=password
+bind=127.0.0.1
+rpcbind=127.0.0.1
+rpcallowip=127.0.0.1
+```
+
+Restrict access to the gleecbtc.conf file
+
+```bash
+chmod 600 ~/.gleecbtc/gleecbtc.conf
 ```
 
 :::tip Note
@@ -1025,12 +1002,12 @@ For the first time sync, we will run all the coin daemons normally. Make sure yo
 ```bash
 komodod &
 chipsd &
-gamecreditsd &
 einsteiniumd &
 powerblockcoind &
 aryacoind &
 verusd &
 ~/Marmara-v.1.0/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+gleecbtcd &
 ```
 
 Now wait for all the chains to finish syncing. This might take about 8-10 hours depending on your machine and internet connection. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories.
@@ -1042,8 +1019,6 @@ Commands to tail `debug.log`
 tail -f ~/.komodo/debug.log
 # CHIPS
 tail -f ~/.chips/debug.log
-# GAME
-tail -f ~/.gamecredits/debug.log
 # EMC2
 tail -f ~/.einsteinium/debug.log
 # Powerblockcoin
@@ -1054,6 +1029,8 @@ tail -f ~/.aryacoin/debug.log
 tail -f ~/.komodo/MCL/debug.log
 # VRSC
 tail -f ~/.komodo/VRSC/debug.log
+# GLEEC
+tail -f ~/.komodo/gleecbtc/debug.log
 ```
 
 You can now wait for all the coins to finish syncing. Just double check the block you've downloaded with an explorer to verify.
@@ -1068,11 +1045,11 @@ Feel free to import your addresses whilst your daemons are syncing.
 komodo-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 powerblockcoin-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 chips-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
-gamecredits-cli importprivkey Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
 einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
 aryacoin-cli importprivkey T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
 komodo-cli -ac_name=MCL importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 komodo-cli -ac_name=VRSC importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+gleecbtc-cli importprivkey AhXsCzbmiZUyMCZyPqjYMhLxBxcFBP6tQSLrCpTpfYkvjJEMthcW
 ```
 
 This may take some time and will display the coin name and address after each import. You can tail the coin specific `debug.log` files to check the progress.
@@ -1103,11 +1080,11 @@ Never use `kill -9` to kill any Coin daemon if you don't like corrupt databases.
 komodo-cli stop
 powerblockcoin-cli stop
 chips-cli stop
-gamecredits-cli stop
 einsteinium-cli stop
 aryacoin-cli stop
 komodo-cli -ac_name=MCL stop
 komodo-cli -ac_name=VRSC stop
+gleecbtc-cli stop
 ```
 
 ---
@@ -1188,7 +1165,6 @@ Here is an example of a 3rd Party Server start script :
 #!/bin/bash
 source ~/komodo/src/pubkey.txt
 chipsd -pubkey=$pubkey &
-gamecreditsd -pubkey=$pubkey &
 einsteiniumd -pubkey=$pubkey &
 powerblockcoind -pubkey=$pubkey &
 aryacoind -pubkey=$pubkey &
@@ -1197,6 +1173,7 @@ aryacoind -pubkey=$pubkey &
 sleep 60
 cd komodo/src
 ./komodod -notary -pubkey=$pubkey &
+gleecbtcd -pubkey=$pubkey &
 ```
 
 Make the file executable:

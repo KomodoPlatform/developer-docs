@@ -4,11 +4,21 @@ var sidebarExtraImport = require("./sidebar-extra.js");
 var navbarImport = require("./navbar.js");
 var algoliaSecret = require("./algolia-secret.js");
 
+const autometa_options = {
+  schema: true,
+  site: {
+    name: "Komodo Documentation",
+    twitter: "komodoplatform",
+  },
+  canonical_base: "https://docs.komodoplatform.com",
+};
+
 module.exports = {
   plugins: {
     redirect: {
       alias: redirectAliases,
     },
+    autometa: autometa_options,
     "@vuepress/last-updated": {
       transformer: (timestamp) => {
         // Don't forget to install moment yourself
@@ -38,6 +48,14 @@ module.exports = {
       },
     ],
     [
+      "meta",
+      {
+        name: "twitter:image",
+        content:
+          "https://developers.komodoplatform.com/start-here-pics/Dev_Docs_Introduction_small.png",
+      },
+    ],
+    /* [
       "meta",
       {
         name: "twitter:card",
@@ -72,14 +90,7 @@ module.exports = {
         content: "Documentation for developers building on the Komodo Platform",
       },
     ],
-    [
-      "meta",
-      {
-        name: "twitter:image",
-        content:
-          "https://docs.komodoplatform.com/Dev_Docs_Introduction_small.png",
-      },
-    ],
+   */
   ],
   title: "Komodo Documentation",
   base: "/",
