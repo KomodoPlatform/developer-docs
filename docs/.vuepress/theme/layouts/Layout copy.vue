@@ -105,6 +105,7 @@ export default {
     this.$router.afterEach(() => {
       this.isSidebarOpen = false;
     });
+    this.display_cookie_info();
   },
 
   methods: {
@@ -130,6 +131,40 @@ export default {
         } else {
           this.toggleSidebar(false);
         }
+      }
+    },
+
+    load_script(url) {
+      //https://stackoverflow.com/a/49893418/1800418
+      let self = this;
+      return new Promise((resolve, reject) => {
+        let cookieBanner = document.createElement("script");
+        cookieBanner.setAttribute("src", "url");
+        cookieBanner.async = true;
+        cookieBanner.onload = () => {
+          resolve();
+        };
+        document.head.appendChild(cookieBanner);
+      });
+    },
+
+    async display_cookie_info() {
+      try {
+        await this.load_script(
+          "https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"
+        );
+        window.cookieconsent.initialise({
+          palette: {
+            popup: {
+              background: "#1d8a8a",
+            },
+            button: {
+              background: "#62ffaa",
+            },
+          },
+        });
+      } catch (err) {
+        console.log(err);
       }
     },
   },
