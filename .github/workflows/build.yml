@@ -11,6 +11,8 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: '0'
+                persist-credentials: false    
+
 
     - name: Checkout
       uses: actions/checkout@v2
@@ -18,10 +20,10 @@ jobs:
         repository: ${{ github.repository_owner }}/AtomicDEX-docs
         path: AtomicDEX-docs    
 
-    - name: Prepare the directory
+    - name: Add Algolia Secret
       env:
         ALGOLIA_SECRET: ${{secrets.ALGOLIA_SECRET}}
-      run: ./algolia-key.sh && ./prepare-atomicDEX-docs.sh
+      run: ./algolia-key.sh
 
     - name: Build and Deploy to gh_pages
       uses: KomodoPlatform/vuepress-deploy@master
@@ -34,11 +36,15 @@ jobs:
         BUILD_SCRIPT: yarn && yarn docs:build
         BUILD_DIR: docs/.vuepress/dist/
 
-    - name: Deploy updated files to atomicdex-docs
-      uses: KomodoPlatform/vuepress-deploy@master
+    - name: Prepare AtomicDEX docs
       env:
-        ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
-        TARGET_REPO: ${{ github.repository_owner }}/AtomicDEX-docs
-        TARGET_BRANCH: master
-        BUILD_SCRIPT: rm -rf AtomicDEX-docs/.git
-        BUILD_DIR: AtomicDEX-docs
+        ALGOLIA_SECRET: ${{secrets.ALGOLIA_SECRET}}
+      run: ./prepare-atomicDEX-docs.sh    
+
+    - name: Deploy updated files to AtomicDEX-docs repo
+      uses: KomodoPlatform/github-pages-deploy-action@3.7.1
+      with:
+        ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}  
+        REPOSITORY_NAME: ${{ github.repository_owner }}/AtomicDEX-docs
+        BRANCH: master
+        FOLDER: AtomicDEX-docs
