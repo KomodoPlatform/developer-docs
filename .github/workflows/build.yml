@@ -20,7 +20,7 @@ jobs:
     - name: Build and Deploy to gh_pages
       uses: KomodoPlatform/vuepress-deploy@master
       env:
-        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
         ALGOLIA_SECRET: ${{secrets.ALGOLIA_SECRET}}
         TARGET_REPO: ${{ github.repository }}
         TARGET_BRANCH: gh-pages
