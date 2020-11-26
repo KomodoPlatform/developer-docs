@@ -11,8 +11,9 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: '0'
+        persist-credentials: false    
 
-    - name: Prepare the directory
+    - name: Add Algolia Secret
       env:
         ALGOLIA_SECRET: ${{secrets.ALGOLIA_SECRET}}
       run: ./algolia-key.sh
