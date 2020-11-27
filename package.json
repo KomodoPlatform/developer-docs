@@ -21,7 +21,7 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "cookieconsent": "https://github.com/KomodoPlatform/cookieconsent",
+    "cookieconsent": "3",
     "dotenv": "^8.0.0",
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.19",
