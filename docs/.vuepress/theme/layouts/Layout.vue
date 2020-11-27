@@ -140,10 +140,10 @@ export default {
         const cc = new CC({
           palette: {
             popup: {
-              background: "#1d8a8a",
+              background: "#026782",
             },
             button: {
-              background: "#62ffaa",
+              background: "#18f4bf",
             },
           },
           content: {
