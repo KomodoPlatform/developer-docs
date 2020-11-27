@@ -9,6 +9,7 @@
   "author": "Contributors from Komodo Platform",
   "license": "MIT",
   "devDependencies": {
+    "cookieconsent": "https://github.com/KomodoPlatform/cookieconsent",
     "moment": "^2.27.0",
     "vuepress": "^1.0.2",
     "vuepress-plugin-autometa": "^0.1.13",
