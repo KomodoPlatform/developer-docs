@@ -37,7 +37,6 @@ import Navbar from "@theme/components/Navbar.vue";
 import Page from "@theme/components/Page.vue";
 import Sidebar from "@theme/components/Sidebar.vue";
 import { resolveSidebarItems } from "../util";
-import CC from "CookieConsent";
 
 export default {
   name: "Layout",
@@ -106,21 +105,7 @@ export default {
     this.$router.afterEach(() => {
       this.isSidebarOpen = false;
     });
-    const cc = new CC({
-      palette: {
-        popup: {
-          background: "#1d8a8a",
-        },
-        button: {
-          background: "#62ffaa",
-        },
-      },
-      content: {
-        message:
-          "Our website uses cookies to make your browsing experience better. By using our site, you agree to our use of cookies.",
-        href: "https://forum.komodoplatform.com/privacy",
-      },
-    });
+    this.initializeCookieBanner();
   },
 
   methods: {
@@ -147,6 +132,27 @@ export default {
           this.toggleSidebar(false);
         }
       }
+    },
+
+    initializeCookieBanner() {
+      import("cookieconsent/build/cookieconsent.min.js").then((CC) => {
+        CC = CC.default.default;
+        const cc = new CC({
+          palette: {
+            popup: {
+              background: "#1d8a8a",
+            },
+            button: {
+              background: "#62ffaa",
+            },
+          },
+          content: {
+            message:
+              "Our website uses cookies to make your browsing experience better. By using our site, you agree to our use of cookies.",
+            href: "https://forum.komodoplatform.com/privacy",
+          },
+        });
+      });
     },
   },
 };
