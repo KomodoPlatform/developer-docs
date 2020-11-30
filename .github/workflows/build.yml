@@ -19,7 +19,7 @@ jobs:
       run: ./algolia-key.sh
 
     - name: Build and Deploy to gh_pages
-      uses: KomodoPlatform/vuepress-deploy@v1.0.1
+      uses: KomodoPlatform/vuepress-deploy@1.0.1
       env:
         ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
         ALGOLIA_SECRET: ${{secrets.ALGOLIA_SECRET}}
