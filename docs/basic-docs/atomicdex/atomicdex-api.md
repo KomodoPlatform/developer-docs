@@ -1224,7 +1224,7 @@ In the worst case, you should call the `approve` twice (reduce allowance to 0 an
 
 Gas Limit `100000` and Gas Price `40` are sufficient for one smart contract call.
 
-As a result, `get_trade_fee` return value includes gas fee `3 * 100000 * 40 = 12000000` that can be used in the worst case.
+As a result, the value returned by the `get_trade_fee` for a QRC20 token includes gas fee `3 * 100000 * 40 = 12000000` that can be used in the worst case.
 
 :::
 
