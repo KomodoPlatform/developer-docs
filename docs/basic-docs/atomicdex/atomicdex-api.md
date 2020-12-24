@@ -910,7 +910,7 @@ The MM2 node's coin address needs to be imported manually into the coin daemon u
 
 ::: tip
 
-To enable QRC20 token by the `enable` method, make sure the Qtum blockchain daemon is configured correctly. MM2 requires the following options to be in the `qtum.conf`:
+To enable QRC20 token using the `enable` method, make sure the Qtum blockchain daemon is configured correctly. MM2 requires the following options to be in the `qtum.conf`:
 
 ```ini
 logevents=1
