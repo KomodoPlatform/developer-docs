@@ -3297,6 +3297,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "coin": "ETOMIC",
         "confirmations": 10,
         "fee_details": {
+          "type": "Utxo",
           "amount": "0.00001"
         },
         "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
@@ -3409,6 +3410,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "coin": "ETH",
         "confirmations": 91295,
         "fee_details": {
+          "type": "Eth",
           "coin": "ETH",
           "gas": 57196,
           "gas_price": "0.000000027",
@@ -3430,6 +3432,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "coin": "ETH",
         "confirmations": 117960,
         "fee_details": {
+          "type": "Eth",
           "coin": "ETH",
           "gas": 57196,
           "gas_price": "0.00000001",
@@ -3451,6 +3454,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "coin": "ETH",
         "confirmations": 119279,
         "fee_details": {
+          "type": "Eth",
           "coin": "ETH",
           "gas": 49472,
           "gas_price": "0.00000001",
@@ -4674,6 +4678,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"K
   "block_height": 0,
   "coin": "ETOMIC",
   "fee_details": {
+    "type": "Utxo",
     "amount": "0.00001"
   },
   "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
@@ -4716,6 +4721,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"R
   "block_height": 0,
   "timestamp": 1566472936,
   "fee_details": {
+    "type": "Utxo",
     "amount": "0.1"
   },
   "coin": "RICK",
@@ -4758,6 +4764,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"R
   "block_height": 0,
   "timestamp": 1566473421,
   "fee_details": {
+    "type": "Utxo",
     "amount": "0.38378905"
   },
   "coin": "RICK",
@@ -4792,6 +4799,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"E
   "block_height": 0,
   "coin": "ETH",
   "fee_details": {
+    "type": "Eth",
     "coin": "ETH",
     "gas": 21000,
     "gas_price": "0.000000001",
@@ -4837,6 +4845,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "block_height": 0,
   "timestamp": 1566474670,
   "fee_details": {
+    "type": "Eth",
     "coin": "ETH",
     "gas": 55000,
     "gas_price": "0.0000000035",
@@ -4874,6 +4883,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"E
   "block_height": 0,
   "coin": "ETH",
   "fee_details": {
+    "type": "Eth",
     "coin": "ETH",
     "gas": 21000,
     "gas_price": "0.000000001",
@@ -4912,6 +4922,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"Q
   "coin":"QRC20",
   "timestamp":1608725061,
   "fee_details":{
+    "type": "Qrc20",
     "coin":"tQTUM",
     "miner_fee":"0.00000447",
     "gas_limit":100000,
@@ -4949,6 +4960,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin":"QRC20",
   "timestamp":1608725061,
   "fee_details":{
+    "type": "Qrc20",
     "coin":"tQTUM",
     "miner_fee":"0.00000447",
     "gas_limit":250000,
