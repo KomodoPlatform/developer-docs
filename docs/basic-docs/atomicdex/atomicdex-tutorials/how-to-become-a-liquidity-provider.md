@@ -786,6 +786,7 @@ Execute the following command to withdraw `0.97` KMD to the address `RUFf4de7gZE
   "block_height": 0,
   "timestamp": 1563798788,
   "fee_details": {
+    "type": "Utxo",
     "amount": 1e-5
   },
   "coin": "KMD",
