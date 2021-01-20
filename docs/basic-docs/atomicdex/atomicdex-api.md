@@ -906,7 +906,41 @@ For utxo-based coins the daemon of this blockchain must also be running on the u
 
 The MM2 node's coin address needs to be imported manually into the coin daemon using the [importaddress](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#importaddress) call.
 
-Native mode for QRC20 tokens is in development yet.
+:::
+
+::: tip
+
+To enable QRC20 token using the `enable` method, make sure the Qtum blockchain daemon is configured correctly. MM2 requires the following options to be in the `qtum.conf`:
+
+```ini
+logevents=1
+txindex=1
+addressindex=1
+```
+
+If a QRC20 token is based on Qtum testnet/regtest, please make sure that the `coins` file has the property `"network": "testnet"` or `"network": "regtest"`. See the example below.
+
+```json
+{
+  "coin":"QRC20",
+  "pubtype":120,
+  "p2shtype":50,
+  "wiftype":128,
+  "segwit":true,
+  "txfee":0,
+  "mm2":1,
+  "mature_confirmations":500,
+  "required_confirmations":1,
+  "network":"testnet",
+  "protocol":{
+    "type":"QRC20",
+    "protocol_data":{
+      "platform":"tQTUM",
+      "contract_address":"0xd362e096e873eb7907e205fadc6175c6fec7bc44"
+    }
+  }
+}
+```
 
 :::
 
@@ -1181,7 +1215,18 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 The `get_trade_fee` method returns the approximate amount of the miner fee that is paid per swap transaction.
 
-This amount should be multiplied by 2 and deducted from the volume on `buy/sell` calls when the user is about to trade the entire balance of the selected coin.
+This amount should be multiplied by 2 and deducted from the volume on `buy/sell` calls when the user is about to trade the entire balance of the selected coin. This aspect is currently under development.
+
+::: tip Note
+
+To send QRC20 Maker/Taker payment, you may need to allow the [Etomic Swap](https://github.com/artemii235/etomic-swap/) smart contract to withdraw amounts from your account using the [approve](https://docs.openzeppelin.com/contracts/2.x/api/token/erc20#IERC20-approve-address-uint256-) call.
+In the worst case, you should call the `approve` twice (reduce allowance to 0 and set it to a required value) before the [erc20Payment](https://github.com/artemii235/etomic-swap/blob/1.0/contracts/EtomicSwap.sol#L51) is called.
+
+Gas Limit `100000` and Gas Price `40` are sufficient for one smart contract call.
+
+As a result, the value returned by the `get_trade_fee` for a QRC20 token includes gas fee `3 * 100000 * 40 = 12000000` that can be used in the worst case.
+
+:::
 
 #### Arguments
 
@@ -3252,6 +3297,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "coin": "ETOMIC",
         "confirmations": 10,
         "fee_details": {
+          "type": "Utxo",
           "amount": "0.00001"
         },
         "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
@@ -3364,6 +3410,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "coin": "ETH",
         "confirmations": 91295,
         "fee_details": {
+          "type": "Eth",
           "coin": "ETH",
           "gas": 57196,
           "gas_price": "0.000000027",
@@ -3385,6 +3432,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "coin": "ETH",
         "confirmations": 117960,
         "fee_details": {
+          "type": "Eth",
           "coin": "ETH",
           "gas": 57196,
           "gas_price": "0.00000001",
@@ -3406,6 +3454,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "coin": "ETH",
         "confirmations": 119279,
         "fee_details": {
+          "type": "Eth",
           "coin": "ETH",
           "gas": 49472,
           "gas_price": "0.00000001",
@@ -4629,6 +4678,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"K
   "block_height": 0,
   "coin": "ETOMIC",
   "fee_details": {
+    "type": "Utxo",
     "amount": "0.00001"
   },
   "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
@@ -4671,6 +4721,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"R
   "block_height": 0,
   "timestamp": 1566472936,
   "fee_details": {
+    "type": "Utxo",
     "amount": "0.1"
   },
   "coin": "RICK",
@@ -4713,6 +4764,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"R
   "block_height": 0,
   "timestamp": 1566473421,
   "fee_details": {
+    "type": "Utxo",
     "amount": "0.38378905"
   },
   "coin": "RICK",
@@ -4747,6 +4799,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"E
   "block_height": 0,
   "coin": "ETH",
   "fee_details": {
+    "type": "Eth",
     "coin": "ETH",
     "gas": 21000,
     "gas_price": "0.000000001",
@@ -4792,6 +4845,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "block_height": 0,
   "timestamp": 1566474670,
   "fee_details": {
+    "type": "Eth",
     "coin": "ETH",
     "gas": 55000,
     "gas_price": "0.0000000035",
@@ -4829,6 +4883,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"E
   "block_height": 0,
   "coin": "ETH",
   "fee_details": {
+    "type": "Eth",
     "coin": "ETH",
     "gas": 21000,
     "gas_price": "0.000000001",
@@ -4840,6 +4895,84 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"E
   "spent_by_me": "10.000021",
   "to": ["0xbab36286672fbdc7b250804bf6d14be0df69fa28"],
   "total_amount": "10.000021",
+  "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
+  "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
+}
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (QRC20)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"QRC20\",\"to\":\"qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs\",\"amount\":10,\"userpass\":\"$userpass\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "block_height": 0,
+  "coin":"QRC20",
+  "timestamp":1608725061,
+  "fee_details":{
+    "type": "Qrc20",
+    "coin":"tQTUM",
+    "miner_fee":"0.00000447",
+    "gas_limit":100000,
+    "gas_price":40,
+    "total_gas_fee":"0.04"
+  },
+  "from": ["qXxsj5RtciAby9T7m98AgAATL4zTi4UwDG"],
+  "my_balance_change": "-10",
+  "received_by_me": "0",
+  "spent_by_me": "10",
+  "to": ["qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs"],
+  "total_amount": "10",
+  "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
+  "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
+}
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (QRC20, with gas fee)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"withdraw\",\"coin\":\"QRC20\",\"to\":\"qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs\",\"amount\":10,\"fee\":{\"type\":\"Qrc20Gas\",\"gas_limit\":250000,\"gas_price\":40}}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "block_height": 0,
+  "coin":"QRC20",
+  "timestamp":1608725061,
+  "fee_details":{
+    "type": "Qrc20",
+    "coin":"tQTUM",
+    "miner_fee":"0.00000447",
+    "gas_limit":250000,
+    "gas_price":40,
+    "total_gas_fee":"0.1"
+  },
+  "from": ["qXxsj5RtciAby9T7m98AgAATL4zTi4UwDG"],
+  "my_balance_change": "-10",
+  "received_by_me": "0",
+  "spent_by_me": "10",
+  "to": ["qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs"],
+  "total_amount": "10",
   "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
   "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
 }
