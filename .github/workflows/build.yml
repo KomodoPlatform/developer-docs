@@ -22,7 +22,7 @@ jobs:
 
     - name: Add Algolia Secret
       env:
-        ALGOLIA_SECRET: ${{secrets.ALGOLIA_SECRET}}
+        ALGOLIAKEY: ${{secrets.ALGOLIA_SECRET}}
       run: ./algolia-key.sh
 
     - name: Build and Deploy to gh_pages
