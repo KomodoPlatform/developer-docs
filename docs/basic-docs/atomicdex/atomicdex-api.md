@@ -3708,7 +3708,6 @@ The `orderbook` method requests from the network the currently available orders 
 | --------- | ------ | ----------------------------------------------------------------------------------- |
 | base      | string | base currency of a pair                                                             |
 | rel       | string | "related" currency, also can be called "quote currency" according to exchange terms |
-| duration  | number | `deprecated`                                                                        |
 
 #### Response
 
@@ -3726,6 +3725,9 @@ The `orderbook` method requests from the network the currently available orders 
 | maxvolume      | string (decimal) | the maximum amount of `base` coin the offer provider is willing to sell       |
 | max_volume_rat | rational         | the max volume in num-rational crate format                                      |
 | max_volume_fraction | object (rational) | the max volume represented as an object                                      |
+| min_volume      | string (decimal) | the minimum amount of `base` coin the offer provider is willing to sell       |
+| min_volume_rat | rational         | the min volume in num-rational crate format                                      |
+| min_volume_fraction | object (rational) | the min volume represented as an object                                      |
 | pubkey         | string           | the pubkey of the offer provider                                              |
 | age            | number           | the age of the offer (in seconds)                                             |
 | zcredits       | number           | the zeroconf deposit amount                                                   |
@@ -3776,6 +3778,15 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       "max_volume_fraction":{
         "numer":"997",
         "denom":"1"
+      },
+      "min_volume": "0.00777",
+      "min_volume_rat": [
+        [1,[777]],
+        [1,[100000]]
+      ],
+      "min_volume_fraction": {
+        "numer": "777",
+        "denom": "100000"
       },
       "pubkey": "631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
       "age": 1,
@@ -4140,6 +4151,7 @@ To prevent a user from making trades in which the transaction fees may end up co
 | rel             | string                     | the name of the coin the user desires to receive                                                                         |
 | price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                        |
 | volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to `0.00777`: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                                       |
+| min_volume      | numeric string or rational | the minimum amount of `base` coin available for the order; the `min_volume` must be greater than or equal to `0.00777`; it must be also  less or equal than `volume` param; default is `0.00777` |
 | max             | bool                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                |
 | cancel_previous | bool                       | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior |
 | base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set |
@@ -4212,6 +4224,26 @@ curl --url "http://127.0.0.1:7783" --data '{
     "numer":"2",
     "denom":"1"
   }
+}'
+```
+
+#### Command (with min_volume)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"setprice",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
+  },
+  "price":{
+    "numer":"2",
+    "denom":"1"
+  },  
+  "min_volume":"1",
 }'
 ```
 
