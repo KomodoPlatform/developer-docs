@@ -2659,10 +2659,12 @@ The `TakerPaymentSpent` event indicates that maker spent taker payment and taker
 
 When this event occurs taker extracts the secret from the transaction and attempts to spend maker payment.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| tx_hash                | string                            | the hash of the transaction                             |
-| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
+| Structure              | Type                              | Description                                                |
+| ---------------------- | --------------------------------- | ---------------------------------------------------------- |
+| secret                 | string                            | the atomic swap secret extracted from spending transaction |
+| transaction            | object                            | transaction object                                         |
+| transaction.tx_hash    | string                            | the hash of the transaction                                |
+| transaction.tx_hex     | string                            | transaction bytes in hexadecimal format                    |
 
 ##### TakerPaymentWaitForSpendFailed
 
@@ -4243,7 +4245,7 @@ curl --url "http://127.0.0.1:7783" --data '{
     "numer":"2",
     "denom":"1"
   },  
-  "min_volume":"1",
+  "min_volume":"1"
 }'
 ```
 
