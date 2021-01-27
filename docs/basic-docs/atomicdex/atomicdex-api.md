@@ -1828,31 +1828,63 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **(from_uuid limit=10)**
 
-The `my_recent_swaps` method returns the data of the most recent atomic swaps executed by the MM2 node.
+The `my_recent_swaps` method returns the data of the most recent atomic swaps executed by the MM2 node. Please note that all filters (my_coin, from_timestamp, etc.) are combined using logical AND.
 
 #### Arguments
 
-| Structure | Type   | Description                                                             |
-| --------- | ------ | ----------------------------------------------------------------------- |
-| limit     | number | limits the number of returned swaps                                     |
-| from_uuid | string | MM2 will skip records until this uuid, skipping the `from_uuid` as well |
+| Structure      | Type   | Description                                                             |
+| -------------- | ------ | ----------------------------------------------------------------------- |
+| limit          | number | limits the number of returned swaps. The default is `10`.               |
+| from_uuid      | string | MM2 will skip records until this uuid, skipping the `from_uuid` as well; The `from_uuid` approach is convenient for infinite scrolling implementation |
+| page_number    | number | MM2 will return `limit` swaps from the selected page; This param will be ignored if `from_uuid` is set. |
+| my_coin        | string | return only swaps, which match the `swap.my_coin = request.my_coin` condition |
+| other_coin     | string | return only swaps, which match the `swap.other_coin = request.other_coin` condition |
+| from_timestamp | string | return only swaps, which match the `swap.started_at >= request.from_timestamp` condition |
+| to_timestamp   | string | return only swaps, which match the `swap.started_at < request.to_timestamp` condition |
 
 #### Response
 
-| Structure | Type             | Description                                                                                                                             |
-| --------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| swaps     | array of objects | swaps data; each record has the format of the `my_swap_status` response                                                                 |
-| from_uuid | string           | the from_uuid that was set in the request; this value is null if nothing was set                                                        |
-| skipped   | number           | the number of skipped records (i.e. the position of `from_uuid` in the list + 1; the value is 0 if `from_uuid` was not set              |
-| limit     | number           | the limit that was set in the request; note that the actual number of swaps can differ from the specified limit (e.g. on the last page) |
-| total     | number           | total number of swaps available                                                                                                         |
+| Structure     | Type             | Description                                                                                                                             |
+| ------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| swaps         | array of objects | swaps data; each record has the format of the `my_swap_status` response                                                                 |
+| from_uuid     | string           | the from_uuid that was set in the request; this value is null if nothing was set                                                        |
+| skipped       | number           | the number of skipped records (i.e. the position of `from_uuid` in the list + 1 or `(page_number - 1) * limit`; the value is 0 if `from_uuid` or `page_number` were not set or `page_number` is 1) |
+| limit         | number           | the limit that was set in the request; note that the actual number of swaps can differ from the specified limit (e.g. on the last page) |
+| total         | number           | total number of swaps available with the selected filters                                                                                   |
+| page_number   | number           | the page_number that was set in the request; this value is null if nothing was set                                                                                    |
+| total_pages   | number           | total pages available with the selected filters and limit                                                                                 |
+| found_records | number           | the number of returned swaps                                                                                  |
 
 #### :pushpin: Examples
 
-#### Command
+#### Command (limit + from_uuid)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"from_uuid\":\"e299c6ece7a7ddc42444eda64d46b163eaa992da65ce6de24eb812d715184e4c\",\"limit\":2}"
+```
+
+#### Command (limit + page_number)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"page_number\":3,\"limit\":2}"
+```
+
+#### Command (select swaps, which have my_coin = RICK and other_coin = MORTY)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"limit\":2,\"my_coin\":\"RICK\",\"other_coin\":\"MORTY\"}"
+```
+
+#### Command (select swaps, which have my_coin = RICK and started_at >= 1611705600 (January 27, 2021 0:00:00 GMT))
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"limit\":2,\"my_coin\":\"RICK\",\"from_timestamp\":1611705600}"
+```
+
+#### Command (select swaps, which have started_at >= 1611705600 (January 27, 2021 0:00:00 GMT) and started_at < 1611792001 (January 28, 2021 0:00:01 GMT))
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"limit\":2,\"my_coin\":\"RICK\",\"from_timestamp\":1611705600,\"to_timestamp\":1611792001}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -1867,6 +1899,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "from_uuid": "e299c6ece7a7ddc42444eda64d46b163eaa992da65ce6de24eb812d715184e4c",
     "limit": 2,
     "skipped": 1,
+    "total": 49,
+    "found_records": 2,
+    "page_number": null,
+    "total_pages": 25,
     "swaps": [
       {
         "error_events": ["StartFailed","NegotiateFailed","TakerFeeValidateFailed","MakerPaymentTransactionFailed","MakerPaymentDataSendFailed","MakerPaymentWaitConfirmFailed","TakerPaymentValidateFailed","TakerPaymentWaitConfirmFailed","TakerPaymentSpendFailed","TakerPaymentSpendConfirmFailed","MakerPaymentWaitRefundStarted","MakerPaymentRefunded","MakerPaymentRefundFailed"],
@@ -2143,8 +2179,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "type": "Taker",
         "uuid": "491df802-43c3-4c73-85ef-1c4c49315ac6"
       }
-    ],
-    "total": 49
+    ]
   }
 }
 ```
