@@ -1851,7 +1851,7 @@ The `my_recent_swaps` method returns the data of the most recent atomic swaps ex
 | skipped       | number           | the number of skipped records (i.e. the position of `from_uuid` in the list + 1 or `(page_number - 1) * limit`; the value is 0 if `from_uuid` or `page_number` were not set or `page_number` is 1) |
 | limit         | number           | the limit that was set in the request; note that the actual number of swaps can differ from the specified limit (e.g. on the last page) |
 | total         | number           | total number of swaps available with the selected filters                                                                                   |
-| page_number   | number           | the page_number that was set in the request; this value is null if nothing was set                                                                                    |
+| page_number   | number           | the page_number that was set in the request; if both `page_number` and `from_uuid` are not set in request it will default to `1`; if `from_uuid` is present in request this value will be always null |
 | total_pages   | number           | total pages available with the selected filters and limit                                                                                 |
 | found_records | number           | the number of returned swaps                                                                                  |
 
