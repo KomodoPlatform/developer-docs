@@ -1832,15 +1832,15 @@ The `my_recent_swaps` method returns the data of the most recent atomic swaps ex
 
 #### Arguments
 
-| Structure      | Type   | Description                                                             |
-| -------------- | ------ | ----------------------------------------------------------------------- |
-| limit          | number | limits the number of returned swaps. The default is `10`.               |
-| from_uuid      | string | MM2 will skip records until this uuid, skipping the `from_uuid` as well; The `from_uuid` approach is convenient for infinite scrolling implementation |
-| page_number    | number | MM2 will return `limit` swaps from the selected page; This param will be ignored if `from_uuid` is set. |
-| my_coin        | string | return only swaps, which match the `swap.my_coin = request.my_coin` condition |
-| other_coin     | string | return only swaps, which match the `swap.other_coin = request.other_coin` condition |
-| from_timestamp | string | return only swaps, which match the `swap.started_at >= request.from_timestamp` condition |
-| to_timestamp   | string | return only swaps, which match the `swap.started_at < request.to_timestamp` condition |
+| Structure      | Type                          | Description                                                             |
+| -------------- | ----------------------------- | ----------------------------------------------------------------------- |
+| limit          | number                        | limits the number of returned swaps. The default is `10`.               |
+| from_uuid      | string                        | MM2 will skip records until this uuid, skipping the `from_uuid` as well; The `from_uuid` approach is convenient for infinite scrolling implementation |
+| page_number    | number                        | MM2 will return `limit` swaps from the selected page; This param will be ignored if `from_uuid` is set. |
+| my_coin        | string                        | return only swaps, which match the `swap.my_coin = request.my_coin` condition |
+| other_coin     | string                        | return only swaps, which match the `swap.other_coin = request.other_coin` condition |
+| from_timestamp | number (timestamp in seconds) | return only swaps, which match the `swap.started_at >= request.from_timestamp` condition |
+| to_timestamp   | number (timestamp in seconds) | return only swaps, which match the `swap.started_at < request.to_timestamp` condition |
 
 #### Response
 
