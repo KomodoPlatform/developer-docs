@@ -54,8 +54,8 @@ var sidebar = [
             "Delayed Proof of Work",
           ],
           [
-            "/basic-docs/start-here/core-technology-discussions/creating-and-distributing-a-new-komodo-smart-chain.md",
-            "Creating and Distributing a New Komodo Smart Chain",
+            "/basic-docs/start-here/core-technology-discussions/initial-dex-offering.md",
+            "Initial DEX Offering (IDO)",
           ],
           [
             "/basic-docs/start-here/core-technology-discussions/antara.md",
