@@ -10,15 +10,15 @@ In today’s common ICO model, the high level of centralization creates many pro
 
 The IDO model, as created by Komodo Platform, overcomes these challenges. It provides the necessary technology to create and release a blockchain product to the world with the full power of decentralization.
 
-Entrepreneurs building on our platform can begin by creating a Smart Chain, and our technology simplifies this process. One need only install the necessary software, execute a few commands on a command prompt, and then establish a connection between two or more Komodo-enabled devices. Komodo’s core technology will do the rest of the work necessary to create a fully independent blockchain, empowered with an array of features.
+Entrepreneurs building on our platform can begin by creating a Smart Chain, and our technology simplifies this process. One need only install the necessary software, execute a few commands on a command prompt, and then establish a connection between two or more Komodo-enabled devices as explained below. Komodo’s core technology will do the rest of the work necessary to create a fully independent blockchain, empowered with an array of features.
 
 Our dPoW technology is a key feature that provides the necessary security to protect the integrity of the blockchain. Use of dPoW is optional, and since Smart Chains in the Komodo ecosystem are independent by nature, entrepreneurs can discontinue dPoW services at will.
 
 After creating a blockchain, the entrepreneur then uses our software to release the project to the world. AtomicDEX — our decentralized exchange — is a useful software solution to conduct an Initial DEX Offering (IDO). Because AtomicDEX relies on atomic swaps, enabling you to trade value across any supported blockchain protocol. No third-party manipulators can prevent the entrepreneur from their crowdsourcing and innovative endeavors.
 
-Through [the privacy technology](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem) available on Komodo Smart Chains, IDO participants can purchase the product within their inherent right to barter in private if they take some precautions.
+Through [the privacy technology](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem) available on Komodo Smart Chains,  IDO participants can purchase the product within their inherent right to barter in private if they take some precautions.
 
-Do note that, ERC20 tokens, ETH forks/clones, QRC20 tokens, QTUM forks/clones, most UTXO type blockchains can also be distributed through an IDO using AtomicDEX. While these types of tokens/coins don't receive other benefits of the Komodo Ecosystem like the dPoW service and Antara modules, they can still be traded on AtomicDEX.
+Do note that, ERC20 tokens, ETH forks/clones, QRC20 tokens, QTUM forks/clones, and most UTXO type blockchains can also be distributed through an IDO using AtomicDEX. While these types of coins/tokens don't receive other benefits of the Komodo Ecosystem like the dPoW service and UTXO smart contracts (CC modules), they can still be traded on AtomicDEX.
 
 ## The Challenges in Current ICO Platforms
 
