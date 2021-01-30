@@ -209,11 +209,11 @@ The centralized ICO process can be arduous and, at times, disastrous.
 
 ##### Powered by Komodo’s AtomicDEX & Privacy Technology
 
-The Komodo IDO model is an extension of Komodo’s AtomicDEX technology.  AtomicDEX is an atomic-swap powered, decentralized exchange. It enables users to directly exchange cryptocurrencies from one person to another without third-party involvement (i.e. no centralized exchanges, escrow services, vouchers, etc.). Furthermore, as the IDO model is entirely decentralized, anyone can use it at will. There are no centralized authority figures capable of creating artificial control points that can be manipulated at the expense of the users.
+The Komodo IDO model is an extension of Komodo’s AtomicDEX technology. AtomicDEX is an atomic swap powered, decentralized exchange. It enables users to directly exchange cryptocurrencies from one person to another without third-party involvement (i.e. no centralized exchanges, escrow services, vouchers, etc.). Furthermore, as the IDO model is entirely decentralized, anyone can use it at will. There are no centralized authority figures capable of creating artificial control points that can be manipulated at the expense of the users.
 
-To begin the distribution process, the entrepreneur first chooses how many nodes they would like to use for the distribution. Nodes can be any type of machine capable of connecting to AtomicDEX. Typically, a small-business entrepreneur may choose to use server machines. Server capacity can be rented online, and the servers can be distributed geographically throughout the world, if desired.
+To begin the distribution process, the entrepreneur first chooses how many nodes they would like to use for the distribution. Nodes can be any type of machine capable of connecting to AtomicDEX. Typically, a small business entrepreneur may choose to use server machines. Server capacity can be rented online, and the servers can be distributed geographically throughout the world if desired.
 
-While renting a multiplicity of servers may be the method of choice for an established small-business, it is not a requirement. An owner of an even smaller business, operating on a low budget, can simply use their own computer(s), geographically stationed nearby for convenience. On the other hand, a large corporation could use the server capacity they already own. The number and strength of the machines is a choice made by the entrepreneur.
+While renting a multiplicity of servers may be the method of choice for an established small business, it is not a requirement. An owner of an even smaller business, operating on a low budget, can simply use their own computer(s), geographically stationed nearby for convenience. On the other hand, a large corporation could use the server capacity they already own. The number and strength of the machines is a choice made by the entrepreneur.
 
 Having decided the method of distribution, the entrepreneur will then prepare the total supply of coins. (We are assuming the coins are still located on the first device that mined the entrepreneur’s Genesis Block.) The entrepreneur will first break down the total collection of coins into smaller digital pouches and distribute them to the AtomicDEX nodes previously created. These small bags of coins are ultimately what will be traded on AtomicDEX with their audience.
 
@@ -221,38 +221,38 @@ Having decided the method of distribution, the entrepreneur will then prepare th
 The size of the bags is chosen by the entrepreneur, and therefore the entrepreneur can choose a size that is agreeable to their outlook on any KYC legal requirements.
 ------>
 
-When the entrepreneur sends the coins to all their nodes throughout the AtomicDEX network, they distributed to each node's wallet by a normal transaction.  With the coins distributed as desired, the entrepreneur then elects the time and date when each bag of coins will be available for purchase. When a bag of coins becomes available on AtomicDEX for trading, members of the Komodo ecosystem simply purchase the coins using Atomic Swaps.
+When the entrepreneur sends the coins to all their nodes throughout the AtomicDEX network, they are distributed to each node's wallet through a normal transaction. With the coins distributed as desired, the entrepreneur then elects the time and date when each bag of coins will be available for purchase. When a bag of coins becomes available on AtomicDEX for trading, members of the Komodo ecosystem simply purchase the coins using atomic swaps.
 
 ##### The Many Solutions of the IDO Model: Security, Privacy, Decentralization, and Freedom
 
-This method of conducting a initial DEX offering mitigates and circumvents the issues found in a centralized ICO. The entire process is conducted in a decentralized manner. The IDO entrepreneur has direct access to their audience, as there are no centralized human authorities acting as middlemen.
+This method of conducting an Initial DEX Offering mitigates and circumvents the issues found in a centralized ICO. The entire process is conducted in a decentralized manner. The IDO entrepreneur has direct access to their audience, as no centralized human authorities are acting as middlemen.
 
-Concerning theft, the IDO provides solutions to both methods of theft in the centralized ICO. Unlike the centralized ICO, once the distribution of the bags takes place the effect of their distribution adds a layer of security from a would-be hacker. The hacker can only steal funds at the node they manage to penetrate. Were the hacker to steal coins before the actual IDO, the entrepreneur would have the option to simply create a `NEW ENTREPRENEUR’S COIN` again, without losing any personal wealth.
+The IDO process implements solutions that prevent both methods of theft that are possible in the centralized ICO process. Unlike the centralized ICO, once the distribution of the bags takes place the effect of their distribution adds a layer of security from a would-be hacker. The hacker can only steal funds at the node they manage to penetrate. Were the hacker to steal coins before the actual IDO, the entrepreneur would have the option to simply create a `NEW ENTREPRENEUR’S COIN` again, without losing any personal wealth.
 
-Furthermore, since the trades happen atomically, the entrepreneur is only in possession of either their own `ENTREPRENEUR’S COIN`, or the cryptocurrency funds provided by the IDO participants—but not both. The entrepreneur is never at risk of losing both their own funds and the funds of their audience, which is a strong advantage over today’s ICO model.
+Furthermore, since the trades happen atomically, the entrepreneur is only in possession of either their own `ENTREPRENEUR’S COIN` or the cryptocurrency funds provided by the IDO participants — but not both. The entrepreneur is never at risk of losing both their own funds and the funds of their audience, which is a strong advantage over today’s ICO model.
 
-Since the coins are immediately available on the AtomicDEX exchange for trading, the entrepreneur’s audience has an immediate trading market. This stands in contrast to today’s ICO model, where users often wait weeks or even months before liquidity for their ICO product arises in a centralized exchange.
+Since the coins are immediately available on AtomicDEX for trading, the entrepreneur’s audience has an immediate trading market. This stands in contrast to today’s ICO model, where users often wait weeks or even months before liquidity for their ICO product arises in a centralized exchange.
 
 Finally, through Komodo's [inherent zero-knowledge technology](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem), participants have the option of privacy when purchasing the IDO product. This enables them to support the crowdsourcing efforts of the entrepreneur within their inherent right to barter in private.
 
 Upon conclusion of the distribution of the IDO coin supply, the entrepreneur has successfully and immediately completed all the crowdsourcing-related steps that could have taken months in today’s typical ICO model.
 
-Komodo’s IDO model is significantly easier, freer from manipulation, more flexible, and more secure.
+Komodo’s IDO model provides greater ease-of-use, flexibility, and security.
 
 #### Ways an IDO can be Conducted
 
-At this point, let us assume that the Entrepreneur has created their coin using one of: the Komodo Smart Chain creation process, cloning/forking ETH or QTUM, cloning/forking any other [compatible](https://github.com/KomodoPlatform/coins#prerequisites-for-a-coin-to-be-compatible-with-atomicdex-api) type of UTXO based blockchain. Or, they have freshly minted ERC20/QRC20 tokens. There are several ways an IDO can be conducted using AtomicDEX and all the coins/tokens can be distributed in return for any coin/token already available on AtomicDEX. The entrepreneur to decide the available pairs, prices and volumes available on each pair.
+At this point, let us assume that the Entrepreneur has created their coin using one of the following processes: creating a Komodo Smart Chain, cloning/forking ETH or QTUM, cloning/forking any other [compatible UTXO-based blockchain](https://github.com/KomodoPlatform/coins#prerequisites-for-a-coin-to-be-compatible-with-atomicdex-api)  or minting a new ERC20/QRC20 token. There are several ways an IDO can be conducted using AtomicDEX, and all the coins/tokens can be distributed in return for any coin/token already available on AtomicDEX. The entrepreneur can decide the available pairs, prices, and volumes available on each pair.
 
 ##### The Straightforward Method
 
 - The entrepreneur can fork the [AtomicDEX Desktop repository](https://github.com/KomodoPlatform/atomicDEX-Desktop) and add their coin/token to the GUI.
 - This modified software will be used both by the entrepreneur to place sell orders and by the purchasers to buy.
-- This method needs the entrepreneur to launch electrum servers for their coin if it is a Komodo Smartchain or another UTXO type blockchain. And server software that supports lite wallets if their coin is a ETH or QTUM fork/clone.
+- This method needs the entrepreneur to launch electrum servers for their coin if it is a Komodo Smart Chain or another UTXO type blockchain. The entrepreneur will need server software that supports lite wallets if their coin is an ETH or QTUM fork/clone.
 - The entrepreneur must also launch [AtomicDEX-API](https://github.com/KomodoPlatform/atomicDEX-API) on a server to act as a seed node for the trading pairs they are planning to support.
 
 ##### A Slightly more Involved Method
 
-- The entrepreneur can fork the [AtomicDEX Desktop repository](https://github.com/KomodoPlatform/atomicDEX-Desktop) or start from scratch. They add a view with the features needed to conduct an IDO. They make only the coins/tokens involved in their IDO to be available through this GUI.
+- The entrepreneur can fork the [AtomicDEX Desktop repository](https://github.com/KomodoPlatform/atomicDEX-Desktop) or start from scratch. They create a custom IDO GUI with the specific features needed to conduct an IDO and only add the coins/tokens involved in their IDO.
 - This method allows the entrepreneur to create an exclusive feel to their IDO and remove distractions. This GUI is developed for the IDO and will only be used for it.
 - This method also needs the entrepreneur to launch electrum servers for their coin if it is a Komodo Smartchain or another UTXO type blockchain. And server software that supports lite wallets if their coin is a ETH or QTUM fork/clone.
 - The entrepreneur must also launch [AtomicDEX-API](https://github.com/KomodoPlatform/atomicDEX-API) on a server to act as a seed node for the trading pairs they are planning to support.
@@ -260,6 +260,6 @@ At this point, let us assume that the Entrepreneur has created their coin using 
 ##### Easy method, be Featured on AtomicDEX
 
 - The entrepreneur can contact the Komodo team at `partners@komodoplatform.com` and discuss their requirements.
-- The Komodo team can add a new tab on the subsequent release of AtomicDEX that features the new coin and has all the features needed to conduct an IDO.
+- The Komodo team can add a new tab to the subsequent release of AtomicDEX that features the new coin and has all the features needed to conduct an IDO.
 - The Komodo team can also launch the necessary infrastructure needed to enable a coin to have lite wallets and be enabled in AtomicDEX.
 - The entrepreneur and the purchasers can both use this software and an IDO can be conducted through it.
