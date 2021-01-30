@@ -146,11 +146,11 @@ The Delayed Proof of Work section explains to the reader the fundamental aspects
 
 ##### Creating and Distributing a New Komodo Smart Chain
 
-This section helps the reader to understand the basic process an entrepreneur and developer goes through in releasing a new blockchain-based product. This can be called a "Decentralized Initial Coin Offering," or dICO for brevity.
+This section helps the reader to understand the basic process an entrepreneur and developer goes through in releasing a new blockchain-based product. This can be called a "Initial DEX Offering," or IDO for brevity.
 
 This also helps the reader to understand how Komodo uses runtime forks to allow each Komodo developer to create their own blockchain that can be connected to the rest of the ecosystem.
 
-[<b>Link to Creating and Distributing a New Komodo Smart Chain Section</b>](../../../basic-docs/start-here/core-technology-discussions/creating-and-distributing-a-new-komodo-smart-chain.html)
+[<b>Link to IDO Section</b>](../../../basic-docs/start-here/core-technology-discussions/creating-and-distributing-a-new-komodo-smart-chain.html)
 
 ##### The Antara Framework
 

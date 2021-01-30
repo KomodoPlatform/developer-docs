@@ -1,4 +1,4 @@
-# Creating and Distributing a New Komodo Smart Chain
+# Initial DEX Offering (IDO)
 
 ## Abstract
 
