@@ -180,7 +180,7 @@ Komodo features a new form of DEX: AtomicDEX. This uses atomic swaps, and provid
 
 A initial DEX offering (IDO) is a method of releasing cryptocurrency assets to the public without passing through the technology of a centralized authority.
 
-For more information, [read the IDO section.](../../../basic-docs/start-here/core-technology-discussions/creating-and-distributing-a-new-komodo-smart-chain.html)
+For more information, [read the IDO section.](../../../basic-docs/start-here/core-technology-discussions/initial-dex-offering.html)
 
 ## Delayed Proof of Work (dPoW)
 
