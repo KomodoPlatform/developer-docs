@@ -24,7 +24,7 @@ Do note that, ERC20 tokens, ETH forks/clones, QRC20 tokens, QTUM forks/clones, a
 
 #### Specific Weaknesses in the Centralized ICO Model
 
-There are many weaknesses present in today’s Initial Coin Offering (ICO) model.  Several notable weaknesses include third-party discrimination, the vulnerability to theft and human error, and a lack of privacy.
+There are many weaknesses present in today’s Initial Coin Offering (ICO) model. Several notable weaknesses include third-party discrimination, vulnerability to theft and human error, and a lack of privacy.
 
 ##### Third-Party Discrimination
 
@@ -32,35 +32,35 @@ An entrepreneur seeking to serve their intended audience may experience adverse 
 
 ##### Centralization of Technology: Theft and Human Error
 
-Today’s ICOs are typically conducted in escrow, where the purchasers must transfer money to one location for holding. This typically occurs through a single website, and the cryptocurrency funds are held on a centralized collection of server(s). 
+Today’s ICOs are typically conducted in escrow, where the purchasers must transfer money to one location for holding. This typically occurs through a single website, and the cryptocurrency funds are held on a centralized collection of server(s).
 
-The user must wait while the ICO administrators first verify the transactions and distribute the coins.  During this time the funding is centralized, and therefore vulnerable to thieves and human error.
+The user must wait while the ICO administrators first verify the transactions and distribute the coins. During this time the funding is centralized, and therefore vulnerable to thieves and human error.
 
 ##### Lack of Privacy
 
-Because ICO transactions are highly traceable it is difficult, if not impossible, to perform ICOs within our right to barter in private.
+Because ICO transactions are highly traceable, it is difficult, if not impossible, to perform ICOs within our right to barter in private.
 
 #### Third-Party Discrimination via the Centralized ICO
 
-One weakness of the ICO process is, paradoxically, rooted in a great strength of blockchain technology: its borderless nature. A key power of any blockchain is that any human capable of accessing the technology can activate the blockchain, regardless of their geographical location or social status. Thus, anyone can provide yet another verifiable record of the transaction history, and this decentralization provides a crucial element of security to the blockchain.
+The centralized ICO process fails to harness the borderless nature of blockchain technology. A key strength of any blockchain is that any human capable of accessing the technology can activate the blockchain, regardless of their geographical location or social status. Thus, anyone can provide yet another verifiable record of the transaction history, and this decentralization provides a crucial element of security to the blockchain.
 
-An ICO innovator, therefore, may prefer to use a blockchain platform that transcends man-made barriers, to protect their innovation. Circumventing man-made barriers could be integral to the blockchain’s survival, because the element of decentralization prevents malicious actors from creating subjective borders around the blockchain records and then using authority to falsify and manipulate.
+An ICO innovator, therefore, may prefer to use a blockchain platform that transcends man-made barriers, to protect their innovation. Circumventing man-made barriers could be integral to the blockchain’s survival because the element of decentralization prevents malicious actors from creating subjective borders around the blockchain records and then using authority to falsify and manipulate.
 
-This creates a conundrum, however. As a human race, we also find strength and empowerment in subjectively defining our own demographics for various reasons, whether they be to form companies, cultures, communities, etc.
+This creates a conundrum. As a human race, we also find strength and empowerment in subjectively defining our own demographics for various reasons, whether they be to form companies, cultures, communities, etc.
 
 While we find the ability to create subjective demographics useful, it contrasts with the borderless nature of blockchain technology. Members of one demographic may desire to participate in a specific ICO, but another demographic may find this unfavorable. Therefore, the second party might try to forestall progress. The paradox lies in the fact that for the underlying blockchain product to maintain its integrity, it must serve both communities without regard to any man-made barrier between them.
 
-The problem compounds even further as we observe that on a decentralized blockchain platform, a new ICO product is capable of functioning anywhere there is access to the underlying technology. On a decentralized platform, once a new blockchain product is released any person from either demographic is now able to utilize it. The sentiment of either demographic is irrelevant. The problem becomes most pronounced if members of a competing group attempt to even maliciously prevent an innovation out of selfish reasons. Thus, it is imperative that the innovator have the option of protection against would-be malicious competitors.
+The problem compounds even further as we observe that on a decentralized blockchain platform, a new ICO product is capable of functioning anywhere there is access to the underlying technology. On a decentralized platform, once a new blockchain product is released any person from either demographic is now able to utilize it. The sentiment of either demographic is irrelevant. The problem becomes most pronounced if members of a competing group attempt to even maliciously prevent an innovation out of selfish reasons. Thus, the innovator must have the option to protect against would-be malicious competitors.
 
-The overall centralized nature of today’s ICO process, therefore, presents a problem.  Entrepreneurs who are not able to navigate the adverse effects of an inhibiting third party may be unable to realize their creative potential.
+The overall centralized nature of today’s ICO process, therefore, presents a problem. Entrepreneurs who are not able to navigate the adverse effects of an inhibiting third party may be unable to realize their creative potential.
 
 #### Centralization of ICO Technology: Hackers and Human Error
 
-Yet another issue plaguing ICOs is that the technology upon which an ICO is released is also centralized. This presents a vulnerability to human foibles.
+Yet another issue with the traditional ICO model is that the technology upon which an ICO is released is also centralized, which presents vulnerabilities due to human foibles.
 
 ##### Hackers and Human Error
 
-Because all coins of an ICO typically process through one centralized point during the purchasing period, the entire supply is vulnerable to any person with access to the node.  Therefore, both malicious and clumsy human agents can destroy an ICO. The data holding the cryptocurrency can be damaged, stolen, or simply lost through incompetence.
+Because all coins of an ICO typically process through one centralized point during the purchasing period, the entire supply is vulnerable to any person with access to the node. Therefore, both malicious and clumsy human agents can destroy an ICO. The data holding the cryptocurrency can be damaged, stolen, or simply lost through incompetence.
 
 An entrepreneur can also consider that in today’s ICO model both the funding provided by the purchasers, as well as the actual ICO coins that the entrepreneur intends to sell, remain on the centralized node for a long period of time. It is not just one side of the crowdsourcing endeavor that is at risk, but both.
 
