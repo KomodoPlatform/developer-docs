@@ -182,15 +182,15 @@ Both devices sync this information to each other, and the `ENTREPRENEUR’S COIN
 
 #### Notarizing to the Komodo Main Chain
 
-To receive the security of the dPoW consensus mechanism, the entrepreneur simply needs to have the elected notary nodes add the `ENTREPENEUR’S COIN` to their internal list of coins to notarize. This will empower the entrepreneur’s product with the same verifiable and decentralized security of the Komodo parent chain.
+To receive the security of the dPoW consensus mechanism, the entrepreneur simply needs to have the elected notary nodes add the `ENTREPENEUR’S COIN` to their internal list of coins to notarize. This will empower the entrepreneur’s product with the same verifiable and decentralized security of the Komodo main chain.
 
 The process of adding a new notarization service can be executed by the notary nodes with just a simple command. While we are at this early stage of development, this sign-up process for new IDO products is not yet automated. In the future, we intend to automate as much of this process as possible.
 
-There is a fee for receiving notarization services. This helps to cover the business costs associated with notarization (recall that all notarizations are financial transactions, by nature).
+There is a fee for receiving notarization services to help cover the business costs associated with notarization (recall that all notarizations are financial transactions by nature).
 
-Entrepreneurs are thus able to use the Smart Chain’s native dPoW consensus mechanism to notarize to the Komodo main chain to create a secure backup of the coin’s history. Even in the event of an attack at this early state of existence the entrepreneur can rest assured that their product will survive, so long as one copy of the blockchain’s history exists.
+Entrepreneurs are thus able to use the Smart Chain’s native dPoW consensus mechanism to notarize to the Komodo main chain to create a secure backup of the coin’s history. Even in the event of an attack at this early stage of existence, the entrepreneur can rest assured that their product will survive, so long as one copy of the blockchain’s history exists.
 
-Everything is set on the backend for the entrepreneur, and they are now fully prepared to begin the IDO process. Naturally, we understand that for many potential entrepreneurs in the Komodo ecosystem, this process is unfamiliar territory. We encourage interested entrepreneurs to reach out to our team for guidance during development.
+Everything is set on the backend for the entrepreneur, and they are now fully prepared to begin the IDO process. Naturally, we understand that for many potential entrepreneurs in the Komodo ecosystem, this process is unfamiliar territory. We encourage interested entrepreneurs to reach out to our team at `partners@komodoplatform.com` for guidance during development.
 
 ## The Distribution of Coins
 
@@ -198,12 +198,11 @@ Everything is set on the backend for the entrepreneur, and they are now fully pr
 
 Previously, the entrepreneur at this point would have been required to go through a centralized ICO process.
 
-This could have required several cumbersome and possibly dangerous steps. For example, the entrepreneur would begin gathering cryptocurrencies from their audience to personally hold in escrow before the process of matching purchases to the new blockchain coin were conducted. Till distribution of the new blockchain coin is actually done, the purchasers have to trust the issuer.
+This could have required several cumbersome and possibly dangerous steps. For example, the entrepreneur would begin gathering cryptocurrencies from their audience to personally hold in escrow before the process of matching purchases to the new blockchain coin were conducted. Until the distribution of the new blockchain coin is completed, the purchasers have to trust the issuer.
 
-To distribute these coins, the entrepreneur had two primary options. They could have created and distributed a digital software wallet capable of holding the entrepreneur’s coins. The entrepreneur would then have to send all the appropriate coins to each wallet address, according to the process they established during their ICO. This process maybe error prone as the issuer either has to do it manually or write a custom program to do it.
+To distribute these coins, the entrepreneur had two primary options. They could have created and distributed a digital software wallet capable of holding the entrepreneur’s coins. The entrepreneur would then have to send all the appropriate coins to each wallet address, according to the process they established during their ICO. This process may be error-prone as the issuer either has to do it manually or write a custom program to do it.
 
-Or, the entrepreneur would have to make formal arrangements with another service to manage this process, such as with a centralized exchange and then be required to act within the centralized exchange’s arbitrary framework.
-
+Or, the entrepreneur would have to make formal arrangements with another service to manage this process, such as with a centralized exchange, and then be required to act within the centralized exchange’s arbitrary framework.
 The centralized ICO process can be arduous and, at times, disastrous.
 
 #### Enter the IDO
