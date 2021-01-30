@@ -68,13 +68,13 @@ This central point of failure can be catastrophic for all participants.
 
 ##### The Right to Barter in Private
 
-Finally, the lack of current privacy options in the ICO process inhibits blockchain participants from purchasing within our right to barter in private. This right to privately exchange goods and services extends further into history than the written word.  We have, as a species, utilized this right to organize into communities, institutions, and even nations.
+Finally, the lack of current privacy options in the ICO process inhibits blockchain participants from purchasing within our right to barter in private. This right to privately exchange goods and services extends further into history than the written word. We have, as a species, utilized this right to organize into communities, institutions, and even nations.
 
-Many of humanity’s most meaningful advancements in art, technology, and other human endeavors began in situations where the creator had the security of privacy in which to explore, to discover, to make mistakes, and to learn thereby.
+Many of humanity’s most meaningful advancements in art, technology, and other human endeavors began in situations where the creator had the security of privacy in which to explore, to discover, to make mistakes, and to learn.
 
-The right to barter in private, however, is under modern threat as the recent monumental and historical phenomenon, "The Internet of Information," permits many kinds of people to quietly and without inhibition; monitor other people’s shopping and bartering behavior. This is a dangerous development, as it destroys the privacy that empowers much of humanity’s personal growth. We must reserve our right to barter in private, for we observe that there are myriad ways in which a common person may explore personal growth in an economic environment.
+The right to barter in private, however, is under modern threat as the recent monumental and historical phenomenon known as "The Internet of Information" permits many kinds of people to quietly and without inhibition monitor other people’s shopping and bartering behavior. This is a dangerous development, as it destroys the privacy that empowers much of humanity’s personal growth. We must reserve our right to barter in private, for we observe that there is a myriad of ways in which a common person may explore personal growth in an economic environment.
 
-Yet, the highly traceable nature of today’s centralized ICO model is in direct contradiction to this human need.
+The highly traceable nature of today’s centralized ICO model is in direct contradiction to this human need.
 
 #### The Blockchain Industry Needs a Solution
 
@@ -88,11 +88,11 @@ The decentralized nature of the IDO enables the entrepreneur to release a blockc
 
 Furthermore, through our decentralized exchange, AtomicDEX, the IDO allows an entrepreneur to release their product in a manner that mitigates and even eliminates many of the issues regarding hackers and human error.
 
-With the advantage of Komodo’s privacy technology, the participants in a IDO are empowered with their right to barter in private.
+With the advantage of Komodo’s privacy technology, the participants in an IDO are empowered with their right to barter in private.
 
 ## The Process of Creating a New Blockchain in the Komodo Ecosystem
 
-Formerly, coding and generating the blockchain itself were a most difficult aspect of the development process. Now, the Komodo team has simplified the process into easy steps. Through Komodo’s Iguana Core technology (introduced in Part I), the entrepreneur can create a new independent blockchain by entering just two simple commands in the command prompt of their computer.
+Formerly, coding and generating the blockchain itself were the most difficult aspects of the development process. Now, the Komodo team has simplified the process into easy steps. Through Komodo’s Iguana Core technology (introduced in Part I), the entrepreneur can create a new independent blockchain by entering just two simple commands in the command prompt of their computer.
 
 The following steps rely on one of Komodo’s underlying software processes that run in the background on a user’s computer. The name of this software is the "Komodo daemon," or `komodod`, for brevity. `komodod` is rooted in Iguana Core technology.
 
@@ -110,7 +110,7 @@ By default, the initial `./komodod` command executed alone would launch the Komo
 -ac_name=[ENTREPRENEUR'S COIN]
 ```
 
-This command tells komodod not to launch the main KMD chain, but rather to launch the chain that has the indicated name. 
+This command tells komodod not to launch the main KMD chain, but rather to launch the chain that has the indicated name.
 
 ```bash
 -ac_supply=[TOTAL COIN SUPPLY]
@@ -122,9 +122,11 @@ This tells komodod how many total coins there should be in this chain.
 -gen
 ```
 
-This tells komodod that the user desires to mine this network.
+This tells `komodod` that the user desires to mine this network.
 
+<!----FIXME Find if true
 The software can now make several decisions. First, it will check its connection to the Komodo ecosystem to see if there is a coin with the given name and supply. If no similar coin is found, komodod will assume that the user is attempting to create a new coin, and the `-gen` command tells komodod that the user wants to mine it.
+----------->
 
 Komodod now begins the automated process of creating a new Smart Chain in the Komodo ecosystem. Komodod will first make a fresh and empty clone of the KMD main chain (though it will not yet generate the actual coins), with only a few differences to the underlying nature of the chain.
 
