@@ -16,7 +16,7 @@ Our dPoW technology is a key feature. dPoW provides the necessary security to pr
 
 Having thus created the blockchain, the entrepreneur then uses our software to release the project to the world. Our decentralized exchange, AtomicDEX, is a useful software solution to conduct their initial DEX offering. Because AtomicDEX relies on "atomic swaps," no third-party manipulators can prevent the entrepreneur from their crowdsourcing and innovative endeavors.
 
-Through [the privacy technology](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem) available on Komodo Smart Chains, IDO participants can purchase the product within their inherent right to barter in private.
+Through [the privacy technology](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem) available on Komodo Smart Chains, IDO participants can purchase the product within their inherent right to barter in private if they take some precautions.
 
 ## The Challenges in Current ICO Platforms
 
@@ -194,13 +194,11 @@ Everything is set on the backend for the entrepreneur, and they are now fully pr
 
 Previously, the entrepreneur at this point would have been required to go through a centralized ICO process.
 
-This could have required several cumbersome and possibly dangerous steps. For example, the entrepreneur would begin gathering cryptocurrencies from their audience to personally hold in escrow while the process of matching purchases to the new blockchain coin were verified.
+This could have required several cumbersome and possibly dangerous steps. For example, the entrepreneur would begin gathering cryptocurrencies from their audience to personally hold in escrow before the process of matching purchases to the new blockchain coin were conducted. Till distribution of the new blockchain coin is actually done, the purchasers have to trust the issuer.
 
-To distribute these coins, the entrepreneur had two primary options. They could have created and distributed a digital software wallet capable of holding the entrepreneur’s coins. This would require their audience to download the software. The entrepreneur would then have to send all the appropriate coins to each wallet address, according to the process they established during their ICO.
+To distribute these coins, the entrepreneur had two primary options. They could have created and distributed a digital software wallet capable of holding the entrepreneur’s coins. The entrepreneur would then have to send all the appropriate coins to each wallet address, according to the process they established during their ICO. This process maybe error prone as the issuer either has to do it manually or write a custom program to do it.
 
-Or, the entrepreneur would have to make formal arrangements with another service to manage this process, such as with a centralized exchange. This would require a successful negotiation with this third party, likely paying fees as a part of the agreement.
-
-The entrepreneur would then be required to act within the centralized exchange’s arbitrary framework.
+Or, the entrepreneur would have to make formal arrangements with another service to manage this process, such as with a centralized exchange and then be required to act within the centralized exchange’s arbitrary framework.
 
 The centralized ICO process can be arduous and, at times, disastrous.
 
@@ -214,11 +212,13 @@ To begin the distribution process, the entrepreneur first chooses how many nodes
 
 While renting a multiplicity of servers may be the method of choice for an established small-business, it is not a requirement. An owner of an even smaller business, operating on a low budget, can simply use their own computer(s), geographically stationed nearby for convenience. On the other hand, a large corporation could use the server capacity they already own. The number and strength of the machines is a choice made by the entrepreneur.
 
-Having decided the method of distribution, the entrepreneur will then prepare the total supply of coins. (We are assuming the coins are still located on the first device that mined the entrepreneur’s Genesis Block.) The entrepreneur will first break down the total collection of coins into smaller digital pouches. These small bags of coins are ultimately what will be traded on AtomicDEX with their audience.
+Having decided the method of distribution, the entrepreneur will then prepare the total supply of coins. (We are assuming the coins are still located on the first device that mined the entrepreneur’s Genesis Block.) The entrepreneur will first break down the total collection of coins into smaller digital pouches and distribute them to the AtomicDEX nodes previously created. These small bags of coins are ultimately what will be traded on AtomicDEX with their audience.
 
-The size of the bags is chosen by the entrepreneur, and therefore the entrepreneur can choose a size that is agreeable to their outlook on any KYC legal requirements. 
+<!----FIXME: check if possible now
+The size of the bags is chosen by the entrepreneur, and therefore the entrepreneur can choose a size that is agreeable to their outlook on any KYC legal requirements.
+------>
 
-Having created these bags of coins, the entrepreneur then sends them to all chosen nodes throughout the AtomicDEX network. Coins are distributed to each node’s wallet(s) by a normal transaction.  With the coins distributed as desired, the entrepreneur sets the time and date when each bag of coins will be available for purchase. When a bag of coins becomes available on AtomicDEX for trading, members of the Komodo ecosystem simply purchase the coins. 
+When the entrepreneur sends the coins to all their nodes throughout the AtomicDEX network, they distributed to each node's wallet by a normal transaction.  With the coins distributed as desired, the entrepreneur then elects the time and date when each bag of coins will be available for purchase. When a bag of coins becomes available on AtomicDEX for trading, members of the Komodo ecosystem simply purchase the coins using Atomic Swaps.
 
 ##### The Many Solutions of the IDO Model: Security, Privacy, Decentralization, and Freedom
 
@@ -226,15 +226,13 @@ This method of conducting a initial DEX offering mitigates and circumvents the i
 
 Concerning theft, the IDO provides solutions to both methods of theft in the centralized ICO. Unlike the centralized ICO, once the distribution of the bags takes place the effect of their distribution adds a layer of security from a would-be hacker. The hacker can only steal funds at the node they manage to penetrate. Were the hacker to steal coins before the actual IDO, the entrepreneur would have the option to simply create a `NEW ENTREPRENEUR’S COIN` again, without losing any personal wealth.
 
-Furthermore, since the trades happen instantaneously with each bag available for sale, the entrepreneur is only in possession of either their own `ENTREPRENEUR’S COIN`, or the cryptocurrency funds provided by the IDO participants—but not both. The entrepreneur is never at risk of losing both their own funds and the funds of their audience, which is a strong advantage over today’s ICO model.
-
-Regarding human error, should one of the node’s databases be corrupted by accident or hardware failure, only one node’s coin supply is lost.
+Furthermore, since the trades happen atomically, the entrepreneur is only in possession of either their own `ENTREPRENEUR’S COIN`, or the cryptocurrency funds provided by the IDO participants—but not both. The entrepreneur is never at risk of losing both their own funds and the funds of their audience, which is a strong advantage over today’s ICO model.
 
 Since the coins are immediately available on the AtomicDEX exchange for trading, the entrepreneur’s audience has an immediate trading market. This stands in contrast to today’s ICO model, where users often wait weeks or even months before liquidity for their ICO product arises in a centralized exchange.
 
 Finally, through Komodo's [inherent zero-knowledge technology](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem), participants have the option of privacy when purchasing the IDO product. This enables them to support the crowdsourcing efforts of the entrepreneur within their inherent right to barter in private.
 
-Upon conclusion of the distribution of the IDO coin supply the entrepreneur has successfully and immediately completed all the crowdsourcing-related steps that could have taken months in today’s typical ICO model.
+Upon conclusion of the distribution of the IDO coin supply, the entrepreneur has successfully and immediately completed all the crowdsourcing-related steps that could have taken months in today’s typical ICO model.
 
 Komodo’s IDO model is significantly easier, freer from manipulation, more flexible, and more secure.
 
