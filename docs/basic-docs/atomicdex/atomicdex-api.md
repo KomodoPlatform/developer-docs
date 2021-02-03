@@ -1378,26 +1378,30 @@ Use `max` with the `setprice` swap method to approximate the fee amounts **only*
 
 #### Response
 
-| Structure                                    | Type                | Description                                                                                                                                           |
-| -------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                                       | object              | an object containing the relevant information                                                                                                         |
-| result.base_coin_fee                         | object              | the fee is paid per swap in relation to the `base` coin                                                                                               |
-| result.base_coin_fee.coin                    | string              | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example ERC20 fees are paid by ETH (gas) |
-| result.base_coin_fee.amount                  | string (numeric)    | the approximate fee amount to be paid per swap transaction in decimal representation                                                                  |
-| result.base_coin_fee.amount_rat              | rational            | the approximate fee amount to be paid per swap transaction in rational representation                                                                 |
-| result.base_coin_fee.amount_fraction         | fraction            | the approximate fee amount to be paid per swap transaction in fraction representation                                                                 |
-| result.rel_coin_fee                          | object              | the fee is paid per swap in relation to the `rel` coin                                                                                                |
-| result.rel_coin_fee.coin                     | string              | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example ERC20 fees are paid by ETH (gas) |
-| result.rel_coin_fee.amount                   | string (numeric)    | the approximate fee amount to be paid per swap transaction in decimal representation                                                                  |
-| result.rel_coin_fee.amount_rat               | rational            | the approximate fee amount to be paid per swap transaction in rational representation                                                                 |
-| result.rel_coin_fee.amount_fraction          | fraction            | the approximate fee amount to be paid per swap transaction in fraction representation                                                                 |
-| result.volume                                | fraction (optional) | the max available volume in fraction representation. Empty if the `max` argument is missing or false                                                  |
-| result.taker_fee                             | fraction (optional) | the dex fee to be paid by taker coin (`base` or `rel` coin, it depends on which `swap_method` is passed). Empty if the `swap_method` is `setprice`    |
-| result.fee_to_send_taker_fee                 | object (optional)   | the miner fee is paid to send the dex fee. Empty if the `swap_method` is `setprice`                                                                   |
-| result.fee_to_send_taker_fee.coin            | string              | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example ERC20 fees are paid by ETH (gas) |
-| result.fee_to_send_taker_fee.amount          | string (numeric)    | the approximate fee amount to be paid per swap transaction in decimal representation                                                                  |
-| result.fee_to_send_taker_fee.amount_rat      | rational            | the approximate fee amount to be paid per swap transaction in rational representation                                                                 |
-| result.fee_to_send_taker_fee.amount_fraction | fraction            | the approximate fee amount to be paid per swap transaction in fraction representation                                                                 |
+| Structure                                    | Type                       | Description                                                                                                                                                                   |
+| -------------------------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                                       | object                     | an object containing the relevant information                                                                                                                                 |
+| result.base_coin_fee                         | object                     | the fee is paid per swap in relation to the `base` coin                                                                                                                       |
+| result.base_coin_fee.coin                    | string                     | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example ERC20 fees are paid by ETH (gas)                         |
+| result.base_coin_fee.amount                  | string (numeric)           | the approximate fee amount to be paid per swap transaction in decimal representation                                                                                          |
+| result.base_coin_fee.amount_rat              | rational                   | the approximate fee amount to be paid per swap transaction in rational representation                                                                                         |
+| result.base_coin_fee.amount_fraction         | fraction                   | the approximate fee amount to be paid per swap transaction in fraction representation                                                                                         |
+| result.rel_coin_fee                          | object                     | the fee is paid per swap in relation to the `rel` coin                                                                                                                        |
+| result.rel_coin_fee.coin                     | string                     | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example ERC20 fees are paid by ETH (gas)                         |
+| result.rel_coin_fee.amount                   | string (numeric)           | the approximate fee amount to be paid per swap transaction in decimal representation                                                                                          |
+| result.rel_coin_fee.amount_rat               | rational                   | the approximate fee amount to be paid per swap transaction in rational representation                                                                                         |
+| result.rel_coin_fee.amount_fraction          | fraction                   | the approximate fee amount to be paid per swap transaction in fraction representation                                                                                         |
+| result.volume                                | string (numeric, optional) | the max available volume in decimal representation. Empty if the `max` argument is missing or false                                                                           |
+| result.volume_rat                            | rational (optional)        | the max available volume in rational representation. Empty if the `max` argument is missing or false                                                                          |
+| result.volume_fraction                       | fraction (optional)        | the max available volume in fraction representation. Empty if the `max` argument is missing or false                                                                          |
+| result.taker_fee                             | string (numeric, optional) | the dex fee in decimal representation to be paid by taker coin (`base` or `rel` coin, it depends on which `swap_method` is passed). Empty if the `swap_method` is `setprice`  |
+| result.taker_fee_rat                         | rational (optional)        | the dex fee in rational representation to be paid by taker coin (`base` or `rel` coin, it depends on which `swap_method` is passed). Empty if the `swap_method` is `setprice` |
+| result.taker_fee_fraction                    | fraction (optional)        | the dex fee in fraction representation to be paid by taker coin (`base` or `rel` coin, it depends on which `swap_method` is passed). Empty if the `swap_method` is `setprice` |
+| result.fee_to_send_taker_fee                 | object (optional)          | the miner fee is paid to send the dex fee. Empty if the `swap_method` is `setprice`                                                                                           |
+| result.fee_to_send_taker_fee.coin            | string                     | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example ERC20 fees are paid by ETH (gas)                         |
+| result.fee_to_send_taker_fee.amount          | string (numeric)           | the approximate fee amount to be paid per swap transaction in decimal representation                                                                                          |
+| result.fee_to_send_taker_fee.amount_rat      | rational                   | the approximate fee amount to be paid per swap transaction in rational representation                                                                                         |
+| result.fee_to_send_taker_fee.amount_fraction | fraction                   | the approximate fee amount to be paid per swap transaction in fraction representation                                                                                         |
 
 #### :pushpin: Examples
 
@@ -1475,10 +1479,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       "amount_rat":[[1,[1]],[1,[10000]]],
       "coin":"RICK"
     },
-    "taker_fee":{
+    "taker_fee":"0.00012870012870012872",
+    "taker_fee_fraction":{
       "denom":"7770",
       "numer":"1"
     },
+    "taker_rat":[[1,[1]],[1,[7770]]],
     "fee_to_send_taker_fee":{
       "amount":"0.0001",
       "amount_fraction":{
@@ -1529,14 +1535,18 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       "amount_rat":[[0,[]],[1,[1]]],
       "coin":"RICK"
     },
-    "volume":{
+    "volume":"2.21363478",
+    "volume_fraction":{
       "denom":"50000000",
       "numer":"110681739"
     },
-    "taker_fee":{
+    "volume_rat":[[1,[110681739]],[1,[50000000]]],
+    "taker_fee":"0.0028489508108108107",
+    "taker_fee_fraction":{
       "denom":"1850000000",
       "numer":"5270559"
     },
+    "taker_fee_rat":[[1,[5270559]],[1,[1850000000]]],
     "fee_to_send_taker_fee":{
       "amount":"0.00033219",
       "amount_fraction":{
@@ -1836,7 +1846,7 @@ This takes the dex fee and blockchain miner fees into account. The result should
 
 | Structure | Type     | Description                                               |
 | --------- | -------- | --------------------------------------------------------- |
-| coin      | fraction | the max available taker volume in fraction representation | 
+| coin      | fraction | the max available taker volume in fraction representation |
 
 #### :pushpin: Examples
 
