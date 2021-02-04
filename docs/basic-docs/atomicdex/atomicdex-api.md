@@ -1902,7 +1902,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## my\_recent\_swaps
 
-**(from_uuid page_number=1 limit=10 my_coin other_coin from_timestamp to_timestamp)**
+**my_recent_swaps (from_uuid page_number=1 limit=10 my_coin other_coin from_timestamp to_timestamp)**
 
 The `my_recent_swaps` method returns the data of the most recent atomic swaps executed by the MM2 node. Please note that all filters (my_coin, from_timestamp, etc.) are combined using logical AND.
 
