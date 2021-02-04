@@ -110,6 +110,82 @@ curl --url "http://127.0.0.1:7783" --data "[
 
 </div>
 
+## all\_swaps\_uuids\_by\_filter
+
+**all_swaps_uuids_by_filter (my_coin other_coin from_timestamp to_timestamp)**
+
+The `all_swaps_uuids_by_filter` method returns all uuids of swaps that match the selected filters. Please note that all filters (my_coin, from_timestamp, etc.) are combined using logical AND.
+
+#### Arguments
+
+| Structure      | Type                          | Description                                                             |
+| -------------- | ----------------------------- | ----------------------------------------------------------------------- |
+| my_coin        | string                        | return only swaps that match the `swap.my_coin = request.my_coin` condition |
+| other_coin     | string                        | return only swaps that match the `swap.other_coin = request.other_coin` condition |
+| from_timestamp | number (timestamp in seconds) | return only swaps that match the `swap.started_at >= request.from_timestamp` condition |
+| to_timestamp   | number (timestamp in seconds) | return only swaps that match the `swap.started_at < request.to_timestamp` condition |
+
+#### Response
+
+| Structure             | Type             | Description                                                                                                                             |
+| --------------------- | ---------------- | --------------------------------------------------------------- |
+| result                | result object    |                                                                 |
+| result.uuids          | array of strings | uuids of swaps that match the selected filters                  |
+| result.my_coin        | string           | my_coin that was set in request                                           |
+| result.other_coin     | string           | other_coin that was set in request                                        |
+| result.from_timestamp | number           | from_timestamp that was set in request                                    |
+| result.to_timestamp   | number           | to_timestamp that was set in request                                      |
+| result.records_found  | number           | the number of found uuids                                                 |
+
+#### :pushpin: Examples
+
+#### Command (select swaps uuids that have my_coin = RICK and other_coin = MORTY)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"all_swaps_uuids_by_filter\"\"my_coin\":\"RICK\",\"other_coin\":\"MORTY\"}"
+```
+
+#### Command (select swaps uuids that have my_coin = RICK and started_at >= 1611705600 (January 27, 2021 0:00:00 GMT))
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"all_swaps_uuids_by_filter\",\"my_coin\":\"RICK\",\"from_timestamp\":1611705600}"
+```
+
+#### Command (select swaps uuids that have started_at >= 1611705600 (January 27, 2021 0:00:00 GMT) and started_at < 1611792001 (January 28, 2021 0:00:01 GMT))
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"all_swaps_uuids_by_filter\",\"my_coin\":\"RICK\",\"from_timestamp\":1611705600,\"to_timestamp\":1611792001}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "result":{
+    "uuids":[
+      "015c13bc-da79-43e1-a6d4-4ac8b3099b34",
+      "7592a07a-2805-4050-8ab8-984480e812f0",
+      "82cbad96-ea9f-40fb-9225-07496323e35d",
+      "177f7fa5-c9f3-4673-a2fa-28451a123e61"
+    ],
+    "my_coin":"MORTY",
+    "other_coin":null,
+    "from_timestamp":null,
+    "to_timestamp":null,
+    "found_records":4
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
+
 ## buy
 
 **buy base rel price volume (match_by order_type base_confs base_nota rel_confs rel_nota)**
@@ -313,7 +389,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## cancel\_all\_orders
 
-**cancel_order cancel_by**
+**cancel_all_orders cancel_by**
 
 The `cancel_all_orders` cancels the active orders created by the MM2 node by specified condition.
 
@@ -1826,33 +1902,65 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## my\_recent\_swaps
 
-**(from_uuid limit=10)**
+**my_recent_swaps (from_uuid page_number=1 limit=10 my_coin other_coin from_timestamp to_timestamp)**
 
-The `my_recent_swaps` method returns the data of the most recent atomic swaps executed by the MM2 node.
+The `my_recent_swaps` method returns the data of the most recent atomic swaps executed by the MM2 node. Please note that all filters (my_coin, from_timestamp, etc.) are combined using logical AND.
 
 #### Arguments
 
-| Structure | Type   | Description                                                             |
-| --------- | ------ | ----------------------------------------------------------------------- |
-| limit     | number | limits the number of returned swaps                                     |
-| from_uuid | string | MM2 will skip records until this uuid, skipping the `from_uuid` as well |
+| Structure      | Type                          | Description                                                             |
+| -------------- | ----------------------------- | ----------------------------------------------------------------------- |
+| limit          | number                        | limits the number of returned swaps. The default is `10`.               |
+| from_uuid      | string                        | MM2 will skip records until this uuid, skipping the `from_uuid` as well; The `from_uuid` approach is convenient for infinite scrolling implementation |
+| page_number    | number                        | MM2 will return `limit` swaps from the selected page; This param will be ignored if `from_uuid` is set. |
+| my_coin        | string                        | return only swaps that match the `swap.my_coin = request.my_coin` condition |
+| other_coin     | string                        | return only swaps that match the `swap.other_coin = request.other_coin` condition |
+| from_timestamp | number (timestamp in seconds) | return only swaps that match the `swap.started_at >= request.from_timestamp` condition |
+| to_timestamp   | number (timestamp in seconds) | return only swaps that match the `swap.started_at < request.to_timestamp` condition |
 
 #### Response
 
-| Structure | Type             | Description                                                                                                                             |
-| --------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| swaps     | array of objects | swaps data; each record has the format of the `my_swap_status` response                                                                 |
-| from_uuid | string           | the from_uuid that was set in the request; this value is null if nothing was set                                                        |
-| skipped   | number           | the number of skipped records (i.e. the position of `from_uuid` in the list + 1; the value is 0 if `from_uuid` was not set              |
-| limit     | number           | the limit that was set in the request; note that the actual number of swaps can differ from the specified limit (e.g. on the last page) |
-| total     | number           | total number of swaps available                                                                                                         |
+| Structure     | Type             | Description                                                                                                                             |
+| ------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| swaps         | array of objects | swaps data; each record has the format of the `my_swap_status` response                                                                 |
+| from_uuid     | string           | the from_uuid that was set in the request; this value is null if nothing was set                                                        |
+| skipped       | number           | the number of skipped records (i.e. the position of `from_uuid` in the list + 1 or `(page_number - 1) * limit`; the value is 0 if `from_uuid` or `page_number` were not set or `page_number` is 1) |
+| limit         | number           | the limit that was set in the request; note that the actual number of swaps can differ from the specified limit (e.g. on the last page) |
+| total         | number           | total number of swaps available with the selected filters                                                                                   |
+| page_number   | number           | the page_number that was set in the request; if both `page_number` and `from_uuid` are not set in request it will default to `1`; if `from_uuid` is present in request this value will be always null |
+| total_pages   | number           | total pages available with the selected filters and limit                                                                                 |
+| found_records | number           | the number of returned swaps                                                                                  |
 
 #### :pushpin: Examples
 
-#### Command
+#### Command (limit + from_uuid)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"from_uuid\":\"e299c6ece7a7ddc42444eda64d46b163eaa992da65ce6de24eb812d715184e4c\",\"limit\":2}"
+```
+
+#### Command (limit + page_number)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"page_number\":3,\"limit\":2}"
+```
+
+#### Command (select swaps that have my_coin = RICK and other_coin = MORTY)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"limit\":2,\"my_coin\":\"RICK\",\"other_coin\":\"MORTY\"}"
+```
+
+#### Command (select swaps that have my_coin = RICK and started_at >= 1611705600 (January 27, 2021 0:00:00 GMT))
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"limit\":2,\"my_coin\":\"RICK\",\"from_timestamp\":1611705600}"
+```
+
+#### Command (select swaps that have started_at >= 1611705600 (January 27, 2021 0:00:00 GMT) and started_at < 1611792001 (January 28, 2021 0:00:01 GMT))
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"limit\":2,\"my_coin\":\"RICK\",\"from_timestamp\":1611705600,\"to_timestamp\":1611792001}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -1867,6 +1975,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "from_uuid": "e299c6ece7a7ddc42444eda64d46b163eaa992da65ce6de24eb812d715184e4c",
     "limit": 2,
     "skipped": 1,
+    "total": 49,
+    "found_records": 2,
+    "page_number": null,
+    "total_pages": 25,
     "swaps": [
       {
         "error_events": ["StartFailed","NegotiateFailed","TakerFeeValidateFailed","MakerPaymentTransactionFailed","MakerPaymentDataSendFailed","MakerPaymentWaitConfirmFailed","TakerPaymentValidateFailed","TakerPaymentWaitConfirmFailed","TakerPaymentSpendFailed","TakerPaymentSpendConfirmFailed","MakerPaymentWaitRefundStarted","MakerPaymentRefunded","MakerPaymentRefundFailed"],
@@ -2143,8 +2255,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "type": "Taker",
         "uuid": "491df802-43c3-4c73-85ef-1c4c49315ac6"
       }
-    ],
-    "total": 49
+    ]
   }
 }
 ```
@@ -2624,10 +2735,12 @@ The `TakerPaymentSpent` event indicates that maker spent taker payment and taker
 
 When this event occurs taker extracts the secret from the transaction and attempts to spend maker payment.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| tx_hash                | string                            | the hash of the transaction                             |
-| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
+| Structure              | Type                              | Description                                                |
+| ---------------------- | --------------------------------- | ---------------------------------------------------------- |
+| secret                 | string                            | the atomic swap secret extracted from spending transaction |
+| transaction            | object                            | transaction object                                         |
+| transaction.tx_hash    | string                            | the hash of the transaction                                |
+| transaction.tx_hex     | string                            | transaction bytes in hexadecimal format                    |
 
 ##### TakerPaymentWaitForSpendFailed
 
@@ -3673,7 +3786,6 @@ The `orderbook` method requests from the network the currently available orders 
 | --------- | ------ | ----------------------------------------------------------------------------------- |
 | base      | string | base currency of a pair                                                             |
 | rel       | string | "related" currency, also can be called "quote currency" according to exchange terms |
-| duration  | number | `deprecated`                                                                        |
 
 #### Response
 
@@ -3691,6 +3803,9 @@ The `orderbook` method requests from the network the currently available orders 
 | maxvolume      | string (decimal) | the maximum amount of `base` coin the offer provider is willing to sell       |
 | max_volume_rat | rational         | the max volume in num-rational crate format                                      |
 | max_volume_fraction | object (rational) | the max volume represented as an object                                      |
+| min_volume      | string (decimal) | the minimum amount of `base` coin the offer provider is willing to sell       |
+| min_volume_rat | rational         | the min volume in num-rational crate format                                      |
+| min_volume_fraction | object (rational) | the min volume represented as an object                                      |
 | pubkey         | string           | the pubkey of the offer provider                                              |
 | age            | number           | the age of the offer (in seconds)                                             |
 | zcredits       | number           | the zeroconf deposit amount                                                   |
@@ -3741,6 +3856,15 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       "max_volume_fraction":{
         "numer":"997",
         "denom":"1"
+      },
+      "min_volume": "0.00777",
+      "min_volume_rat": [
+        [1,[777]],
+        [1,[100000]]
+      ],
+      "min_volume_fraction": {
+        "numer": "777",
+        "denom": "100000"
       },
       "pubkey": "631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
       "age": 1,
@@ -4105,6 +4229,7 @@ To prevent a user from making trades in which the transaction fees may end up co
 | rel             | string                     | the name of the coin the user desires to receive                                                                         |
 | price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                        |
 | volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to `0.00777`: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                                       |
+| min_volume      | numeric string or rational | the minimum amount of `base` coin available for the order; the `min_volume` must be greater than or equal to `0.00777`; it must be also  less or equal than `volume` param; default is `0.00777` |
 | max             | bool                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                |
 | cancel_previous | bool                       | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior |
 | base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set |
@@ -4177,6 +4302,26 @@ curl --url "http://127.0.0.1:7783" --data '{
     "numer":"2",
     "denom":"1"
   }
+}'
+```
+
+#### Command (with min_volume)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"setprice",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
+  },
+  "price":{
+    "numer":"2",
+    "denom":"1"
+  },  
+  "min_volume":"1"
 }'
 ```
 
