@@ -112,7 +112,7 @@ curl --url "http://127.0.0.1:7783" --data "[
 
 ## all\_swaps\_uuids\_by\_filter
 
-**(my_coin other_coin from_timestamp to_timestamp)**
+**all_swaps_uuids_by_filter (my_coin other_coin from_timestamp to_timestamp)**
 
 The `all_swaps_uuids_by_filter` method returns all uuids of swaps that match the selected filters. Please note that all filters (my_coin, from_timestamp, etc.) are combined using logical AND.
 
@@ -389,7 +389,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## cancel\_all\_orders
 
-**cancel_order cancel_by**
+**cancel_all_orders cancel_by**
 
 The `cancel_all_orders` cancels the active orders created by the MM2 node by specified condition.
 
