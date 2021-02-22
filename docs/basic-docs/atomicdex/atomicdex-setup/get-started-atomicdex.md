@@ -136,7 +136,7 @@ Clone the MM2 repository:
 
 ```bash
 cd ~
-git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2 --single-branch && cd atomicDEX-API
+git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2.1 --single-branch && cd atomicDEX-API
 ```
 
 Compile the source code.

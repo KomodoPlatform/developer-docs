@@ -3800,7 +3800,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 ## my\_tx\_history
 
-**(from_id limit=10 max=false page_number)**
+**my_tx_history (from_id limit=10 max=false page_number)**
 
 The `my_tx_history` method returns the blockchain transactions involving the MM2 node's coin address.
 
@@ -4346,7 +4346,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "base": "HELLO",
   "biddepth": 0,
   "bids": [],
-  "netid": 9999,
+  "netid": 7777,
   "numasks": 1,
   "numbids": 0,
   "rel": "WORLD",

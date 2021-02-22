@@ -213,13 +213,13 @@ info: installing component 'rustfmt'
 #### Step 1: Download source code
 
 ```bash
-cd ~ ; git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2 --single-branch && cd atomicDEX-API
+cd ~ ; git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2.1 --single-branch && cd atomicDEX-API
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$cd ~ ; git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2 --single-branch && cd atomicDEX-API
+$cd ~ ; git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2.1 --single-branch && cd atomicDEX-API
 Cloning into 'atomicDEX-API'...
 remote: Enumerating objects: 34, done.
 remote: Counting objects: 100% (34/34), done.
@@ -352,7 +352,7 @@ Failure to properly manage your passphrase can (and likely will) result in lost 
 
 ```bash
 #!/bin/bash
-stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove\", \"rpc_password\":\"GlHjhvYlev8fh8xZgSBI\"}" &
+stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove\", \"rpc_password\":\"GlHjhvYlev8fh8xZgSBI\"}" &
 ```
 
 </collapse-text>
@@ -589,7 +589,7 @@ See this [linked document](../../../basic-docs/atomicdex/atomicdex-api.html#orde
      "is_mine": false
    }
  ],
- "netid": 9999,
+ "netid": 7777,
  "numasks": 1,
  "numbids": 1,
  "rel": "LTC",
@@ -672,7 +672,7 @@ Display the LTC/KMD Orderbook.
      "is_mine": false
    }
  ],
- "netid": 9999,
+ "netid": 7777,
  "numasks": 1,
  "numbids": 1,
  "rel": "KMD",

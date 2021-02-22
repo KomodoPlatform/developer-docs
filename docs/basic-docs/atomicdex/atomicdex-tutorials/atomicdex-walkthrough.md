@@ -2,7 +2,7 @@
 
 Now that you have MarketMaker 2.0 (MM2) [installed](../atomicdex-setup/get-started-atomicdex.md) you are ready for your first atomic swap!
 
-Since we're testing MM2 as a back end, we're going to be doing a few things that a normal user will not be expected to do once we have a GUI or TUI/CLI available. We are working with Ideas By Nature, a user-experience and user-interface design firm, to facilitate this.
+Since we're testing MM2 as a back end, we're going to be doing a few things that a normal user using a GUI will not be expected to do.
 
 Let's open up the terminal and get started.
 
@@ -58,7 +58,7 @@ We have our initial materials, let's launch the software.
 Look at the following command below, but don't execute it yet:
 
 ```bash
-stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
+stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
 ```
 
 Replace `YOUR_PASSPHRASE_HERE` and `YOUR_PASSWORD_HERE` with your actual passphrase and password, and then execute the command in the terminal.
@@ -68,7 +68,7 @@ Here is an approximate interpretation of the arguments in the command, to help y
 | Argument     | (Value)              | Description                                                                                                                          |
 | ------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | gui          | MM2GUI               | information about your GUI; place essential info about your application (name, version, etc.) here. For example: AtomicDEX iOS 1.0.1 |
-| netid        | 9999                 | this tells MM2 which network to join. 9999 is a private test network we use here. 0 is the default network.                          |
+| netid        | 7777                 | this tells MM2 which network to join. 7777 is a private test network we use here. 0 is the default network.                          |
 | passphrase   | YOUR_PASSPHRASE_HERE | your passphrase; this is the source of each of your coins' private keys                                                              |
 | rpc_password | YOUR_PASSWORD_HERE   | your password for protected RPC methods (userpass)                                                                                   |
 | userhome     | /\${HOME#"/"}        | the path to your home, called from your environment variables and entered as a regular expression                                    |
@@ -80,7 +80,7 @@ Having executed the command, you should see output similar to the following:
 cant open.(/root/.komodo/komodo.conf)
 29 19:39:41, lp_coins:796] ticker = "KMD", method = Some("enable"), block_count = 0
 RPCport.7783 remoteport.7782, nanoports 47762 47772 47782
-29 19:39:41, peers:942] initialize] netid 9999 public key ab44ae49d2ff89295ee9a0574e89a2bdd7bfbb4f1a34f7d5c0256cf06e89485d preferred port 47773 drill false
+29 19:39:41, peers:942] initialize] netid 7777 public key ab44ae49d2ff89295ee9a0574e89a2bdd7bfbb4f1a34f7d5c0256cf06e89485d preferred port 47773 drill false
 connected to push.(tcp://333.333.333.333:47762) pushsock.0 valid.1  | connected to sub.(tcp://333.333.333.333:47772) subsock.1 valid.1 numactive.1
 connected to push.(tcp://333.333.333.333:47762) pushsock.2 valid.1  | connected to sub.(tcp://333.333.333.333:47772) subsock.3 valid.1 numactive.1
 _LPaddpeer 333.333.333.333 -> numpeers.2 mypubsock.-1 other.(0)
@@ -111,7 +111,7 @@ When using MarketMaker 2.0 (MM2) software on a VPS without accompanying tools su
 Example:
 
 ```bash
-stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
+stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
 ```
 
 :::
@@ -283,7 +283,7 @@ The call will return a similar result:
   "base": "RICK",
   "rel": "MORTY",
   "timestamp": 1549319941,
-  "netid": 9999
+  "netid": 7777
 }
 ```
 
@@ -347,7 +347,7 @@ Here's the response:
   "base": "RICK",
   "rel": "MORTY",
   "timestamp": 1549320152,
-  "netid": 9999
+  "netid": 7777
 }
 ```
 
