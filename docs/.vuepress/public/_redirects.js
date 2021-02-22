@@ -137,7 +137,7 @@ var redirectAliases = {
     "/basic-docs/atomicdex/atomicdex-beta/view-your-receiving-address-to-send-funds-for-trading.html",
   "/basic-docs/atomicdex/atomicdex-beta/how-to-add-and-activate-coins-on-atomicdex-mobile.html":
     "/basic-docs/atomicdex/atomicdex-beta/add-and-activate-coins-on-atomicdex-mobile.html",
-  "/basic-docs/start-here/core-technology-discussions/initial-dex-offering.md":
+  "/basic-docs/start-here/core-technology-discussions/creating-and-distributing-a-new-komodo-smart-chain.md":
     "/basic-docs/start-here/core-technology-discussions/initial-dex-offering.md",
 };
 module.exports = redirectAliases;
