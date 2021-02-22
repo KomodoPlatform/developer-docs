@@ -16,7 +16,7 @@ apt-get install -y unzip jq curl
 wget $(curl --silent https://api.github.com/repos/KomodoPlatform/atomicDEX-API/releases | jq -r '.[0].assets[] | select(.name | endswith("Linux-Release.zip")).browser_download_url')
 wget https://raw.githubusercontent.com/KomodoPlatform/coins/master/coins
 unzip *Linux-Release.zip
-./mm2 "{\"netid\":9999,\"gui\":\"aws_cli\",\"passphrase\":\"SEED_WORDS_PLEASE_REPLACE\",\"rpc_password\":\"RPC_PASS_PLEASE_REPLACE\",\"myipaddr\":\"0.0.0.0\"}"
+./mm2 "{\"netid\":7777,\"gui\":\"aws_cli\",\"passphrase\":\"SEED_WORDS_PLEASE_REPLACE\",\"rpc_password\":\"RPC_PASS_PLEASE_REPLACE\",\"myipaddr\":\"0.0.0.0\"}"
 ```
 
 ## Install AWS CLI , get AWS access credentials
