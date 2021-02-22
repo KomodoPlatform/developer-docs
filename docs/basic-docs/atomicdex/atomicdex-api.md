@@ -1625,7 +1625,7 @@ Depending on the parameters, the function returns different results:
 
 ::: tip Note
 
-The function can be used instead of **max_taker_vol**, if the `max` field is true and the `swap_method` is `buy` or `sell`.
+This method can be used instead of **max_taker_vol**, if the `max` field is true and the `swap_method` is `buy` or `sell`.
 Use the resulting `volume` as an argument of the `buy` or `sell` requests.
 
 :::
