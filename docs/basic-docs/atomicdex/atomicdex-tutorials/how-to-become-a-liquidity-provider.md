@@ -134,40 +134,45 @@ source $HOME/.cargo/env
 ##### Command
 
 ```bash
-rustup install nightly-2020-02-01
+rustup install nightly-2020-10-25
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup install nightly-2020-02-01  
-info: syncing channel updates for 'nightly-2020-02-01-x86_64-apple-darwin'
-471.5 KiB / 471.5 KiB (100 %) 334.7 KiB/s in  1s ETA:  0s
-info: latest update on 2020-02-01, rust version 1.42.0-nightly (cd1ef390e 2020-01-31)
+$ rustup install nightly-2020-10-25  
+info: syncing channel updates for 'nightly-2020-10-25-x86_64-unknown-linux-gnu'
+696.1 KiB / 696.1 KiB (100 %) 567.6 KiB/s in  2s ETA:  0s
+info: latest update on 2020-10-25, rust version 1.49.0-nightly (ffa2e7ae8 2020-10-24)
 info: downloading component 'cargo'
-3.9 MiB /   3.9 MiB (100 %) 282.4 KiB/s in 14s ETA:  0s
+  5.3 MiB /   5.3 MiB (100 %) 426.6 KiB/s in  3s ETA:  0s
 info: downloading component 'clippy'
-1.4 MiB /   1.4 MiB (100 %) 280.0 KiB/s in  5s ETA:  0s
+  2.4 MiB /   2.4 MiB (100 %) 527.6 KiB/s in  2s ETA:  0s
 info: downloading component 'rust-docs'
-12.1 MiB /  12.1 MiB (100 %) 284.8 KiB/s in 46s ETA:  0s
+ 13.6 MiB /  13.6 MiB (100 %)   4.3 MiB/s in  3s ETA:  0s
 info: downloading component 'rust-std'
-16.4 MiB /  16.4 MiB (100 %) 313.6 KiB/s in  1m  3s ETA:  0s
+ 22.3 MiB /  22.3 MiB (100 %)   7.1 MiB/s in  4s ETA:  0s
 info: downloading component 'rustc'
-55.6 MiB /  55.6 MiB (100 %) 304.0 KiB/s in  3m 30s ETA:  0s    
+ 55.1 MiB /  55.1 MiB (100 %)  10.7 MiB/s in  7s ETA:  0s    
 info: downloading component 'rustfmt'
-2.2 MiB /   2.2 MiB (100 %) 256.6 KiB/s in  9s ETA:  0s
+  3.6 MiB /   3.6 MiB (100 %) 289.6 KiB/s in  2s ETA:  0s
 info: installing component 'cargo'
+info: Defaulting to 500.0 MiB unpack ram
+  5.3 MiB /   5.3 MiB (100 %)   4.4 MiB/s in  1s ETA:  0s
 info: installing component 'clippy'
 info: installing component 'rust-docs'
-12.1 MiB /  12.1 MiB (100 %)   8.6 MiB/s in  1s ETA:  0s
+ 13.6 MiB /  13.6 MiB (100 %)   3.8 MiB/s in  3s ETA:  0s
 info: installing component 'rust-std'
+ 22.3 MiB /  22.3 MiB (100 %)   4.0 MiB/s in  5s ETA:  0s
 info: installing component 'rustc'
-55.6 MiB /  55.6 MiB (100 %)  14.6 MiB/s in  3s ETA:  0s
+ 55.1 MiB /  55.1 MiB (100 %)   4.6 MiB/s in 12s ETA:  0s
 info: installing component 'rustfmt'
 
-nightly-2020-02-01-x86_64-apple-darwin installed - rustc 1.42.0-nightly (cd1ef390e 2020-01-31)
+  nightly-2020-10-25-x86_64-unknown-linux-gnu installed - rustc 1.49.0-nightly (ffa2e7ae8 2020-10-24)
 
 info: checking for self-updates
+info: downloading self-update
+
 ```
 
 </collapse-text>
@@ -175,18 +180,17 @@ info: checking for self-updates
 ##### Command
 
 ```bash
-rustup default nightly-2020-02-01
+rustup default nightly-2020-10-25
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup default nightly-2020-02-01
-info: using existing install for 'nightly-2020-02-01-x86_64-apple-darwin'
-info: default toolchain set to 'nightly-2020-02-01-x86_64-apple-darwin'
+$ rustup default nightly-2020-10-25
+info: using existing install for 'nightly-2020-10-25-x86_64-unknown-linux-gnu'
+info: default toolchain set to 'nightly-2020-10-25-x86_64-unknown-linux-gnu'
 
-nightly-2020-02-01-x86_64-apple-darwin unchanged - rustc 1.42.0-nightly (cd1ef390e 2020-01-31)
-
+  nightly-2020-10-25-x86_64-unknown-linux-gnu unchanged - rustc 1.49.0-nightly (ffa2e7ae8 2020-10-24)
 ```
 
 </collapse-text>
@@ -213,13 +217,13 @@ info: installing component 'rustfmt'
 #### Step 1: Download source code
 
 ```bash
-cd ~ ; git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2 --single-branch && cd atomicDEX-API
+cd ~ ; git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2.1 --single-branch && cd atomicDEX-API
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$cd ~ ; git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2 --single-branch && cd atomicDEX-API
+$cd ~ ; git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2.1 --single-branch && cd atomicDEX-API
 Cloning into 'atomicDEX-API'...
 remote: Enumerating objects: 34, done.
 remote: Counting objects: 100% (34/34), done.
@@ -352,7 +356,7 @@ Failure to properly manage your passphrase can (and likely will) result in lost 
 
 ```bash
 #!/bin/bash
-stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove\", \"rpc_password\":\"GlHjhvYlev8fh8xZgSBI\"}" &
+stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove\", \"rpc_password\":\"GlHjhvYlev8fh8xZgSBI\"}" &
 ```
 
 </collapse-text>
@@ -589,7 +593,7 @@ See this [linked document](../../../basic-docs/atomicdex/atomicdex-api.html#orde
      "is_mine": false
    }
  ],
- "netid": 9999,
+ "netid": 7777,
  "numasks": 1,
  "numbids": 1,
  "rel": "LTC",
@@ -672,7 +676,7 @@ Display the LTC/KMD Orderbook.
      "is_mine": false
    }
  ],
- "netid": 9999,
+ "netid": 7777,
  "numasks": 1,
  "numbids": 1,
  "rel": "KMD",

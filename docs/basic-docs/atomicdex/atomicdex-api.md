@@ -110,6 +110,276 @@ curl --url "http://127.0.0.1:7783" --data "[
 
 </div>
 
+## active\_swaps
+
+**active_swaps (include_status)**
+
+The `active_swaps` method returns all the swaps that are currently running on the MM2 node.
+
+#### Arguments
+
+| Structure      | Type                          | Description                                                             |
+| -------------- | ----------------------------- | ----------------------------------------------------------------------- |
+| include_status | bool                          | whether to include swap statuses in response; defaults to `false`       |
+
+#### Response
+
+| Structure             | Type             | Description                                                     |
+| --------------------- | ---------------- | --------------------------------------------------------------- |
+| result                | result object    |                                                                 |
+| result.uuids          | array of strings | uuids of currently running swaps                                |
+| result.statuses       | object (map)     | the `uuid -> swap status` map of currently running swaps; `null` if include_status is false in the request |
+
+#### :pushpin: Examples
+
+#### Command (without include_status)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '
+{
+  "userpass":"'$userpass'",
+  "method":"active_swaps"
+}
+'
+
+```
+
+#### Command (include_status = true)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '
+{
+  "userpass":"'$userpass'",
+  "method":"active_swaps",
+  "include_status": true
+}
+'
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (uuids only)
+
+```json
+{
+  "result":{
+    "uuids":[
+      "015c13bc-da79-43e1-a6d4-4ac8b3099b34",
+      "7592a07a-2805-4050-8ab8-984480e812f0",
+      "82cbad96-ea9f-40fb-9225-07496323e35d",
+      "177f7fa5-c9f3-4673-a2fa-28451a123e61"
+    ]
+  }
+}
+```
+
+#### Response (statuses included)
+
+```json
+{
+  "uuids": [
+    "5d02843e-d1b4-488d-aad0-114d82020453"
+  ],
+  "statuses": {
+    "5d02843e-d1b4-488d-aad0-114d82020453": {
+      "type": "Taker",
+      "uuid": "5d02843e-d1b4-488d-aad0-114d82020453",
+      "events": [
+        {
+          "timestamp": 1612780908698,
+          "event": {
+            "type": "Started",
+            "data": {
+              "taker_coin": "MORTY",
+              "maker_coin": "RICK",
+              "maker": "7310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5",
+              "my_persistent_pub": "03ad6f89abc2e5beaa8a3ac28e22170659b3209fe2ddf439681b4b8f31508c36fa",
+              "lock_duration": 7800,
+              "maker_amount": "1",
+              "taker_amount": "1",
+              "maker_payment_confirmations": 1,
+              "maker_payment_requires_nota": false,
+              "taker_payment_confirmations": 1,
+              "taker_payment_requires_nota": false,
+              "taker_payment_lock": 1612788708,
+              "uuid": "5d02843e-d1b4-488d-aad0-114d82020453",
+              "started_at": 1612780908,
+              "maker_payment_wait": 1612784028,
+              "maker_coin_start_block": 793472,
+              "taker_coin_start_block": 797356,
+              "fee_to_send_taker_fee": {
+                "coin": "MORTY",
+                "amount": "0.00001"
+              },
+              "taker_payment_trade_fee": {
+                "coin": "MORTY",
+                "amount": "0.00001"
+              },
+              "maker_payment_spend_trade_fee": {
+                "coin": "RICK",
+                "amount": "0"
+              }
+            }
+          }
+        },
+        {
+          "timestamp": 1612780924704,
+          "event": {
+            "type": "Negotiated",
+            "data": {
+              "maker_payment_locktime": 1612796508,
+              "maker_pubkey": "037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5",
+              "secret_hash": "026bebc2e19c243d0940dd583c9573bf10377afd"
+            }
+          }
+        },
+        {
+          "timestamp": 1612780924962,
+          "event": {
+            "type": "TakerFeeSent",
+            "data": {
+              "tx_hex": "0400008085202f8901f425fbefe21f33ccb7b487df251191b27dfa7b639b04f60e5493c7ea41dbf149000000006b483045022100d5ec3e542175479bd4bd011e19b76a75e99f19cc49867e5bca9541950322c33a02207a4d1ffd674fb9760de79bb4929af44d66344b5e182de3c377186deebf6bf376012103ad6f89abc2e5beaa8a3ac28e22170659b3209fe2ddf439681b4b8f31508c36faffffffff02bcf60100000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88ac5ce6f305000000001976a914d55f0df6cb82630ad21a4e6049522a6f2b6c9d4588ac7c152160000000000000000000000000000000",
+              "tx_hash": "75323ab7acd64bd35242611fabaec560d9acf2e1f9ca28d3a4aba47a79fb49c4"
+            }
+          }
+        },
+        {
+          "timestamp": 1612780935966,
+          "event": {
+            "type": "MakerPaymentReceived",
+            "data": {
+              "tx_hex": "0400008085202f89028bef955e42107c562e4e02421f25c455723a701573f86c17b4d82e35a7d8f9f7020000006b483045022100b12fc9d95acca76bf5fd8d5c6acc288b454032ba4561b1c2b1f5f33b2cf2926d022017e561bc2cd93308848674b47b2e8ebd8f074ea78e32454d5fea6f08c0b1f1e40121037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5ffffffff5dfd0b24c0f7c3cf235868cf9a26ec49574764d135796fc4e7d20e95d55a8653000000006a47304402207c752d14601d1c99892f9d6c88c8ff2f93211640a65b2ee69172a16b908b21e402206f0b66684158445888271a849ab46258ad722496ee64fde055a6f44e36ed2ccc0121037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5ffffffff0300e1f5050000000017a9141b85c1a277f44f7d77d52b78e2ba70a0becc2ff9870000000000000000166a14026bebc2e19c243d0940dd583c9573bf10377afda7d26301000000001976a91486f747b28c60ad1130bdd3f84f48eeaf1801ca9888ac87152160000000000000000000000000000000",
+              "tx_hash": "27dafe553246553d54f909fbbded80e6d490fdb95ca7b6807d73eca45f0d7a22"
+            }
+          }
+        },
+        {
+          "timestamp": 1612780935967,
+          "event": {
+            "type": "MakerPaymentWaitConfirmStarted"
+          }
+        }
+      ],
+      "maker_amount": "1",
+      "maker_coin": "RICK",
+      "taker_amount": "1",
+      "taker_coin": "MORTY",
+      "gui": null,
+      "mm_version": "23c89ced5",
+      "success_events": [
+        "Started",
+        "Negotiated",
+        "TakerFeeSent",
+        "MakerPaymentReceived",
+        "MakerPaymentWaitConfirmStarted",
+        "MakerPaymentValidatedAndConfirmed",
+        "TakerPaymentSent",
+        "TakerPaymentSpent",
+        "MakerPaymentSpent",
+        "Finished"
+      ],
+      "error_events": [
+        "StartFailed",
+        "NegotiateFailed",
+        "TakerFeeSendFailed",
+        "MakerPaymentValidateFailed",
+        "MakerPaymentWaitConfirmFailed",
+        "TakerPaymentTransactionFailed",
+        "TakerPaymentWaitConfirmFailed",
+        "TakerPaymentDataSendFailed",
+        "TakerPaymentWaitForSpendFailed",
+        "MakerPaymentSpendFailed",
+        "TakerPaymentWaitRefundStarted",
+        "TakerPaymentRefunded",
+        "TakerPaymentRefundFailed"
+      ]
+    }
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
+## all\_swaps\_uuids\_by\_filter
+
+**all_swaps_uuids_by_filter (my_coin other_coin from_timestamp to_timestamp)**
+
+The `all_swaps_uuids_by_filter` method returns all uuids of swaps that match the selected filters. Please note that all filters (my_coin, from_timestamp, etc.) are combined using logical AND.
+
+#### Arguments
+
+| Structure      | Type                          | Description                                                             |
+| -------------- | ----------------------------- | ----------------------------------------------------------------------- |
+| my_coin        | string                        | return only swaps that match the `swap.my_coin = request.my_coin` condition |
+| other_coin     | string                        | return only swaps that match the `swap.other_coin = request.other_coin` condition |
+| from_timestamp | number (timestamp in seconds) | return only swaps that match the `swap.started_at >= request.from_timestamp` condition |
+| to_timestamp   | number (timestamp in seconds) | return only swaps that match the `swap.started_at < request.to_timestamp` condition |
+
+#### Response
+
+| Structure             | Type             | Description                                                                                                                             |
+| --------------------- | ---------------- | --------------------------------------------------------------- |
+| result                | result object    |                                                                 |
+| result.uuids          | array of strings | uuids of swaps that match the selected filters                  |
+| result.my_coin        | string           | my_coin that was set in request                                           |
+| result.other_coin     | string           | other_coin that was set in request                                        |
+| result.from_timestamp | number           | from_timestamp that was set in request                                    |
+| result.to_timestamp   | number           | to_timestamp that was set in request                                      |
+| result.records_found  | number           | the number of found uuids                                                 |
+
+#### :pushpin: Examples
+
+#### Command (select swaps uuids that have my_coin = RICK and other_coin = MORTY)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"all_swaps_uuids_by_filter\"\"my_coin\":\"RICK\",\"other_coin\":\"MORTY\"}"
+```
+
+#### Command (select swaps uuids that have my_coin = RICK and started_at >= 1611705600 (January 27, 2021 0:00:00 GMT))
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"all_swaps_uuids_by_filter\",\"my_coin\":\"RICK\",\"from_timestamp\":1611705600}"
+```
+
+#### Command (select swaps uuids that have started_at >= 1611705600 (January 27, 2021 0:00:00 GMT) and started_at < 1611792001 (January 28, 2021 0:00:01 GMT))
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"all_swaps_uuids_by_filter\",\"my_coin\":\"RICK\",\"from_timestamp\":1611705600,\"to_timestamp\":1611792001}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "result":{
+    "uuids":[
+      "015c13bc-da79-43e1-a6d4-4ac8b3099b34",
+      "7592a07a-2805-4050-8ab8-984480e812f0",
+      "82cbad96-ea9f-40fb-9225-07496323e35d",
+      "177f7fa5-c9f3-4673-a2fa-28451a123e61"
+    ],
+    "my_coin":"MORTY",
+    "other_coin":null,
+    "from_timestamp":null,
+    "to_timestamp":null,
+    "found_records":4
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
+
 ## buy
 
 **buy base rel price volume (match_by order_type base_confs base_nota rel_confs rel_nota)**
@@ -313,7 +583,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## cancel\_all\_orders
 
-**cancel_order cancel_by**
+**cancel_all_orders cancel_by**
 
 The `cancel_all_orders` cancels the active orders created by the MM2 node by specified condition.
 
@@ -1209,13 +1479,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## get\_trade\_fee
+## get\_trade\_fee (deprecated)
 
 **get_trade_fee coin**
 
 The `get_trade_fee` method returns the approximate amount of the miner fee that is paid per swap transaction.
 
 This amount should be multiplied by 2 and deducted from the volume on `buy/sell` calls when the user is about to trade the entire balance of the selected coin. This aspect is currently under development.
+
+::: tip
+
+This function is deprecated. Use the **trade_preimage** instead.
+
+:::
 
 ::: tip Note
 
@@ -1239,7 +1515,7 @@ As a result, the value returned by the `get_trade_fee` for a QRC20 token include
 | Structure     | Type             | Description                                                                                                                                                |
 | ------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result        | object           | an object containing the relevant information                                                                                                              |
-| result.coin   | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example ERC20 fees are paid by ETH (gas) |
+| result.coin   | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example, ERC20 fees are paid by ETH (gas) |
 | result.amount | string (numeric) | the approximate fee amount to be paid per swap transaction in decimal representation                                                                                                |
 | result.amount_rat | rational     | the approximate fee amount to be paid per swap transaction in rational representation                                                                                                 |
 | result.amount_fraction | fraction| the approximate fee amount to be paid per swap transaction in fraction representation                                                                                                |
@@ -1328,6 +1604,269 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     },
     "amount_rat":[[1,[297]],[1,[50000]]],
     "coin":"ETH"
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
+## trade\_preimage
+
+**trade_preimage**
+
+The `trade_preimage` method returns the approximate fee amounts that are paid per the whole swap.
+Depending on the parameters, the function returns different results:
+
+- If the `swap_method` is `buy` or `sell`, then the result will include the `taker_fee` and the `fee_to_send_taker_fee`.
+  The `taker_fee` amount is paid from the `base` coin balance if the `swap_method` is `sell`, else it is paid from the `rel` coin balance;
+- If the `max` field is true, then the result will include the `volume`.
+
+::: tip Note
+
+This method can be used instead of **max_taker_vol**, if the `max` field is true and the `swap_method` is `buy` or `sell`.
+Use the resulting `volume` as an argument of the `buy` or `sell` requests.
+
+:::
+
+::: warning Important
+
+Use the `trade_preimage` request with `max = true` and `swap_method = "setprice"` arguments to approximate the fee amounts **only**. Do not use the resulting `volume` as an argument of the `setprice`. 
+
+:::
+
+#### Arguments
+
+| Structure   | Type                                  | Description                                                                                    |
+| ----------- | ------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| base        | string                                | the base currency of the request                                                               |
+| rel         | string                                | the rel currency of the request                                                                |
+| swap_method | string                                | the name of the method whose preimage is requested. Possible values: `buy`, `sell`, `setprice` |
+| volume      | numeric string or rational (optional) | the amount the user is willing to trade; ignored if `max = true`                               |
+| max         | bool (optional)                       | whether to return the maximum available volume for setprice/buy/sell methods                   |
+
+#### Response
+
+| Structure                                    | Type                       | Description                                                                                                                                                                         |
+| -------------------------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                                       | object                     | an object containing the relevant information                                                                                                                                       |
+| result.base_coin_fee                         | object                     | the fee is paid per swap concerning the `base` coin                                                                                                                                 |
+| result.base_coin_fee.coin                    | string                     | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas)                       |
+| result.base_coin_fee.amount                  | string (numeric)           | the approximate fee amount to be paid per whole swap (in decimal representation)                                                                                                    |
+| result.base_coin_fee.amount_rat              | rational                   | the approximate fee amount to be paid per whole swap (in rational representation)                                                                                                   |
+| result.base_coin_fee.amount_fraction         | fraction                   | the approximate fee amount to be paid per whole swap (in fraction representation)                                                                                                   |
+| result.rel_coin_fee                          | object                     | the fee is paid per swap concerning the `rel` coin                                                                                                                                  |
+| result.rel_coin_fee.coin                     | string                     | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas)                       |
+| result.rel_coin_fee.amount                   | string (numeric)           | the approximate fee amount to be paid per whole swap (in decimal representation)                                                                                                    |
+| result.rel_coin_fee.amount_rat               | rational                   | the approximate fee amount to be paid per whole swap (in rational representation)                                                                                                   |
+| result.rel_coin_fee.amount_fraction          | fraction                   | the approximate fee amount to be paid per whole swap (in fraction representation)                                                                                                   |
+| result.volume                                | string (numeric, optional) | the max available volume that can be traded (in decimal representation). Empty if the `max` argument is missing or false                                                            |
+| result.volume_rat                            | rational (optional)        | the max available volume that can be traded (in rational representation). Empty if the `max` argument is missing or false                                                           |
+| result.volume_fraction                       | fraction (optional)        | the max available volume that can be traded (in fraction representation). Empty if the `max` argument is missing or false                                                           |
+| result.taker_fee                             | string (numeric, optional) | the dex fee in decimal representation to be paid by taker coin (`base` coin if `swap_method = "sell"` or `rel` coin if `swap_method = "buy"`). Empty if `swap_method = "setprice"`  |
+| result.taker_fee_rat                         | rational (optional)        | the dex fee in rational representation to be paid by taker coin (`base` coin if `swap_method = "sell"` or `rel` coin if `swap_method = "buy"`). Empty if `swap_method = "setprice"` |
+| result.taker_fee_fraction                    | fraction (optional)        | the dex fee in fraction representation to be paid by taker coin (`base` coin if `swap_method = "sell"` or `rel` coin if `swap_method = "buy"`). Empty if `swap_method = "setprice"` |
+| result.fee_to_send_taker_fee                 | object (optional)          | the miner fee is paid to send the dex fee. Empty if `swap_method = "setprice"`                                                                                                      |
+| result.fee_to_send_taker_fee.coin            | string                     | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas)                       |
+| result.fee_to_send_taker_fee.amount          | string (numeric)           | the approximate fee amount to be paid to send the dex fee (in decimal representation)                                                                                               |
+| result.fee_to_send_taker_fee.amount_rat      | rational                   | the approximate fee amount to be paid to send the dex fee (in rational representation)                                                                                              |
+| result.fee_to_send_taker_fee.amount_fraction | fraction                   | the approximate fee amount to be paid to send the dex fee (in fraction representation)                                                                                              |
+
+#### :pushpin: Examples
+
+#### Command (setprice)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"trade_preimage\",\"base\":\"BTC\",\"rel\":\"RICK\",\"volume\":\"0.1\",\"swap_method\":\"setprice\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+  "result":{
+    "base_coin_fee": {
+      "amount":"0.00042049",
+      "amount_fraction":{
+        "denom":"100000000",
+        "numer":"42049"
+      },
+      "amount_rat":[[1,[42049]],[1,[100000000]]],
+      "coin":"BTC"
+    },
+    "rel_coin_fee": {
+      "amount":"0",
+      "amount_fraction":{
+        "denom":"1",
+        "numer":"0"
+      },
+      "amount_rat":[[0,[]],[1,[1]]],
+      "coin":"RICK"
+    }
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (buy)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"trade_preimage\",\"base\":\"BTC\",\"rel\":\"RICK\",\"volume\":\"0.1\",\"swap_method\":\"buy\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+  "result":{
+    "base_coin_fee": {
+      "amount":"0",
+      "amount_fraction":{
+        "denom":"1",
+        "numer":"0"
+      },
+      "amount_rat":[[0,[]],[1,[1]]],
+      "coin":"BTC"
+    },
+    "rel_coin_fee": {
+      "amount":"0.0001",
+      "amount_fraction":{
+        "denom":"10000",
+        "numer":"1"
+      },
+      "amount_rat":[[1,[1]],[1,[10000]]],
+      "coin":"RICK"
+    },
+    "taker_fee":"0.00012870012870012872",
+    "taker_fee_fraction":{
+      "denom":"7770",
+      "numer":"1"
+    },
+    "taker_rat":[[1,[1]],[1,[7770]]],
+    "fee_to_send_taker_fee":{
+      "amount":"0.0001",
+      "amount_fraction":{
+        "denom":"10000",
+        "numer":"1"
+      },
+      "amount_rat":[[1,[1]],[1,[10000]]],
+      "coin":"RICK"
+    }
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (sell, max)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"trade_preimage\",\"base\":\"BTC\",\"rel\":\"RICK\",\"max\":true,\"swap_method\":\"sell\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+  "result":{
+    "base_coin_fee": {
+      "amount":"0.00042049",
+      "amount_fraction":{
+        "denom":"100000000",
+        "numer":"42049"
+      },
+      "amount_rat":[[1,[42049]],[1,[100000000]]],
+      "coin":"BTC"
+    },
+    "rel_coin_fee": {
+      "amount":"0",
+      "amount_fraction":{
+        "denom":"1",
+        "numer":"0"
+      },
+      "amount_rat":[[0,[]],[1,[1]]],
+      "coin":"RICK"
+    },
+    "volume":"2.21363478",
+    "volume_fraction":{
+      "denom":"50000000",
+      "numer":"110681739"
+    },
+    "volume_rat":[[1,[110681739]],[1,[50000000]]],
+    "taker_fee":"0.0028489508108108107",
+    "taker_fee_fraction":{
+      "denom":"1850000000",
+      "numer":"5270559"
+    },
+    "taker_fee_rat":[[1,[5270559]],[1,[1850000000]]],
+    "fee_to_send_taker_fee":{
+      "amount":"0.00033219",
+      "amount_fraction":{
+        "denom":"100000000",
+        "numer":"33219"
+      },
+      "amount_rat":[[1,[33219]],[1,[100000000]]],
+      "coin":"BTC"
+    }
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (ERC20)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"trade_preimage\",\"base\":\"BAT\",\"rel\":\"RICK\",\"swap_method\":\"setprice\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+  "result":{
+    "base_coin_fee": {
+      "amount":"0.0045",
+      "amount_fraction":{
+        "denom":"2000",
+        "numer":"9"
+      },
+      "amount_rat":[[1,[9]],[1,[2000]]],
+      "coin":"ETH"
+    },
+    "rel_coin_fee": {
+      "amount":"0",
+      "amount_fraction":{
+        "denom":"1",
+        "numer":"0"
+      },
+      "amount_rat":[[0,[]],[1,[1]]],
+      "coin":"RICK"
+    }
   }
 }
 ```
@@ -1577,7 +2116,7 @@ This takes the dex fee and blockchain miner fees into account. The result should
 
 | Structure | Type     | Description                                               |
 | --------- | -------- | --------------------------------------------------------- |
-| coin      | fraction | the max available taker volume in fraction representation | 
+| coin      | fraction | the max available taker volume in fraction representation |
 
 #### :pushpin: Examples
 
@@ -1826,33 +2365,65 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## my\_recent\_swaps
 
-**(from_uuid limit=10)**
+**my_recent_swaps (from_uuid page_number=1 limit=10 my_coin other_coin from_timestamp to_timestamp)**
 
-The `my_recent_swaps` method returns the data of the most recent atomic swaps executed by the MM2 node.
+The `my_recent_swaps` method returns the data of the most recent atomic swaps executed by the MM2 node. Please note that all filters (my_coin, from_timestamp, etc.) are combined using logical AND.
 
 #### Arguments
 
-| Structure | Type   | Description                                                             |
-| --------- | ------ | ----------------------------------------------------------------------- |
-| limit     | number | limits the number of returned swaps                                     |
-| from_uuid | string | MM2 will skip records until this uuid, skipping the `from_uuid` as well |
+| Structure      | Type                          | Description                                                             |
+| -------------- | ----------------------------- | ----------------------------------------------------------------------- |
+| limit          | number                        | limits the number of returned swaps. The default is `10`.               |
+| from_uuid      | string                        | MM2 will skip records until this uuid, skipping the `from_uuid` as well; The `from_uuid` approach is convenient for infinite scrolling implementation |
+| page_number    | number                        | MM2 will return `limit` swaps from the selected page; This param will be ignored if `from_uuid` is set. |
+| my_coin        | string                        | return only swaps that match the `swap.my_coin = request.my_coin` condition |
+| other_coin     | string                        | return only swaps that match the `swap.other_coin = request.other_coin` condition |
+| from_timestamp | number (timestamp in seconds) | return only swaps that match the `swap.started_at >= request.from_timestamp` condition |
+| to_timestamp   | number (timestamp in seconds) | return only swaps that match the `swap.started_at < request.to_timestamp` condition |
 
 #### Response
 
-| Structure | Type             | Description                                                                                                                             |
-| --------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| swaps     | array of objects | swaps data; each record has the format of the `my_swap_status` response                                                                 |
-| from_uuid | string           | the from_uuid that was set in the request; this value is null if nothing was set                                                        |
-| skipped   | number           | the number of skipped records (i.e. the position of `from_uuid` in the list + 1; the value is 0 if `from_uuid` was not set              |
-| limit     | number           | the limit that was set in the request; note that the actual number of swaps can differ from the specified limit (e.g. on the last page) |
-| total     | number           | total number of swaps available                                                                                                         |
+| Structure     | Type             | Description                                                                                                                             |
+| ------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| swaps         | array of objects | swaps data; each record has the format of the `my_swap_status` response                                                                 |
+| from_uuid     | string           | the from_uuid that was set in the request; this value is null if nothing was set                                                        |
+| skipped       | number           | the number of skipped records (i.e. the position of `from_uuid` in the list + 1 or `(page_number - 1) * limit`; the value is 0 if `from_uuid` or `page_number` were not set or `page_number` is 1) |
+| limit         | number           | the limit that was set in the request; note that the actual number of swaps can differ from the specified limit (e.g. on the last page) |
+| total         | number           | total number of swaps available with the selected filters                                                                                   |
+| page_number   | number           | the page_number that was set in the request; if both `page_number` and `from_uuid` are not set in request it will default to `1`; if `from_uuid` is present in request this value will be always null |
+| total_pages   | number           | total pages available with the selected filters and limit                                                                                 |
+| found_records | number           | the number of returned swaps                                                                                  |
 
 #### :pushpin: Examples
 
-#### Command
+#### Command (limit + from_uuid)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"from_uuid\":\"e299c6ece7a7ddc42444eda64d46b163eaa992da65ce6de24eb812d715184e4c\",\"limit\":2}"
+```
+
+#### Command (limit + page_number)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"page_number\":3,\"limit\":2}"
+```
+
+#### Command (select swaps that have my_coin = RICK and other_coin = MORTY)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"limit\":2,\"my_coin\":\"RICK\",\"other_coin\":\"MORTY\"}"
+```
+
+#### Command (select swaps that have my_coin = RICK and started_at >= 1611705600 (January 27, 2021 0:00:00 GMT))
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"limit\":2,\"my_coin\":\"RICK\",\"from_timestamp\":1611705600}"
+```
+
+#### Command (select swaps that have started_at >= 1611705600 (January 27, 2021 0:00:00 GMT) and started_at < 1611792001 (January 28, 2021 0:00:01 GMT))
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"limit\":2,\"my_coin\":\"RICK\",\"from_timestamp\":1611705600,\"to_timestamp\":1611792001}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -1867,6 +2438,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "from_uuid": "e299c6ece7a7ddc42444eda64d46b163eaa992da65ce6de24eb812d715184e4c",
     "limit": 2,
     "skipped": 1,
+    "total": 49,
+    "found_records": 2,
+    "page_number": null,
+    "total_pages": 25,
     "swaps": [
       {
         "error_events": ["StartFailed","NegotiateFailed","TakerFeeValidateFailed","MakerPaymentTransactionFailed","MakerPaymentDataSendFailed","MakerPaymentWaitConfirmFailed","TakerPaymentValidateFailed","TakerPaymentWaitConfirmFailed","TakerPaymentSpendFailed","TakerPaymentSpendConfirmFailed","MakerPaymentWaitRefundStarted","MakerPaymentRefunded","MakerPaymentRefundFailed"],
@@ -2143,8 +2718,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "type": "Taker",
         "uuid": "491df802-43c3-4c73-85ef-1c4c49315ac6"
       }
-    ],
-    "total": 49
+    ]
   }
 }
 ```
@@ -2624,10 +3198,12 @@ The `TakerPaymentSpent` event indicates that maker spent taker payment and taker
 
 When this event occurs taker extracts the secret from the transaction and attempts to spend maker payment.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| tx_hash                | string                            | the hash of the transaction                             |
-| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
+| Structure              | Type                              | Description                                                |
+| ---------------------- | --------------------------------- | ---------------------------------------------------------- |
+| secret                 | string                            | the atomic swap secret extracted from spending transaction |
+| transaction            | object                            | transaction object                                         |
+| transaction.tx_hash    | string                            | the hash of the transaction                                |
+| transaction.tx_hex     | string                            | transaction bytes in hexadecimal format                    |
 
 ##### TakerPaymentWaitForSpendFailed
 
@@ -3224,7 +3800,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 ## my\_tx\_history
 
-**(from_id limit=10 max=false)**
+**my_tx_history (from_id limit=10 max=false page_number)**
 
 The `my_tx_history` method returns the blockchain transactions involving the MM2 node's coin address.
 
@@ -3232,12 +3808,13 @@ The coin that is used must have `tx_history` set to true in its [enable](../../.
 
 #### Arguments
 
-| Structure | Type   | Description                                                                                                                                                                                 |
-| --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin      | string | the name of the coin for the history request                                                                                                                                                |
-| limit     | number | limits the number of returned transactions; ignored if `max = true`                                                                                                                                                  |
-| max       | bool   | whether to return all available records; defaults to `false`                                                                                                                                                 |
-| from_id   | string | MM2 will skip records until it reaches this ID, skipping the `from_id` as well; track the `internal_id` of the last displayed transaction to find the value of this field for the next page |
+| Structure  | Type   | Description                                                                                                                                                                                 |
+| ---------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin       | string | the name of the coin for the history request                                                                                                                                                |
+| limit      | number | limits the number of returned transactions; ignored if `max = true`                                                                                                                                                  |
+| max        | bool   | whether to return all available records; defaults to `false`                                                                                                                                                 |
+| from_id    | string | MM2 will skip records until it reaches this ID, skipping the `from_id` as well; track the `internal_id` of the last displayed transaction to find the value of this field for the next page |
+| page_number| number | MM2 will return limit swaps from the selected page; This param will be ignored if from_uuid is set. |
 
 #### Response
 
@@ -3248,6 +3825,8 @@ The coin that is used must have `tx_history` set to true in its [enable](../../.
 | skipped                                       | number           | the number of skipped records (i.e. the position of `from_id` in the list + 1); this value is 0 if `from_id` was not set                       |
 | limit                                         | number           | the limit that was set in the request; note that the actual number of transactions can differ from the specified limit (e.g. on the last page) |
 | total                                         | number           | the total number of transactions available                                                                                                     |
+| page_number                                   | number           | the page_number that was set in the request                                                                                                    |
+| total_pages                                   | number           | total pages available with the selected limit                                                                                                  |
 | current_block                                 | number           | the number of the latest block of coin blockchain                                                                                              |
 | sync_status                                   | object           | provides the information that helps to track the progress of transaction history preloading at background                                      |
 | sync_status.state                             | string           | current state of sync; possible values: `NotEnabled`, `NotStarted`, `InProgress`, `Error`, `Finished`                                          |
@@ -3291,6 +3870,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       "state": "InProgress"
     },
     "total": 5915,
+    "total_pages": 5915,
+    "page_number": null,
     "transactions": [
       {
         "block_height": 172409,
@@ -3400,6 +3981,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "from_id": null,
     "limit": 3,
     "skipped": 0,
+    "total_pages": 14,
+    "page_number": 1,
     "sync_status": {
       "state": "Finished"
     },
@@ -3673,7 +4256,6 @@ The `orderbook` method requests from the network the currently available orders 
 | --------- | ------ | ----------------------------------------------------------------------------------- |
 | base      | string | base currency of a pair                                                             |
 | rel       | string | "related" currency, also can be called "quote currency" according to exchange terms |
-| duration  | number | `deprecated`                                                                        |
 
 #### Response
 
@@ -3691,6 +4273,9 @@ The `orderbook` method requests from the network the currently available orders 
 | maxvolume      | string (decimal) | the maximum amount of `base` coin the offer provider is willing to sell       |
 | max_volume_rat | rational         | the max volume in num-rational crate format                                      |
 | max_volume_fraction | object (rational) | the max volume represented as an object                                      |
+| min_volume      | string (decimal) | the minimum amount of `base` coin the offer provider is willing to sell       |
+| min_volume_rat | rational         | the min volume in num-rational crate format                                      |
+| min_volume_fraction | object (rational) | the min volume represented as an object                                      |
 | pubkey         | string           | the pubkey of the offer provider                                              |
 | age            | number           | the age of the offer (in seconds)                                             |
 | zcredits       | number           | the zeroconf deposit amount                                                   |
@@ -3742,6 +4327,15 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "numer":"997",
         "denom":"1"
       },
+      "min_volume": "0.00777",
+      "min_volume_rat": [
+        [1,[777]],
+        [1,[100000]]
+      ],
+      "min_volume_fraction": {
+        "numer": "777",
+        "denom": "100000"
+      },
       "pubkey": "631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
       "age": 1,
       "zcredits": 0,
@@ -3752,7 +4346,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "base": "HELLO",
   "biddepth": 0,
   "bids": [],
-  "netid": 9999,
+  "netid": 7777,
   "numasks": 1,
   "numbids": 0,
   "rel": "WORLD",
@@ -4105,6 +4699,7 @@ To prevent a user from making trades in which the transaction fees may end up co
 | rel             | string                     | the name of the coin the user desires to receive                                                                         |
 | price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                        |
 | volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to `0.00777`: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                                       |
+| min_volume      | numeric string or rational | the minimum amount of `base` coin available for the order; the `min_volume` must be greater than or equal to `0.00777`; it must be also  less or equal than `volume` param; default is `0.00777` |
 | max             | bool                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                |
 | cancel_previous | bool                       | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior |
 | base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set |
@@ -4177,6 +4772,26 @@ curl --url "http://127.0.0.1:7783" --data '{
     "numer":"2",
     "denom":"1"
   }
+}'
+```
+
+#### Command (with min_volume)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"setprice",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
+  },
+  "price":{
+    "numer":"2",
+    "denom":"1"
+  },  
+  "min_volume":"1"
 }'
 ```
 
