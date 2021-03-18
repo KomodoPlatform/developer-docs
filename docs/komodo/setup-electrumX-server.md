@@ -11,11 +11,12 @@ Refer to the docs at [https://electrumx.readthedocs.io/en/latest/](https://elect
 ## General part
 
 ```bash
-sudo apt-get install python3-setuptools python3-multidict python3.6 python3.6-dev libleveldb-dev
-
-git clone https://github.com/kyuupichan/electrumx
-cd electrumx
-sudo python3.6 setup.py install
+sudo apt-get install python3-setuptools python3-multidict python3.8 libleveldb-dev
+cd /home/<username>
+git clone https://github.com/KomodoPlatform/electrumx-1
+cd electrumx-1
+pip3 install .
+pip3 install .[rocksdb,ujson]
 ```
 
 ## Coin specific part
@@ -32,6 +33,7 @@ Fill the following contents into the file:
 ```
 Description=Electrumx_KMD
 EnvironmentFile=/etc/electrumx_KMD.conf
+ExecStart=/home/<username>/electrumx-1/electrumx_server
 User=<username>
 ```
 
@@ -39,6 +41,7 @@ Run:
 
 ```bash
 sudo mkdir -p /electrumdb/KMD
+sudo chown <username> /electrumdb/KMD
 sudo nano /etc/electrumx_KMD.conf
 ```
 
@@ -59,4 +62,10 @@ BANDWIDTH_UNIT_COST = 10000
 
 ```bash
 sudo systemctl start electrumx_KMD
+```
+
+To check its status, execute the following command 
+
+```bash
+sudo systemctl status electrumx_KMD
 ```
