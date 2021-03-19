@@ -16,7 +16,7 @@ cd /home/<username>
 git clone https://github.com/KomodoPlatform/electrumx-1
 cd electrumx-1
 pip3 install .
-pip3 install .[rocksdb,ujson]
+pip3 install .[uvloop,ujson]
 ```
 
 ## Coin specific part
