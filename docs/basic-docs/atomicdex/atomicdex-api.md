@@ -581,6 +581,144 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
+## ban\_pubkey
+
+**ban_pubkey pubkey reason**
+
+The `ban_pubkey` method bans the selected pubkey ignoring its order matching messages and preventing its orders from displaying in the orderbook.
+
+::: tip
+
+Use the pubkey without prefix for this method input. E.g. if pubkey is `022cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420` you should submit `2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420`.
+
+:::
+
+#### Arguments
+
+| Structure       | Type                       | Description                                                                   |
+| --------------- | -------------------------- | ----------------------------------------------------------------------------- |
+| pubkey          | string                     | the pubkey to ban                                                             |
+| reason          | string                     | the reason of banning                                                         |
+
+#### Response
+
+| Structure              | Type     | Description                                                                                                                                                                                                     |
+| ---------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                 | string   | whether the ban was successful                                                                                                                                                                                  |
+                                                                                                                                                               
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method": "ban_pubkey",
+  "pubkey": "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420",
+  "reason": "test",
+}'
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "result": "success"
+}
+```
+
+</collapse-text>
+
+</div>
+
+## best\_orders
+
+**best_orders coin action volume**
+
+The `best_orders` method returns the best price orders that can fill the volume for all existing pairs with selected coin.
+
+#### Arguments
+
+| Structure       | Type                       | Description                                                                   |
+| --------------- | -------------------------- | ----------------------------------------------------------------------------- |
+| coin            | string                     | the ticker of the coin to get best orders                                     |
+| action          | string                     | whether to `buy` or `sel` the selected coin                                   |
+| volume          | string                     | whether to `buy` or `sel` the selected coin                                   |
+
+#### Response
+
+| Structure              | Type         | Description                                                                                                                                                                                                     |
+| ---------------------- | ---------    | ----------------------------------------------------------------------------- |
+| result                 | object (map) | the `ticker -> array of order entries` map                                    |
+
+where order entry has the following structure
+
+| Structure              | Type              | Description                                                                          |
+| ---------------------- | ----------------- | ------------------------------------------------------------------------------------ |
+| coin                   | string            | the ticker of the coin                                                               |
+| address                | string            | the address offering the trade                                                       |
+| price                  | string (decimal)  | the price the user is willing to buy or sell per one unit of the coin from request   |
+| price_rat              | rational          | the price in num-rational crate format                                               |
+| price_fraction         | object (fraction) | the price represented as an object                                                   |
+| maxvolume              | string (decimal)  | the maximum amount of `base` the offer provider is willing to sell           |
+| max_volume_rat         | rational          | the max volume in num-rational crate format                                          |
+| max_volume_fraction    | object (rational) | the max volume represented as an object                                              |
+| min_volume             | string (decimal)  | the minimum amount of `base` coin the offer provider is willing to sell              |
+| min_volume_rat         | rational          | the min volume in num-rational crate format                                          |
+| min_volume_fraction    | object (rational) | the min volume represented as an object                                              |
+| pubkey                 | string            | the pubkey of the offer provider                                                     |
+| age                    | number            | the age of the offer (in seconds)                                                    |
+| zcredits               | number            | the zeroconf deposit amount (deprecated)                                             |
+| netid                  | number            | the id of the network on which the request is made (default is `0`)                  |
+| uuid                   | string            | the uuid of order                                                                    |
+| is_mine                | bool              | whether the order is placed by me                                                    |
+| base_max_volume            | string (decimal)  | the maximum amount of `base` coin the offer provider is willing to buy or sell   |
+| base_max_volume_rat        | rational          | the `base` max volume in num-rational crate format                               |
+| base_max_volume_fraction   | object (rational) | the `base` max volume represented as an object                                   |
+| base_min_volume            | string (decimal)  | the minimum amount of `base` coin the offer provider is willing to buy or sell   |
+| base_min_volume_rat        | rational          | the `base` min volume in num-rational crate format                               |
+| base_min_volume_fraction   | object (rational) | the `base` min volume represented as an object                                   |
+| rel_max_volume             | string (decimal)  | the maximum amount of `rel` coin the offer provider is willing to buy or sell    |
+| rel_max_volume_rat         | rational          | the `rel` max volume in num-rational crate format                                |
+| rel_max_volume_fraction    | object (rational) | the `rel` max volume represented as an object                                    |
+| rel_min_volume             | string (decimal)  | the minimum amount of `rel` coin the offer provider is willing to buy or sell    |
+| rel_min_volume_rat         | rational          | the `rel` min volume in num-rational crate format                                |
+| rel_min_volume_fraction    | object (rational) | the `rel` min volume represented as an object                                    |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method": "best_orders",
+  "coin": "RICK",
+  "action": "buy",
+  "volume": "1",
+}'
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "result": "success"
+}
+```
+
+</collapse-text>
+
+</div>
+
 ## cancel\_all\_orders
 
 **cancel_all_orders cancel_by**
