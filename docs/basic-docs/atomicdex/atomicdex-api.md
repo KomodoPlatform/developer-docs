@@ -448,11 +448,11 @@ Activation will be required to proceed with the trade.
 
 #### Arguments
 
-| Structure       | Type                       | Description                                                                   |
-| --------------- | -------------------------- | ----------------------------------------------------------------------------- |
-| coin            | string                     | the ticker of the coin to get best orders                                     |
-| action          | string                     | whether to `buy` or `sel` the selected coin                                   |
-| volume          | string                     | whether to `buy` or `sel` the selected coin                                   |
+| Structure       | Type                       | Description                                            |
+| --------------- | -------------------------- | ------------------------------------------------------ |
+| coin            | string                     | the ticker of the coin to get best orders              |
+| action          | string                     | whether to `buy` or `sell` the selected coin           |
+| volume          | string                     | the amount of `coin` user is willing to buy or sell    |
 
 #### Response
 
