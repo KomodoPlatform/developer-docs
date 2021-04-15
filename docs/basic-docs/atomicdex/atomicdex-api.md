@@ -54,13 +54,13 @@ Such requests result in non-deterministic behavior, as the AtomicDEX/MM2 softwar
 
 | Structure       | Type                       | Description                                                                   |
 | --------------- | -------------------------- | ----------------------------------------------------------------------------- |
-| (none)          | array of objects           | request objects to be executed in parallel                                                     |
+| (none)          | array of objects           | request objects to be executed in parallel                                    |
 
 #### Response
 
 | Structure       | Type                | Description                                                                                                                                                                                                     |
 | --------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| (none)          | array of objects    | the results, provided in the order of received requests; this may contain null elements                                                                                                                                                     |
+| (none)          | array of objects    | the results, provided in the order of received requests; this may contain null elements                                                                                                                         |
 
 #### :pushpin: Examples
 
@@ -124,10 +124,10 @@ The `active_swaps` method returns all the swaps that are currently running on th
 
 #### Response
 
-| Structure             | Type             | Description                                                     |
-| --------------------- | ---------------- | --------------------------------------------------------------- |
-| result                | result object    |                                                                 |
-| result.uuids          | array of strings | uuids of currently running swaps                                |
+| Structure             | Type             | Description                                                                                                |
+| --------------------- | ---------------- | ---------------------------------------------------------------                                            |
+| result                | result object    |                                                                                                            |
+| result.uuids          | array of strings | uuids of currently running swaps                                                                           |
 | result.statuses       | object (map)     | the `uuid -> swap status` map of currently running swaps; `null` if include_status is false in the request |
 
 #### :pushpin: Examples
@@ -312,24 +312,24 @@ The `all_swaps_uuids_by_filter` method returns all uuids of swaps that match the
 
 #### Arguments
 
-| Structure      | Type                          | Description                                                             |
-| -------------- | ----------------------------- | ----------------------------------------------------------------------- |
-| my_coin        | string                        | return only swaps that match the `swap.my_coin = request.my_coin` condition |
-| other_coin     | string                        | return only swaps that match the `swap.other_coin = request.other_coin` condition |
+| Structure      | Type                          | Description                                                                            |
+| -------------- | ----------------------------- | -----------------------------------------------------------------------                |
+| my_coin        | string                        | return only swaps that match the `swap.my_coin = request.my_coin` condition            |
+| other_coin     | string                        | return only swaps that match the `swap.other_coin = request.other_coin` condition      |
 | from_timestamp | number (timestamp in seconds) | return only swaps that match the `swap.started_at >= request.from_timestamp` condition |
-| to_timestamp   | number (timestamp in seconds) | return only swaps that match the `swap.started_at < request.to_timestamp` condition |
+| to_timestamp   | number (timestamp in seconds) | return only swaps that match the `swap.started_at < request.to_timestamp` condition    |
 
 #### Response
 
-| Structure             | Type             | Description                                                                                                                             |
+| Structure             | Type             | Description                                                     |
 | --------------------- | ---------------- | --------------------------------------------------------------- |
 | result                | result object    |                                                                 |
 | result.uuids          | array of strings | uuids of swaps that match the selected filters                  |
-| result.my_coin        | string           | my_coin that was set in request                                           |
-| result.other_coin     | string           | other_coin that was set in request                                        |
-| result.from_timestamp | number           | from_timestamp that was set in request                                    |
-| result.to_timestamp   | number           | to_timestamp that was set in request                                      |
-| result.records_found  | number           | the number of found uuids                                                 |
+| result.my_coin        | string           | my_coin that was set in request                                 |
+| result.other_coin     | string           | other_coin that was set in request                              |
+| result.from_timestamp | number           | from_timestamp that was set in request                          |
+| result.to_timestamp   | number           | to_timestamp that was set in request                            |
+| result.records_found  | number           | the number of found uuids                                       |
 
 #### :pushpin: Examples
 
@@ -379,17 +379,15 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
+## ban\_pubkey
 
-## buy
+**ban_pubkey pubkey reason**
 
-**buy base rel price volume (match_by order_type base_confs base_nota rel_confs rel_nota)**
-
-The `buy` method issues a buy request and attempts to match an order from the orderbook based on the provided arguments.
+The `ban_pubkey` method bans the selected pubkey ignoring its order matching messages and preventing its orders from displaying in the orderbook.
 
 ::: tip
 
-- Buy and sell methods always create the `taker` order first. A `taker` order must pay a `dexfee` during the swap as it is taking liquidity from the market. The `dexfee` is calculated as "the greater of either `0.0001 TAKER COIN` or `1/777th` the size of the desired order". If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
-- To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit( `0.00777` ) to the value of a trade. See the description of the `volume` argument for more info. 
+Use the secp256k1 pubkey without prefix for this method input. E.g. if pubkey is `022cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420` you should submit `2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420`.
 
 :::
 
@@ -397,44 +395,349 @@ The `buy` method issues a buy request and attempts to match an order from the or
 
 | Structure       | Type                       | Description                                                                   |
 | --------------- | -------------------------- | ----------------------------------------------------------------------------- |
-| base            | string                     | the name of the coin the user desires to receive                              |
-| rel             | string                     | the name of the coin the user desires to sell                                 |
-| price           | numeric string or rational | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| volume          | numeric string or rational | the amount of coins the user is willing to receive of the `base` coin; the following values must be greater than or equal to `0.00777`: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>          |
-| match_by        | object                     | the created order is matched using this condition. *Important:* This condition is not applied after a `GoodTillCancelled` order is converted to a `maker` request |
-| match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; default is `Any` |
-| match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
-| order_type      | object                     | the type of the order        |
-| order_type.type | string                     | there are two types from which to choose: `GoodTillCancelled` and `FillOrKill`. The `GoodTillCancelled` order is automatically converted to a `maker` order if the order is not matched in 30 seconds, and this `maker` order stays in the orderbook until explicitly cancelled. On the other hand, a `FillOrKill` order is cancelled if it is not matched within 30 seconds. The default type is `GoodTillCancelled` |
-| base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set |
-| base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set |
-| rel_confs       | number                     | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set |
-| rel_nota        | bool                       | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set |
+| pubkey          | string                     | the pubkey to ban                                                             |
+| reason          | string                     | the reason of banning                                                         |
 
 #### Response
 
 | Structure              | Type     | Description                                                                                                                                                                                                     |
 | ---------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                 | object   | the resulting order object                                                                                                                                                                                      |
-| result.action          | string   | the action of the request (`Buy`)                                                                                                                                                                               |
-| result.base            | string   | the base currency of request                                                                                                                                                                                    |
-| result.base_amount     | string   | the resulting amount of base currency that is received if the order matches (in decimal representation)                                                                                                    |
-| result.base_amount_rat | rational | the resulting amount of base currency that is received if the order matches (in rational representation)                                                                                                   |
-| result.rel             | string   | the rel currency of the request                                                                                                                                                                                 |
-| result.rel_amount      | string   | the maximum amount of `rel` coin that is spent in order to buy the `base_amount` (according to `price`, in decimal representation)                                                                                  |
-| result.rel_amount_rat  | rational | the maximum amount of `rel` coin that is spent in order to buy the `base_amount` (according to `price`, in rational representation)                                                                                 |
-| result.method          | string   | this field is used for internal P2P interactions; the value is always equal to "request"                                                                                                                        |
-| result.dest_pub_key    | string   | reserved for future use. `dest_pub_key` allows the user to choose the P2P node that is eligible to match with the request. This value defaults to a "zero pubkey", which means `anyone` can be a match |
-| result.sender_pubkey   | string   | the public key of this node                                                                                                                                                                                     |
-| result.uuid            | string   | the request uuid                                                                                                                                                                                                |
-| result.match_by        | object                     | the created order is matched using this condition                        |
-| result.match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
-| result.match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
-| result.conf_settings.base_confs   | number          | number of required blockchain confirmations for base coin atomic swap transaction      |
-| result.conf_settings.base_nota    | bool            | whether dPoW notarization is required for base coin atomic swap transaction            |
-| result.conf_settings.rel_confs    | number          | number of required blockchain confirmations for rel coin atomic swap transaction       |
-| result.conf_settings.rel_nota     | bool            | whether dPoW notarization is required for rel coin atomic swap transaction             |
+| result                 | string   | whether the ban was successful                                                                                                                                                                                  |
                                                                                                                                                                
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method": "ban_pubkey",
+  "pubkey": "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420",
+  "reason": "test",
+}'
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "result": "success"
+}
+```
+
+</collapse-text>
+
+</div>
+
+## best\_orders
+
+**best_orders coin action volume**
+
+The `best_orders` method returns the best price orders that can fill the volume for all existing pairs with selected coin.
+
+::: tip
+
+The response of this method can contain coins that are not activated on the MM2 instance.
+Activation will be required to proceed with the trade.
+
+:::
+
+#### Arguments
+
+| Structure       | Type                       | Description                                            |
+| --------------- | -------------------------- | ------------------------------------------------------ |
+| coin            | string                     | the ticker of the coin to get best orders              |
+| action          | string                     | whether to `buy` or `sell` the selected coin           |
+| volume          | string                     | the amount of `coin` user is willing to buy or sell    |
+
+#### Response
+
+| Structure              | Type         | Description                                                                   |
+| ---------------------- | ---------    | ----------------------------------------------------------------------------- |
+| result                 | object (map) | the `ticker -> array of order entries` map                                    |
+
+where order entry has the following structure
+
+| Structure                | Type              | Description                                                                          |
+| ----------------------   | ----------------- | ------------------------------------------------------------------------------------ |
+| coin                     | string            | the ticker of the coin                                                               |
+| address                  | string            | the address offering the trade                                                       |
+| price                    | string (decimal)  | the price the user is willing to buy or sell per one unit of the coin from request   |
+| price_rat                | rational          | the price in num-rational crate format                                               |
+| price_fraction           | object (fraction) | the price represented as an object                                                   |
+| maxvolume                | string (decimal)  | the maximum amount of `base` the offer provider is willing to sell                   |
+| max_volume_rat           | rational          | the max volume in num-rational crate format                                          |
+| max_volume_fraction      | object (rational) | the max volume represented as an object                                              |
+| min_volume               | string (decimal)  | the minimum amount of `base` coin the offer provider is willing to sell              |
+| min_volume_rat           | rational          | the min volume in num-rational crate format                                          |
+| min_volume_fraction      | object (rational) | the min volume represented as an object                                              |
+| pubkey                   | string            | the pubkey of the offer provider                                                     |
+| age                      | number            | the age of the offer (in seconds)                                                    |
+| zcredits                 | number            | the zeroconf deposit amount (deprecated)                                             |
+| netid                    | number            | the id of the network on which the request is made (default is `0`)                  |
+| uuid                     | string            | the uuid of order                                                                    |
+| is_mine                  | bool              | whether the order is placed by me                                                    |
+| base_max_volume          | string (decimal)  | the maximum amount of `base` coin the offer provider is willing to buy or sell       |
+| base_max_volume_rat      | rational          | the `base_max_volume` in num-rational crate format                                   |
+| base_max_volume_fraction | object (rational) | the `base_max_volume` represented as an object                                       |
+| base_min_volume          | string (decimal)  | the minimum amount of `base` coin the offer provider is willing to buy or sell       |
+| base_min_volume_rat      | rational          | the `base_min_volume` in num-rational crate format                                   |
+| base_min_volume_fraction | object (rational) | the `base_min_volume` represented as an object                                       |
+| rel_max_volume           | string (decimal)  | the maximum amount of `rel` coin the offer provider is willing to buy or sell        |
+| rel_max_volume_rat       | rational          | the `rel_max_volume` max volume in num-rational crate format                         |
+| rel_max_volume_fraction  | object (rational) | the `rel_max_volume` max volume represented as an object                             |
+| rel_min_volume           | string (decimal)  | the minimum amount of `rel` coin the offer provider is willing to buy or sell        |
+| rel_min_volume_rat       | rational          | the `rel_min_volume` in num-rational crate format                                    |
+| rel_min_volume_fraction  | object (rational) | the `rel_min_volume` represented as an object                                        |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method": "best_orders",
+  "coin": "RICK",
+  "action": "buy",
+  "volume": "1",
+}'
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "result": {
+    "MORTY": [
+      {
+        "coin": "MORTY",
+        "address": "RMaprYNUp8ErJ9ZAKcxMfpC4ioVycYCCCc",
+        "price": "1",
+        "price_rat": [ [ 1, [ 1 ] ], [ 1, [ 1 ] ] ],
+        "price_fraction": {
+          "numer": "1",
+          "denom": "1"
+        },
+        "maxvolume": "2",
+        "max_volume_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+        "max_volume_fraction": {
+          "numer": "2",
+          "denom": "1"
+        },
+        "min_volume": "0.00777",
+        "min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+        "min_volume_fraction": {
+          "numer": "777",
+          "denom": "100000"
+        },
+        "pubkey": "037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5",
+        "age": 1618306280,
+        "zcredits": 0,
+        "uuid": "09a61d61-9352-42f3-ae64-03e832aca07f",
+        "is_mine": false,
+        "base_max_volume": "2",
+        "base_max_volume_fraction": {
+          "numer": "2",
+          "denom": "1"
+        },
+        "base_max_volume_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+        "base_min_volume": "0.00777",
+        "base_min_volume_fraction": {
+          "numer": "777",
+          "denom": "100000"
+        },
+        "base_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+        "rel_max_volume": "2",
+        "rel_max_volume_fraction": {
+          "numer": "2",
+          "denom": "1"
+        },
+        "rel_max_volume_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+        "rel_min_volume": "0.00777",
+        "rel_min_volume_fraction": {
+          "numer": "777",
+          "denom": "100000"
+        },
+        "rel_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ]
+      },
+      {
+        "coin": "MORTY",
+        "address": "RB8yufv3YTfdzYnwz5paNnnDynGJG6WsqD",
+        "price": "0.9090909090909090909090909090909090909090909090909090909090909090909090909090909090909090909090909091",
+        "price_rat": [ [ 1, [ 10 ] ], [ 1, [ 11 ] ] ],
+        "price_fraction": {
+          "numer": "10",
+          "denom": "11"
+        },
+        "maxvolume": "56210.95940853",
+        "max_volume_rat": [ [ 1, [ 3278717685, 1308 ] ], [ 1, [ 100000000 ] ] ],
+        "max_volume_fraction": {
+          "numer": "5621095940853",
+          "denom": "100000000"
+        },
+        "min_volume": "0.0001",
+        "min_volume_rat": [ [ 1, [ 1 ] ], [ 1, [ 10000 ] ] ],
+        "min_volume_fraction": {
+          "numer": "1",
+          "denom": "10000"
+        },
+        "pubkey": "0315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732",
+        "age": 1618306280,
+        "zcredits": 0,
+        "uuid": "7b5fc790-cbe1-4714-812c-2e307818f258",
+        "is_mine": false,
+        "base_max_volume": "61832.055349383",
+        "base_max_volume_fraction": {
+          "numer": "61832055349383",
+          "denom": "1000000000"
+        },
+        "base_max_volume_rat": [ [ 1, [ 1706156167, 14396 ] ], [ 1, [ 1000000000 ] ] ],
+        "base_min_volume": "0.00011",
+        "base_min_volume_fraction": {
+          "numer": "11",
+          "denom": "100000"
+        },
+        "base_min_volume_rat": [ [ 1, [ 11 ] ], [ 1, [ 100000 ] ] ],
+        "rel_max_volume": "56210.95940853",
+        "rel_max_volume_fraction": {
+          "numer": "5621095940853",
+          "denom": "100000000"
+        },
+        "rel_max_volume_rat": [ [ 1, [ 3278717685, 1308 ] ], [ 1, [ 100000000 ] ] ],
+        "rel_min_volume": "0.0001",
+        "rel_min_volume_fraction": {
+          "numer": "1",
+          "denom": "10000"
+        },
+        "rel_min_volume_rat": [ [ 1, [ 1 ] ], [ 1, [ 10000 ] ] ]
+      }
+    ],
+    "OOT": [
+      {
+        "coin": "OOT",
+        "address": "RMaprYNUp8ErJ9ZAKcxMfpC4ioVycYCCCc",
+        "price": "0.01",
+        "price_rat": [ [ 1, [ 1 ] ], [ 1, [ 100 ] ] ],
+        "price_fraction": {
+          "numer": "1",
+          "denom": "100"
+        },
+        "maxvolume": "1140445.56120275",
+        "max_volume_rat": [ [ 1, [ 526976459, 1062 ] ], [ 1, [ 4000000 ] ] ],
+        "max_volume_fraction": {
+          "numer": "4561782244811",
+          "denom": "4000000"
+        },
+        "min_volume": "0.00777",
+        "min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+        "min_volume_fraction": {
+          "numer": "777",
+          "denom": "100000"
+        },
+        "pubkey": "037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5",
+        "age": 1618306280,
+        "zcredits": 0,
+        "uuid": "8ea62e1d-0df5-4807-9ee6-c6367ac4e8ce",
+        "is_mine": false,
+        "base_max_volume": "114044556.120275",
+        "base_max_volume_fraction": {
+          "numer": "4561782244811",
+          "denom": "40000"
+        },
+        "base_max_volume_rat": [ [ 1, [ 526976459, 1062 ] ], [ 1, [ 40000 ] ] ],
+        "base_min_volume": "0.777",
+        "base_min_volume_fraction": {
+          "numer": "777",
+          "denom": "1000"
+        },
+        "base_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 1000 ] ] ],
+        "rel_max_volume": "1140445.56120275",
+        "rel_max_volume_fraction": {
+          "numer": "4561782244811",
+          "denom": "4000000"
+        },
+        "rel_max_volume_rat": [ [ 1, [ 526976459, 1062 ] ], [ 1, [ 4000000 ] ] ],
+        "rel_min_volume": "0.00777",
+        "rel_min_volume_fraction": {
+          "numer": "777",
+          "denom": "100000"
+        },
+        "rel_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ]
+      }
+    ]
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
+## buy
+
+**buy base rel price volume (match_by order_type base_confs base_nota rel_confs rel_nota min_volume)**
+
+The `buy` method issues a buy request and attempts to match an order from the orderbook based on the provided arguments.
+
+::: tip
+
+- Buy and sell methods always create the `taker` order first. A `taker` order must pay a `dexfee` during the swap as it is taking liquidity from the market. The `dexfee` is calculated as "the greater of either `Minimum transaction amount (dust) TAKER COIN` or `0.0001 TAKER COIN` or `1/777th` the size of the desired order". If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
+- To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit to the value of a trade. See the description of the `volume` and `min_volume` arguments for more info.
+
+:::
+
+#### Arguments
+
+| Structure       | Type                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                           |
+| --------------- | --------------------------            | -----------------------------------------------------------------------------                                                                                                                                                                                                                                                                                                                                         |
+| base            | string                                | the name of the coin the user desires to receive                                                                                                                                                                                                                                                                                                                                                                      |
+| rel             | string                                | the name of the coin the user desires to sell                                                                                                                                                                                                                                                                                                                                                                         |
+| price           | numeric string or rational            | the price in `rel` the user is willing to pay per one unit of the `base` coin                                                                                                                                                                                                                                                                                                                                         |
+| volume          | numeric string or rational            | the amount of coins the user is willing to receive of the `base` coin; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                                                                                                                                           |
+| min_volume      | numeric string or rational (optional) | the amount of `base` coin that will be used as `min_volume` of `GoodTillCancelled` order after conversion to maker; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the product of the arguments `min_volume` and `price`</li></ul>                                                                                      |
+| match_by        | object                                | the created order is matched using this condition. *Important:* This condition is not applied after a `GoodTillCancelled` order is converted to a `maker` request                                                                                                                                                                                                                                                     |
+| match_by.type   | string                                | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; default is `Any`                                                                                                                                                                                                                                                                                          |
+| match_by.data   | array of strings                      | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type                                                                                                                                                                                                                                                                                                                              |
+| order_type      | object                                | the type of the order                                                                                                                                                                                                                                                                                                                                                                                                 |
+| order_type.type | string                                | there are two types from which to choose: `GoodTillCancelled` and `FillOrKill`. The `GoodTillCancelled` order is automatically converted to a `maker` order if the order is not matched in 30 seconds, and this `maker` order stays in the orderbook until explicitly cancelled. On the other hand, a `FillOrKill` order is cancelled if it is not matched within 30 seconds. The default type is `GoodTillCancelled` |
+| base_confs      | number                                | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                                                                                                      |
+| base_nota       | bool                                  | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                                                                                                            |
+| rel_confs       | number                                | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                                                                                                        |
+| rel_nota        | bool                                  | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                                                                                                              |
+
+#### Response
+
+| Structure                       | Type             | Description                                                                                                                                                                                                     |
+| ----------------------          | --------         | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                          | object           | the resulting order object                                                                                                                                                                                      |
+| result.action                   | string           | the action of the request (`Buy`)                                                                                                                                                                               |
+| result.base                     | string           | the base currency of request                                                                                                                                                                                    |
+| result.base_amount              | string           | the resulting amount of base currency that is received if the order matches (in decimal representation)                                                                                                         |
+| result.base_amount_rat          | rational         | the resulting amount of base currency that is received if the order matches (in rational representation)                                                                                                        |
+| result.rel                      | string           | the rel currency of the request                                                                                                                                                                                 |
+| result.rel_amount               | string           | the maximum amount of `rel` coin that is spent in order to buy the `base_amount` (according to `price`, in decimal representation)                                                                              |
+| result.rel_amount_rat           | rational         | the maximum amount of `rel` coin that is spent in order to buy the `base_amount` (according to `price`, in rational representation)                                                                             |
+| result.method                   | string           | this field is used for internal P2P interactions; the value is always equal to "request                                                                                                                         |
+| result.dest_pub_key             | string           | reserved for future use. `dest_pub_key` allows the user to choose the P2P node that is eligible to match with the request. This value defaults to a "zero pubkey", which means `anyone` can be a match          |
+| result.sender_pubkey            | string           | the public key of this node                                                                                                                                                                                     |
+| result.uuid                     | string           | the request uuid                                                                                                                                                                                                |
+| result.match_by                 | object           | the created order is matched using this condition                                                                                                                                                               |
+| result.match_by.type            | string           | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any`                                                                                    |
+| result.match_by.data            | array of strings | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type                                                                                                                        |
+| result.conf_settings.base_confs | number           | number of required blockchain confirmations for base coin atomic swap transaction                                                                                                                               |
+| result.conf_settings.base_nota  | bool             | whether dPoW notarization is required for base coin atomic swap transaction                                                                                                                                     |
+| result.conf_settings.rel_confs  | number           | number of required blockchain confirmations for rel coin atomic swap transaction                                                                                                                                |
+| result.conf_settings.rel_nota   | bool             | whether dPoW notarization is required for rel coin atomic swap transaction                                                                                                                                      |
+
 #### :pushpin: Examples
 
 #### Command (decimal representation)
@@ -596,7 +899,7 @@ The `cancel_all_orders` cancels the active orders created by the MM2 node by spe
 | cancel_by.data        | object | additional data the cancel condition; present with `Pair` and `Coin` types                                                       |
 | cancel_by.data.base   | string | base coin of the pair; `Pair` type only                                                                                          |
 | cancel_by.data.rel    | string | rel coin of the pair; `Pair` type only                                                                                           |
-| cancel_by.data.ticker | string | order is cancelled if it uses `ticker` as base or rel; `Coin` type only                                                     |
+| cancel_by.data.ticker | string | order is cancelled if it uses `ticker` as base or rel; `Coin` type only                                                          |
 
 #### Response
 
@@ -760,13 +1063,13 @@ Or this can be used to convert an ETH address from single to mixed case checksum
 
 #### Arguments
 
-| Structure         | Type   | Description                                                   |
-| ----------------- | ------ | ------------------------------------------------------------- |
-| coin              | string | the name of the coin address context                          |
-| from              | string | input address                                                 |
-| to_address_format | object | address format to which the input address should be converted |
+| Structure                 | Type          | Description                                                                                                                                                 |
+| -----------------         | ------        | -------------------------------------------------------------                                                                                               |
+| coin                      | string        | the name of the coin address context                                                                                                                        |
+| from                      | string        | input address                                                                                                                                               |
+| to_address_format         | object        | address format to which the input address should be converted                                                                                               |
 | to_address_format.format  | string (enum) | address format to which the input address should be converted, possible values: `mixedcase` for ETH/ERC20 coins; `cashaddress` or `standard` for UTXO coins |
-| to_address_format.network | string (enum) | network prefix for `cashaddress` format. Possible values: `bitcoincash` for BCH mainnet; `bchtest` for BCH testnet; `bchreg` for BCH regtest |
+| to_address_format.network | string (enum) | network prefix for `cashaddress` format. Possible values: `bitcoincash` for BCH mainnet; `bchtest` for BCH testnet; `bchreg` for BCH regtest                |
 
 #### Response
 
@@ -1029,14 +1332,16 @@ Smart contract deployment is similar to [creating QRC20 tokens](https://docs.qtu
 
 #### Response
 
-| Structure              | Type             | Description                                                                                                                                                                                                                                              |
-| ---------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                                                                                                                                                                  |
-| balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                                                                                                                                                                      |
-| coin                   | string           | the ticker of the enabled coin                                                                                                                                                                                                                           |
-| required_confirmations | number           | the number of transaction confirmations for which MM2 must wait during the atomic swap process                                                                                                                                                                           |
-| requires_notarization  | bool             | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions; applicable only for coins using Komodo dPoW                                  |
-| result                 | string           | the result of the request; this value either indicates `success`, or an error, or another type of failure                                                                                                                                                |
+| Structure              | Type                       | Description                                                                                                                                                     |
+| ---------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| address                | string                     | the address of the user's `coin` wallet, based on the user's passphrase                                                                                         |
+| balance                | string (numeric)           | the amount of `coin` the user holds in their wallet; does not include `unspendable_balance`                                                                     |
+| unspendable_balance    | string (numeric)           | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                                                                   |
+| coin                   | string                     | the ticker of the enabled coin                                                                                                                                  |
+| required_confirmations | number                     | the number of transaction confirmations for which MM2 must wait during the atomic swap process                                                                  |
+| mature_confirmations   | number (optional)          | the number of coinbase transaction confirmations required to become mature; UTXO coins only                                                                     |
+| requires_notarization  | bool                       | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions; applicable only for coins using Komodo dPoW |
+| result                 | string                     | the result of the request; this value either indicates `success`, or an error, or another type of failure                                                       |
 
 #### :pushpin: Examples
 
@@ -1057,6 +1362,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
+  "unspendable_balance": "0",
+  "mature_confirmations":100,
   "required_confirmations": 1,
   "requires_notarization": false,
   "result": "success"
@@ -1086,6 +1393,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "balance": "10",
   "required_confirmations": 1,
   "requires_notarization": false,
+  "unspendable_balance": "0",
+  "mature_confirmations":100,
   "result": "success"
 }
 ```
@@ -1113,6 +1422,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "balance": "10",
   "required_confirmations": 10,
   "requires_notarization": true,
+  "unspendable_balance": "0",
+  "mature_confirmations":100,
   "result": "success"
 }
 ```
@@ -1140,6 +1451,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "balance": "10",
   "required_confirmations": 1,
   "requires_notarization": false,
+  "unspendable_balance": "0",
+  "mature_confirmations":100,
   "result": "success"
 }
 ```
@@ -1239,27 +1552,29 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 
 #### Arguments
 
-| Structure             | Type                                             | Description                                                                                                                                                                                                                                                                                                         |
-| --------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                  | string                                           | the name of the coin the user desires to enable                                                                                                                                                                                                                                                                     |
-| urls                  | array of strings (required for ETH/ERC20)        | urls of Ethereum RPC nodes to which the user desires to connect                                                                                                                                                                                                                                                     |
-| swap_contract_address | string (required for ETH/ERC20)                  | address of etomic swap smart contract                                                                                                                                                                                                                                                                               |
-| gas_station_url       | string (optional for ETH/ERC20)                  | url of [ETH gas station API](https://docs.ethgasstation.info/); MM2 uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; when this parameter is set, MM2 will request the current gas price from Station for new transactions, and this often results in lower fees |
-| mm2                   | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1`                                                                                                                                                                                  |
-| tx_history            | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                                                                                                                                                               |
-| required_confirmations| number                                           | the number of confirmations for which MM2 must wait for the selected coin to perform the atomic swap transactions; applicable only for coins using Komodo dPoW                                                                    |
-| requires_notarization | bool                                             | whether the node should wait for a notarization of the selected coin that is performing the atomic swap transactions applicable only for coins using Komodo dPoW                                  |
+| Structure              | Type                                             | Description                                                                                                                                                                                                                                                                                                         |
+| ---------------------  | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                   | string                                           | the name of the coin the user desires to enable                                                                                                                                                                                                                                                                     |
+| urls                   | array of strings (required for ETH/ERC20)        | urls of Ethereum RPC nodes to which the user desires to connect                                                                                                                                                                                                                                                     |
+| swap_contract_address  | string (required for ETH/ERC20)                  | address of etomic swap smart contract                                                                                                                                                                                                                                                                               |
+| gas_station_url        | string (optional for ETH/ERC20)                  | url of [ETH gas station API](https://docs.ethgasstation.info/); MM2 uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; when this parameter is set, MM2 will request the current gas price from Station for new transactions, and this often results in lower fees |
+| mm2                    | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1`                                                                                                                                                                                  |
+| tx_history             | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                                                                                                                                                               |
+| required_confirmations | number                                           | the number of confirmations for which MM2 must wait for the selected coin to perform the atomic swap transactions; applicable only for coins using Komodo dPoW                                                                                                                                                      |
+| requires_notarization  | bool                                             | whether the node should wait for a notarization of the selected coin that is performing the atomic swap transactions applicable only for coins using Komodo dPoW                                                                                                                                                    |
 
 #### Response
 
-| Structure              | Type             | Description                                                                                                                                                                                                                                              |
-| ---------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                                                                                                                                                                  |
-| balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                                                                                                                                                                      |
-| coin                   | string           | the ticker of enabled coin                                                                                                                                                                                                                               |
-| required_confirmations | number           | MM2 will wait for the this number of coin's transaction confirmations during the swap                                                                                                                                                                    |
-| requires_notarization  | bool             | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions                                 |
-| result                 | string           | the result of the request; this value either indicates `success`, or an error or other type of failure                                                                                                                                                   |
+| Structure              | Type              | Description                                                                                                        |
+| ---------------------- | ----------------  | ------------------------------------------------------------------------------------------------------------------ |
+| address                | string            | the address of the user's `coin` wallet, based on the user's passphrase                                            |
+| balance                | string (numeric)  | the amount of `coin` the user holds in their wallet; does not include `unspendable_balance`                        |
+| unspendable_balance    | string (numeric)  | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                      |
+| coin                   | string            | the ticker of enabled coin                                                                                         |
+| required_confirmations | number            | MM2 will wait for the this number of coin's transaction confirmations during the swap                              |
+| requires_notarization  | bool              | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions |
+| mature_confirmations   | number (optional) | the number of coinbase transaction confirmations required to become mature; UTXO coins only                        |
+| result                 | string            | the result of the request; this value either indicates `success`, or an error or other type of failure             |
 
 #### :pushpin: Examples
 
@@ -1282,6 +1597,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "balance": "10",
   "required_confirmations": 1,
   "requires_notarization": false,
+  "unspendable_balance": "0",
+  "mature_confirmations":100,
   "result": "success"
 }
 ```
@@ -1309,6 +1626,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "balance": "10",
   "required_confirmations": 10,
   "requires_notarization": true,
+  "unspendable_balance": "0",
+  "mature_confirmations":100,
   "result": "success"
 }
 ```
@@ -1336,6 +1655,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "balance": "50",
   "required_confirmations": 1,
   "requires_notarization": false,
+  "unspendable_balance": "0",
   "result": "success"
 }
 ```
@@ -1363,6 +1683,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "balance": "50",
   "required_confirmations": 1,
   "requires_notarization": false,
+  "unspendable_balance": "0",
   "result": "success"
 }
 ```
@@ -1390,6 +1711,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "balance": "10",
   "required_confirmations": 1,
   "requires_notarization": false,
+  "unspendable_balance": "0",
+  "mature_confirmations":100,
   "result": "success"
 }
 ```
@@ -1512,13 +1835,13 @@ As a result, the value returned by the `get_trade_fee` for a QRC20 token include
 
 #### Response
 
-| Structure     | Type             | Description                                                                                                                                                |
-| ------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result        | object           | an object containing the relevant information                                                                                                              |
-| result.coin   | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example, ERC20 fees are paid by ETH (gas) |
-| result.amount | string (numeric) | the approximate fee amount to be paid per swap transaction in decimal representation                                                                                                |
-| result.amount_rat | rational     | the approximate fee amount to be paid per swap transaction in rational representation                                                                                                 |
-| result.amount_fraction | fraction| the approximate fee amount to be paid per swap transaction in fraction representation                                                                                                |
+| Structure              | Type             | Description                                                                                                                                                |
+| -------------          | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                 | object           | an object containing the relevant information                                                                                                              |
+| result.coin            | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example, ERC20 fees are paid by ETH (gas)     |
+| result.amount          | string (numeric) | the approximate fee amount to be paid per swap transaction in decimal representation                                                                       |
+| result.amount_rat      | rational         | the approximate fee amount to be paid per swap transaction in rational representation                                                                      |
+| result.amount_fraction | fraction         | the approximate fee amount to be paid per swap transaction in fraction representation                                                                      |
 
 #### :pushpin: Examples
 
@@ -1700,17 +2023,17 @@ This method only works when the KMD coin is activated.
 
 #### Response
 
-| Structure              | Type                       | Description                                                                                                                                  |
-| ---------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                 | array of objects           | the rewards info; each element corresponds to an unspent output and contains detailed information about the active user rewards corresponding to it                                         |
-| result.tx_hash         | string                     | the hash of the transaction                                                                                                                  |
-| result.height          | number (integer, optional) | the height of the block in which the transaction was included (empty if the tx is not mined yet)                                                                     |
-| result.output_index    | number (integer)           | the zero-based index of the output in the transaction’s list of outputs                                                                      |
-| result.amount          | string (numeric)           | the transaction output’s value                                                                                                              |
-| result.locktime        | number (integer)           | the transaction output's locktime                                                                                        |
-| result.accrued_rewards | object                     | the amount of accrued rewards if they exist or the reason for their non existence                                                                  |
-| result.accrue_start_at | number (integer, optional) | the rewards start to accrue at this time for the given transaction (empty if the rewards will never accrue to it)                              |
-| result.accrue_stop_at  | number (integer, optional) | the rewards stop to accrue at this time for the given transaction (empty if the tx is not mined yet or if rewards will never accrue to it) |
+| Structure              | Type                       | Description                                                                                                                                         |
+| ---------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------        |
+| result                 | array of objects           | the rewards info; each element corresponds to an unspent output and contains detailed information about the active user rewards corresponding to it |
+| result.tx_hash         | string                     | the hash of the transaction                                                                                                                         |
+| result.height          | number (integer, optional) | the height of the block in which the transaction was included (empty if the tx is not mined yet)                                                    |
+| result.output_index    | number (integer)           | the zero-based index of the output in the transaction’s list of outputs                                                                             |
+| result.amount          | string (numeric)           | the transaction output’s value                                                                                                                      |
+| result.locktime        | number (integer)           | the transaction output's locktime                                                                                                                   |
+| result.accrued_rewards | object                     | the amount of accrued rewards if they exist or the reason for their non existence                                                                   |
+| result.accrue_start_at | number (integer, optional) | the rewards start to accrue at this time for the given transaction (empty if the rewards will never accrue to it)                                   |
+| result.accrue_stop_at  | number (integer, optional) | the rewards stop to accrue at this time for the given transaction (empty if the tx is not mined yet or if rewards will never accrue to it)          |
 
 Where the `result.accrued_rewards` has either
 
@@ -1793,11 +2116,13 @@ Some cases of swap failures give cause for banning a node. For example, a market
 
 #### Response
 
-| Structure       | Type             | Description                                                                                                                                                                                                                                              |
-| ------------------------ | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                   | map of objects (key - pubkey in hexadecimal representation)  | the list of pubkeys banned by current node                                                                                                                                                                                                                    |
-| result.*.caused_by_swap  | string | the uuid of the swap that triggered the ban                                                                                                                                                                                                                     |
-| result.*.caused_by_event | object | the swap event that triggered the ban                                                                                                                                                                                                                   |                                                                                                                                                                                            
+| Structure                | Type                                                        | Description                                                                                                                                                                                                                                              |
+| ------------------------ | ----------------                                            | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                   | map of objects (key - pubkey in hexadecimal representation) | the list of pubkeys banned by current node                                                                                                                                                                                                               |
+| result.*.type            | string                                                      | the type of the ban; possible values: `Manual` or `FailedSwap`                                                                                                                                                                                           |
+| result.*.caused_by_swap  | string (optional)                                           | the uuid of the swap that triggered the ban; present only for the `FailedSwap` type                                                                                                                                                                      |
+| result.*.caused_by_event | object (optional)                                           | the swap event that triggered the ban; present only for the `FailedSwap` type                                                                                                                                                                            |
+| result.*.reason          | string (optional)                                           | the reason for the `Manual` ban                                                                                                                                                                                                                          |
 
 #### :pushpin: Examples
 
@@ -1815,19 +2140,85 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result":{
-    "15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732":{
-      "caused_by_event":{
-        "event":{
-          "data":{
-            "error":"taker_swap:547] \"taker_swap:543] timeout (180.0 > 180.0)\""
+  "result": {
+    "15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732": {
+      "type": "FailedSwap",
+      "caused_by_event": {
+        "event": {
+          "data": {
+            "error": "taker_swap:547] \"taker_swap:543] timeout (180.0 > 180.0)\""
           },
-          "type":"NegotiateFailed"
+          "type": "NegotiateFailed"
         },
-        "type":"Taker"
+        "type": "Taker"
       },
-      "caused_by_swap":"e8400870-e85a-42af-bb4f-9658ac86ffdf"
+      "caused_by_swap": "e8400870-e85a-42af-bb4f-9658ac86ffdf"
+    },
+    "15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044730": {
+      "type": "Manual",
+      "reason": "test"
     }
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
+## min\_trading\_vol 
+
+**min_trading_vol coin**
+
+The `min_trading_vol` method returns the minimum required volume for buy/sell/setprice methods for the selected `coin`.
+
+
+#### Arguments
+
+| Structure  | Type              | Description                                                           |
+| ---------- | ----------------- | --------------------------------------------------------------------- |
+| coin       | string            | the name of the coin to retrieve the minimum trading volume           |
+
+#### Response
+
+| Structure                       | Type             | Description                                                     |
+| ------------------------------- | ---------------- | --------------------------------------------------------------- |
+| result                          | object           | result object                                                   |
+| result.coin                     | string           | the coin ticker from the request                                |
+| result.min_trading_vol          | string (decimal) | the minimum trading volume threshold in decimal representation  |
+| result.min_trading_vol_rat      | rational         | the minimum trading volume threshold in rational representation |
+| result.min_trading_vol_fraction | fraction         | the minimum trading volume threshold in fraction representation |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '
+{
+  "userpass":"'$userpass'",
+  "method":"min_trading_vol",
+  "coin": "RICK"
+}
+'
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+  "result": {
+    "coin": "RICK",
+    "min_trading_vol": "0.0001",
+    "min_trading_vol_fraction": {
+      "numer": "1",
+      "denom": "10000"
+    },
+    "min_trading_vol_rat": [ [ 1, [ 1 ] ], [ 1, [ 10000 ] ] ]
   }
 }
 ```
@@ -1847,13 +2238,13 @@ This takes the dex fee and blockchain miner fees into account. The result should
 
 | Structure | Type   | Description                                                     |
 | --------- | ------ | --------------------------------------------------------------- |
-| coin      | string | the name of the coin to retrieve the max available taker volume | 
+| coin      | string | the name of the coin to retrieve the max available taker volume |
 
 #### Response
 
 | Structure | Type     | Description                                               |
 | --------- | -------- | --------------------------------------------------------- |
-| coin      | fraction | the max available taker volume in fraction representation |
+| result    | fraction | the max available taker volume in fraction representation |
 
 #### :pushpin: Examples
 
@@ -1896,11 +2287,12 @@ The `my_balance` method returns the current balance of the specified `coin`.
 
 #### Response
 
-| Structure       | Type             | Description                                                                                                                                                                                                                                              |
-| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| address         | string           | the address that holds the coins                                                                                                                                                                                                                         |
-| balance         | string (numeric) | the number of coins in the address                                                                                                                                                                                                                       |
-| coin            | string           | the name of the coin                                                                                                                                                                                                                                     |
+| Structure           | Type             | Description                                                                                   |
+| ------------------- | ---------------- | --------------------------------------------------------------------------------------------- |
+| address             | string           | the address that holds the coins                                                              |
+| balance             | string (numeric) | the number of coins in the address; does not include `unspendable_balance`                    |
+| unspendable_balance | string (numeric) | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs) |
+| coin                | string           | the name of the coin                                                                          |
 
 #### :pushpin: Examples
 
@@ -1920,6 +2312,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 {
   "address": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
   "balance": "60.00253836",
+  "unspendable_balance": "0.1",
   "coin": "HELLOWORLD"
 }
 ```
@@ -2108,28 +2501,28 @@ The `my_recent_swaps` method returns the data of the most recent atomic swaps ex
 
 #### Arguments
 
-| Structure      | Type                          | Description                                                             |
-| -------------- | ----------------------------- | ----------------------------------------------------------------------- |
-| limit          | number                        | limits the number of returned swaps. The default is `10`.               |
+| Structure      | Type                          | Description                                                                                                                                           |
+| -------------- | ----------------------------- | -----------------------------------------------------------------------                                                                               |
+| limit          | number                        | limits the number of returned swaps. The default is `10`.                                                                                             |
 | from_uuid      | string                        | MM2 will skip records until this uuid, skipping the `from_uuid` as well; The `from_uuid` approach is convenient for infinite scrolling implementation |
-| page_number    | number                        | MM2 will return `limit` swaps from the selected page; This param will be ignored if `from_uuid` is set. |
-| my_coin        | string                        | return only swaps that match the `swap.my_coin = request.my_coin` condition |
-| other_coin     | string                        | return only swaps that match the `swap.other_coin = request.other_coin` condition |
-| from_timestamp | number (timestamp in seconds) | return only swaps that match the `swap.started_at >= request.from_timestamp` condition |
-| to_timestamp   | number (timestamp in seconds) | return only swaps that match the `swap.started_at < request.to_timestamp` condition |
+| page_number    | number                        | MM2 will return `limit` swaps from the selected page; This param will be ignored if `from_uuid` is set.                                               |
+| my_coin        | string                        | return only swaps that match the `swap.my_coin = request.my_coin` condition                                                                           |
+| other_coin     | string                        | return only swaps that match the `swap.other_coin = request.other_coin` condition                                                                     |
+| from_timestamp | number (timestamp in seconds) | return only swaps that match the `swap.started_at >= request.from_timestamp` condition                                                                |
+| to_timestamp   | number (timestamp in seconds) | return only swaps that match the `swap.started_at < request.to_timestamp` condition                                                                   |
 
 #### Response
 
-| Structure     | Type             | Description                                                                                                                             |
-| ------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| swaps         | array of objects | swaps data; each record has the format of the `my_swap_status` response                                                                 |
-| from_uuid     | string           | the from_uuid that was set in the request; this value is null if nothing was set                                                        |
-| skipped       | number           | the number of skipped records (i.e. the position of `from_uuid` in the list + 1 or `(page_number - 1) * limit`; the value is 0 if `from_uuid` or `page_number` were not set or `page_number` is 1) |
-| limit         | number           | the limit that was set in the request; note that the actual number of swaps can differ from the specified limit (e.g. on the last page) |
-| total         | number           | total number of swaps available with the selected filters                                                                                   |
+| Structure     | Type             | Description                                                                                                                                                                                           |
+| ------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------                                                               |
+| swaps         | array of objects | swaps data; each record has the format of the `my_swap_status` response                                                                                                                               |
+| from_uuid     | string           | the from_uuid that was set in the request; this value is null if nothing was set                                                                                                                      |
+| skipped       | number           | the number of skipped records (i.e. the position of `from_uuid` in the list + 1 or `(page_number - 1) * limit`; the value is 0 if `from_uuid` or `page_number` were not set or `page_number` is 1)    |
+| limit         | number           | the limit that was set in the request; note that the actual number of swaps can differ from the specified limit (e.g. on the last page)                                                               |
+| total         | number           | total number of swaps available with the selected filters                                                                                                                                             |
 | page_number   | number           | the page_number that was set in the request; if both `page_number` and `from_uuid` are not set in request it will default to `1`; if `from_uuid` is present in request this value will be always null |
-| total_pages   | number           | total pages available with the selected filters and limit                                                                                 |
-| found_records | number           | the number of returned swaps                                                                                  |
+| total_pages   | number           | total pages available with the selected filters and limit                                                                                                                                             |
+| found_records | number           | the number of returned swaps                                                                                                                                                                          |
 
 #### :pushpin: Examples
 
@@ -2489,7 +2882,7 @@ The `my_swap_status` method returns the data of an atomic swap executed on a MM2
 | Structure      | Type                       | Description                                                                                                                                                                                                                                                                    |
 | -------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | events         | array of objects           | the events that occurred during the swap                                                                                                                                                                                                                                       |
-| events.type    | string                     | an event type; the list of event types with their data structure is available below                                                                                                                                                                                              |
+| events.type    | string                     | an event type; the list of event types with their data structure is available below                                                                                                                                                                                            |
 | events.data    | object                     | additional data of the event; the list of events with their data structure is available below                                                                                                                                                                                  |
 | success_events | array of strings           | a list of events that gained a `success` swap state; the contents are listed in the order in which they should occur in the `events` array                                                                                                                                     |
 | error_events   | array of strings           | a list of events that fell into an `error` swap state; if at least 1 of the events happens, the swap is considered a failure                                                                                                                                                   |
@@ -2516,26 +2909,26 @@ The `Started` event indicates that mandatory pre-checks passed, such as "availab
 
 The swap goes to the negotiation stage after this event occurs.
 
-| Structure                   | Type                              | Description                                                                                                                                                                                                                                                                    |
-| --------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| taker_coin                  | string                            | the ticker of the taker coin                                                                                                                                                                                                                                   |
-| maker_coin                  | string                            | the ticker of the maker coin                                                                                                                                                                                                                                   |
-| taker                       | string (hexadecimal)              | the p2p ID of taker node                                                                                                                                                                                                                                |                                                                                                                                                                                                                         |
-| secret                      | string (hexadecimal)              | a random secret, the hash of which is used to lock atomic-swap payments |
-| secret_hash                 | string (hexadecimal)              | the hash of the swap secret |
-| my_persistent_pub           | string (hexadecimal)              | a persistent secp256k1 public key of maker node |
-| lock_duration               | number (integer)                  | the lock duration of swap payments in seconds. The sender can refund the transaction when the lock duration is passed. The taker payment is locked for the lock duration. The maker payment is locked for lock duration * 2 |
-| maker_amount                | string (numeric)                  | the amount of coins to be swapped by maker |
-| taker_amount                | string (numeric)                  | the amount of coins to be swapped by taker |
-| maker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for maker payment |
-| maker_payment_requires_nota | bool                              | whether dPoW notarization is required for maker payment; can be null; available since `beta-2.0.1738` |
-| taker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for taker payment |
-| taker_payment_requires_nota | bool                              | whether dPoW notarization is required for taker payment; can be null; available since `beta-2.0.1738` |
-| maker_payment_lock          | number (UTC timestamp in seconds) | the maker payment is locked until this timestamp |
-| uuid                        | string                            | the swap uuid |
-| started_at                  | number (UTC timestamp in seconds) | the timestamp at the start of the swap |
-| maker_coin_start_block      | number (integer)                  | the maker coin block number at the start of the swap |
-| taker_coin_start_block      | number (integer)                  | the taker coin block number at the start of the swap |
+| Structure                   | Type                              | Description                                                                                                                                                                                                                     |
+| --------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| taker_coin                  | string                            | the ticker of the taker coin                                                                                                                                                                                                    |
+| maker_coin                  | string                            | the ticker of the maker coin                                                                                                                                                                                                    |
+| taker                       | string (hexadecimal)              | the p2p ID of taker node                                                                                                                                                                                                        |
+| secret                      | string (hexadecimal)              | a random secret, the hash of which is used to lock atomic-swap payments                                                                                                                                                         |
+| secret_hash                 | string (hexadecimal)              | the hash of the swap secret                                                                                                                                                                                                     |
+| my_persistent_pub           | string (hexadecimal)              | a persistent secp256k1 public key of maker node                                                                                                                                                                                 |
+| lock_duration               | number (integer)                  | the lock duration of swap payments in seconds. The sender can refund the transaction when the lock duration is passed. The taker payment is locked for the lock duration. The maker payment is locked for lock duration * 2     |
+| maker_amount                | string (numeric)                  | the amount of coins to be swapped by maker                                                                                                                                                                                      |
+| taker_amount                | string (numeric)                  | the amount of coins to be swapped by taker                                                                                                                                                                                      |
+| maker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for maker payment                                                                                                                                                               |
+| maker_payment_requires_nota | bool                              | whether dPoW notarization is required for maker payment; can be null; available since `beta-2.0.1738`                                                                                                                           |
+| taker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for taker payment                                                                                                                                                               |
+| taker_payment_requires_nota | bool                              | whether dPoW notarization is required for taker payment; can be null; available since `beta-2.0.1738`                                                                                                                           |
+| maker_payment_lock          | number (UTC timestamp in seconds) | the maker payment is locked until this timestamp                                                                                                                                                                                |
+| uuid                        | string                            | the swap uuid                                                                                                                                                                                                                   |
+| started_at                  | number (UTC timestamp in seconds) | the timestamp at the start of the swap                                                                                                                                                                                          |
+| maker_coin_start_block      | number (integer)                  | the maker coin block number at the start of the swap                                                                                                                                                                            |
+| taker_coin_start_block      | number (integer)                  | the taker coin block number at the start of the swap                                                                                                                                                                            |
 
 ##### StartFailed
 
@@ -2770,25 +3163,25 @@ The `Started` event indicates that mandatory pre-checks, such as "available bala
 
 The swap goes to negotiation stage after this event occurs.
 
-| Structure                   | Type                              | Description                                                                                                                                                                                                                                                                    |
-| --------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| taker_coin                  | string                            | the ticker of taker coin                                                                                                                                                                                                                                   |
-| maker_coin                  | string                            | the ticker of maker coin                                                                                                                                                                                                                                   |
-| maker                       | string (hexadecimal)              | the p2p ID of maker node                                                                                                                                                                                                                                |                                                                                                                                                                                                                         |
-| my_persistent_pub           | string (hexadecimal)              | a persistent secp256k1 public key of taker node |
-| lock_duration               | number (integer)                  | the lock duration of swap payments in seconds. The sender can refund the transaction when the lock duration is passed. The taker payment is locked for the lock duration. The maker payment is locked for lock duration * 2 |
-| maker_amount                | string (numeric)                  | the amount of coins to be swapped by maker |
-| taker_amount                | string (numeric)                  | the amount of coins to be swapped by taker |
-| maker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for maker payment |
-| maker_payment_requires_nota | bool                              | whether dPoW notarization is required for maker payment; can be null; available since `beta-2.0.1738` |
-| taker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for taker payment |
-| taker_payment_requires_nota | bool                              | whether dPoW notarization is required for taker payment; can be null; available since `beta-2.0.1738` |
-| taker_payment_lock          | number (UTC timestamp in seconds) | the taker payment is locked until this timestamp |
-| uuid                        | string                            | the swap uuid |
-| started_at                  | number (UTC timestamp in seconds) | the timestamp at the start of the swap |
-| maker_payment_wait          | number (UTC timestamp in seconds) | taker will wait for maker payment confirmation until this timestamp |
-| maker_coin_start_block      | number (integer)                  | the maker coin block number at the start of the swap |
-| taker_coin_start_block      | number (integer)                  | the taker coin block number at the start of the swap |
+| Structure                   | Type                              | Description                                                                                                                                                                                                                  |
+| --------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| taker_coin                  | string                            | the ticker of taker coin                                                                                                                                                                                                     |
+| maker_coin                  | string                            | the ticker of maker coin                                                                                                                                                                                                     |
+| maker                       | string (hexadecimal)              | the p2p ID of maker node                                                                                                                                                                                                     |
+| my_persistent_pub           | string (hexadecimal)              | a persistent secp256k1 public key of taker node                                                                                                                                                                              |
+| lock_duration               | number (integer)                  | the lock duration of swap payments in seconds. The sender can refund the transaction when the lock duration is passed. The taker payment is locked for the lock duration. The maker payment is locked for lock duration * 2  |
+| maker_amount                | string (numeric)                  | the amount of coins to be swapped by maker                                                                                                                                                                                   |
+| taker_amount                | string (numeric)                  | the amount of coins to be swapped by taker                                                                                                                                                                                   |
+| maker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for maker payment                                                                                                                                                            |
+| maker_payment_requires_nota | bool                              | whether dPoW notarization is required for maker payment; can be null; available since `beta-2.0.1738`                                                                                                                        |
+| taker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for taker payment                                                                                                                                                            |
+| taker_payment_requires_nota | bool                              | whether dPoW notarization is required for taker payment; can be null; available since `beta-2.0.1738`                                                                                                                        |
+| taker_payment_lock          | number (UTC timestamp in seconds) | the taker payment is locked until this timestamp                                                                                                                                                                             |
+| uuid                        | string                            | the swap uuid                                                                                                                                                                                                                |
+| started_at                  | number (UTC timestamp in seconds) | the timestamp at the start of the swap                                                                                                                                                                                       |
+| maker_payment_wait          | number (UTC timestamp in seconds) | taker will wait for maker payment confirmation until this timestamp                                                                                                                                                          |
+| maker_coin_start_block      | number (integer)                  | the maker coin block number at the start of the swap                                                                                                                                                                         |
+| taker_coin_start_block      | number (integer)                  | the taker coin block number at the start of the swap                                                                                                                                                                         |
 
 ##### StartFailed
 
@@ -2806,7 +3199,7 @@ The `Negotiated` event indicates that taker has received and validated swap nego
 
 Taker sends dex fee after this event occurs.
 
-| Structure              | Type                              | Description                                                                                                                                                                                                                                                                    |
+| Structure              | Type                              | Description                                                       |
 | ---------------------- | --------------------------------- | ----------------------------------------------------------------- |
 | maker_payment_locktime | number (UTC timestamp in seconds) | the maker payment is locked until this timestamp                  |
 | maker_pubkey           | string (hexadecimal)              | a persistent secp256k1 public key of maker node                   |
@@ -3545,13 +3938,13 @@ The coin that is used must have `tx_history` set to true in its [enable](../../.
 
 #### Arguments
 
-| Structure  | Type   | Description                                                                                                                                                                                 |
-| ---------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin       | string | the name of the coin for the history request                                                                                                                                                |
-| limit      | number | limits the number of returned transactions; ignored if `max = true`                                                                                                                                                  |
-| max        | bool   | whether to return all available records; defaults to `false`                                                                                                                                                 |
-| from_id    | string | MM2 will skip records until it reaches this ID, skipping the `from_id` as well; track the `internal_id` of the last displayed transaction to find the value of this field for the next page |
-| page_number| number | MM2 will return limit swaps from the selected page; This param will be ignored if from_uuid is set. |
+| Structure   | Type   | Description                                                                                                                                                                                 |
+| ----------  | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin        | string | the name of the coin for the history request                                                                                                                                                |
+| limit       | number | limits the number of returned transactions; ignored if `max = true`                                                                                                                         |
+| max         | bool   | whether to return all available records; defaults to `false`                                                                                                                                |
+| from_id     | string | MM2 will skip records until it reaches this ID, skipping the `from_id` as well; track the `internal_id` of the last displayed transaction to find the value of this field for the next page |
+| page_number | number | MM2 will return limit swaps from the selected page; This param will be ignored if from_uuid is set.                                                                                         |
 
 #### Response
 
@@ -3983,7 +4376,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## orderbook
 
-**orderbook base rel (duration=number)**
+**orderbook base rel**
 
 The `orderbook` method requests from the network the currently available orders for the specified trading pair.
 
@@ -3992,38 +4385,73 @@ The `orderbook` method requests from the network the currently available orders 
 | Structure | Type   | Description                                                                         |
 | --------- | ------ | ----------------------------------------------------------------------------------- |
 | base      | string | base currency of a pair                                                             |
-| rel       | string | "related" currency, also can be called "quote currency" according to exchange terms |
+| rel       | string | related" currency, also can be called "quote currency" according to exchange terms  |
 
 #### Response
 
-| Structure      | Type             | Description                                                                   |
-| -------------- | ---------------- | ----------------------------------------------------------------------------- |
-| bids           | array            | an array of objects containing outstanding bids                               |
-| numbids        | number           | the number of outstanding bids                                                |
-| biddepth       | number           | `deprecated`                                                                  |
-| asks           | array            | an array of objects containing outstanding asks                               |
-| coin           | string           | the name of the `base` coin; the user desires this                            |
-| address        | string           | the address offering the trade                                                |
-| price          | string (decimal) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| price_rat      | rational         | the price in num-rational crate format             |
-| price_fraction | object (rational)| the price represented as an object                                |
-| maxvolume      | string (decimal) | the maximum amount of `base` coin the offer provider is willing to sell       |
-| max_volume_rat | rational         | the max volume in num-rational crate format                                      |
-| max_volume_fraction | object (rational) | the max volume represented as an object                                      |
-| min_volume      | string (decimal) | the minimum amount of `base` coin the offer provider is willing to sell       |
-| min_volume_rat | rational         | the min volume in num-rational crate format                                      |
-| min_volume_fraction | object (rational) | the min volume represented as an object                                      |
-| pubkey         | string           | the pubkey of the offer provider                                              |
-| age            | number           | the age of the offer (in seconds)                                             |
-| zcredits       | number           | the zeroconf deposit amount                                                   |
-| numasks        | number           | the total number of asks                                                      |
-| askdepth       | number           | the depth of the ask requests                                                 |
-| base           | string           | the name of the coin the user desires to receive                              |
-| rel            | string           | the name of the coin the user will trade                                      |
-| timestamp      | number           | the timestamp of the orderbook request                                        |
-| netid          | number           | the id of the network on which the request is made (default is `0`)           |
-| uuid           | string           | the uuid of order                                                             |
-| is_mine        | bool             | whether the order is placed by me
+| Structure                    | Type             | Description                                                                   |
+| --------------               | ---------------- | ----------------------------------------------------------------------------- |
+| asks                         | array of `Order` | an array of objects containing outstanding asks                               |
+| bids                         | array of `Order` | an array of objects containing outstanding bids                               |
+| numbids                      | number           | the number of outstanding bids                                                |
+| biddepth                     | number           | `deprecated`                                                                  |
+| base                         | string           | the name of the coin the user desires to receive                              |
+| rel                          | string           | the name of the coin the user will trade                                      |
+| timestamp                    | number           | the timestamp of the orderbook request                                        |
+| netid                        | number           | the id of the network on which the request is made (default is `0`)           |
+| total_asks_base_vol          | string (decimal) | the base volumes sum of all asks                                              |
+| total_asks_base_vol_rat      | rational         | the `total_asks_base_vol` in num-rational crate format                        |
+| total_asks_base_vol_fraction | fraction         | the `total_asks_base_vol` represented as an object                            |
+| total_asks_rel_vol           | string (decimal) | the rel volumes sum of all asks                                               |
+| total_asks_rel_vol_rat       | rational         | the `total_asks_rel_vol` in num-rational crate format                         |
+| total_asks_rel_vol_fraction  | fraction         | the `total_asks_rel_vol` represented as an object                             |
+| total_bids_base_vol          | string (decimal) | the base volumes sum of all bids                                              |
+| total_bids_base_vol_rat      | rational         | the `total_bids_base_vol` in num-rational crate format                        |
+| total_bids_base_vol_fraction | fraction         | the `total_bids_base_vol` represented as an object                            |
+| total_bids_rel_vol           | string (decimal) | the rel volumes sum of all bids                                               |
+| total_bids_rel_vol_rat       | rational         | the `total_bids_rel_vol` in num-rational crate format                         |
+| total_bids_rel_vol_fraction  | fraction         | the `total_bids_rel_vol` represented as an object                             |
+
+Where `Order` object structure is as follows
+
+| Structure                     | Type              | Description                                                                                                                       |
+| ----------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------         |
+| coin                          | string            | the name of the `base` coin; the user desires this                                                                                |
+| address                       | string            | the address offering the trade                                                                                                    |
+| price                         | string (decimal)  | the price in `rel` the user is willing to pay per one unit of the `base` coin                                                     |
+| price_rat                     | rational          | the price in num-rational crate format                                                                                            |
+| price_fraction                | object (rational) | the price represented as an object                                                                                                |
+| maxvolume                     | string (decimal)  | the maximum amount of `base` coin the offer provider is willing to sell                                                           |
+| max_volume_rat                | rational          | the max volume in num-rational crate format                                                                                       |
+| max_volume_fraction           | object (rational) | the max volume represented as an object                                                                                           |
+| min_volume                    | string (decimal)  | the minimum amount of `base` coin the offer provider is willing to sell                                                           |
+| min_volume_rat                | rational          | the min volume in num-rational crate format                                                                                       |
+| min_volume_fraction           | object (rational) | the min volume represented as an object                                                                                           |
+| pubkey                        | string            | the pubkey of the offer provider                                                                                                  |
+| age                           | number            | the age of the offer (in seconds)                                                                                                 |
+| zcredits                      | number            | the zeroconf deposit amount                                                                                                       |
+| numasks                       | number            | the total number of asks                                                                                                          |
+| askdepth                      | number            | the depth of the ask requests                                                                                                     |
+| uuid                          | string            | the uuid of order                                                                                                                 |
+| is_mine                       | bool              | whether the order is placed by me                                                                                                 |
+| base_max_volume               | string (decimal)  | the maximum amount of `base` coin the offer provider is willing to buy or sell                                                    |
+| base_max_volume_rat           | rational          | the `base` max volume in num-rational crate format                                                                                |
+| base_max_volume_fraction      | object (rational) | the `base` max volume represented as an object                                                                                    |
+| base_min_volume               | string (decimal)  | the minimum amount of `base` coin the offer provider is willing to buy or sell                                                    |
+| base_min_volume_rat           | rational          | the `base` min volume in num-rational crate format                                                                                |
+| base_min_volume_fraction      | object (rational) | the `base` min volume represented as an object                                                                                    |
+| rel_max_volume                | string (decimal)  | the maximum amount of `rel` coin the offer provider is willing to buy or sell                                                     |
+| rel_max_volume_rat            | rational          | the `rel` max volume in num-rational crate format                                                                                 |
+| rel_max_volume_fraction       | object (rational) | the `rel` max volume represented as an object                                                                                     |
+| rel_min_volume                | string (decimal)  | the minimum amount of `rel` coin the offer provider is willing to buy or sell                                                     |
+| rel_min_volume_rat            | rational          | the `rel` min volume in num-rational crate format                                                                                 |
+| rel_min_volume_fraction       | object (rational) | the `rel` min volume represented as an object                                                                                     |
+| base_max_volume_aggr          | string (decimal)  | the base max volume aggregated at the price level; the sum of base volumes of the current order and all orders with a worse price |
+| base_max_volume_aggr_rat      | rational          | the `base_max_volume_aggr` in num-rational crate format                                                                           |
+| base_max_volume_aggr_fraction | object (rational) | the `base_max_volume_aggr` represented as an object                                                                               |
+| rel_max_volume_aggr           | string (decimal)  | the rel max volume aggregated at the price level; the sum of rel volumes of the current order and all orders with a worse price   |
+| rel_max_volume_aggr_rat       | rational          | the `rel_max_volume_aggr` in num-rational crate format                                                                            |
+| rel_max_volume_aggr_fraction  | object (rational) | the `rel_max_volume_aggr` represented as an object                                                                                |
 
 #### :pushpin: Examples
 
@@ -4044,50 +4472,627 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "askdepth": 0,
   "asks": [
     {
-      "coin": "HELLO",
-      "address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
-      "price": "1.33333333",
-      "price_rat": [
-        [1, [4]],
-        [1, [3]]
-      ],
-      "price_fraction":{
-        "numer":"4",
-        "denom":"3"
+      "coin": "RICK",
+      "address": "RB8yufv3YTfdzYnwz5paNnnDynGJG6WsqD",
+      "price": "1.1",
+      "price_rat": [ [ 1, [ 11 ] ], [ 1, [ 10 ] ] ],
+      "price_fraction": {
+        "numer": "11",
+        "denom": "10"
       },
-      "maxvolume": 997.0,
-      "max_volume_rat": [
-        [1, [997]],
-        [1, [1]]
-      ],
-      "max_volume_fraction":{
-        "numer":"997",
-        "denom":"1"
+      "maxvolume": "69709.32528304",
+      "max_volume_rat": [ [ 1, [ 1891586123, 101 ] ], [ 1, [ 6250000 ] ] ],
+      "max_volume_fraction": {
+        "numer": "435683283019",
+        "denom": "6250000"
+      },
+      "min_volume": "0.0001",
+      "min_volume_rat": [ [ 1, [ 1 ] ], [ 1, [ 10000 ] ] ],
+      "min_volume_fraction": {
+        "numer": "1",
+        "denom": "10000"
+      },
+      "pubkey": "0315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732",
+      "age": 1618381531,
+      "zcredits": 0,
+      "uuid": "bf66f122-aabd-4836-baa9-e08d7b4c3a4d",
+      "is_mine": false,
+      "base_max_volume": "69709.32528304",
+      "base_max_volume_fraction": {
+        "numer": "435683283019",
+        "denom": "6250000"
+      },
+      "base_max_volume_rat": [ [ 1, [ 1891586123, 101 ] ], [ 1, [ 6250000 ] ] ],
+      "base_min_volume": "0.0001",
+      "base_min_volume_fraction": {
+        "numer": "1",
+        "denom": "10000"
+      },
+      "base_min_volume_rat": [ [ 1, [ 1 ] ], [ 1, [ 10000 ] ] ],
+      "rel_max_volume": "76680.257811344",
+      "rel_max_volume_fraction": {
+        "numer": "4792516113209",
+        "denom": "62500000"
+      },
+      "rel_max_volume_rat": [ [ 1, [ 3627578169, 1115 ] ], [ 1, [ 62500000 ] ] ],
+      "rel_min_volume": "0.00011",
+      "rel_min_volume_fraction": {
+        "numer": "11",
+        "denom": "100000"
+      },
+      "rel_min_volume_rat": [ [ 1, [ 11 ] ], [ 1, [ 100000 ] ] ],
+      "base_max_volume_aggr": "69711.32528304",
+      "base_max_volume_aggr_fraction": {
+        "numer": "435695783019",
+        "denom": "6250000"
+      },
+      "base_max_volume_aggr_rat": [ [ 1, [ 1904086123, 101 ] ], [ 1, [ 6250000 ] ] ],
+      "rel_max_volume_aggr": "76682.257811344",
+      "rel_max_volume_aggr_fraction": {
+        "numer": "4792641113209",
+        "denom": "62500000"
+      },
+      "rel_max_volume_aggr_rat": [ [ 1, [ 3752578169, 1115 ] ], [ 1, [ 62500000 ] ] ]
+    },
+    {
+      "coin": "RICK",
+      "address": "RMaprYNUp8ErJ9ZAKcxMfpC4ioVycYCCCc",
+      "price": "1",
+      "price_rat": [ [ 1, [ 1 ] ], [ 1, [ 1 ] ] ],
+      "price_fraction": {
+        "numer": "1",
+        "denom": "1"
+      },
+      "maxvolume": "2",
+      "max_volume_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+      "max_volume_fraction": {
+        "numer": "2",
+        "denom": "1"
       },
       "min_volume": "0.00777",
-      "min_volume_rat": [
-        [1,[777]],
-        [1,[100000]]
-      ],
+      "min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
       "min_volume_fraction": {
         "numer": "777",
         "denom": "100000"
       },
-      "pubkey": "631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
-      "age": 1,
+      "pubkey": "037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5",
+      "age": 1618381531,
       "zcredits": 0,
-      "uuid": "6343b2b1-c896-47d4-b0f2-a11798f654ed",
-      "is_mine": false
+      "uuid": "f99a1ca7-0202-49b4-80da-23d95361c704",
+      "is_mine": false,
+      "base_max_volume": "2",
+      "base_max_volume_fraction": {
+        "numer": "2",
+        "denom": "1"
+      },
+      "base_max_volume_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+      "base_min_volume": "0.00777",
+      "base_min_volume_fraction": {
+        "numer": "777",
+        "denom": "100000"
+      },
+      "base_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+      "rel_max_volume": "2",
+      "rel_max_volume_fraction": {
+        "numer": "2",
+        "denom": "1"
+      },
+      "rel_max_volume_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+      "rel_min_volume": "0.00777",
+      "rel_min_volume_fraction": {
+        "numer": "777",
+        "denom": "100000"
+      },
+      "rel_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+      "base_max_volume_aggr": "2",
+      "base_max_volume_aggr_fraction": {
+        "numer": "2",
+        "denom": "1"
+      },
+      "base_max_volume_aggr_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+      "rel_max_volume_aggr": "2",
+      "rel_max_volume_aggr_fraction": {
+        "numer": "2",
+        "denom": "1"
+      },
+      "rel_max_volume_aggr_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ]
     }
   ],
-  "base": "HELLO",
+  "base": "RICK",
   "biddepth": 0,
-  "bids": [],
+  "bids": [
+    {
+      "coin": "MORTY",
+      "address": "RMaprYNUp8ErJ9ZAKcxMfpC4ioVycYCCCc",
+      "price": "1",
+      "price_rat": [ [ 1, [ 1 ] ], [ 1, [ 1 ] ] ],
+      "price_fraction": {
+        "numer": "1",
+        "denom": "1"
+      },
+      "maxvolume": "2",
+      "max_volume_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+      "max_volume_fraction": {
+        "numer": "2",
+        "denom": "1"
+      },
+      "min_volume": "0.00777",
+      "min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+      "min_volume_fraction": {
+        "numer": "777",
+        "denom": "100000"
+      },
+      "pubkey": "037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5",
+      "age": 1618381531,
+      "zcredits": 0,
+      "uuid": "ebc8e982-a1fb-46dd-ac5d-9773e094d699",
+      "is_mine": false,
+      "base_max_volume": "2",
+      "base_max_volume_fraction": {
+        "numer": "2",
+        "denom": "1"
+      },
+      "base_max_volume_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+      "base_min_volume": "0.00777",
+      "base_min_volume_fraction": {
+        "numer": "777",
+        "denom": "100000"
+      },
+      "base_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+      "rel_max_volume": "2",
+      "rel_max_volume_fraction": {
+        "numer": "2",
+        "denom": "1"
+      },
+      "rel_max_volume_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+      "rel_min_volume": "0.00777",
+      "rel_min_volume_fraction": {
+        "numer": "777",
+        "denom": "100000"
+      },
+      "rel_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+      "base_max_volume_aggr": "2",
+      "base_max_volume_aggr_fraction": {
+        "numer": "2",
+        "denom": "1"
+      },
+      "base_max_volume_aggr_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+      "rel_max_volume_aggr": "2",
+      "rel_max_volume_aggr_fraction": {
+        "numer": "2",
+        "denom": "1"
+      },
+      "rel_max_volume_aggr_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ]
+    },
+    {
+      "coin": "MORTY",
+      "address": "RJ64uWA7fhoaSnoZga9mDhE6FSuNyrts5y",
+      "price": "0.9847283211370791847221527988755820581396993104499014936871233734208355041669172800243960533191784546",
+      "price_rat": [ [ 1, [ 25000000 ] ], [ 1, [ 25387713 ] ] ],
+      "price_fraction": {
+        "numer": "25000000",
+        "denom": "25387713"
+      },
+      "maxvolume": "380.86547541",
+      "max_volume_rat": [ [ 1, [ 3726809173, 8 ] ], [ 1, [ 100000000 ] ] ],
+      "max_volume_fraction": {
+        "numer": "38086547541",
+        "denom": "100000000"
+      },
+      "min_volume": "0.00777",
+      "min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+      "min_volume_fraction": {
+        "numer": "777",
+        "denom": "100000"
+      },
+      "pubkey": "0251ecfa90e8b04dfd034b7a3cf36e7b35b7c76c11238f3ae3493b11cd535eca00",
+      "age": 1618381531,
+      "zcredits": 0,
+      "uuid": "5a483a02-ac7a-4c82-aac7-5ec4d94131de",
+      "is_mine": false,
+      "base_max_volume": "386.7721352527054932",
+      "base_max_volume_fraction": {
+        "numer": "966930338131763733",
+        "denom": "2500000000000000"
+      },
+      "base_max_volume_rat": [ [ 1, [ 4276380181, 225131012 ] ], [ 1, [ 2616213504, 582076 ] ] ],
+      "base_min_volume": "0.0078905012004",
+      "base_min_volume_fraction": {
+        "numer": "19726253001",
+        "denom": "2500000000000"
+      },
+      "base_min_volume_rat": [ [ 1, [ 2546383817, 4 ] ], [ 1, [ 329033728, 582 ] ] ],
+      "rel_max_volume": "380.86547541",
+      "rel_max_volume_fraction": {
+        "numer": "38086547541",
+        "denom": "100000000"
+      },
+      "rel_max_volume_rat": [ [ 1, [ 3726809173, 8 ] ], [ 1, [ 100000000 ] ] ],
+      "rel_min_volume": "0.00777",
+      "rel_min_volume_fraction": {
+        "numer": "777",
+        "denom": "100000"
+      },
+      "rel_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+      "base_max_volume_aggr": "388.7721352527054932",
+      "base_max_volume_aggr_fraction": {
+        "numer": "971930338131763733",
+        "denom": "2500000000000000"
+      },
+      "base_max_volume_aggr_rat": [ [ 1, [ 918872597, 226295166 ] ], [ 1, [ 2616213504, 582076 ] ] ],
+      "rel_max_volume_aggr": "382.86547541",
+      "rel_max_volume_aggr_fraction": {
+        "numer": "38286547541",
+        "denom": "100000000"
+      },
+      "rel_max_volume_aggr_rat": [ [ 1, [ 3926809173, 8 ] ], [ 1, [ 100000000 ] ] ]
+    },
+    {
+      "coin": "MORTY",
+      "address": "RB8yufv3YTfdzYnwz5paNnnDynGJG6WsqD",
+      "price": "0.9090909090909090909090909090909090909090909090909090909090909090909090909090909090909090909090909091",
+      "price_rat": [ [ 1, [ 10 ] ], [ 1, [ 11 ] ] ],
+      "price_fraction": {
+        "numer": "10",
+        "denom": "11"
+      },
+      "maxvolume": "56120.59538087909090909090909090909090909090909090909090909090909090909090909090909090909090909090909",
+      "max_volume_rat": [ [ 1, [ 1089973559, 14373 ] ], [ 1, [ 1100000000 ] ] ],
+      "max_volume_fraction": {
+        "numer": "61732654918967",
+        "denom": "1100000000"
+      },
+      "min_volume": "0.0001",
+      "min_volume_rat": [ [ 1, [ 1 ] ], [ 1, [ 10000 ] ] ],
+      "min_volume_fraction": {
+        "numer": "1",
+        "denom": "10000"
+      },
+      "pubkey": "0315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732",
+      "age": 1618381531,
+      "zcredits": 0,
+      "uuid": "7b5fc790-cbe1-4714-812c-2e307818f258",
+      "is_mine": false,
+      "base_max_volume": "61732.654918967",
+      "base_max_volume_fraction": {
+        "numer": "61732654918967",
+        "denom": "1000000000"
+      },
+      "base_max_volume_rat": [ [ 1, [ 1089973559, 14373 ] ], [ 1, [ 1000000000 ] ] ],
+      "base_min_volume": "0.00011",
+      "base_min_volume_fraction": {
+        "numer": "11",
+        "denom": "100000"
+      },
+      "base_min_volume_rat": [ [ 1, [ 11 ] ], [ 1, [ 100000 ] ] ],
+      "rel_max_volume": "56120.59538087909090909090909090909090909090909090909090909090909090909090909090909090909090909090909",
+      "rel_max_volume_fraction": {
+        "numer": "61732654918967",
+        "denom": "1100000000"
+      },
+      "rel_max_volume_rat": [ [ 1, [ 1089973559, 14373 ] ], [ 1, [ 1100000000 ] ] ],
+      "rel_min_volume": "0.0001",
+      "rel_min_volume_fraction": {
+        "numer": "1",
+        "denom": "10000"
+      },
+      "rel_min_volume_rat": [ [ 1, [ 1 ] ], [ 1, [ 10000 ] ] ],
+      "base_max_volume_aggr": "62121.4270542197054932",
+      "base_max_volume_aggr_fraction": {
+        "numer": "155303567635549263733",
+        "denom": "2500000000000000"
+      },
+      "base_max_volume_aggr_rat": [ [ 1, [ 1405359989, 1799691246, 8 ] ], [ 1, [ 2616213504, 582076 ] ] ],
+      "rel_max_volume_aggr": "56503.46085628909090909090909090909090909090909090909090909090909090909090909090909090909090909090909",
+      "rel_max_volume_aggr_fraction": {
+        "numer": "31076903470959",
+        "denom": "550000000"
+      },
+      "rel_max_volume_aggr_rat": [ [ 1, [ 2815084399, 7235 ] ], [ 1, [ 550000000 ] ] ]
+    },
+    {
+      "coin": "MORTY",
+      "address": "RD9Jv1onKkFSey1km2AdcvhsRPvRxv8saX",
+      "price": "0.17",
+      "price_rat": [ [ 1, [ 17 ] ], [ 1, [ 100 ] ] ],
+      "price_fraction": {
+        "numer": "17",
+        "denom": "100"
+      },
+      "maxvolume": "0.01921",
+      "max_volume_rat": [ [ 1, [ 1921 ] ], [ 1, [ 100000 ] ] ],
+      "max_volume_fraction": {
+        "numer": "1921",
+        "denom": "100000"
+      },
+      "min_volume": "0.0001000008",
+      "min_volume_rat": [ [ 1, [ 125001 ] ], [ 1, [ 1250000000 ] ] ],
+      "min_volume_fraction": {
+        "numer": "125001",
+        "denom": "1250000000"
+      },
+      "pubkey": "039ef1b42c635c32440099910bbe1c5e8b0c9373274c3f21cf1003750fc88d3499",
+      "age": 1618381531,
+      "zcredits": 0,
+      "uuid": "41559ddd-8cba-4322-a74b-69ea1027a7c4",
+      "is_mine": false,
+      "base_max_volume": "0.113",
+      "base_max_volume_fraction": {
+        "numer": "113",
+        "denom": "1000"
+      },
+      "base_max_volume_rat": [ [ 1, [ 113 ] ], [ 1, [ 1000 ] ] ],
+      "base_min_volume": "0.00058824",
+      "base_min_volume_fraction": {
+        "numer": "7353",
+        "denom": "12500000"
+      },
+      "base_min_volume_rat": [ [ 1, [ 7353 ] ], [ 1, [ 12500000 ] ] ],
+      "rel_max_volume": "0.01921",
+      "rel_max_volume_fraction": {
+        "numer": "1921",
+        "denom": "100000"
+      },
+      "rel_max_volume_rat": [ [ 1, [ 1921 ] ], [ 1, [ 100000 ] ] ],
+      "rel_min_volume": "0.0001000008",
+      "rel_min_volume_fraction": {
+        "numer": "125001",
+        "denom": "1250000000"
+      },
+      "rel_min_volume_rat": [ [ 1, [ 125001 ] ], [ 1, [ 1250000000 ] ] ],
+      "base_max_volume_aggr": "62121.5400542197054932",
+      "base_max_volume_aggr_fraction": {
+        "numer": "155303850135549263733",
+        "denom": "2500000000000000"
+      },
+      "base_max_volume_aggr_rat": [ [ 1, [ 4226432885, 1799757020, 8 ] ], [ 1, [ 2616213504, 582076 ] ] ],
+      "rel_max_volume_aggr": "56503.48006628909090909090909090909090909090909090909090909090909090909090909090909090909090909090909",
+      "rel_max_volume_aggr_fraction": {
+        "numer": "31076914036459",
+        "denom": "550000000"
+      },
+      "rel_max_volume_aggr_rat": [ [ 1, [ 2825649899, 7235 ] ], [ 1, [ 550000000 ] ] ]
+    },
+    {
+      "coin": "MORTY",
+      "address": "RD9Jv1onKkFSey1km2AdcvhsRPvRxv8saX",
+      "price": "0.113",
+      "price_rat": [ [ 1, [ 113 ] ], [ 1, [ 1000 ] ] ],
+      "price_fraction": {
+        "numer": "113",
+        "denom": "1000"
+      },
+      "maxvolume": "0.014351",
+      "max_volume_rat": [ [ 1, [ 14351 ] ], [ 1, [ 1000000 ] ] ],
+      "max_volume_fraction": {
+        "numer": "14351",
+        "denom": "1000000"
+      },
+      "min_volume": "0.00010000048",
+      "min_volume_rat": [ [ 1, [ 625003 ] ], [ 1, [ 1955032704, 1 ] ] ],
+      "min_volume_fraction": {
+        "numer": "625003",
+        "denom": "6250000000"
+      },
+      "pubkey": "039ef1b42c635c32440099910bbe1c5e8b0c9373274c3f21cf1003750fc88d3499",
+      "age": 1618381531,
+      "zcredits": 0,
+      "uuid": "6949a7c0-0c8b-4a01-bf6a-ee80e7c05a09",
+      "is_mine": false,
+      "base_max_volume": "0.127",
+      "base_max_volume_fraction": {
+        "numer": "127",
+        "denom": "1000"
+      },
+      "base_max_volume_rat": [ [ 1, [ 127 ] ], [ 1, [ 1000 ] ] ],
+      "base_min_volume": "0.00088496",
+      "base_min_volume_fraction": {
+        "numer": "5531",
+        "denom": "6250000"
+      },
+      "base_min_volume_rat": [ [ 1, [ 5531 ] ], [ 1, [ 6250000 ] ] ],
+      "rel_max_volume": "0.014351",
+      "rel_max_volume_fraction": {
+        "numer": "14351",
+        "denom": "1000000"
+      },
+      "rel_max_volume_rat": [ [ 1, [ 14351 ] ], [ 1, [ 1000000 ] ] ],
+      "rel_min_volume": "0.00010000048",
+      "rel_min_volume_fraction": {
+        "numer": "625003",
+        "denom": "6250000000"
+      },
+      "rel_min_volume_rat": [ [ 1, [ 625003 ] ], [ 1, [ 1955032704, 1 ] ] ],
+      "base_max_volume_aggr": "62121.6670542197054932",
+      "base_max_volume_aggr_fraction": {
+        "numer": "155304167635549263733",
+        "denom": "2500000000000000"
+      },
+      "base_max_volume_aggr_rat": [ [ 1, [ 3064043381, 1799830944, 8 ] ], [ 1, [ 2616213504, 582076 ] ] ],
+      "rel_max_volume_aggr": "56503.49441728909090909090909090909090909090909090909090909090909090909090909090909090909090909090909",
+      "rel_max_volume_aggr_fraction": {
+        "numer": "31076921929509",
+        "denom": "550000000"
+      },
+      "rel_max_volume_aggr_rat": [ [ 1, [ 2833542949, 7235 ] ], [ 1, [ 550000000 ] ] ]
+    },
+    {
+      "coin": "MORTY",
+      "address": "RD9Jv1onKkFSey1km2AdcvhsRPvRxv8saX",
+      "price": "0.111",
+      "price_rat": [ [ 1, [ 111 ] ], [ 1, [ 1000 ] ] ],
+      "price_fraction": {
+        "numer": "111",
+        "denom": "1000"
+      },
+      "maxvolume": "0.012321",
+      "max_volume_rat": [ [ 1, [ 12321 ] ], [ 1, [ 1000000 ] ] ],
+      "max_volume_fraction": {
+        "numer": "12321",
+        "denom": "1000000"
+      },
+      "min_volume": "0.00010000101",
+      "min_volume_rat": [ [ 1, [ 10000101 ] ], [ 1, [ 1215752192, 23 ] ] ],
+      "min_volume_fraction": {
+        "numer": "10000101",
+        "denom": "100000000000"
+      },
+      "pubkey": "039ef1b42c635c32440099910bbe1c5e8b0c9373274c3f21cf1003750fc88d3499",
+      "age": 1618381531,
+      "zcredits": 0,
+      "uuid": "8cc74b4d-3b16-4f2b-8658-66b1195934f0",
+      "is_mine": false,
+      "base_max_volume": "0.111",
+      "base_max_volume_fraction": {
+        "numer": "111",
+        "denom": "1000"
+      },
+      "base_max_volume_rat": [ [ 1, [ 111 ] ], [ 1, [ 1000 ] ] ],
+      "base_min_volume": "0.00090091",
+      "base_min_volume_fraction": {
+        "numer": "90091",
+        "denom": "100000000"
+      },
+      "base_min_volume_rat": [ [ 1, [ 90091 ] ], [ 1, [ 100000000 ] ] ],
+      "rel_max_volume": "0.012321",
+      "rel_max_volume_fraction": {
+        "numer": "12321",
+        "denom": "1000000"
+      },
+      "rel_max_volume_rat": [ [ 1, [ 12321 ] ], [ 1, [ 1000000 ] ] ],
+      "rel_min_volume": "0.00010000101",
+      "rel_min_volume_fraction": {
+        "numer": "10000101",
+        "denom": "100000000000"
+      },
+      "rel_min_volume_rat": [ [ 1, [ 10000101 ] ], [ 1, [ 1215752192, 23 ] ] ],
+      "base_max_volume_aggr": "62121.7780542197054932",
+      "base_max_volume_aggr_fraction": {
+        "numer": "155304445135549263733",
+        "denom": "2500000000000000"
+      },
+      "base_max_volume_aggr_rat": [ [ 1, [ 932081525, 1799895555, 8 ] ], [ 1, [ 2616213504, 582076 ] ] ],
+      "rel_max_volume_aggr": "56503.50673828909090909090909090909090909090909090909090909090909090909090909090909090909090909090909",
+      "rel_max_volume_aggr_fraction": {
+        "numer": "31076928706059",
+        "denom": "550000000"
+      },
+      "rel_max_volume_aggr_rat": [ [ 1, [ 2840319499, 7235 ] ], [ 1, [ 550000000 ] ] ]
+    }
+  ],
   "netid": 7777,
-  "numasks": 1,
-  "numbids": 0,
-  "rel": "WORLD",
-  "timestamp": 1568807329
+  "numasks": 2,
+  "numbids": 6,
+  "rel": "MORTY",
+  "timestamp": 1618381531,
+  "total_asks_base_vol": "69711.32528304",
+  "total_asks_base_vol_fraction": {
+    "numer": "435695783019",
+    "denom": "6250000"
+  },
+  "total_asks_base_vol_rat": [ [ 1, [ 1904086123, 101 ] ], [ 1, [ 6250000 ] ] ],
+  "total_asks_rel_vol": "76682.257811344",
+  "total_asks_rel_vol_fraction": {
+    "numer": "4792641113209",
+    "denom": "62500000"
+  },
+  "total_asks_rel_vol_rat": [ [ 1, [ 3752578169, 1115 ] ], [ 1, [ 62500000 ] ] ],
+  "total_bids_base_vol": "62121.7780542197054932",
+  "total_bids_base_vol_fraction": {
+    "numer": "155304445135549263733",
+    "denom": "2500000000000000"
+  },
+  "total_bids_base_vol_rat": [ [ 1, [ 932081525, 1799895555, 8 ] ], [ 1, [ 2616213504, 582076 ] ] ],
+  "total_bids_rel_vol": "56503.50673828909090909090909090909090909090909090909090909090909090909090909090909090909090909090909",
+  "total_bids_rel_vol_fraction": {
+    "numer": "31076928706059",
+    "denom": "550000000"
+  },
+  "total_bids_rel_vol_rat": [ [ 1, [ 2840319499, 7235 ] ], [ 1, [ 550000000 ] ] ]
+}
+```
+
+</collapse-text>
+
+</div>
+
+## orderbook\_depth
+
+**orderbook_depth pairs**
+
+The `orderbook_depth` method returns the number of asks and bids for the specified trading pairs.
+
+#### Arguments
+
+| Structure | Type   | Description                                                                         |
+| --------- | ------ | ----------------------------------------------------------------------------------- |
+| pairs     | array  | an array of trading pairs                                                           |
+
+#### Response
+
+::: warning Important
+
+The pairs in the response are not guaranteed to be in the order of pairs in the request.
+
+:::
+
+| Structure      | Type                 | Description                                                                   |
+| -------------- | ----------------     | ----------------------------------------------------------------------------- |
+| result         | array of `PairDepth` | an array of pair depth objects                                                |
+
+Where `PairDepth` object structure is as follows
+
+| Structure                     | Type               | Description                                                                                                               |
+| ----------------------------- | -----------------  | ------------------------------------------------------------------------------------------------------------------------- |
+| pair                          | array of 2 strings | the orderbook pair                                                                                                        |
+| depth.asks                    | number             | the number of asks                                                                                                        |
+| depth.bids                    | number             | the number of bids                                                                                                        |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data '
+{
+  "userpass":"'$userpass'",
+  "method":"orderbook_depth",
+  "pairs":[["RICK","MORTY"],["BTC","KMD"],["DOGE","KMD"]]
+}
+'
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+    "result": [
+        {
+            "pair": [ "RICK", "MORTY" ],
+            "depth": {
+                "asks": 2,
+                "bids": 6
+            }
+        },
+        {
+            "pair": [ "DOGE", "KMD" ],
+            "depth": {
+                "asks": 3,
+                "bids": 3
+            }
+        },
+        {
+            "pair": [ "BTC", "KMD" ],
+            "depth": {
+                "asks": 5,
+                "bids": 9
+            }
+        }
+    ]
 }
 ```
 
@@ -4186,52 +5191,53 @@ The `sell` method issues a sell request and attempts to match an order from the 
 
 ::: tip
 
-- Buy and sell methods always create the `taker` order first. A `taker` order must pay a `dexfee` during the swap as it is taking liquidity from the market. The `dexfee` is calculated as "the greater of either `0.0001 TAKER COIN` or `1/777th` the size of the desired order". If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
-- To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit( `0.00777` ) to the value of a trade. See the description of the `volume` argument for more info. 
+- Buy and sell methods always create the `taker` order first. A `taker` order must pay a `dexfee` during the swap as it is taking liquidity from the market. The `dexfee` is calculated as "the greater of either `Minimum transaction amount (dust) TAKER COIN` or `0.0001 TAKER COIN` or `1/777th` the size of the desired order". If your `GoodTillCancelled` order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice](../../../basic-docs/atomicdex/atomicdex-api.html#setprice) method.
+- To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit to the value of a trade. See the description of the `volume` argument for more info. 
 
 :::
 
 #### Arguments
 
-| Structure       | Type                       | Description                                                                       |
-| --------------- | -------------------------- | --------------------------------------------------------------------------------- |
-| base            | string                     | the name of the coin the user desires to sell                                     |
-| rel             | string                     | the name of the coin the user desires to receive                                  |
-| price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin |
-| volume          | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin; the following values must be greater than or equal to `0.00777`: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>             |
-| match_by        | object                     | the created order is matched using this condition; *important:* this condition is not applied after `GoodTillCancelled` order conversion to `maker` request            |
-| match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
-| match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
-| order_type      | object                     | the type of the order        |
+| Structure       | Type                       | Description                                                                                                                                                                                                                                                                                                                                                                                                           |
+| --------------- | -------------------------- | ---------------------------------------------------------------------------------                                                                                                                                                                                                                                                                                                                                     |
+| base            | string                     | the name of the coin the user desires to sell                                                                                                                                                                                                                                                                                                                                                                         |
+| rel             | string                     | the name of the coin the user desires to receive                                                                                                                                                                                                                                                                                                                                                                      |
+| price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                                                                                                                                                                                                                                                                                                                     |
+| volume          | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                                                                                                                                                                                |
+| min_volume      | numeric string or rational (optional) | the amount of `base` coin that will be used as `min_volume` of `GoodTillCancelled` order after conversion to maker; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the product of the arguments `min_volume` and `price`</li></ul>                                                                                      |
+| match_by        | object                     | the created order is matched using this condition; *important:* this condition is not applied after `GoodTillCancelled` order conversion to `maker` request                                                                                                                                                                                                                                                           |
+| match_by.type   | string                     | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any`                                                                                                                                                                                                                                                                                          |
+| match_by.data   | array of strings           | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type                                                                                                                                                                                                                                                                                                                              |
+| order_type      | object                     | the type of the order                                                                                                                                                                                                                                                                                                                                                                                                 |
 | order_type.type | string                     | there are two types from which to choose: `GoodTillCancelled` and `FillOrKill`. The `GoodTillCancelled` order is automatically converted to a `maker` order if the order is not matched in 30 seconds, and this `maker` order stays in the orderbook until explicitly cancelled. On the other hand, a `FillOrKill` order is cancelled if it is not matched within 30 seconds. The default type is `GoodTillCancelled` |
-| base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set |
-| base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set |
-| rel_confs       | number                     | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set |
-| rel_nota        | bool                       | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set |
+| base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                                                                                                      |
+| base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                                                                                                            |
+| rel_confs       | number                     | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                                                                                                        |
+| rel_nota        | bool                       | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                                                                                                              |
 
 #### Response
 
-| Structure              | Type     | Description                                                                                                                                                                                                     |
-| ---------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                 | object   | the resulting order object                                                                                                                                                                                      |
-| result.action          | string   | the action of the request (`Sell`)                                                                                                                                                                              |
-| result.base            | string   | the base currency of the request                                                                                                                                                                                |
-| result.base_amount     | string   | the resulting amount of base currency that is sold if the order matches (in decimal representation)                                                                                                        |
-| result.base_amount_rat | rational | the resulting amount of base currency that is sold if the order matches (in rational representation)                                                                                                       |
-| result.rel             | string   | the rel currency of the request                                                                                                                                                                                 |
-| result.rel_amount      | string   | the minimum amount of `rel` coin that must be received in order to sell the `base_amount` of `base` (according to `price`, in decimal representation)                                                                    |
-| result.rel_amount_rat  | rational | the minimum amount of `rel` coin that must be received in order to sell the `base_amount` of `base` (according to `price`, in rational representation)                                                                   |
-| result.method          | string   | this field is used for internal P2P interactions; the value is always equal to "request"                                                                                                                        |
-| result.dest_pub_key    | string   | reserved for future use. The `dest_pub_key` allows the user to choose the P2P node that is eligible to match with the request. This value defaults to "zero pubkey", meaning that `anyone` can match |
-| result.sender_pubkey   | string   | the public key of our node                                                                                                                                                                                      |
-| result.uuid            | string   | the request uuid                                                                                                                                                                                                |
-| result.match_by        | object           | the created order is matched using this condition                        |
-| result.match_by.type   | string           | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any` |
-| result.match_by.data   | array of strings | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type       |
-| result.conf_settings.base_confs   | number          | number of required blockchain confirmations for base coin atomic swap transaction      |
-| result.conf_settings.base_nota    | bool            | whether dPoW notarization is required for base coin atomic swap transaction            |
-| result.conf_settings.rel_confs    | number          | number of required blockchain confirmations for rel coin atomic swap transaction       |
-| result.conf_settings.rel_nota     | bool            | whether dPoW notarization is required for rel coin atomic swap transaction             |
+| Structure                       | Type             | Description                                                                                                                                                                                                     |
+| ----------------------          | --------         | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                          | object           | the resulting order object                                                                                                                                                                                      |
+| result.action                   | string           | the action of the request (`Sell`)                                                                                                                                                                              |
+| result.base                     | string           | the base currency of the request                                                                                                                                                                                |
+| result.base_amount              | string           | the resulting amount of base currency that is sold if the order matches (in decimal representation)                                                                                                             |
+| result.base_amount_rat          | rational         | the resulting amount of base currency that is sold if the order matches (in rational representation)                                                                                                            |
+| result.rel                      | string           | the rel currency of the request                                                                                                                                                                                 |
+| result.rel_amount               | string           | the minimum amount of `rel` coin that must be received in order to sell the `base_amount` of `base` (according to `price`, in decimal representation)                                                           |
+| result.rel_amount_rat           | rational         | the minimum amount of `rel` coin that must be received in order to sell the `base_amount` of `base` (according to `price`, in rational representation)                                                          |
+| result.method                   | string           | this field is used for internal P2P interactions; the value is always equal to "request                                                                                                                         |
+| result.dest_pub_key             | string           | reserved for future use. The `dest_pub_key` allows the user to choose the P2P node that is eligible to match with the request. This value defaults to "zero pubkey", meaning that `anyone` can match            |
+| result.sender_pubkey            | string           | the public key of our node                                                                                                                                                                                      |
+| result.uuid                     | string           | the request uuid                                                                                                                                                                                                |
+| result.match_by                 | object           | the created order is matched using this condition                                                                                                                                                               |
+| result.match_by.type            | string           | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Default is `Any`                                                                                    |
+| result.match_by.data            | array of strings | uuids of orders to match for `Orders` type; pubkeys of nodes to match for `Pubkeys` type                                                                                                                        |
+| result.conf_settings.base_confs | number           | number of required blockchain confirmations for base coin atomic swap transaction                                                                                                                               |
+| result.conf_settings.base_nota  | bool             | whether dPoW notarization is required for base coin atomic swap transaction                                                                                                                                     |
+| result.conf_settings.rel_confs  | number           | number of required blockchain confirmations for rel coin atomic swap transaction                                                                                                                                |
+| result.conf_settings.rel_nota   | bool             | whether dPoW notarization is required for rel coin atomic swap transaction                                                                                                                                      |
 
 #### :pushpin: Examples
 
@@ -4416,7 +5422,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"send_raw_transaction\",
 
 ## setprice
 
-**setprice base rel price (volume max cancel_previous=true base_confs base_nota rel_confs rel_nota)**
+**setprice base rel price (volume max cancel_previous=true base_confs base_nota rel_confs rel_nota min_volume)**
 
 The `setprice` method places an order on the orderbook, and it relies on this node acting as a `maker`, also called a `Bob` node.
 
@@ -4424,47 +5430,47 @@ The `setprice` order is always considered a `sell`, for internal implementation 
 
 ::: tip
 
-To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit( `0.00777` ) to the value of a trade. See the description of the `volume` argument for more info. 
+To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit to the value of a trade. See the description of the `volume` and `min_volume` arguments for more info. 
 
 :::
 
 #### Arguments
 
-| Structure       | Type                       | Description                                                                                                              |
-| --------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| base            | string                     | the name of the coin the user desires to sell                                                                            |
-| rel             | string                     | the name of the coin the user desires to receive                                                                         |
-| price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                        |
-| volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to `0.00777`: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                                       |
-| min_volume      | numeric string or rational | the minimum amount of `base` coin available for the order; the `min_volume` must be greater than or equal to `0.00777`; it must be also  less or equal than `volume` param; default is `0.00777` |
-| max             | bool                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                |
-| cancel_previous | bool                       | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior |
-| base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set |
-| base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set |
-| rel_confs       | number                     | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set |
-| rel_nota        | bool                       | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set |
+| Structure       | Type                       | Description                                                                                                                                                                                                                                                                                                               |
+| --------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------                                                                                                                                                                                                  |
+| base            | string                     | the name of the coin the user desires to sell                                                                                                                                                                                                                                                                             |
+| rel             | string                     | the name of the coin the user desires to receive                                                                                                                                                                                                                                                                          |
+| price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                                                                                                                                                                                                                         |
+| volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                             |
+| min_volume      | numeric string or rational | the minimum amount of `base` coin available for the order; it must be less or equal than `volume` param; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the product of the arguments `min_volume` and `price`</li></ul> |
+| max             | bool                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                                                                                                                                                                                                                 |
+| cancel_previous | bool                       | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior                                                                                                                                                                                                  |
+| base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                          |
+| base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                |
+| rel_confs       | number                     | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                            |
+| rel_nota        | bool                       | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                  |
 
 #### Response
 
-| Structure               | Type             | Description                                                                                               |
-| ----------------------- | ---------------- | --------------------------------------------------------------------------------------------------------- |
-| result                  | object           | the resulting order object                                                                                |
-| result.base             | string           | the base coin of the order                                                                                |
-| result.rel              | string           | the rel coin of the order                                                                                 |
-| result.price            | string (numeric) | the expected amount of `rel` coin to be received per 1 unit of `base` coin; decimal representation        |
-| result.price_rat        | rational         | the expected amount of `rel` coin to be received per 1 unit of `base` coin; rational representation       |
-| result.max_base_vol     | string (numeric) | the maximum volume of base coin available to trade; decimal representation                                |
-| result.max_base_vol_rat | rational         | the maximum volume of base coin available to trade; rational representation                               |
-| result.min_base_vol     | string (numeric) | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; decimal representation  |
-| result.min_base_vol_rat | rational         | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; rational representation |
-| result.created_at       | number           | unix timestamp in milliseconds, indicating the order creation time                                        |
-| result.matches          | object           | contains the map of ongoing matches with other orders, empty as the order was recently created            |
-| result.started_swaps    | array of strings | uuids of swaps that were initiated by the order                                                           |
-| result.uuid             | string           | uuid of the created order                                                                                 |
-| result.conf_settings.base_confs   | number          | number of required blockchain confirmations for base coin atomic swap transaction      |
-| result.conf_settings.base_nota    | bool            | whether dPoW notarization is required for base coin atomic swap transaction            |
-| result.conf_settings.rel_confs    | number          | number of required blockchain confirmations for rel coin atomic swap transaction       |
-| result.conf_settings.rel_nota     | bool            | whether dPoW notarization is required for rel coin atomic swap transaction             |
+| Structure                       | Type             | Description                                                                                               |
+| -----------------------         | ---------------- | --------------------------------------------------------------------------------------------------------- |
+| result                          | object           | the resulting order object                                                                                |
+| result.base                     | string           | the base coin of the order                                                                                |
+| result.rel                      | string           | the rel coin of the order                                                                                 |
+| result.price                    | string (numeric) | the expected amount of `rel` coin to be received per 1 unit of `base` coin; decimal representation        |
+| result.price_rat                | rational         | the expected amount of `rel` coin to be received per 1 unit of `base` coin; rational representation       |
+| result.max_base_vol             | string (numeric) | the maximum volume of base coin available to trade; decimal representation                                |
+| result.max_base_vol_rat         | rational         | the maximum volume of base coin available to trade; rational representation                               |
+| result.min_base_vol             | string (numeric) | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; decimal representation  |
+| result.min_base_vol_rat         | rational         | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; rational representation |
+| result.created_at               | number           | unix timestamp in milliseconds, indicating the order creation time                                        |
+| result.matches                  | object           | contains the map of ongoing matches with other orders, empty as the order was recently created            |
+| result.started_swaps            | array of strings | uuids of swaps that were initiated by the order                                                           |
+| result.uuid                     | string           | uuid of the created order                                                                                 |
+| result.conf_settings.base_confs | number           | number of required blockchain confirmations for base coin atomic swap transaction                         |
+| result.conf_settings.base_nota  | bool             | whether dPoW notarization is required for base coin atomic swap transaction                               |
+| result.conf_settings.rel_confs  | number           | number of required blockchain confirmations for rel coin atomic swap transaction                          |
+| result.conf_settings.rel_nota   | bool             | whether dPoW notarization is required for rel coin atomic swap transaction                                |
 
 #### :pushpin: Examples
 
@@ -4672,16 +5678,16 @@ This setting is _**not**_ persistent. The value must be reset in the coins file 
 
 #### Arguments
 
-| Structure             | Type   | Description                            |
-| --------------------- | ------ | -------------------------------------- |
-| coin                  | string | the ticker of the selected coin        |
-| requires\_notarization | bool   | whether the node should wait for dPoW notarization of atomic swap transactions       |
+| Structure              | Type   | Description                                                                    |
+| ---------------------  | ------ | --------------------------------------                                         |
+| coin                   | string | the ticker of the selected coin                                                |
+| requires\_notarization | bool   | whether the node should wait for dPoW notarization of atomic swap transactions |
 
 #### Response
 
-| Structure                    | Type   | Description                                |
-| ---------------------------- | ------ | ------------------------------------------ |
-| result.coin                  | string | the coin selected in the request           |
+| Structure                     | Type   | Description                                                                        |
+| ----------------------------  | ------ | ------------------------------------------                                         |
+| result.coin                   | string | the coin selected in the request                                                   |
 | result.requires\_notarization | bool   | whether the node must wait for a dPoW notarization of the atomic swap transactions |
 
 #### :pushpin: Examples
@@ -4720,8 +5726,8 @@ The output can be used for the `importprivkey` method (UTXO coins) or as a priva
 
 #### Arguments
 
-| Structure | Type   | Description                                  |
-| --------- | ------ | -------------------------------------------- |
+| Structure | Type   | Description                                     |
+| --------- | ------ | --------------------------------------------    |
 | coin      | string | the name of the coin of the private key to show |
 
 #### Response
@@ -4830,23 +5836,37 @@ Use the `trade_preimage` request with `max = true` and `swap_method = "setprice"
 | result.volume_fraction                       | fraction (optional)                  | the max available volume that can be traded (in fraction representation); empty if the `max` argument is missing or false                      |
 | result.taker_fee                             | object (optional, `ExtendedFeeInfo`) | the dex fee to be paid by Taker; empty if `swap_method` is `setprice`                                                                          |
 | result.fee_to_send_taker_fee                 | object (optional, `ExtendedFeeInfo`) | the approximate miner fee is paid to send the dex fee; empty if `swap_method` is `setprice`                                                    |
-| result.total_fees                            | array of `ExtendedFeeInfo` objects   | each element is a sum of fees required to be paid from user's balance of corresponding `ExtendedFeeInfo.coin`; the elements are unique by coin |
+| result.total_fees                            | array of `TotalFeeInfo` objects      | each element is a sum of fees required to be paid from user's balance of corresponding `ExtendedFeeInfo.coin`; the elements are unique by coin |
 
-Where the `ExtendedFeeInfo` has
+The `ExtendedFeeInfo` structure is as follows:
 
-| Structure       | Type             | Description                                                                                                                                                   |
-| --------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin            | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas) |
-| amount          | string (numeric) | fee amount (in decimal representation)                                                                                                                        |
-| amount_rat      | rational         | fee amount (in rational representation)                                                                                                                       |
-| amount_fraction | fraction         | fee amount (in fraction representation)                                                                                                                       |
+| Structure             | Type             | Description                                                                                                                                                   |
+| ---------------       | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                  | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas) |
+| amount                | string (numeric) | fee amount (in decimal representation)                                                                                                                        |
+| amount_rat            | rational         | fee amount (in rational representation)                                                                                                                       |
+| amount_fraction       | fraction         | fee amount (in fraction representation)                                                                                                                       |
+| amount_fraction       | fraction         | fee amount (in fraction representation)                                                                                                                       |
+| paid_from_trading_vol | bool             | whether the fee is paid from trading volume and not use actual `coin` balance                                                                                 |
+
+The `TotalFeeInfo` structure is as follows:
+
+| Structure                 | Type             | Description                                                                                                                                                   |
+| ---------------           | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                      | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas) |
+| amount                    | string (numeric) | fee amount (in decimal representation)                                                                                                                        |
+| amount_rat                | rational         | fee amount (in rational representation)                                                                                                                       |
+| amount_fraction           | fraction         | fee amount (in fraction representation)                                                                                                                       |
+| required_balance          | string (numeric) | the required `coin` balance to pay the fee                                                                                                                    |
+| required_balance_rat      | rational         | `required_balance` in rational representation                                                                                                                 |
+| required_balance_fraction | fraction         | `required_balance` in fraction representation                                                                                                                 |
 
 #### :pushpin: Examples
 
 #### Command (setprice)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"trade_preimage\",\"base\":\"BTC\",\"rel\":\"RICK\",\"price\":\"1\",\"volume\":\"0.1\",\"swap_method\":\"setprice\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"trade_preimage\",\"base\":\"RICK\",\"rel\":\"BTC\",\"price\":\"1\",\"volume\":\"0.1\",\"swap_method\":\"setprice\"}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -4857,34 +5877,57 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result":{
+  "result": {
     "base_coin_fee": {
-      "amount":"0.00042049",
-      "amount_fraction":{
-        "denom":"100000000",
-        "numer":"42049"
+      "coin": "RICK",
+      "amount": "0.00001",
+      "amount_fraction": {
+        "numer": "1",
+        "denom": "100000"
       },
-      "amount_rat":[[1,[42049]],[1,[100000000]]],
-      "coin":"BTC"
+      "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 100000 ] ] ],
+      "paid_from_trading_vol": false
     },
     "rel_coin_fee": {
-      "amount":"0",
-      "amount_fraction":{
-        "denom":"1",
-        "numer":"0"
+      "coin": "BTC",
+      "amount": "0.00029211",
+      "amount_fraction": {
+        "numer": "29211",
+        "denom": "100000000"
       },
-      "amount_rat":[[0,[]],[1,[1]]],
-      "coin":"RICK"
+      "amount_rat": [ [ 1, [ 29211 ] ], [ 1, [ 100000000 ] ] ],
+      "paid_from_trading_vol": true
     },
     "total_fees": [
       {
-        "amount":"0.00042049",
-        "amount_fraction":{
-          "denom":"100000000",
-          "numer":"42049"
+        "coin": "RICK",
+        "amount": "0.00001",
+        "amount_fraction": {
+          "numer": "1",
+          "denom": "100000"
         },
-        "amount_rat":[[1,[42049]],[1,[100000000]]],
-        "coin":"BTC"
+        "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 100000 ] ] ],
+        "required_balance": "0.00001",
+        "required_balance_fraction": {
+          "numer": "1",
+          "denom": "100000"
+        },
+        "required_balance_rat": [ [ 1, [ 1 ] ], [ 1, [ 100000 ] ] ]
+      },
+      {
+        "coin": "BTC",
+        "amount": "0.00029211",
+        "amount_fraction": {
+          "numer": "29211",
+          "denom": "100000000"
+        },
+        "amount_rat": [ [ 1, [ 29211 ] ], [ 1, [ 100000000 ] ] ],
+        "required_balance": "0",
+        "required_balance_fraction": {
+          "numer": "0",
+          "denom": "1"
+        },
+        "required_balance_rat": [ [ 0, [] ], [ 1, [ 1 ] ] ]
       }
     ]
   }
@@ -4909,122 +5952,77 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result":{
+  "result": {
     "base_coin_fee": {
-      "amount":"0",
-      "amount_fraction":{
-        "denom":"1",
-        "numer":"0"
+      "coin": "BTC",
+      "amount": "0.00029211",
+      "amount_fraction": {
+        "numer": "29211",
+        "denom": "100000000"
       },
-      "amount_rat":[[0,[]],[1,[1]]],
-      "coin":"BTC"
-    },
-    "rel_coin_fee":{
-      "amount":"0.0001",
-      "amount_fraction":{
-        "denom":"10000",
-        "numer":"1"
-      },
-      "amount_rat":[[1,[1]],[1,[10000]]],
-      "coin":"RICK"
-    },
-    "taker_fee":{
-      "amount":"0.00012870012870012872",
-      "amount_fraction":{
-        "denom":"7770",
-        "numer":"1"
-      },
-      "amount_rat":[[1,[1]],[1,[7770]]],
-      "coin":"RICK"
-    },
-    "fee_to_send_taker_fee":{
-      "amount":"0.0001",
-      "amount_fraction":{
-        "denom":"10000",
-        "numer":"1"
-      },
-      "amount_rat":[[1,[1]],[1,[10000]]],
-      "coin":"RICK"
-    },
-    "total_fees": [
-      {
-        "amount":"0.0003287001287001287",
-        "amount_fraction":{
-          "denom":"3885000",
-          "numer":"1277"
-        },
-        "amount_rat":[[1,[1277]],[1,[3885000]]],
-        "coin":"RICK"
-      }
-    ]
-  }
-}
-```
-
-</collapse-text>
-
-</div>
-
-#### Command (sell, max)
-
-```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"trade_preimage\",\"base\":\"BTC\",\"rel\":\"RICK\",\"price\":\"1\",\"volume\":\"2.21363478\",\"swap_method\":\"sell\"}"
-```
-
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Response">
-
-#### Response
-
-```json
-{
-  "result":{
-    "base_coin_fee": {
-      "amount":"0.00042049",
-      "amount_fraction":{
-        "denom":"100000000",
-        "numer":"42049"
-      },
-      "amount_rat":[[1,[42049]],[1,[100000000]]],
-      "coin":"BTC"
+      "amount_rat": [ [ 1, [ 29211 ] ], [ 1, [ 100000000 ] ] ],
+      "paid_from_trading_vol": true
     },
     "rel_coin_fee": {
-      "amount":"0",
-      "amount_fraction":{
-        "denom":"1",
-        "numer":"0"
+      "coin": "RICK",
+      "amount": "0.00001",
+      "amount_fraction": {
+        "numer": "1",
+        "denom": "100000"
       },
-      "amount_rat":[[0,[]],[1,[1]]],
-      "coin":"RICK"
+      "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 100000 ] ] ],
+      "paid_from_trading_vol": false
     },
-    "taker_fee":{
-      "amount":"0.0028489508108108107",
-      "amount_fraction":{
-        "denom":"1850000000",
-        "numer":"5270559"
+    "taker_fee": {
+      "coin": "RICK",
+      "amount": "0.0001287001287001287001287001287001287001287001287001287001287001287001287001287001287001287001287001287",
+      "amount_fraction": {
+        "numer": "1",
+        "denom": "7770"
       },
-      "amount_rat":[[1,[5270559]],[1,[1850000000]]],
-      "coin":"BTC"
+      "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 7770 ] ] ],
+      "paid_from_trading_vol": false
     },
-    "fee_to_send_taker_fee":{
-      "amount":"0.00033219",
-      "amount_fraction":{
-        "denom":"100000000",
-        "numer":"33219"
+    "fee_to_send_taker_fee": {
+      "coin": "RICK",
+      "amount": "0.00001",
+      "amount_fraction": {
+        "numer": "1",
+        "denom": "100000"
       },
-      "amount_rat":[[1,[33219]],[1,[100000000]]],
-      "coin":"BTC"
+      "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 100000 ] ] ],
+      "paid_from_trading_vol": false
     },
     "total_fees": [
       {
-        "amount":"0.0036016308108108106",
-        "amount_fraction":{
-          "denom":"1850000000",
-          "numer":"6663017"
+        "coin": "BTC",
+        "amount": "0.00029211",
+        "amount_fraction": {
+          "numer": "29211",
+          "denom": "100000000"
         },
-        "amount_rat":[[1,[6663017]],[1,[1850000000]]],
-        "coin":"BTC"
+        "amount_rat": [ [ 1, [ 29211 ] ], [ 1, [ 100000000 ] ] ],
+        "required_balance": "0",
+        "required_balance_fraction": {
+          "numer": "0",
+          "denom": "1"
+        },
+        "required_balance_rat": [ [ 0, [] ], [ 1, [ 1 ] ] ]
+      },
+      {
+        "coin": "RICK",
+        "amount": "0.0001487001287001287001287001287001287001287001287001287001287001287001287001287001287001287001287001287",
+        "amount_fraction": {
+          "numer": "5777",
+          "denom": "38850000"
+        },
+        "amount_rat": [ [ 1, [ 5777 ] ], [ 1, [ 38850000 ] ] ],
+        "required_balance": "0.0001487001287001287001287001287001287001287001287001287001287001287001287001287001287001287001287001287",
+        "required_balance_fraction": {
+          "numer": "5777",
+          "denom": "38850000"
+        },
+        "required_balance_rat": [ [ 1, [ 5777 ] ], [ 1, [ 38850000 ] ] ]
       }
     ]
   }
@@ -5057,7 +6055,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "numer":"9"
       },
       "amount_rat":[[1,[9]],[1,[2000]]],
-      "coin":"ETH"
+      "coin":"ETH",
+      "paid_from_trading_vol": false
     },
     "rel_coin_fee": {
       "amount":"0.00325",
@@ -5066,7 +6065,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "numer":"13"
       },
       "amount_rat":[[0,[13]],[1,[4000]]],
-      "coin":"QTUM"
+      "coin":"QTUM",
+      "paid_from_trading_vol": false
     },
     "total_fees": [
       {
@@ -5075,7 +6075,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
           "denom":"1000",
           "numer":"3"
         },
-        "amount_rat":[[1,[3]],[1,[1000]]],
+        "amount_rat":[[1,[3]],[1,[1000]]],        
+        "required_balance":"0.003",
+        "required_balance_fraction":{
+          "denom":"1000",
+          "numer":"3"
+        },
+        "required_balance_rat":[[1,[3]],[1,[1000]]],
         "coin":"ETH"
       },
       {
@@ -5084,7 +6090,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
           "denom":"4000",
           "numer":"13"
         },
-        "amount_rat":[[0,[13]],[1,[4000]]],
+        "amount_rat":[[0,[13]],[1,[4000]]],        
+        "required_balance":"0.00325",
+        "required_balance_fraction":{
+          "denom":"4000",
+          "numer":"13"
+        },
+        "required_balance_rat":[[0,[13]],[1,[4000]]],
         "coin":"QTUM"
       }
     ]
@@ -5104,20 +6116,20 @@ The `unban_pubkeys` method removes the selected pubkeys from the black list, all
 
 #### Arguments
 
-| Structure             | Type   | Description                                                                                                                      |
-| --------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| unban_by              | object | pubkeys matching this condition are removed from the black list                                                                                    |
-| unban_by.type         | string | `All` to unban all pubkeys; `Few` to unban several selected pubkeys |
-| cancel_by.data        | array of strings (hexadecimal) | pubkeys that should be removed from the black list; must be present with `Few` type |
+| Structure             | Type                           | Description                                                                                                                      |
+| --------------------- | ------                         | -------------------------------------------------------------------------------------------------------------------------------- |
+| unban_by              | object                         | pubkeys matching this condition are removed from the black list                                                                  |
+| unban_by.type         | string                         | `All` to unban all pubkeys; `Few` to unban several selected pubkeys                                                              |
+| cancel_by.data        | array of strings (hexadecimal) | pubkeys that should be removed from the black list; must be present with `Few` type                                              |
 
 #### Response
 
 | Structure                 | Type                     | Description                                                                                                    |
 | ------------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------- |
 | result                    | object                   |                                                                                                                |
-| result.still_banned       | map of objects           | the pubkeys that remain banned                                                                                      |
-| result.unbanned           | map of objects           | data of unbanned pubkeys  |
-| result.were_not_banned    | array of strings         | the pubkeys that were not black listed before the `unban_pubkeys` call   |
+| result.still_banned       | map of objects           | the pubkeys that remain banned                                                                                 |
+| result.unbanned           | map of objects           | data of unbanned pubkeys                                                                                       |
+| result.were_not_banned    | array of strings         | the pubkeys that were not black listed before the `unban_pubkeys` call                                         |
 
 #### :pushpin: Examples
 
@@ -5196,7 +6208,7 @@ The `validateaddress` method checks if an input string is a valid address of the
 
 | Structure       | Type              | Description                                        |
 | --------------- | ----------------- | -------------------------------------------------- |
-| result.is_valid | bool              | whether input string is a valid coin address         |
+| result.is_valid | bool              | whether input string is a valid coin address       |
 | result.reason   | string (optional) | the reason why input string is not a valid address |
 
 #### :pushpin: Examples
@@ -5302,7 +6314,7 @@ This method generates a raw transaction which should then be broadcast using [se
 | Structure     | Type             | Description                                                                                                                               |
 | ------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | coin          | string           | the name of the coin the user desires to withdraw                                                                                         |
-| to            | string           | coins are withdrawn to this address                                                                                                   |
+| to            | string           | coins are withdrawn to this address                                                                                                       |
 | amount        | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                                                          |
 | max           | bool             | withdraw the maximum available amount                                                                                                     |
 | fee.type      | string           | type of transaction fee; possible values: `UtxoFixed`, `UtxoPerKbyte`, `EthGas`                                                           |
@@ -5314,8 +6326,8 @@ This method generates a raw transaction which should then be broadcast using [se
 
 | Structure         | Type             | Description                                                                                                                                                                   |
 | ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| from              | array of strings | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                              |
-| to                | array of strings | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                      |
+| from              | array of strings | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                  |
+| to                | array of strings | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                          |
 | my_balance_change | string (numeric) | the expected balance of change in `my_address` after the transaction broadcasts                                                                                               |
 | received_by_me    | string (numeric) | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that MM2 send change to `my_address` |
 | spent_by_me       | string (numeric) | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                    |
