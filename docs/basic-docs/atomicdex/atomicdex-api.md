@@ -2709,7 +2709,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
           "Finished"
         ],
         "type": "Maker",
-        "uuid": "6bf6e313-e610-4a9a-ba8c-57fc34a124aa"
+        "uuid": "6bf6e313-e610-4a9a-ba8c-57fc34a124aa",
+        "my_order_uuid": "3447b727-fe93-4357-8e5a-8cf2699b7e86"
       },
       {
         "error_events": ["StartFailed","NegotiateFailed","TakerFeeSendFailed","MakerPaymentValidateFailed","MakerPaymentWaitConfirmFailed","TakerPaymentTransactionFailed","TakerPaymentWaitConfirmFailed","TakerPaymentDataSendFailed","TakerPaymentWaitForSpendFailed","MakerPaymentSpendFailed","TakerPaymentWaitRefundStarted","TakerPaymentRefunded","TakerPaymentRefundFailed"],
@@ -2896,6 +2897,7 @@ The `my_swap_status` method returns the data of an atomic swap executed on a MM2
 | taker_amount   | string (numeric, optional) | the amount of coins to be swapped by taker                                                                                                                                                                                                                                     |
 | my_info        | object (optional)          | this object maps event data to make displaying swap data in a GUI simpler (`my_coin`, `my_amount`, etc.)                                                                                                                                                                       |
 | recoverable    | bool                       | whether the swap can be recovered using the `recover_funds_of_swap` API command. Important note: MM2 does not record the state regarding whether the swap was recovered or not. MM2 allows as many calls to the `recover_funds_of_swap` method as necessary, in case of errors |
+| my_order_uuid  | string (uuid, optional)    | the uuid of order that matched to start the swap                                                                                                                                                                                                                               |
 
 #### Maker Swap Events
 
@@ -3829,7 +3831,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
       "Finished"
     ],
     "type": "Maker",
-    "uuid": "6bf6e313-e610-4a9a-ba8c-57fc34a124aa"
+    "uuid": "6bf6e313-e610-4a9a-ba8c-57fc34a124aa",
+    "my_order_uuid": "3447b727-fe93-4357-8e5a-8cf2699b7e86"
   }
 }
 ```
