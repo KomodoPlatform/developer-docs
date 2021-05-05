@@ -6197,13 +6197,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## update\_maker\_order
 
-**update\_maker\_order uuid (new_price new_volume max base_confs base_nota rel_confs rel_nota min_volume)**
+**update\_maker\_order uuid (new_price volume_delta max base_confs base_nota rel_confs rel_nota min_volume)**
 
 The `update_maker_order` method updates an active order on the orderbook created before by `setprice`, and it relies on this node acting as a `maker`, also called a `Bob` node.
 
 ::: tip
 
-To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit to the value of a trade. See the description of the `new_volume` and `min_volume` arguments for more info. 
+To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit to the value of a trade. See the description of the `volume_delta` and `min_volume` arguments for more info. 
 
 :::
 
@@ -6212,8 +6212,8 @@ To prevent a user from making trades in which the transaction fees may end up co
 | Structure       | Type                       | Description                                                                                                                                                                                                                                                                                                               |
 | --------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------                                                                                                                                                                                                  |
 | uuid            | string                     | the uuid of the order the user desires to update                                                                                                                                                                                                                                            | new_price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                                                                                                                                                                                                                         |
-| new_volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `volume`</li><li>the product of the arguments `new_volume` and `new_price`</li></ul>                             |
-| min_volume      | numeric string or rational | the minimum amount of `base` coin available for the order; it must be less or equal than `new_volume` param; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the product of the arguments `min_volume` and `new_price`</li></ul> |
+| volume_delta          | numeric string or rational | volume added to or subtracted from the `max_base_vol` of the order to be updated, resulting in the new volume which is the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the new volume which is the `max_base_vol` of the order to be updated plus `volume_delta`</li><li>the product of the new volume and the argument `new_price`</li></ul>                             |
+| min_volume      | numeric string or rational | the minimum amount of `base` coin available for the order; it must be less or equal than the new volume; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the product of the arguments `min_volume` and `new_price`</li></ul> |
 | max             | bool                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                                                                                                                                                                                                                                                       |
 | base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                          |
 | base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                |
@@ -6248,7 +6248,7 @@ To prevent a user from making trades in which the transaction fees may end up co
 #### Command (with volume)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"update_maker_order\",\"uuid\":\"6a242691-6c05-474a-85c1-5b3f42278f41\",\"new_price\":\"0.9\",\"new_volume\":\"1\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"update_maker_order\",\"uuid\":\"6a242691-6c05-474a-85c1-5b3f42278f41\",\"new_price\":\"0.9\",\"volume_delta\":\"1\"}"
 ```
 
 #### Command (max = true)
@@ -6264,7 +6264,7 @@ curl --url "http://127.0.0.1:7783" --data '{
   "userpass":"'$userpass'",
   "method":"update_maker_order",
   "uuid":"6a242691-6c05-474a-85c1-5b3f42278f41",
-  "new_volume":[[1,[1]],[1,[1]]],
+  "volume_delta":[[1,[1]],[1,[1]]],
   "new_price":[[1,[1]],[1,[1]]]
 }'
 ```
@@ -6276,7 +6276,7 @@ curl --url "http://127.0.0.1:7783" --data '{
   "userpass":"'$userpass'",
   "method":"update_maker_order",
   "uuid":"6a242691-6c05-474a-85c1-5b3f42278f41",
-  "new_volume":{
+  "volume_delta":{
     "numer":"3",
     "denom":"2"
   },
@@ -6294,7 +6294,7 @@ curl --url "http://127.0.0.1:7783" --data '{
   "userpass":"'$userpass'",
   "method":"update_maker_order",
   "uuid":"6a242691-6c05-474a-85c1-5b3f42278f41",
-  "new_volume":{
+  "volume_delta":{
     "numer":"3",
     "denom":"2"
   },
@@ -6313,7 +6313,7 @@ curl --url "http://127.0.0.1:7783" --data '{
   "userpass":"'$userpass'",
   "method":"update_maker_order",
   "uuid":"6a242691-6c05-474a-85c1-5b3f42278f41",
-  "new_volume":{
+  "volume_delta":{
     "numer":"3",
     "denom":"2"
   },
