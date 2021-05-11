@@ -93,6 +93,24 @@ let atomicDEXsidebar = {
         ],
       ],
     },
+    {
+      title: "AtomicDEX API 2.0",
+      collapsible: true,
+      children: [
+        [
+          "/basic-docs/atomicdex/atomicdex-api-20/mmrpc-20.md",
+          "MmRPC Protocol v2.0",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-api-20/trade_preimage.md",
+          "trade_preimage",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-api-20/withdraw.md",
+          "withdraw",
+        ],
+      ],
+    },
     ["/basic-docs/atomicdex/atomicdex-api.md", "AtomicDEX API"],
   ],
 };
