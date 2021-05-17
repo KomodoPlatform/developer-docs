@@ -39,6 +39,8 @@ class Rick(KomodoMixin, EquihashMixin, Coin):
 ```
 NAME,SHORTNAME and RPC_PORT are to be changed accordingly.
 
+Change references of KMD to your coin where applicable.
+
 Run:
 
 ```bash
@@ -68,7 +70,7 @@ Fill the following contents into the file:
 ```
 COIN = Komodo
 DB_DIRECTORY = /electrumdb/KMD
-DAEMON_URL = http://$rpcuser:$rpcpass@127.0.0.1:<port>/
+DAEMON_URL = http://$rpcuser:$rpcpass@127.0.0.1:<rpcport>/
 SERVICES = tcp://:10001,rpc://:8001
 EVENT_LOOP_POLICY = uvloop
 PEER_DISCOVERY = self
@@ -77,6 +79,8 @@ COST_SOFT_LIMIT = 10000
 COST_HARD_LIMIT = 100000
 BANDWIDTH_UNIT_COST = 10000
 ```
+
+You can find rpcuser,rpcpass and rpcport in the conf file of the smartchain located at .komodo/coin_name/coin_name.conf
 
 ```bash
 sudo systemctl start electrumx_KMD
