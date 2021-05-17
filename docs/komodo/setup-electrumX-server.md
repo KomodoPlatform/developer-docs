@@ -21,6 +21,24 @@ pip3 install .[uvloop,ujson]
 
 ## Coin specific part
 
+If you are launching the electrum server for a new smartchain, you will have to add it to the `electrumx-1/electrumx/lib/coins.py` file
+
+For example: 
+
+```
+class Rick(KomodoMixin, EquihashMixin, Coin):
+    NAME = "Rick"
+    SHORTNAME = "RICK"
+    NET = "mainnet"
+    TX_COUNT = 693629
+    TX_COUNT_HEIGHT = 491777
+    TX_PER_BLOCK = 2
+    RPC_PORT = 25435
+    REORG_LIMIT = 800
+    PEERS = []
+```
+NAME,SHORTNAME and RPC_PORT are to be changed accordingly.
+
 Run:
 
 ```bash
@@ -69,3 +87,13 @@ To check its status, execute the following command
 ```bash
 sudo systemctl status electrumx_KMD
 ```
+
+To issue commands to the electrum server from a local terminal use 
+
+```
+echo '{"method":"blockchain.transaction.get","params":["bcded351e33d530a07deebeeee3b7ae328e9636e3cfab72eadace6bb6945e693", true],"id":"test"}' | nc electrum1.cipig.net 10031 -i 1 | jq .
+```
+
+- change the method and params as needed 
+- replace `electrum1.cipig.net` with the IP address or domain of the electrum server 
+- 10031 with tcp port set in the conf file
