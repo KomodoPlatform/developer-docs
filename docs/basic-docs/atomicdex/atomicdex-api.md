@@ -5124,27 +5124,30 @@ The `orders_history_by_filter` method returns all orders whether active or inact
 | from_timestamp   | number (timestamp in seconds) | return only orders that match the `order.created_at >= request.from_timestamp` condition    |
 | to_timestamp   | number (timestamp in seconds) | return only orders that match the `order.created_at <= request.to_timestamp` condition    |
 | was_taker   | bool | return only `GoodTillCancelled` orders that got converted from `taker` to `maker`      |
-| status   | string | return only orders that match the  `request.status`; `status` can be: <ul><li>For active maker order `Created`, `Updated`, `Taker Request`, `Taker Connect`, `Partially Matched`, `UnMatched`</li><li>For active taker order `Created`,`Maker Reserved`</li><li>For inactive maker order `Fulfilled`, `Insufficient Balance`, `Cancelled`</li><li>For inactive taker order `Fulfilled`, `Timed Out`, `Cancelled`</li></ul>    |
+| status   | string | return only orders that match the  `request.status`; `status` can be: <ul><li>For active maker order `Created`, `Updated`</li><li>For active taker order `Created`</li><li>For inactive maker order `Fulfilled`, `Insufficient Balance`, `Cancelled`</li><li>For inactive taker order `Fulfilled`, `Timed Out`, `Cancelled`</li></ul>    |
 | include_details   | bool | whether to include complete order details in response; defaults to false    |
 
 #### Response
 
 | Structure                  | Type                           | Description                                                          |
-| -------------------------- | ------------------------------ | -------------------------------------------------------------------- |
-| result                     | result object                  |                                                                      |
-| result.orders              | array of order objects         | array of orders that match the selected filters with minimal details |
-| result.orders.uuid         | string                         | uuid of the order                                                |
-| result.orders.order_type   | string                         | type of the order; "Maker" or "Taker"                          |
-| result.orders.base         | string                         | base coin of the order                                               |
-| result.orders.rel          | string                         | rel coin of the order                                                |
-| result.orders.price        | number (decimal)               | price of the order                                                   |
-| result.orders.volume       | number (decimal)               | volume of the order                                                  |
-| result.orders.created_at   | number                         | unix timestamp in milliseconds, indicating the order creation time   |
-| result.orders.last_updated | number                         | unix timestamp in milliseconds, indicating the time the order was last updated |
-| result.orders.was_taker    | number                         | `1` if the order was a "Taker" order that got converted to "Maker", `0` otherwise |
-| result.orders.status       | string                         | status of the Order                                             |
-| result.details             | array of order details objects | array of complete order details for every order that matches the selected filters; returns `null` if `include_details` is false or not included in the request. Note that there are three types of order details objects that can be returned: <ul><li>`Maker` denoting that this is a maker order and the order details can be accessed by `Maker.order`</li><li>`Taker` denoting that this is a taker order and the order details can be accessed by `Taker.order`</li><li>`MakerHistory` denoting that this is a maker order that was updated with `update_maker_order` method and that it contains two objects: <ul><li>`MakerHistory.order` which is the current order details</li><li>`MakerHistory.history` which is an array containing previous details of this order as objects ordered descending from last updated</li></ul></li></ul>|
-| found_records              | number                         | the number of returned orders                                   |
+| --------------------------- | ------------------------------ | -------------------------------------------------------------------- |
+| result                      | result object                  |                                                                      |
+| result.orders               | array of order objects         | array of orders that match the selected filters with minimal details |
+| result.orders.uuid          | string                         | uuid of the order                                                    |
+| result.orders.order_type    | string                         | type of the order; "Maker" or "Taker"                                |
+| result.orders.base          | string                         | base coin of the order                                               |
+| result.orders.rel           | string                         | rel coin of the order                                                |
+| result.orders.price         | number (decimal)               | price of the order                                                   |
+| result.orders.volume        | number (decimal)               | volume of the order                                                  |
+| result.orders.created_at    | number                         | unix timestamp in milliseconds, indicating the order creation time   |
+| result.orders.last_updated  | number                         | unix timestamp in milliseconds, indicating the time the order was last updated |
+| result.orders.was_taker     | number                         | `1` if the order was a "Taker" order that got converted to "Maker", `0` otherwise |
+| result.orders.status        | string                         | status of the Order                                             |
+| result.details              | array of order details objects | array of complete order details for every order that matches the selected filters; returns `[]` if `include_details` is false or not included in the request. |
+| result.details.type         | string                         | type of the order; "Maker" or "Taker"                           |
+| result.details.order        | object                         | the order details object                                        |
+| result.details.order.changes_history | array                          | array containing previous details that was changed for this order as objects, available only for maker orders that was updated with `update_maker_order` method |
+| found_records               | number                         | the number of returned orders                                   |
 
 #### :pushpin: Examples
 
@@ -5202,7 +5205,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "status": "Created"
       }
     ],
-    "details": null,
+    "details": [],
     "found_records": 1
   }
 }
@@ -5230,64 +5233,66 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     ],
     "details": [
       {
-        "Maker": {
-          "order": {
-            "max_base_vol": [
-              [
-                1,
-                [
-                  3
-                ]
-              ],
-              [
-                1,
-                [
-                  1
-                ]
-              ]
-            ],
-            "min_base_vol": [
-              [
-                1,
-                [
-                  1
-                ]
-              ],
-              [
-                1,
-                [
-                  10000
-                ]
-              ]
-            ],
-            "price": [
-              [
+        "type":"Maker",
+        "order": {
+          "base": "RICK",
+          "rel": "MORTY",
+          "price":"2",
+          "price_rat":[
+            [
                 1,
                 [
                   2
                 ]
-              ],
-              [
+            ],
+            [
                 1,
                 [
                   1
                 ]
+            ]
+          ],
+          "max_base_vol":"3",
+          "max_base_vol_rat": [
+            [
+              1,
+              [
+                3
               ]
             ],
-            "created_at": 1620727954406,
-            "updated_at": 1620727954406,
-            "base": "RICK",
-            "rel": "MORTY",
-            "matches": {},
-            "started_swaps": [],
-            "uuid": "e5f453e2-b414-4df2-9fc3-eeedb5cc1f1e",
-            "conf_settings": {
-              "base_confs": 1,
-              "base_nota": false,
-              "rel_confs": 1,
-              "rel_nota": false
-            }
-          },
+            [
+              1,
+              [
+                1
+              ]
+            ]
+          ],
+          "min_base_vol":"0.0001",
+          "min_base_vol_rat": [
+            [
+              1,
+              [
+                1
+              ]
+            ],
+            [
+              1,
+              [
+                10000
+              ]
+            ]
+          ],
+          "created_at": 1620727954406,
+          "updated_at": 1620727954406,
+          "matches": {},
+          "started_swaps": [],
+          "uuid": "e5f453e2-b414-4df2-9fc3-eeedb5cc1f1e",
+          "conf_settings": {
+            "base_confs": 1,
+            "base_nota": false,
+            "rel_confs": 1,
+            "rel_nota": false
+          }
         }
       }
     ],
@@ -5318,65 +5323,67 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     ],
     "details": [
       {
-        "MakerHistory": {
-          "order": {
-            "max_base_vol": [
-              [
-                1,
-                [
-                  2
-                ]
-              ],
-              [
-                1,
-                [
-                  1
-                ]
-              ]
-            ],
-            "min_base_vol": [
-              [
-                1,
-                [
-                  1
-                ]
-              ],
-              [
-                1,
-                [
-                  10000
-                ]
-              ]
-            ],
-            "price": [
-              [
+        "type":"Maker",
+        "order": {
+          "base": "RICK",
+          "rel": "MORTY",
+          "price":"1.5",
+          "price_rat":[
+            [
                 1,
                 [
                   3
                 ]
-              ],
-              [
+            ],
+            [
                 1,
                 [
                   2
                 ]
+            ]
+          ],
+          "max_base_vol":"2",
+          "max_base_vol_rat": [
+            [
+              1,
+              [
+                2
               ]
             ],
-            "created_at": 1620727954406,
-            "updated_at": 1620727984838,
-            "base": "RICK",
-            "rel": "MORTY",
-            "matches": {},
-            "started_swaps": [],
-            "uuid": "e5f453e2-b414-4df2-9fc3-eeedb5cc1f1e",
-            "conf_settings": {
-              "base_confs": 1,
-              "base_nota": false,
-              "rel_confs": 1,
-              "rel_nota": false
-            }
+            [
+              1,
+              [
+                1
+              ]
+            ]
+          ],
+          "min_base_vol":"0.0001",
+          "min_base_vol_rat": [
+            [
+              1,
+              [
+                1
+              ]
+            ],
+            [
+              1,
+              [
+                10000
+              ]
+            ]
+          ],
+          "created_at": 1620727954406,
+          "updated_at": 1620727954406,
+          "matches": {},
+          "started_swaps": [],
+          "uuid": "e5f453e2-b414-4df2-9fc3-eeedb5cc1f1e",
+          "conf_settings": {
+            "base_confs": 1,
+            "base_nota": false,
+            "rel_confs": 1,
+            "rel_nota": false
           },
-          "history": [
+          "changes_history": [
             {
               "max_base_vol": [
                 [
@@ -5389,20 +5396,6 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
                   1,
                   [
                     1
-                  ]
-                ]
-              ],
-              "min_base_vol": [
-                [
-                  1,
-                  [
-                    1
-                  ]
-                ],
-                [
-                  1,
-                  [
-                    10000
                   ]
                 ]
               ],
@@ -5420,19 +5413,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
                   ]
                 ]
               ],
-              "created_at": 1620727954406,
-              "updated_at": 1620727954406,
-              "base": "RICK",
-              "rel": "MORTY",
-              "matches": {},
-              "started_swaps": [],
-              "uuid": "e5f453e2-b414-4df2-9fc3-eeedb5cc1f1e",
-              "conf_settings": {
-                "base_confs": 1,
-                "base_nota": false,
-                "rel_confs": 1,
-                "rel_nota": false
-              }
+              "updated_at": 1620727954406
             }
           ]
         }
