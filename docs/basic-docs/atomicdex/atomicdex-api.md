@@ -5142,12 +5142,15 @@ The `orders_history_by_filter` method returns all orders whether active or inact
 | result.orders.created_at    | number                         | unix timestamp in milliseconds, indicating the order creation time   |
 | result.orders.last_updated  | number                         | unix timestamp in milliseconds, indicating the time the order was last updated |
 | result.orders.was_taker     | number                         | `1` if the order was a "Taker" order that got converted to "Maker", `0` otherwise |
-| result.orders.status        | string                         | status of the Order                                             |
+| result.orders.status        | string                         | status of the Order                                                  |
 | result.details              | array of order details objects | array of complete order details for every order that matches the selected filters; returns `[]` if `include_details` is false or not included in the request. |
-| result.details.type         | string                         | type of the order; "Maker" or "Taker"                           |
-| result.details.order        | object                         | the order details object                                        |
+| result.details.type         | string                         | type of the order; "Maker" or "Taker"                                |
+| result.details.order        | object                         | the order details object                                             |
 | result.details.order.changes_history | array                          | array containing previous details that was changed for this order as objects, available only for maker orders that was updated with `update_maker_order` method |
-| found_records               | number                         | the number of returned orders                                   |
+| found_records               | number                         | the number of returned orders                                        |
+| warnings                    | array                          | array containing warnings objects                                    |
+| warnings.uuid               | string                         | uuid of the order that produced this warning                         |
+| warnings.warning            | string                         | warning message                                                      |
 
 #### :pushpin: Examples
 
@@ -5206,7 +5209,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       }
     ],
     "details": [],
-    "found_records": 1
+    "found_records": 1,
+    "warnings": []
   }
 }
 ```
@@ -5296,7 +5300,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         }
       }
     ],
-    "found_records": 1
+    "found_records": 1,
+    "warnings": []
   }
 }
 ```
@@ -5419,7 +5424,40 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         }
       }
     ],
-    "found_records": 1
+    "found_records": 1,
+    "warnings": []
+  }
+}
+```
+
+#### Response (warning - uuid could not be parsed)
+
+```json
+{
+  "result": {
+    "orders": [
+      {
+        "uuid": "e5f453e2-b414-4df2-9fc3-eeedb5cc1f1e",
+        "order_type": "Maker",
+        "initial_action": "Sell",
+        "base": "RICK",
+        "rel": "MORTY",
+        "price": 2,
+        "volume": 3,
+        "created_at": 1620727954406,
+        "last_updated": 1620727954406,
+        "was_taker": 0,
+        "status": "Created"
+      }
+    ],
+    "details": [],
+    "found_records": 1,
+    "warnings": [
+      {
+        "uuid": "e5f453e2-b414-4df2-9fc3-eeedb5cc1f1e",
+        "warning": "Order details for Uuid e5f453e2-b414-4df2-9fc3-eeedb5cc1f1e were skipped because uuid could not be parsed"
+      }
+    ]
   }
 }
 ```
