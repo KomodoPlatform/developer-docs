@@ -38,7 +38,7 @@ The `numerator` and `denominator` are BigInteger numbers represented as a sign a
 
 ## batch requests
 
-A batch request is a method for sending several unique requests to the network all at once. 
+A batch request is a method for sending several unique requests to the network all at once.
 
 The requests are sent as an array filled with request objects. Results are returned in the order of received requests.
 
@@ -504,7 +504,7 @@ curl --url "http://127.0.0.1:7783" --data '{
   "method": "best_orders",
   "coin": "RICK",
   "action": "buy",
-  "volume": "1",
+  "volume": "1"
 }'
 ```
 
@@ -1812,7 +1812,7 @@ This amount should be multiplied by 2 and deducted from the volume on `buy/sell`
 
 ::: tip
 
-This function is deprecated. Use the **trade_preimage** instead.
+This function is deprecated. Please consider using [trade_preimage v2.0](../../../basic-docs/atomicdex/atomicdex-api-20/trade_preimage.html) instead.
 
 :::
 
@@ -5793,7 +5793,7 @@ The `stop` method stops the MM2 software.
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
-## trade\_preimage
+## trade\_preimage (deprecated)
 
 **trade_preimage**
 
@@ -5814,6 +5814,12 @@ Use the resulting `volume` as an argument of the `buy` or `sell` requests.
 ::: warning Important
 
 Use the `trade_preimage` request with `max = true` and `swap_method = "setprice"` arguments to approximate the fee amounts **only**. Do not use the resulting `volume` as an argument of the `setprice`.
+
+:::
+
+::: tip
+
+This function is deprecated. Please consider using [trade_preimage v2.0](../../../basic-docs/atomicdex/atomicdex-api-20/trade_preimage.html) instead.
 
 :::
 
@@ -6211,14 +6217,15 @@ To prevent a user from making trades in which the transaction fees may end up co
 
 | Structure       | Type                       | Description                                                                                                                                                                                                                                                                                                               |
 | --------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------                                                                                                                                                                                                  |
-| uuid            | string                     | the uuid of the order the user desires to update                                                                                                                                                                                                                                            | new_price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                                                                                                                                                                                                                         |
-| volume_delta          | numeric string or rational | volume added to or subtracted from the `max_base_vol` of the order to be updated, resulting in the new volume which is the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the new volume which is the `max_base_vol` of the order to be updated plus `volume_delta`</li><li>the product of the new volume and the argument `new_price`</li></ul>                             |
-| min_volume      | numeric string or rational | the minimum amount of `base` coin available for the order; it must be less or equal than the new volume; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the product of the arguments `min_volume` and `new_price`</li></ul> |
-| max             | bool                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                                                                                                                                                                                                                                                       |
-| base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                          |
-| base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                |
-| rel_confs       | number                     | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                            |
-| rel_nota        | bool                       | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                  |
+| uuid            | string                  | the uuid of the order the user desires to update |
+| new_price           | numeric string or rational (optional) | the price in `rel` the user is willing to receive per one unit of the `base` coin          |                                                                                                                                                                                                                               |
+| volume_delta          | numeric string or rational (optional) | volume added to or subtracted from the `max_base_vol` of the order to be updated, resulting in the new volume which is the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the new volume which is the `max_base_vol` of the order to be updated plus `volume_delta`</li><li>the product of the new volume and the argument `new_price`</li></ul>                             |
+| min_volume      | numeric string or rational (optional) | the minimum amount of `base` coin available for the order; it must be less or equal than the new volume; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the product of the arguments `min_volume` and `new_price`</li></ul> |
+| max             | bool (optional)                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                                                                                                                                                                                                                                                       |
+| base_confs      | number (optional)                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                          |
+| base_nota       | bool (optional)                      | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                |
+| rel_confs       | number (optional)                    | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                            |
+| rel_nota        | bool (optional)                      | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                  |
 
 #### Response
 
