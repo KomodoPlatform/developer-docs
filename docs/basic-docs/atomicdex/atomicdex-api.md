@@ -38,7 +38,7 @@ The `numerator` and `denominator` are BigInteger numbers represented as a sign a
 
 ## batch requests
 
-A batch request is a method for sending several unique requests to the network all at once. 
+A batch request is a method for sending several unique requests to the network all at once.
 
 The requests are sent as an array filled with request objects. Results are returned in the order of received requests.
 
@@ -1812,7 +1812,7 @@ This amount should be multiplied by 2 and deducted from the volume on `buy/sell`
 
 ::: tip
 
-This function is deprecated. Use the **trade_preimage** instead.
+This function is deprecated. Please consider using [trade_preimage v2.0](../../../basic-docs/atomicdex/atomicdex-api-20/trade_preimage.html) instead.
 
 :::
 
@@ -5793,7 +5793,7 @@ The `stop` method stops the MM2 software.
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
-## trade\_preimage
+## trade\_preimage (deprecated)
 
 **trade_preimage**
 
@@ -5814,6 +5814,12 @@ Use the resulting `volume` as an argument of the `buy` or `sell` requests.
 ::: warning Important
 
 Use the `trade_preimage` request with `max = true` and `swap_method = "setprice"` arguments to approximate the fee amounts **only**. Do not use the resulting `volume` as an argument of the `setprice`.
+
+:::
+
+::: tip
+
+This function is deprecated. Please consider using [trade_preimage v2.0](../../../basic-docs/atomicdex/atomicdex-api-20/trade_preimage.html) instead.
 
 :::
 
