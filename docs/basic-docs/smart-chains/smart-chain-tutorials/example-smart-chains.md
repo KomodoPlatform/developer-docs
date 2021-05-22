@@ -1,7 +1,7 @@
 # Examples and descriptions of various Smart Chain configurations
 
 - The purpose of this document is to give a better understanding of Smart Chain parameters via examples. These chains are grouped simply by the number of parameters used in customizing each. As new parameters are added, the new combinations will be tested and added here.
-- Please see [Creating a new Blockchain using Komodo Platform](../basic-docs/installations/creating-asset-chains.html) and [Parameters to customize Blockchains created using Komodo Platform](../basic-docs/installations/asset-chain-parameters.html) if you haven't already.
+- Please see [Creating a new Blockchain using Komodo Platform](./create-a-default-smart-chain.html) and [Parameters to customize Blockchains created using Komodo Platform](../../antara/antara-setup/antara-customizations.html) if you haven't already.
 - All chains must have at least `ac_name` and `ac_supply` set. The `ac_pubkey` parameter can be used with any of these chains. If `ac_perc` is not set, the only effect `ac_pubkey` has is to have the genesis block be mined to the pubkey that has been specified. The parameters `ac_name` , `ac_supply` , `ac_pubkey` are not counted when grouping based on the `Number of parameters`.
 - The values of parameters other than `ac_name` in these examples are completely arbitrary. The names of these example-asset-chains are assigned based on how a chain is customized and its grouping.
 

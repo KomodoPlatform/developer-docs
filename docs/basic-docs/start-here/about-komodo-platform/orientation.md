@@ -56,23 +56,16 @@ Although the Antara Framework can be compatible with essentially all mainstream 
 
 #### Installation and Testing is Free
 
-Creating and experimenting with Komodo Smart Chains is completely free.
+Creating and experimenting with Komodo Smart Chains is completely free. Even for Production Smart Chains, hardware needed to run the Smart Chains and the other essential associated infrastructure like Electrum servers, Explorers is the only expense if you are doing everything by yourself.
 
 #### Production Smart Chains Typically Require Komodo's Security Services
 
-In nearly all circumstances, a Smart Chain is only secure once it receives the Komodo dPoW Security Service.
+If your Smart Chain is pure PoW based and doesn't include greater than 50% [PoS](../../../../antara/antara-setup/antara-customizations.html#ac-staked) based block generation, it is only truly secure once it receives the Komodo dPoW Security Service.
 
-Please reach out to our third-party service providers for a cost quote.
+Please reach out to our bizdev team for a cost quote on our [<b>Discord</b>](https://komodoplatform.com/discord) live-chat server. Their usernames are:
 
-Our third-party providers are available on our [<b>Discord</b>](https://komodoplatform.com/discord) live-chat server. Their usernames are:
-
-- @siu
-- @ptyx
-- @bitcoinbenny
-
-::: tip
-We have a limited supply of early-adopter discounts. Please inquire while supply last.
-:::
+- `ptyx#6840`
+- `polycryptoblog#1173`
 
 ### The Cost of Using AtomicDEX Software
 

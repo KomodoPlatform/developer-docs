@@ -19,9 +19,9 @@ export userpass="<value of rpc_password from MM2.json here>"
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"stop\",\"userpass\":\"$userpass\"}"
 ```
 
-- Navigate to the directory where `mm2` is located . You should find a directory named `DB`. Inside it, there should be a directory with a long hex (similar to `514fa660fa9976c87bb08e5636653ac75be9f606`) as its name. Navigate into it, then into "SWAPS", then "STATS". 
-  - the directory structure should look similar to `DB/514fa660fa9976c87bb08e5636653ac75be9f606/SWAPS/STATS`
-- If the swap file was found in the directory named `TAKER`, place it in the location `DB/514fa660fa9976c87bb08e5636653ac75be9f606/SWAPS/STATS/TAKER` otherwise, in `DB/514fa660fa9976c87bb08e5636653ac75be9f606/SWAPS/STATS/MAKER`
+- Navigate to the directory where `mm2` is located . You should find a directory named `DB`. Inside it, there should be a directory with a long hex (similar to `514fa660fa9976c87bb08e5636653ac75be9f606`) as its name. Navigate into it, then into "SWAPS", then "MY". 
+  - the directory structure should look similar to `DB/514fa660fa9976c87bb08e5636653ac75be9f606/SWAPS/MY`
+- now, place the swap file in the above mentioned directory 
 - Now start `mm2` again using the command
 
 ```bash

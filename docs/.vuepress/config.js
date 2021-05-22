@@ -4,79 +4,93 @@ var sidebarExtraImport = require("./sidebar-extra.js");
 var navbarImport = require("./navbar.js");
 var algoliaSecret = require("./algolia-secret.js");
 
+const autometa_options = {
+  schema: true,
+  site: {
+    name: "Komodo Documentation",
+    twitter: "komodoplatform",
+  },
+  canonical_base: "https://docs.komodoplatform.com",
+};
+
 module.exports = {
   plugins: {
     redirect: {
-      alias: redirectAliases
+      alias: redirectAliases,
     },
+    autometa: autometa_options,
     "@vuepress/last-updated": {
-      transformer: timestamp => {
+      transformer: (timestamp) => {
         // Don't forget to install moment yourself
         const moment = require("moment");
         return moment(timestamp).fromNow();
-      }
-    }
+      },
+    },
+    "vuepress-plugin-medium-zoom": {
+      //selector: ".my-wrapper .my-img",
+      delay: 1000,
+      options: {
+        margin: 24,
+        background: "#026782",
+        scrollOffset: 0,
+      },
+    },
+    "vuepress-plugin-google-tag-manager": {
+      gtm: "GTM-PC28587",
+    },
   },
   head: [
-    [
-      "script",
-      {},
-      `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PC28587');`
-    ],
     [
       "link",
       {
         rel: "icon",
-        href: "KMD_Mark_Black.png"
-      }
-    ],
-    [
-      "meta",
-      {
-        name: "twitter:card",
-        content: "summary_large_image"
-      }
-    ],
-    [
-      "meta",
-      {
-        name: "twitter:card",
-        content: "summary_large_image"
-      }
-    ],
-    [
-      "meta",
-      {
-        name: "twitter:site",
-        content: "@komodoplatform"
-      }
-    ],
-    [
-      "meta",
-      {
-        name: "twitter:title",
-        content: "Komodo Documentation"
-      }
-    ],
-    [
-      "meta",
-      {
-        name: "twitter:description",
-        content: "Documentation for developers building on the Komodo Platform"
-      }
+        href: "/KMD_Mark_Black.png",
+      },
     ],
     [
       "meta",
       {
         name: "twitter:image",
         content:
-          "https://docs.komodoplatform.com/Dev_Docs_Introduction_small.png"
-      }
+          "https://developers.komodoplatform.com/start-here-pics/Dev_Docs_Introduction_small.png",
+      },
     ],
+    /* [
+      "meta",
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:site",
+        content: "@komodoplatform",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:title",
+        content: "Komodo Documentation",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:description",
+        content: "Documentation for developers building on the Komodo Platform",
+      },
+    ],
+   */
   ],
   title: "Komodo Documentation",
   base: "/",
@@ -87,14 +101,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     docsDir: "docs",
     editLinks: true,
     editLinkText: "Suggest an improvement for this page",
-    lastUpdated: "Last Updated",
+    //lastUpdated: "Last Updated",
+    // sidebarDepth: 3,
     logo: "/KMD_Horiz_White.svg",
     algolia: {
       apiKey: algoliaSecret.key,
-      indexName: "komodoplatform_doc"
+      indexName: "komodoplatform_doc",
     },
-    logo: "/KMD_Mark_White.png",
+    //logo: "/KMD_Mark_White.png",
     nav: navbarImport,
-    sidebar: sidebarExtraImport
-  }
+    sidebar: sidebarExtraImport,
+  },
 };

@@ -176,11 +176,11 @@ For example, a common DEX uses a decentralized network of gateway nodes to hold 
 
 Komodo features a new form of DEX: AtomicDEX. This uses atomic swaps, and provides a revolutionary form of trading cryptocurrencies. Users maintain control over their assets at all times during the trading process, which makes AtomicDEX a truly decentralized DEX.
 
-## Decentralized Initial Coin Offering (dICO)
+## Initial DEX Offering (IDO)
 
-A decentralized initial coin offering (dICO) is a method of releasing cryptocurrency assets to the public without passing through the technology of a centralized authority.
+A initial DEX offering (IDO) is a method of releasing cryptocurrency assets to the public without passing through the technology of a centralized authority.
 
-For more information, [read the Creating and Distributing a New Komodo Smart Chain section.](../../../basic-docs/start-here/core-technology-discussions/creating-and-distributing-a-new-komodo-smart-chain.html)
+For more information, [read the IDO section.](../../../basic-docs/start-here/core-technology-discussions/initial-dex-offering.html)
 
 ## Delayed Proof of Work (dPoW)
 

@@ -9,8 +9,12 @@
   "author": "Contributors from Komodo Platform",
   "license": "MIT",
   "devDependencies": {
-    "@vuepress/plugin-last-updated": "^1.2.0",
-    "vuepress": "^1.2.0",
+    "cookieconsent": "https://github.com/KomodoPlatform/cookieconsent",
+    "moment": "^2.27.0",
+    "vuepress": "^1.0.2",
+    "vuepress-plugin-autometa": "^0.1.13",
+    "vuepress-plugin-google-tag-manager": "^0.0.4",
+    "vuepress-plugin-medium-zoom": "^1.1.8",
     "vuepress-plugin-redirect": "1.2.0-alpha.0"
   },
   "scripts": {
@@ -20,8 +24,7 @@
   "dependencies": {
     "dotenv": "^8.0.0",
     "js-yaml": "^3.13.1",
-    "lodash": "^4.17.13",
-    "moment": "^2.24.0",
+    "lodash": "^4.17.19",
     "vuetify": "^1.5.0"
   }
 }

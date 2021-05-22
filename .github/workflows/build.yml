@@ -1,0 +1,30 @@
+name: Build and Deploy doc sites  
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+        persist-credentials: false    
+
+    - name: Add Algolia Secret
+      env:
+        ALGOLIAKEY: ${{secrets.ALGOLIA_SECRET}}
+      run: ./algolia-key.sh
+
+    - name: Build and Deploy to gh_pages
+      uses: KomodoPlatform/vuepress-deploy@1.0.1
+      env:
+        ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
+        ALGOLIAKEY: ${{secrets.ALGOLIA_SECRET}}
+        TARGET_REPO: ${{ github.repository }}
+        TARGET_BRANCH: gh-pages
+        CNAME: "docs.komodoplatform.com"
+        BUILD_SCRIPT: yarn && yarn docs:build
+        BUILD_DIR: docs/.vuepress/dist/

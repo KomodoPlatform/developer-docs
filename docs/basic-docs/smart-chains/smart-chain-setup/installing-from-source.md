@@ -62,7 +62,7 @@ sudo apt-get upgrade -y
 #### Install the dependency packages
 
 ```bash
-sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget curl bsdmainutils automake cmake clang ntp ntpdate nano -y
+sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git zlib1g-dev wget curl bsdmainutils automake cmake clang ntp ntpdate nano -y
 ```
 
 This action takes some time, depending on your Internet connection. Let the process run in the background.
@@ -77,9 +77,8 @@ At some point during the installation process, you may see a warning, "libgmp he
 
 ```bash
 cd ~
-git clone https://github.com/jl777/komodo
+git clone https://github.com/KomodoPlatform/komodo
 cd komodo
-git checkout dev
 ```
 
 #### Fetch the Zcash Parameters
@@ -261,7 +260,7 @@ brew install wget
 #### Clone the Komodo repository
 
 ```bash
-git clone https://github.com/jl777/komodo
+git clone https://github.com/KomodoPlatform/komodo
 ```
 
 #### Fetch the Zcash Parameters:
@@ -426,9 +425,8 @@ Press <enter> to keep the current choice[*], or type selection number: 1
 #### Clone the Komodo Repository
 
 ```bash
-git clone https://github.com/jl777/komodo
+git clone https://github.com/KomodoPlatform/komodo
 cd komodo
-git checkout dev
 ```
 
 #### Fetch the Zcash Parameters

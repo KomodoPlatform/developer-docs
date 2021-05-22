@@ -1,5 +1,11 @@
 ---
 home: true
+title: Komodo Documentation
+tags:
+  - Komodo
+  - docs
+  - developers
+  - blockchain
 heroImage: /Dev_Docs_Introduction_small.png
 tagline: Welcome to Komodo's Documentation Sandbox
 actionText: Get Started →
@@ -7,7 +13,7 @@ actionLink: /basic-docs/start-here/about-komodo-platform/about-komodo-platform.h
 shortcuts:
   - title: Create Smart Chains
     description: |-
-      Use Komodo's Technology to create your own indepndent blockchains. Customizations available include: Coin emission, PoW/PoS, Privacy, Antara modules and many more...
+      Use Komodo's Technology to create your own independent blockchains. Customizations available include: Coin emission, PoW/PoS, Privacy, Antara modules and many more...
     link: /basic-docs/smart-chains/introduction-to-smart-chain-documentation.html
     linkText: Create →
   - title: Explore Antara Modules

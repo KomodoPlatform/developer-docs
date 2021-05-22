@@ -19,7 +19,7 @@ Add the following to the `acsplit` file and save it.
 curl --url "http://127.0.0.1:7776" --data "{\"coin\":\""${1}"\",\"agent\":\"iguana\",\"method\":\"splitfunds\",\"satoshis\":\"10000\",\"sendflag\":1,\"duplicates\":"${2}"}"
 ```
 
-If you want to split UTXO for `GAME` & `EMC2`, you need to change `\\"satoshis\\":\\"10000\\",` to `\\"satoshis\\":\\"100000\\",`.
+If you want to split UTXO for `GAME`, `AYA` & `EMC2`, you need to change `\\"satoshis\\":\\"10000\\",` to `\\"satoshis\\":\\"100000\\",`.
 
 ## Step 2: Give executable permission to `acsplit`
 

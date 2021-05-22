@@ -107,6 +107,12 @@ The process of an atomic swap begins with the person who makes the initial reque
 
 Taker will need two transactions to perform her swap. One transaction will cover the protocol fee, which is roughly 1/777th the size of the desired order. We call this fee the `<dexfee>`, and its primary purpose is to serve as a disincentive to Taker from spamming the network with rapid requests.
 
+::: tip
+
+The `dexfee` is actually calculated as "the greater of either `0.0001 TAKER COIN` or `1/777th` the size of the desired order"
+
+:::
+
 The second transaction required of Taker sends the actual amount she intends to swap. AtomicDEX first verifies that she has these funds, but for the moment she retains these funds in the safety of her own digital wallet.
 
 ##### Maker Answers Taker

@@ -2,7 +2,7 @@
 
 Now that you have MarketMaker 2.0 (MM2) [installed](../atomicdex-setup/get-started-atomicdex.md) you are ready for your first atomic swap!
 
-Since we're testing MM2 as a back end, we're going to be doing a few things that a normal user will not be expected to do once we have a GUI or TUI/CLI available. We are working with Ideas By Nature, a user-experience and user-interface design firm, to facilitate this.
+Since we're testing MM2 as a back end, we're going to be doing a few things that a normal user using a GUI will not be expected to do.
 
 Let's open up the terminal and get started.
 
@@ -14,33 +14,39 @@ Let's set up a file in the `~/atomicDEX-API/target/debug` directory to import th
 
 ```json
 [
-  {
-    "coin": "RICK",
-    "asset": "RICK",
-    "fname": "RICK (TESTCOIN)",
-    "rpcport": 25435,
-    "txversion": 4,
-    "overwintered": 1,
-    "mm2": 1
-  },
-  {
-    "coin": "MORTY",
-    "asset": "MORTY",
-    "fname": "MORTY (TESTCOIN)",
-    "rpcport": 16348,
-    "txversion": 4,
-    "overwintered": 1,
-    "mm2": 1
-  }
+        {
+                "coin": "RICK",
+                "asset": "RICK",
+                "fname": "RICK (TESTCOIN)",
+                "rpcport": 25435,
+                "txversion": 4,
+                "overwintered": 1,
+                "mm2": 1,
+                "protocol": {
+                        "type": "UTXO"
+                }
+        },
+        {
+                "coin": "MORTY",
+                "asset": "MORTY",
+                "fname": "MORTY (TESTCOIN)",
+                "rpcport": 16348,
+                "txversion": 4,
+                "overwintered": 1,
+                "mm2": 1,
+                "protocol": {
+                        "type": "UTXO"
+                }
+        }
 ]
 ```
 
 Save this file. MM2 will search for it automatically on launch.
 
 ::: tip
-The `coins` file in [this linked repository](https://github.com/jl777/coins) contains the standard coin configuration file used in GUI software.
+The `coins` file in [this linked repository](https://github.com/KomodoPlatform/coins) contains the standard coin configuration file used in GUI software.
 
-The `electrum server configuration` for enabling coins can also be found in the the [electrums directory](https://github.com/jl777/coins/tree/master/electrums) in the JL777-coins repository. 
+The `electrum server configuration` for enabling coins can also be found in the the [electrums directory](https://github.com/KomodoPlatform/coins/tree/master/electrums) in the KomodoPlatform-coins repository. 
 :::
 
 #### RPC password
@@ -58,7 +64,7 @@ We have our initial materials, let's launch the software.
 Look at the following command below, but don't execute it yet:
 
 ```bash
-stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
+stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
 ```
 
 Replace `YOUR_PASSPHRASE_HERE` and `YOUR_PASSWORD_HERE` with your actual passphrase and password, and then execute the command in the terminal.
@@ -68,7 +74,7 @@ Here is an approximate interpretation of the arguments in the command, to help y
 | Argument     | (Value)              | Description                                                                                                                          |
 | ------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | gui          | MM2GUI               | information about your GUI; place essential info about your application (name, version, etc.) here. For example: AtomicDEX iOS 1.0.1 |
-| netid        | 9999                 | this tells MM2 which network to join. 9999 is a private test network we use here. 0 is the default network.                          |
+| netid        | 7777                 | this tells MM2 which network to join. 7777 is a private test network we use here. 0 is the default network.                          |
 | passphrase   | YOUR_PASSPHRASE_HERE | your passphrase; this is the source of each of your coins' private keys                                                              |
 | rpc_password | YOUR_PASSWORD_HERE   | your password for protected RPC methods (userpass)                                                                                   |
 | userhome     | /\${HOME#"/"}        | the path to your home, called from your environment variables and entered as a regular expression                                    |
@@ -80,7 +86,7 @@ Having executed the command, you should see output similar to the following:
 cant open.(/root/.komodo/komodo.conf)
 29 19:39:41, lp_coins:796] ticker = "KMD", method = Some("enable"), block_count = 0
 RPCport.7783 remoteport.7782, nanoports 47762 47772 47782
-29 19:39:41, peers:942] initialize] netid 9999 public key ab44ae49d2ff89295ee9a0574e89a2bdd7bfbb4f1a34f7d5c0256cf06e89485d preferred port 47773 drill false
+29 19:39:41, peers:942] initialize] netid 7777 public key ab44ae49d2ff89295ee9a0574e89a2bdd7bfbb4f1a34f7d5c0256cf06e89485d preferred port 47773 drill false
 connected to push.(tcp://333.333.333.333:47762) pushsock.0 valid.1  | connected to sub.(tcp://333.333.333.333:47772) subsock.1 valid.1 numactive.1
 connected to push.(tcp://333.333.333.333:47762) pushsock.2 valid.1  | connected to sub.(tcp://333.333.333.333:47772) subsock.3 valid.1 numactive.1
 _LPaddpeer 333.333.333.333 -> numpeers.2 mypubsock.-1 other.(0)
@@ -111,7 +117,7 @@ When using MarketMaker 2.0 (MM2) software on a VPS without accompanying tools su
 Example:
 
 ```bash
-stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
+stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
 ```
 
 :::
@@ -253,14 +259,29 @@ The call will return a similar result:
     {
       "coin": "RICK",
       "address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
-      "price": 0.89999998,
-      "numutxos": 0,
-      "avevolume": 0,
-      "maxvolume": 10855.85028615,
-      "depth": 0,
+      "price": "0.89999998",
+      "price_rat": [
+        [1, [813957463, 471859]],
+        [1, [0, 524288]]
+      ],
+      "price_fraction": {
+        "numer": "2026619787280727",
+        "denom": "2251799813685248"
+      },
+      "maxvolume": "10855.85028615",
+      "max_volume_rat": [
+        [1, [3593286463, 1389548]],
+        [1, [0, 128]]
+      ],
+      "max_volume_fraction": {
+        "numer": "5968066809508671",
+        "denom": "549755813888"
+      },
       "pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
       "age": 5,
-      "zcredits": 0
+      "zcredits": 0,
+      "uuid": "5bff6021-b086-477e-b874-f45d898933fe",
+      "is_mine": false
     }
   ],
   "numasks": 1,
@@ -268,7 +289,7 @@ The call will return a similar result:
   "base": "RICK",
   "rel": "MORTY",
   "timestamp": 1549319941,
-  "netid": 9999
+  "netid": 7777
 }
 ```
 
@@ -302,14 +323,29 @@ Here's the response:
     {
       "coin": "RICK",
       "address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
-      "price": 2,
-      "numutxos": 0,
-      "avevolume": 0,
-      "maxvolume": 10855.85028615,
-      "depth": 0,
+      "price": "2",
+      "price_rat": [
+        [1, [2]],
+        [1, [1]]
+      ],
+      "price_fraction": {
+        "numer": "2",
+        "denom": "1"
+      },
+      "maxvolume": "10855.85028615",
+      "max_volume_rat": [
+        [1, [3593286463, 1389548]],
+        [1, [0, 128]]
+      ],
+      "max_volume_fraction": {
+        "numer": "5968066809508671",
+        "denom": "549755813888"
+      },
       "pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
       "age": 9,
-      "zcredits": 0
+      "zcredits": 0,
+      "uuid": "5bff6021-b086-477e-b874-f45d898933fe",
+      "is_mine": false
     }
   ],
   "numasks": 1,
@@ -317,7 +353,7 @@ Here's the response:
   "base": "RICK",
   "rel": "MORTY",
   "timestamp": 1549320152,
-  "netid": 9999
+  "netid": 7777
 }
 ```
 

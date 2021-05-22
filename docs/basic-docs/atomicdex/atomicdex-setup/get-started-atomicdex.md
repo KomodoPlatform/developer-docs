@@ -91,11 +91,11 @@ sudo apt-get install -y git llvm-3.9-dev libclang-3.9-dev clang-3.9 libssl-dev p
 Install additional Rust components:
 
 ```bash
-rustup install nightly-2020-02-01
+rustup install nightly-2020-10-25
 ```
 
 ```bash
-rustup default nightly-2020-02-01
+rustup default nightly-2020-10-25
 ```
 
 (Optional) Skip this step if it fails.
@@ -136,7 +136,7 @@ Clone the MM2 repository:
 
 ```bash
 cd ~
-git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2 --single-branch && cd atomicDEX-API
+git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2.1 --single-branch && cd atomicDEX-API
 ```
 
 Compile the source code.

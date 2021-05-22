@@ -4,7 +4,7 @@
 
 nSPV enhances the normal "Simple Payment Verification" (SPV) technology available for a Smart Chain. To learn more about regular SPV technology, [read this entry on the Bitcoin wiki.](https://en.bitcoinwiki.org/wiki/Simplified_Payment_Verification)
 
-nSPV leverages the dPoW security mechanism of the Komodo Platform to enable secure and scalable super-lite "SPV" clients. An nSPV client network utilizes a smaller amount of computation and storage resources compared to a normal SPV network. For all Smart Chains that enable nSPV, full nodes on the network can serve the necessary data to nSPV nodes for the latter to have full wallet functionality.
+nSPV leverages the dPoW security mechanism of the Komodo Platform to enable secure and scalable super-lite "SPV" clients. An nSPV client network utilizes a smaller amount of computation and storage resources compared to a normal SPV network. For all Smart Chains, <b>all the full nodes on the Smart Chain's network</b> can serve the necessary data to nSPV clients for the latter to have full wallet functionality.
 
 All Komodo-compatible Smart Chains, including the KMD main chain, can utilize this technology.
 
@@ -18,7 +18,7 @@ Follow the instructions below to set up an nSPV client.
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get install build-essential pkg-config libc6-dev m4 libsodium-dev curl libevent-dev git cmake nano wget ntp ntpdate automake unzip autoconf libtool -y
-git clone https://github.com/jl777/libnspv
+git clone https://github.com/KomodoPlatform/libnspv
 cd libnspv
 ./autogen.sh
 ./configure
@@ -134,13 +134,17 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "
 
 #### Accessing localhost in the Browser
 
-To access an nSPV client using a browser, create a url that uses `http://127.0.0.1:<insert_port>/api/` as the base url, and add the `rpc_name/` and any relevant additional `parameters/` as additional url directions. See the example below.
+To access an nSPV client's API using a browser, create a url that uses `http://127.0.0.1:<insert_port>/api/` as the base url, and add the `rpc_name/` and any relevant additional `parameters/` as additional url directions. See the example below.
 
 ##### Example
 
 ```
 http://127.0.0.1:<port>/api/method/spentinfo/txid/e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855/vout/1
 ```
+
+#### Static HTML wallet in a browser
+
+Simply visit the url `http://127.0.0.1:<insert_port>/` to access the Static HTML wallet served by the nSPV binary.
 
 ## -p
 
