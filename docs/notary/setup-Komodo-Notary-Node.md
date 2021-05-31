@@ -6,6 +6,11 @@ This guide is here to give guidance and a general understanding on building a Ko
 
 Note that, whenever the "Main Server" is referenced, it is referring to the server that is used to notarize Komodo and Smart Chains to Bitcoin. Whenever "3rd Party server" is referenced, it is referring to the server that is used to notarize any 3rd party coin to Komodo.
 
+::: tip Note
+Check out https://github.com/webworker01/nntools#setup for webworker01's simple hands off setup for your notary nodes.
+:::
+
+
 This guide will explain how to setup your Main Server, then go through the process of setting up the 3rd Party Server separately. After that there are instructions on how to create your Notary Node `pubkeys`, import them to your servers and then, create a basic start script for each server. Having a second server is now a requirement for Komodo Notary Nodes.
 
 If you face problems, please join the `#notarynode` channel on the [Komodo Discord Server](https://komodoplatform.com/discord)
