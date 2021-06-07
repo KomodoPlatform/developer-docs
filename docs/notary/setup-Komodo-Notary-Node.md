@@ -1227,7 +1227,7 @@ cd ~/dPoW/iguana
 
 ## Address whitelisting
 
-If you are using a wehitelist for incoming transactions (recommended to avoid dust attacks!) funding top ups will come from `RDragoNHdwovvsDLSLMiAEzEArAD3kq6FN`, so add this address to your whitelist.
+If you are using a whitelist for incoming transactions (recommended to avoid dust attacks!) funding top ups will come from `RDragoNHdwovvsDLSLMiAEzEArAD3kq6FN` for your Main node, and `RHound8PpyhVLfi56dC7MK3ZvvkAmB3bvQ` for your 3P node, so add these address to your respective whitelists.
 
 ## Firewall and Ports
 
