@@ -7,7 +7,7 @@ This guide is here to give guidance and a general understanding on building a Ko
 Note that, whenever the "Main Server" is referenced, it is referring to the server that is used to notarize Komodo and Smart Chains to Bitcoin. Whenever "3rd Party server" is referenced, it is referring to the server that is used to notarize any 3rd party coin to Komodo.
 
 ::: tip Note
-Check out https://github.com/webworker01/nntools#setup for webworker01's simple hands off setup for your notary nodes.
+Check out [Webworker01's nnTools](https://github.com/webworker01/nntools#setup) for a simple hands off setup for your notary nodes.
 :::
 
 
@@ -31,6 +31,9 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 ### Main Server
 
 - **LTC:** [https://github.com/litecoin-project/litecoin](https://github.com/litecoin-project/litecoin) Branch: `0.16`
+
+_To notarise KMD -> LTC, the `-notary=".litecoin/litecoin.conf"` flag is required when launching KMD._
+
 
 ### 3rd Party Server (some of these are yet to update - check discord for status)
 
@@ -1229,3 +1232,8 @@ Enable `ufw` and close all routes except `ssh`. Then allow p2p ports of all the 
 ## NN Scripts
 
 There are many open sourced scripts for managing your Komodo Notary Node servers. If you're having trouble with something, you can have a look at [these tools](https://github.com/KomodoPlatform/komodotools), or ask the other NN's, who will show you the scripts they use to overcome issues. With that being said, if you find a way to make a job easier or find a way to better the ecosystem, please let the rest of the NN OPs know, we would love to hear it.
+
+
+## MM2 Seed node setup
+
+Simple scripts to setup and configure MM2 as a seednode on your 3P server are available at - https://github.com/smk762/nn_mm2_seed
