@@ -83,7 +83,7 @@ _Before doing anything further, please ensure that your server is secure._
 
 - Install [Fail2ban](https://www.techrepublic.com/article/how-to-install-fail2ban-on-ubuntu-server-18-04/).
 
-- [Perform Initial Setup for creating new user, give it `sudo` permission, change SSH port, disable `root` login, disable password authentication for login](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04)
+- Perform Initial Setup for [creating new user, give it `sudo` permission](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04), [change SSH port](https://linuxhandbook.com/change-ssh-port/), [disable `root` login](https://www.howtogeek.com/howto/linux/security-tip-disable-root-ssh-login-on-linux/), [disable password authentication for login](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server)
 
 - Please run processes as an unprivileged user and use `sudo` where necessary
 
