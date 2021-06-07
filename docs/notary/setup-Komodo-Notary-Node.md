@@ -37,7 +37,7 @@ _To notarise KMD -> LTC, the `-notary=".litecoin/litecoin.conf"` flag is require
 
 ### 3rd Party Server (some of these are yet to update - check discord for status)
 
-- **SFUSD:** [ https://github.com/pbcllc/sfusd-core.git]( https://github.com/pbcllc/sfusd-core.git )  Branch: `master`
+- **SFUSD:** [ https://github.com/pbcllc/sfusd-core.git]( https://github.com/pbcllc/sfusd-core.git )  Tree: `d96497cbcec0dcf185cc149f1b3988a5964e5112`
 - **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master`
 - **CHIPS:** [https://github.com/chips-blockchain/chips.git](https://github.com/chips-blockchain/chips.git) Branch: `master`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master`
@@ -909,7 +909,7 @@ sudo ln -sf /home/$USER/VerusCoin/src/verusd /usr/local/bin/verusd
 cd ~
 git clone https://github.com/pbcllc/sfusd-core
 cd ~/sfusd-core
-git checkout master
+git checkout d96497cbcec0dcf185cc149f1b3988a5964e5112
 ```
 
 #### Build
