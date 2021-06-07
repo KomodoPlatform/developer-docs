@@ -1225,6 +1225,10 @@ cd ~/dPoW/iguana
 ./m_notary_3rdparty
 ```
 
+## Address whitelisting
+
+If you are using a wehitelist for incoming transactions (recommended to avoid dust attacks!) funding top ups will come from `RDragoNHdwovvsDLSLMiAEzEArAD3kq6FN`, so add this address to your whitelist.
+
 ## Firewall and Ports
 
 Enable `ufw` and close all routes except `ssh`. Then allow p2p ports of all the coins in their respective servers. Allow iguana's p2p ports: `17777` in main server and `17774` in the 3p server.
