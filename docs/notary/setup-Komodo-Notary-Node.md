@@ -10,7 +10,6 @@ Note that, whenever the "Main Server" is referenced, it is referring to the serv
 Check out [Webworker01's nnTools](https://github.com/webworker01/nntools#setup) for a simple hands off setup for your notary nodes.
 :::
 
-
 This guide will explain how to setup your Main Server, then go through the process of setting up the 3rd Party Server separately. After that there are instructions on how to create your Notary Node `pubkeys`, import them to your servers and then, create a basic start script for each server. Having a second server is now a requirement for Komodo Notary Nodes.
 
 If you face problems, please join the `#notarynode` channel on the [Komodo Discord Server](https://komodoplatform.com/discord)
@@ -35,15 +34,15 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 _To notarise KMD -> LTC, the `-notary=".litecoin/litecoin.conf"` flag is required when launching KMD._
 
 
-### 3rd Party Server (some of these are yet to update - check discord for status)
+### 3rd Party Server (some of these are yet to update - check discord for status - operators can still build and sync the chains to present using the current versions before the actual update needed for S5 is available)
 
-- **SFUSD:** [ https://github.com/pbcllc/sfusd-core.git]( https://github.com/pbcllc/sfusd-core.git )  Tree: `d96497cbcec0dcf185cc149f1b3988a5964e5112`
+- **SFUSD:** [https://github.com/pbcllc/sfusd-core.git](https://github.com/pbcllc/sfusd-core.git) Tree: `d96497cbcec0dcf185cc149f1b3988a5964e5112`
 - **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master`
 - **CHIPS:** [https://github.com/chips-blockchain/chips.git](https://github.com/chips-blockchain/chips.git) Branch: `master`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master`
 - **VRSC:** [https://github.com/VerusCoin/VerusCoin.git](https://github.com/VerusCoin/VerusCoin.git) Tag: `v0.7.0-4`
-- **MCL:** [https://github.com/marmarachain/marmara.git](https://github.com/marmarachain/marmara.git) Branch: `master` 
-- **GLEEC** [https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git](https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git) Branch: `master` 
+- **MCL:** [https://github.com/marmarachain/marmara.git](https://github.com/marmarachain/marmara.git) Branch: `master`
+- **GLEEC** [https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git](https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git) Branch: `master`
 
 ## Requirements
 
@@ -680,7 +679,7 @@ chmod 600 ~/.chips/chips.conf
 cd ~
 git clone https://github.com/emc2foundation/einsteinium -b master
 cd einsteinium
-git checkout 70d7dc2	
+git checkout 70d7dc2
 ```
 
 #### Step 2: Create a build script
@@ -1237,7 +1236,6 @@ Enable `ufw` and close all routes except `ssh`. Then allow p2p ports of all the 
 
 There are many open sourced scripts for managing your Komodo Notary Node servers. If you're having trouble with something, you can have a look at [these tools](https://github.com/KomodoPlatform/komodotools), or ask the other NN's, who will show you the scripts they use to overcome issues. With that being said, if you find a way to make a job easier or find a way to better the ecosystem, please let the rest of the NN OPs know, we would love to hear it.
 
-
 ## MM2 Seed node setup
 
-Simple scripts to setup and configure MM2 as a seednode on your 3P server are available at - https://github.com/smk762/nn_mm2_seed
+Simple scripts to setup and configure MM2 as a seednode on your 3P server are available at - [https://github.com/smk762/nn_mm2_seed](https://github.com/smk762/nn_mm2_seed)
