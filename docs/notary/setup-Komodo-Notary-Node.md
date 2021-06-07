@@ -4,7 +4,7 @@
 This guide is here to give guidance and a general understanding on building a Komodo Notary Node server. It describes how to build the two required notary node servers: **Mainnet** and **Third Party(3P)**. It is possible that some instructions could be deprecated by the time you read it, please refer to [https://github.com/KomodoPlatform/dPoW/blob/master/doc](https://github.com/KomodoPlatform/dPoW/blob/master/doc) for more recent updates
 :::
 
-Note that, whenever the "Main Server" is referenced, it is referring to the server that is used to notarize Komodo and Smart Chains to Bitcoin. Whenever "3rd Party server" is referenced, it is referring to the server that is used to notarize any 3rd party coin to Komodo.
+Note that, whenever the "Main Server" is referenced, it is referring to the server that is used to notarize Komodo and Smart Chains to Litecoin. Whenever "3rd Party server" is referenced, it is referring to the server that is used to notarize any 3rd party coin to Komodo.
 
 ::: tip Note
 Check out [Webworker01's nnTools](https://github.com/webworker01/nntools#setup) for a simple hands off setup for your notary nodes.
@@ -272,7 +272,7 @@ chmod 700 wp_7779
 
 ## Main Server Setup
 
-The instructions below are only required on your main server, which is the one that will be notarizing Komodo, all the Smart Chains and runtime forks to Bitcoin.
+The instructions below are only required on your main server, which is the one that will be notarizing Komodo, all the Smart Chains and runtime forks to Litecoin.
 
 ### Litecoin
 
@@ -353,7 +353,7 @@ Insert the following contents inside the `litecoin.conf` file and save it. (chan
 ```bash
 txindex=1
 rpcport=9332
-rpcuser=bitcoinrpcChangeThisToSomethingSecure
+rpcuser=litecoinrpcChangeThisToSomethingSecure
 rpcpassword=passwordChangeThisToSomethingSecure
 ```
 
