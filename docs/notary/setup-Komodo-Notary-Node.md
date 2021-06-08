@@ -564,8 +564,7 @@ chmod 600 ~/.aryacoin/aryacoin.conf
 ```bash
 cd ~
 git clone git clone https://github.com/chips-blockchain/chips -b master
- -b master
-cd chips3
+cd chips
 #git checkout 31d59f9
 ```
 
@@ -634,8 +633,8 @@ then, run the script
 #### Step 3: Symlink the compiled binaries
 
 ```shell
-sudo ln -sf /home/$USER/chips3/src/chips-cli /usr/local/bin/chips-cli
-sudo ln -sf /home/$USER/chips3/src/chipsd /usr/local/bin/chipsd
+sudo ln -sf /home/$USER/chips/src/chips-cli /usr/local/bin/chips-cli
+sudo ln -sf /home/$USER/chips/src/chipsd /usr/local/bin/chipsd
 ```
 
 #### Step 4: Create CHIPS data dir, `chips.conf` file and restrict access to it
@@ -894,10 +893,11 @@ git checkout ab82cc9
 ./zcutil/build.sh -j$(nproc)
 ```
 
-Symlink the compiled binary
+Symlink the compiled binaries
 
 ```bash
 sudo ln -sf /home/$USER/VerusCoin/src/verusd /usr/local/bin/verusd
+sudo ln -sf /home/$USER/VerusCoin/src/verus /usr/local/bin/verus
 ```
 
 ### SFUSD
@@ -1059,7 +1059,7 @@ chips-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
 aryacoin-cli importprivkey T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
 komodo-cli -ac_name=MCL importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
-komodo-cli -ac_name=VRSC importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+verus importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 gleecbtc-cli importprivkey AhXsCzbmiZUyMCZyPqjYMhLxBxcFBP6tQSLrCpTpfYkvjJEMthcW
 ```
 
@@ -1094,7 +1094,7 @@ chips-cli stop
 einsteinium-cli stop
 aryacoin-cli stop
 komodo-cli -ac_name=MCL stop
-komodo-cli -ac_name=VRSC stop
+verus stop
 gleecbtc-cli stop
 ```
 
