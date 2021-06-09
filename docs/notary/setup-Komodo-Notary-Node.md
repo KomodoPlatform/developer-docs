@@ -563,7 +563,7 @@ chmod 600 ~/.aryacoin/aryacoin.conf
 
 ```bash
 cd ~
-git clone git clone https://github.com/chips-blockchain/chips -b master
+git clone https://github.com/chips-blockchain/chips -b master
 cd chips
 #git checkout 31d59f9
 ```
