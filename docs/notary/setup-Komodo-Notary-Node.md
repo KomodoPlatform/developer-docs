@@ -889,7 +889,7 @@ git checkout 03dd780
 cd ~
 git clone https://github.com/VerusCoin/VerusCoin -b master
 cd VerusCoin
-git checkout ab82cc9
+git checkout 7a740d2
 ./zcutil/build.sh -j$(nproc)
 ```
 
