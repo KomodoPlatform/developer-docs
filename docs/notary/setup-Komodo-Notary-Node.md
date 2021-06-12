@@ -775,7 +775,7 @@ chmod 600 ~/.einsteinium/einsteinium.conf
 cd ~
 git clone https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux
 cd ~/GleecBTC-FullNode-Win-Mac-Linux
-git checkout a664ae7
+git checkout 3c486d4
 ```
 
 #### Step 2: Create a build Script
