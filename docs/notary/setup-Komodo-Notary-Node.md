@@ -40,9 +40,9 @@ _To notarise KMD -> LTC, the `-notary=".litecoin/litecoin.conf"` flag is require
 - **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master`
 - **CHIPS:** [https://github.com/chips-blockchain/chips.git](https://github.com/chips-blockchain/chips.git) Branch: `master`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master`
-- **VRSC:** [https://github.com/VerusCoin/VerusCoin.git](https://github.com/VerusCoin/VerusCoin.git) Tag: `v0.7.0-4`
+- **VRSC:** [https://github.com/VerusCoin/VerusCoin.git](https://github.com/VerusCoin/VerusCoin.git) Tag: `v0.7.3-6`
 - **MCL:** [https://github.com/marmarachain/marmara.git](https://github.com/marmarachain/marmara.git) Branch: `master`
-- **GLEEC** [https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git](https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git) Branch: `master`
+- **GLEEC** [https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git](https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git) Branch: `gleecbtc`
 
 ## Requirements
 
@@ -678,7 +678,7 @@ chmod 600 ~/.chips/chips.conf
 cd ~
 git clone https://github.com/emc2foundation/einsteinium -b master
 cd einsteinium
-git checkout 70d7dc2
+git checkout a716ae8
 ```
 
 #### Step 2: Create a build script
