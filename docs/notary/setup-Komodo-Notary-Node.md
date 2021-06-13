@@ -117,12 +117,12 @@ sudo ldconfig
 ### Clone the source, checkout `master` branch and compile
 
 ```bash
-    cd ~
-    git clone https://github.com/KomodoPlatform/komodo
-    cd komodo
-    git checkout dev
-    ./zcutil/fetch-params-alt.sh
-    ./zcutil/build.sh -j$(nproc)
+cd ~
+git clone https://github.com/KomodoPlatform/komodo
+cd komodo
+git checkout dev
+./zcutil/fetch-params.sh
+./zcutil/build.sh -j$(nproc)
 ```
 
 ::: tip Note
@@ -565,7 +565,7 @@ chmod 600 ~/.aryacoin/aryacoin.conf
 cd ~
 git clone git clone https://github.com/chips-blockchain/chips -b master
 cd chips
-#git checkout 31d59f9
+git checkout 70362d
 ```
 
 #### Step 2: Build
