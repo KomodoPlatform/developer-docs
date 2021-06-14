@@ -24,7 +24,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 
 ### Both Servers
 
-- **KMD:** [https://github.com/KomodoPlatform/komodo/tree/24c449bb8524cb7549e3076b91f80e750a2b14ff](https://github.com/KomodoPlatform/komodo/tree/24c449bb8524cb7549e3076b91f80e750a2b14ff) Tree: `24c449bb8524cb7549e3076b91f80e750a2b14ff`
+- **KMD:** [https://github.com/KomodoPlatform/komodo/tree/db5b016cf7b8ffffe440ad774dee8c6815ce5726](https://github.com/KomodoPlatform/komodo/tree/db5b016cf7b8ffffe440ad774dee8c6815ce5726) Tree: `db5b016cf7b8ffffe440ad774dee8c6815ce5726`
 - **Iguana (no autosplit):** [https://github.com/KomodoPlatform/dPoW](https://github.com/KomodoPlatform/dPoW) Branch: `master`
 
 ### Main Server
@@ -90,12 +90,20 @@ _Before doing anything further, please ensure that your server is secure._
 
 ## Initial Server Setup
 
-The instructions below are required on both of your servers.
+The instructions below are required.
 
 ### Install Required Dependencies
 
+Main:
+
 ```bash
 sudo apt-get sudo apt-get install build-essential pkg-config bsdmainutils libtool libsodium-dev libc6-dev libssl-dev libcurl4-gnutls-dev ncurses-dev zlib1g-dev cmake clang m4 automake autoconf g++-multilib python python3 python3-zmq curl wget jq git unzip -y
+```
+
+3rd Party:
+
+```bash
+sudo apt-get install libevent-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev python-zmq zlib1g-dev wget curl bsdmainutils automake cmake clang libsodium-dev libcurl4-gnutls-dev libssl-dev git unzip python jq htop -y
 ```
 
 ### Install `nanomsg`
@@ -120,7 +128,7 @@ sudo ldconfig
 cd ~
 git clone https://github.com/KomodoPlatform/komodo
 cd komodo
-git checkout dev
+git checkout master
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh -j$(nproc)
 ```
@@ -875,9 +883,9 @@ GleecBTC's rpc calls are similar to BTC's after version `v0.18`. So familiar com
 
 ```bash
 cd ~
-git clone https://github.com/marmarachain/Marmara-v.1.0 -b master
-cd Marmara-v.1.0
-git checkout 03dd780
+git clone https://github.com/marmarachain/marmara -b master
+cd marmara
+git checkout 2412d5f
 ./zcutil/build.sh -j$(nproc)
 ```
 
