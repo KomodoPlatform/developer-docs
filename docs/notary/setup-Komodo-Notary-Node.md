@@ -37,12 +37,12 @@ _To notarise KMD -> LTC, the `-notary=".litecoin/litecoin.conf"` flag is require
 ### 3rd Party Server (some of these are yet to update - check discord for status - operators can still build and sync the chains to present using the current versions before the actual update needed for S5 is available)
 
 - **SFUSD:** [https://github.com/pbcllc/sfusd-core.git](https://github.com/pbcllc/sfusd-core.git) Tree: `d96497cbcec0dcf185cc149f1b3988a5964e5112`
-- **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Branch: `master`
-- **CHIPS:** [https://github.com/chips-blockchain/chips.git](https://github.com/chips-blockchain/chips.git) Branch: `master`
+- **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Tree: `a716ae80995e51b9a9d0bd5977a3463bbda4a17e`
+- **CHIPS:** [https://github.com/chips-blockchain/chips.git](https://github.com/chips-blockchain/chips.git) Tree: `70362d54645748194b72e1cc753cca8be4f8629b`
 - **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master`
 - **VRSC:** [https://github.com/VerusCoin/VerusCoin.git](https://github.com/VerusCoin/VerusCoin.git) Tag: `v0.7.3-6`
-- **MCL:** [https://github.com/marmarachain/marmara.git](https://github.com/marmarachain/marmara.git) Branch: `master`
-- **GLEEC** [https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git](https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git) Branch: `gleecbtc`
+- **MCL:** [https://github.com/marmarachain/marmara.git](https://github.com/marmarachain/marmara.git) Tree: `2412d5f5434a6b31f86da934d53df1729956654b`
+- **GLEEC** [https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git](https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git) Tree: `3c486d448dece7fc9a174b7a2eb36e651c1f3529`
 
 ## Requirements
 
@@ -1025,7 +1025,7 @@ einsteiniumd &
 smartusdd &
 aryacoind &
 verusd &
-~/Marmara-v.1.0/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+~/marmara/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 gleecbtcd &
 ```
 
@@ -1188,7 +1188,7 @@ einsteiniumd -pubkey=$pubkey &
 smartusdd -pubkey=$pubkey &
 aryacoind -pubkey=$pubkey &
 ~/VerusCoin/src/verusd -pubkey=$pubkey &
-~/Marmara-v.1.0/src/komodod -ac_name=MCL -pubkey=$pubkey -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+~/marmara/src/komodod -ac_name=MCL -pubkey=$pubkey -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 sleep 60
 cd komodo/src
 ./komodod -notary -pubkey=$pubkey &
