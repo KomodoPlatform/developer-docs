@@ -1238,7 +1238,7 @@ If you are using a whitelist for incoming transactions (recommended to avoid dus
 
 ## Firewall and Ports
 
-Enable `ufw` and close all routes except `ssh`. Then allow p2p ports of all the coins in their respective servers. Allow iguana's p2p ports: `17777` in main server and `17774` in the 3p server.
+Enable `ufw` and close all routes except `ssh`. Then allow p2p ports of all the coins in their respective servers. Allow iguana's p2p ports: `13337` in main server and `13334` in the 3p server.
 
 ## NN Scripts
 
@@ -1246,4 +1246,4 @@ There are many open sourced scripts for managing your Komodo Notary Node servers
 
 ## MM2 Seed node setup
 
-Simple scripts to setup and configure MM2 as a seednode on your 3P server are available at - [https://github.com/smk762/nn_mm2_seed](https://github.com/smk762/nn_mm2_seed)
+Simple scripts to setup and configure MM2 as a seednode on your 3P server are available at - [https://github.com/smk762/nn_mm2_seed](https://github.com/smk762/nn_mm2_seed). The mm2 seed node will also need port `38890` opened on the 3p server.
