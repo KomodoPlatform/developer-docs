@@ -28,8 +28,7 @@
         <slot name="page-bottom" />
       </template>
     </Page>
-
-     <ClientOnly>
+    <ClientOnly>
       <component
         v-if="dynamicCookieComponent"
         :is="dynamicCookieComponent"
@@ -58,7 +57,6 @@ import { resolveSidebarItems } from "../util";
 
 export default {
   name: "Layout",
-
   components: {
     Home,
     Page,
@@ -68,7 +66,7 @@ export default {
 
   data() {
     return {
-      isSidebarOpen: false,      
+      isSidebarOpen: false,
       dynamicCookieComponent: null,
     };
   },
@@ -158,9 +156,8 @@ export default {
         /* webpackChunkName: "cookielaw" */ "vue-cookie-law/dist/vue-cookie-law.js"
       ).then((module) => {
         this.dynamicCookieComponent = module.default;
-      })
-    }
-
+      });
+    },
   },
 };
 </script>
