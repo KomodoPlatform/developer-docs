@@ -29,7 +29,9 @@
       </template>
     </Page>
     <ClientOnly>
-      <cookie-law
+      <component
+        v-if="dynamicCookieComponent"
+        :is="dynamicCookieComponent"
         style="color: rgb(255, 255, 255);
     background-color: rgb(2, 103, 130);"
         ><div slot="message">
@@ -42,7 +44,7 @@
             >Learn more</a
           >
         </div>
-      </cookie-law>
+      </component>
     </ClientOnly>
   </div>
 </template>
@@ -53,11 +55,9 @@ import Navbar from "@theme/components/Navbar.vue";
 import Page from "@theme/components/Page.vue";
 import Sidebar from "@theme/components/Sidebar.vue";
 import { resolveSidebarItems } from "../util";
-//import CookieLaw from "vue-cookie-law";
 
 export default {
   name: "Layout",
-
   components: {
     Home,
     Page,
@@ -68,6 +68,7 @@ export default {
   data() {
     return {
       isSidebarOpen: false,
+      dynamicCookieComponent: null,
     };
   },
 
@@ -154,7 +155,9 @@ export default {
     importCookieLaw() {
       import(
         /* webpackChunkName: "cookielaw" */ "vue-cookie-law/dist/vue-cookie-law.js"
-      );
+      ).then((module) => {
+        this.dynamicCookieComponent = module.default;
+      });
     },
   },
 };
