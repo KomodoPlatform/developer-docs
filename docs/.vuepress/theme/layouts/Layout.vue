@@ -32,8 +32,7 @@
       <component
         v-if="dynamicCookieComponent"
         :is="dynamicCookieComponent"
-        style="color: rgb(255, 255, 255);
-    background-color: rgb(2, 103, 130);"
+        theme="custom"
         ><div slot="message">
           Our website uses cookies to make your browsing experience better. By
           using our site, you agree to our use of cookies.
@@ -162,10 +161,24 @@ export default {
   },
 };
 </script>
-<style lang="stylus">
 
-.Cookie--base .Cookie__button
-    color rgb(0, 0, 0)
-    border-color transparent
-    background-color rgb(24, 244, 191)
+<style lang="stylus">
+.Cookie--custom {
+  color: #fff;
+  background-color: #026782;
+  background: #026782;
+  padding: 1.250em;
+  .Cookie__button {
+      background: #18f4bf;
+      padding: 0.625em 1.125em;
+      color: #000;
+      font-weight: bold;
+      border-radius: 0;
+      border: 0;
+      font-size: 1em;
+      &:hover {
+        background: darken(#18f4bf, 10%);
+      }
+  }
+  }
 </style>
