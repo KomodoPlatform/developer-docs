@@ -28,20 +28,22 @@
         <slot name="page-bottom" />
       </template>
     </Page>
-    <cookie-law
-      style="color: rgb(255, 255, 255);
+    <ClientOnly>
+      <cookie-law
+        style="color: rgb(255, 255, 255);
     background-color: rgb(2, 103, 130);"
-      ><div slot="message">
-        Our website uses cookies to make your browsing experience better. By
-        using our site, you agree to our use of cookies.
-        <a
-          href="https://forum.komodoplatform.com/privacy"
-          rel="noopener noreferrer nofollow"
-          target="_blank"
-          >Learn more</a
-        >
-      </div>
-    >
+        ><div slot="message">
+          Our website uses cookies to make your browsing experience better. By
+          using our site, you agree to our use of cookies.
+          <a
+            href="https://forum.komodoplatform.com/privacy"
+            rel="noopener noreferrer nofollow"
+            target="_blank"
+            >Learn more</a
+          >
+        </div>
+      </cookie-law>
+    </ClientOnly>
   </div>
 </template>
 
@@ -51,7 +53,7 @@ import Navbar from "@theme/components/Navbar.vue";
 import Page from "@theme/components/Page.vue";
 import Sidebar from "@theme/components/Sidebar.vue";
 import { resolveSidebarItems } from "../util";
-import CookieLaw from "vue-cookie-law";
+//import CookieLaw from "vue-cookie-law";
 
 export default {
   name: "Layout",
@@ -61,7 +63,6 @@ export default {
     Page,
     Sidebar,
     Navbar,
-    CookieLaw,
   },
 
   data() {
@@ -121,6 +122,7 @@ export default {
     this.$router.afterEach(() => {
       this.isSidebarOpen = false;
     });
+    this.importCookieLaw();
   },
 
   methods: {
@@ -147,6 +149,12 @@ export default {
           this.toggleSidebar(false);
         }
       }
+    },
+
+    importCookieLaw() {
+      import(
+        /* webpackChunkName: "cookielaw" */ "vue-cookie-law/dist/vue-cookie-law.js"
+      );
     },
   },
 };
