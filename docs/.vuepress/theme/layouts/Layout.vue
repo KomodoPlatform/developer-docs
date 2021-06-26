@@ -28,6 +28,20 @@
         <slot name="page-bottom" />
       </template>
     </Page>
+    <cookie-law
+      style="color: rgb(255, 255, 255);
+    background-color: rgb(2, 103, 130);"
+      ><div slot="message">
+        Our website uses cookies to make your browsing experience better. By
+        using our site, you agree to our use of cookies.
+        <a
+          href="https://forum.komodoplatform.com/privacy"
+          rel="noopener noreferrer nofollow"
+          target="_blank"
+          >Learn more</a
+        >
+      </div>
+    >
   </div>
 </template>
 
@@ -37,6 +51,7 @@ import Navbar from "@theme/components/Navbar.vue";
 import Page from "@theme/components/Page.vue";
 import Sidebar from "@theme/components/Sidebar.vue";
 import { resolveSidebarItems } from "../util";
+import CookieLaw from "vue-cookie-law";
 
 export default {
   name: "Layout",
@@ -46,6 +61,7 @@ export default {
     Page,
     Sidebar,
     Navbar,
+    CookieLaw,
   },
 
   data() {
@@ -105,7 +121,6 @@ export default {
     this.$router.afterEach(() => {
       this.isSidebarOpen = false;
     });
-    this.initializeCookieBanner();
   },
 
   methods: {
@@ -133,27 +148,13 @@ export default {
         }
       }
     },
-
-    initializeCookieBanner() {
-      import("cookieconsent/build/cookieconsent.min.js").then((CC) => {
-        CC = CC.default.default;
-        const cc = new CC({
-          palette: {
-            popup: {
-              background: "#026782",
-            },
-            button: {
-              background: "#18f4bf",
-            },
-          },
-          content: {
-            message:
-              "Our website uses cookies to make your browsing experience better. By using our site, you agree to our use of cookies.",
-            href: "https://forum.komodoplatform.com/privacy",
-          },
-        });
-      });
-    },
   },
 };
 </script>
+<style lang="stylus">
+
+.Cookie--base .Cookie__button
+    color rgb(0, 0, 0)
+    border-color transparent
+    background-color rgb(24, 244, 191)
+</style>
