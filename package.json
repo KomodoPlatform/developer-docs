@@ -9,9 +9,8 @@
   "author": "Contributors from Komodo Platform",
   "license": "MIT",
   "devDependencies": {
-    "cookieconsent": "https://github.com/KomodoPlatform/cookieconsent",
     "moment": "^2.27.0",
-    "vuepress": "^1.0.2",
+    "vuepress": "^1.8.2",
     "vuepress-plugin-autometa": "^0.1.13",
     "vuepress-plugin-google-tag-manager": "^0.0.4",
     "vuepress-plugin-medium-zoom": "^1.1.8",
@@ -25,6 +24,7 @@
     "dotenv": "^8.0.0",
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.19",
+    "vue-cookie-law": "^1.13.3",
     "vuetify": "^1.5.0"
   }
 }
