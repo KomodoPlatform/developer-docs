@@ -28,6 +28,23 @@
         <slot name="page-bottom" />
       </template>
     </Page>
+    <ClientOnly>
+      <component
+        v-if="dynamicCookieComponent"
+        :is="dynamicCookieComponent"
+        theme="custom"
+        ><div slot="message">
+          Our website uses cookies to make your browsing experience better. By
+          using our site, you agree to our use of cookies.
+          <a
+            href="https://forum.komodoplatform.com/privacy"
+            rel="noopener noreferrer nofollow"
+            target="_blank"
+            >Learn more</a
+          >
+        </div>
+      </component>
+    </ClientOnly>
   </div>
 </template>
 
@@ -40,7 +57,6 @@ import { resolveSidebarItems } from "../util";
 
 export default {
   name: "Layout",
-
   components: {
     Home,
     Page,
@@ -51,6 +67,7 @@ export default {
   data() {
     return {
       isSidebarOpen: false,
+      dynamicCookieComponent: null,
     };
   },
 
@@ -105,7 +122,7 @@ export default {
     this.$router.afterEach(() => {
       this.isSidebarOpen = false;
     });
-    this.initializeCookieBanner();
+    this.importCookieLaw();
   },
 
   methods: {
@@ -134,26 +151,34 @@ export default {
       }
     },
 
-    initializeCookieBanner() {
-      import("cookieconsent/build/cookieconsent.min.js").then((CC) => {
-        CC = CC.default.default;
-        const cc = new CC({
-          palette: {
-            popup: {
-              background: "#026782",
-            },
-            button: {
-              background: "#18f4bf",
-            },
-          },
-          content: {
-            message:
-              "Our website uses cookies to make your browsing experience better. By using our site, you agree to our use of cookies.",
-            href: "https://forum.komodoplatform.com/privacy",
-          },
-        });
+    importCookieLaw() {
+      import(
+        /* webpackChunkName: "cookielaw" */ "vue-cookie-law/dist/vue-cookie-law.js"
+      ).then((module) => {
+        this.dynamicCookieComponent = module.default;
       });
     },
   },
 };
 </script>
+
+<style lang="stylus">
+.Cookie--custom {
+  color: #fff;
+  background-color: #026782;
+  background: #026782;
+  padding: 1.250em;
+  .Cookie__button {
+      background: #18f4bf;
+      padding: 0.625em 1.125em;
+      color: #000;
+      font-weight: bold;
+      border-radius: 0;
+      border: 0;
+      font-size: 1em;
+      &:hover {
+        background: darken(#18f4bf, 10%);
+      }
+  }
+  }
+</style>

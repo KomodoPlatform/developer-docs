@@ -97,7 +97,7 @@ The instructions below are required.
 Main:
 
 ```bash
-sudo apt-get sudo apt-get install build-essential pkg-config bsdmainutils libtool libsodium-dev libc6-dev libssl-dev libcurl4-gnutls-dev ncurses-dev zlib1g-dev cmake clang m4 automake autoconf g++-multilib python python3 python3-zmq curl wget jq git unzip -y
+sudo apt-get install build-essential pkg-config bsdmainutils libtool libsodium-dev libc6-dev libssl-dev libcurl4-gnutls-dev ncurses-dev zlib1g-dev cmake clang m4 automake autoconf g++-multilib python python3 python3-zmq curl wget jq git unzip -y
 ```
 
 3rd Party:
@@ -964,8 +964,8 @@ buildSFUSD () {
 berkeleydb
 buildSFUSD
 echo "Done building SFUSD!"
-sudo ln -sf /home/$USER/smartusd-core/src/smartusd-cli /usr/local/bin/smartusd-cli
-sudo ln -sf /home/$USER/smartusd-core/src/smartusdd /usr/local/bin/smartusdd
+sudo ln -sf /home/$USER/sfusd-core/src/smartusd-cli /usr/local/bin/smartusd-cli
+sudo ln -sf /home/$USER/sfusd-core/src/smartusdd /usr/local/bin/smartusdd
 ```
 
 #### Step 3: Make the script executable and run it
