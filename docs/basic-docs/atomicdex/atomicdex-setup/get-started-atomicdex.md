@@ -86,6 +86,12 @@ Install the following additional dependencies using the terminal.
 sudo apt-get install -y git llvm-3.9-dev libclang-3.9-dev clang-3.9 libssl-dev pkg-config
 ```
 
+If you are using Ubuntu-20.04, run:
+
+```bash
+sudo apt-get install -y git llvm-dev libclang-dev clang libssl-dev pkg-config
+```
+
 #### Install Additional Rust Components
 
 Install additional Rust components:
@@ -166,4 +172,3 @@ If everything installed successfully, a response that is similar to the followin
 ```
 
 The MM2 executable is now built and available here: `~/atomicDEX-API/target/debug/mm2`
-
