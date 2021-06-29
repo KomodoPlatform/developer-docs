@@ -6882,17 +6882,21 @@ This method generates a raw transaction which should then be broadcast using [se
 
 #### Response
 
-| Structure         | Type             | Description                                                                                                                                                                   |
-| ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| from              | array of strings | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                  |
-| to                | array of strings | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                          |
-| my_balance_change | string (numeric) | the expected balance of change in `my_address` after the transaction broadcasts                                                                                               |
-| received_by_me    | string (numeric) | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that MM2 send change to `my_address` |
-| spent_by_me       | string (numeric) | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                    |
-| total_amount      | string (numeric) | the total amount of coins transferred                                                                                                                                         |
-| fee_details       | object           | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details                                            |
-| tx_hash           | string           | the hash of the generated transaction                                                                                                                                         |
-| tx_hex            | string           | transaction bytes in hexadecimal format; use this value as input for the `send_raw_transaction` method                                                                        |
+| Structure                 | Type                       | Description                                                                                                                                                                   |
+| ------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| from                      | array of strings           | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                  |
+| to                        | array of strings           | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                          |
+| my_balance_change         | string (numeric)           | the expected balance of change in `my_address` after the transaction broadcasts                                                                                               |
+| received_by_me            | string (numeric)           | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that MM2 send change to `my_address` |
+| spent_by_me               | string (numeric)           | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                    |
+| total_amount              | string (numeric)           | the total amount of coins transferred                                                                                                                                         |
+| fee_details               | object                     | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details                                            |
+| tx_hash                   | string                     | the hash of the generated transaction                                                                                                                                         |
+| tx_hex                    | string                     | transaction bytes in hexadecimal format; use this value as input for the `send_raw_transaction` method                                                                        |
+| coin                      | string                     | the name of the coin the user wants to withdraw                                                                                                                             |
+| kmd_rewards               | object (optional)          | an object containing information about accrued rewards; always exists if the coin is `KMD`                                                                                    |
+| kmd_rewards.amount        | string (numeric, optional) | the amount of accrued rewards                                                                                                                                                 |
+| kmd_rewards.claimed_by_me | bool (optional)            | whether the rewards been claimed by me                                                                                                                                        |
 
 #### :pushpin: Examples
 
@@ -6906,12 +6910,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"K
 
 <collapse-text hidden title="Response">
 
-#### Response (success)
+#### Response (KMD success)
 
 ```json
 {
   "block_height": 0,
-  "coin": "ETOMIC",
+  "coin": "KMD",
   "fee_details": {
     "type": "Utxo",
     "amount": "0.00001"
@@ -6923,7 +6927,11 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"K
   "to": ["RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh"],
   "total_amount": "10.34418325",
   "tx_hash": "3a1c382c50a7d12e4675d12ed7e723ce9f0167693dd75fd772bae8524810e605",
-  "tx_hex": "0400008085202f890207a8e96978acfb8f0d002c3e4390142810dc6568b48f8cd6d8c71866ad8743c5010000006a47304402201960a7089f2d93480fff68ce0b7ca7bb7a32a52915753ac7ae780abd6162cb1d02202c9b11d442e5f72a532f44ceb10122898d486b1474a10eb981c60c5538b9c82d012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff97f56bf3b0f815bb737b7867e71ddb8198bba3574bb75737ba9c389a4d08edc6000000006a473044022055199d80bd7e2d1b932e54f097c6a15fc4b148d21299dc50067c1da18045f0ed02201d26d85333df65e6daab40a07a0e8a671af9d9b9d92fdf7d7ef97bd868ca545a012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200ca9a3b000000001976a91464ae8510aac9546d5e7704e31ce177451386455588acad2a0d02000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
+  "tx_hex": "0400008085202f890207a8e96978acfb8f0d002c3e4390142810dc6568b48f8cd6d8c71866ad8743c5010000006a47304402201960a7089f2d93480fff68ce0b7ca7bb7a32a52915753ac7ae780abd6162cb1d02202c9b11d442e5f72a532f44ceb10122898d486b1474a10eb981c60c5538b9c82d012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff97f56bf3b0f815bb737b7867e71ddb8198bba3574bb75737ba9c389a4d08edc6000000006a473044022055199d80bd7e2d1b932e54f097c6a15fc4b148d21299dc50067c1da18045f0ed02201d26d85333df65e6daab40a07a0e8a671af9d9b9d92fdf7d7ef97bd868ca545a012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200ca9a3b000000001976a91464ae8510aac9546d5e7704e31ce177451386455588acad2a0d02000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000",
+  "kmd_rewards": {
+    "amount": "0.0791809",
+    "claimed_by_my": true
+  }
 }
 ```
 
