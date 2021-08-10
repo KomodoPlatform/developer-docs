@@ -124,6 +124,7 @@ addnode=178.63.69.164
 addnode=88.198.65.74
 addnode=5.9.122.241
 addnode=144.76.94.38
+addnode=148.251.44.16
 ```
 
 Press `CTRL+O` to save the changes.
@@ -309,6 +310,7 @@ echo "addnode=178.63.69.164" >> ~/Library/Application\ Support/Komodo/komodo.con
 echo "addnode=88.198.65.74" >> ~/Library/Application\ Support/Komodo/komodo.conf
 echo "addnode=5.9.122.241" >> ~/Library/Application\ Support/Komodo/komodo.conf
 echo "addnode=144.76.94.38" >> ~/Library/Application\ Support/Komodo/komodo.conf
+echo "addnode=148.251.44.16" >> ~/Library/Application\ Support/Komodo/komodo.conf
 ```
 
 #### Run Komodo
@@ -479,6 +481,7 @@ addnode=178.63.69.164
 addnode=88.198.65.74
 addnode=5.9.122.241
 addnode=144.76.94.38
+addnode=148.251.44.16
 ```
 
 After pasting, save and exit Notepad.
