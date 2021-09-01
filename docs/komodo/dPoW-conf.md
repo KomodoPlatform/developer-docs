@@ -30,7 +30,7 @@ This feature is helpful for exchanges mainly and for users who prefer security. 
 
 - `"rawconfirmations": 5,`
 
-### Stage 4: After 12 Blocks are added and when a BTC notarization happens
+### Stage 4: After 12 Blocks are added and when a notarization happens
 
 - `"confirmations": 12,`
 
