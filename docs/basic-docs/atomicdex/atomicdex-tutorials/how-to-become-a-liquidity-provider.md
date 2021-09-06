@@ -28,6 +28,14 @@ If the user prefers to use computer hardware at home, instead of a VPS, we recom
 
 ```bash
 sudo apt update
+sudo apt-get install build-essential git jq llvm-3.9-dev libclang-3.9-dev clang-3.9 cmake libssl-dev pkg-config
+```
+
+If you are using Ubuntu 20.04, run:
+
+
+```bash
+sudo apt update
 sudo apt-get install build-essential git jq llvm-dev libclang-dev clang cmake libssl-dev pkg-config
 ```
 
