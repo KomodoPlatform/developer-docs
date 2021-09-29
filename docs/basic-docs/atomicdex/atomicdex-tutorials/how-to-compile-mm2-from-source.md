@@ -15,7 +15,6 @@ sudo apt-get install build-essential git jq llvm-3.9-dev libclang-3.9-dev clang-
 
 If you are using Ubuntu 20.04, run:
 
-
 ```bash
 sudo apt update
 sudo apt-get install build-essential git jq llvm-dev libclang-dev clang cmake libssl-dev pkg-config
@@ -130,7 +129,7 @@ rustup install nightly-2020-10-25
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup install nightly-2020-10-25  
+$ rustup install nightly-2020-10-25
 info: syncing channel updates for 'nightly-2020-10-25-x86_64-unknown-linux-gnu'
 696.1 KiB / 696.1 KiB (100 %) 567.6 KiB/s in  2s ETA:  0s
 info: latest update on 2020-10-25, rust version 1.49.0-nightly (ffa2e7ae8 2020-10-24)
@@ -143,7 +142,7 @@ info: downloading component 'rust-docs'
 info: downloading component 'rust-std'
  22.3 MiB /  22.3 MiB (100 %)   7.1 MiB/s in  4s ETA:  0s
 info: downloading component 'rustc'
- 55.1 MiB /  55.1 MiB (100 %)  10.7 MiB/s in  7s ETA:  0s    
+ 55.1 MiB /  55.1 MiB (100 %)  10.7 MiB/s in  7s ETA:  0s
 info: downloading component 'rustfmt'
   3.6 MiB /   3.6 MiB (100 %) 289.6 KiB/s in  2s ETA:  0s
 info: installing component 'cargo'
