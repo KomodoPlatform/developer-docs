@@ -108,7 +108,7 @@ The terminal will then repeat similar output to the following every so often:
 04 21:29:08, lp_signatures:613] lp_notify_recv] hailed by peer: 54.36.126.42
 ```
 
-If you see something similar, MarketMaker 2.0 is up and running!
+If you see something similar, the AtomicDEX API is up and running!
 
 ::: tip
 
@@ -238,7 +238,7 @@ You now have MORTY.
 
 ## Observing the Orderbook
 
-MarketMaker 2.0 uses a decentralized orderbook to allow users to buy and sell from each other without having to rely on a centralized service. This gives it an increased level of security, as there is no central agency that can manipulate prices. This also prevents "wash" trading, where trading activity is faked.
+The AtomicDEX API uses a decentralized orderbook to allow users to buy and sell from each other without having to rely on a centralized service. This gives it an increased level of security, as there is no central agency that can manipulate prices. This also prevents "wash" trading, where trading activity is faked.
 
 To see the orderbook's current state, execute the following command:
 

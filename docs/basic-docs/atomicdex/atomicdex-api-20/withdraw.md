@@ -98,7 +98,7 @@ The request was failed due to a network error.
 
 #### InternalError
 
-The request was failed due to a MarketMaker internal error.
+The request was failed due to an AtomicDEX API internal error.
 
 | Structure | Type   | Description                    |
 | --------- | ------ | ------------------------------ |

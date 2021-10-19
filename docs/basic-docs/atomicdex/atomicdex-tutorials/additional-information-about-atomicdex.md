@@ -42,13 +42,13 @@ Notable aspects of the Mobile AtomicDEX software include:
 
 - Optimization for low-data usage and CPU consumption
 - Low storage requirements (less than 50 MB)
-- Integrates seamlessly with the desktop MarketMaker 2.0 software
+- Integrates seamlessly with the desktop AtomicDEX API software
 
 Through the Komodo API, mobile-device developers can integrate AtomicDEX API for Mobile into other software packages.
 
 Please reach out to our team on [Discord](https://komodoplatform.com/discord) to be involved with the software release.
 
-## Add Your Coin to the AtomicDEX API 2.0
+## Add Your Coin to the AtomicDEX API 
 
 All coins that are built on the BTC and ETH core software can be added to the AtomicDEX API quickly and simply. Coins built on other software frameworks may be able to be added as well, depending on specific details. Specifically, a coin must support functionality that is similar to the "CheckLockTimeVerify" of the Bitcoin protocol, wherein a utxo can be locked for a specific amount of time and then released in a manner determined by the developer. For more information, please reach out to our team on Discord.
 

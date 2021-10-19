@@ -67,7 +67,7 @@ The response should be similar to the following.
 
 ## Prometheus Integration
 
-MarketMaker 2.0 supports integration with Prometheus. This software allows users to setup automated scraping of metrics at regular intervals and enables sophisticated queries on the stored [timeseries](https://en.wikipedia.org/wiki/Time_series) data. It also allows users to configure an elegant dashboard using built-in [graphs,](https://prometheus.io/docs/prometheus/latest/getting_started/#using-the-expression-browser) or to export data for graphical processing using [Grafana](https://prometheus.io/docs/visualization/grafana/).
+AtomicDEX API 2.0 supports integration with Prometheus. This software allows users to setup automated scraping of metrics at regular intervals and enables sophisticated queries on the stored [timeseries](https://en.wikipedia.org/wiki/Time_series) data. It also allows users to configure an elegant dashboard using built-in [graphs,](https://prometheus.io/docs/prometheus/latest/getting_started/#using-the-expression-browser) or to export data for graphical processing using [Grafana](https://prometheus.io/docs/visualization/grafana/).
 
 Prometheus scrapes metrics using an HTTP pull model.
 
@@ -95,16 +95,16 @@ Example:
 stdbuf -oL ./mm2 "{\"gui\":\"Docs_Walkthru\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\", \"prometheusport\":9001, \"prometheus_credentials\":\"PROM_USERNAME:PROM_PASSWORD\"}" &
 ```
 
-### Configuring Prometheus to monitor MarketMaker 2.0
+### Configuring Prometheus to monitor the AtomicDEX API
 
-The following basic Prometheus configuration file, named `prometheus.yml`, can simplify the process of connecting Prometheus to MarketMaker2.0.
+The following basic Prometheus configuration file, named `prometheus.yml`, can simplify the process of connecting Prometheus to the AtomicDEX API.
 
 ```yaml
 global:
   scrape_interval: 10s
 
 scrape_configs:
-  - job_name: 'MarketMaker2'
+  - job_name: 'AtomicDEX_API'
 
     basic_auth:
       username: 'PROM_USERNAME'
