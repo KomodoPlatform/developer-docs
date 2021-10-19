@@ -1,6 +1,6 @@
 # DEX Metrics
 
-MarketMaker 2.0 (MM2) collects data metrics that allow interested users to view the history of events of a MM2 session. For example, metrics recorded by MM2 include incoming and outgoing traffic.
+AtomicDEX API 2.0 collects data metrics that allow interested users to view the history of events of an AtomicDEX API session. For example, metrics recorded by the AtomicDEX API include incoming and outgoing traffic.
 
 The metrics can be:
 
@@ -12,9 +12,9 @@ The metrics can be:
 
 By default, the collected metrics are recorded to a log file every five minutes. 
 
-A custom time interval can be set during the initiation of the MarketMaker 2.0 software.
+A custom time interval can be set during the initiation of the AtomicDEX API 2.0 software.
 
-For example, to set the interval to two minutes, initiate MM2 with the additional argument `\"metrics\":120`, as follows.
+For example, to set the interval to two minutes, initiate AtomicDEX API with the additional argument `\"metrics\":120`, as follows.
 
 :::tip
 
@@ -25,7 +25,7 @@ Note that in the examples below, the you will need to change the text to reflect
 Example:
 
 ```bash
-stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\", \"metrics\":120}" &
+stdbuf -oL ./mm2 "{\"gui\":\"Docs_Walkthru\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\", \"metrics\":120}" &
 ```
 
 To prohibit the recording of metrics to the log file, set the `metrics` argument to 0.
@@ -33,7 +33,7 @@ To prohibit the recording of metrics to the log file, set the `metrics` argument
 Example:
 
 ```bash
-stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\", \"metrics\":0}" &
+stdbuf -oL ./mm2 "{\"gui\":\"Docs_Walkthru\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\", \"metrics\":0}" &
 ```
 
 ## API Calling
@@ -71,7 +71,7 @@ MarketMaker 2.0 supports integration with Prometheus. This software allows users
 
 Prometheus scrapes metrics using an HTTP pull model.
 
-To provide Prometheus with the ability to scrape the metrics at [localhost:9001](localhost:9001), initiate MM2 with the following additional argument:
+To provide Prometheus with the ability to scrape the metrics at [localhost:9001](localhost:9001), initiate AtomicDEX API with the following additional argument:
 
 ```
 \"prometheusport\":9001
@@ -92,7 +92,7 @@ Note that the username and password should be separated by `:`.
 Example:
 
 ```bash
-stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\", \"prometheusport\":9001, \"prometheus_credentials\":\"PROM_USERNAME:PROM_PASSWORD\"}" &
+stdbuf -oL ./mm2 "{\"gui\":\"Docs_Walkthru\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\", \"prometheusport\":9001, \"prometheus_credentials\":\"PROM_USERNAME:PROM_PASSWORD\"}" &
 ```
 
 ### Configuring Prometheus to monitor MarketMaker 2.0

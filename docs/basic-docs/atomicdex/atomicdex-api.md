@@ -1,12 +1,12 @@
-# DEX API
+# AtomicDEX API
 
 ## Note About Rational Number Type
 
-MM2 now offers the [num-rational crate](https://crates.io/crates/num-rational) feature. This is used to represent order volumes and prices.
+The AtomicDEX API now offers the [num-rational crate](https://crates.io/crates/num-rational) feature. This is used to represent order volumes and prices.
 
 Komodo highly recommends that the developer use the rational number type when calculating an order's price and volume. This avoids rounding and precision errors when calculating numbers, such as `1/3`, as these cannot be represented as a finite decimal.
 
-The MM2 API typically will return both the rational number type as well as the decimal representation, but the decimal representation should be considered only a convenience feature for readability.
+The AtomicDEX API typically will return both the rational number type as well as the decimal representation, but the decimal representation should be considered only a convenience feature for readability.
 
 The number can be represented in the following two JSON formats:
 
@@ -46,7 +46,7 @@ The requests are sent as an array filled with request objects. Results are retur
 
 Avoid sending requests that depend on each other. For example, do not send a coin activation and a balance request to that coin in the same batch.
 
-Such requests result in non-deterministic behavior, as the AtomicDEX/MM2 software may or may not execute the requests in the desired order.
+Such requests result in non-deterministic behavior, as the AtomicDEX API may or may not execute the requests in the desired order.
 
 :::
 
@@ -114,7 +114,7 @@ curl --url "http://127.0.0.1:7783" --data "[
 
 **active_swaps (include_status)**
 
-The `active_swaps` method returns all the swaps that are currently running on the MM2 node.
+The `active_swaps` method returns all the swaps that are currently running on the AtomicDEX API node.
 
 #### Arguments
 
@@ -441,7 +441,7 @@ The `best_orders` method returns the best price orders that can fill the volume 
 
 ::: tip
 
-The response of this method can contain coins that are not activated on the MM2 instance.
+The response of this method can contain coins that are not activated on the AtomicDEX API instance.
 Activation will be required to proceed with the trade.
 
 :::
@@ -888,7 +888,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **cancel_all_orders cancel_by**
 
-The `cancel_all_orders` cancels the active orders created by the MM2 node by specified condition.
+The `cancel_all_orders` cancels the active orders created by the AtomicDEX API node by specified condition.
 
 #### Arguments
 
@@ -963,7 +963,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **cancel_order uuid**
 
-The `cancel_order` cancels the active order created by the MM2 node.
+The `cancel_order` cancels the active order created by the AtomicDEX API node.
 
 #### Arguments
 
@@ -1009,7 +1009,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **coins_needed_for_kick_start()**
 
-If MM2 is stopped while making a swap/having the active order it will attempt to kick-start them on next launch and continue from the point where it's stopped. `coins_needed_for_kick_start` returns the tickers of coins that should be activated ASAP after MM2 is started to continue the interrupted swaps. Consider calling this method on MM2 startup and activate the returned coins using `enable` or `electrum` methods.
+If the AtomicDEX API is stopped while making a swap/having the active order it will attempt to kick-start them on next launch and continue from the point where it's stopped. `coins_needed_for_kick_start` returns the tickers of coins that should be activated ASAP after the AtomicDEX API is started to continue the interrupted swaps. Consider calling this method on AtomicDEX API startup and activate the returned coins using `enable` or `electrum` methods.
 
 #### Arguments
 
@@ -1171,7 +1171,7 @@ curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"co
 
 **disable_coin coin**
 
-The `disable_coin` method deactivates the previously enabled coin. MM2 also cancels all active orders that use the selected coin. The method will return an error in the following cases:
+The `disable_coin` method deactivates the previously enabled coin, and also cancels all active orders that use the selected coin. The method will return an error in the following cases:
 
 - The coin is not enabled
 - The coin is used by active swaps
@@ -1255,7 +1255,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ::: warning Important
 
-This command must be executed at the initiation of each MM2 instance. Also, AtomicDEX software requires the `mm2` parameter to be set for each `coin`; the methods to activate the parameter vary. See below for further information.
+This command must be executed at the initiation of each AtomicDEX API instance. Also, AtomicDEX software requires the `mm2` parameter to be set for each `coin`; the methods to activate the parameter vary. See below for further information.
 
 :::
 
@@ -1322,11 +1322,11 @@ Smart contract deployment is similar to [creating QRC20 tokens](https://docs.qtu
 | coin                                | string                                           | the name of the coin you want to enable                                                                                                                              |
 | servers                             | array of objects                                 | the list of Electrum servers to which you want to connect                                                                                                            |
 | servers.url                         | string                                           | server url                                                                                                                                                           |
-| servers.protocol                    | string                                           | the transport protocol that MM2 will use to connect to the server. Possible values: `TCP`, `SSL`. Default value: `TCP`                                               |
+| servers.protocol                    | string                                           | the transport protocol that the AtomicDEX API will use to connect to the server. Possible values: `TCP`, `SSL`. Default value: `TCP`                                               |
 | servers.disable\_cert\_verification | bool                                             | when set to true, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). Default value is `false`. <b>Use at your own risk</b> |
 | mm2                                 | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1`                                   |
 | tx\_history                         | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                |
-| required\_confirmations             | number                                           | the number of confirmations for which MM2 must wait for the selected coin to perform the atomic swap transactions                                                    |
+| required\_confirmations             | number                                           | the number of confirmations for which the AtomicDEX API must wait for the selected coin to perform the atomic swap transactions                                                    |
 | requires\_notarization              | bool                                             | whether the node should wait for a notarization of the selected coin that is performing the atomic swap transactions applicable only for coins using Komodo dPoW     |
 | swap_contract_address               | string (required for QRC20 only)                 | address of etomic swap smart contract                                                                                                                                |
 
@@ -1338,7 +1338,7 @@ Smart contract deployment is similar to [creating QRC20 tokens](https://docs.qtu
 | balance                | string (numeric)           | the amount of `coin` the user holds in their wallet; does not include `unspendable_balance`                                                                     |
 | unspendable_balance    | string (numeric)           | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                                                                   |
 | coin                   | string                     | the ticker of the enabled coin                                                                                                                                  |
-| required_confirmations | number                     | the number of transaction confirmations for which MM2 must wait during the atomic swap process                                                                  |
+| required_confirmations | number                     | the number of transaction confirmations for which the AtomicDEX API must wait during the atomic swap process                                                                  |
 | mature_confirmations   | number (optional)          | the number of coinbase transaction confirmations required to become mature; UTXO coins only                                                                     |
 | requires_notarization  | bool                       | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions; applicable only for coins using Komodo dPoW |
 | result                 | string                     | the result of the request; this value either indicates `success`, or an error, or another type of failure                                                       |
@@ -1487,7 +1487,7 @@ For utxo-based coins the daemon of this blockchain must also be running on the u
 
 ::: tip Note
 
-The MM2 node's coin address needs to be imported manually into the coin daemon using the [importaddress](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#importaddress) call.
+The AtomicDEX API node's coin address needs to be imported manually into the coin daemon using the [importaddress](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#importaddress) call.
 
 :::
 
@@ -1557,10 +1557,10 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | coin                   | string                                           | the name of the coin the user desires to enable                                                                                                                                                                                                                                                                     |
 | urls                   | array of strings (required for ETH/ERC20)        | urls of Ethereum RPC nodes to which the user desires to connect                                                                                                                                                                                                                                                     |
 | swap_contract_address  | string (required for ETH/ERC20)                  | address of etomic swap smart contract                                                                                                                                                                                                                                                                               |
-| gas_station_url        | string (optional for ETH/ERC20)                  | url of [ETH gas station API](https://docs.ethgasstation.info/); MM2 uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; when this parameter is set, MM2 will request the current gas price from Station for new transactions, and this often results in lower fees |
+| gas_station_url        | string (optional for ETH/ERC20)                  | url of [ETH gas station API](https://docs.ethgasstation.info/); The AtomicDEX API uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; when this parameter is set, the AtomicDEX API will request the current gas price from Station for new transactions, and this often results in lower fees |
 | mm2                    | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1`                                                                                                                                                                                  |
 | tx_history             | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                                                                                                                                                               |
-| required_confirmations | number                                           | the number of confirmations for which MM2 must wait for the selected coin to perform the atomic swap transactions; applicable only for coins using Komodo dPoW                                                                                                                                                      |
+| required_confirmations | number                                           | the number of confirmations for which the AtomicDEX API must wait for the selected coin to perform the atomic swap transactions; applicable only for coins using Komodo dPoW                                                                                                                                                      |
 | requires_notarization  | bool                                             | whether the node should wait for a notarization of the selected coin that is performing the atomic swap transactions applicable only for coins using Komodo dPoW                                                                                                                                                    |
 
 #### Response
@@ -1571,7 +1571,7 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | balance                | string (numeric)  | the amount of `coin` the user holds in their wallet; does not include `unspendable_balance`                        |
 | unspendable_balance    | string (numeric)  | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                      |
 | coin                   | string            | the ticker of enabled coin                                                                                         |
-| required_confirmations | number            | MM2 will wait for the this number of coin's transaction confirmations during the swap                              |
+| required_confirmations | number            | AtomicDEX API will wait for the this number of coin's transaction confirmations during the swap                              |
 | requires_notarization  | bool              | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions |
 | mature_confirmations   | number (optional) | the number of coinbase transaction confirmations required to become mature; UTXO coins only                        |
 | result                 | string            | the result of the request; this value either indicates `success`, or an error or other type of failure             |
@@ -1733,7 +1733,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **get_enabled_coins**
 
-The `get_enabled_coins` method returns data of coins that are currently enabled on the user's MM2 node.
+The `get_enabled_coins` method returns data of coins that are currently enabled on the user's AtomicDEX API node.
 
 #### Arguments
 
@@ -1957,7 +1957,7 @@ The `help` method returns the full API documentation in the terminal.
 
 **import_swaps swaps**
 
-The `import_swaps` method imports to the local database the `swaps` data that was exported from another MM2 instance.
+The `import_swaps` method imports to the local database the `swaps` data that was exported from another AtomicDEX API instance.
 
 Use this method in combination with `my_swap_status` or `my_recent_swaps` to copy the swap history between different devices.
 
@@ -2325,7 +2325,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **my_orders()**
 
-The `my_orders` method returns the data of all active orders created by the MM2 node.
+The `my_orders` method returns the data of all active orders created by the AtomicDEX API node.
 
 #### Arguments
 
@@ -2497,15 +2497,15 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **my_recent_swaps (from_uuid page_number=1 limit=10 my_coin other_coin from_timestamp to_timestamp)**
 
-The `my_recent_swaps` method returns the data of the most recent atomic swaps executed by the MM2 node. Please note that all filters (my_coin, from_timestamp, etc.) are combined using logical AND.
+The `my_recent_swaps` method returns the data of the most recent atomic swaps executed by the AtomicDEX API node. Please note that all filters (my_coin, from_timestamp, etc.) are combined using logical AND.
 
 #### Arguments
 
 | Structure      | Type                          | Description                                                                                                                                           |
 | -------------- | ----------------------------- | -----------------------------------------------------------------------                                                                               |
 | limit          | number                        | limits the number of returned swaps. The default is `10`.                                                                                             |
-| from_uuid      | string                        | MM2 will skip records until this uuid, skipping the `from_uuid` as well; The `from_uuid` approach is convenient for infinite scrolling implementation |
-| page_number    | number                        | MM2 will return `limit` swaps from the selected page; This param will be ignored if `from_uuid` is set.                                               |
+| from_uuid      | string                        | AtomicDEX API will skip records until this uuid, skipping the `from_uuid` as well; The `from_uuid` approach is convenient for infinite scrolling implementation |
+| page_number    | number                        | AtomicDEX API will return `limit` swaps from the selected page; This param will be ignored if `from_uuid` is set.                                               |
 | my_coin        | string                        | return only swaps that match the `swap.my_coin = request.my_coin` condition                                                                           |
 | other_coin     | string                        | return only swaps that match the `swap.other_coin = request.other_coin` condition                                                                     |
 | from_timestamp | number (timestamp in seconds) | return only swaps that match the `swap.started_at >= request.from_timestamp` condition                                                                |
@@ -2870,7 +2870,7 @@ Response (error)
 
 **uuid**
 
-The `my_swap_status` method returns the data of an atomic swap executed on a MM2 node.
+The `my_swap_status` method returns the data of an atomic swap executed on an AtomicDEX API node.
 
 #### Arguments
 
@@ -2889,14 +2889,14 @@ The `my_swap_status` method returns the data of an atomic swap executed on a MM2
 | error_events   | array of strings           | a list of events that fell into an `error` swap state; if at least 1 of the events happens, the swap is considered a failure                                                                                                                                                   |
 | type           | string                     | whether the node acted as a market `Maker` or `Taker`                                                                                                                                                                                                                          |
 | uuid           | string                     | swap uuid                                                                                                                                                                                                                                                                      |
-| gui            | string (optional)          | information about gui; copied from MM2 configuration                                                                                                                                                                                                                           |
-| mm_version     | string (optional)          | MM2 version                                                                                                                                                                                                                                                                    |
+| gui            | string (optional)          | information about gui; copied from AtomicDEX API configuration (MM2.json)                                                                                                                                                                                                                        |
+| mm_version     | string (optional)          | AtomicDEX API version                                                                                                                                                                                                                                                                    |
 | maker_coin     | string (optional)          | ticker of maker coin                                                                                                                                                                                                                                                           |
 | taker_coin     | string (optional)          | ticker of taker coin                                                                                                                                                                                                                                                           |
 | maker_amount   | string (numeric, optional) | the amount of coins to be swapped by maker                                                                                                                                                                                                                                     |
 | taker_amount   | string (numeric, optional) | the amount of coins to be swapped by taker                                                                                                                                                                                                                                     |
 | my_info        | object (optional)          | this object maps event data to make displaying swap data in a GUI simpler (`my_coin`, `my_amount`, etc.)                                                                                                                                                                       |
-| recoverable    | bool                       | whether the swap can be recovered using the `recover_funds_of_swap` API command. Important note: MM2 does not record the state regarding whether the swap was recovered or not. MM2 allows as many calls to the `recover_funds_of_swap` method as necessary, in case of errors |
+| recoverable    | bool                       | whether the swap can be recovered using the `recover_funds_of_swap` API command. Important note: The AtomicDEX API does not record the state regarding whether the swap was recovered or not. The AtomicDEX API allows as many calls to the `recover_funds_of_swap` method as necessary, in case of errors |
 | my_order_uuid  | string (uuid, optional)    | the uuid of order that matched to start the swap                                                                                                                                                                                                                               |
 
 #### Maker Swap Events
@@ -3935,7 +3935,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 **my_tx_history (from_id limit=10 max=false page_number)**
 
-The `my_tx_history` method returns the blockchain transactions involving the MM2 node's coin address.
+The `my_tx_history` method returns the blockchain transactions involving the AtomicDEX API node's coin address.
 
 The coin that is used must have `tx_history` set to true in its [enable](../../../basic-docs/atomicdex/atomicdex-api.html#enable) or [electrum](../../../basic-docs/atomicdex/atomicdex-api.html#electrum) call.
 
@@ -3946,8 +3946,8 @@ The coin that is used must have `tx_history` set to true in its [enable](../../.
 | coin        | string | the name of the coin for the history request                                                                                                                                                |
 | limit       | number | limits the number of returned transactions; ignored if `max = true`                                                                                                                         |
 | max         | bool   | whether to return all available records; defaults to `false`                                                                                                                                |
-| from_id     | string | MM2 will skip records until it reaches this ID, skipping the `from_id` as well; track the `internal_id` of the last displayed transaction to find the value of this field for the next page |
-| page_number | number | MM2 will return limit swaps from the selected page; This param will be ignored if from_uuid is set.                                                                                         |
+| from_id     | string | AtomicDEX API will skip records until it reaches this ID, skipping the `from_id` as well; track the `internal_id` of the last displayed transaction to find the value of this field for the next page |
+| page_number | number | AtomicDEX API will return limit swaps from the selected page; This param will be ignored if from_uuid is set.                                                                                         |
 
 #### Response
 
@@ -4200,7 +4200,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **order_status uuid**
 
-The `order_status` method returns the data of the order with the selected `uuid` created by the MM2 node.
+The `order_status` method returns the data of the order with the selected `uuid` created by the AtomicDEX API node.
 
 #### Arguments
 
@@ -5472,9 +5472,9 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 In certain cases, a swap can finish with an error wherein the user's funds are stuck on the swap-payment address. (This address is the P2SH address when executing on a utxo-based blockchain, or an etomic-swap smart contract when executing on an ETH/ERC20 blockchain.)
 
-This error can occur when one side of the trade does not follow the protocol (for any reason). The error persists as attempts to refund the payment fail due to network connection issues between the MM2 node and the coin's RPC server.
+This error can occur when one side of the trade does not follow the protocol (for any reason). The error persists as attempts to refund the payment fail due to network connection issues between the AtomicDEX API node and the coin's RPC server.
 
-In this scenario, the `recover_funds_of_swap` method instructs the MM2 software to attempt to reclaim the user funds from the swap-payment address, if possible.
+In this scenario, the `recover_funds_of_swap` method instructs the AtomicDEX API software to attempt to reclaim the user funds from the swap-payment address, if possible.
 
 #### Arguments
 
@@ -5809,8 +5809,8 @@ To prevent a user from making trades in which the transaction fees may end up co
 | price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                                                                                                                                                                                                                         |
 | volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                             |
 | min_volume      | numeric string or rational | the minimum amount of `base` coin available for the order; it must be less or equal than `volume` param; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the product of the arguments `min_volume` and `price`</li></ul> |
-| max             | bool                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                                                                                                                                                                                                                 |
-| cancel_previous | bool                       | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior                                                                                                                                                                                                  |
+| max             | bool                       | AtomicDEX API will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                                                                                                                                                                                                                 |
+| cancel_previous | bool                       | AtomicDEX API will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior                                                                                                                                                                                                  |
 | base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                          |
 | base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                |
 | rel_confs       | number                     | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                            |
@@ -5827,8 +5827,8 @@ To prevent a user from making trades in which the transaction fees may end up co
 | result.price_rat                | rational         | the expected amount of `rel` coin to be received per 1 unit of `base` coin; rational representation       |
 | result.max_base_vol             | string (numeric) | the maximum volume of base coin available to trade; decimal representation                                |
 | result.max_base_vol_rat         | rational         | the maximum volume of base coin available to trade; rational representation                               |
-| result.min_base_vol             | string (numeric) | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; decimal representation  |
-| result.min_base_vol_rat         | rational         | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; rational representation |
+| result.min_base_vol             | string (numeric) | AtomicDEX API won't match with other orders that attempt to trade less than `min_base_vol`; decimal representation  |
+| result.min_base_vol_rat         | rational         | AtomicDEX API won't match with other orders that attempt to trade less than `min_base_vol`; rational representation |
 | result.created_at               | number           | unix timestamp in milliseconds, indicating the order creation time                                        |
 | result.updated_at               | number           | unix timestamp in milliseconds, indicating the order update time                                        |
 | result.matches                  | object           | contains the map of ongoing matches with other orders, empty as the order was recently created            |
@@ -5982,7 +5982,7 @@ curl --url "http://127.0.0.1:7783" --data '{
 
 **set\_required\_confirmations coin confirmations**
 
-The `set_required_confirmations` method sets the number of confirmations for which MM2 must wait for the selected coin.
+The `set_required_confirmations` method sets the number of confirmations for which AtomicDEX API must wait for the selected coin.
 
 ::: tip Note
 
@@ -6035,7 +6035,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **set\_requires\_notarization coin requires\_notarization**
 
-The `set_requires_notarization` method indicates whether MM2 must wait for a dPoW notarization of the given atomic swap transactions.
+The `set_requires_notarization` method indicates whether AtomicDEX API must wait for a dPoW notarization of the given atomic swap transactions.
 
 ::: tip Note
 
@@ -6142,7 +6142,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **stop()**
 
-The `stop` method stops the MM2 software.
+The `stop` method stops the AtomicDEX API software.
 
 #### Arguments
 
@@ -6584,7 +6584,7 @@ To prevent a user from making trades in which the transaction fees may end up co
 | new_price           | numeric string or rational (optional) | the price in `rel` the user is willing to receive per one unit of the `base` coin          |                                                                                                                                                                                                                               |
 | volume_delta          | numeric string or rational (optional) | volume added to or subtracted from the `max_base_vol` of the order to be updated, resulting in the new volume which is the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the new volume which is the `max_base_vol` of the order to be updated plus `volume_delta`</li><li>the product of the new volume and the argument `new_price`</li></ul>                             |
 | min_volume      | numeric string or rational (optional) | the minimum amount of `base` coin available for the order; it must be less or equal than the new volume; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the product of the arguments `min_volume` and `new_price`</li></ul> |
-| max             | bool (optional)                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                                                                                                                                                                                                                                                       |
+| max             | bool (optional)                       | AtomicDEX API will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                                                                                                                                                                                                                                                       |
 | base_confs      | number (optional)                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                          |
 | base_nota       | bool (optional)                      | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                |
 | rel_confs       | number (optional)                    | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                            |
@@ -6601,8 +6601,8 @@ To prevent a user from making trades in which the transaction fees may end up co
 | result.price_rat                | rational         | the expected amount of `rel` coin to be received per 1 unit of `base` coin; rational representation       |
 | result.max_base_vol             | string (numeric) | the maximum volume of base coin available to trade; decimal representation                                |
 | result.max_base_vol_rat         | rational         | the maximum volume of base coin available to trade; rational representation                               |
-| result.min_base_vol             | string (numeric) | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; decimal representation  |
-| result.min_base_vol_rat         | rational         | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; rational representation |
+| result.min_base_vol             | string (numeric) | AtomicDEX API won't match with other orders that attempt to trade less than `min_base_vol`; decimal representation  |
+| result.min_base_vol_rat         | rational         | AtomicDEX API won't match with other orders that attempt to trade less than `min_base_vol`; rational representation |
 | result.created_at               | number           | unix timestamp in milliseconds, indicating the order creation time                                        |
 | result.updated_at               | number           | unix timestamp in milliseconds, indicating the order update time                                        |
 | result.matches                  | object           | contains the map of ongoing matches with other orders, empty as the order was recently created            |
@@ -6821,7 +6821,7 @@ curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"va
 
 **version()**
 
-The `version` method returns the MM2 version.
+The `version` method returns the AtomicDEX API version.
 
 #### Arguments
 
@@ -6833,7 +6833,7 @@ The `version` method returns the MM2 version.
 
 | Structure | Type   | Description     |
 | --------- | ------ | --------------- |
-| result    | string | the MM2 version |
+| result    | string | the AtomicDEX API version |
 
 #### :pushpin: Examples
 
@@ -6887,7 +6887,7 @@ This method generates a raw transaction which should then be broadcast using [se
 | from                      | array of strings           | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                  |
 | to                        | array of strings           | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                          |
 | my_balance_change         | string (numeric)           | the expected balance of change in `my_address` after the transaction broadcasts                                                                                               |
-| received_by_me            | string (numeric)           | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that MM2 send change to `my_address` |
+| received_by_me            | string (numeric)           | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the AtomicDEX API send change to `my_address` |
 | spent_by_me               | string (numeric)           | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                    |
 | total_amount              | string (numeric)           | the total amount of coins transferred                                                                                                                                         |
 | fee_details               | object                     | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details                                            |

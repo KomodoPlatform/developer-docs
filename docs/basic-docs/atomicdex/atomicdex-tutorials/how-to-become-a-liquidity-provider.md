@@ -45,7 +45,7 @@ Then you can proceed to [download the coins configuration file](#step-2-download
 
 ##### Building from Source (Option 2)
 
-If you decide to build from source, please follow the [Build MM2 from source guide](how-to-compile-mm2-from-source.html)
+If you decide to build from source, please follow the [Build AtomicDEX API from source guide](how-to-compile-mm2-from-source.html)
 
 #### Step 2: Download the Coins Configuration File
 
@@ -150,7 +150,7 @@ Failure to properly manage your passphrase can (and likely will) result in lost 
 
 ```bash
 #!/bin/bash
-stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove\", \"rpc_password\":\"GlHjhvYlev8fh8xZgSBI\"}" &
+stdbuf -oL nohup ./mm2 "{\"gui\":\"Docs_Walkthru\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove\", \"rpc_password\":\"GlHjhvYlev8fh8xZgSBI\"}" &
 ```
 
 </collapse-text>
