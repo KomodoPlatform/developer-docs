@@ -1086,7 +1086,7 @@ Or this can be used to convert an ETH address from single to mixed case checksum
 #### Command (ETH single case address to mixed checksum)
 
 ```bash  
-curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"ETH","from","0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359", "to_address_format":{"format":"mixedcase"}}"
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"ETH","from":"0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359", "to_address_format":{"format":"mixedcase"}}"
 ```
 
 #### Response
