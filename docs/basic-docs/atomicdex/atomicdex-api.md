@@ -1102,7 +1102,7 @@ curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"co
 #### Command (BCH legacy to cash address)
 
 ```bash
-curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"BCH","from","1DmFp16U73RrVZtYUbo2Ectt8mAnYScpqM","to_address_format":{"format":"cashaddress","network":"bitcoincash"}}"
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"BCH","from":"1DmFp16U73RrVZtYUbo2Ectt8mAnYScpqM","to_address_format":{"format":"cashaddress","network":"bitcoincash"}}"
 ```
 
 #### Response
@@ -1118,7 +1118,7 @@ curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"co
 #### Command (BCH cash address to legacy)
 
 ```bash
-curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"BCH","from","bitcoincash:qzxqqt9lh4feptf0mplnk58gnajfepzwcq9f2rxk55","to_address_format":{"format":"standard"}}"
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"BCH","from":"bitcoincash:qzxqqt9lh4feptf0mplnk58gnajfepzwcq9f2rxk55","to_address_format":{"format":"standard"}}"
 ```
 
 #### Response:
@@ -1134,7 +1134,7 @@ curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"co
 #### Command (Qtum wallet address to QRC20 contract address)
 
 ```bash
-curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"QRC20","from","qKVvtDqpnFGDxsDzck5jmLwdnD2jRH6aM8", "to_address_format":{"format":"contract"}}"
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"QRC20","from":"qKVvtDqpnFGDxsDzck5jmLwdnD2jRH6aM8", "to_address_format":{"format":"contract"}}"
 ```
 
 #### Response
@@ -1150,7 +1150,7 @@ curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"co
 #### Command (QRC20 contract address to Qtum wallet address)
 
 ```bash
-curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"QRC20","from","0x1549128bbfb33b997949b4105b6a6371c998e212", "to_address_format":{"format":"wallet"}}"
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"QRC20","from":"0x1549128bbfb33b997949b4105b6a6371c998e212", "to_address_format":{"format":"wallet"}}"
 ```
 
 #### Response
