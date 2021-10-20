@@ -5610,7 +5610,7 @@ The `sell` method issues a sell request and attempts to match an order from the 
 #### Command (decimal representation)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":"\"1\"",\"price\":"\"1\""}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":\"1\",\"price\":\"1\"}"
 ```
 
 #### Command (rational representation in num-rational crate format)
