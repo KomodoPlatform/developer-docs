@@ -743,7 +743,7 @@ The `buy` method issues a buy request and attempts to match an order from the or
 #### Command (decimal representation)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":"\"1\"",\"price\":"\"1\""}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":\"1\",\"price\":\"1\"}"
 ```
 
 #### Command (rational representation in num-rational crate format)
