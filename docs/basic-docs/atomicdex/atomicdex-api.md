@@ -6774,7 +6774,7 @@ The `validateaddress` method checks if an input string is a valid address of the
 #### Command
 
 ```bash
-curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"validateaddress","coin":"RICK","address","RRnMcSeKiLrNdbp91qNVQwwXx5azD4S4CD"}"
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"validateaddress","coin":"RICK","address":"RRnMcSeKiLrNdbp91qNVQwwXx5azD4S4CD"}"
 ```
 
 <div style="margin-top: 0.5rem;">
