@@ -336,7 +336,7 @@ The `all_swaps_uuids_by_filter` method returns all uuids of swaps that match the
 #### Command (select swaps uuids that have my_coin = RICK and other_coin = MORTY)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"all_swaps_uuids_by_filter\"\"my_coin\":\"RICK\",\"other_coin\":\"MORTY\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"all_swaps_uuids_by_filter\",\"my_coin\":\"RICK\",\"other_coin\":\"MORTY\"}"
 ```
 
 #### Command (select swaps uuids that have my_coin = RICK and started_at >= 1611705600 (January 27, 2021 0:00:00 GMT))
