@@ -1167,18 +1167,20 @@ curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"co
 
 </div>
 
-# convert\_utxo\_address
+## convert\_utxo\_address
+
+**convert_utxo_address address to_coin**
 
 The `convert_utxo_address` method takes a UTXO address as input, and returns the equivalent address for another UTXO coin (e.g. from BTC address to RVN address)
 
-### Arguments
+#### Arguments
 
 | Structure         | Type   | Description                     |
 | ----------------- | ------ | ------------------------------- |
 | address           | string | Input UTXO address              |
 | to_coin           | string | Input address to convert from   |
 
-### Response
+#### Response
 
 | Structure             | Type             | Description                                                     |
 | --------------------- | ---------------- | --------------------------------------------------------------- |
@@ -1246,8 +1248,6 @@ curl --url "http://127.0.0.1:7783" --data "{
 </collapse-text>
 
 </div>
-
-
 
 ## disable\_coin
 
