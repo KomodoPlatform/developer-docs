@@ -1,4 +1,4 @@
-## get\_public\_key
+# get\_public\_key
 
 The `get_public_key` method returns the pubkey corresponding to the user's seed phrase.
 
