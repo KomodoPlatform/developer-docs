@@ -122,6 +122,10 @@ let atomicDEXsidebar = {
           "stop_version_stat_collection",
         ],
         [
+          "/basic-docs/atomicdex/atomicdex-api-20/get_public_key.md",
+          "get_public_key",
+        ],
+        [
           "/basic-docs/atomicdex/atomicdex-api-20/trade_preimage.md",
           "trade_preimage",
         ],
