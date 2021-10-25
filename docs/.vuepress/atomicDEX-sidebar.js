@@ -118,6 +118,10 @@ let atomicDEXsidebar = {
           "update_version_stat_collection",
         ],
         [
+          "/basic-docs/atomicdex/atomicdex-api-20/stop_version_stat_collection.md",
+          "stop_version_stat_collection",
+        ],
+        [
           "/basic-docs/atomicdex/atomicdex-api-20/trade_preimage.md",
           "trade_preimage",
         ],
