@@ -1,4 +1,4 @@
-## stop\_version\_stat\_collection
+# stop\_version\_stat\_collection
 
 The `stop_version_stat_collection` method stops the collection of version stats at the end of the current loop interval.
 
