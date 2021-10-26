@@ -145,7 +145,7 @@ Another point to mention is that while AtomicDEX is built upon atomic swaps, oth
 | ------------ | --------------------- | ----------------------- | --------------------------- | ------------- |
 | Check!       | Check!                | Check!                  | Check!                      | Check!        |
 
-Today, Komodo developers took what they learned from version 1.0 and rewrote the code from the ground up to enhance essentially all aspects of the user experience. This is the AtomicDEX 2.0 software. Komodo is also partnered with Ideas By Nature, a UX/UI design and development firm, to create a well designed atomic-swap trading experience.
+Today, Komodo developers took what they learned from version 1.0 and rewrote the code from the ground up to enhance essentially all aspects of the user experience. This is the AtomicDEX 2.0 software.
 
 Recently, yet again Komodo forged into new territory with atomic swaps. In February of 2019, the Komodo team performed the first mobile-based atomic swap. The mobile version of AtomicDEX is available for Android and iOS devices, and the software interfaces seamlessly with our desktop software.
 

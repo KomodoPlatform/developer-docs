@@ -102,6 +102,30 @@ let atomicDEXsidebar = {
           "MmRPC Protocol v2.0",
         ],
         [
+          "/basic-docs/atomicdex/atomicdex-api-20/add_node_to_version_stat.md",
+          "add_node_to_version_stat",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-api-20/remove_node_from_version_stat.md",
+          "remove_node_from_version_stat",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-api-20/start_version_stat_collection.md",
+          "start_version_stat_collection",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-api-20/update_version_stat_collection.md",
+          "update_version_stat_collection",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-api-20/stop_version_stat_collection.md",
+          "stop_version_stat_collection",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-api-20/get_public_key.md",
+          "get_public_key",
+        ],
+        [
           "/basic-docs/atomicdex/atomicdex-api-20/trade_preimage.md",
           "trade_preimage",
         ],

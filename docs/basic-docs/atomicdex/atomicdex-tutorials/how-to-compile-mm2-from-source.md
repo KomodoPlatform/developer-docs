@@ -1,6 +1,6 @@
-# How To Compile MarketMaker from Source
+# How To Compile AtomicDEX API from Source
 
-The following tutorial introduces the reader to a simple method to build the MarketMaker from source.
+The following tutorial introduces the reader to a simple method to build the AtomicDEX API from source.
 
 ## Installing Dependencies
 
@@ -201,7 +201,7 @@ info: installing component 'rustfmt'
 
 </collapse-text>
 
-## Install MarketMaker Software
+## Install the AtomicDEX API
 
 #### Step 1: Download source code
 
