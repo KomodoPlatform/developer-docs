@@ -116,8 +116,4 @@ curl --location --request POST 'http://127.0.0.1:7783' \
 
 </collapse-text>
 
-<<<<<<< HEAD
 </div>
-=======
-</div>
->>>>>>> 28a5a4614ce777c6c049d86897038b6f0f044026
