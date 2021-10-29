@@ -27,7 +27,7 @@ Note: If using a custom prices API endpoint, please ensure it conforms to the sa
 * Percentage values are within the range of 0-1, such that 0.25 = 25%
 ** For spread, a value of 1.05 equates to 5% over the value returned from the prices API url.
 
-Note: `balance_percent` will iterate to percentage of current balance if `max` is true, but remains static if `max` is false.
+Note: `min_volume` will iterate to percentage of current balance if `max` is true, but remains static if `max` is false.
 
 #### :pushpin: Examples
 
@@ -116,4 +116,8 @@ curl --location --request POST 'http://127.0.0.1:7783' \
 
 </collapse-text>
 
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> 28a5a4614ce777c6c049d86897038b6f0f044026
