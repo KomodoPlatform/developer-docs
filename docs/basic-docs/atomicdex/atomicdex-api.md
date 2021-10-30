@@ -5056,13 +5056,13 @@ Where `PairDepth` object structure is as follows
 #### Command
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data '
+curl --url "http://127.0.0.1:7783" --data "
 {
-  "userpass":"'$userpass'",
-  "method":"orderbook_depth",
-  "pairs":[["RICK","MORTY"],["BTC","KMD"],["DOGE","KMD"]]
+  \"userpass\":\"${userpass}\",
+  \"method\":\"orderbook_depth\",
+  \"pairs\":[[\"RICK\",\"MORTY\"],[\"BTC\",\"KMD\"],[\"DOGE\",\"KMD\"]]
 }
-'
+"
 ```
 
 <div style="margin-top: 0.5rem;">
