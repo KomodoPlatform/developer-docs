@@ -104,10 +104,16 @@ curl --location --request POST 'http://127.0.0.1:7783' \
 
 ```json
 {
+    "mmrpc":"2.0",
+    "result":{
+        "result":"Success"
+    },
+    "id":0
 }
+
 ```
 
-#### Response (error - peer id already in database)
+#### Response (error - bot already started)
 
 ```json
 {
