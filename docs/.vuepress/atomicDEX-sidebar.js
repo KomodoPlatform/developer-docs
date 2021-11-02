@@ -322,8 +322,9 @@ let atomicDEXsidebar = {
         [
           "/basic-docs/atomicdex/atomicdex-api-legacy/withdraw.md",
           "withdraw",
-        ]
-      ]
-    }
+        ],
+      ],
+    },
+  ]
 };
 module.exports = atomicDEXsidebar;
