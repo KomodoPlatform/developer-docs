@@ -1,0 +1,125 @@
+# start\_simple\_market\_maker\_bot
+
+The AtomicDEX API allows for simple bot trading via the `start_simple_market_maker_bot` method. This method takes as input a url to a price service, and configuration parameters of the pair to trade at a defined spread percentage value. 
+
+Note: If using a custom prices API endpoint, please ensure it conforms to the same schema as the url in the example.
+
+### Arguments
+
+| Structure                       | Type   | Description                     |
+| ------------------------------- | ------- | ----------------------------------------- |
+| price_url                       | string  | Link to a price service API               |
+| cfg.name                        | string  | The name assigned to this configuration (e.g. the pair being configured) |
+| cfg.name.base                   | string  | Ticker of the coin you wish to sell       |
+| cfg.name.rel                    | string  | Ticker of the coin you wish to buy        |
+| cfg.name.max                    | boolean | Set to `true` if you would like to trade your whole balance        |
+| cfg.name.balance_percent*       | string  | Percentage of balance to trade (optional; ignored if `max` is true)       |
+| cfg.name.min_volume*       | string  | Minimum percentage of balance to accept in trade (optional)       |
+| cfg.name.spread**                | string  | Target price in relation to prices API value  |
+| cfg.name.base_confs             | integer  | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set       |
+| cfg.name.base_nota              | boolean  | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set       |
+| cfg.name.rel_confs              | integer  | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set       |
+| cfg.name.rel_nota               | boolean  | whether dPoW notarization is required for rel coin atomic swap transaction; default to base coin configuration if not set       |
+| cfg.name.enable                 | boolean  | Bot will ignore this config entry if set to false       |
+| cfg.name.price_elapsed_validity | float  | Will cancel current orders for this pair and not submit a new order if last price update time has been longer than this value in seconds (optional; defaults to 5 minutes)      |
+| cfg.name.check_last_bidirectional_trade_thresh_hold | boolean | Will readjust the calculated cex price if a precedent trade exists for the pair (or reversed pair), applied via a VWAP logic (see https://www.investopedia.com/terms/v/vwap.asp#:~:text=VWAP%20is%20calculating%20the%20sum,periods%20there%20are%20(10)) (optional; defaults to false)      |
+
+* Percentage values are within the range of 0-1, such that 0.25 = 25%
+** For spread, a value of 1.05 equates to 5% over the value returned from the prices API url.
+
+Note: `min_volume` will iterate to percentage of current balance if `max` is true, but remains static if `max` is false.
+
+#### :pushpin: Examples
+
+As demonstrated below, multiple configs can be included within the same command.
+
+In the example below, the first config lets the bot know we want to:
+- Sell MATIC in exchange for KMD
+- Use whole of available MATIC balance, with minimum trade volume accepted as 25% of your balance
+- Sets the sell price at 2.5% over the value returned from the prices API (spread).
+- Only accepts values from the prices API that have been updated within the last 30 seconds
+- Waits for 3 confirmations and does not wait for a notarisation to progress to the next steps in the atomic swap process
+- Checks trade history within the local AtomicDEX API database to never create trades with a sell price that is less than the average trading price.
+
+The second config tells the bot to:
+- Sell MATIC in exchange for VERUS
+- Trade at most 50% of your MATIC balance, with minimum trade volume accepted as 10% of your balance
+- Sets the sell price at 4% over the value returned from the prices API (spread).
+- Only accepts values from the prices API that have been updated within the last 60 seconds
+- Waits for 1 confirmation and does not wait for a notarisation to progress to the next steps in the atomic swap process
+- Ignores your trade history and average trading price, creating/updating orders regardless.
+
+#### Command
+
+```bash
+curl --location --request POST 'http://127.0.0.1:7783' \
+--header 'Content-Type: application/json' \
+--data-raw "{
+    \"userpass\": \"${userpass}\",
+    \"mmrpc\": \"2.0\",
+    \"method\": \"start_simple_market_maker_bot\",
+    \"params\": {
+        \"price_url\": \"http://prices.cipig.net:1313/api/v2/tickers?expire_at=600\",
+        \"cfg\": {
+            \"MATIC/KMD\": {
+                \"base\": \"MATIC\",
+                \"rel\": \"KMD\",
+                \"max\": true,
+                \"min_volume\": \"0.25\",
+                \"spread\": \"1.025\",
+                \"base_confs\": 3,
+                \"base_nota\": false,
+                \"rel_confs\": 3,
+                \"rel_nota\": false,
+                \"enable\": true,
+                \"price_elapsed_validity\": 30.0,
+                \"check_last_bidirectional_trade_thresh_hold\": true
+            },
+             \"MATIC/VRSC\": {
+                \"base\": \"MATIC\",
+                \"rel\": \"VRSC\",
+                \"balance_percent\": \"0.5\",
+                \"min_volume\": \"0.1\",
+                \"spread\": \"1.04\",
+                \"base_confs\": 1,
+                \"base_nota\": false,
+                \"rel_confs\": 1,
+                \"rel_nota\": false,
+                \"enable\": true,
+                \"price_elapsed_validity\": 60.0,
+                \"check_last_bidirectional_trade_thresh_hold\": false
+            }
+        }
+    },
+    \"id\": 0
+}"
+
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+    "mmrpc":"2.0",
+    "result":{
+        "result":"Success"
+    },
+    "id":0
+}
+
+```
+
+#### Response (error - bot already started)
+
+```json
+{
+}
+```
+
+</collapse-text>
+
+</div>

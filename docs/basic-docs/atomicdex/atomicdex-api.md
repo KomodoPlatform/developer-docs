@@ -135,25 +135,25 @@ The `active_swaps` method returns all the swaps that are currently running on th
 #### Command (without include_status)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "
+curl --url "http://127.0.0.1:7783" --data '
 {
-  \"userpass\":\"$userpass\",
-  \"method\":\"active_swaps\"
+  "userpass":"'$userpass'",
+  "method":"active_swaps"
 }
-"
+'
 
 ```
 
 #### Command (include_status = true)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "
+curl --url "http://127.0.0.1:7783" --data '
 {
-  \"userpass\":\"$userpass\",
-  \"method\":\"active_swaps\",
-  \"include_status\": true
+  "userpass":"'$userpass'",
+  "method":"active_swaps",
+  "include_status": true
 }
-"
+'
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -409,12 +409,12 @@ Use the secp256k1 pubkey without prefix for this method input. E.g. if pubkey is
 #### Command
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\": \"$userpass\",
-  \"method\": \"ban_pubkey\",
-  \"pubkey\": \"2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420\",
-  \"reason\": \"test\",
-}"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method": "ban_pubkey",
+  "pubkey": "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420",
+  "reason": "test",
+}'
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -499,13 +499,13 @@ where order entry has the following structure
 #### Command
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\": \"best_orders\",
-  \"coin\": \"RICK\",
-  \"action\": \"buy\",
-  \"volume\": \"1\"
-}"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method": "best_orders",
+  "coin": "RICK",
+  "action": "buy",
+  "volume": "1"
+}'
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -755,43 +755,43 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 #### Command (rational representation as fraction object)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"buy\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"buy",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
   },
   "price":{
     "numer":"2",
     "denom":"1"
   }
-}"
+}'
 ```
 
 #### Command (with confirmations and notarization settings)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"buy\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"buy",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
   },
-  \"price\":{
-    \"numer\":\"2\",
-    \"denom\":\"1\"
+  "price":{
+    "numer":"2",
+    "denom":"1"
   },
-  \"base_confs\": 2,
-  \"base_nota\": true,
-  \"rel_confs\": 5,
-  \"rel_nota\": false  
-}"
+  "base_confs": 2,
+  "base_nota": true,
+  "rel_confs": 5,
+  "rel_nota": false  
+}'
 ```
 
 #### Command (GoodTillCancelled type)
@@ -1086,15 +1086,7 @@ Or this can be used to convert an ETH address from single to mixed case checksum
 #### Command (ETH single case address to mixed checksum)
 
 ```bash  
-curl --url "http://127.0.0.1:7783/" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"convertaddress\",
-  \"coin\":\"ETH\",
-  \"from\":\"0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359\",
-  \"to_address_format\":{
-    \"format\":\"mixedcase\"
-  }
-}"
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"ETH","from":"0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359", "to_address_format":{"format":"mixedcase"}}"
 ```
 
 #### Response
@@ -1110,16 +1102,7 @@ curl --url "http://127.0.0.1:7783/" --data "{
 #### Command (BCH legacy to cash address)
 
 ```bash
-curl --url "http://127.0.0.1:7783/" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"convertaddress\",
-  \"coin\":\"BCH\",
-  \"from\":\"1DmFp16U73RrVZtYUbo2Ectt8mAnYScpqM\",
-  \"to_address_format\":{
-    \"format\":\"cashaddress\",
-    \"network\":\"bitcoincash\"
-  }
-}"
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"BCH","from":"1DmFp16U73RrVZtYUbo2Ectt8mAnYScpqM","to_address_format":{"format":"cashaddress","network":"bitcoincash"}}"
 ```
 
 #### Response
@@ -1135,15 +1118,7 @@ curl --url "http://127.0.0.1:7783/" --data "{
 #### Command (BCH cash address to legacy)
 
 ```bash
-curl --url "http://127.0.0.1:7783/" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"convertaddress\",
-  \"coin\":\"BCH\",
-  \"from\":\"bitcoincash:qzxqqt9lh4feptf0mplnk58gnajfepzwcq9f2rxk55\",
-  \"to_address_format\":{
-    \"format\":\"standard\"
-  }
-}"
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"BCH","from":"bitcoincash:qzxqqt9lh4feptf0mplnk58gnajfepzwcq9f2rxk55","to_address_format":{"format":"standard"}}"
 ```
 
 #### Response:
@@ -1159,15 +1134,7 @@ curl --url "http://127.0.0.1:7783/" --data "{
 #### Command (Qtum wallet address to QRC20 contract address)
 
 ```bash
-curl --url "http://127.0.0.1:7783/" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"convertaddress\",
-  \"coin\":\"QRC20\",
-  \"from\":\"qKVvtDqpnFGDxsDzck5jmLwdnD2jRH6aM8\",
-  \"to_address_format\":{
-    \"format\":\"contract\"
-  }
-}"
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"QRC20","from":"qKVvtDqpnFGDxsDzck5jmLwdnD2jRH6aM8", "to_address_format":{"format":"contract"}}"
 ```
 
 #### Response
@@ -1183,15 +1150,7 @@ curl --url "http://127.0.0.1:7783/" --data "{
 #### Command (QRC20 contract address to Qtum wallet address)
 
 ```bash
-curl --url "http://127.0.0.1:7783/" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"convertaddress\",
-  \"coin\":\"QRC20\",
-  \"from\":\"0x1549128bbfb33b997949b4105b6a6371c998e212\",
-  \"to_address_format\":{
-    \"format\":\"wallet\"
-  }
-}"
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"convertaddress","coin":"QRC20","from":"0x1549128bbfb33b997949b4105b6a6371c998e212", "to_address_format":{"format":"wallet"}}"
 ```
 
 #### Response
@@ -2093,10 +2052,7 @@ or
 #### Command
 
 ```bash
-curl --url "http://127.0.0.1:7783/" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"kmd_rewards_info\"
-}"
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"kmd_rewards_info"}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -2240,7 +2196,7 @@ The `min_trading_vol` method returns the minimum required volume for buy/sell/se
 ```bash
 curl --url "http://127.0.0.1:7783" --data '
 {
-  "userpass":\"$userpass\",
+  "userpass":"'$userpass'",
   "method":"min_trading_vol",
   "coin": "RICK"
 }
@@ -5100,13 +5056,13 @@ Where `PairDepth` object structure is as follows
 #### Command
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data '
+curl --url "http://127.0.0.1:7783" --data "
 {
-  "userpass":\"$userpass\",
-  "method":"orderbook_depth",
-  "pairs":[["RICK","MORTY"],["BTC","KMD"],["DOGE","KMD"]]
+  \"userpass\":\"${userpass}\",
+  \"method\":\"orderbook_depth\",
+  \"pairs\":[[\"RICK\",\"MORTY\"],[\"BTC\",\"KMD\"],[\"DOGE\",\"KMD\"]]
 }
-'
+"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -5666,43 +5622,43 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 #### Command (rational representation as a fraction object)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"sell\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"sell",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
   },
-  \"price\":{
-    \"numer\":\"2\",
-    \"denom\":\"1\"
+  "price":{
+    "numer":"2",
+    "denom":"1"
   }
-}"
+}'
 ```
 
 #### Command (with confirmations and notarization settings)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"sell\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"sell",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
   },
-  \"price\":{
-    \"numer\":\"2\",
-    \"denom\":\"1\"
+  "price":{
+    "numer":"2",
+    "denom":"1"
   },
-  \"base_confs\": 2,
-  \"base_nota\": true,
-  \"rel_confs\": 5,
-  \"rel_nota\": false
-}"
+  "base_confs": 2,
+  "base_nota": true,
+  "rel_confs": 5,
+  "rel_nota": false
+}'
 ```
 
 #### Command (GoodTillCancelled type)
@@ -5900,76 +5856,76 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 #### Command (rational representation in num-rational crate format)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"setprice\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":[[1,[1]],[1,[1]]],
-  \"price\":[[1,[1]],[1,[1]]]
-}"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"setprice",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":[[1,[1]],[1,[1]]],
+  "price":[[1,[1]],[1,[1]]]
+}'
 ```
 
 #### Command (rational representation as fraction object)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"setprice\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"setprice",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
   },
-  \"price\":{
-    \"numer\":\"2\",
-    \"denom\":\"1\"
+  "price":{
+    "numer":"2",
+    "denom":"1"
   }
-}"
+}'
 ```
 
 #### Command (with min_volume)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"setprice\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"setprice",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
   },
-  \"price\":{
-    \"numer\":\"2\",
-    \"denom\":\"1\"
+  "price":{
+    "numer":"2",
+    "denom":"1"
   },  
-  \"min_volume\":\"1\"
-}"
+  "min_volume":"1"
+}'
 ```
 
 #### Command (with confirmations and notarization settings)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"setprice\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"setprice",
+  "base":"HELLO",
+  "rel":"WORLD",
+  "volume":{
+    "numer":"3",
+    "denom":"2"
   },
-  \"price\":{
-    \"numer\":\"2\",
-    \"denom\":\"1\"
+  "price":{
+    "numer":"2",
+    "denom":"1"
   },
-  \"base_confs\": 2,
-  \"base_nota\": true,
-  \"rel_confs\": 5,
-  \"rel_nota\": false  
-}"
+  "base_confs": 2,
+  "base_nota": true,
+  "rel_confs": 5,
+  "rel_nota": false  
+}'
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -6674,72 +6630,72 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 #### Command (rational representation in num-rational crate format)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"update_maker_order\",
-  \"uuid\":\"6a242691-6c05-474a-85c1-5b3f42278f41\",
-  \"volume_delta\":[[1,[1]],[1,[1]]],
-  \"new_price\":[[1,[1]],[1,[1]]]
-}"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"update_maker_order",
+  "uuid":"6a242691-6c05-474a-85c1-5b3f42278f41",
+  "volume_delta":[[1,[1]],[1,[1]]],
+  "new_price":[[1,[1]],[1,[1]]]
+}'
 ```
 
 #### Command (rational representation as fraction object)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"update_maker_order\",
-  \"uuid\":\"6a242691-6c05-474a-85c1-5b3f42278f41\",
-  \"volume_delta\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"update_maker_order",
+  "uuid":"6a242691-6c05-474a-85c1-5b3f42278f41",
+  "volume_delta":{
+    "numer":"3",
+    "denom":"2"
   },
-  \"new_price\":{
-    \"numer\":\"2\",
-    \"denom\":\"1\"
+  "new_price":{
+    "numer":"2",
+    "denom":"1"
   }
-}"
+}'
 ```
 
 #### Command (with min_volume)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"update_maker_order\",
-  \"uuid\":\"6a242691-6c05-474a-85c1-5b3f42278f41\",
-  \"volume_delta\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"update_maker_order",
+  "uuid":"6a242691-6c05-474a-85c1-5b3f42278f41",
+  "volume_delta":{
+    "numer":"3",
+    "denom":"2"
   },
-  \"new_price\":{
-    \"numer\":\"2\",
-    \"denom\":\"1\"
+  "new_price":{
+    "numer":"2",
+    "denom":"1"
   },  
-  \"min_volume\":\"1\"
-}"
+  "min_volume":"1"
+}'
 ```
 
 #### Command (with confirmations and notarization settings)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"update_maker_order\",
-  \"uuid\":\"6a242691-6c05-474a-85c1-5b3f42278f41\",
-  \"volume_delta\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+curl --url "http://127.0.0.1:7783" --data '{
+  "userpass":"'$userpass'",
+  "method":"update_maker_order",
+  "uuid":"6a242691-6c05-474a-85c1-5b3f42278f41",
+  "volume_delta":{
+    "numer":"3",
+    "denom":"2"
   },
-  \"new_price\":{
-    \"numer\":\"2\",
-    \"denom\":\"1\"
+  "new_price":{
+    "numer":"2",
+    "denom":"1"
   },
-  \"base_confs\": 2,
-  \"base_nota\": true,
-  \"rel_confs\": 5,
-  \"rel_nota\": false  
-}"
+  "base_confs": 2,
+  "base_nota": true,
+  "rel_confs": 5,
+  "rel_nota": false  
+}'
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -6818,12 +6774,7 @@ The `validateaddress` method checks if an input string is a valid address of the
 #### Command
 
 ```bash
-curl --url "http://127.0.0.1:7783/" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"validateaddress\",
-  \"coin\":\"RICK\",
-  \"address\":\"RRnMcSeKiLrNdbp91qNVQwwXx5azD4S4CD\"
-}"
+curl --url "http://127.0.0.1:7783/" --data "{"userpass":"$userpass","method":"validateaddress","coin":"RICK","address":"RRnMcSeKiLrNdbp91qNVQwwXx5azD4S4CD"}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -6889,10 +6840,7 @@ The `version` method returns the AtomicDEX API version.
 #### Command
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{
-  \"method\":\"version\",
-  \"userpass\":\"$userpass\"
-}"
+curl --url "http://127.0.0.1:7783" --data "{\"method\":\"version\",\"userpass\":\"$userpass\"}"
 ```
 
 <div style="margin-top: 0.5rem;">
