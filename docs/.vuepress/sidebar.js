@@ -321,10 +321,7 @@ var sidebar = [
         children: [
           ["/basic-docs/antara/antara-api/assets.md", "Assets"],
           ["/basic-docs/antara/antara-api/channels.md", "Channels"],
-          /*           [
-                                   "/basic-docs/antara/antara-api/dice.md", 
-                                   "Dice"
-                               ], */
+          // ["/basic-docs/antara/antara-api/dice.md", "Dice"], 
           ["/basic-docs/antara/antara-api/dilithium.md", "Dilithium"],
           ["/basic-docs/antara/antara-api/faucet.md", "Faucet"],
           // ["/basic-docs/antara/antara-api/gaming.md", "Gaming SDK"],
