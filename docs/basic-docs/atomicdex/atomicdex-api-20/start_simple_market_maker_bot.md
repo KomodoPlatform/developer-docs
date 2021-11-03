@@ -9,7 +9,7 @@ Note: If using a custom prices API endpoint, please ensure it conforms to the sa
 | Structure                       | Type   | Description                     |
 | ------------------------------- | ------- | ----------------------------------------- |
 | price_url                       | string  | Link to a price service API               |
-| bot_refresh_rate                | integer | Bot loop interval in seconds (optional, 30 sec default)       |
+| bot_refresh_rate                | float | Bot loop interval in seconds (optional, 30 sec default)       |
 | cfg.name                        | string  | The name assigned to this configuration (e.g. the pair being configured) |
 | cfg.name.base                   | string  | Ticker of the coin you wish to sell       |
 | cfg.name.rel                    | string  | Ticker of the coin you wish to buy        |
