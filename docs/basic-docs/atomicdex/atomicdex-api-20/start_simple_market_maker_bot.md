@@ -1,6 +1,6 @@
 # start\_simple\_market\_maker\_bot
 
-The AtomicDEX API allows for simple bot trading via the `start_simple_market_maker_bot` method. This method takes as input a url to a price service, and configuration parameters of the pair to trade at a defined spread percentage value. 
+The AtomicDEX API allows for simple bot trading via the `start_simple_market_maker_bot` method. This method takes as input a url to a price service, and configuration parameters of the pair to trade at a defined spread percentage value. It will update orders every 30 seconds (or higher values if defined with the `bot_refresh_rate` parameter)
 
 Note: If using a custom prices API endpoint, please ensure it conforms to the same schema as the url in the example.
 
@@ -9,6 +9,7 @@ Note: If using a custom prices API endpoint, please ensure it conforms to the sa
 | Structure                       | Type   | Description                     |
 | ------------------------------- | ------- | ----------------------------------------- |
 | price_url                       | string  | Link to a price service API               |
+| bot_refresh_rate                | integer | Bot loop interval in seconds (optional, 30 sec default)       |
 | cfg.name                        | string  | The name assigned to this configuration (e.g. the pair being configured) |
 | cfg.name.base                   | string  | Ticker of the coin you wish to sell       |
 | cfg.name.rel                    | string  | Ticker of the coin you wish to buy        |
@@ -34,20 +35,21 @@ Note: `min_volume` will iterate to percentage of current balance if `max` is tru
 As demonstrated below, multiple configs can be included within the same command.
 
 In the example below, the first config lets the bot know we want to:
-- Sell MATIC in exchange for KMD
-- Use whole of available MATIC balance, with minimum trade volume accepted as 25% of your balance
+- Sell DASH in exchange for KMD
+- Use whole of available DASH balance, with minimum trade volume accepted as 25% of your balance
 - Sets the sell price at 2.5% over the value returned from the prices API (spread).
 - Only accepts values from the prices API that have been updated within the last 30 seconds
 - Waits for 3 confirmations and does not wait for a notarisation to progress to the next steps in the atomic swap process
 - Checks trade history within the local AtomicDEX API database to never create trades with a sell price that is less than the average trading price.
 
 The second config tells the bot to:
-- Sell MATIC in exchange for VERUS
-- Trade at most 50% of your MATIC balance, with minimum trade volume accepted as 10% of your balance
+- Sell DASH in exchange for DGB
+- Trade at most 50% of your DASH balance, with minimum trade volume accepted as 10% of your balance
 - Sets the sell price at 4% over the value returned from the prices API (spread).
 - Only accepts values from the prices API that have been updated within the last 60 seconds
 - Waits for 1 confirmation and does not wait for a notarisation to progress to the next steps in the atomic swap process
 - Ignores your trade history and average trading price, creating/updating orders regardless.
+
 
 #### Command
 
@@ -60,9 +62,10 @@ curl --location --request POST 'http://127.0.0.1:7783' \
     \"method\": \"start_simple_market_maker_bot\",
     \"params\": {
         \"price_url\": \"http://prices.cipig.net:1313/api/v2/tickers?expire_at=600\",
+        \"bot_refresh_rate\": 60,
         \"cfg\": {
-            \"MATIC/KMD\": {
-                \"base\": \"MATIC\",
+            \"DASH/KMD\": {
+                \"base\": \"DASH\",
                 \"rel\": \"KMD\",
                 \"max\": true,
                 \"min_volume\": \"0.25\",
@@ -75,9 +78,9 @@ curl --location --request POST 'http://127.0.0.1:7783' \
                 \"price_elapsed_validity\": 30.0,
                 \"check_last_bidirectional_trade_thresh_hold\": true
             },
-             \"MATIC/VRSC\": {
-                \"base\": \"MATIC\",
-                \"rel\": \"VRSC\",
+             \"DASH/DGB\": {
+                \"base\": \"DASH\",
+                \"rel\": \"DGB\",
                 \"balance_percent\": \"0.5\",
                 \"min_volume\": \"0.1\",
                 \"spread\": \"1.04\",
@@ -95,6 +98,9 @@ curl --location --request POST 'http://127.0.0.1:7783' \
 }"
 
 ```
+
+As we have `\"bot_refresh_rate\": 60,` in the above command, our bot loop will update order prices every 60 seconds, as long as the price service returns data that is no more than 30 seconds old (for DASH/KMD) or no more than 60 seconds old (for DASH/DGB).
+
 
 <div style="margin-top: 0.5rem;">
 
@@ -117,6 +123,12 @@ curl --location --request POST 'http://127.0.0.1:7783' \
 
 ```json
 {
+    "mmrpc":"2.0",
+    "error":"The bot is already started",
+    "error_path":"simple_market_maker",
+    "error_trace":"simple_market_maker:770]",
+    "error_type":"AlreadyStarted",
+    "id":0
 }
 ```
 
