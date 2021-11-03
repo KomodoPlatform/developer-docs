@@ -1,6 +1,4 @@
-# AtomicDEX API
-
-## Note About Rational Number Type
+# Note About Rational Number Type
 
 The AtomicDEX API now offers the [num-rational crate](https://crates.io/crates/num-rational) feature. This is used to represent order volumes and prices.
 

@@ -1,5 +1,4 @@
-
-## my\_balance
+# my\_balance
 
 **my_balance coin**
 

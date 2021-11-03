@@ -1,5 +1,4 @@
-
-## get\_enabled\_coins
+# get\_enabled\_coins
 
 **get_enabled_coins**
 

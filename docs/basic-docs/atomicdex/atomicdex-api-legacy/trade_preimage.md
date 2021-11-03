@@ -1,5 +1,4 @@
-
-## trade\_preimage (deprecated)
+# trade\_preimage (deprecated)
 
 **trade_preimage**
 

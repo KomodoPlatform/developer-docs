@@ -1,5 +1,4 @@
-
-## disable\_coin
+# disable\_coin
 
 **disable_coin coin**
 

@@ -1,5 +1,4 @@
-
-## set\_required\_confirmations
+# set\_required\_confirmations
 
 **set\_required\_confirmations coin confirmations**
 

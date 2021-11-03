@@ -1,5 +1,4 @@
-
-## update\_maker\_order
+# update\_maker\_order
 
 **update\_maker\_order uuid (new_price volume_delta max base_confs base_nota rel_confs rel_nota min_volume)**
 

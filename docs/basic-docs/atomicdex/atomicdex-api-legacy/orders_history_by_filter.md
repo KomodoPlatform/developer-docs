@@ -1,5 +1,4 @@
-
-## orders\_history\_by\_filter
+# orders\_history\_by\_filter
 
 **orders_history_by_filter (order_type initial_action base rel from_price to_price from_volume to_volume from_timestamp to_timestamp was_taker status include_details)**
 

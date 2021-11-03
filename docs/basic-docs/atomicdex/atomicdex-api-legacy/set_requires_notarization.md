@@ -1,5 +1,4 @@
-
-## set\_requires\_notarization
+# set\_requires\_notarization
 
 **set\_requires\_notarization coin requires\_notarization**
 

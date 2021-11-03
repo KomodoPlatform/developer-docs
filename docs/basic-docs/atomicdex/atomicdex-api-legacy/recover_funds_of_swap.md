@@ -1,5 +1,4 @@
-
-## recover\_funds\_of\_swap
+# recover\_funds\_of\_swap
 
 **recover_funds_of_swap uuid**
 

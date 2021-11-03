@@ -1,5 +1,4 @@
-
-## min\_trading\_vol 
+# min\_trading\_vol 
 
 **min_trading_vol coin**
 

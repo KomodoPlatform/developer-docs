@@ -1,5 +1,4 @@
-
-## buy
+# buy
 
 **buy base rel price volume (match_by order_type base_confs base_nota rel_confs rel_nota min_volume)**
 

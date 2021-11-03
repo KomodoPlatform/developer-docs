@@ -1,5 +1,4 @@
-
-## my\_recent\_swaps
+# my\_recent\_swaps
 
 **my_recent_swaps (from_uuid page_number=1 limit=10 my_coin other_coin from_timestamp to_timestamp)**
 
