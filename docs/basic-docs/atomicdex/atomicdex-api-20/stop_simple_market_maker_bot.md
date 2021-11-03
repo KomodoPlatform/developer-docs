@@ -4,8 +4,6 @@ The `stop_simple_market_maker_bot` method tells the bot to finish placing orders
 
 At the end of the final loop, orders placed by the bot will be cancelled. Users should wait until the loop ends before exiting the AtomicDEX API, otherwise orders will not cancel, and will reappear on the orderbook next time AtomicDEX API starts. 
 
-Note: If using a custom prices API endpoint, please ensure it conforms to the same schema as the url in the example.
-
 ### Arguments
 
 | Structure                       | Type    | Description                               |
