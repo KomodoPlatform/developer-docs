@@ -1,5 +1,4 @@
-
-## convertaddress
+# convertaddress
 
 **convertaddress coin from to_address_format**
 

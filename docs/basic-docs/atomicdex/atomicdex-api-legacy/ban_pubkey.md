@@ -1,5 +1,4 @@
-
-## ban\_pubkey
+# ban\_pubkey
 
 **ban_pubkey pubkey reason**
 

@@ -1,5 +1,4 @@
-
-## cancel\_all\_orders
+# cancel\_all\_orders
 
 **cancel_all_orders cancel_by**
 

@@ -1,5 +1,4 @@
-
-## setprice
+# setprice
 
 **setprice base rel price (volume max cancel_previous=true base_confs base_nota rel_confs rel_nota min_volume)**
 

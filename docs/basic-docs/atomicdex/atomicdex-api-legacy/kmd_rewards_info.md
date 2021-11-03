@@ -1,5 +1,4 @@
-
-## kmd\_rewards\_info
+# kmd\_rewards\_info
 
 **kmd_rewards_info**
 

@@ -1,5 +1,4 @@
-
-## show\_priv\_key
+# show\_priv\_key
 
 **show_priv_key coin**
 

@@ -1,5 +1,4 @@
-
-## my\_tx\_history
+# my\_tx\_history
 
 **my_tx_history (from_id limit=10 max=false page_number)**
 

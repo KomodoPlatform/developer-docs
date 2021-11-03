@@ -1,5 +1,4 @@
-
-## validateaddress
+# validateaddress
 
 **validateaddress coin address**
 

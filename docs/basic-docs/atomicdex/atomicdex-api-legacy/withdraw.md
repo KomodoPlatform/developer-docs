@@ -1,5 +1,4 @@
-
-## withdraw
+# withdraw
 
 **withdraw coin to (amount max)**
 

@@ -1,5 +1,4 @@
-
-## electrum
+# electrum
 
 **electrum coin servers (mm2 tx_history=false)**
 

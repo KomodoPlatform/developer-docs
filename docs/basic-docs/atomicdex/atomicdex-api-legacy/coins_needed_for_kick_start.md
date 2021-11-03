@@ -1,5 +1,4 @@
-
-## coins\_needed\_for\_kick\_start
+# coins\_needed\_for\_kick\_start
 
 **coins_needed_for_kick_start()**
 

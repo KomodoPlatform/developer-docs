@@ -1,5 +1,4 @@
-
-## list\_banned\_pubkeys
+# list\_banned\_pubkeys
 
 **list_banned_pubkeys**
 

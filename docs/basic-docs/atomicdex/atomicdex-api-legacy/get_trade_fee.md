@@ -1,5 +1,4 @@
-
-## get\_trade\_fee (deprecated)
+# get\_trade\_fee (deprecated)
 
 **get_trade_fee coin**
 

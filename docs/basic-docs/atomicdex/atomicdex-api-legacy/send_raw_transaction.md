@@ -1,5 +1,4 @@
-
-## send\_raw\_transaction
+# send\_raw\_transaction
 
 **send_raw_transaction coin tx_hex**
 

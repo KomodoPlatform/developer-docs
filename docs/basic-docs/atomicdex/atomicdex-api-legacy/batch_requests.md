@@ -1,5 +1,4 @@
-
-## batch requests
+# batch requests
 
 A batch request is a method for sending several unique requests to the network all at once.
 

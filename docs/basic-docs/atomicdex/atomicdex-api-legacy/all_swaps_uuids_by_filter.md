@@ -1,5 +1,4 @@
-
-## all\_swaps\_uuids\_by\_filter
+# all\_swaps\_uuids\_by\_filter
 
 **all_swaps_uuids_by_filter (my_coin other_coin from_timestamp to_timestamp)**
 

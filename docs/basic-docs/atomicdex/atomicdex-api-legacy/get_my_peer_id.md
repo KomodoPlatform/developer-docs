@@ -1,5 +1,4 @@
-
-## get\_my\_peer\_id
+# get\_my\_peer\_id
 
 **get_my_peer_id**
 
