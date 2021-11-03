@@ -1,6 +1,6 @@
 # start\_simple\_market\_maker\_bot
 
-The AtomicDEX API allows for simple bot trading via the `start_simple_market_maker_bot` method. This method takes as input a url to a price service, and configuration parameters of the pair to trade at a defined spread percentage value. It will update orders every 30 seconds (or higher values if defined with the `bot_refresh_rate` parameter)
+The AtomicDEX API allows for simple bot trading via the `start_simple_market_maker_bot` method. This method takes as input a url to a price service, and configuration parameters of the pair to trade at a defined spread percentage value. It will update orders every 30 seconds (or higher values if defined with the `bot_refresh_rate` parameter). 
 
 Note: If using a custom prices API endpoint, please ensure it conforms to the same schema as the url in the example.
 
@@ -32,7 +32,7 @@ Note: `min_volume` will iterate to percentage of current balance if `max` is tru
 
 #### :pushpin: Examples
 
-As demonstrated below, multiple configs can be included within the same command.
+As demonstrated below, multiple configs can be included within the same command. It is recommended to not exceed 500-1000 simultaneous orders placed to avoid decreased performance.
 
 In the example below, the first config lets the bot know we want to:
 - Sell DASH in exchange for KMD
@@ -100,6 +100,7 @@ curl --location --request POST 'http://127.0.0.1:7783' \
 ```
 
 As we have `\"bot_refresh_rate\": 60,` in the above command, our bot loop will update order prices every 60 seconds, as long as the price service returns data that is no more than 30 seconds old (for DASH/KMD) or no more than 60 seconds old (for DASH/DGB).
+
 
 
 <div style="margin-top: 0.5rem;">
