@@ -29,7 +29,6 @@ The extra fields required are:
 
 | Structure                       | Type    | Description                               |
 | ------------------------------- | ------- | ----------------------------------------- |
-| dbdir                           | string  | The path to your DB folder                |
 | api_key                         | string  | A Telegram bot API token                  |
 | chat_registry.default           | string  | A Telegram Chat ID                        |
 | chat_registry.maker_bot         | string  | A Telegram Chat ID                        |
