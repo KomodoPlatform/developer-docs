@@ -27,7 +27,7 @@ Note: If using a custom prices API endpoint, please ensure it conforms to the sa
 | cfg.name.rel_nota               | boolean | whether dPoW notarization is required for rel coin atomic swap transaction; default to base coin configuration if not set       |
 | cfg.name.enable                 | boolean | Bot will ignore this config entry if set to false       |
 | cfg.name.price_elapsed_validity | float   | Will cancel current orders for this pair and not submit a new order if last price update time has been longer than this value in seconds (optional; defaults to 5 minutes)      |
-| cfg.name.check_last_bidirectional_trade_thresh_hold | boolean | Will readjust the calculated cex price if a precedent trade exists for the pair (or reversed pair), applied via a VWAP logic (see https://www.investopedia.com/terms/v/vwap.asp#:~:text=VWAP%20is%20calculating%20the%20sum,periods%20there%20are%20(10)) (optional; defaults to false)      |
+| cfg.name.check_last_bidirectional_trade_thresh_hold | boolean | Will readjust the calculated cex price if a precedent trade exists for the pair (or reversed pair), applied via a [VWAP logic](https://www.investopedia.com/terms/v/vwap.asp#:~:text=VWAP%20is%20calculating%20the%20sum,periods%20there%20are%20(10))) (optional; defaults to false)      |
 
 * Percentage values are within the range of 0-1, such that 0.25 = 25%
 ** For spread, a value of 1.05 equates to 5% over the value returned from the prices API url.
@@ -66,7 +66,7 @@ curl --location --request POST 'http://127.0.0.1:7783' \
     \"mmrpc\": \"2.0\",
     \"method\": \"start_simple_market_maker_bot\",
     \"params\": {
-        \"price_url\": \"http://prices.cipig.net:1313/api/v2/tickers?expire_at=600\",
+        \"price_url\": \"http://price.cipig.net:1313/api/v2/tickers?expire_at=600\",
         \"bot_refresh_rate\": 60,
         \"cfg\": {
             \"DASH/KMD\": {
