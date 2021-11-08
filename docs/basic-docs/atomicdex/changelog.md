@@ -1,6 +1,6 @@
 # Change Log
 
-Version 0.2.8 of AtomicDEX (MM2) includes the following changes.
+Version 0.2.8 of the AtomicDEX API includes the following changes.
 
 #### List of Changes
 
