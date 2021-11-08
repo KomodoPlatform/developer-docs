@@ -6,14 +6,13 @@ let atomicDEXsidebar = {
       "/basic-docs/atomicdex/introduction-to-atomicdex.md",
       "Introduction to AtomicDEX Documentation",
     ],
-    ["/basic-docs/atomicdex/changelog.md", "AtomicDEX Change Log"],
     {
       title: "AtomicDEX Setup",
       collapsible: true,
       children: [
         [
           "/basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.md",
-          "Installing AtomicDEX Software (MM2)",
+          "Installing the AtomicDEX-API (MM2)",
         ],
       ],
     },
@@ -48,48 +47,6 @@ let atomicDEXsidebar = {
         [
           "/basic-docs/atomicdex/atomicdex-tutorials/coins-file-update.md",
           "How to update the coins file to work with the latest atomicDEX-API",
-        ],
-      ],
-    },
-    {
-      title: "AtomicDEX Beta",
-      collapsible: true,
-      children: [
-        [
-          "/basic-docs/atomicdex/atomicdex-beta/create-a-new-wallet-using-atomicdex-mobile.md",
-          "Create a New Wallet Using AtomicDEX Mobile",
-        ],
-        [
-          "/basic-docs/atomicdex/atomicdex-beta/restore-wallet-using-atomicdex-mobile.md",
-          "Restore Wallet Using AtomicDEX Mobile",
-        ],
-        [
-          "/basic-docs/atomicdex/atomicdex-beta/add-and-activate-coins-on-atomicdex-mobile.md",
-          "Add and Activate Coins on AtomicDEX Mobile",
-        ],
-        [
-          "/basic-docs/atomicdex/atomicdex-beta/view-your-receiving-address-to-send-funds-for-trading.md",
-          "View Your Receiving Address to Send Funds for Trading",
-        ],
-        [
-          "/basic-docs/atomicdex/atomicdex-beta/withdraw-or-send-funds-using-atomicdex-mobile.md",
-          "Withdraw or Send Funds Using AtomicDEX Mobile",
-        ],
-        [
-          "/basic-docs/atomicdex/atomicdex-beta/perform-cross-chain-atomic-swaps-using-atomicdex-mobile.md",
-          "Perform Cross-Chain Atomic Swaps Using AtomicDEX Mobile",
-        ],
-        [
-          "/basic-docs/atomicdex/atomicdex-beta/view-ongoing-orders-and-swap-history-on-atomicdex-mobile.md",
-          "View Ongoing Orders and Swap History on AtomicDEX Mobile",
-        ],
-        [
-          "/basic-docs/atomicdex/atomicdex-beta/recover-seed-on-atomicdex-mobile.md",
-          "Recover Seed on AtomicDEX Mobile",
-        ],
-        [
-          "/basic-docs/atomicdex/atomicdex-beta/delete-seed-from-atomicdex-mobile.md",
-          "Delete Seed (Wallet) on AtomicDEX Mobile",
         ],
       ],
     },
@@ -129,10 +86,7 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex/atomicdex-api-20/trade_preimage.md",
           "trade_preimage",
         ],
-        [
-          "/basic-docs/atomicdex/atomicdex-api-20/withdraw.md",
-          "withdraw",
-        ],
+        ["/basic-docs/atomicdex/atomicdex-api-20/withdraw.md", "withdraw"],
       ],
     },
     {
@@ -163,10 +117,7 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex/atomicdex-api-legacy/best_orders.md",
           "best_orders",
         ],
-        [
-          "/basic-docs/atomicdex/atomicdex-api-legacy/buy.md",
-          "buy",
-        ],
+        ["/basic-docs/atomicdex/atomicdex-api-legacy/buy.md", "buy"],
         [
           "/basic-docs/atomicdex/atomicdex-api-legacy/cancel_all_orders.md",
           "cancel_all_orders",
@@ -191,14 +142,8 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex/atomicdex-api-legacy/disable_coin.md",
           "disable_coin",
         ],
-        [
-          "/basic-docs/atomicdex/atomicdex-api-legacy/electrum.md",
-          "electrum",
-        ],
-        [
-          "/basic-docs/atomicdex/atomicdex-api-legacy/enable.md",
-          "enable",
-        ],
+        ["/basic-docs/atomicdex/atomicdex-api-legacy/electrum.md", "electrum"],
+        ["/basic-docs/atomicdex/atomicdex-api-legacy/enable.md", "enable"],
         [
           "/basic-docs/atomicdex/atomicdex-api-legacy/get_enabled_coins.md",
           "get_enabled_coins",
@@ -211,10 +156,7 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex/atomicdex-api-legacy/get_trade_fee.md",
           "get_trade_fee",
         ],
-        [
-          "/basic-docs/atomicdex/atomicdex-api-legacy/help.md",
-          "help",
-        ],
+        ["/basic-docs/atomicdex/atomicdex-api-legacy/help.md", "help"],
         [
           "/basic-docs/atomicdex/atomicdex-api-legacy/import_swaps.md",
           "import_swaps",
@@ -275,18 +217,12 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex/atomicdex-api-legacy/recover_funds_of_swap.md",
           "recover_funds_of_swap",
         ],
-        [
-          "/basic-docs/atomicdex/atomicdex-api-legacy/sell.md",
-          "sell",
-        ],
+        ["/basic-docs/atomicdex/atomicdex-api-legacy/sell.md", "sell"],
         [
           "/basic-docs/atomicdex/atomicdex-api-legacy/send_raw_transaction.md",
           "send_raw_transaction",
         ],
-        [
-          "/basic-docs/atomicdex/atomicdex-api-legacy/setprice.md",
-          "setprice",
-        ],
+        ["/basic-docs/atomicdex/atomicdex-api-legacy/setprice.md", "setprice"],
         [
           "/basic-docs/atomicdex/atomicdex-api-legacy/set_required_confirmations.md",
           "set_required_confirmations",
@@ -299,10 +235,7 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex/atomicdex-api-legacy/show_priv_key.md",
           "show_priv_key",
         ],
-        [
-          "/basic-docs/atomicdex/atomicdex-api-legacy/stop.md",
-          "stop",
-        ],
+        ["/basic-docs/atomicdex/atomicdex-api-legacy/stop.md", "stop"],
         [
           "/basic-docs/atomicdex/atomicdex-api-legacy/trade_preimage.md",
           "trade_preimage",
@@ -315,16 +248,53 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex/atomicdex-api-legacy/validateaddress.md",
           "validateaddress",
         ],
+        ["/basic-docs/atomicdex/atomicdex-api-legacy/version.md", "version"],
+        ["/basic-docs/atomicdex/atomicdex-api-legacy/withdraw.md", "withdraw"],
+      ],
+    },
+    {
+      title: "AtomicDEX Beta",
+      collapsible: true,
+      children: [
         [
-          "/basic-docs/atomicdex/atomicdex-api-legacy/version.md",
-          "version",
+          "/basic-docs/atomicdex/atomicdex-beta/create-a-new-wallet-using-atomicdex-mobile.md",
+          "Create a New Wallet Using AtomicDEX Mobile",
         ],
         [
-          "/basic-docs/atomicdex/atomicdex-api-legacy/withdraw.md",
-          "withdraw",
+          "/basic-docs/atomicdex/atomicdex-beta/restore-wallet-using-atomicdex-mobile.md",
+          "Restore Wallet Using AtomicDEX Mobile",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-beta/add-and-activate-coins-on-atomicdex-mobile.md",
+          "Add and Activate Coins on AtomicDEX Mobile",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-beta/view-your-receiving-address-to-send-funds-for-trading.md",
+          "View Your Receiving Address to Send Funds for Trading",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-beta/withdraw-or-send-funds-using-atomicdex-mobile.md",
+          "Withdraw or Send Funds Using AtomicDEX Mobile",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-beta/perform-cross-chain-atomic-swaps-using-atomicdex-mobile.md",
+          "Perform Cross-Chain Atomic Swaps Using AtomicDEX Mobile",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-beta/view-ongoing-orders-and-swap-history-on-atomicdex-mobile.md",
+          "View Ongoing Orders and Swap History on AtomicDEX Mobile",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-beta/recover-seed-on-atomicdex-mobile.md",
+          "Recover Seed on AtomicDEX Mobile",
+        ],
+        [
+          "/basic-docs/atomicdex/atomicdex-beta/delete-seed-from-atomicdex-mobile.md",
+          "Delete Seed (Wallet) on AtomicDEX Mobile",
         ],
       ],
     },
-  ]
+    ["/basic-docs/atomicdex/changelog.md", "AtomicDEX Change Log"],
+  ],
 };
 module.exports = atomicDEXsidebar;
