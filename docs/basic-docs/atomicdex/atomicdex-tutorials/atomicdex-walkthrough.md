@@ -1,8 +1,8 @@
-# DEX Walkthrough
+# AtomicDEX API Walkthrough
 
-Now that you have MarketMaker 2.0 (MM2) [installed](../atomicdex-setup/get-started-atomicdex.md) you are ready for your first atomic swap!
+Now that you have the AtomicDEX API [installed](../atomicdex-setup/get-started-atomicdex.md) you are ready for your first atomic swap!
 
-Since we're testing MM2 as a back end, we're going to be doing a few things that a normal user using a GUI will not be expected to do.
+Since we're testing AtomicDEX API as a back end, we're going to be doing a few things that a normal user using a GUI will not be expected to do.
 
 Let's open up the terminal and get started.
 
@@ -41,7 +41,7 @@ Let's set up a file in the `~/atomicDEX-API/target/debug` directory to import th
 ]
 ```
 
-Save this file. MM2 will search for it automatically on launch.
+Save this file. AtomicDEX API will search for it automatically on launch.
 
 ::: tip
 The `coins` file in [this linked repository](https://github.com/KomodoPlatform/coins) contains the standard coin configuration file used in GUI software.
@@ -59,12 +59,12 @@ Write this down in a safe location where you won't lose it.
 
 We have our initial materials, let's launch the software.
 
-## Initiate MarketMaker 2.0
+## Initiate AtomicDEX API 2.0
 
 Look at the following command below, but don't execute it yet:
 
 ```bash
-stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
+stdbuf -oL ./mm2 "{\"gui\":\"Docs_Walkthru\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
 ```
 
 Replace `YOUR_PASSPHRASE_HERE` and `YOUR_PASSWORD_HERE` with your actual passphrase and password, and then execute the command in the terminal.
@@ -73,8 +73,8 @@ Here is an approximate interpretation of the arguments in the command, to help y
 
 | Argument     | (Value)              | Description                                                                                                                          |
 | ------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| gui          | MM2GUI               | information about your GUI; place essential info about your application (name, version, etc.) here. For example: AtomicDEX iOS 1.0.1 |
-| netid        | 7777                 | this tells MM2 which network to join. 7777 is a private test network we use here. 0 is the default network.                          |
+| gui          | Docs_Walkthru        | information about your GUI; place essential info about your application (name, version, etc.) here. For example: AtomicDEX iOS 1.0.1 |
+| netid        | 7777                 | this tells the AtomicDEX API which network to join. 7777 is a private test network we use here. 0 is the default network.                          |
 | passphrase   | YOUR_PASSPHRASE_HERE | your passphrase; this is the source of each of your coins' private keys                                                              |
 | rpc_password | YOUR_PASSWORD_HERE   | your password for protected RPC methods (userpass)                                                                                   |
 | userhome     | /\${HOME#"/"}        | the path to your home, called from your environment variables and entered as a regular expression                                    |
@@ -108,16 +108,16 @@ The terminal will then repeat similar output to the following every so often:
 04 21:29:08, lp_signatures:613] lp_notify_recv] hailed by peer: 54.36.126.42
 ```
 
-If you see something similar, MarketMaker 2.0 is up and running!
+If you see something similar, the AtomicDEX API is up and running!
 
 ::: tip
 
-When using MarketMaker 2.0 (MM2) software on a VPS without accompanying tools such as `tmux` or `screen`, Komodo recommends that the user add the command `nohup` to the MM2 launch command. This addition ensures that the MM2 instance is not shutdown when the user logs out.
+When using the AtomicDEX API on a VPS without accompanying tools such as `tmux` or `screen`, Komodo recommends that the user add the command `nohup` to the AtomicDEX API launch command. This addition ensures that the AtomicDEX API instance is not shutdown when the user logs out.
 
 Example:
 
 ```bash
-stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
+stdbuf -oL nohup ./mm2 "{\"gui\":\"Docs_Walkthru\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
 ```
 
 :::
@@ -206,7 +206,7 @@ You will see a different address in your returned responses.
 
 This address is unique to you and you will use it for our trades here.
 
-We don't recommend placing anything valuable in this address for now, as MM2 is still in testing.
+We don't recommend placing anything valuable in this address for now, as AtomicDEX API is still in testing.
 
 On the other hand, RICK and MORTY have no real value, so you can place as much in here as you like!
 
@@ -238,7 +238,7 @@ You now have MORTY.
 
 ## Observing the Orderbook
 
-MarketMaker 2.0 uses a decentralized orderbook to allow users to buy and sell from each other without having to rely on a centralized service. This gives it an increased level of security, as there is no central agency that can manipulate prices. This also prevents "wash" trading, where trading activity is faked.
+The AtomicDEX API uses a decentralized orderbook to allow users to buy and sell from each other without having to rely on a centralized service. This gives it an increased level of security, as there is no central agency that can manipulate prices. This also prevents "wash" trading, where trading activity is faked.
 
 To see the orderbook's current state, execute the following command:
 
