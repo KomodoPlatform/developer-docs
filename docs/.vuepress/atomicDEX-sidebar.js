@@ -98,38 +98,6 @@ let atomicDEXsidebar = {
       ],
     },
   ],
-  "/basic-docs/atomicdex-api-20/": [
-    {
-      title: "AtomicDEX API 2.0 (Master)",
-      collapsable: false,
-      children: [
-        ["/basic-docs/atomicdex-api-20/", "AtomicDEX-API RPC Protocol v2.0"],
-        [
-          "/basic-docs/atomicdex-api-20/add_node_to_version_stat.md",
-          "add_node_to_version_stat",
-        ],
-        [
-          "/basic-docs/atomicdex-api-20/remove_node_from_version_stat.md",
-          "remove_node_from_version_stat",
-        ],
-        [
-          "/basic-docs/atomicdex-api-20/start_version_stat_collection.md",
-          "start_version_stat_collection",
-        ],
-        [
-          "/basic-docs/atomicdex-api-20/update_version_stat_collection.md",
-          "update_version_stat_collection",
-        ],
-        [
-          "/basic-docs/atomicdex-api-20/stop_version_stat_collection.md",
-          "stop_version_stat_collection",
-        ],
-        ["/basic-docs/atomicdex-api-20/get_public_key.md", "get_public_key"],
-        ["/basic-docs/atomicdex-api-20/trade_preimage.md", "trade_preimage"],
-        ["/basic-docs/atomicdex-api-20/withdraw.md", "withdraw"],
-      ],
-    },
-  ],
   "/basic-docs/atomicdex-api-legacy/": [
     {
       title: "AtomicDEX API (Legacy)",
@@ -250,6 +218,102 @@ let atomicDEXsidebar = {
         ],
         ["/basic-docs/atomicdex-api-legacy/version.md", "version"],
         ["/basic-docs/atomicdex-api-legacy/withdraw.md", "withdraw"],
+      ],
+    },
+  ],
+  "/basic-docs/atomicdex-api-20/": [
+    {
+      title: "AtomicDEX API 2.0 (Master)",
+      collapsable: false,
+      children: [
+        [
+          "/basic-docs/atomicdex-api-20/",
+          "AtomicDEX-API RPC Protocol v2.0 (Master)",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20/add_node_to_version_stat.md",
+          "add_node_to_version_stat",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20/remove_node_from_version_stat.md",
+          "remove_node_from_version_stat",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20/start_version_stat_collection.md",
+          "start_version_stat_collection",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20/update_version_stat_collection.md",
+          "update_version_stat_collection",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20/stop_version_stat_collection.md",
+          "stop_version_stat_collection",
+        ],
+        ["/basic-docs/atomicdex-api-20/get_public_key.md", "get_public_key"],
+        ["/basic-docs/atomicdex-api-20/trade_preimage.md", "trade_preimage"],
+        ["/basic-docs/atomicdex-api-20/withdraw.md", "withdraw"],
+      ],
+    },
+  ],
+  "/basic-docs/atomicdex-api-20-dev/": [
+    {
+      title: "AtomicDEX API 2.0 (Dev)",
+      collapsable: false,
+      children: [
+        [
+          "/basic-docs/atomicdex-api-20-dev/",
+          "AtomicDEX-API RPC Protocol v2.0 (Dev)",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/add_node_to_version_stat.md",
+          "add_node_to_version_stat",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/remove_node_from_version_stat.md",
+          "remove_node_from_version_stat",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/start_version_stat_collection.md",
+          "start_version_stat_collection",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/update_version_stat_collection.md",
+          "update_version_stat_collection",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/stop_version_stat_collection.md",
+          "stop_version_stat_collection",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/get_public_key.md",
+          "get_public_key",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/trade_preimage.md",
+          "trade_preimage",
+        ],
+        ["/basic-docs/atomicdex-api-20-dev/withdraw.md", "withdraw"],
+        [
+          "/basic-docs/atomicdex-api-20-dev/stop_simple_market_maker_bot.md",
+          "stop_simple_market_maker_bot",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/start_simple_market_maker_bot.md",
+          "start_simple_market_maker_bot",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/telegram_alerts.md",
+          "telegram_alerts",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/remove_delegation.md",
+          "remove_delegation",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/add_delegation.md",
+          "add_delegation",
+        ],
       ],
     },
   ],
