@@ -110,10 +110,10 @@ var sidebar = {
           "/basic-docs/smart-chains/smart-chain-setup/nspv.md",
           "nSPV (Enhanced Lite Mode)",
         ],
-        [
-          "/basic-docs/smart-chains/smart-chain-setup/dexp2p.md",
-          "Enhanced p2p messaging/data transmission layer",
-        ],
+        // [
+        //   "/basic-docs/smart-chains/smart-chain-setup/dexp2p.md",
+        //   "Enhanced p2p messaging/data transmission layer",
+        // ],
       ],
     },
     {
@@ -148,26 +148,26 @@ var sidebar = {
           "/basic-docs/smart-chains/smart-chain-tutorials/smart-chain-api-basics.md",
           "Smart Chain API Basics",
         ],
-        [
-          "/basic-docs/smart-chains/smart-chain-tutorials/betdapp.md",
-          "Automated P2P betting game",
-        ],
-        [
-          "/basic-docs/smart-chains/smart-chain-tutorials/publish-download-files-dexp2p.md",
-          "How to publish and download files using the DEXP2P layer",
-        ],
-        [
-          "/basic-docs/smart-chains/smart-chain-tutorials/streaming-dexp2p.md",
-          "How to stream and playback a video file using the DEXP2P layer of a Smart Chain",
-        ],
-        [
-          "/basic-docs/smart-chains/smart-chain-tutorials/subatomic.md",
-          "Subatomic Swaps",
-        ],
-        [
-          "/basic-docs/smart-chains/smart-chain-tutorials/get-new-pubkey.md",
-          "Retrieve Pubkey,Address and Privkey",
-        ],
+        // [
+        //   "/basic-docs/smart-chains/smart-chain-tutorials/betdapp.md",
+        //   "Automated P2P betting game",
+        // ],
+        // [
+        //   "/basic-docs/smart-chains/smart-chain-tutorials/publish-download-files-dexp2p.md",
+        //   "How to publish and download files using the DEXP2P layer",
+        // ],
+        // [
+        //   "/basic-docs/smart-chains/smart-chain-tutorials/streaming-dexp2p.md",
+        //   "How to stream and playback a video file using the DEXP2P layer of a Smart Chain",
+        // ],
+        // [
+        //   "/basic-docs/smart-chains/smart-chain-tutorials/subatomic.md",
+        //   "Subatomic Swaps",
+        // ],
+        // [
+        //   "/basic-docs/smart-chains/smart-chain-tutorials/get-new-pubkey.md",
+        //   "Retrieve Pubkey,Address and Privkey",
+        // ],
       ],
     },
     {
