@@ -1,18 +1,18 @@
-# my\_tx\_history
+# my_tx_history
 
 **my_tx_history (from_id limit=10 max=false page_number)**
 
 The `my_tx_history` method returns the blockchain transactions involving the AtomicDEX API node's coin address.
 
-The coin that is used must have `tx_history` set to true in its [enable](../../../basic-docs/atomicdex/atomicdex-api.html#enable) or [electrum](../../../basic-docs/atomicdex/atomicdex-api.html#electrum) call.
+The coin that is used must have `tx_history` set to true in its [enable](../../../basic-docs/atomicdex-api-legacy/enable.html) or [electrum](../../../basic-docs/atomicdex-api-legacy/electrum.html) call.
 
 #### Arguments
 
-| Structure   | Type   | Description                                                                                                                                                                                 |
-| ----------  | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin        | string | the name of the coin for the history request                                                                                                                                                |
-| limit       | number | limits the number of returned transactions; ignored if `max = true`                                                                                                                         |
-| max         | bool   | whether to return all available records; defaults to `false`                                                                                                                                |
+| Structure   | Type   | Description                                                                                                                                                                                           |
+| ----------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin        | string | the name of the coin for the history request                                                                                                                                                          |
+| limit       | number | limits the number of returned transactions; ignored if `max = true`                                                                                                                                   |
+| max         | bool   | whether to return all available records; defaults to `false`                                                                                                                                          |
 | from_id     | string | AtomicDEX API will skip records until it reaches this ID, skipping the `from_id` as well; track the `internal_id` of the last displayed transaction to find the value of this field for the next page |
 | page_number | number | AtomicDEX API will return limit swaps from the selected page; This param will be ignored if from_uuid is set.                                                                                         |
 

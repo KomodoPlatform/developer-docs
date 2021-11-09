@@ -25,11 +25,11 @@ var navbar = [
         link: "/basic-docs/atomicdex-api-legacy/rational_number_note.md",
       },
       {
-        text: "API 2.0 (master)",
+        text: "API 2.0 (Master)",
         link: "/basic-docs/atomicdex-api-20/",
       },
       {
-        text: "API 2.0 (dev)",
+        text: "API 2.0 (Dev)",
         link: "/basic-docs/atomicdex-api-20-dev/",
       },
     ],
