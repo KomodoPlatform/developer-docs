@@ -139,5 +139,7 @@ var redirectAliases = {
     "/basic-docs/atomicdex/atomicdex-beta/add-and-activate-coins-on-atomicdex-mobile.html",
   "/basic-docs/start-here/core-technology-discussions/creating-and-distributing-a-new-komodo-smart-chain.md":
     "/basic-docs/start-here/core-technology-discussions/initial-dex-offering.md",
+  "/basic-docs/atomicdex/atomicdex-api.md":
+    "/basic-docs/start-here/atomicdex-api-legacy/rational_number_note.md",
 };
 module.exports = redirectAliases;
