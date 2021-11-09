@@ -20,7 +20,7 @@ Each `coin` can be enabled only once, and in either Electrum or Native mode. The
 
 #### Notes on the MM2 Parameter
 
-For each `coin`, Komodo software requires the user/developer to set the `mm2` parameter. This can be achieved either in the [coins](../../../basic-docs/atomicdex/atomicdex-tutorials/atomicdex-walkthrough.html#setting-up-the-coin-list) for more details), or via the [electrum](../../../basic-docs/atomicdex/atomicdex-api.html#electrum) and [enable](../../../basic-docs/atomicdex/atomicdex-api.html#enable) methods.
+For each `coin`, Komodo software requires the user/developer to set the `mm2` parameter. This can be achieved either in the [coins](../../../basic-docs/atomicdex/atomicdex-tutorials/atomicdex-walkthrough.html#setting-up-the-coin-list) for more details), or via the [electrum](../../../basic-docs/atomicdex-api-legacy/electrum.html) and [enable](../../../basic-docs/atomicdex-api-legacy/enable.html) methods.
 
 The value of the `mm2` parameter informs the software as to whether the `coin` is expected to function.
 
@@ -66,31 +66,31 @@ Smart contract deployment is similar to [creating QRC20 tokens](https://docs.qtu
 
 #### Arguments
 
-| Structure                           | Type                                             | Description                                                                                                                                                          |
-| ----------------------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                                | string                                           | the name of the coin you want to enable                                                                                                                              |
-| servers                             | array of objects                                 | the list of Electrum servers to which you want to connect                                                                                                            |
-| servers.url                         | string                                           | server url                                                                                                                                                           |
-| servers.protocol                    | string                                           | the transport protocol that the AtomicDEX API will use to connect to the server. Possible values: `TCP`, `SSL`. Default value: `TCP`                                               |
-| servers.disable\_cert\_verification | bool                                             | when set to true, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). Default value is `false`. <b>Use at your own risk</b> |
-| mm2                                 | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1`                                   |
-| tx\_history                         | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                |
-| required\_confirmations             | number                                           | the number of confirmations for which the AtomicDEX API must wait for the selected coin to perform the atomic swap transactions                                                    |
-| requires\_notarization              | bool                                             | whether the node should wait for a notarization of the selected coin that is performing the atomic swap transactions applicable only for coins using Komodo dPoW     |
-| swap_contract_address               | string (required for QRC20 only)                 | address of etomic swap smart contract                                                                                                                                |
+| Structure                         | Type                                             | Description                                                                                                                                                          |
+| --------------------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                              | string                                           | the name of the coin you want to enable                                                                                                                              |
+| servers                           | array of objects                                 | the list of Electrum servers to which you want to connect                                                                                                            |
+| servers.url                       | string                                           | server url                                                                                                                                                           |
+| servers.protocol                  | string                                           | the transport protocol that the AtomicDEX API will use to connect to the server. Possible values: `TCP`, `SSL`. Default value: `TCP`                                 |
+| servers.disable_cert_verification | bool                                             | when set to true, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). Default value is `false`. <b>Use at your own risk</b> |
+| mm2                               | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1`                                   |
+| tx_history                        | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                |
+| required_confirmations            | number                                           | the number of confirmations for which the AtomicDEX API must wait for the selected coin to perform the atomic swap transactions                                      |
+| requires_notarization             | bool                                             | whether the node should wait for a notarization of the selected coin that is performing the atomic swap transactions applicable only for coins using Komodo dPoW     |
+| swap_contract_address             | string (required for QRC20 only)                 | address of etomic swap smart contract                                                                                                                                |
 
 #### Response
 
-| Structure              | Type                       | Description                                                                                                                                                     |
-| ---------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| address                | string                     | the address of the user's `coin` wallet, based on the user's passphrase                                                                                         |
-| balance                | string (numeric)           | the amount of `coin` the user holds in their wallet; does not include `unspendable_balance`                                                                     |
-| unspendable_balance    | string (numeric)           | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                                                                   |
-| coin                   | string                     | the ticker of the enabled coin                                                                                                                                  |
-| required_confirmations | number                     | the number of transaction confirmations for which the AtomicDEX API must wait during the atomic swap process                                                                  |
-| mature_confirmations   | number (optional)          | the number of coinbase transaction confirmations required to become mature; UTXO coins only                                                                     |
-| requires_notarization  | bool                       | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions; applicable only for coins using Komodo dPoW |
-| result                 | string                     | the result of the request; this value either indicates `success`, or an error, or another type of failure                                                       |
+| Structure              | Type              | Description                                                                                                                                                     |
+| ---------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| address                | string            | the address of the user's `coin` wallet, based on the user's passphrase                                                                                         |
+| balance                | string (numeric)  | the amount of `coin` the user holds in their wallet; does not include `unspendable_balance`                                                                     |
+| unspendable_balance    | string (numeric)  | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                                                                   |
+| coin                   | string            | the ticker of the enabled coin                                                                                                                                  |
+| required_confirmations | number            | the number of transaction confirmations for which the AtomicDEX API must wait during the atomic swap process                                                    |
+| mature_confirmations   | number (optional) | the number of coinbase transaction confirmations required to become mature; UTXO coins only                                                                     |
+| requires_notarization  | bool              | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions; applicable only for coins using Komodo dPoW |
+| result                 | string            | the result of the request; this value either indicates `success`, or an error, or another type of failure                                                       |
 
 #### :pushpin: Examples
 
@@ -112,7 +112,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
   "unspendable_balance": "0",
-  "mature_confirmations":100,
+  "mature_confirmations": 100,
   "required_confirmations": 1,
   "requires_notarization": false,
   "result": "success"
@@ -143,7 +143,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "required_confirmations": 1,
   "requires_notarization": false,
   "unspendable_balance": "0",
-  "mature_confirmations":100,
+  "mature_confirmations": 100,
   "result": "success"
 }
 ```
@@ -172,7 +172,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "required_confirmations": 10,
   "requires_notarization": true,
   "unspendable_balance": "0",
-  "mature_confirmations":100,
+  "mature_confirmations": 100,
   "result": "success"
 }
 ```
@@ -201,7 +201,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "required_confirmations": 1,
   "requires_notarization": false,
   "unspendable_balance": "0",
-  "mature_confirmations":100,
+  "mature_confirmations": 100,
   "result": "success"
 }
 ```

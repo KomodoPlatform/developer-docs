@@ -311,7 +311,7 @@ Display the KMD/LTC Orderbook.
 
 ::: tip
 
-See this [linked document](../../../basic-docs/atomicdex/atomicdex-api.html#orderbook) for an explanation of the output.
+See this [linked document](../../../basic-docs/atomicdex-api-legacy/orderbook.html) for an explanation of the output.
 
 :::
 
