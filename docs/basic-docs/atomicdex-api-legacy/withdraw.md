@@ -4,7 +4,7 @@
 
 The `withdraw` method generates, signs, and returns a transaction that transfers the `amount` of `coin` to the address indicated in the `to` argument.
 
-This method generates a raw transaction which should then be broadcast using [send_raw_transaction](../../../basic-docs/atomicdex/atomicdex-api.html#send-raw-transaction).
+This method generates a raw transaction which should then be broadcast using [send_raw_transaction](../../../basic-docs/atomicdex-api-legacy/send_raw_transaction.html).
 
 #### Arguments
 
@@ -21,21 +21,21 @@ This method generates a raw transaction which should then be broadcast using [se
 
 #### Response
 
-| Structure                 | Type                       | Description                                                                                                                                                                   |
-| ------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| from                      | array of strings           | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                  |
-| to                        | array of strings           | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                          |
-| my_balance_change         | string (numeric)           | the expected balance of change in `my_address` after the transaction broadcasts                                                                                               |
+| Structure                 | Type                       | Description                                                                                                                                                                                 |
+| ------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| from                      | array of strings           | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                                |
+| to                        | array of strings           | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                                        |
+| my_balance_change         | string (numeric)           | the expected balance of change in `my_address` after the transaction broadcasts                                                                                                             |
 | received_by_me            | string (numeric)           | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the AtomicDEX API send change to `my_address` |
-| spent_by_me               | string (numeric)           | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                    |
-| total_amount              | string (numeric)           | the total amount of coins transferred                                                                                                                                         |
-| fee_details               | object                     | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details                                            |
-| tx_hash                   | string                     | the hash of the generated transaction                                                                                                                                         |
-| tx_hex                    | string                     | transaction bytes in hexadecimal format; use this value as input for the `send_raw_transaction` method                                                                        |
-| coin                      | string                     | the name of the coin the user wants to withdraw                                                                                                                             |
-| kmd_rewards               | object (optional)          | an object containing information about accrued rewards; always exists if the coin is `KMD`                                                                                    |
-| kmd_rewards.amount        | string (numeric, optional) | the amount of accrued rewards                                                                                                                                                 |
-| kmd_rewards.claimed_by_me | bool (optional)            | whether the rewards been claimed by me                                                                                                                                        |
+| spent_by_me               | string (numeric)           | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                                  |
+| total_amount              | string (numeric)           | the total amount of coins transferred                                                                                                                                                       |
+| fee_details               | object                     | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details                                                          |
+| tx_hash                   | string                     | the hash of the generated transaction                                                                                                                                                       |
+| tx_hex                    | string                     | transaction bytes in hexadecimal format; use this value as input for the `send_raw_transaction` method                                                                                      |
+| coin                      | string                     | the name of the coin the user wants to withdraw                                                                                                                                             |
+| kmd_rewards               | object (optional)          | an object containing information about accrued rewards; always exists if the coin is `KMD`                                                                                                  |
+| kmd_rewards.amount        | string (numeric, optional) | the amount of accrued rewards                                                                                                                                                               |
+| kmd_rewards.claimed_by_me | bool (optional)            | whether the rewards been claimed by me                                                                                                                                                      |
 
 #### :pushpin: Examples
 
@@ -301,15 +301,15 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"Q
 ```json
 {
   "block_height": 0,
-  "coin":"QRC20",
-  "timestamp":1608725061,
-  "fee_details":{
+  "coin": "QRC20",
+  "timestamp": 1608725061,
+  "fee_details": {
     "type": "Qrc20",
-    "coin":"tQTUM",
-    "miner_fee":"0.00000447",
-    "gas_limit":100000,
-    "gas_price":40,
-    "total_gas_fee":"0.04"
+    "coin": "tQTUM",
+    "miner_fee": "0.00000447",
+    "gas_limit": 100000,
+    "gas_price": 40,
+    "total_gas_fee": "0.04"
   },
   "from": ["qXxsj5RtciAby9T7m98AgAATL4zTi4UwDG"],
   "my_balance_change": "-10",
@@ -339,15 +339,15 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 ```json
 {
   "block_height": 0,
-  "coin":"QRC20",
-  "timestamp":1608725061,
-  "fee_details":{
+  "coin": "QRC20",
+  "timestamp": 1608725061,
+  "fee_details": {
     "type": "Qrc20",
-    "coin":"tQTUM",
-    "miner_fee":"0.00000447",
-    "gas_limit":250000,
-    "gas_price":40,
-    "total_gas_fee":"0.1"
+    "coin": "tQTUM",
+    "miner_fee": "0.00000447",
+    "gas_limit": 250000,
+    "gas_price": 40,
+    "total_gas_fee": "0.1"
   },
   "from": ["qXxsj5RtciAby9T7m98AgAATL4zTi4UwDG"],
   "my_balance_change": "-10",

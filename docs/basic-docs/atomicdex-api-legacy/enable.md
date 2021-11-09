@@ -12,7 +12,7 @@ The `enable` method enables a coin by connecting the user's software instance to
 
 Each `coin` can be enabled only once, and in either Electrum or Native mode. The DEX software does not allow a `coin` to be active in both modes at once.
 
-For utxo-based coins the daemon of this blockchain must also be running on the user's machine for `enable` to function. 
+For utxo-based coins the daemon of this blockchain must also be running on the user's machine for `enable` to function.
 
 ::: tip Note
 
@@ -34,21 +34,21 @@ If a QRC20 token is based on Qtum testnet/regtest, please make sure that the `co
 
 ```json
 {
-  "coin":"QRC20",
-  "pubtype":120,
-  "p2shtype":50,
-  "wiftype":128,
-  "segwit":true,
-  "txfee":0,
-  "mm2":1,
-  "mature_confirmations":500,
-  "required_confirmations":1,
-  "network":"testnet",
-  "protocol":{
-    "type":"QRC20",
-    "protocol_data":{
-      "platform":"tQTUM",
-      "contract_address":"0xd362e096e873eb7907e205fadc6175c6fec7bc44"
+  "coin": "QRC20",
+  "pubtype": 120,
+  "p2shtype": 50,
+  "wiftype": 128,
+  "segwit": true,
+  "txfee": 0,
+  "mm2": 1,
+  "mature_confirmations": 500,
+  "required_confirmations": 1,
+  "network": "testnet",
+  "protocol": {
+    "type": "QRC20",
+    "protocol_data": {
+      "platform": "tQTUM",
+      "contract_address": "0xd362e096e873eb7907e205fadc6175c6fec7bc44"
     }
   }
 }
@@ -62,7 +62,7 @@ ETH/ERC20 coins are also enabled by the `enable` method, but a local installatio
 
 Please refer to the `mm2` explanatory section in the `electrum` method for information about setting the `mm2` parameter and testing new coins.
 
-[Link to mm2 explanatory section](../../../basic-docs/atomicdex/atomicdex-api.html#notes-on-the-mm2-parameter)
+[Link to mm2 explanatory section](../../../basic-docs/atomicdex-api-legacy/electrum.html#notes-on-the-mm2-parameter)
 
 For terminal interface examples using the `mm2` parameter with the `enable` method, see the examples section below.
 
@@ -81,26 +81,26 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 
 #### Arguments
 
-| Structure              | Type                                             | Description                                                                                                                                                                                                                                                                                                         |
-| ---------------------  | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                   | string                                           | the name of the coin the user desires to enable                                                                                                                                                                                                                                                                     |
-| urls                   | array of strings (required for ETH/ERC20)        | urls of Ethereum RPC nodes to which the user desires to connect                                                                                                                                                                                                                                                     |
-| swap_contract_address  | string (required for ETH/ERC20)                  | address of etomic swap smart contract                                                                                                                                                                                                                                                                               |
+| Structure              | Type                                             | Description                                                                                                                                                                                                                                                                                                                                     |
+| ---------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                   | string                                           | the name of the coin the user desires to enable                                                                                                                                                                                                                                                                                                 |
+| urls                   | array of strings (required for ETH/ERC20)        | urls of Ethereum RPC nodes to which the user desires to connect                                                                                                                                                                                                                                                                                 |
+| swap_contract_address  | string (required for ETH/ERC20)                  | address of etomic swap smart contract                                                                                                                                                                                                                                                                                                           |
 | gas_station_url        | string (optional for ETH/ERC20)                  | url of [ETH gas station API](https://docs.ethgasstation.info/); The AtomicDEX API uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; when this parameter is set, the AtomicDEX API will request the current gas price from Station for new transactions, and this often results in lower fees |
-| mm2                    | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1`                                                                                                                                                                                  |
-| tx_history             | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                                                                                                                                                               |
-| required_confirmations | number                                           | the number of confirmations for which the AtomicDEX API must wait for the selected coin to perform the atomic swap transactions; applicable only for coins using Komodo dPoW                                                                                                                                                      |
-| requires_notarization  | bool                                             | whether the node should wait for a notarization of the selected coin that is performing the atomic swap transactions applicable only for coins using Komodo dPoW                                                                                                                                                    |
+| mm2                    | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1`                                                                                                                                                                                                              |
+| tx_history             | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                                                                                                                                                                                           |
+| required_confirmations | number                                           | the number of confirmations for which the AtomicDEX API must wait for the selected coin to perform the atomic swap transactions; applicable only for coins using Komodo dPoW                                                                                                                                                                    |
+| requires_notarization  | bool                                             | whether the node should wait for a notarization of the selected coin that is performing the atomic swap transactions applicable only for coins using Komodo dPoW                                                                                                                                                                                |
 
 #### Response
 
 | Structure              | Type              | Description                                                                                                        |
-| ---------------------- | ----------------  | ------------------------------------------------------------------------------------------------------------------ |
+| ---------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------ |
 | address                | string            | the address of the user's `coin` wallet, based on the user's passphrase                                            |
 | balance                | string (numeric)  | the amount of `coin` the user holds in their wallet; does not include `unspendable_balance`                        |
 | unspendable_balance    | string (numeric)  | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                      |
 | coin                   | string            | the ticker of enabled coin                                                                                         |
-| required_confirmations | number            | AtomicDEX API will wait for the this number of coin's transaction confirmations during the swap                              |
+| required_confirmations | number            | AtomicDEX API will wait for the this number of coin's transaction confirmations during the swap                    |
 | requires_notarization  | bool              | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions |
 | mature_confirmations   | number (optional) | the number of coinbase transaction confirmations required to become mature; UTXO coins only                        |
 | result                 | string            | the result of the request; this value either indicates `success`, or an error or other type of failure             |
@@ -127,7 +127,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "required_confirmations": 1,
   "requires_notarization": false,
   "unspendable_balance": "0",
-  "mature_confirmations":100,
+  "mature_confirmations": 100,
   "result": "success"
 }
 ```
@@ -156,7 +156,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "required_confirmations": 10,
   "requires_notarization": true,
   "unspendable_balance": "0",
-  "mature_confirmations":100,
+  "mature_confirmations": 100,
   "result": "success"
 }
 ```
