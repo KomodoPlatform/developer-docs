@@ -1,6 +1,7 @@
 require("dotenv").config();
 var redirectAliases = require("./public/_redirects.js");
 var sidebarImport = require("./sidebar.js");
+var navbarImport = require("./navbar.js");
 var algoliaSecret = require("./algolia-secret.js");
 
 const autometa_options = {
@@ -100,22 +101,7 @@ module.exports = {
       apiKey: algoliaSecret.key,
       indexName: "komodoplatform",
     },
-    nav: [
-      {
-        text: "Start Here",
-        link:
-          "/basic-docs/start-here/about-komodo-platform/about-komodo-platform.md",
-      },
-      {
-        text: "KomodoPlatform.com",
-        link: "https://komodoplatform.com",
-      },
-    ],
-    sidebar: {
-      "/basic-docs/": sidebarImport,
-
-      // Repeat everything from above
-      "/": sidebarImport,
-    },
+    nav: navbarImport,
+    sidebar: sidebarImport,
   },
 };
