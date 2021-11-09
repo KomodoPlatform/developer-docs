@@ -15,7 +15,24 @@ var navbar = [
   },
   {
     text: "AtomicDEX",
-    link: "/basic-docs/atomicdex/introduction-to-atomicdex.md",
+    items: [
+      {
+        text: "Docs",
+        link: "/basic-docs/atomicdex/introduction-to-atomicdex.md",
+      },
+      {
+        text: "API (Legacy)",
+        link: "/basic-docs/atomicdex/introduction-to-atomicdex.md",
+      },
+      {
+        text: "API 2.0 (master)",
+        link: "/basic-docs/atomicdex/introduction-to-atomicdex.md",
+      },
+      {
+        text: "API 2.0 (dev)",
+        link: "/basic-docs/atomicdex/introduction-to-atomicdex.md",
+      },
+    ],
   },
   {
     text: "KomodoPlatform.com",

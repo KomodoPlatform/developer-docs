@@ -7,7 +7,7 @@ let atomicDEXsidebar = {
       "Introduction to AtomicDEX Documentation",
     ],
     {
-      title: "AtomicDEX Setup",
+      title: "Setup",
       collapsible: true,
       children: [
         [
@@ -17,7 +17,7 @@ let atomicDEXsidebar = {
       ],
     },
     {
-      title: "AtomicDEX Tutorials",
+      title: "Tutorials",
       collapsible: true,
       children: [
         [
@@ -253,7 +253,7 @@ let atomicDEXsidebar = {
       ],
     },
     {
-      title: "AtomicDEX Beta",
+      title: "Mobile user guides",
       collapsible: true,
       children: [
         [
@@ -294,7 +294,7 @@ let atomicDEXsidebar = {
         ],
       ],
     },
-    ["/basic-docs/atomicdex/changelog.md", "AtomicDEX Change Log"],
+    ["/basic-docs/atomicdex/changelog.md", "Changelog"],
   ],
 };
 module.exports = atomicDEXsidebar;

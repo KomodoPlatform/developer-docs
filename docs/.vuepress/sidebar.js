@@ -77,7 +77,7 @@ var sidebar = {
       "/basic-docs/smart-chains/introduction-to-smart-chain-documentation.md",
       "Introduction to Smart Chain Documentation",
     ],
-    ["/basic-docs/smart-chains/changelog.md", "Komodo Change Log"],
+    ["/basic-docs/smart-chains/changelog.md", "Komodo Changelog"],
     {
       title: "Smart Chain Setup",
       collapsible: true,
@@ -351,7 +351,7 @@ var sidebar = {
       ],
     },
   ],
-  "/basic-docs/atomicdex/": atomicDEXsidebar.children,
+  "/basic-docs/atomicdex/": [atomicDEXsidebar],
 };
 sidebar["/"] = sidebar["/basic-docs/start-here/"];
 
