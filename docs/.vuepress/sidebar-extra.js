@@ -1,10 +1,6 @@
 var sidebarImport = require("./sidebar.js");
 
 var sidebar = {
-  "/basic-docs/start-here/": sidebarImport[0].children,
-  "/basic-docs/smart-chains/": sidebarImport[1].children,
-  "/basic-docs/antara/": sidebarImport[2].children,
-  "/basic-docs/atomicdex/": sidebarImport[3].children,
   "/whitepaper/": [
     {
       title: "Komodo’s Method Of Security: Delayed Proof Of Work (dPoW)",
@@ -377,7 +373,7 @@ var sidebar = {
       ],
     },
   ],
-  "/": sidebarImport,
+  ...sidebarImport,
 };
 
 module.exports = sidebar;
