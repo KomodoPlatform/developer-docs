@@ -22,16 +22,16 @@ var navbar = [
       },
       {
         text: "API (Legacy)",
-        link: "/basic-docs/atomicdex/introduction-to-atomicdex.md",
+        link: "/basic-docs/atomicdex-api-legacy/rational_number_note.md",
       },
       {
         text: "API 2.0 (master)",
-        link: "/basic-docs/atomicdex/introduction-to-atomicdex.md",
+        link: "/basic-docs/atomicdex-api-20/",
       },
-      {
-        text: "API 2.0 (dev)",
-        link: "/basic-docs/atomicdex/introduction-to-atomicdex.md",
-      },
+      // {
+      //   text: "API 2.0 (dev)",
+      //   link: "/basic-docs/atomicdex-api-20-dev/",
+      // },
     ],
   },
   {
