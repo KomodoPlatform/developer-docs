@@ -3,7 +3,7 @@ var sidebar = {
   "/basic-docs/start-here/": [
     {
       title: "About Komodo Platform",
-      collapsible: true,
+      collapsable: true,
       children: [
         [
           "/basic-docs/start-here/about-komodo-platform/about-komodo-platform.md",
@@ -25,7 +25,7 @@ var sidebar = {
     },
     {
       title: "Learning Launchpad",
-      collapsible: true,
+      collapsable: true,
       children: [
         [
           "/basic-docs/start-here/learning-launchpad/learning-path-outline.md",
@@ -39,7 +39,7 @@ var sidebar = {
     },
     {
       title: "Core Technology Discussions",
-      collapsible: true,
+      collapsable: true,
       children: [
         [
           "/basic-docs/start-here/core-technology-discussions/introduction.md",
@@ -77,10 +77,10 @@ var sidebar = {
       "/basic-docs/smart-chains/introduction-to-smart-chain-documentation.md",
       "Introduction to Smart Chain Documentation",
     ],
-    ["/basic-docs/smart-chains/changelog.md", "Komodo Change Log"],
+    ["/basic-docs/smart-chains/changelog.md", "Komodo Changelog"],
     {
       title: "Smart Chain Setup",
-      collapsible: true,
+      collapsable: true,
       children: [
         [
           "/basic-docs/smart-chains/smart-chain-setup/installing-from-source.md",
@@ -118,7 +118,7 @@ var sidebar = {
     },
     {
       title: "Smart Chain Tutorials",
-      collapsible: true,
+      collapsable: true,
       children: [
         [
           "/basic-docs/smart-chains/smart-chain-tutorials/introduction-to-smart-chain-tutorials.md",
@@ -172,7 +172,7 @@ var sidebar = {
     },
     {
       title: "Smart Chain API",
-      collapsible: true,
+      collapsable: true,
       children: [
         ["/basic-docs/smart-chains/smart-chain-api/address.md", "Address"],
         [
@@ -213,13 +213,13 @@ var sidebar = {
     ],
     // {
     // title: "Antara Setup",
-    // collapsible: true,
+    // collapsable: true,
     // children: [
     // ],
     // },
     {
       title: "Antara Tutorials",
-      collapsible: true,
+      collapsable: true,
       children: [
         [
           "/basic-docs/antara/antara-tutorials/introduction-to-antara-tutorials.md",
@@ -329,7 +329,7 @@ var sidebar = {
     },
     {
       title: "Antara Modules",
-      collapsible: true,
+      collapsable: true,
       children: [
         ["/basic-docs/antara/antara-api/assets.md", "Assets"],
         ["/basic-docs/antara/antara-api/channels.md", "Channels"],
@@ -351,7 +351,7 @@ var sidebar = {
       ],
     },
   ],
-  "/basic-docs/atomicdex/": atomicDEXsidebar.children,
+  ...atomicDEXsidebar,
 };
 sidebar["/"] = sidebar["/basic-docs/start-here/"];
 
