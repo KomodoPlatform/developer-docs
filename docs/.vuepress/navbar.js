@@ -28,10 +28,10 @@ var navbar = [
         text: "API 2.0 (master)",
         link: "/basic-docs/atomicdex-api-20/",
       },
-      // {
-      //   text: "API 2.0 (dev)",
-      //   link: "/basic-docs/atomicdex-api-20-dev/",
-      // },
+      {
+        text: "API 2.0 (dev)",
+        link: "/basic-docs/atomicdex-api-20-dev/",
+      },
     ],
   },
   {
