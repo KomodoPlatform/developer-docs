@@ -18,6 +18,7 @@ module.exports = {
     redirect: {
       alias: redirectAliases,
     },
+    "@vuepress/back-to-top": {},
     autometa: autometa_options,
     "@vuepress/last-updated": {
       transformer: (timestamp) => {
