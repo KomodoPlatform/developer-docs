@@ -13,8 +13,9 @@ Note: If using a custom prices API endpoint, please ensure it conforms to the sa
 | cfg.name                        | string  | The name assigned to this configuration (e.g. the pair being configured) |
 | cfg.name.base                   | string  | Ticker of the coin you wish to sell       |
 | cfg.name.rel                    | string  | Ticker of the coin you wish to buy        |
-| cfg.name.max                    | boolean | Set to `true` if you would like to trade your whole balance        |
-| cfg.name.balance_percent*       | string  | Percentage of balance to trade (optional; ignored if `max` is true)       |
+| cfg.name.max                    | boolean | Set to `true` if you would like to trade your whole balance (optional)  |
+| cfg.name.max_volume_usd         | string  | Maximum USD trade volume value to trade (optional; if greater than balance in USD `max=true` is implied)  |
+| cfg.name.balance_percent*       | string  | Percentage of balance to trade (optional; can not use at same time as `max_volume_usd`; if greater than 1.0 `max=true` is implied)       |
 | cfg.name.min_volume*            | string  | Minimum percentage of balance to accept in trade (optional, can not use at same time as `min_volume_usd`)       |
 | cfg.name.min_volume_usd         | float   | Minimum USD trade volume of trades accepted for order (optional, can not use at same time as `min_volume`)       |
 | cfg.name.min_base_price         | float   | Minimum USD price of base coin to accept in trade (optional)       |
@@ -55,6 +56,15 @@ The second config tells the bot to:
 - Waits for 1 confirmation and does not wait for a notarisation to progress to the next steps in the atomic swap process
 - Ignores your trade history and average trading price, creating/updating orders regardless.
 
+The third config tells the bot to:
+- Sell DASH in exchange for LTC
+- Trade at most $500 USD worth of DASH, with minimum trade volume accepted at least $50 USD.
+- Only place an order when the DASH price is $250 USD or more.
+- Sets the sell price at 5% over the value returned from the prices API (spread).
+- Only accepts values from the prices API that have been updated within the last 60 seconds
+- Waits for 1 confirmation and does not wait for a notarisation to progress to the next steps in the atomic swap process
+- Ignores your trade history and average trading price, creating/updating orders regardless.
+
 
 #### Command
 
@@ -88,6 +98,22 @@ curl --location --request POST 'http://127.0.0.1:7783' \
                 \"rel\": \"DGB\",
                 \"balance_percent\": \"0.5\",
                 \"min_volume_usd\": \"20\",
+                \"min_base_price\": \"250\",
+                \"spread\": \"1.04\",
+                \"base_confs\": 1,
+                \"base_nota\": false,
+                \"rel_confs\": 1,
+                \"rel_nota\": false,
+                \"enable\": true,
+                \"price_elapsed_validity\": 60.0,
+                \"check_last_bidirectional_trade_thresh_hold\": false
+            }
+        },
+             \"DASH/LTC\": {
+                \"base\": \"DASH\",
+                \"rel\": \"LTC\",
+                \"max_volume)usd\": \"500\",
+                \"min_volume_usd\": \"50\",
                 \"min_base_price\": \"250\",
                 \"spread\": \"1.04\",
                 \"base_confs\": 1,
