@@ -3,7 +3,7 @@
 
 **get_gossip_mesh**
 
-The `get_gossip_mesh` method (FILL IN THE BLANK)
+The `get_gossip_mesh` method returns an array of peerIDs added to a topics' mesh for each known gossipsub topic.
 
 #### Arguments
 
@@ -15,7 +15,7 @@ The `get_gossip_mesh` method (FILL IN THE BLANK)
 
 | Structure                           | Type | Description |
 | ----------------------------------- | ---- | ----------- |
-| (none) |      |             |
+| Topic-PeerID map | Array  |   PeerIDs added to a topics' mesh (for each known gossipsub topic) |
 
 
 #### :pushpin: Examples
