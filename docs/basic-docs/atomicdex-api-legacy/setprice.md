@@ -50,8 +50,8 @@ To prevent a user from making trades in which the transaction fees may end up co
 | result.conf_settings.base_nota  | bool             | whether dPoW notarization is required for base coin atomic swap transaction                               |
 | result.conf_settings.rel_confs  | number           | number of required blockchain confirmations for rel coin atomic swap transaction                          |
 | result.conf_settings.rel_nota   | bool             | whether dPoW notarization is required for rel coin atomic swap transaction                                |
-| result.base_orderbook_ticker            | string                     | the ticker of the base currency (if alternative addresses are active (e.g. legacy/segwit) in `coins` file)|
-| result.rel_orderbook_ticker            | string                     | the ticker of the rel currency (if alternative addresses are active (e.g. legacy/segwit) in `coins` file)|
+| result.base_orderbook_ticker            | string                     | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value. |
+| result.rel_orderbook_ticker            | string                     | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value. |
 
 #### :pushpin: Examples
 

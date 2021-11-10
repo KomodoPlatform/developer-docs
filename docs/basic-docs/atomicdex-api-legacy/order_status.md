@@ -16,8 +16,8 @@ The `order_status` method returns the data of the order with the selected `uuid`
 | --------- | ------ | -------------------------------------- |
 | type      | string | type of the order ("Maker" or "Taker") |
 | order     | object | order data                             |
-| base_orderbook_ticker            | string                     | the ticker of the base currency (if alternative addresses are active (e.g. legacy/segwit) in `coins` file)|
-| rel_orderbook_ticker            | string                     | the ticker of the rel currency (if alternative addresses are active (e.g. legacy/segwit) in `coins` file)|
+| base_orderbook_ticker            | string                     | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value. |
+| rel_orderbook_ticker            | string                     | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value. |
 
 
 #### :pushpin: Examples

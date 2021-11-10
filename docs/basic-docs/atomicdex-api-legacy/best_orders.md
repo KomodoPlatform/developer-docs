@@ -58,7 +58,9 @@ where order entry has the following structure
 | rel_min_volume           | string (decimal)  | the minimum amount of `rel` coin the offer provider is willing to buy or sell        |
 | rel_min_volume_rat       | rational          | the `rel_min_volume` in num-rational crate format                                    |
 | rel_min_volume_fraction  | object (rational) | the `rel_min_volume` represented as an object
-| original_tickers         | list (string)     | Tickers included in response when alternative address formats are active (e.g. segwit and legacy) in the `coins` file|                                        |
+| original_tickers         | list (string)     | Tickers included in response when `orderbook_ticker` is configured for the queried coin in `coins` file|                                        |
+
+
 
 #### :pushpin: Examples
 
