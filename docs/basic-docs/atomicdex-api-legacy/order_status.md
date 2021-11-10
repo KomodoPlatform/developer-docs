@@ -16,6 +16,9 @@ The `order_status` method returns the data of the order with the selected `uuid`
 | --------- | ------ | -------------------------------------- |
 | type      | string | type of the order ("Maker" or "Taker") |
 | order     | object | order data                             |
+| base_orderbook_ticker            | string                     | the ticker of the base currency (if alternative addresses are active (e.g. legacy/segwit) in `coins` file)|
+| rel_orderbook_ticker            | string                     | the ticker of the rel currency (if alternative addresses are active (e.g. legacy/segwit) in `coins` file)|
+
 
 #### :pushpin: Examples
 
@@ -98,7 +101,9 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "started_swaps": ["60aaacca-ed31-4633-9326-c9757ea4cf78"],
     "uuid": "ea77dcc3-a711-4c3d-ac36-d45fc5e1ee0c"
   },
-  "type": "Maker"
+  "type": "Maker",
+  "base_orderbook_ticker":null,
+  "rel_orderbook_ticker":null
 }
 ```
 
@@ -165,7 +170,9 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       "type":"GoodTillCancelled"
     }
   },
-  "type": "Taker"
+  "type": "Taker",
+  "base_orderbook_ticker":null,
+  "rel_orderbook_ticker":null
 }
 ```
 

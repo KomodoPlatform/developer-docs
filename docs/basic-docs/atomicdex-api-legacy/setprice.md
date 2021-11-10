@@ -34,9 +34,7 @@ To prevent a user from making trades in which the transaction fees may end up co
 | -----------------------         | ---------------- | --------------------------------------------------------------------------------------------------------- |
 | result                          | object           | the resulting order object                                                                                |
 | result.base                     | string           | the base coin of the order                                                                                |
-| result.base_orderbook_ticker    | string           | the ticker of the base currency requested (if alternative addresses are active (e.g. legacy/segwit) in `coins` file)|
 | result.rel                      | string           | the rel coin of the order                                                                                 |
-| result.rel_orderbook_ticker     | string           | the ticker of the rel currency requested (if alternative addresses are active (e.g. legacy/segwit) in `coins` file)|
 | result.price                    | string (numeric) | the expected amount of `rel` coin to be received per 1 unit of `base` coin; decimal representation        |
 | result.price_rat                | rational         | the expected amount of `rel` coin to be received per 1 unit of `base` coin; rational representation       |
 | result.max_base_vol             | string (numeric) | the maximum volume of base coin available to trade; decimal representation                                |
