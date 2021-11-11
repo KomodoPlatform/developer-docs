@@ -16,7 +16,7 @@ The `sell` method issues a sell request and attempts to match an order from the 
 | Structure       | Type                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                           |
 | --------------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | base            | string                                | the name of the coin the user desires to sell                                                                                                                                                                                                                                                                                                                                                                         |
-| rel             | string                                | the name of the coin the user desires to receive                                                                                                                                                                                                                                                                                                                                                                      |
+| rel             | string                                | the name of the coin the user desires to receive                                                                                                                                                                                                                                                                                                                                                                      |       
 | price           | numeric string or rational            | the price in `rel` the user is willing to receive per one unit of the `base` coin                                                                                                                                                                                                                                                                                                                                     |
 | volume          | numeric string or rational            | the amount of coins the user is willing to sell of the `base` coin; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                                                                                                                                          |
 | min_volume      | numeric string or rational (optional) | the amount of `base` coin that will be used as `min_volume` of `GoodTillCancelled` order after conversion to maker; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the product of the arguments `min_volume` and `price`</li></ul>                                                                                  |
@@ -53,6 +53,8 @@ The `sell` method issues a sell request and attempts to match an order from the 
 | result.conf_settings.base_nota  | bool             | whether dPoW notarization is required for base coin atomic swap transaction                                                                                                                          |
 | result.conf_settings.rel_confs  | number           | number of required blockchain confirmations for rel coin atomic swap transaction                                                                                                                     |
 | result.conf_settings.rel_nota   | bool             | whether dPoW notarization is required for rel coin atomic swap transaction                                                                                                                           |
+| result.base_orderbook_ticker            | string                     | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value. |
+| result.rel_orderbook_ticker            | string                     | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value. |
 
 #### :pushpin: Examples
 
@@ -177,7 +179,9 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       "base_nota": true,
       "rel_confs": 5,
       "rel_nota": false
-    }
+    },
+    "base_orderbook_ticker":null,
+    "rel_orderbook_ticker":null
   }
 }
 ```

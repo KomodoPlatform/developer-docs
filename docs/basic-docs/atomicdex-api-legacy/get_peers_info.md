@@ -3,7 +3,7 @@
 
 **get_peers_info**
 
-The `get_peers_info` method (FILL IN THE BLANK)
+The `get_peers_info` method all connected peers with their multiaddresses. See [https://docs.libp2p.io/concepts/addressing/](https://docs.libp2p.io/concepts/addressing/) for more information.
 
 #### Arguments
 
@@ -15,7 +15,7 @@ The `get_peers_info` method (FILL IN THE BLANK)
 
 | Structure                           | Type | Description |
 | ----------------------------------- | ---- | ----------- |
-| PeerIDs | Array      | Key value pairs linking PeerIDs to thier respective IP addresses  |
+| PeerID-Multiaddresses | Array      | All connected peers with their multiaddresses.  |
 
 
 #### :pushpin: Examples

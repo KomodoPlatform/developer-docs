@@ -143,10 +143,19 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex-api-legacy/get_enabled_coins.md",
           "get_enabled_coins",
         ],
+        ["/basic-docs/atomicdex-api-legacy/get_gossip_mesh.md", "get_gossip_mesh"],
+        ["/basic-docs/atomicdex-api-legacy/get_gossip_peer_topics.md", "get_gossip_peer_topics"],
+        ["/basic-docs/atomicdex-api-legacy/get_gossip_topic_peers.md", "get_gossip_topic_peers"],
         [
           "/basic-docs/atomicdex-api-legacy/get_my_peer_id.md",
           "get_my_peer_id",
         ],
+
+        
+        ["/basic-docs/atomicdex-api-legacy/get_relay_mesh.md", "get_relay_mesh"],
+        ["/basic-docs/atomicdex-api-legacy/get_peers_info.md", "get_peers_info"],
+
+
         ["/basic-docs/atomicdex-api-legacy/get_trade_fee.md", "get_trade_fee"],
         ["/basic-docs/atomicdex-api-legacy/help.md", "help"],
         ["/basic-docs/atomicdex-api-legacy/import_swaps.md", "import_swaps"],

@@ -53,6 +53,9 @@ The `buy` method issues a buy request and attempts to match an order from the or
 | result.conf_settings.base_nota  | bool             | whether dPoW notarization is required for base coin atomic swap transaction                                                                                                                            |
 | result.conf_settings.rel_confs  | number           | number of required blockchain confirmations for rel coin atomic swap transaction                                                                                                                       |
 | result.conf_settings.rel_nota   | bool             | whether dPoW notarization is required for rel coin atomic swap transaction                                                                                                                             |
+| result.base_orderbook_ticker            | string                     | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value. |
+| result.rel_orderbook_ticker            | string                     | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value. |
+
 
 #### :pushpin: Examples
 
@@ -177,7 +180,9 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
       "base_nota": true,
       "rel_confs": 5,
       "rel_nota": false
-    }
+    },
+    "base_orderbook_ticker":null,
+    "rel_orderbook_ticker":null
   }
 }
 ```
