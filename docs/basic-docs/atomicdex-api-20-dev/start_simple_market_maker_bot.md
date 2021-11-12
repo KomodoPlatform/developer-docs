@@ -113,7 +113,7 @@ curl --location --request POST 'http://127.0.0.1:7783' \
              \"DASH/LTC\": {
                 \"base\": \"DASH\",
                 \"rel\": \"LTC\",
-                \"max_volume:{\"usd\": \"500\"},
+                \"max_volume\":{\"usd\": \"500\"},
                 \"min_volume\": {\"usd\": \"50\"},
                 \"min_base_price\": \"250\",
                 \"spread\": \"1.04\",
