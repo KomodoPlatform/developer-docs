@@ -34,8 +34,6 @@ Note: If using a custom prices API endpoint, please ensure it conforms to the sa
 * For spread, a value of 1.05 equates to 5% over the value returned from the prices API url.
 * At least one of the optional fields `max`, `max_volume.usd` or `max_volume.percentage` must be present, or orders will not be placed.
 
-Note: `min_volume` will iterate to percentage of current balance if `max` is true, but remains static if `max` is false. If a pair configuration includes both `min_volume` and `min_volume_usd`, orders will not be placed, and an error will appear in your logs.
-
 #### :pushpin: Examples
 
 As demonstrated below, multiple configs can be included within the same command. It is recommended to not exceed 500-1000 simultaneous orders placed to avoid decreased performance.
