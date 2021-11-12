@@ -14,7 +14,7 @@ Note: If using a custom prices API endpoint, please ensure it conforms to the sa
 | cfg.name.base                   | string  | Ticker of the coin you wish to sell       |
 | cfg.name.rel                    | string  | Ticker of the coin you wish to buy        |
 | cfg.name.max                    | boolean | Set to `true` if you would like to trade your whole balance (optional)  |
-| cfg.name.min_volume.percentage  | string  | Percentage of balance to trade (optional; can not use at same time as `max_volume.usd`; if greater than 1.0 `max=true` is implied)       |
+| cfg.name.max_volume.percentage  | string  | Percentage of balance to trade (optional; can not use at same time as `max_volume.usd`; if greater than 1.0 `max=true` is implied)       |
 | cfg.name.max_volume.usd         | string  | Maximum USD trade volume value to trade (optional; can not use at same time as `max_volume.percentage`; if greater than full balance `max=true` is implied)       |
 | cfg.name.min_volume.percentage  | string  | Minimum percentage of balance to accept in trade (optional, can not use at same time as `min_volume.usd`)       |
 | cfg.name.min_volume.usd         | float   | Minimum USD trade volume of trades accepted for order (optional, can not use at same time as `min_volume.percentage`)       |
@@ -31,7 +31,8 @@ Note: If using a custom prices API endpoint, please ensure it conforms to the sa
 | cfg.name.check_last_bidirectional_trade_thresh_hold | boolean | Will readjust the calculated cex price if a precedent trade exists for the pair (or reversed pair), applied via a [VWAP logic](https://www.investopedia.com/terms/v/vwap.asp#:~:text=VWAP%20is%20calculating%20the%20sum,periods%20there%20are%20(10))) (optional; defaults to false)      |
 
 * Percentage values are within the range of 0-1, such that 0.25 = 25%
-** For spread, a value of 1.05 equates to 5% over the value returned from the prices API url.
+* For spread, a value of 1.05 equates to 5% over the value returned from the prices API url.
+* At least one of the optional fields `max`, `max_volume.usd` or `max_volume.percentage` must be present, or orders will not be placed.
 
 Note: `min_volume` will iterate to percentage of current balance if `max` is true, but remains static if `max` is false. If a pair configuration includes both `min_volume` and `min_volume_usd`, orders will not be placed, and an error will appear in your logs.
 
