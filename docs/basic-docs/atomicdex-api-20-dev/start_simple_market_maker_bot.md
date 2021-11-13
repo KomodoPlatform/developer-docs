@@ -98,7 +98,6 @@ curl --location --request POST 'http://127.0.0.1:7783' \
              \"DASH/DGB\": {
                 \"base\": \"DASH\",
                 \"rel\": \"DGB\",
-                \"balance_percent\": \"0.5\",
                 \"min_volume\": {\"usd\": \"20\"},
                 \"min_base_price\": \"250\",
                 \"spread\": \"1.04\",
