@@ -4,6 +4,8 @@ The AtomicDEX API allows for simple bot trading via the `start_simple_market_mak
 
 Note: If using a custom prices API endpoint, please ensure it conforms to the same schema as the url in the example.
 
+For convenience, an online [tool for generating configs](https://stats.kmd.io/tools/makerbot_cfg) is available.
+
 ### Arguments
 
 | Structure                       | Type   | Description                     |
