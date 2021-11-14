@@ -14,7 +14,11 @@ let atomicDEXsidebar = {
           children: [
             [
               "/basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.md",
-              "Installing the AtomicDEX-API (MM2)",
+              "Installing AtomicDEX-API",
+            ],
+            [
+              "/basic-docs/atomicdex/atomicdex-setup/configure-mm2-json.md",
+              "Configuring AtomicDEX-API",
             ],
           ],
         },
