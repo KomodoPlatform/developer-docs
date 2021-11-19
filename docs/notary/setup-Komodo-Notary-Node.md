@@ -573,7 +573,7 @@ chmod 600 ~/.aryacoin/aryacoin.conf
 cd ~
 git clone https://github.com/chips-blockchain/chips -b master
 cd chips
-git checkout 70362d5
+git checkout a2a33eb
 ```
 
 #### Step 2: Build
