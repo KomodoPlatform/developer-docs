@@ -22,15 +22,29 @@ When running the AtomicDEX API via commandline with the `mm2` binary, some basic
 | seednodes    | list of strings   | Optional. If operating on a test or private netID, the IP address of at least one seed node is required (on the main network, these are already hardcoded)  |
 
 
-Example:
+Example (allowing weak password):
 
 ```json
 {
   "gui": "DEVDOCS_CLI",
   "netid": 7777,
-  "rpc_password": "ENTER_UNIQUE_PASWORD",
-  "passphrase": "ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_FUNDS_OR_NOT_SAFU",
+  "rpc_password": "ENTER_UNIQUE_PASSWORD",
+  "passphrase": "ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_OR_FUNDS_NOT_SAFU",
   "allow_weak_password": true,
+  "userhome": "/${HOME#\"/\"}",
+  "dbdir": "/path/to/DB/folder"
+}
+```
+
+Example (not allowing weak password):
+
+```json
+{
+  "gui": "DEVDOCS_CLI",
+  "netid": 7777,
+  "rpc_password": "Ent3r_Un1Qu3_Pa$$w0rd",
+  "passphrase": "ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_OR_FUNDS_NOT_SAFU",
+  "allow_weak_password": false,
   "userhome": "/${HOME#\"/\"}",
   "dbdir": "/path/to/DB/folder"
 }
@@ -40,7 +54,7 @@ The `mm2` binary will look for the `MM2.json` in the same folder as your `mm2` b
 Alternatively, you can define the `MM2.json` parameters at runtime as below:
 
 ```bash
-stdbuf -oL nohup ./mm2 "{\"gui\":\"DEVDOCS_CLI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_FUNDS_OR_NOT_SAFU\", \"rpc_password\":\"ENTER_UNIQUE_PASWORD\"}" &
+stdbuf -oL nohup ./mm2 "{\"gui\":\"DEVDOCS_CLI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_FUNDS_OR_NOT_SAFU\", \"rpc_password\":\"Ent3r_Un1Qu3_Pa$$w0rd\"}" &
 ```
 
 ::: tip
