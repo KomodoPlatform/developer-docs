@@ -9,11 +9,12 @@ When running the AtomicDEX API via commandline with the `mm2` binary, some basic
 
 | Parameter    | Type              | Description                     |
 | ------------ | ------------------| ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| gui          | string            | information about your GUI; place essential info about your application (name, version, etc.) here. For example: AtomicDEX iOS 1.0.1                        |
+| gui          | string            | Information about your GUI; place essential info about your application (name, version, etc.) here. For example: AtomicDEX iOS 1.0.1                        |
 | netid        | integer           | Nework ID number, telling the AtomicDEX API which network to join. 7777 is the current main network, though alternative netids can be used for testing or "private" trades |
-| passphrase   | string            | your passphrase; this is the source of each of your coins private keys. KEEP IT SAFE!                                                                       |
-| rpc_password | string            | your password for protected RPC methods (userpass)                                                                                                          |
-| userhome     | string            | the path to your home, called from your environment variables and entered as a regular expression                                                           |
+| passphrase   | string            | Your passphrase; this is the source of each of your coins private keys. KEEP IT SAFE!                                                                       |
+| allow_weak_password   | boolean  | If `true`, will allow low entropy rpc_password. If `false` rpc_password must not have 3 of the same characters in a row, must be between 8-32 characters in length, must contain at least one of each of the following: numeric, uppercase, lowercase, special character (e.g. !#$*). It also can not contain the word "password". Defaults to `false`.                                                                        |
+| rpc_password | string            | Your password for protected RPC methods (userpass)                                                                                                          |
+| userhome     | string            | The path to your home, called from your environment variables and entered as a regular expression                                                           |
 | dbdir        | string            | AtomicDEX API database path. Optional, defaults to a subfolder named `DB` in the path of your `mm2` binary                                                  |
 | rpcip        | string            | IP address to bind to for RPC server. Optional, defaults to 127.0.0.1                                                                                       |
 | rpcport      | integer           | Port to use for RPC communication. Optional, defaults to 7783                                                                                               |
@@ -21,14 +22,29 @@ When running the AtomicDEX API via commandline with the `mm2` binary, some basic
 | seednodes    | list of strings   | Optional. If operating on a test or private netID, the IP address of at least one seed node is required (on the main network, these are already hardcoded)  |
 
 
-Example:
+Example (allowing weak password):
 
 ```json
 {
   "gui": "DEVDOCS_CLI",
   "netid": 7777,
-  "rpc_password": "ENTER_UNIQUE_PASWORD",
-  "passphrase": "ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_FUNDS_OR_NOT_SAFU",
+  "rpc_password": "ENTER_UNIQUE_PASSWORD",
+  "passphrase": "ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_OR_FUNDS_NOT_SAFU",
+  "allow_weak_password": true,
+  "userhome": "/${HOME#\"/\"}",
+  "dbdir": "/path/to/DB/folder"
+}
+```
+
+Example (not allowing weak password):
+
+```json
+{
+  "gui": "DEVDOCS_CLI",
+  "netid": 7777,
+  "rpc_password": "Ent3r_Un1Qu3_Pa$$w0rd",
+  "passphrase": "ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_OR_FUNDS_NOT_SAFU",
+  "allow_weak_password": false,
   "userhome": "/${HOME#\"/\"}",
   "dbdir": "/path/to/DB/folder"
 }
@@ -38,7 +54,7 @@ The `mm2` binary will look for the `MM2.json` in the same folder as your `mm2` b
 Alternatively, you can define the `MM2.json` parameters at runtime as below:
 
 ```bash
-stdbuf -oL nohup ./mm2 "{\"gui\":\"DEVDOCS_CLI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_FUNDS_OR_NOT_SAFU\", \"rpc_password\":\"ENTER_UNIQUE_PASWORD\"}" &
+stdbuf -oL nohup ./mm2 "{\"gui\":\"DEVDOCS_CLI\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_FUNDS_OR_NOT_SAFU\", \"rpc_password\":\"Ent3r_Un1Qu3_Pa$$w0rd\"}" &
 ```
 
 ::: tip
