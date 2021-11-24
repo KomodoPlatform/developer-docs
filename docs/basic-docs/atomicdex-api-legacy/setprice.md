@@ -27,6 +27,7 @@ To prevent a user from making trades in which the transaction fees may end up co
 | base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                |
 | rel_confs       | number                     | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                            |
 | rel_nota        | bool                       | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                  |
+| save_in_history | boolean                                  | Defaults to `true`. If set to `false` no order history will be saved (though order status will be temporarily stored while in progress). If `true`, each order's short record history is stored in a local SQLite database table, and when the order is cancelled or fully matched, it's history will be saved as a json file                                                                                                                                                                                                                                                                                              |
 
 #### Response
 
@@ -58,25 +59,39 @@ To prevent a user from making trades in which the transaction fees may end up co
 #### Command (with volume)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BASE\",\"rel\":\"REL\",\"price\":\"0.9\",\"volume\":\"1\"}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\":\"$userpass\",
+  \"method\":\"setprice\",
+  \"base\":\"BASE\",
+  \"rel\":\"REL\",
+  \"price\":\"0.9\",
+  \"volume\":\"1\"
+}"
 ```
 
 #### Command (max = true)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BASE\",\"rel\":\"REL\",\"price\":\"0.9\",\"max\":true}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\":\"$userpass\",
+  \"method\":\"setprice\",
+  \"base\":\"BASE\",
+  \"rel\":\"REL\",
+  \"price\":\"0.9\",
+  \"max\":true
+}"
 ```
 
 #### Command (rational representation in num-rational crate format)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"setprice\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":[[1,[1]],[1,[1]]],
-  \"price\":[[1,[1]],[1,[1]]]
+  \"userpass\": \"$userpass\",
+  \"method\": \"setprice\",
+  \"base\": \"HELLO\",
+  \"rel\": \"WORLD\",
+  \"volume\": [[1,[1]],[1,[1]]],
+  \"price\": [[1,[1]],[1,[1]]]
 }"
 ```
 
@@ -84,15 +99,15 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"setprice\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+  \"userpass\": \"$userpass\",
+  \"method\": \"setprice\",
+  \"base\": \"HELLO\",
+  \"rel\": \"WORLD\",
+  \"volume\": {
+    \"numer\": \"3\",
+    \"denom\": \"2\"
   },
-  \"price\":{
+  \"price\": {
     \"numer\":\"2\",
     \"denom\":\"1\"
   }
@@ -103,19 +118,19 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"setprice\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+  \"userpass\": \"$userpass\",
+  \"method\": \"setprice\",
+  \"base\": \"HELLO\",
+  \"rel\": \"WORLD\",
+  \"volume\": {
+    \"numer\": \"3\",
+    \"denom\": \"2\"
   },
-  \"price\":{
-    \"numer\":\"2\",
-    \"denom\":\"1\"
+  \"price\": {
+    \"numer\": \"2\",
+    \"denom\": \"1\"
   },  
-  \"min_volume\":\"1\"
+  \"min_volume\": \"1\"
 }"
 ```
 
@@ -123,22 +138,42 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"setprice\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+  \"userpass\": \"$userpass\",
+  \"method\": \"setprice\",
+  \"base\": \"HELLO\",
+  \"rel\": \"WORLD\",
+  \"volume\": {
+    \"numer\": \"3\",
+    \"denom\": \"2\"
   },
-  \"price\":{
-    \"numer\":\"2\",
-    \"denom\":\"1\"
+  \"price\": {
+    \"numer\": \"2\",
+    \"denom\": \"1\"
   },
   \"base_confs\": 2,
   \"base_nota\": true,
   \"rel_confs\": 5,
   \"rel_nota\": false  
+}"
+```
+
+#### Command (set to not save order history)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"setprice\",
+  \"base\": \"KMD\",
+  \"rel\": \"TKL\",
+  \"volume\": {
+    \"numer\": \"4\",
+    \"denom\": \"3\"
+  },
+  \"price\": {
+    \"numer\": \"7\",
+    \"denom\": \"12\"
+  },
+  \"save_in_history\": false
 }"
 ```
 

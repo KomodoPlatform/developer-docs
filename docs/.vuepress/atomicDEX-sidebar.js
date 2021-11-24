@@ -320,12 +320,16 @@ let atomicDEXsidebar = {
           "telegram_alerts",
         ],
         [
-          "/basic-docs/atomicdex-api-20-dev/remove_delegation.md",
-          "remove_delegation",
-        ],
-        [
           "/basic-docs/atomicdex-api-20-dev/add_delegation.md",
           "add_delegation",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/get_staking_infos.md",
+          "get_staking_infos",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/remove_delegation.md",
+          "remove_delegation",
         ],
       ],
     },
