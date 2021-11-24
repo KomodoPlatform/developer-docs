@@ -84,9 +84,12 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | Structure              | Type                                             | Description                                                                                                                                                                                                                                                                                                                                     |
 | ---------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | coin                   | string                                           | the name of the coin the user desires to enable                                                                                                                                                                                                                                                                                                 |
-| urls                   | array of strings (required for ETH/ERC20)        | urls of Ethereum RPC nodes to which the user desires to connect                                                                                                                                                                                                                                                                                 |
-| swap_contract_address  | string (required for ETH/ERC20)                  | address of etomic swap smart contract                                                                                                                                                                                                                                                                                                           |
-| gas_station_url        | string (optional for ETH/ERC20)                  | url of [ETH gas station API](https://docs.ethgasstation.info/); The AtomicDEX API uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; when this parameter is set, the AtomicDEX API will request the current gas price from Station for new transactions, and this often results in lower fees |
+| urls                   | array of strings (required for ETH/ERC20 and other gas model chains)        | urls of Ethereum RPC nodes to which the user desires to connect                                                                                                                                                                                                                                                                                 |
+| swap_contract_address  | string (required for ETH/ERC20 and other gas model chains)                  | address of etomic swap smart contract                                                                                                                                                                                                                                                                                                           |
+| fallback_swap_contract | string (optional for ETH/ERC20 and other gas model chains)                  | fallback address of etomic swap smart contract                                                                                                                                                                                                                                                                                                           |
+| gas_station_url        | string (optional for ETH/ERC20 and other gas model chains)                  | url of [ETH gas station API](https://docs.ethgasstation.info/); The AtomicDEX API uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; when this parameter is set, the AtomicDEX API will request the current gas price from Station for new transactions, and this often results in lower fees |
+| gas_station_decimals    | integer (optional for ETH/ERC20 and other gas model chains)                  | Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that "average": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. Defaults to `8` |
+| gas_station_policy.policy  | string (optional for ETH/ERC20 and other gas model chains) | Defines the method of gas price calculation from the station response. `"MeanAverageFast"` will use the mean between average and fast fields. `"Average"` will return a simple average value. Defaults to `"MeanAverageFast"`. |
 | mm2                    | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1`                                                                                                                                                                                                              |
 | tx_history             | bool                                             | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API                                                                                                                                                                                           |
 | required_confirmations | number                                           | the number of confirmations for which the AtomicDEX API must wait for the selected coin to perform the atomic swap transactions; applicable only for coins using Komodo dPoW                                                                                                                                                                    |
@@ -110,7 +113,11 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 #### Command (for Bitcoin-based blockchains)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\"}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\"
+  ,\"method\": \"enable\",
+  \"coin\": \"HELLOWORLD\"
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -139,7 +146,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 #### Command (With `required_confirmations` and `requires_notarization` arguments)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\",\"required_confirmations\":10,\"requires_notarization\":true}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"enable\",
+  \"coin\": \"HELLOWORLD\",
+  \"required_confirmations\":10,
+  \"requires_notarization\":true
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -168,7 +181,15 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 #### Command (for Ethereum and ERC20-based blockchains)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://eth-ropsten.cipig.net:8645\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\"}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"enable\",
+  \"coin\": \"ETH\",
+  \"urls\": [
+    \"http://eth-ropsten.cipig.net:8645\"
+  ],
+  \"swap_contract_address\": \"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\"
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -193,10 +214,24 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-#### Command (for Ethereum and ERC20-based blockchains with gas_station_url)
+#### Command (for Ethereum and ERC20-based blockchains with gas_station_url and policy)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://eth-ropsten.cipig.net:8645\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\",\"gas_station_url\":\"https://ethgasstation.info/json/ethgasAPI.json\"}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"enable\",
+  \"coin\": \"ETH\",
+  \"urls\": [
+    \"http://eth-ropsten.cipig.net:8645\"
+  ],
+  \"swap_contract_address\": \"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\",
+  \"fallback_swap_contract\": \"0x8500AFc0bc5214728082163326C2FF0C73f4a871\",
+  \"gas_station_url\": \"https://ethgasstation.info/json/ethgasAPI.json\",
+  \"gas_station_decimals\": 8,
+  \"gas_station_policy\": {
+    \"policy\": \"MeanAverageFast\"
+  }
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -224,7 +259,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 #### Command (With `mm2` argument)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\",\"mm2\":1}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"enable\",
+  \"coin\": \"HELLOWORLD\",
+  \"mm2\":1
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
