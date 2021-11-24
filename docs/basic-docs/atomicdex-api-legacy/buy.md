@@ -26,9 +26,10 @@ The `buy` method issues a buy request and attempts to match an order from the or
 | order_type      | object                                | the type of the order                                                                                                                                                                                                                                                                                                                                                                                                 |
 | order_type.type | string                                | there are two types from which to choose: `GoodTillCancelled` and `FillOrKill`. The `GoodTillCancelled` order is automatically converted to a `maker` order if the order is not matched in 30 seconds, and this `maker` order stays in the orderbook until explicitly cancelled. On the other hand, a `FillOrKill` order is cancelled if it is not matched within 30 seconds. The default type is `GoodTillCancelled` |
 | base_confs      | number                                | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                                                                                                      |
-| base_nota       | bool                                  | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                                                                                                            |
+| base_nota       | boolean                                  | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                                                                                                            |
 | rel_confs       | number                                | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                                                                                                        |
-| rel_nota        | bool                                  | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                                                                                                              |
+| rel_nota        | boolean                                  | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                                                                                                              |
+| save_in_history | boolean                                  | Defaults to `true`. If set to `false` no order history will be saved (though order status will be temporarily stored while in progress). If `true`, each order's short record history is stored in a local SQLite database table, and when the order is cancelled or fully matched, it's history will be saved as a json file                                                                                                                                                                                                                                                                                              |
 
 #### Response
 
@@ -62,30 +63,44 @@ The `buy` method issues a buy request and attempts to match an order from the or
 #### Command (decimal representation)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":\"1\",\"price\":\"1\"}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"buy\",
+  \"base\": \"HELLO\",
+  \"rel\": \"WORLD\",
+  \"volume\": \"1\",
+  \"price\": \"1\"
+}"
 ```
 
 #### Command (rational representation in num-rational crate format)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]]}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"buy\",
+  \"base\": \"HELLO\",
+  \"rel\": \"WORLD\",
+  \"volume\": [[1,[1]],[1,[1]]],
+  \"price\":[[1,[1]],[1,[1]]]
+}"
 ```
 
 #### Command (rational representation as fraction object)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"buy\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+  \"userpass\": \"$userpass\",
+  \"method\": \"buy\",
+  \"base\": \"HELLO\",
+  \"rel\": \"WORLD\",
+  \"volume\": {
+    \"numer\": \"3\",
+    \"denom\": \"2\"
   },
-  "price":{
-    "numer":"2",
-    "denom":"1"
+  \"price\": {
+    \"numer\": \"2\",
+    \"denom\": \"1\"
   }
 }"
 ```
@@ -94,17 +109,17 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"$userpass\",
-  \"method\":\"buy\",
-  \"base\":\"HELLO\",
-  \"rel\":\"WORLD\",
-  \"volume\":{
-    \"numer\":\"3\",
-    \"denom\":\"2\"
+  \"userpass\": \"$userpass\",
+  \"method\": \"buy\",
+  \"base\": \"HELLO\",
+  \"rel\": \"WORLD\",
+  \"volume\": {
+    \"numer\": \"3\",
+    \"denom\": \"2\"
   },
-  \"price\":{
-    \"numer\":\"2\",
-    \"denom\":\"1\"
+  \"price\": {
+    \"numer\": \"2\",
+    \"denom\": \"1\"
   },
   \"base_confs\": 2,
   \"base_nota\": true,
@@ -113,34 +128,110 @@ curl --url "http://127.0.0.1:7783" --data "{
 }"
 ```
 
+#### Command (set to not save order history)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"buy\",
+  \"base\": \"HELLO\",
+  \"rel\": \"WORLD\",
+  \"volume\": {
+    \"numer\": \"3\",
+    \"denom\": \"2\"
+  },
+  \"price\": {
+    \"numer\": \"2\",
+    \"denom\": \"1\"
+  },
+  \"save_in_history\": false
+}"
+```
+
 #### Command (GoodTillCancelled type)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"order_type\":{\"type\":\"GoodTillCancelled\"}}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"buy\",
+  \"base\": \"BASE\",
+  \"rel\": \"REL\",
+  \"volume\":[[1,[1]],[1,[1]]],
+  \"price\":[[1,[1]],[1,[1]]],
+  \"order_type\": {
+    \"type\": \"GoodTillCancelled\"
+  }
+}"
 ```
 
 #### Command (FillOrKill type)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"order_type\":{\"type\":\"FillOrKill\"}}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"buy\",
+  \"base\": \"BASE\",
+  \"rel\": \"REL\",
+  \"volume\":[[1,[1]],[1,[1]]],
+  \"price\":[[1,[1]],[1,[1]]],
+  \"order_type\": {
+    \"type\": \"FillOrKill\"
+  }
+}"
 ```
 
 #### Command (match by Any)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Any\"}}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"buy\",
+  \"base\": \"BASE\",
+  \"rel\": \"REL\",
+  \"volume\":[[1,[1]],[1,[1]]],
+  \"price\":[[1,[1]],[1,[1]]],
+  \"match_by\": {
+    \"type\": \"Any\"
+  }
+}"
 ```
 
 #### Command (match by Pubkeys)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Pubkeys\",\"data\":[\"1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a\"]}}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"buy\",
+  \"base\": \"BASE\",
+  \"rel\": \"REL\",
+  \"volume\":[[1,[1]],[1,[1]]],
+  \"price\":[[1,[1]],[1,[1]]],
+  \"match_by\": {
+    \"type\": \"Pubkeys\",
+    \"data\": [
+      \"1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a\"
+    ]
+  }
+}"
 ```
 
 #### Command (match by Orders)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]],\"match_by\":{\"type\":\"Orders\",\"data\":[\"d14452bb-e82d-44a0-86b0-10d4cdcb8b24\"]}}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"buy\",
+  \"base\": \"BASE\",
+  \"rel\": \"REL\",
+  \"volume\":[[1,[1]],[1,[1]]],
+  \"price\":[[1,[1]],[1,[1]]],
+  \"match_by\": {
+    \"type\": \"Orders\",
+    \"data\": [
+      \"d14452bb-e82d-44a0-86b0-10d4cdcb8b24\"
+    ]
+  }
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
