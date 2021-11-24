@@ -3,8 +3,8 @@
 
 **get_gossip_topic_peers**
 
-The `get_gossip_topic_peers` method (FILL IN THE BLANK)
-
+The `get_gossip_topic_peers` method returns a map of topics to an array of the PeerIDs which are subscribers.
+                            
 #### Arguments
 
 | Structure | Type | Description |
@@ -15,7 +15,7 @@ The `get_gossip_topic_peers` method (FILL IN THE BLANK)
 
 | Structure                           | Type | Description |
 | ----------------------------------- | ---- | ----------- |
-| PeerID | string      | An identifier to represent your node on the network   |
+| Topic-PeerID map | Array     | PeerIDs subscribed to a topic  |
 
 
 #### :pushpin: Examples

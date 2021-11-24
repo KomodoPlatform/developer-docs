@@ -66,15 +66,6 @@ curl --location --request POST "http://127.0.0.1:7783" \
 }
 ```
 
-#### Response (error)
-
-```json
-
-#TODO: 
-
-```
-
-
 </collapse-text>
 
 </div>

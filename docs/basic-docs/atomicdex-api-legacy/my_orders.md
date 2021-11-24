@@ -159,7 +159,9 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         },
         "order_type":{
           "type":"GoodTillCancelled"
-        }
+        },
+        "base_orderbook_ticker":null,
+        "rel_orderbook_ticker":null
       }
     }
   }

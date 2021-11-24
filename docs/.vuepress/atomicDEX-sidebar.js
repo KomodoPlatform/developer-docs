@@ -14,7 +14,11 @@ let atomicDEXsidebar = {
           children: [
             [
               "/basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.md",
-              "Installing the AtomicDEX-API (MM2)",
+              "Installing AtomicDEX-API",
+            ],
+            [
+              "/basic-docs/atomicdex/atomicdex-setup/configure-mm2-json.md",
+              "Configuring AtomicDEX-API",
             ],
           ],
         },
@@ -143,10 +147,19 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex-api-legacy/get_enabled_coins.md",
           "get_enabled_coins",
         ],
+        ["/basic-docs/atomicdex-api-legacy/get_gossip_mesh.md", "get_gossip_mesh"],
+        ["/basic-docs/atomicdex-api-legacy/get_gossip_peer_topics.md", "get_gossip_peer_topics"],
+        ["/basic-docs/atomicdex-api-legacy/get_gossip_topic_peers.md", "get_gossip_topic_peers"],
         [
           "/basic-docs/atomicdex-api-legacy/get_my_peer_id.md",
           "get_my_peer_id",
         ],
+
+        
+        ["/basic-docs/atomicdex-api-legacy/get_relay_mesh.md", "get_relay_mesh"],
+        ["/basic-docs/atomicdex-api-legacy/get_peers_info.md", "get_peers_info"],
+
+
         ["/basic-docs/atomicdex-api-legacy/get_trade_fee.md", "get_trade_fee"],
         ["/basic-docs/atomicdex-api-legacy/help.md", "help"],
         ["/basic-docs/atomicdex-api-legacy/import_swaps.md", "import_swaps"],
@@ -307,12 +320,16 @@ let atomicDEXsidebar = {
           "telegram_alerts",
         ],
         [
-          "/basic-docs/atomicdex-api-20-dev/remove_delegation.md",
-          "remove_delegation",
-        ],
-        [
           "/basic-docs/atomicdex-api-20-dev/add_delegation.md",
           "add_delegation",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/get_staking_infos.md",
+          "get_staking_infos",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/remove_delegation.md",
+          "remove_delegation",
         ],
       ],
     },
