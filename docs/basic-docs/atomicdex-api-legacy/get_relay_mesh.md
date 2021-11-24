@@ -1,9 +1,9 @@
 
-## get\_gossip\_peer\_topics
+## get\_relay\_mesh
 
-**get_gossip_peer_topics**
+**get_relay_mesh**
 
-The `get_gossip_peer_topics` method (FILL IN THE BLANK)
+The `get_relay_mesh` method returns a list of peerIDs included in our local relay mesh.
 
 #### Arguments
 
@@ -15,7 +15,7 @@ The `get_gossip_peer_topics` method (FILL IN THE BLANK)
 
 | Structure                           | Type | Description |
 | ----------------------------------- | ---- | ----------- |
-| PeerIDs | Array     | Key/value pair of peer IDs with list of gossip topics  |
+| PeerIDs | List      | PeerIDs within your local relay mesh |
 
 
 #### :pushpin: Examples
@@ -27,7 +27,7 @@ The `get_gossip_peer_topics` method (FILL IN THE BLANK)
 curl --url "http://127.0.0.1:7783" --data "
 	{
         \"userpass\": \"${userpass}\",
-        \"method\": \"get_gossip_peer_topics\"
+        \"method\": \"get_relay_mesh\"
     }
 "
 ```
@@ -40,13 +40,12 @@ curl --url "http://127.0.0.1:7783" --data "
 
 ```json
 {
-  "result":{
-  	"12D3KooWJDoV9vJdy6PnzwVETZ3fWGMhV41VhSbocR1h2geFqq9Y":[],
-  	"12D3KooWM8BrDBXc1TVw2vswoqYcQVn7fFvpAvcCfaV2Uqg2L9jU":[],
-  	"12D3KooWPR2RoPi19vQtLugjCdvVmCcGLP2iXAzbDfP3tp81ZL4d":[],
-  	"12D3KooWDbBdifGp3viDR4dCECEFKepjhwhd2YwAqgNVdXpEeewu":[]
-  }
+	"result":[
+		"12D3KooWM8BrDBXc1TVw2vswoqYcQVn7fFvpAvcCfaV2Uqg2L9jU",
+		"12D3KooWJDoV9vJdy6PnzwVETZ3fWGMhV41VhSbocR1h2geFqq9Y"
+	]
 }
+
 ```
 
 </collapse-text>

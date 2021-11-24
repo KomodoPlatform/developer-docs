@@ -1,9 +1,9 @@
 
-## get\_relay\_mesh
+## get\_gossip\_peer\_topics
 
-**get_relay_mesh**
+**get_gossip_peer_topics**
 
-The `get_relay_mesh` method (FILL IN THE BLANK)
+The `get_gossip_peer_topics` method returns a map of peerIDs to an array of the topics to which they are subscribed.
 
 #### Arguments
 
@@ -15,7 +15,7 @@ The `get_relay_mesh` method (FILL IN THE BLANK)
 
 | Structure                           | Type | Description |
 | ----------------------------------- | ---- | ----------- |
-| PeerIDs | List      | PeerIDs within your relay mesh |
+| PeerID-Topic map | Array     | Topics subscribed to by PeerIDs  |
 
 
 #### :pushpin: Examples
@@ -27,7 +27,7 @@ The `get_relay_mesh` method (FILL IN THE BLANK)
 curl --url "http://127.0.0.1:7783" --data "
 	{
         \"userpass\": \"${userpass}\",
-        \"method\": \"get_relay_mesh\"
+        \"method\": \"get_gossip_peer_topics\"
     }
 "
 ```
@@ -40,12 +40,13 @@ curl --url "http://127.0.0.1:7783" --data "
 
 ```json
 {
-	"result":[
-		"12D3KooWM8BrDBXc1TVw2vswoqYcQVn7fFvpAvcCfaV2Uqg2L9jU",
-		"12D3KooWJDoV9vJdy6PnzwVETZ3fWGMhV41VhSbocR1h2geFqq9Y"
-	]
+  "result":{
+  	"12D3KooWJDoV9vJdy6PnzwVETZ3fWGMhV41VhSbocR1h2geFqq9Y":[],
+  	"12D3KooWM8BrDBXc1TVw2vswoqYcQVn7fFvpAvcCfaV2Uqg2L9jU":[],
+  	"12D3KooWPR2RoPi19vQtLugjCdvVmCcGLP2iXAzbDfP3tp81ZL4d":[],
+  	"12D3KooWDbBdifGp3viDR4dCECEFKepjhwhd2YwAqgNVdXpEeewu":[]
+  }
 }
-
 ```
 
 </collapse-text>

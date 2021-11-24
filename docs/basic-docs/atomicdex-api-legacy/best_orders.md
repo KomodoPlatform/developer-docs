@@ -57,7 +57,10 @@ where order entry has the following structure
 | rel_max_volume_fraction  | object (rational) | the `rel_max_volume` max volume represented as an object                             |
 | rel_min_volume           | string (decimal)  | the minimum amount of `rel` coin the offer provider is willing to buy or sell        |
 | rel_min_volume_rat       | rational          | the `rel_min_volume` in num-rational crate format                                    |
-| rel_min_volume_fraction  | object (rational) | the `rel_min_volume` represented as an object                                        |
+| rel_min_volume_fraction  | object (rational) | the `rel_min_volume` represented as an object
+| original_tickers         | list (string)     | Tickers included in response when `orderbook_ticker` is configured for the queried coin in `coins` file|                                        |
+
+
 
 #### :pushpin: Examples
 
@@ -67,7 +70,7 @@ where order entry has the following structure
 curl --url "http://127.0.0.1:7783" --data "{
   \"userpass\":\"$userpass\",
   \"method\": \"best_orders\",
-  \"coin\": \"RICK\",
+  \"coin\": \"BTC\",
   \"action\": \"buy\",
   \"volume\": \"1\"
 }"
@@ -239,6 +242,11 @@ curl --url "http://127.0.0.1:7783" --data "{
         "rel_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ]
       }
     ]
+  },
+  "original_tickers": { 
+    "BTC": [
+      "BTC-segwit"
+      ]
   }
 }
 ```
