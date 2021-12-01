@@ -4373,7 +4373,7 @@ An array of json objects, each having the properties below.
 | jsoutindex         | (numeric, only returned on sprout addresses)  | the output index of the joinsplit                                                                        |
 | outindex           | (numeric, only returned on sapling addresses) | the output index                                                                                         |
 | "confirmations"    | (numeric)                                     | a confirmation number that is aware of the dPoW security service                                         |
-| "rawconfirmations" | (numeric)                                     | the raw confirmations (number of blocks on top of this transaction's block)                              |  |
+| "rawconfirmations" | (numeric)                                     | the raw confirmations (number of blocks on top of this transaction's block)                              |
 | spendable          | (boolean)                                     | true if note can be spent by wallet, false if note has zero confirmations, false if address is watchonly |
 | address            | (string)                                      | the shielded address                                                                                     |
 | amount             | (numeric)                                     | the amount of value in the note                                                                          |
