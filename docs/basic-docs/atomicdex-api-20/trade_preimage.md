@@ -53,7 +53,7 @@ Where the `ExtendedFeeInfo` has
 | amount                | string (numeric) | fee amount (in decimal representation)                                                                                                                        |
 | amount_rat            | rational         | fee amount (in rational representation)                                                                                                                       |
 | amount_fraction       | fraction         | fee amount (in fraction representation)                                                                                                                       |
-| paid_from_trading_vol | boolean          |  If `true`, fees are deducted from the payment amount for the spend/refund UTXO HTLC transaction. If `false`, fees are not deducted from the traded volume. This is either where maker side pays additional miner fee to broadcast their swap transaction, or where gas paid (e.g in ETH for an ERC20 trade) - in this case, user requires a sufficient current ETH balance to cover the fees before they can initiate the swap)                                             |
+| paid_from_trading_vol | boolean          |  If `true`, fees are deducted from the payment amount for the spend/refund UTXO HTLC transaction. If `false`, fees are not deducted from the traded volume. This is where an additional miner fee is needed to broadcast a swap transaction and/or where gas paid (e.g in ETH for an ERC20 trade) - in this case, user requires a sufficient current ETH balance to cover the fees before they can initiate the swap.                                             |
 
 ### :warning: Error types
 
