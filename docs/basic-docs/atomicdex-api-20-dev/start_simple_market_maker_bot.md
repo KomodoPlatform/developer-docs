@@ -4,7 +4,7 @@ The AtomicDEX API allows for simple bot trading via the `start_simple_market_mak
 
 Note: If using a custom prices API endpoint, please ensure it conforms to the same schema as the url in the example.
 
-For convenience, an online [tool for generating configs](https://stats.kmd.io/tools/makerbot_cfg) is available.
+For convenience, an online [tool for generating configs](https://stats.kmd.io/atomicdex/makerbot_config_form/) is available.
 
 ### Arguments
 
@@ -77,7 +77,7 @@ curl --location --request POST 'http://127.0.0.1:7783' \
     \"mmrpc\": \"2.0\",
     \"method\": \"start_simple_market_maker_bot\",
     \"params\": {
-        \"price_url\": \"https://prices.cipig.net:1717/api/v2/tickers?expire_at=600\",
+        \"price_url\": \"http://price.cipig.net:1313/api/v2/tickers?expire_at=600\",
         \"bot_refresh_rate\": 60,
         \"cfg\": {
             \"DASH/KMD\": {
