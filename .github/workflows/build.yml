@@ -24,13 +24,13 @@ jobs:
           path: AtomicDEX-docs
           persist-credentials: false
 
-    - name: Build and Deploy to gh_pages
-      uses: KomodoPlatform/vuepress-deploy@1.0.1
-      env:
-        ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
-        ALGOLIAKEY: ${{secrets.ALGOLIA_SECRET}}
-        TARGET_REPO: ${{ github.repository }}
-        TARGET_BRANCH: gh-pages
-        CNAME: "docs.komodoplatform.com"
-        BUILD_SCRIPT: yarn && yarn docs:build
-        BUILD_DIR: docs/.vuepress/dist/
+      - name: Build and Deploy to gh_pages
+        uses: KomodoPlatform/vuepress-deploy@1.0.1
+        env:
+          ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
+          ALGOLIAKEY: ${{secrets.ALGOLIA_SECRET}}
+          TARGET_REPO: ${{ github.repository }}
+          TARGET_BRANCH: gh-pages
+          CNAME: "docs.komodoplatform.com"
+          BUILD_SCRIPT: yarn && yarn docs:build
+          BUILD_DIR: docs/.vuepress/dist/
