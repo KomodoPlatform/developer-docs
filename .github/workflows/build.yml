@@ -1,4 +1,4 @@
-name: Build and Deploy doc sites  
+name: Build and Deploy doc sites
 on:
   push:
     branches:
@@ -7,16 +7,22 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-18.04
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: '0'
-        persist-credentials: false    
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+          persist-credentials: false
 
-    - name: Add Algolia Secret
-      env:
-        ALGOLIAKEY: ${{secrets.ALGOLIA_SECRET}}
-      run: ./algolia-key.sh
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.repository_owner }}/AtomicDEX-docs
+          path: AtomicDEX-docs
+          persist-credentials: false
 
     - name: Build and Deploy to gh_pages
       uses: KomodoPlatform/vuepress-deploy@1.0.1
