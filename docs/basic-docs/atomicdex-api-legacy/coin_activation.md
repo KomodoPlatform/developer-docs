@@ -8,7 +8,8 @@ A coin can only be activated once per session, and must be activated before it c
 
 ::: warning Important
 
-The AtomicDEX API requires an `mm2` parameter to be set for each `coin`. This can be added to the enable/electrum command, or defined in your [coins file](https://developers.komodoplatform.com/basic-docs/atomicdex/atomicdex-tutorials/atomicdex-walkthrough.html#setting-up-the-coin-list).
+The AtomicDEX API requires an `mm2` parameter to be set for each `coin`. This can be added to the enable/electrum command, or defined in your [coins file](../../../basic-docs/atomicdex/atomicdex-tutorials/atomicdex-walkthrough.html#setting-up-the-coin-list).
+
 
 The value of the `mm2` parameter informs the software as to whether the `coin` is expected to be compatible for atomic swaps.
 
@@ -19,7 +20,7 @@ The value of the `mm2` parameter informs the software as to whether the `coin` i
 
 ## Native mode activation
 
-If you are running a UTXO based coin daemon locally and the blockchain is syncronised, you can connect the local daemon to the AtomicDEX API by using the `enable` method, though some additional configuration is required. The AtomicDEX API requires the following options to be added to  the native chain's [.conf file](http://bitcoincoredocs.com/bitcoin-conf.html).
+If you are running a UTXO based coin daemon locally and the blockchain is synchronised, you can connect the local daemon to the AtomicDEX API by using the `enable` method, though some additional configuration is required. The AtomicDEX API requires the following options to be added to  the native chain's [.conf file](http://bitcoincoredocs.com/bitcoin-conf.html).
 
 ```ini
 logevents=1
@@ -36,7 +37,7 @@ The AtomicDEX API node's coin address needs to be imported manually into the coi
 
 ## Lite mode activation
 
-Activating coins in 'lite mode' means you don't need to have a native coin daemon installed, or keep a local blockchain syncronised. In this mode, the AtomicDEX API communicates with an external node to perform transactions and query the blockchain. UTXO based coins and QTUM/QRC20 tokens communicate via electrum servers, while other platform coins communicate via JSON RPC urls.
+Activating coins in 'lite mode' means you don't need to have a native coin daemon installed, or keep a local blockchain synchronised. In this mode, the AtomicDEX API communicates with an external node to perform transactions and query the blockchain. UTXO based coins and QTUM/QRC20 tokens communicate via electrum servers, while other platform coins communicate via JSON RPC urls.
 
 AtomicDEX is a true cross chain, cross protocol Decentralized Exchange (DEX), allowing for trades between coins and tokens across many platforms and ecosystems, such as:
 - UTXO based coins (e.g. DOGE, BTC, ZEC, LTC, DASH, DGB)
@@ -71,7 +72,7 @@ Electrum mode is only available for UTXO based coins and QTUM/QRC20 tokens.
 | servers.protocol                  | string (optional, defaults to `TCP`)                                           | Transport protocol used by AtomicDEX API to connect to the electrum server (`TCP` or `SSL`)                                  |
 | servers.disable_cert_verification | bool (optional, defaults to `false`.)                                             | If `true`, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). <b>Use at your own risk</b> |
 | mm2                               | integer                        | Required if not set in `coins` file. Informs the AtomicDEX API whether or not the coin is expected to function. Accepted values are `0` or `1`                                   |
-| tx_history                        | bool                                             | If `true` the AtomicDEX API will preload trasaction history as a background process. Must be set to `true` to use the [my_tx_history](https://developers.komodoplatform.com/basic-docs/atomicdex-api-legacy/my_tx_history.html#my-tx-history) method              |
+| tx_history                        | bool                                             | If `true` the AtomicDEX API will preload trasaction history as a background process. Must be set to `true` to use the [my_tx_history](../../../basic-docs/atomicdex-api-legacy/my_tx_history.html#my-tx-history) method              |
 | required_confirmations            | integer (optional, defaults to `3`)                                          | Number of confirmations for the AtomicDEX API to wait during the transaction steps of an atomic swap.                                      |
 | requires_notarization             | boolean (optional, defaults to `false`)                                          | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step.    |
 | swap_contract_address             | string (required for QRC20 only)                 | address of etomic swap smart contract                                                                                                                                |
@@ -240,7 +241,7 @@ If mm2 is not set in either the command or your `coins` file, you will see the f
 | gas_station_decimals   | integer (optional for ETH/ERC20 and other gas model chains)                  | Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that "average": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. Defaults to `8` |
 | gas_station_policy.policy  | string (optional for ETH/ERC20 and other gas model chains) | Defines the method of gas price calculation from the station response. `"MeanAverageFast"` will use the mean between average and fast fields. `"Average"` will return a simple average value. Defaults to `"MeanAverageFast"`. |
 | mm2                    | integer                        | Required if not set in `coins` file. Informs the AtomicDEX API whether or not the coin is expected to function. Accepted values are `0` or `1`                                   |
-| tx_history                        | bool                                             | If `true` the AtomicDEX API will preload trasaction history as a background process. Must be set to `true` to use the [my_tx_history](https://developers.komodoplatform.com/basic-docs/atomicdex-api-legacy/my_tx_history.html#my-tx-history) method              |
+| tx_history                        | bool                                             | If `true` the AtomicDEX API will preload trasaction history as a background process. Must be set to `true` to use the [my_tx_history](../../../basic-docs/atomicdex-api-legacy/my_tx_history.html#my-tx-history) method              |
 | required_confirmations | integer (optional, defaults to `3`)             | Number of confirmations for the AtomicDEX API to wait during the transaction steps of an atomic swap.      |
 | requires_notarization  | boolean (optional, defaults to `false`)         | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step.    |
 
@@ -499,6 +500,6 @@ To see more examples for other platforms like Fantom, Avalanche & Harmony, you c
 
 ::: tip
 
-We welcome volunteers to test new coins for AtomicDEX API compatibility! Follow the [Submitting Coin Test Results guide](https://github.com/KomodoPlatform/coins#about-this-repository) for more information, or drop into the [Komodo Platform Discord Server] for a chat if you need some help.
+We welcome volunteers to test new coins for AtomicDEX API compatibility! Follow the [Submitting Coin Test Results guide](https://github.com/KomodoPlatform/coins#about-this-repository) for more information, or drop into the [Komodo Platform Discord Server](https://komodoplatform.com/discord) for a chat if you need some help.
 
 :::
