@@ -13,10 +13,6 @@ jobs:
           fetch-depth: "0"
           persist-credentials: false
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "14"
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -24,11 +20,8 @@ jobs:
           path: AtomicDEX-docs
           persist-credentials: false
 
-      - name: Increase nodejs allowed memory
-        run: export NODE_OPTIONS="--max-old-space-size=5120"
-
       - name: Build and Deploy to gh_pages
-        uses: KomodoPlatform/vuepress-deploy@1.0.1
+        uses: KomodoPlatform/vuepress-deploy@master
         env:
           ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
           ALGOLIAKEY: ${{secrets.ALGOLIA_SECRET}}
