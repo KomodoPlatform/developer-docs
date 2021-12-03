@@ -333,13 +333,16 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\": \"$userpass\",
-  \"method\": \"enable\",
-  \"coin\": \"ETH\",
-  \"urls\": [
-    \"http://eth-ropsten.cipig.net:8645\"
-  ],
-  \"swap_contract_address\": \"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\"
+	\"coin\": \"ETH\",
+	\"method\": \"enable\",
+	\"urls\": [
+		\"http://eth1.cipig.net:8555\",
+		\"http://eth2.cipig.net:8555\",
+		\"http://eth3.cipig.net:8555\"
+	],
+	\"swap_contract_address\": \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\",
+	\"fallback_swap_contract\": \"0x8500AFc0bc5214728082163326C2FF0C73f4a871\",
+	\"userpass\": \"$userpass\"
 }"
 ```
 
@@ -369,14 +372,16 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\": \"$userpass\",
-  \"method\": \"enable\",
-  \"coin\": \"ETH\",
-  \"urls\": [
-    \"http://eth-ropsten.cipig.net:8645\"
-  ],
-  \"swap_contract_address\": \"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\",
-  \"fallback_swap_contract\": \"0x8500AFc0bc5214728082163326C2FF0C73f4a871\",
+	\"coin\": \"ETH\",
+	\"userpass\": \"$userpass\"
+	\"method\": \"enable\",
+	\"urls\": [
+		\"http://eth1.cipig.net:8555\",
+		\"http://eth2.cipig.net:8555\",
+		\"http://eth3.cipig.net:8555\"
+	],
+	\"swap_contract_address\": \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\",
+	\"fallback_swap_contract\": \"0x8500AFc0bc5214728082163326C2FF0C73f4a871\",
   \"gas_station_url\": \"https://ethgasstation.info/json/ethgasAPI.json\",
   \"gas_station_decimals\": 8,
   \"gas_station_policy\": {
@@ -454,7 +459,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 curl --url "http://127.0.0.1:7783" --data "{
 	\"coin\": \"BUSD-BEP20\",
 	\"method\": \"enable\",
-	\"swap_contract_address\": \"0xcCD17C913aD7b772755Ad4F0BDFF7B34C6339150\",
+	\"swap_contract_address\": \"0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31\",
 	\"fallback_swap_contract\": \"0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31\",
 	\"urls\": [
 		\"http://bsc1.cipig.net:8655\",
