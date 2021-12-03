@@ -141,8 +141,7 @@ let atomicDEXsidebar = {
           "convert_utxo_address",
         ],
         ["/basic-docs/atomicdex-api-legacy/disable_coin.md", "disable_coin"],
-        ["/basic-docs/atomicdex-api-legacy/electrum.md", "electrum"],
-        ["/basic-docs/atomicdex-api-legacy/enable.md", "enable"],
+        ["/basic-docs/atomicdex-api-legacy/coin_activation.md", "coin activation"],
         [
           "/basic-docs/atomicdex-api-legacy/get_enabled_coins.md",
           "get_enabled_coins",
