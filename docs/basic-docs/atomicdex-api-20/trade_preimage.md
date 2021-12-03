@@ -47,12 +47,13 @@ Use the `trade_preimage` request with `max = true` and `swap_method = "setprice"
 
 Where the `ExtendedFeeInfo` has
 
-| Structure       | Type             | Description                                                                                                                                                   |
-| --------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin            | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas) |
-| amount          | string (numeric) | fee amount (in decimal representation)                                                                                                                        |
-| amount_rat      | rational         | fee amount (in rational representation)                                                                                                                       |
-| amount_fraction | fraction         | fee amount (in fraction representation)                                                                                                                       |
+| Structure             | Type             | Description                                                                                                                                                   |
+| --------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                  | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas) |
+| amount                | string (numeric) | fee amount (in decimal representation)                                                                                                                        |
+| amount_rat            | rational         | fee amount (in rational representation)                                                                                                                       |
+| amount_fraction       | fraction         | fee amount (in fraction representation)                                                                                                                       |
+| paid_from_trading_vol | boolean          |  If `true`, fees are deducted from the payment amount for the spend/refund UTXO HTLC transaction. If `false`, fees are not deducted from the traded volume. This is where an additional miner fee is needed to broadcast a swap transaction and/or where gas paid (e.g in ETH for an ERC20 trade) - in this case, user requires a sufficient current ETH balance to cover the fees before they can initiate the swap.                                             |
 
 ### :warning: Error types
 
@@ -170,60 +171,67 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
   "mmrpc": "2.0",
   "result": {
     "base_coin_fee": {
-      "amount": "0.00042049",
-      "amount_fraction": {
-        "denom": "100000000",
-        "numer": "42049"
-      },
-      "amount_rat": [ [ 1, [ 42049 ] ], [ 1, [ 100000000 ] ] ],
-      "coin": "BTC",
-      "paid_from_trading_vol": false
-    },
-    "rel_coin_fee": {
-      "coin": "RICK",
+      "coin": "KMD",
       "amount": "0.00001",
       "amount_fraction": {
         "numer": "1",
         "denom": "100000"
       },
       "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 100000 ] ] ],
+      "paid_from_trading_vol": false
+    },
+    "rel_coin_fee": {
+      "coin": "DGB",
+      "amount": "0.00030782",
+      "amount_fraction": {
+        "numer": "15391",
+        "denom": "50000000"
+      },
+      "amount_rat": [ [ 1, [ 15391 ] ], [ 1, [ 50000000 ] ] ],
       "paid_from_trading_vol": true
     },
+    "volume": "1138.46868712",
+    "volume_fraction": {
+      "numer": "14230858589",
+      "denom": "12500000"
+    },
+    "volume_rat": [ [ 1, [ 1345956701, 3 ] ], [ 1, [ 12500000 ] ] ],
     "total_fees": [
       {
-        "coin": "RICK",
+        "coin": "KMD",
         "amount": "0.00001",
         "amount_fraction": {
           "numer": "1",
           "denom": "100000"
         },
         "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 100000 ] ] ],
+        "required_balance": "0.00001",
+        "required_balance_fraction": {
+          "numer": "1",
+          "denom": "100000"
+        },
+        "required_balance_rat": [ [ 1, [ 1 ] ], [ 1, [ 100000 ] ] ]
+      },
+      {
+        "coin": "DGB",
+        "amount": "0.00030782",
+        "amount_fraction": {
+          "numer": "15391",
+          "denom": "50000000"
+        },
+        "amount_rat": [ [ 1, [ 15391 ] ], [ 1, [ 50000000 ] ] ],
         "required_balance": "0",
         "required_balance_fraction": {
           "numer": "0",
           "denom": "1"
         },
         "required_balance_rat": [ [ 0, [] ], [ 1, [ 1 ] ] ]
-      },
-      {
-        "coin": "BTC",
-        "amount": "0.00042049",
-        "amount_fraction": {
-          "denom": "100000000",
-          "numer": "42049"
-        },
-        "amount_rat": [ [ 1, [ 42049 ] ], [ 1, [ 100000000 ] ] ],
-        "required_balance": "0.00042049",
-        "required_balance_fraction": {
-          "denom": "100000000",
-          "numer": "42049"
-        },
-        "required_balance_rat": [ [ 1, [ 42049 ] ], [ 1, [ 100000000 ] ] ]
       }
     ]
   },
   "id": 0
 }
+
 ```
 
 #### Command (buy)
@@ -520,6 +528,23 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
   "error_trace": "taker_swap:1599] utxo_common:1990] utxo_common:166]",
   "error_type": "Transport",
   "error_data": "JsonRpcError { client_info: 'coin: tBTC', request: JsonRpcRequest { jsonrpc: '2.0', id: '31', method: 'blockchain.estimatefee', params: [Number(1), String('ECONOMICAL')] }, error: Transport('rpc_clients:1237] rpc_clients:1239] ['rpc_clients:2047] common:1385] future timed out']') }",
+  "id": 0
+}
+```
+
+#### Response (incorrect use of "max" error)
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Incorrect use of the 'max' parameter: 'max' cannot be used with 'sell' or 'buy' method",
+  "error_path": "taker_swap",
+  "error_trace": "taker_swap:1602]",
+  "error_type": "InvalidParam",
+  "error_data": {
+    "param": "max",
+    "reason": "'max' cannot be used with 'sell' or 'buy' method"
+  },
   "id": 0
 }
 ```
