@@ -2,11 +2,11 @@
 
 ## A Foundational Discussion of Blockchain Security
 
-Komodo’s form of providing security is called Delayed Proof of Work (dPoW). This security method builds on the most advanced form of blockchain security in existence, Proof of Work (PoW). The latter form of security is the method utilized by the Bitcoin network.
+Komodo’s form of providing security is called Delayed Proof of Work (dPoW). This security method builds on the most advanced form of blockchain security in existence, Proof of Work (PoW). The latter form of security is the method utilized by most of the secure PoW networks out there like the Bitcoin/Litecoin networks.
 
 To understand the value of Komodo’s dPoW security, we must first explain how PoW works and why it is the most secure method of maintaining a decentralized blockchain. We must also examine PoW’s shortcomings, so that we may understand the need for Komodo’s dPoW method and the advantages it provides to the blockchain community.
 
-To understand how PoW technology functions, we begin by explaining the roots that make the Bitcoin protocol a viable means of securely transferring value.
+To understand how PoW technology functions, we begin by explaining the roots that make the Bitcoin/Litecoin protocol a viable means of securely transferring value.
 
 ## What Is A Consensus Mechanism?
 
@@ -64,7 +64,7 @@ Bob will prepare potentially hundreds of transaction hashes before proceeding to
 
 The Cascade Effect simply means that were Bob to attempt to change even the smallest bit in the raw data—whether from a desire to cheat, or by mistake, or for any other reason—the entire transaction hash would dramatically change. In this way, the mathematical formulas in the Bitcoin protocol ensure that Bob cannot create an improper history.
 
-Were Bob to attempt to create an incorrect transaction hash, other miners would discover the falseness of the hash during their automated mining process. The miners would use the same raw transaction data from Alice, perform the proper mathematical formulas in the Bitcoin protocol, and immediately discover that Bob's attempted hash was incorrect.  All the devices on the network would reject Bob’s attempt and this would prevent Bob from claiming rewards.
+Were Bob to attempt to create an incorrect transaction hash, other miners would discover the falseness of the hash during their automated mining process. The miners would use the same raw transaction data from Alice, perform the proper mathematical formulas in the Bitcoin protocol, and immediately discover that Bob's attempted hash was incorrect. All the devices on the network would reject Bob’s attempt and this would prevent Bob from claiming rewards.
 
 ##### Step One Continued: Finishing the Preliminary Calculations
 
@@ -154,7 +154,7 @@ Furthermore, consider the effect caused when the price of a PoW-blockchain coin 
 
 #### The Longest Chain Rule: The True "Secret Sauce" of PoW Domination
 
-There are many more reasons why PoW networks continue to dominate in security.  Yet, for our discussion, there is one element that rises above all others. It is called, "The Longest Chain Rule," and some blockchain developers may argue that it is "the secret sauce" that fuels PoW’s strength.
+There are many more reasons why PoW networks continue to dominate in security. Yet, for our discussion, there is one element that rises above all others. It is called, "The Longest Chain Rule," and some blockchain developers may argue that it is "the secret sauce" that fuels PoW’s strength.
 
 The Longest Chain Rule is the determining factor whenever two competing versions of the blockchain history arise on the network. The rule simply states that whichever of the two versions grows longer first, wins. The other version is overwritten, and therefore all transactions and rewards on that version are erased. The simplicity of this rule is a key to understanding why PoW consensus mechanisms continue to outperform their competition.
 
@@ -212,7 +212,7 @@ This is known as the 51% Attack. The number 51% derives from the fact that to su
 
 ##### Size is Yet Another Reason Behind Bitcoin’s Current Success Among PoW Networks
 
-Today, Bitcoin’s overall hash rate is enormous. The collective of computers around the world mining Bitcoin is effectively the largest supercomputer ever created by man.  As of the writing of this paper, some estimate that [the Bitcoin network consumes more electricity than the entire country of Denmark](https://arstechnica.com/tech-policy/2017/12/bitcoins-insane-energy-consumption-explained/), and the number of miners continues to grow.
+Today, Bitcoin’s overall hash rate is enormous. The collective of computers around the world mining Bitcoin is effectively the largest supercomputer ever created by man. As of the writing of this paper, some estimate that [the Bitcoin network consumes more electricity than the entire country of Denmark](https://arstechnica.com/tech-policy/2017/12/bitcoins-insane-energy-consumption-explained/), and the number of miners continues to grow.
 
 Therefore, to attempt a 51% Attack against the Bitcoin network could cost millions, if not billions of dollars in computer hardware. This attack would also require a sustained consumption of electricity that is likely unfeasible for a single geographical location, and would be expensive even for a decentralized-hardware network. So long as the miners of Bitcoin remain interested in the Bitcoin network, therefore, Bitcoin has a level of security that is nigh impenetrable.
 
@@ -226,7 +226,7 @@ Recall that according to the original version of the Bitcoin protocol, sometimes
 
 Finally, note that during our explanation, when describing a malicious actor’s attempt to create an empty, meaningless blockchain history, we use quotation marks when employing the word, "false." Likewise, when describing the blockchain history trusted by the people on the network, we include the word "true" in quotations.
 
-We do this because at the core level, the consensus mechanism is purposefully blind regarding any human user’s preference between "truth" and "false." The code only sees "truth" in terms of properly mined blocks, and overall blockchain length.  Nothing more.
+We do this because at the core level, the consensus mechanism is purposefully blind regarding any human user’s preference between "truth" and "false." The code only sees "truth" in terms of properly mined blocks, and overall blockchain length. Nothing more.
 
 Now suppose the existence of a supercomputer a thousand times more powerful than the entirety of the Bitcoin-miner network. This supercomputer could, in theory, stealthily re-create and execute the initial code that spawned the very first block of the Bitcoin blockchain—the "Genesis Block." The supercomputer could then grind out block hashes, one-by-one, mining meaningless blocks and adding them to this empty, "false" version of the Bitcoin history.
 
@@ -246,7 +246,7 @@ Let us assume a naïve blockchain entrepreneur building a new product. They are 
 
 The entrepreneur and their entire audience may not realize it, but so long as their network’s overall hash rate remains below the threshold of an attack by even an average supercomputer, their entire blockchain history is vulnerable to complete annihilation. A technically astute competitor, seeing the vulnerability, and possessing ownership of the requisite computer hardware, would be able to create an empty and longer version of the same blockchain code and vaporize their competitor’s financial records.
 
-The cryptocurrency industry is young, and few but the most advanced of developers understand the many ways in which blockchain competition can be technically eliminated. Therefore, we have seen but a few serious cases of the Genesis Attack. 
+The cryptocurrency industry is young, and few but the most advanced of developers understand the many ways in which blockchain competition can be technically eliminated. Therefore, we have seen but a few serious cases of the Genesis Attack.
 
 One notable instance occurred when an original Bitcoin developer, Luke-jr, used a variation of the attack to destroy a blockchain project called Coiledcoin. Luke-jr performed this attack out of a belief that Coiledcoin was a [disingenuous project.](https://bitcointalk.org/index.php?topic=56675.msg678006#msg678006) Setting aside any human sentiment on either side of the event, the fact stands that Luke-jr’s variation of the Genesis Attack was the end of the Coiledcoin network.
 
@@ -260,7 +260,7 @@ The problems with young PoW networks do not stop there, and furthermore, even Bi
 
 #### PoW Networks Are Expensive
 
-Some estimate that by 2020, the Bitcoin network alone will consume more electricity than the entire world currently consumes (as of [2017](https://arstechnica.com/tech-policy/2017/12/bitcoins-insane-energy-consumption-explained/)). Having just one PoW network in existence, therefore, is already strain enough on our environment. The network is also a burden on our infrastructure and our worldwide economy. 
+Some estimate that by 2020, the Bitcoin network alone will consume more electricity than the entire world currently consumes (as of [2017](https://arstechnica.com/tech-policy/2017/12/bitcoins-insane-energy-consumption-explained/)). Having just one PoW network in existence, therefore, is already strain enough on our environment. The network is also a burden on our infrastructure and our worldwide economy.
 
 On the one hand, adding additional PoW blockchains to the world can serve the purpose of forcing free-market competition on the Bitcoin developers, encouraging ethical and innovative behavior. Therefore, some competition among PoW networks is likely useful.
 
@@ -284,7 +284,7 @@ This is all theoretical, but it raises yet another concern that we need to illum
 
 #### The Primary Alternative: Proof of Stake
 
-Perhaps the most popular alternative consensus mechanism is Proof of Stake (PoS).  In this mechanism, blocks are mined not by miners performing work, but rather by any user "staking" their coins on the open network for the right to mine blocks.
+Perhaps the most popular alternative consensus mechanism is Proof of Stake (PoS). In this mechanism, blocks are mined not by miners performing work, but rather by any user "staking" their coins on the open network for the right to mine blocks.
 
 The meaning of "staking" has different variations depending on the specific rules set forth by the developers of the unique variant of the PoS consensus mechanism. In general, staking one’s coins means placing them as collateral on the open network in exchange for the right to mine new blocks.
 
@@ -298,7 +298,7 @@ Once a majority of the supply is obtained, the owner gains a position known as "
 
 If a non-majority holder attempts to challenge the monopoly holder’s version, the non-majority holder can achieve little more than the loss of coins they placed at stake. Compare this with a non-majority holder in a PoW system: the question over the "truth" of the blockchain history depends not upon ownership of wealth, but upon the miner’s innovation and performance. PoW-based systems do not suffer from the risk of monopolies, therefore, as majority stakeholders gain no unique control over the mining of new blocks.
 
-Variations of PoS, including the popular Delegated Proof of Stake (DPoS) and Delegated Byzantine Fault Tolerance (DBFT) systems, do not resolve the underlying issue of monopoly ownership and centralized manipulation. In a vanilla PoS system, the malicious actor needs only to purchase a majority supply of the coin to mine "false" blocks. Alternatively, as the PoS network grows to maturity, the collective of majority stakeholders will identify their financial equals, and they may find that they share a mutual interest in disadvantaging less financially established members of the network. 
+Variations of PoS, including the popular Delegated Proof of Stake (DPoS) and Delegated Byzantine Fault Tolerance (DBFT) systems, do not resolve the underlying issue of monopoly ownership and centralized manipulation. In a vanilla PoS system, the malicious actor needs only to purchase a majority supply of the coin to mine "false" blocks. Alternatively, as the PoS network grows to maturity, the collective of majority stakeholders will identify their financial equals, and they may find that they share a mutual interest in disadvantaging less financially established members of the network.
 
 In a DPoS/DBFT type system, wherein the ecosystem stakeholders elect and endow delegates with the responsibility to mine new blocks, the malicious actor has only to compromise the integrity of most of the delegates. Thereafter, the compromised delegates can mine "false" blocks, and the users of the ecosystem have no direct means to retaliate, beyond abandoning the network.
 
@@ -334,7 +334,7 @@ Iguana Core is coded in the C programming language—the language of choice of o
 
 #### An Overview of Notary Nodes
 
-The Komodo ecosystem uses a stake-weighted vote to elect parties who will run sixty-four separate "notary nodes." These notary nodes are the key to transferring the history of transactions performed in the Komodo ecosystem into the protection of the Bitcoin hash rate.
+The Komodo ecosystem uses a stake-weighted vote to elect parties who will run sixty-four separate "notary nodes." These notary nodes are the key to transferring the history of transactions performed in the Komodo ecosystem into the protection of the Litecoin hash rate.
 
 ##### Notary Nodes Are Elected IT Professionals
 
@@ -348,25 +348,33 @@ The elected notary nodes perform a type of "backup" process, using Komodo softwa
 
 Each notarization acts as a marker of the "true" history for the Komodo ecosystem at the time the notarization was created.
 
-Notary nodes write each notarization into the history of the Bitcoin blockchain as a permanent indicator of the history of the Komodo ecosystem. This allows any person to observe the notarization in Bitcoin and thereby verify data and transaction history anywhere in the Komodo ecosystem.
+Notary nodes write each notarization into the history of the Litecoin blockchain as a permanent indicator of the history of the Komodo ecosystem. This allows any person to observe the notarization in Litecoin and thereby verify data and transaction history anywhere in the Komodo ecosystem.
 
-The notary nodes work together in a decentralized and trustless manner to achieve each notarization. The frequency of notarizations varies between two to six notarizations per hour. 
+The notary nodes work together in a decentralized and trustless manner to achieve each notarization. The frequency of notarizations varies between two to six notarizations per hour.
 
-With the notarizations recorded into the Bitcoin history, each confirmation on the Bitcoin network is also a confirmation of the history of the entire Komodo ecosystem.
+With the notarizations recorded into the Litecoin history, each confirmation on the Litecoin network is also a confirmation of the history of the entire Komodo ecosystem.
 
-The primary sacrifice that is made is the time between the creation of a transaction and the confirmation on the Bitcoin (BTC) network that confirms the most recent notarization. For this reason, we name our consensus mechanism, "delayed Proof of Work" (dPoW).
+The primary sacrifice that is made is the time between the creation of a transaction and the confirmation on the Litecoin (LTC) network that confirms the most recent notarization. For this reason, we name our consensus mechanism, "delayed Proof of Work" (dPoW).
+
+:::tip Note
+
+- The dPoW service used the Bitcoin(BTC) network for security till Mid 2021. But, switched to the Litecoin (LTC) network at the beginning of Notary Node Season 5.
+- The Bitcoin protocol has a proven track record of excellent security and is becoming more secure by the day with more miners joining the network and hash rates climbing.
+- That being said, the Bitcoin network is also becoming costlier and more congested to make transactions due to increased demand and limited on-chain scalability. Read [this blog post](https://komodoplatform.com/en/blog/dpow-litecoin-notarizations/) for more info regarding this change.
+
+:::
 
 ##### Notary Node Power is Restricted to History Transfer and Nothing More
 
-Our dPoW consensus mechanism is designed to keep the advantages provided by the PoW system, circumvent the excessive financial and eco-unfriendly overhead costs, and avoid the security risks found in a PoS system. We use several methods to this effect. 
+Our dPoW consensus mechanism is designed to keep the advantages provided by the PoW system, circumvent the excessive financial and eco-unfriendly overhead costs, and avoid the security risks found in a PoS system. We use several methods to this effect.
 
-Most importantly, all actions a notary node takes are publicly verifiable, and Komodo software running on each full user's machine automatically verifies notary nodes’ actions. 
+Most importantly, all actions a notary node takes are publicly verifiable, and Komodo software running on each full user's machine automatically verifies notary nodes’ actions.
 
 <b>Notary nodes are not arbiters of "truth."</b>
 
-They only transfer a history of activity in the Komodo ecosystem into the protective custody of the Bitcoin hash rate – nothing more.
+They only transfer a history of activity in the Komodo ecosystem into the protective custody of the Litecoin hash rate – nothing more.
 
-The only type of power notary nodes hold over the ecosystem is the ability to grant or withhold notarization. 
+The only type of power notary nodes hold over the ecosystem is the ability to grant or withhold notarization.
 
 There are sixty-four notary nodes, and the minimum number of notary nodes required to maintain activity in the Komodo ecosystem is thirteen. Thus, for any activity in the Komodo ecosystem to be excluded entirely would require that at least fifty-one of the notary nodes withhold notarization.
 
@@ -376,11 +384,11 @@ By this design, notary nodes' primary economic incentive is to properly transfer
 
 ##### Users Need Only Wait Until They Are Satisfied With a Transaction's Number of Notarizations and Other Security Features
 
-For the average user, when performing a trade of goods and services where security is desired, the user simply needs to wait until the notary nodes complete the notarization process. Once a transaction's history is included in a notarization in the Bitcoin blockchain, the only way to break the security protecting their transaction history requires breaking the security of the Bitcoin. 
+For the average user, when performing a trade of goods and services where security is desired, the user simply needs to wait until the notary nodes complete the notarization process. Once a transaction's history is included in a notarization in the Litecoin blockchain, the only way to break the security protecting their transaction history requires breaking the security of the Litecoin.
 
-Komodo software automates the verification process, and developers can tailor their individual communities around the needs of their audience. 
+Komodo software automates the verification process, and developers can tailor their individual communities around the needs of their audience.
 
-Through these measures, Komodo’s dPoW consensus mechanism maintains the security innovated by Satoshi Nakamoto, and because dPoW enables the Bitcoin hash rate to serve more independent blockchains than just the single Bitcoin blockchain, dPoW even expands on Nakamoto’s original design.
+Through these measures, Komodo’s dPoW consensus mechanism maintains the security innovated by Satoshi Nakamoto, and because dPoW enables the Bitcoin/Litecoin hash rate to serve more independent blockchains than just the single Bitcoin blockchain, dPoW even expands on Nakamoto’s original design.
 
 ## The Notarization Process
 
@@ -388,7 +396,7 @@ Through these measures, Komodo’s dPoW consensus mechanism maintains the securi
 
 The process of notarization is simple. Roughly every ten to twenty-five minutes, notary nodes perform a special block hash mined on the Komodo blockchain and take note of the overall Komodo blockchain "height" (i.e. the number of total blocks in the Komodo blockchain since inception). The notary nodes process this specific block in such a manner that their signatures are cryptographically included within the content of the notarized data.
 
-[<i>All examples herein are estimated based off an actual KMD notarization to the BTC network, linked here.</i>](https://www.blocktrail.com/BTC/tx/313031a1ed2dbe12a20706dff48d3dffb0e39d15e3e4ff936d01f091fb3b8556#tx_messages)
+[<i>All examples herein are estimated based off an actual historical KMD notarization to the BTC network, linked here.</i>](https://www.blocktrail.com/BTC/tx/313031a1ed2dbe12a20706dff48d3dffb0e39d15e3e4ff936d01f091fb3b8556#tx_messages)
 
 The pieces going into the notarization process could look like this:
 
@@ -416,7 +424,6 @@ KMD
 
 The letters "KMD" are added into the notarization mixture to indicate the name of the blockchain to which this notarization belongs
 
-
 #### Creating a Notarization
 
 The notary nodes will take these three pieces of information and compress them into a format that is more computer-friendly. The result will look like this:
@@ -435,9 +442,9 @@ On the other hand, an incorrect history of the Komodo network will not be able t
 
 Naturally, for security purposes this number cannot simply be saved to one person’s local computer, or be written down on a piece of paper. Were the number to be in such a centralized location, a would-be attacker could simply destroy the backup, or replace it with a "false" version.
 
-For the number to be useful, it must be placed in a secure and decentralized location. Here is where Komodo adopts security from another network: Komodo will perform a simple transaction in which it writes the above number into the data history of the strongest PoW blockchain (currently Bitcoin). This location is as secure as the miners’ hash rate makes it, and the location is decentralized, by nature.
+For the number to be useful, it must be placed in a secure and decentralized location. Here is where Komodo adopts security from another network: Komodo will perform a simple transaction in which it writes the above number into the data history of one of the strongest PoW blockchains (currently Litecoin). This location is as secure as the miners’ hash rate makes it, and the location is decentralized, by nature.
 
-To place this information in the accompanying PoW network, the notary nodes will use a feature that exists at the core of the Bitcoin protocol when making a transaction.  The feature is called "OP_RETURN," and it allows for a message to be added to the blockchain, permanently, as a part of performing a transaction.
+To place this information in the accompanying PoW network, the notary nodes will use a feature that exists at the core of the Bitcoin/Litecoin protocol when making a transaction. The feature is called "OP_RETURN," and it allows for a message to be added to the blockchain, permanently, as a part of performing a transaction.
 
 A notable use of the ability to write messages to a PoW blockchain is found in the first actions of Satoshi Nakamoto himself (themselves). In the first Bitcoin block ever mined, Satoshi used a feature like OP_RETURN to include this [message](https://en.bitcoin.it/wiki/Genesis_block):
 
@@ -457,7 +464,7 @@ The permanence and security of OP_RETURN messages are a core aspect of dPoW’s 
 
 #### Step Three: Notarizing the PoW Network Information Back to the KMD Main Chain
 
-One final step remains to complete the loop of security between the KMD main chain and the chosen PoW network. The KMD blockchain must record within its own records the specific location where it placed this backup into the PoW blockchain.  This enables the Iguana Core software to identify the location of the most recent notarization.
+One final step remains to complete the loop of security between the KMD main chain and the chosen PoW network. The KMD blockchain must record within its own records the specific location where it placed this backup into the PoW blockchain. This enables the Iguana Core software to identify the location of the most recent notarization.
 
 To create this reminder, the notary nodes will now gather one more piece of information, this time drawn from the accompanying PoW network: the transaction hash identifying the location of the first notarization. This information could look like this:
 
@@ -475,7 +482,7 @@ This number is a compressed cryptographic representation of everything that has 
 
 ## Extending Notarization to Komodo Smart Chains
 
-dPoW notarization allows Komodo to secure not just one chain, but many chains. Komodo is capable of using this notarization process to "recycle" the Bitcoin hash rate onto potentially thousands of other blockchains. 
+dPoW notarization allows Komodo to secure not just one chain, but many chains. Komodo is capable of using this notarization process to "recycle" the Bitcoin hash rate onto potentially thousands of other blockchains.
 
 A blockchain that uses Komodo technology to take advantage of this protective service is called a Smart Chain. Komodo provides Smart Chains to interested entrepreneurs and developers in the Komodo ecosystem.
 
@@ -483,13 +490,13 @@ Each Smart Chain comes with many features, which are discussed in greater detail
 
 ##### Notarization Extends to Each Participating Smart Chain
 
-This same security process extends to any Smart Chain that is under the protection of the notary nodes. The primary difference between a Smart Chain and the KMD main chain is that the main chain notarizes to an exterior PoW network (Bitcoin), whereas the Smart Chain notarizes to the KMD main chain.
+This same security process extends to any Smart Chain that is under the protection of the notary nodes. The primary difference between a Smart Chain and the KMD main chain is that the main chain notarizes to an external PoW network (Litecoin), whereas the Smart Chain notarizes to the KMD main chain.
 
 ###### Notarization Flow
 
 <div style="text-align: center;">
 
-<b> Smart Chain —> Komodo Main Chain (KMD) —> Bitcoin (BTC)</b>
+<b> Smart Chain —> Komodo Main Chain (KMD) —> Litecoin (LTC)</b>
 
 </div>
 
@@ -500,17 +507,17 @@ To summarize, the notarization process of a transaction on a default PoW-based S
 - Notary nodes create a notarization for the current period of blocks
 - Notary nodes write this notarization to the KMD main chain
   - Notary nodes here also perform a quick special transaction on the Smart Chain to alert this chain's network that the notarization process is starting
-  - Once this special transaction enters the Smart Chain's mempool, the default Komodo software considers all included transactions to be final. Users and developers can decide for themselves whether to trust this first KMD notarization, or to wait for the BTC notarization to come
-- A few minutes later, notary nodes create a notarization to represent the KMD main chain's history and write this into the BTC chain
+  - Once this special transaction enters the Smart Chain's mempool, the default Komodo software considers all included transactions to be final. Users and developers can decide for themselves whether to trust this first KMD notarization, or to wait for the LTC notarization to come
+- A few minutes later, notary nodes create a notarization to represent the KMD main chain's history and write this into the LTC chain
 - Notary nodes then perform a special transaction on the KMD main chain to alert all KMD nodes of the notarization
-- Notary nodes also perform a special transaction on all Smart Chains to alert all nodes of the BTC notarization
+- Notary nodes also perform a special transaction on all Smart Chains to alert all nodes of the LTC notarization
 - At this point, users often consider all transactions on their Smart Chains to have achieved finality
 
 ##### Only the Most Recent Notarization Matters
 
 As each notarization is built upon all the notarizations that came before, Iguana Core does not need to monitor every notarization ever created. Rather, the software only needs to observe the most recent iteration.
 
-This is favorable for Komodo security, as there is always a possibility that the chosen PoW network (Bitcoin) could fail. In this event, the notary nodes would place their next notarization in a competing PoW network (such as Bitcoin Cash) and the entire Komodo ecosystem would remain secure. The notarizations in the failing PoW network would no longer be required to verify ecosystem accuracy.
+This is favorable for Komodo security, as there is always a possibility that the chosen PoW network (Litecoin) could fail. In this event, the notary nodes would place their next notarization in a competing PoW network (such as Bitcoin/Bitcoin Cash) and the entire Komodo ecosystem would remain secure. The notarizations in the failing PoW network would no longer be required to verify ecosystem accuracy.
 
 ## Understanding Security and Economic Incentives
 
@@ -518,7 +525,7 @@ The nature of mining in the Komodo ecosystem serves as an incentive to motivate 
 
 The Komodo network on a surface-level is a minable network, like other PoW networks. Any technically savvy user can activate a device capable of mining the Komodo network, and thereby process users’ transactions, mine blocks, and receive rewards. For these miners, the Komodo protocol functions in almost the exact same manner as the Bitcoin blockchain.
 
-Understanding the similarities will explain to the reader the motivations for the notary nodes and other Komodo miners to secure the Komodo network. The differences, on the other hand, are explained [in another section of the Core Technology Discussions.](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#details-regarding-kmd-main-chain) 
+Understanding the similarities will explain to the reader the motivations for the notary nodes and other Komodo miners to secure the Komodo network. The differences, on the other hand, are explained [in another section of the Core Technology Discussions.](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#details-regarding-kmd-main-chain)
 
 <i>(See the section regarding the 5.1% rewards allocated to all users who hold at least 10 KMD in their wallet address. This 5.1% reward is given to users out of the funds that would normally be given to a Bitcoin miner as a method of minting new Bitcoin coins.)</i>
 
@@ -526,9 +533,9 @@ Understanding the similarities will explain to the reader the motivations for th
 
 The foundational similarity to understand is that with each block header, clues are provided for miners to find the next valid block hash. The specific clue, "difficulty," changes with each block header.
 
-Under normal circumstances on a PoW blockchain, with each block header the difficulty level can change. The Bitcoin protocol itself decides what the difficulty for the next valid block should be.
+Under normal circumstances on a PoW blockchain, with each block header the difficulty level can change. The Bitcoin/Litecoin protocol itself decides what the difficulty for the next valid block should be.
 
-The difficulty is decided based on the amount of overall hash power mining the network. If many miners are active, then the hash rate is high, and the Bitcoin protocol sets the difficulty to a higher number. On the other hand, if the hash rate is low, then the protocol sets the difficulty to a lower number.
+The difficulty is decided based on the amount of overall hash power mining the network. If many miners are active, then the hash rate is high, and the Bitcoin /Litecoin protocol sets the difficulty to a higher number. On the other hand, if the hash rate is low, then the protocol sets the difficulty to a lower number.
 
 Recall that the "difficulty" level determines the number of zeros at the beginning of the next valid block hash. The more zeros at the beginning of a valid block hash, the more unlikely each attempt at finding a valid block hash will be.
 
@@ -556,7 +563,7 @@ In the race to win blockchain rewards, miners all over the world have built enti
 
 #### Notary Nodes are Special Miners on the KMD Blockchain
 
-Here is where our dPoW consensus mechanism diverges from the Bitcoin protocol’s limitations. In addition to performing the notarizations of the Komodo ecosystem, notary nodes are also a special type of blockchain miner. They have a certain feature in their underlying code that both enables them to maintain an effective and cost-efficient blockchain ecosystem and provides the notary nodes with a financial incentive. The combination of benefits prevents the Komodo ecosystem from falling into the trap of directly competing with other PoW networks for hash-rate security status.
+Here is where our dPoW consensus mechanism diverges from the Bitcoin/Litecoin protocol’s limitations. In addition to performing the notarizations of the Komodo ecosystem, notary nodes are also a special type of blockchain miner. They have a certain feature in their underlying code that both enables them to maintain an effective and cost-efficient blockchain ecosystem and provides the notary nodes with a financial incentive. The combination of benefits prevents the Komodo ecosystem from falling into the trap of directly competing with other PoW networks for hash-rate security status.
 
 #### Each Notary Node Gets One Chance Per Every Sixty-Five Blocks to Mine on Easy
 
@@ -566,7 +573,7 @@ The notary nodes’ "easy difficulty" setting operates in a cyclical manner, wit
 
 Therefore, while everyone else on the network mines at an adjustable level of difficulty according to the normal PoW consensus mechanism (which keeps the overall speed of the Komodo network stable) the notary nodes have a chance to step outside the normal rules. For every sixty-five block period on the Komodo blockchain, the odds that a block will be mined by a notary node, as opposed to a normal miner, are essentially 3:1.
 
-Since the rest of the miners have an adjustable difficulty ratio, it does not matter how many more miners attempt to mine Komodo. Most of the valid blocks will always be found by the sixty-four elected notary nodes, even were the entire hash power of the Bitcoin network to switch all its attention to mining Komodo.
+Since the rest of the miners have an adjustable difficulty ratio, it does not matter how many more miners attempt to mine Komodo. Most of the valid blocks will always be found by the sixty-four elected notary nodes, even were the equivalent of entire hash power of the Bitcoin network to switch all its attention to mining Komodo.
 
 The mining rewards that a notary node receives through this feature are ~50 KMD per day. This reward occurs regardless of KMD’s popularity, market value, or even of the competition from normal KMD miners. The reward notary nodes receive creates an economic incentive for each party controlling a notary node to support and protect the Komodo ecosystem, and to increase the relative value of this daily ~50 KMD reward.
 
@@ -576,25 +583,25 @@ There are myriad ways that an attacker can assail a blockchain project, and the 
 
 #### Notarizations Provide a Defense Against Both the 51% Attack and the Genesis Attack
 
-By relying on the notarizations in the chosen PoW network’s hash rate (Bitcoin), users in the Komodo ecosystem are well protected from both the 51% Attack and the Genesis Attack. 
+By relying on the notarizations in the chosen PoW network’s hash rate (Litecoin), users in the Komodo ecosystem are well protected from both the 51% Attack and the Genesis Attack.
 
-Recall that in a 51% Attack, the attacker first makes a transaction and then erases it by providing 51% of the total hash rate to a "false" blockchain where the transaction never occurred. In the Genesis Attack, the attacker recreates the genesis block of a blockchain and mines an entirely false history. 
+Recall that in a 51% Attack, the attacker first makes a transaction and then erases it by providing 51% of the total hash rate to a "false" blockchain where the transaction never occurred. In the Genesis Attack, the attacker recreates the genesis block of a blockchain and mines an entirely false history.
 
 For either of these attacks to play any part in the Komodo ecosystem, the successful attack would have to destroy every transaction at every level it is recorded.
 
 ##### Defense Against the Genesis Attack
 
-First, let us consider the implications of the notarization process provided against the Genesis Attack. 
+First, let us consider the implications of the notarization process provided against the Genesis Attack.
 
-Once an independent blockchain has even just a single transaction pushed through the notarization process into the chosen PoW network, that notarization protects against the Genesis Attack. 
+Once an independent blockchain has even just a single transaction pushed through the notarization process into the chosen PoW network, that notarization protects against the Genesis Attack.
 
-To successfully complete a Genesis Attack against a Komodo Smart Chain, the attacker would have to destroy the chosen PoW network’s records from that moment going forward. The attacker would also have to destroy the KMD main chain from that moment forward, and the entire independent Smart Chain. 
+To successfully complete a Genesis Attack against a Komodo Smart Chain, the attacker would have to destroy the chosen PoW network’s records from that moment going forward. The attacker would also have to destroy the KMD main chain from that moment forward, and the entire independent Smart Chain.
 
 The likelihood of achieving this task is effectively as probable as performing a Genesis Attack on the chosen PoW network itself.
 
 #### Defense Against the 51% Attack
 
-The Komodo ecosystem is also well protected against the 51% Attack. Consider an attacker attempting to create a malicious transaction on a default PoW-based Smart Chain in the Komodo ecosystem. The attacker creates their transaction and sends it to the Smart Chain's PoW network for processing. 
+The Komodo ecosystem is also well protected against the 51% Attack. Consider an attacker attempting to create a malicious transaction on a default PoW-based Smart Chain in the Komodo ecosystem. The attacker creates their transaction and sends it to the Smart Chain's PoW network for processing.
 
 ##### Before Notarization
 
@@ -610,19 +617,19 @@ An important aside here is that Komodo Smart Chains have additional settings bey
 
 ##### Notarization to the KMD Main Chain
 
-However, if the attacker fails to perform their 51% Attack before the notary nodes notarize to the KMD main chain, the difficulty of successfully attacking their victim increases. Now, the attacker must successfully perform the 51% Attack against both the KMD main chain and the independent Smart Chain. 
+However, if the attacker fails to perform their 51% Attack before the notary nodes notarize to the KMD main chain, the difficulty of successfully attacking their victim increases. Now, the attacker must successfully perform the 51% Attack against both the KMD main chain and the independent Smart Chain.
 
 Attacking the KMD main chain is difficult to achieve, as it is not a normal PoW blockchain. Rather, this chain is designed to withstand attacks. The attacker would have to compromise many of the notary-node machines while simultaneously performing a 51% Attack against both the KMD main chain and the independent Smart Chain.
 
-While the KMD main chain provides a certain level of protection, this chain is not the ultimate goal. The KMD chain is merely a transfer point before moving the notarization data to the BTC main chain, as BTC is dramatically more secure. Therefore, while entrepreneurs, developers, and users await notarization to BTC, they should decide for themselves how much trust they wish to place in the system at this point of the process.
+While the KMD main chain provides a certain level of protection, this chain is not the ultimate goal. The KMD chain is merely a transfer point before moving the notarization data to the LTC main chain, as LTC is dramatically more secure. Therefore, while entrepreneurs, developers, and users await notarization to LTC, they should decide for themselves how much trust they wish to place in the system at this point of the process.
 
 ::: tip Note
 
 A frequent concern that many newcomers have here can be described as a fear that the notary nodes could potentially falsify information about a transaction on a Smart Chain.
 
-This concern sometimes mistakenly leads some observers to believe that notary nodes are a centralized group who are providing financial governance to the ecosystem. 
+This concern sometimes mistakenly leads some observers to believe that notary nodes are a centralized group who are providing financial governance to the ecosystem.
 
-This is neither true nor possible. 
+This is neither true nor possible.
 
 Notary nodes are <b>not</b> arbiters of truth.
 
@@ -634,11 +641,11 @@ Any attempt by the notary nodes to falsify information in a notarization would b
 
 :::
 
-##### Notarization to BTC
+##### Notarization to LTC
 
-After another ten to twenty minutes, the notary nodes will perform the notarization process for the KMD main chain. Here, they gather all the information for the entire ecosystem, create a hash, and record this hash to the BTC main chain. Once this is completed, they inform the entire ecosystem through a special transaction on the KMD main chain, and on each individual Smart Chain.
+After another ten to twenty minutes, the notary nodes will perform the notarization process for the KMD main chain. Here, they gather all the information for the entire ecosystem, create a hash, and record this hash to the LTC main chain. Once this is completed, they inform the entire ecosystem through a special transaction on the KMD main chain, and on each individual Smart Chain.
 
-At this point, one can argue that the attacker's job is nigh impossible. To 51% Attack the Smart Chain, the attacker must compromise BTC, KMD, and the Smart Chain. This would require an incredible amount of equipment and expertise, and therefore most users in the Komodo ecosystem may now feel safe to consider all transactions to have achieved permanent finality.
+At this point, one can argue that the attacker's job is nigh impossible. To 51% Attack the Smart Chain, the attacker must compromise LTC, KMD, and the Smart Chain. This would require an incredible amount of equipment and expertise, and therefore most users in the Komodo ecosystem may now feel safe to consider all transactions to have achieved permanent finality.
 
 Therefore, any record that has at least one full notarization has a fortress of security at its guard. So long as users and developers are mindful to wait for the desired number of notarizations to secure their payments, both the 51% Attack and the Genesis Attack are highly unlikely either to be successful, or to provide economic value to the would-be malicious actor.
 
@@ -654,7 +661,7 @@ For this reason, the position of a notary node is held with high importance, and
 
 ## The dPOW Consensus Mechanism is Inherent in all Komodo Smart Chains
 
-The notarization for the Smart Chain is performed by the notary nodes as a service to the independent developer and entrepreneur. 
+The notarization for the Smart Chain is performed by the notary nodes as a service to the independent developer and entrepreneur.
 
 Notary nodes create a notarization of the Smart Chain and write it into the KMD main chain. Then they write their actions into the Smart Chain itself. This allows Iguana Core (running at the heart of the Smart Chain) to identify where its most recent notarization can be found.
 
@@ -664,9 +671,9 @@ We invite the reader to consider that as each Smart Chain can support thousands 
 
 Naturally, as each level of notarization takes time to perform, there is an additional delay for Smart Chains as compared to the KMD main chain. A Smart Chain’s history is notarized into the KMD main chain approximately every ten minutes, assuming constant activity. This notarization will then be pushed through the notarization process into the chosen PoW network (Bitcoin). We estimate that a transaction performed on a Smart Chain will receive the KMD main chain’s protection within approximately ten minutes, and will receive the Bitcoin hash rate’s protection in approximately twenty to thirty minutes.
 
-Another difference between the KMD main chain and a Smart Chain is that the notary nodes only mine the KMD main chain. Asset-chain developers are responsible to create any required network of miners to process their Smart Chain’s transactions.  
+Another difference between the KMD main chain and a Smart Chain is that the notary nodes only mine the KMD main chain. Asset-chain developers are responsible to create any required network of miners to process their Smart Chain’s transactions.
 
-This does not need to be a full network of mining farms, such as those in Bitcoin. Rather, power only needs to be of a level necessary to process transactions, and to provide any desired level of hash-rate security. For a small business with intermittent periods of transaction activity, a single, dedicated, full-time server may be enough. Larger businesses can scale as desired and can also work to attract a network of freelance miners.
+This does not need to be a full network of mining farms, such as those in Bitcoin/Litecoin. Rather, power only needs to be of a level necessary to process transactions, and to provide any desired level of hash-rate security. For a small business with intermittent periods of transaction activity, a single, dedicated, full-time server may be enough. Larger businesses can scale as desired and can also work to attract a network of freelance miners.
 
 Furthermore, developers of Smart Chains need not create their chain so that it relies solely on a PoW consensus mechanism. Instead, developers can utilize Antara Customizations (discussed later in the Core Technology Discussions section and elsewhere in this documentation). These Antara Customizations allow the developer to utilize a hybrid consensus model that combines Proof-of-Stake (PoS) with Proof-of-Work (PoW).
 
@@ -674,11 +681,12 @@ The PoS consensus mechanism does not require high electrical costs to maintain a
 
 There are also various members of the Komodo ecosystem who mine for profit, and can be motivated to assist Smart Chain developers in securing a network in exchange for block rewards.
 
-This combination of options available to a blockchain entrepreneur dramatically reduces the overhead costs and effort the entrepreneur and developer would otherwise have to allocate to a network of high-hash rate miners.  These freed resources of the entrepreneur and developer can therefore be allocated to other uses in their business models.
+This combination of options available to a blockchain entrepreneur dramatically reduces the overhead costs and effort the entrepreneur and developer would otherwise have to allocate to a network of high-hash rate miners. These freed resources of the entrepreneur and developer can therefore be allocated to other uses in their business models.
 
-The total yearly cost for the Komodo notary nodes to notarize the KMD main chain into the currently chosen PoW chain, Bitcoin, is approximately ~180 BTC/year (a value of ~\$1.5M USD at the time of the writing of this paper). Funding for the notary nodes to perform this service was raised during the Komodo ICO, and current BTC holdings give us many years to come before we will be required to implement any business models to replenish our BTC funds.
+<!-- The total yearly cost for the Komodo notary nodes to notarize the KMD main chain into the currently chosen PoW chain, Litecoin, is approximately ~180 LTC/year (a value of ~\$1.5M USD at the time of the writing of this paper). Funding for the notary nodes to perform this service was raised during the Komodo ICO, and current LTC holdings give us many years to come before we will be required to implement any business models to replenish our LTC funds.
 
-On the other hand, the total cost for the Smart Chain developer to notarize their independent chain into the KMD main chain is but a fraction of the cost. This security mechanism is not limited to Smart Chains created within the Komodo ecosystem. In fact, Komodo’s Blockchain Security Services are available to any existing blockchain. With Komodo, any blockchain can be protected with the power of the Bitcoin hash rate for a tiny percentage of the cost.
+On the other hand, the total cost for the Smart Chain developer to notarize their independent chain into the KMD main chain is but a fraction of the cost. -->
 
-Thus, an entrepreneur in our ecosystem can have their own independent blockchain that is backed up by the hash rate of the Bitcoin mining network, at only a fraction of the cost. In the following sections, we discuss the formation of a new Komodo Smart Chain, the method of distribution and trading using our atomic-swap technology, AtomicDEX, and our "smart contract" like technology, the Antara Framework.
+This security mechanism is not limited to Smart Chains created within the Komodo ecosystem. In fact, Komodo’s Blockchain Security Services are available to any existing blockchain. With Komodo, any blockchain can be protected with the power of the Litecoin hash rate for a tiny percentage of the cost.
 
+Thus, an entrepreneur in our ecosystem can have their own independent blockchain that is backed up by the hash rate of the Litecoin mining network, at only a fraction of the cost. In the following sections, we discuss the formation of a new Komodo Smart Chain, the method of distribution and trading using our atomic-swap technology, AtomicDEX, and our "smart contract" like technology, the Antara Framework.
