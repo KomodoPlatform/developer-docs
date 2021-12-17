@@ -141,5 +141,9 @@ var redirectAliases = {
     "/basic-docs/start-here/core-technology-discussions/initial-dex-offering.html",
   "/basic-docs/atomicdex/atomicdex-api.html":
     "/basic-docs/atomicdex-api-legacy/rational_number_note.html",
+  "/basic-docs/atomicdex-api-legacy/electrum.html":
+    "/basic-docs/atomicdex-api-legacy/coin_activation.html#electrum",
+  "/basic-docs/atomicdex-api-legacy/enable.html":
+    "/basic-docs/atomicdex-api-legacy/coin_activation.html#enable",
 };
 module.exports = redirectAliases;
