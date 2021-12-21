@@ -31,10 +31,10 @@ Here is an [actual example](https://github.com/KomodoPlatform/atomicDEX-Desktop/
 | nodes                  | list     | (required for ERC20) A list of nodes to be used for communicating with the coin's blockchain  |
 | electrum               | list     | (required for UTXO) A list of electrum servers to be used for communicating with the coin's blockchain. `url` is for standard TCP, `url_ws` is for websockets. `protocol` defaults to TCP, but can be set to `SSL` if the electrum server supports it.  |
 | explorer_url           | list     | (required) A list of block explorers, used to link the wallets to transaction details.  |
-| explorer_tx_url        | list     | (optional) [Some explorers](https://chainz.cryptoid.info) use different url endpoint structures, and will require this additional field  |
-| explorer_address_url   | list     | (optional) [Some explorers](https://chainz.cryptoid.info) use different url endpoint structures, and will require this additional field  |
-| active                 | list     | This is used to define the coins that are loaded by default. Must be set to `false` unless you have forked the project or have made an arrangement with the developers  |
-| currently_enabled      | list     | This is used to define the coins that are loaded by default. Must be set to `false` unless you have forked the project or have made an arrangement with the developers. After installing the Desktop app, your local copy of this file will set enabled coins to `true` so they will auto load on your computer.   |
+| explorer_tx_url        | string   | (optional) [Some explorers](https://chainz.cryptoid.info) use different url endpoint structures, and will require this additional field  |
+| explorer_address_url   | string   | (optional) [Some explorers](https://chainz.cryptoid.info) use different url endpoint structures, and will require this additional field  |
+| active                 | boolean  | This is used to define the coins that are loaded by default. Must be set to `false` unless you have forked the project or have made an arrangement with the developers  |
+| currently_enabled      | boolean  | This is used to define the coins that are loaded by default. Must be set to `false` unless you have forked the project or have made an arrangement with the developers. After installing the Desktop app, your local copy of this file will set enabled coins to `true` so they will auto load on your computer.   |
 
 <!-- Add a form on stats.kmd.io to assist with generating this? -->
 
