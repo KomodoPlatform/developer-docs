@@ -33,7 +33,7 @@ The `order_status` method returns the data of the order with the selected `uuid`
 | order.base_orderbook_ticker  | string | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value. |
 | order.rel_orderbook_ticker   | string | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value. |
 | order.cancellable            | boolean| `true` if order is in a state which it can be cancelled. `false` if not (e.g. swap is in progress) |
-| order.cancellation_reason    | string | Reason for historical orders being cancelled    |
+| order.cancellation_reason    | string | `Cancelled` indicates order was withdrawn by user. `Fulfilled` indicates order was swapped successfully. `TimedOut` indicates a taker order with type `FillOrKill` expired before matching.   |
 | order.available_amount       | string | Funds available for order to be matched against, taking into account current spendable balance and `max_volume` |
 
 
@@ -125,72 +125,134 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 }
 ```
 
-#### Response (Taker order)
+#### Response (Taker order fullfilled)
 
 ```json
 {
+  "type": "Taker",
   "order": {
-    "cancellable": true,
-    "created_at": 1568811351456,
-    "matches": {
-      "15922925-cc46-4219-8cbd-613802e17797": {
-        "connect": {
-          "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
-          "method": "connect",
-          "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-          "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
-        },
-        "connected": {
-          "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-          "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
-          "method": "connected",
-          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
-        },
-        "last_updated": 1560529049477,
-        "reserved": {
-          "base": "BEER",
-          "base_amount": "1",
-          "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-          "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
-          "method": "reserved",
-          "rel": "ETOMIC",
-          "rel_amount": "1",
-          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
-        }
-      }
-    },
+    "created_at": 1640159838631,
     "request": {
-      "action": "Buy",
-      "base": "BEER",
+      "base": "RICK",
+      "rel": "MORTY",
       "base_amount": "1",
       "base_amount_rat": [
         [1, [1]],
         [1, [1]]
       ],
-      "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
-      "method": "request",
-      "rel": "ETOMIC",
-      "rel_amount": "1",
+      "rel_amount": "33",
       "rel_amount_rat": [
+        [1, [33]],
+        [1, [1]]
+      ],
+      "action": "Buy",
+      "uuid": "d1a43d2a-f7c1-4a83-ba32-1ae640cc3b32",
+      "method": "request",
+      "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+      "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+      "match_by": {
+        "type": "Any"
+      },
+      "conf_settings": {
+        "base_confs": 1,
+        "base_nota": false,
+        "rel_confs": 1,
+        "rel_nota": false
+      }
+    },
+    "matches": {
+      "cc9efdb5-e0f1-4196-b3b2-e4930623c976": {
+        "reserved": {
+          "base": "RICK",
+          "rel": "MORTY",
+          "base_amount": "1",
+          "base_amount_rat": [
+            [1, [1]],
+            [1, [1]]
+          ],
+          "rel_amount": "1",
+          "rel_amount_rat": [
+            [1, [1]],
+            [1, [1]]
+          ],
+          "taker_order_uuid": "d1a43d2a-f7c1-4a83-ba32-1ae640cc3b32",
+          "maker_order_uuid": "cc9efdb5-e0f1-4196-b3b2-e4930623c976",
+          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+          "conf_settings": {
+            "base_confs": 1,
+            "base_nota": false,
+            "rel_confs": 1,
+            "rel_nota": false
+          },
+          "method": "reserved"
+        },
+        "connect": {
+          "taker_order_uuid": "d1a43d2a-f7c1-4a83-ba32-1ae640cc3b32",
+          "maker_order_uuid": "cc9efdb5-e0f1-4196-b3b2-e4930623c976",
+          "method": "connect",
+          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920"
+        },
+        "connected": null,
+        "last_updated": 0
+      }
+    },
+    "order_type": {
+      "type": "FillOrKill"
+    },
+    "cancellable": false,
+    "base_orderbook_ticker": null,
+    "rel_orderbook_ticker": null
+  },
+  "cancellation_reason": "Fulfilled"
+}
+```
+
+
+#### Response ('FillOrKill' Taker order after timeout with no match)
+```json
+{
+  "type": "Taker",
+  "order": {
+    "created_at": 1640159991278,
+    "request": {
+      "base": "RICK",
+      "rel": "MORTY",
+      "base_amount": "1",
+      "base_amount_rat": [
         [1, [1]],
         [1, [1]]
       ],
-      "sender_pubkey": "031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
-      "uuid": "ea199ac4-b216-4a04-9f08-ac73aa06ae37",
-      "match_by":{
-        "type":"Any"
-      } 
+      "rel_amount": "0.03",
+      "rel_amount_rat": [
+        [1, [3]],
+        [1, [100]]
+      ],
+      "action": "Buy",
+      "uuid": "6053016b-e1ba-490f-9501-eafb69b4d3a7",
+      "method": "request",
+      "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+      "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+      "match_by": {
+        "type": "Any"
+      },
+      "conf_settings": {
+        "base_confs": 1,
+        "base_nota": false,
+        "rel_confs": 1,
+        "rel_nota": false
+      }
     },
-    "order_type":{
-      "type":"GoodTillCancelled"
-    }
+    "matches": {},
+    "order_type": {
+      "type": "FillOrKill"
+    },
+    "cancellable": true,
+    "base_orderbook_ticker": null,
+    "rel_orderbook_ticker": null
   },
-  "type": "Taker",
-  "base_orderbook_ticker":null,
-  "rel_orderbook_ticker":null
+  "cancellation_reason": "TimedOut"
 }
 ```
 
@@ -236,7 +298,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
           "action": "Sell",
           "uuid": "ca791f47-3a84-414b-b7c1-942a0f2fb4ca",
           "method": "request",
-          "sender_pubkey": "70092b8c94db8605a289f256037f8c4e099e1c35c9733a96fdfb8943a3dee83f",
+          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
           "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
           "match_by": {
             "type": "Any"
@@ -264,7 +326,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
           "taker_order_uuid": "ca791f47-3a84-414b-b7c1-942a0f2fb4ca",
           "maker_order_uuid": "9c034d5f-18d6-494d-8460-7974be2d5beb",
           "sender_pubkey": "caecf84197b88739079e55c92f26fe4bc329220a74d7f9d2094dc16e5a0d765e",
-          "dest_pub_key": "70092b8c94db8605a289f256037f8c4e099e1c35c9733a96fdfb8943a3dee83f",
+          "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
           "conf_settings": {
             "base_confs": 3,
             "base_nota": true,
@@ -284,7 +346,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
           "taker_order_uuid": "ca791f47-3a84-414b-b7c1-942a0f2fb4ca",
           "maker_order_uuid": "9c034d5f-18d6-494d-8460-7974be2d5beb",
           "method": "connected",
-          "sender_pubkey": "caecf84197b88739079e55c92f26fe4bc329220a74d7f9d2094dc16e5a0d765e",
+          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
           "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000"
         },
         "last_updated": 1640147223000
