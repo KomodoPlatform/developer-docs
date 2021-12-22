@@ -12,12 +12,30 @@ The `order_status` method returns the data of the order with the selected `uuid`
 
 #### Response
 
-| Structure | Type   | Description                            |
-| --------- | ------ | -------------------------------------- |
-| type      | string | type of the order ("Maker" or "Taker") |
-| order     | object | order data                             |
-| base_orderbook_ticker            | string                     | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value. |
-| rel_orderbook_ticker            | string                     | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value. |
+| Structure                    | Type   | Description                            |
+| ---------------------------- | ------ | -------------------------------------- |
+| type                         | string | type of the order ("Maker" or "Taker") |
+| order                        | object | order data                             |
+| order.base                   | object | base currency                          |
+| order.rel                    | object | rel currency                           |
+| order.price                  | number | order price as decimal number          |
+| order.price_rat              | rational number | order price as rational number         |
+| order.max_base_vol           | number | Maximum trade volume                   |
+| order.max_base_vol_rat       | rational number | Maximum trade volume as rational number|
+| order.min_base_vol           | number | Minimum trade volume                   |
+| order.min_base_vol_rat       | rational number | Minimum trade volume as rational number|
+| order.created_at             | number | timestamp of order creation                     |
+| order.updated_at             | number | timestamp of last order update                  |
+| order.matches                | list   | UUIDS of matching orders                        |
+| order.started_swaps          | list   | UUIDS of swaps started                          |
+| order.uuid                   | string | UUID of this order                              |
+| order.conf_settings          | object | Confirmation / Notarisation settings for order  |
+| order.base_orderbook_ticker  | string | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value. |
+| order.rel_orderbook_ticker   | string | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value. |
+| order.cancellable            | boolean| `true` if order is in a state which it can be cancelled. `false` if not (e.g. swap is in progress) |
+| order.cancellation_reason    | string | Reason for historical orders being cancelled    |
+| order.available_amount       | string | Funds available for order to be matched against, taking into account current spendable balance and `max_volume` |
+
 
 
 #### :pushpin: Examples
@@ -175,6 +193,118 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "rel_orderbook_ticker":null
 }
 ```
+
+#### Response (Cancelled order from history)
+```json
+{
+  "type": "Maker",
+  "order": {
+    "base": "DGB",
+    "rel": "KMD",
+    "price": "0.05009337477044780336205678768187597118237039129820596129396807458680604605170221782737674812826670434",
+    "price_rat": [
+      [1, [354611]],
+      [1, [7079000]]
+    ],
+    "max_base_vol": "2509.982886480319452367370222475755847119224187107815173987450085567598402738163148887621220764403879",
+    "max_base_vol_rat": [
+      [1, [4400000]],
+      [1, [1753]]
+    ],
+    "min_base_vol": "227.8553118769581315864426089433209911706066647678724010253489034463115921389917402449444602677299915",
+    "min_base_vol_rat": [
+      [1, [800000]],
+      [1, [3511]]
+    ],
+    "created_at": 1640147130806,
+    "updated_at": 1640148500481,
+    "matches": {
+      "ca791f47-3a84-414b-b7c1-942a0f2fb4ca": {
+        "request": {
+          "base": "KMD",
+          "rel": "DGB",
+          "base_amount": "12",
+          "base_amount_rat": [
+            [1, [12]],
+            [1, [1]]
+          ],
+          "rel_amount": "241.1820189434802008438151288032397078840799082760529333024574562419162623621175580193501380942429668",
+          "rel_amount_rat": [
+            [1, [42702000]],
+            [1, [177053]]
+          ],
+          "action": "Sell",
+          "uuid": "ca791f47-3a84-414b-b7c1-942a0f2fb4ca",
+          "method": "request",
+          "sender_pubkey": "70092b8c94db8605a289f256037f8c4e099e1c35c9733a96fdfb8943a3dee83f",
+          "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+          "match_by": {
+            "type": "Any"
+          },
+          "conf_settings": {
+            "base_confs": 2,
+            "base_nota": true,
+            "rel_confs": 7,
+            "rel_nota": false
+          }
+        },
+        "reserved": {
+          "base": "DGB",
+          "rel": "KMD",
+          "base_amount": "241.1820189434802008438151288032397078840799082760529333024574562419162623621175580193501380942429668",
+          "base_amount_rat": [
+            [1, [42702000]],
+            [1, [177053]]
+          ],
+          "rel_amount": "12",
+          "rel_amount_rat": [
+            [1, [12]],
+            [1, [1]]
+          ],
+          "taker_order_uuid": "ca791f47-3a84-414b-b7c1-942a0f2fb4ca",
+          "maker_order_uuid": "9c034d5f-18d6-494d-8460-7974be2d5beb",
+          "sender_pubkey": "caecf84197b88739079e55c92f26fe4bc329220a74d7f9d2094dc16e5a0d765e",
+          "dest_pub_key": "70092b8c94db8605a289f256037f8c4e099e1c35c9733a96fdfb8943a3dee83f",
+          "conf_settings": {
+            "base_confs": 3,
+            "base_nota": true,
+            "rel_confs": 3,
+            "rel_nota": true
+          },
+          "method": "reserved"
+        },
+        "connect": {
+          "taker_order_uuid": "ca791f47-3a84-414b-b7c1-942a0f2fb4ca",
+          "maker_order_uuid": "9c034d5f-18d6-494d-8460-7974be2d5beb",
+          "method": "connect",
+          "sender_pubkey": "0000000000000000000000000000000000000000000000000000000000000000",
+          "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "connected": {
+          "taker_order_uuid": "ca791f47-3a84-414b-b7c1-942a0f2fb4ca",
+          "maker_order_uuid": "9c034d5f-18d6-494d-8460-7974be2d5beb",
+          "method": "connected",
+          "sender_pubkey": "caecf84197b88739079e55c92f26fe4bc329220a74d7f9d2094dc16e5a0d765e",
+          "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "last_updated": 1640147223000
+      }
+    },
+    "started_swaps": ["ca791f47-3a84-414b-b7c1-942a0f2fb4ca"],
+    "uuid": "9c034d5f-18d6-494d-8460-7974be2d5beb",
+    "conf_settings": {
+      "base_confs": 3,
+      "base_nota": true,
+      "rel_confs": 3,
+      "rel_nota": true
+    },
+    "base_orderbook_ticker": null,
+    "rel_orderbook_ticker": null
+  },
+  "cancellation_reason": "Cancelled"
+}
+```
+
 
 #### Response (No order found)
 
