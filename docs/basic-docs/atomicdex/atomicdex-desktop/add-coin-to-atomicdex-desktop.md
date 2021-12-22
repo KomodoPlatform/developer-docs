@@ -12,7 +12,7 @@ Once these steps are complete, you can submit a PR to the [AtomicDEX-Desktop rep
 
 Here is an [actual example](https://github.com/KomodoPlatform/atomicDEX-Desktop/pull/1504) of the files that need to be modified:
 1) Add information to [0.x.x-coins.json](https://github.com/KomodoPlatform/atomicDEX-Desktop/blob/dev/assets/config/0.5.4-coins.json). Note: This filename changes depending on the current version of the Desktop app.
-2) Add [pair endpoint entries](https://github.com/KomodoPlatform/atomicDEX-Desktop/blob/dev/atomic_defi_design/Dex/Constants/General.qml#L487) (optional) if available. This is used to show price graphs.
+2) Add [TradingView IDs](https://github.com/KomodoPlatform/atomicDEX-Desktop/blob/dev/atomic_defi_design/Dex/Constants/General.qml#L487) (optional) if available. This is used to show price graphs.
 3) Add an entry to the [Style.qml file](https://github.com/KomodoPlatform/atomicDEX-Desktop/blob/dev/atomic_defi_design/Dex/Constants/Style.qml#L278), to define the text color used to display the coin name. Be sure to check that this color works well and is readable within both lite and dark themes.
 4) Add a coin icon to the [atomic_defi_design/assets/images/](https://github.com/KomodoPlatform/atomicDEX-Desktop/tree/dev/atomic_defi_design/assets/images/coins) folder. This should be in PNG format, optimised for filesize (less than 500kb), and at least 128 x 128 pixels in size.
 5) Add a reference to the icon image file into [qml.qrc](https://github.com/KomodoPlatform/atomicDEX-Desktop/blob/dev/atomic_defi_design/qml.qrc#L162)
@@ -37,6 +37,47 @@ Here is an [actual example](https://github.com/KomodoPlatform/atomicDEX-Desktop/
 | currently_enabled      | boolean  | This is used to define the coins that are loaded by default. Must be set to `false` unless you have forked the project or have made an arrangement with the developers. After installing the Desktop app, your local copy of this file will set enabled coins to `true` so they will auto load on your computer.   |
 
 <!-- Add a form on stats.kmd.io to assist with generating this? -->
+
+
+
+## Add TradingView IDs (optional)
+
+Simply search for the coin on [https://www.tradingview.com/markets/cryptocurrencies/](https://www.tradingview.com/markets/cryptocurrencies/), and click on a result to see it's graph. 
+
+The URL of the graph will be something like [https://www.tradingview.com/chart/?symbol=BINANCE%3AKMDBTC](https://www.tradingview.com/chart/?symbol=BINANCE%3AKMDBTC). Substitute `%3A` for `:` and we end up with `BINANCE:KMDBTC`, which represents the exchange and pair displayed on the graph.
+
+For each graph available for the coin on Trading View, you can PR to add its ID to [Constants/General.qml](https://github.com/KomodoPlatform/atomicDEX-Desktop/blob/dev/atomic_defi_design/Dex/Constants/General.qml#L487)
+
+The format looks like `"KMD/BTC": "BINANCE:KMDBTC"`. Only one graph ID per pair is required.
+
+
+## Update Style.qml 
+
+This is the easy bit! Just add a key/value entry with the coins ticker as key and a [hex color](https://www.color-hex.com/) as the value. Make sure the color you choose has good contrast against the lite and dark theme backgrounds.
+
+By default, Network tokens will use the [same color](https://github.com/KomodoPlatform/atomicDEX-Desktop/blob/dev/atomic_defi_design/Dex/Constants/Style.qml#L241) as thier parent chain. For example, a QRC-20 token will use the same hex color as QTUM. 
+
+## Upload a Coin Icon
+
+Generally the best quality icon image would be sourced directly from the project developing the coin. Alternatively, it could be sourced from a 3rd party such as [http://cryptoicons.co/](http://cryptoicons.co/), a block explorer, [CoinPaprika](https://coinpaprika.com), [CoinGecko](https://www.coingecko.com), or [Nomics](https://nomics.com)
+
+If you have [created a new smart chain]() and need a designer to help with creating an icon, there is much talent within the [Komodian community](https://discord.gg/53dxfFWj3x)
+
+## Update qml.qrc
+
+This file defines resources such as images to be used in the Desktop app. To make sure the app is aware of the icon you;ve uploaded, all you need to do is add an entry into this file with the path to your icon (relative to the qml.qrc file).
+
+For example, `<file>assets/images/coins/minds.png</file>`
+
+## Submit the Pull Request
+
+If you are new to Github, you'll need to make an account first, and might want to read their [Pull Request Guide](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
+
+Next, fork the [AtomicDEX-Desktop repository](https://github.com/KomodoPlatform/atomicDEX-Desktop/), and once you have made the required updates in your fork, make the [pull request](https://github.com/KomodoPlatform/atomicDEX-Desktop/compare)
+
+The Komodo Platform Team will review your updates, and if anything needs fixing they will leave a comment detailing any changes that are needed before it is approved. Once approved, your updates will be merged into the `dev` branch, and upon release of the next version of [AtomicDEX-Desktop](https://github.com/KomodoPlatform/atomicDEX-Desktop), your coin will be available in the app.
+
+Check out the examples below, and if you need any more information just drop into the [Komodo Platform Discord](https://discord.gg/kyXsDu46dQ) and ask!
 
 <div style="margin-top: 0.5rem;">
 
@@ -217,34 +258,3 @@ Here is an [actual example](https://github.com/KomodoPlatform/atomicDEX-Desktop/
 </collapse-text>
 
 </div>
-
-## Add Price Data Endpoints
-
-<!-- Get info from Cipi for this -->
-
-
-## Update Style.qml 
-
-This is the easy bit! Just add a key/value entry with the coins ticker as key and a [hex color](https://www.color-hex.com/) as the value. Make sure the color you choose has good contrast against the lite and dark theme backgrounds.
-
-By default, Network tokens will use the [same color](https://github.com/KomodoPlatform/atomicDEX-Desktop/blob/dev/atomic_defi_design/Dex/Constants/Style.qml#L241) as thier parent chain. For example, a QRC-20 token will use the same hex color as QTUM. 
-
-## Upload a Coin Icon
-
-Generally the best quality icon image would be sourced directly from the project developing the coin. Alternatively, it could be sourced from a 3rd party such as [http://cryptoicons.co/](http://cryptoicons.co/), a block explorer, [CoinPaprika](https://coinpaprika.com), [CoinGecko](https://www.coingecko.com), or [Nomics](https://nomics.com)
-
-If you have [created a new smart chain]() and need a designer to help with creating an icon, there is much talent within the [Komodian community](https://discord.gg/53dxfFWj3x)
-
-## Update qml.qrc
-
-This file defines resources such as images to be used in the Desktop app. To make sure the app is aware of the icon you;ve uploaded, all you need to do is add an entry into this file with the path to your icon (relative to the qml.qrc file).
-
-e.g. `<file>assets/images/coins/minds.png</file>`
-
-## Submit the Pull Request
-
-If you are new to Github, you'll need to make an account first, and might want to read their [Pull Request Guide](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
-
-Next, fork the [AtomicDEX-Desktop repository](https://github.com/KomodoPlatform/atomicDEX-Desktop/), and once you have made the required updates in your fork, make the [pull request](https://github.com/KomodoPlatform/atomicDEX-Desktop/compare)
-
-The Komodo Platform Team will review your updates, and if anything needs fixing they will leave a comment detailing any changes that are needed before it is approved. Once approved, your updates will be merged into the `dev` branch, and upon release of the next version of [AtomicDEX-Desktop](https://github.com/KomodoPlatform/atomicDEX-Desktop), your coin will be available in the app!
