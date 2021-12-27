@@ -24,7 +24,6 @@ Here is an [actual example](https://github.com/KomodoPlatform/atomicDEX-Desktop/
 | coin                   | string   | Ticker of the coin. Must match the "coin" field for an entry in the [coins repository](https://github.com/KomodoPlatform/coins/blob/master/coins#L5138) If the coin is on more than one network, use COIN-NETWORK as ticker, eg BTC-BEP20. |
 | name                   | string   | Full name of the coin. Should match the "fname" field for an entry in the [coins repository](https://github.com/KomodoPlatform/coins/blob/master/coins#L5138). Coins on more than one network share the same name. |
 | type                   | string   | Defines the category or network the coin is from. For example, `ERC20` for tokens on the Ethereum network; `Smart Chain` for Komodo Platform Antara smart chains; `UTXO` for Bitcoin forks (LTC, DOGE etc) |
-| asset                  | string   | (required for Smart Chains) Should match the "asset" value in the [coins repository](https://github.com/KomodoPlatform/coins/blob/master/coins#L7342) |
 | coinpaprika_id         | string   | (optional) This is the coin's ID on [CoinPaprika](https://coinpaprika.com/coin/minds-minds/), used to retrieve pricing info. |
 | coingecko_id           | string   | (optional) This is the coin's ID on [Coinecko](https://www.coingecko.com/en/coins/minds), used to retrieve pricing info. |
 | nomics_id              | string   | (optional) This is the coin's ID on [Nomics](https://nomics.com/assets/minds-minds), used to retrieve pricing info. |
@@ -49,6 +48,7 @@ Check out the examples below, and if you need any more information just drop int
   "TKL": {
     "coin": "TKL",
     "name": "Tokel",
+    "type": "Smart Chain",
     "coinpaprika_id": "tkl-tokel",
     "coingecko_id": "test-coin",
     "nomics_id": "TKL2",
@@ -63,7 +63,6 @@ Check out the examples below, and if you need any more information just drop int
     "explorer_url": [
       "https://tokel.explorer.dexstats.info/"
     ],
-    "type": "Smart Chain",
     "active": false,
     "currently_enabled": false
   }
@@ -81,11 +80,11 @@ Check out the examples below, and if you need any more information just drop int
 ```json
   "BCH": {
     "coin": "BCH",
+    "name": "Bitcoin Cash",
+    "type": "UTXO",
     "coingecko_id": "bitcoin-cash",
     "coinpaprika_id": "bch-bitcoin-cash",
     "nomics_id": "BCH",
-    "active": false,
-    "currently_enabled": false,
     "electrum": [
       {
         "url": "electrum1.cipig.net:10055",
@@ -103,8 +102,8 @@ Check out the examples below, and if you need any more information just drop int
     "explorer_url": [
       "https://explorer.bitcoin.com/bch/"
     ],
-    "type": "UTXO",
-    "name": "Bitcoin Cash"
+    "active": false,
+    "currently_enabled": false,
   }
 ```
 
@@ -120,6 +119,7 @@ Check out the examples below, and if you need any more information just drop int
   "BAT-ERC20": {
     "coin": "BAT-ERC20",
     "name": "Basic Attention Token",
+    "type": "ERC-20",
     "coinpaprika_id": "bat-basic-attention-token",
     "coingecko_id": "basic-attention-token",
     "nomics_id": "BAT",
@@ -131,7 +131,6 @@ Check out the examples below, and if you need any more information just drop int
     "explorer_url": [
       "https://etherscan.io/"
     ],
-    "type": "ERC-20",
     "active": false,
     "currently_enabled": false
   }
@@ -149,6 +148,7 @@ Check out the examples below, and if you need any more information just drop int
   "BTC-BEP20": {
     "coin": "BTC-BEP20",
     "name": "Bitcoin",
+    "type": "BEP-20",
     "coinpaprika_id": "btc-bitcoin",
     "coingecko_id": "bitcoin",
     "nomics_id": "BTC",
@@ -160,7 +160,6 @@ Check out the examples below, and if you need any more information just drop int
     "explorer_url": [
       "https://bscscan.com/"
     ],
-    "type": "BEP-20",
     "active": false,
     "currently_enabled": false
   }
@@ -178,13 +177,13 @@ Check out the examples below, and if you need any more information just drop int
   "DIMI-QRC20": {
     "coin": "DIMI-QRC20",
     "name": "DiminutiveCoin",
+    "type": "QRC-20",
     "coinpaprika_id": "dimi-diminutive-coin",
     "coingecko_id": "diminutive-coin",
     "nomics_id": "DIMI",
     "explorer_url": [
       "https://explorer.qtum.org/"
     ],
-    "type": "QRC-20",
     "active": false,
     "currently_enabled": false
   }
@@ -202,6 +201,7 @@ Check out the examples below, and if you need any more information just drop int
   "COMP-PLG20": {
     "coin": "COMP-PLG20",
     "name": "Compound",
+    "type": "Matic",
     "coinpaprika_id": "comp-compoundd",
     "coingecko_id": "compound-governance-token",
     "nomics_id": "COMP",
@@ -211,7 +211,6 @@ Check out the examples below, and if you need any more information just drop int
     "explorer_url": [
       "https://polygonscan.com/"
     ],
-    "type": "Matic",
     "active": false,
     "currently_enabled": false
   }
