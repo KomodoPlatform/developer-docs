@@ -3,7 +3,7 @@
 Before a coin can be listed in AtomicDEX, it needs to be confirmed for compatibility, and present within the [Komodo Platform coins repository](https://github.com/KomodoPlatform/coins).
 
 This involves:
-- Setting up two operational [electrum servers](https://electrumx.readthedocs.io/en/latest/)
+- Setting up two operational [electrum servers](https://electrumx-spesmilo.readthedocs.io/en/latest/)
 - Setting up a [block explorer](https://github.com/gcharang/komodo-install-explorer)
 - Performing a [test swap](https://github.com/KomodoPlatform/coins/tree/master/swaps)
 - Submitting a Pull Request (PR) to the [coins repository](https://github.com/KomodoPlatform/coins)
