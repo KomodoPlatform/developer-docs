@@ -333,5 +333,15 @@ let atomicDEXsidebar = {
       ],
     },
   ],
+  "/basic-docs/atomicdex-desktop/": [
+    title: "AtomicDEX Desktop",
+    collapsable: false,
+    children: [
+      [
+        "/basic-docs/atomicdex/atomicdex-desktop/add-coin-to-atomicdex-desktop.md",
+        "List a new coin on AtomicDEX Desktop",
+      ]
+    ]
+  ]
 };
 module.exports = atomicDEXsidebar;
