@@ -32,6 +32,10 @@ var navbar = [
         text: "API 2.0 (Dev)",
         link: "/basic-docs/atomicdex-api-20-dev/",
       },
+      {
+        text: "Desktop App",
+        link: "/basic-docs/atomicdex-desktop/",
+      },
     ],
   },
   {
