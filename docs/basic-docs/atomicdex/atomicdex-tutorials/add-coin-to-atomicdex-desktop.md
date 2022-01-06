@@ -25,7 +25,7 @@ Here is an [actual example](https://github.com/KomodoPlatform/atomicDEX-Desktop/
 | name                   | string   | Full name of the coin. Should match the "fname" field for an entry in the [coins repository](https://github.com/KomodoPlatform/coins/blob/master/coins#L5138). Coins on more than one network share the same name. |
 | type                   | string   | Defines the category or network the coin is from. For example, `ERC20` for tokens on the Ethereum network; `Smart Chain` for Komodo Platform Antara smart chains; `UTXO` for Bitcoin forks (LTC, DOGE etc) |
 | coinpaprika_id         | string   | (optional) This is the coin's ID on [CoinPaprika](https://coinpaprika.com/coin/minds-minds/), used to retrieve pricing info. |
-| coingecko_id           | string   | (optional) This is the coin's ID on [Coinecko](https://www.coingecko.com/en/coins/minds), used to retrieve pricing info. |
+| coingecko_id           | string   | (optional) This is the coin's ID on [CoinGecko](https://www.coingecko.com/en/coins/minds), used to retrieve pricing info. |
 | nomics_id              | string   | (optional) This is the coin's ID on [Nomics](https://nomics.com/assets/minds-minds), used to retrieve pricing info. |
 | nodes                  | list     | (required for ERC20) A list of nodes to be used for communicating with the coin's blockchain  |
 | electrum               | list     | (required for UTXO) A list of electrum servers to be used for communicating with the coin's blockchain. `url` is for standard TCP, `url_ws` is for websockets. `protocol` defaults to TCP, but can be set to `SSL` if the electrum server supports it.  |
@@ -235,13 +235,13 @@ The format looks like `"KMD/BTC": "BINANCE:KMDBTC"`. Only one graph ID per pair 
 
 This is the easy bit! Just add a key/value entry with the coins ticker as key and a [hex color](https://www.color-hex.com/) as the value. Make sure the color you choose has good contrast against the lite and dark theme backgrounds.
 
-By default, Network tokens will use the [same color](https://github.com/KomodoPlatform/atomicDEX-Desktop/blob/dev/atomic_defi_design/Dex/Constants/Style.qml#L241) as thier parent chain. For example, a QRC-20 token will use the same hex color as QTUM. 
+By default, Network tokens will use the [same color](https://github.com/KomodoPlatform/atomicDEX-Desktop/blob/dev/atomic_defi_design/Dex/Constants/Style.qml#L241) as their parent chain. For example, a QRC-20 token will use the same hex color as QTUM. 
 
 ## Upload a Coin Icon
 
 Generally the best quality icon image would be sourced directly from the project developing the coin. Alternatively, it could be sourced from a 3rd party such as [http://cryptoicons.co/](http://cryptoicons.co/), a block explorer, [CoinPaprika](https://coinpaprika.com), [CoinGecko](https://www.coingecko.com), or [Nomics](https://nomics.com)
 
-If you have [created a new smart chain]() and need a designer to help with creating an icon, there is much talent within the [Komodian community](https://discord.gg/53dxfFWj3x)
+If you have [created a new smart chain](../smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html) and need a designer to help with creating an icon, there is much talent within the [Komodian community](https://discord.gg/53dxfFWj3x)
 
 ## Update qml.qrc
 

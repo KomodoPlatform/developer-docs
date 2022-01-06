@@ -39,6 +39,10 @@ let atomicDEXsidebar = {
               "How to Become a Liquidity Provider",
             ],
             [
+              "/basic-docs/atomicdex/atomicdex-tutorials/add-coin-to-atomicdex-desktop.md",
+              "List a new coin on AtomicDEX Desktop",
+            ],
+            [
               "/basic-docs/atomicdex/atomicdex-tutorials/atomicdex-metrics.md",
               "DEX Metrics",
             ],
@@ -332,16 +336,6 @@ let atomicDEXsidebar = {
         ],
       ],
     },
-  ],
-  "/basic-docs/atomicdex-desktop/": [
-    title: "AtomicDEX Desktop",
-    collapsable: false,
-    children: [
-      [
-        "/basic-docs/atomicdex/atomicdex-desktop/add-coin-to-atomicdex-desktop.md",
-        "List a new coin on AtomicDEX Desktop",
-      ]
-    ]
-  ]
+  ],  
 };
 module.exports = atomicDEXsidebar;
