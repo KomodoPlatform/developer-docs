@@ -241,7 +241,7 @@ By default, Network tokens will use the [same color](https://github.com/KomodoPl
 
 Generally the best quality icon image would be sourced directly from the project developing the coin. Alternatively, it could be sourced from a 3rd party such as [http://cryptoicons.co/](http://cryptoicons.co/), a block explorer, [CoinPaprika](https://coinpaprika.com), [CoinGecko](https://www.coingecko.com), or [Nomics](https://nomics.com)
 
-If you have [created a new smart chain](../smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html) and need a designer to help with creating an icon, there is much talent within the [Komodian community](https://discord.gg/53dxfFWj3x)
+If you have [created a new smart chain](../../smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html) and need a designer to help with creating an icon, there is much talent within the [Komodian community](https://discord.gg/53dxfFWj3x)
 
 ## Update qml.qrc
 
