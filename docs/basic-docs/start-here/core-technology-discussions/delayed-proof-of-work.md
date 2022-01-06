@@ -681,9 +681,9 @@ The PoS consensus mechanism does not require high electrical costs to maintain a
 
 There are also various members of the Komodo ecosystem who mine for profit, and can be motivated to assist Smart Chain developers in securing a network in exchange for block rewards.
 
-This combination of options available to a blockchain entrepreneur dramatically reduces the overhead costs and effort the entrepreneur and developer would otherwise have to allocate to a network of high-hash rate miners. These freed resources of the entrepreneur and developer can therefore be allocated to other uses in their business models.
+This combination of options available to a blockchain entrepreneur dramatically reduces the overhead costs and effort the entrepreneur and developer would otherwise have to allocate to a network of high-hash rate miners. These freed resources of the entrepreneur and developer can therefore be allocated to other uses in their business models. The total yearly cost for the Komodo notary nodes to notarize the KMD main chain into the currently chosen PoW chain, Litecoin, is approximately ~180 LTC/year.
 
-<!-- The total yearly cost for the Komodo notary nodes to notarize the KMD main chain into the currently chosen PoW chain, Litecoin, is approximately ~180 LTC/year (a value of ~\$1.5M USD at the time of the writing of this paper). Funding for the notary nodes to perform this service was raised during the Komodo ICO, and current LTC holdings give us many years to come before we will be required to implement any business models to replenish our LTC funds.
+<!--  (a value of ~\$1.5M USD at the time of the writing of this paper). Funding for the notary nodes to perform this service was raised during the Komodo ICO, and current LTC holdings give us many years to come before we will be required to implement any business models to replenish our LTC funds.
 
 On the other hand, the total cost for the Smart Chain developer to notarize their independent chain into the KMD main chain is but a fraction of the cost. -->
 
