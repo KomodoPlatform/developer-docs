@@ -16,7 +16,7 @@ Our dPoW technology is a key feature that provides the necessary security to pro
 
 After creating a blockchain, the entrepreneur then uses our software to release the project to the world. AtomicDEX — our decentralized exchange — is a useful software solution to conduct an Initial DEX Offering (IDO). Because AtomicDEX relies on atomic swaps, enabling you to trade value across any supported blockchain protocol. No third-party manipulators can prevent the entrepreneur from their crowdsourcing and innovative endeavors.
 
-Through [the privacy technology](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem) available on Komodo Smart Chains,  IDO participants can purchase the product within their inherent right to barter in private if they take some precautions.
+Through [the privacy technology](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem) available on Komodo Smart Chains, IDO participants can purchase the product within their inherent right to barter in private if they take some precautions.
 
 Do note that, ERC20 tokens, ETH forks/clones, QRC20 tokens, QTUM forks/clones, and most UTXO type blockchains can also be distributed through an IDO using AtomicDEX. While these types of coins/tokens don't receive other benefits of the Komodo Ecosystem like the dPoW service and UTXO smart contracts (CC modules), they can still be traded on AtomicDEX.
 
@@ -132,7 +132,7 @@ Komodod now begins the automated process of creating a new Smart Chain in the Ko
 
 #### The Features of the New Smart Chain
 
-There are several primary differences between a Smart Chain and the main Komodo chain. For example, unlike the main Komodo chain, the Smart Chain will not automatically generate 5.1% rewards for all wallet addresses holding coins. Furthermore, the Smart Chain’s dPoW consensus mechanism is built to notarize to the KMD main chain (as opposed to BTC).
+There are several primary differences between a Smart Chain and the main Komodo chain. For example, unlike the main Komodo chain, the Smart Chain will not automatically generate 5.1% rewards for all wallet addresses holding coins. Furthermore, the Smart Chain’s dPoW consensus mechanism is built to notarize to the KMD main chain (as opposed to LTC).
 
 Some of the differences reveal strong advantages held by members of the Komodo ecosystem. By design, this Smart Chain is capable of automatically adopting any updates that the Komodo core development team add to the framework. The Smart Chain also has a built-in capacity within the framework to allow the entrepreneur to code new rules.
 
@@ -241,7 +241,7 @@ Komodo’s IDO model provides greater ease-of-use, flexibility, and security.
 
 #### Ways an IDO can be Conducted
 
-At this point, let us assume that the Entrepreneur has created their coin using one of the following processes: creating a Komodo Smart Chain, cloning/forking ETH or QTUM, cloning/forking any other [compatible UTXO-based blockchain](https://github.com/KomodoPlatform/coins#prerequisites-for-a-coin-to-be-compatible-with-atomicdex-api)  or minting a new ERC20/QRC20 token. There are several ways an IDO can be conducted using AtomicDEX, and all the coins/tokens can be distributed in return for any coin/token already available on AtomicDEX. The entrepreneur can decide the available pairs, prices, and volumes available on each pair.
+At this point, let us assume that the Entrepreneur has created their coin using one of the following processes: creating a Komodo Smart Chain, cloning/forking ETH or QTUM, cloning/forking any other [compatible UTXO-based blockchain](https://github.com/KomodoPlatform/coins#prerequisites-for-a-coin-to-be-compatible-with-atomicdex-api) or minting a new ERC20/QRC20 token. There are several ways an IDO can be conducted using AtomicDEX, and all the coins/tokens can be distributed in return for any coin/token already available on AtomicDEX. The entrepreneur can decide the available pairs, prices, and volumes available on each pair.
 
 ##### The Straightforward Method
 
