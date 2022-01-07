@@ -2,22 +2,35 @@
 
 **order_status uuid**
 
-The `order_status` method returns the data of the order with the selected `uuid` created by the AtomicDEX API node.
+The `order_status` method returns the data of the order with the selected `uuid` created by the AtomicDEX API node. The response is different for `maker` and `taker` orders.
 
-#### Arguments
+#### Argument
 
 | Structure | Type   | Description              |
 | --------- | ------ | ------------------------ |
 | uuid      | string | uuid of order to display |
 
-#### Response
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"order_status\",\"uuid\":\"c3b3105c-e914-4ed7-9f1c-604783b054a1\"}"
+```
+
+#### Response (No order found)
+
+```json
+{ "error": "Order with uuid c3b3105c-e914-4ed7-9f1c-604783b054a1 is not found" }
+```
+
+#### Maker Order Response
 
 | Structure                    | Type   | Description                            |
 | ---------------------------- | ------ | -------------------------------------- |
 | type                         | string | type of the order ("Maker" or "Taker") |
 | order                        | object | order data                             |
-| order.base                   | object | base currency                          |
-| order.rel                    | object | rel currency                           |
+| order.base                   | string | base currency                          |
+| order.rel                    | string | rel currency                           |
 | order.price                  | number | order price as decimal number          |
 | order.price_rat              | rational number | order price as rational number         |
 | order.max_base_vol           | number | Maximum trade volume                   |
@@ -36,21 +49,11 @@ The `order_status` method returns the data of the order with the selected `uuid`
 | order.cancellation_reason    | string | `Cancelled` indicates order was withdrawn by user. `Fulfilled` indicates order was swapped successfully. `TimedOut` indicates a taker order with type `FillOrKill` expired before matching.   |
 | order.available_amount       | string | Funds available for order to be matched against, taking into account current spendable balance and `max_volume` |
 
-
-
-#### :pushpin: Examples
-
-#### Command
-
-```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"order_status\",\"uuid\":\"c3b3105c-e914-4ed7-9f1c-604783b054a1\"}"
-```
+#### :pushpin: Maker Order Examples
 
 <div style="margin-top: 0.5rem;">
 
 <collapse-text hidden title="Response">
-
-#### Response (Maker order)
 
 ```json
 {
@@ -125,138 +128,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 }
 ```
 
-#### Response (Taker order fullfilled)
+#### Maker Order Response (Cancelled order from history)
 
-```json
-{
-  "type": "Taker",
-  "order": {
-    "created_at": 1640159838631,
-    "request": {
-      "base": "RICK",
-      "rel": "MORTY",
-      "base_amount": "1",
-      "base_amount_rat": [
-        [1, [1]],
-        [1, [1]]
-      ],
-      "rel_amount": "33",
-      "rel_amount_rat": [
-        [1, [33]],
-        [1, [1]]
-      ],
-      "action": "Buy",
-      "uuid": "d1a43d2a-f7c1-4a83-ba32-1ae640cc3b32",
-      "method": "request",
-      "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-      "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
-      "match_by": {
-        "type": "Any"
-      },
-      "conf_settings": {
-        "base_confs": 1,
-        "base_nota": false,
-        "rel_confs": 1,
-        "rel_nota": false
-      }
-    },
-    "matches": {
-      "cc9efdb5-e0f1-4196-b3b2-e4930623c976": {
-        "reserved": {
-          "base": "RICK",
-          "rel": "MORTY",
-          "base_amount": "1",
-          "base_amount_rat": [
-            [1, [1]],
-            [1, [1]]
-          ],
-          "rel_amount": "1",
-          "rel_amount_rat": [
-            [1, [1]],
-            [1, [1]]
-          ],
-          "taker_order_uuid": "d1a43d2a-f7c1-4a83-ba32-1ae640cc3b32",
-          "maker_order_uuid": "cc9efdb5-e0f1-4196-b3b2-e4930623c976",
-          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
-          "conf_settings": {
-            "base_confs": 1,
-            "base_nota": false,
-            "rel_confs": 1,
-            "rel_nota": false
-          },
-          "method": "reserved"
-        },
-        "connect": {
-          "taker_order_uuid": "d1a43d2a-f7c1-4a83-ba32-1ae640cc3b32",
-          "maker_order_uuid": "cc9efdb5-e0f1-4196-b3b2-e4930623c976",
-          "method": "connect",
-          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920"
-        },
-        "connected": null,
-        "last_updated": 0
-      }
-    },
-    "order_type": {
-      "type": "FillOrKill"
-    },
-    "cancellable": false,
-    "base_orderbook_ticker": null,
-    "rel_orderbook_ticker": null
-  },
-  "cancellation_reason": "Fulfilled"
-}
-```
-
-
-#### Response ('FillOrKill' Taker order after timeout with no match)
-```json
-{
-  "type": "Taker",
-  "order": {
-    "created_at": 1640159991278,
-    "request": {
-      "base": "RICK",
-      "rel": "MORTY",
-      "base_amount": "1",
-      "base_amount_rat": [
-        [1, [1]],
-        [1, [1]]
-      ],
-      "rel_amount": "0.03",
-      "rel_amount_rat": [
-        [1, [3]],
-        [1, [100]]
-      ],
-      "action": "Buy",
-      "uuid": "6053016b-e1ba-490f-9501-eafb69b4d3a7",
-      "method": "request",
-      "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-      "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
-      "match_by": {
-        "type": "Any"
-      },
-      "conf_settings": {
-        "base_confs": 1,
-        "base_nota": false,
-        "rel_confs": 1,
-        "rel_nota": false
-      }
-    },
-    "matches": {},
-    "order_type": {
-      "type": "FillOrKill"
-    },
-    "cancellable": true,
-    "base_orderbook_ticker": null,
-    "rel_orderbook_ticker": null
-  },
-  "cancellation_reason": "TimedOut"
-}
-```
-
-#### Response (Cancelled order from history)
 ```json
 {
   "type": "Maker",
@@ -366,12 +239,176 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "cancellation_reason": "Cancelled"
 }
 ```
+</collapse-text>
+
+</div>
 
 
-#### Response (No order found)
+#### Response: Taker Orders
+
+| Structure                    | Type   | Description                                     |
+| ---------------------------- | ------ | ----------------------------------------------- |
+| type                         | string | type of the order ("Maker" or "Taker")          |
+| order                        | object | order data                                      |
+| order.created_at             | number | timestamp of order creation                     |
+| order.request                | object | details of requested trade                      |
+| order.request.base           | string | base currency                                   |
+| order.request.base_amount    | number | base currency amount                            |
+| order.request.base_amount_rat| rational number | base currency amount as rational number|
+| order.request.rel            | string | rel currency                                    |
+| order.request.rel_amount     | number | rel currency amount                             |
+| order.request.rel_amount_rat | rational number | rel currency amount as rational number |
+| order.request.action         | string | `buy` or `sell`                                 |
+| order.request.uuid           | string | Taker order UUID                                |
+| order.request.method         | string | `request`                                       | <!-- are there other possible values? -->
+| order.request.sender_pubkey  | string | Pubkey of Taker                                 |
+| order.request.dest_pub_key   | string | `null` pubkey                                   | <!-- are there other possible values? -->
+| order.request.match_by.type  | string | `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Defaults to `Any`    | 
+| order.request.conf_settings  | object | base/rel confirmation/notarisation settings     |
+| order.matches                | object | Details of matching Maker Order UUIDs           |
+| order.order_type             | object | `FillOrKill`  or `GoodTillCancelled`            |
+| order.matches                | list   | UUIDS of matching orders                        |
+| order.base_orderbook_ticker  | string | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value. |
+| order.rel_orderbook_ticker   | string | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value. |
+| order.cancellable            | boolean| `true` if order is in a state which it can be cancelled. `false` if not (e.g. swap is in progress) |
+| cancellation_reason          | string | `Cancelled` indicates order was withdrawn by user. `Fulfilled` indicates order was swapped successfully. `TimedOut` indicates a taker order with type `FillOrKill` expired before matching.   |
+
+
+#### :pushpin: Taker Order Examples
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+
+#### Response: Taker Order Fullfilled
 
 ```json
-{ "error": "Order with uuid c3b3105c-e914-4ed7-9f1c-604783b054a1 is not found" }
+{
+  "type": "Taker",
+  "order": {
+    "created_at": 1640159838631,
+    "request": {
+      "base": "RICK",
+      "rel": "MORTY",
+      "base_amount": "1",
+      "base_amount_rat": [
+        [1, [1]],
+        [1, [1]]
+      ],
+      "rel_amount": "33",
+      "rel_amount_rat": [
+        [1, [33]],
+        [1, [1]]
+      ],
+      "action": "Buy",
+      "uuid": "d1a43d2a-f7c1-4a83-ba32-1ae640cc3b32",
+      "method": "request",
+      "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+      "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+      "match_by": {
+        "type": "Any"
+      },
+      "conf_settings": {
+        "base_confs": 1,
+        "base_nota": false,
+        "rel_confs": 1,
+        "rel_nota": false
+      }
+    },
+    "matches": {
+      "cc9efdb5-e0f1-4196-b3b2-e4930623c976": {
+        "reserved": {
+          "base": "RICK",
+          "rel": "MORTY",
+          "base_amount": "1",
+          "base_amount_rat": [
+            [1, [1]],
+            [1, [1]]
+          ],
+          "rel_amount": "1",
+          "rel_amount_rat": [
+            [1, [1]],
+            [1, [1]]
+          ],
+          "taker_order_uuid": "d1a43d2a-f7c1-4a83-ba32-1ae640cc3b32",
+          "maker_order_uuid": "cc9efdb5-e0f1-4196-b3b2-e4930623c976",
+          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+          "conf_settings": {
+            "base_confs": 1,
+            "base_nota": false,
+            "rel_confs": 1,
+            "rel_nota": false
+          },
+          "method": "reserved"
+        },
+        "connect": {
+          "taker_order_uuid": "d1a43d2a-f7c1-4a83-ba32-1ae640cc3b32",
+          "maker_order_uuid": "cc9efdb5-e0f1-4196-b3b2-e4930623c976",
+          "method": "connect",
+          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920"
+        },
+        "connected": null,
+        "last_updated": 0
+      }
+    },
+    "order_type": {
+      "type": "FillOrKill"
+    },
+    "cancellable": false,
+    "base_orderbook_ticker": null,
+    "rel_orderbook_ticker": null
+  },
+  "cancellation_reason": "Fulfilled"
+}
+```
+
+#### Response: 'FillOrKill' Taker order after timeout with no match
+```json
+{
+  "type": "Taker",
+  "order": {
+    "created_at": 1640159991278,
+    "request": {
+      "base": "RICK",
+      "rel": "MORTY",
+      "base_amount": "1",
+      "base_amount_rat": [
+        [1, [1]],
+        [1, [1]]
+      ],
+      "rel_amount": "0.03",
+      "rel_amount_rat": [
+        [1, [3]],
+        [1, [100]]
+      ],
+      "action": "Buy",
+      "uuid": "6053016b-e1ba-490f-9501-eafb69b4d3a7",
+      "method": "request",
+      "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+      "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+      "match_by": {
+        "type": "Any"
+      },
+      "conf_settings": {
+        "base_confs": 1,
+        "base_nota": false,
+        "rel_confs": 1,
+        "rel_nota": false
+      }
+    },
+    "matches": {},
+    "order_type": {
+      "type": "FillOrKill"
+    },
+    "cancellable": true,
+    "base_orderbook_ticker": null,
+    "rel_orderbook_ticker": null
+  },
+  "cancellation_reason": "TimedOut"
+}
 ```
 
 </collapse-text>
