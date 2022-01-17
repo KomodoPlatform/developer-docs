@@ -39,6 +39,10 @@ let atomicDEXsidebar = {
               "How to Become a Liquidity Provider",
             ],
             [
+              "/basic-docs/atomicdex/atomicdex-tutorials/add-coin-to-atomicdex-desktop.md",
+              "List a new coin on AtomicDEX Desktop",
+            ],
+            [
               "/basic-docs/atomicdex/atomicdex-tutorials/atomicdex-metrics.md",
               "DEX Metrics",
             ],
@@ -53,6 +57,10 @@ let atomicDEXsidebar = {
             [
               "/basic-docs/atomicdex/atomicdex-tutorials/coins-file-update.md",
               "How to update the coins file to work with the latest atomicDEX-API",
+            ],
+            [
+              "/basic-docs/atomicdex/atomicdex-tutorials/query-the-mm2-database.md",
+              "How to query the MM2 SQLite database",
             ],
           ],
         },
@@ -332,6 +340,6 @@ let atomicDEXsidebar = {
         ],
       ],
     },
-  ],
+  ],  
 };
 module.exports = atomicDEXsidebar;

@@ -41,7 +41,6 @@ The `orders_history_by_filter` method returns all orders whether active or inact
 | result.details              | array of order details objects | array of complete order details for every order that matches the selected filters; returns `[]` if `include_details` is false or not included in the request. |
 | result.details.type         | string                         | type of the order; "Maker" or "Taker"                                |
 | result.details.order        | object                         | the order details object                                             |
-| result.details.order.changes_history | array                          | array containing previous details that was changed for this order as objects, available only for maker orders that was updated with `update_maker_order` method |
 | found_records               | number                         | the number of returned orders                                        |
 | warnings                    | array                          | array containing warnings objects                                    |
 | warnings.uuid               | string                         | uuid of the order that produced this warning                         |
@@ -192,130 +191,6 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
             "rel_confs": 1,
             "rel_nota": false
           }
-        }
-      }
-    ],
-    "found_records": 1,
-    "warnings": []
-  }
-}
-```
-
-#### Response (details with history included)
-
-```json
-{
-  "result": {
-    "orders": [
-      {
-        "uuid": "e5f453e2-b414-4df2-9fc3-eeedb5cc1f1e",
-        "order_type": "Maker",
-        "initial_action": "Sell",
-        "base": "RICK",
-        "rel": "MORTY",
-        "price": 1.5,
-        "volume": 2,
-        "created_at": 1620727954406,
-        "last_updated": 1620727984838,
-        "was_taker": 0,
-        "status": "Updated"
-      }
-    ],
-    "details": [
-      {
-        "type":"Maker",
-        "order": {
-          "base": "RICK",
-          "rel": "MORTY",
-          "price":"1.5",
-          "price_rat":[
-            [
-                1,
-                [
-                  3
-                ]
-            ],
-            [
-                1,
-                [
-                  2
-                ]
-            ]
-          ],
-          "max_base_vol":"2",
-          "max_base_vol_rat": [
-            [
-              1,
-              [
-                2
-              ]
-            ],
-            [
-              1,
-              [
-                1
-              ]
-            ]
-          ],
-          "min_base_vol":"0.0001",
-          "min_base_vol_rat": [
-            [
-              1,
-              [
-                1
-              ]
-            ],
-            [
-              1,
-              [
-                10000
-              ]
-            ]
-          ],
-          "created_at": 1620727954406,
-          "updated_at": 1620727954406,
-          "matches": {},
-          "started_swaps": [],
-          "uuid": "e5f453e2-b414-4df2-9fc3-eeedb5cc1f1e",
-          "conf_settings": {
-            "base_confs": 1,
-            "base_nota": false,
-            "rel_confs": 1,
-            "rel_nota": false
-          },
-          "changes_history": [
-            {
-              "max_base_vol": [
-                [
-                  1,
-                  [
-                    3
-                  ]
-                ],
-                [
-                  1,
-                  [
-                    1
-                  ]
-                ]
-              ],
-              "price": [
-                [
-                  1,
-                  [
-                    2
-                  ]
-                ],
-                [
-                  1,
-                  [
-                    1
-                  ]
-                ]
-              ],
-              "updated_at": 1620727954406
-            }
-          ]
         }
       }
     ],
