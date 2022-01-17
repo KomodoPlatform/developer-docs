@@ -58,6 +58,10 @@ let atomicDEXsidebar = {
               "/basic-docs/atomicdex/atomicdex-tutorials/coins-file-update.md",
               "How to update the coins file to work with the latest atomicDEX-API",
             ],
+            [
+              "/basic-docs/atomicdex/atomicdex-tutorials/query-the-mm2-database.md",
+              "How to query the MM2 SQLite database",
+            ],
           ],
         },
         {
