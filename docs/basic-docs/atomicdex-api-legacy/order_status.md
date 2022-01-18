@@ -260,7 +260,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 | order.request.rel_amount_rat | rational number | rel currency amount as rational number |
 | order.request.action         | string | `buy` or `sell`                                 |
 | order.request.uuid           | string | Taker order UUID                                |
-| order.request.method         | string | `request`                                       | <!-- are there other possible values? -->
+| order.request.method         | string | Deprecated field, which always has the value `request`. | 
 | order.request.sender_pubkey  | string | Pubkey of Taker                                 |
 | order.request.dest_pub_key   | string | reserved for future use. The `dest_pub_key` allows the user to choose the P2P node that is eligible to match with the request. This value defaults to "zero pubkey", meaning that `anyone` can match |
 | order.request.match_by.type  | string | `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Defaults to `Any`    | 
