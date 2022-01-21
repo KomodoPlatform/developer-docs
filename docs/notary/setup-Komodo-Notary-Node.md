@@ -1188,7 +1188,7 @@ einsteiniumd -pubkey=$pubkey &
 smartusdd -pubkey=$pubkey &
 aryacoind -pubkey=$pubkey &
 ~/VerusCoin/src/verusd -pubkey=$pubkey &
-~/marmara/src/komodod -ac_name=MCL -pubkey=$pubkey -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+~/marmara/src/komodod -ac_name=MCL -pubkey=$pubkey -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 sleep 60
 cd komodo/src
 ./komodod -notary -pubkey=$pubkey &
