@@ -152,7 +152,3 @@ To keep your electrum server running smoothly, it is recommended to compact the 
 ```
 
 This means that every Wednesday at 3:33am, we'll stop the electrum service, compact the database, then restart the service. You should change the day of week for each of your electrum servers so that they dont all go down for maintainence at the same time.
-
-
-## What next?
-* [Prepare a Smart Chain for AtomicDEX Wallet & Trading](../komodo/setup-electrumX-server.html)
