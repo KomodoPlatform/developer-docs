@@ -338,6 +338,10 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex-api-20-dev/remove_delegation.md",
           "remove_delegation",
         ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/recreate_swap_data.md",
+          "recreate_swap_data",
+        ],
       ],
     },
   ],  
