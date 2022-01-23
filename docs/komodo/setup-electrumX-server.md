@@ -73,7 +73,7 @@ MAX_SEND = 2000000
 BANDWIDTH_UNIT_COST = 10000
 ```
 
-You can read more about the available environment variables in the [ElectrumX Docs](https://electrumx-spesmilo.readthedocs.io/en/latest/enviroent.html)
+You can read more about the available environment variables in the [ElectrumX Docs](https://electrumx.readthedocs.io/en/latest/environment.html)
 
 Change the `SERVICES` ports as required. You'll need to allow the `ELECTRUM_TCP_PORT` thru your firewall.
 
