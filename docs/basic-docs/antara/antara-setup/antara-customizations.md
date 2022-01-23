@@ -606,7 +606,7 @@ Use `ac_script` to send the founder's reward to a multi-signature address.
 
 Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member `Blackjok3r`'s modifications to knomp using the [disable-cb feature](https://github.com/webworker01/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
 
-## ac_founders_reward
+## ac\_founders\_reward
 
 The `ac_founders_reward` parameter functions in a manner that is similar to a combination of the `ac_perc` and `ac_founders` parameters.
 
