@@ -59,7 +59,7 @@ Get your `RPC_USER`, `RPC_PASS` and `RPC_PORT` from your conf file, e.g.  `~/.ko
 
 ```
 COIN = Rock
-DB_DIRECTORY = /home/<USERNAME>/electrumx-1/electrumdb/ROCK
+DB_DIRECTORY = /electrumdb/ROCK
 DAEMON_URL = http://<RPC_USER>:<RPC_PASS>@127.0.0.1:<RPC_PORT>/
 SERVICES = tcp://:<ELECTRUM_TCP_PORT>,rpc://:<ELECTRUM_RPC_PORT>
 EVENT_LOOP_POLICY = uvloop
