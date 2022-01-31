@@ -61,7 +61,7 @@ Get your `RPC_USER`, `RPC_PASS` and `RPC_PORT` from your conf file, e.g.  `~/.ko
 COIN = Rock
 DB_DIRECTORY = /electrumdb/ROCK
 DAEMON_URL = http://<RPC_USER>:<RPC_PASS>@127.0.0.1:<RPC_PORT>/
-SERVICES = tcp://:<ELECTRUM_TCP_PORT>,rpc://:<ELECTRUM_RPC_PORT>
+SERVICES = tcp://:<ELECTRUM_TCP_PORT>,rpc://:<ELECTRUM_RPC_PORT>,wss://:<ELECTRUM_WSS_PORT>,ssl://:<ELECTRUM_SSL_PORT>
 EVENT_LOOP_POLICY = uvloop
 PEER_DISCOVERY = self
 MAX_SESSIONS = 1000
@@ -71,13 +71,29 @@ COST_SOFT_LIMIT = 0
 COST_HARD_LIMIT = 0
 MAX_SEND = 2000000
 BANDWIDTH_UNIT_COST = 10000
+
+# Required for WSS or SSL services
+SSL_CERTFILE=/etc/letsencrypt/live/<YOUR_DOMAIN_NAME>/fullchain.pem   
+SSL_KEYFILE=/etc/letsencrypt/live/<YOUR_DOMAIN_NAME>/privkey.pem      
 ```
 
 You can read more about the available environment variables in the [ElectrumX Docs](https://electrumx.readthedocs.io/en/latest/environment.html)
 
-Change the `SERVICES` ports as required. You'll need to allow the `ELECTRUM_TCP_PORT` thru your firewall.
+Change the `SERVICES` allow the `SERVICES` ports through your firewall as required. E.g. `sudo ufw allow <ELECTRUM_WSS_PORT>`
 
-`sudo ufw allow <ELECTRUM_TCP_PORT>`
+For listing on AtomicDEX, wss (websocket) and ssl (secure socket) will be required. Please refer to the [EFF Certbot instructions](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal) for details on setting up SSL certificates (this varies depending on OS and installed web server).
+
+For example, using Ubuntu 20.04 and NGINX:
+```
+sudo snap install core; sudo snap refresh core
+sudo apt-get remove certbot
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+sudo certbot --nginx
+```
+
+Will create a cert file and key file, and update your nginx `sites-enabled` config.
+Add the path to these files in `/etc/electrumx_ROCK.conf`.
 
 
 ## Configure as a service
@@ -124,22 +140,16 @@ To issue commands to the electrum server from a local terminal use (change the t
 echo '{"method":"blockchain.transaction.get","params":["8e3293602465cf6d234fda4a2bb13affb4b5a3fb5bd46eb11a14ed72ac1836e0", true],"id":"test"}' | nc <ELECTRUM_SERVER_IP> <ELECTRUM_TCP_PORT> -i 1 | jq .
 ```
 
-Alternatively, you could [use python](https://github.com/smk762/DragonhoundTools/blob/master/misc_libs/lib_electrum.py):
+To confirm websockets are running:
 
 ```python
-def get_from_electrum(url, port, method, params=[]):
-    params = [params] if type(params) is not list else params
-    socket.setdefaulttimeout(5)
-    s = socket.create_connection((url, port))
-    s.send(json.dumps({"id": 0, "method": method, "params": params}).encode() + b'\n')
-    return json.loads(s.recv(99999)[:-1].decode())
+import websocket
 
-response = get_from_electrum(
-                url,
-                port,
-                'blockchain.transaction.get',
-                ["8e3293602465cf6d234fda4a2bb13affb4b5a3fb5bd46eb11a14ed72ac1836e0", True]
-            )
+ws = websocket.WebSocket()
+ws.connect("wss://<YOUR_DOMAIN_NAME>:<ELECTRUM_WSS_PORT>")
+ws.send('{"method":"blockchain.transaction.get","params":["8e3293602465cf6d234fda4a2bb13affb4b5a3fb5bd46eb11a14ed72ac1836e0", true],"id":"test"}')
+print(ws.recv())
+ws.close()
 ```
 
 
@@ -148,7 +158,7 @@ response = get_from_electrum(
 To keep your electrum server running smoothly, it is recommended to compact the database once a week. We can do this with a [crontab](https://crontab.guru/) entry as below:
 
 ```bash
-33 3 * * 3 sudo systemctl stop electrumx_ROCK && COIN=Komodo DB_DIRECTORY=/electrumdb/ROCK /home/<USERNAME>/electrumx-1/electrumx_compact_history && sudo systemctl start electrumx_ROCK
+33 3 * * 3 sudo systemctl stop electrumx_ROCK && COIN=Komodo; DB_DIRECTORY=/electrumdb/ROCK; /home/<USERNAME>/electrumx-1/electrumx_compact_history && sudo systemctl start electrumx_ROCK
 ```
 
 This means that every Wednesday at 3:33am, we'll stop the electrum service, compact the database, then restart the service. You should change the day of week for each of your electrum servers so that they dont all go down for maintainence at the same time.
