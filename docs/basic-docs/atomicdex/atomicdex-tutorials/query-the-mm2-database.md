@@ -9,7 +9,6 @@ The tables and columns available to query are as follows:
 
 This table keeps a record of all swaps successfully performed in this pubkey's MM2.db
 
-|----------|---------------------|------------------|---------------|
 |    ID    |        Name         |       Type       | Description   |
 |----------|---------------------|------------------|---------------|
 |    0     |         id          |     INTEGER      | Primary Key   |
@@ -29,7 +28,6 @@ This table keeps a record of all swaps successfully performed in this pubkey's M
 
 This table keeps a detailed record of all swaps performed (including failed) in this pubkey's MM2.db
 
-|----------|---------------------|------------------|-------------|
 |    ID    |        Name         |       Type       | Description |
 |----------|---------------------|------------------|-------------|
 |    0     |         id          |     INTEGER      | Primary Key |
@@ -57,7 +55,6 @@ This table keeps a detailed record of all swaps performed (including failed) in 
 
 This table keeps a detailed record of all orders placed in this pubkey's MM2.db
 
-|----------|---------------------|------------------|----------------------------|
 |    ID    |        Name         |       Type       | Description                |
 |----------|---------------------|------------------|----------------------------|
 |    0     |         id          |     INTEGER      | Primary Key                |
@@ -91,7 +88,6 @@ This table keeps a detailed record of all orders placed in this pubkey's MM2.db
 
 This table stores a record of all nodes [added for stats collection](../atomicdex-api-20-dev/add_node_to_version_stat.html) in this pubkey's MM2.db
 
-|----------|---------------------|------------------|-------------|
 |    ID    |        Name         |       Type       | Description |
 |----------|---------------------|------------------|-------------|
 |    0     |         id          |     INTEGER      | Primary Key |
@@ -110,7 +106,6 @@ This table stores a record of all nodes [added for stats collection](../atomicde
 
 This table stores a record of results returned by registered nodes [tracked for node stats collection](../atomicdex-api-20-dev/start_version_stat_collection.html) in this pubkey's MM2.db
 
-|----------|---------------------|------------------|-----------------------------------|
 |    ID    |        Name         |       Type       | Description                       |
 |----------|---------------------|------------------|-----------------------------------|
 |    0     |         id          |     INTEGER      | Primary Key                       |
