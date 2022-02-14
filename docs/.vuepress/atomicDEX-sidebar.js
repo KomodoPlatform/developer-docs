@@ -286,6 +286,14 @@ let atomicDEXsidebar = {
           "enable_bch_with_slp_tokens",
         ],
         [
+          "/basic-docs/atomicdex-api-20-dev/enable_slp.md",
+          "enable_slp",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/my_tx_history.md",
+          "my_tx_history",
+        ],
+        [
           "/basic-docs/atomicdex-api-20-dev/add_node_to_version_stat.md",
           "add_node_to_version_stat",
         ],
