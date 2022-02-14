@@ -27,29 +27,32 @@ curl --url "http://127.0.0.1:7783" --data '{
   "method":"enable_bch_with_tokens",
   "mmrpc":"2.0",
   "params":{
-    "ticker":"tBCH",
+    "ticker":"BCH",
     "allow_slp_unsafe_conf":false,
     "bchd_urls":[
-      "https://bchd-testnet.greyh.at:18335"
+      "https://bchd.imaginary.cash:8335/"
     ],
     "mode":{
       "rpc":"Electrum",
       "rpc_data":{
         "servers":[
           {
-            "url":"electroncash.de:50003"
+            "url":"electrum1.cipig.net:10055"
           },
           {
-            "url":"tbch.loping.net:60001"
+            "url":"electrum2.cipig.net:10055"
           },
           {
-            "url":"blackie.c3-soft.com:60001"
+            "url":"electrum3.cipig.net:10055"
           },
           {
-            "url":"bch0.kister.net:51001"
+            "url":"electrum1.cipig.net:20055"
           },
           {
-            "url":"testnet.imaginary.cash:50001"
+            "url":"electrum2.cipig.net:20055"
+          },
+          {
+            "url":"electrum3.cipig.net:20055"
           }
         ]
       }
@@ -57,7 +60,7 @@ curl --url "http://127.0.0.1:7783" --data '{
     "tx_history":true,
     "slp_tokens_requests":[
       {
-        "ticker":"USDF",
+        "ticker":"ASLP",
         "required_confirmations": 4
       }
     ],
@@ -65,7 +68,7 @@ curl --url "http://127.0.0.1:7783" --data '{
     "requires_notarization":false,
     "address_format":{
       "format":"cashaddress",
-      "network":"bchtest"
+      "network":"bitcoincash"
     },
     "utxo_merge_params":{
       "merge_at":50,
@@ -85,7 +88,7 @@ curl --url "http://127.0.0.1:7783" --data '{
   "result":{
     "current_block":1480481,
     "bch_addresses_infos":{
-      "bchtest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsnnczzt66":{
+      "bitcoincash:qrf5vpn78s7rjexrjhlwyzzeg7gw98k7t5qx64fztj":{
         "derivation_method":{
           "type":"Iguana"
         },
@@ -97,13 +100,13 @@ curl --url "http://127.0.0.1:7783" --data '{
       }
     },
     "slp_addresses_infos":{
-      "slptest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsg8lecug8":{
+      "simpleledger:qrf5vpn78s7rjexrjhlwyzzeg7gw98k7t5va3wuz4v":{
         "derivation_method":{
           "type":"Iguana"
         },
         "pubkey":"036879df230663db4cd083c8eeb0f293f46abc460ad3c299b0089b72e6d472202c",
         "balances":{
-          "USDF":{
+          "ASLP":{
             "spendable":"5.2974",
             "unspendable":"0"
           }
@@ -115,16 +118,16 @@ curl --url "http://127.0.0.1:7783" --data '{
 }
 ```
 
-## Errors (tBCH already activated)
-In this case, you need to [disable](../atomicdex-api-legacy/disable.md) tBCH and try again.
+## Errors (BCH already activated)
+In this case, you need to [disable](../atomicdex-api-legacy/disable.md) BCH and try again.
 ```json
 {
   "mmrpc":"2.0",
-  "error":"tBCH",
+  "error":"BCH",
   "error_path":"platform_coin_with_tokens",
   "error_trace":"platform_coin_with_tokens:281]",
   "error_type":"PlatformIsAlreadyActivated",
-  "error_data":"tBCH",
+  "error_data":"BCH",
   "id":null
 }
 ```
@@ -133,11 +136,11 @@ In this case, you need to [disable](../atomicdex-api-legacy/disable.md) tBCH and
 ```json
 {
   "mmrpc":"2.0",
-  "error":"Platform tBCH-wrong config is not found",
+  "error":"Platform BCH-wrong config is not found",
   "error_path":"platform_coin_with_tokens.prelude",
   "error_trace":"platform_coin_with_tokens:286] prelude:56]",
   "error_type":"PlatformConfigIsNotFound",
-  "error_data":"tBCH-wrong",
+  "error_data":"BCH-wrong",
   "id":null
 }
 ```
@@ -186,12 +189,12 @@ In this case, you need to [disable](../atomicdex-api-legacy/disable.md) tBCH and
 ```json
 {
   "mmrpc":"2.0",
-  "error":"Error Using empty bchd_urls is unsafe for SLP users! on platform coin tBCH creation",
+  "error":"Error Using empty bchd_urls is unsafe for SLP users! on platform coin BCH creation",
   "error_path":"platform_coin_with_tokens.bch_with_tokens_activation",
   "error_trace":"platform_coin_with_tokens:290] bch_with_tokens_activation:212]",
   "error_type":"PlatformCoinCreationError",
   "error_data":{
-    "ticker":"tBCH",
+    "ticker":"BCH",
     "error":"Using empty bchd_urls is unsafe for SLP users!"
   },
   "id":null
@@ -238,13 +241,19 @@ In this case, you need to [disable](../atomicdex-api-legacy/disable.md) tBCH and
 
 The `enable_slp` method allows you to activate additional SLP tokens
 
+
+| parameter                                 | Type     | Description                               |
+| ----------------------------------------- | -------- | ----------------------------------------- |
+| ticker                                    | string   | Ticker of the platform BCH protocol coin. |
+| activation_params.required_confirmations  | integer  | Optional. Confirmations to wait for steps in swap. Defaults to value in the coins file if not set. |
+
 ```bash
 curl --url "http://127.0.0.1:7783" --data '{
   "userpass":"'$userpass'",
   "method":"enable_slp",
   "mmrpc":"2.0",
   "params":{
-    "ticker":"sTST",
+    "ticker":"HONK",
     "activation_params": {
       "required_confirmations": 3
     }
@@ -252,8 +261,6 @@ curl --url "http://127.0.0.1:7783" --data '{
 }'
 ```
 
-ticker - string, mandatory.
-required_confirmations - number (unsigned integer), optional. If not set, MM2 will use the required_confirmations from the coins config. If neither of both is set, MM2 will use required_confirmations from the platform coin.
 
 ## Response
 
@@ -263,100 +270,78 @@ required_confirmations - number (unsigned integer), optional. If not set, MM2 wi
   "mmrpc":"2.0",
   "result":{
     "balances":{
-      "slptest:qqerzx34rz9fgwwxepnwssjkf4h7l5aq9qfmswjt20":{
+      "simpleledger:qrf5vpn78s7rjexrjhlwyzzeg7gw98k7t5va3wuz4v":{
         "spendable":"0","unspendable":"0"
       }
     },
-    "token_id":"037eb9fc8a5f0faed4e5c15c15e69cd9f5d8a87b5f11e0ba3dce17b562705d6c",
-    "platform_coin":"tBCH",
+    "token_id":"7f8889682d57369ed0e32336f8b7e0ffec625a35cca183f4e81fde4e71a538a1",
+    "platform_coin":"BCH",
     "required_confirmations":3
   },
   "id":null
 }
 ```
 
-## Errors
+## Error - BCH not yet activated
 
 ```json
 {
   "mmrpc":"2.0",
-  "error":"Platform coin tBCH is not activated",
+  "error":"Platform coin BCH is not activated",
   "error_path":"token.lp_coins",
   "error_trace":"token:102] lp_coins:1924]",
   "error_type":"PlatformCoinIsNotActivated",
-  "error_data":"tBCH",
+  "error_data":"BCH",
   "id":null
 }
 ```
 
+## Error - Token already activated
 
 ```json
 {
   "mmrpc":"2.0",
-  "error":"Token USDF is already activated",
+  "error":"Token HONK is already activated",
   "error_path":"token",
   "error_trace":"token:95]",
   "error_type":"TokenIsAlreadyActivated",
-  "error_data":"USDF",
+  "error_data":"HONK",
   "id":null
 }
 ```
 
 
+## Error - Token config not found in coins file
+
 ```json
 {
   "mmrpc":"2.0",
-  "error":"Token USDF-WRONG config is not found",
+  "error":"Token HONK-WRONG config is not found",
   "error_path":"token.prelude",
   "error_trace":"token:98] prelude:56]",
   "error_type":"TokenConfigIsNotFound",
-  "error_data":"USDF-WRONG",
+  "error_data":"HONK-WRONG",
   "id":null
 }
 ```
 
 
-```json
-{
-  "mmrpc":"2.0",
-  "error":"Unexpected token protocol ERC20 { platform: \"ETH\", contract_address: \"0xdAC17F958D2ee523a2206206994597C13D831ec7\" } for USDT-ERC20",
-  "error_path":"token.prelude.slp_token_activation",
-  "error_trace":"token:98] prelude:67] slp_token_activation:47]",
-  "error_type":"UnexpectedTokenProtocol",
-  "error_data":{
-    "ticker":"USDT-ERC20",
-    "protocol":{
-      "type":"ERC20",
-      "protocol_data":{
-        "platform":"ETH",
-        "contract_address":"0xdAC17F958D2ee523a2206206994597C13D831ec7"
-      }
-    }
-  },
-  "id":null
-}
-```
+# my_tx_history
+
+This method currently works only for BCH and SLP protocols. Implementation for all other UTXO coins (and other protocols) will be added in future.
 
 
-```json
-{
-  "mmrpc":"2.0",
-  "error":"JsonRpcError { client_info: \"coin: tBCH\", request: JsonRpcRequest { jsonrpc: \"2.0\", id: \"13\", method: \"blockchain.scripthash.listunspent\", params: [String(\"4923eb8797ca66b1814933a1fdf2e27069394d604451550ba596fd50b9328be2\")] }, error: Transport(\"rpc_clients:1406] rpc_clients:1408] [\\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\", \\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\", \\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\", \\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\"]\") }",
-  "error_path":"token.slp_token_activation.rpc_clients",
-  "error_trace":"token:112] slp_token_activation:108] rpc_clients:1645]",
-  "error_type":"Transport",
-  "error_data":"JsonRpcError { client_info: \"coin: tBCH\", request: JsonRpcRequest { jsonrpc: \"2.0\", id: \"13\", method: \"blockchain.scripthash.listunspent\", params: [String(\"4923eb8797ca66b1814933a1fdf2e27069394d604451550ba596fd50b9328be2\")] }, error: Transport(\"rpc_clients:1406] rpc_clients:1408] [\\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\", \\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\", \\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\", \\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\"]\") }",
-  "id":null
-}
-```
+| parameter                                 | Type     | Description                               |
+| ----------------------------------------- | -------- | ----------------------------------------- |
+| ticker                                    | string   | Ticker of the platform BCH protocol coin. |
+| limit                                     | integer  | Optional. Limits the number of returned transactions. Defaults to `10`. Ignored if `max = true`. |
+| max                                       | boolean  | Optional. Whether to return all available records. Defaults to `false`. |
+| paging_options.FromId                     | string   | Optional. AtomicDEX API will skip records until it reaches this ID, skipping the from_id as well; track the internal_id of the last displayed transaction to find the value of this field for the next page |
+| paging_options.PageNumber                 | integer  | Optional. AtomicDEX API will return limit swaps from the selected page. Ignored if `FromId` . | 
 
 
+# Request (tBCH from page 2)
 
-## my_tx_history
-
-It currently works only for BCH and SLP protocols. Implementation for all other UTXO coins (and maybe other protocols) will be done later.
-
-Request (tBCH with page number)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data '{
@@ -452,7 +437,7 @@ curl --url "http://127.0.0.1:7783" --data '{
 ```
 
 
-## Request (USDF with FromId)
+# Request (HONK with FromId)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data '{
@@ -460,7 +445,7 @@ curl --url "http://127.0.0.1:7783" --data '{
   "method":"my_tx_history",
   "mmrpc":"2.0",
   "params": {
-    "coin": "USDF",
+    "coin": "HONK",
     "limit": 2,
     "paging_options": {
       "FromId": "433b641bc89e1b59c22717918583c60ec98421805c8e85b064691705d9aeb970"
@@ -551,8 +536,7 @@ curl --url "http://127.0.0.1:7783" --data '{
 }
 ```
 
-## Errors
-
+## Error - Coin not active
 ```json
 {
   "mmrpc":"2.0",
@@ -565,7 +549,7 @@ curl --url "http://127.0.0.1:7783" --data '{
 }
 ```
 
-
+## Error - Coin not compatible
 ```json
 {
   "mmrpc":"2.0",
@@ -578,20 +562,21 @@ curl --url "http://127.0.0.1:7783" --data '{
 }
 ```
 
-
+## Error - Coin enabled without tx_history = true
 ```json
 {
   "mmrpc":"2.0",
-  "error":"Storage is not initialized for tBCH",
+  "error":"Storage is not initialized for BCH",
   "error_path":"my_tx_history_v2",
   "error_trace":"my_tx_history_v2:343]",
   "error_type":"StorageIsNotInitialized",
-  "error_data":"Storage is not initialized for tBCH",
+  "error_data":"Storage is not initialized for BCH",
   "id":null
 }
 ```
 
 
+## Error - Local database failed
 ```json
 {
   "mmrpc":"2.0",
@@ -604,15 +589,3 @@ curl --url "http://127.0.0.1:7783" --data '{
 }
 ```
 
-
-```json
-{
-  "mmrpc":"2.0",
-  "error":"utxo_common:1525] rpc_clients:1699] JsonRpcError { client_info: \"coin: tBCH\", request: JsonRpcRequest { jsonrpc: \"2.0\", id: \"16\", method: \"blockchain.headers.subscribe\", params: [] }, error: Transport(\"rpc_clients:1406] rpc_clients:1408] [\\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\", \\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\", \\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\", \\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\"]\") }",
-  "error_path":"my_tx_history_v2",
-  "error_trace":"my_tx_history_v2:349]",
-  "error_type":"RpcError",
-  "error_data":"utxo_common:1525] rpc_clients:1699] JsonRpcError { client_info: \"coin: tBCH\", request: JsonRpcRequest { jsonrpc: \"2.0\", id: \"16\", method: \"blockchain.headers.subscribe\", params: [] }, error: Transport(\"rpc_clients:1406] rpc_clients:1408] [\\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\", \\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\", \\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\", \\\"rpc_clients:2271] rpc_clients:2269] 12s timed out waiting for the future to complete\\\"]\") }",
-  "id":null
-}
-```
