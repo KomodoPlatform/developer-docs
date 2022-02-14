@@ -282,6 +282,10 @@ let atomicDEXsidebar = {
           "AtomicDEX-API RPC Protocol v2.0 (Dev)",
         ],
         [
+          "/basic-docs/atomicdex-api-20-dev/enable_bch_with_tokens.md",
+          "enable_bch_with_slp_tokens",
+        ],
+        [
           "/basic-docs/atomicdex-api-20-dev/add_node_to_version_stat.md",
           "add_node_to_version_stat",
         ],
