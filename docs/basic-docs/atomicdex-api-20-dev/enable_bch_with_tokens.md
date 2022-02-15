@@ -14,7 +14,7 @@ The AtomicDEX-API supports Bitcoin Cash SLP tokens. Using this method, you can e
 | required_confirmations | integer  | Optional. Confirmations to wait for steps in swap. Defaults to value in the coins file if not set. |
 | requires_notarization  | boolean  | Optional. Has no effect on BCH. Defaults to `false`. |
 | address_format.format  | string   | Optional. Overwrites the address format from coins file, if set. Options: `{"format":"standard"}` for legacy/standard address format, `{"format":"cashaddress"}` for cash address format |
-| address_format.network | string   | Optional. Overwrites the address network from coins file, if set. Options: `{"network":"bitcoincash"}` for mainnet or `{"network":"bchtest"}` for testnet |
+| address_format.network | string   | Optional. Overwrites the address network from coins file, if set. Options: `{"network":"bitcoincash"}` for mainnet, `{"network":"bchreg"}` for regtest, or `{"network":"bchtest"}` for testnet |
 | utxo_merge_params      | boolean  | Optional. If defined, will spawn a background loop that checks the number of UTXOs every `check_every seconds` and merges `max_merge_at_once` utxos into a single utxo if the total exceeds `merge_at`. Recommended for addresses with high trading activity or mining which can increase the number of UTXOs in the address, leading to delays in RPC response (or in extreme cases, connection timing out). |
 
 

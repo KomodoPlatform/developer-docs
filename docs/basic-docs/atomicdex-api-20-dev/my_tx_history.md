@@ -7,7 +7,6 @@ This method currently works only for BCH and SLP protocols. Implementation for a
 | ----------------------------------------- | -------- | ----------------------------------------- |
 | ticker                                    | string   | Ticker of the coin to get history for.    |
 | limit                                     | integer  | Optional. Limits the number of returned transactions. Defaults to `10`. Ignored if `max = true`. |
-| max                                       | boolean  | Optional. Whether to return all available records. Defaults to `false`. |
 | paging_options.FromId                     | string   | Optional. AtomicDEX API will skip records until it reaches this ID, skipping the from_id as well; track the internal_id of the last displayed transaction to find the value of this field for the next page |
 | paging_options.PageNumber                 | integer  | Optional. AtomicDEX API will return limit swaps from the selected page. Ignored if `FromId` . | 
 
