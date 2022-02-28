@@ -66,8 +66,8 @@ Where `Order` object structure is as follows
 | base_min_volume               | string (decimal)  | the minimum amount of `base` coin the offer provider is willing to buy or sell                                                    |
 | base_min_volume_rat           | rational          | the `base` min volume in num-rational crate format                                                                                |
 | base_min_volume_fraction      | object (rational) | the `base` min volume represented as an object                                                                                    |
-| rel_confs                     | number            | the confirmations settings of `rel` coin set by the offer provider                                                               |
-| rel_nota                      | bool              | the notarisation settings of `rel` coin set by the offer provider                                                                |
+| rel_confs                     | number            | the confirmations settings of `rel` coin set by the offer provider                                                                |
+| rel_nota                      | bool              | the notarisation settings of `rel` coin set by the offer provider                                                                 |
 | rel_max_volume                | string (decimal)  | the maximum amount of `rel` coin the offer provider is willing to buy or sell                                                     |
 | rel_max_volume_rat            | rational          | the `rel` max volume in num-rational crate format                                                                                 |
 | rel_max_volume_fraction       | object (rational) | the `rel` max volume represented as an object                                                                                     |
