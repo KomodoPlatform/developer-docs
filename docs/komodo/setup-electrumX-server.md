@@ -79,7 +79,7 @@ SSL_KEYFILE=/etc/letsencrypt/live/<YOUR_DOMAIN_NAME>/privkey.pem
 
 You can read more about the available environment variables in the [ElectrumX Docs](https://electrumx.readthedocs.io/en/latest/environment.html)
 
-Change the `SERVICES` allow the `SERVICES` ports through your firewall as required. E.g. `sudo ufw allow <ELECTRUM_WSS_PORT>`
+Change the `SERVICES` as required, and allow the `SERVICES` ports through your firewall. E.g. `sudo ufw allow <ELECTRUM_WSS_PORT>`
 
 For listing on AtomicDEX, wss (websocket) and ssl (secure socket) will be required. Please refer to the [EFF Certbot instructions](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal) for details on setting up SSL certificates (this varies depending on OS and installed web server).
 
