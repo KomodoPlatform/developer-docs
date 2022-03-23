@@ -22,7 +22,7 @@ pip3 install .[uvloop,ujson]
 
 ## Coin Configuration
 
-If you are launching the electrum server for a new smartchain, you will have to add it to the `~/electrumx-1/electrumx/lib/coins.py` file
+If you are launching the electrum server for a new smartchain, you will have to add it to the `~/electrumx-1/electrumx/lib/coins.py` file. You can skip this step if seeting up an electrum server for KMD or another coin which already exists in this file.
 
 For example, using the ROCK Smart Chain [we created earlier](create-smart-chain.html):
 
@@ -40,7 +40,7 @@ class Rock(KomodoMixin, EquihashMixin, Coin):
 
 ```
 
-`NAME`, `SHORTNAME` and `RPC_PORT` are to be changed accordingly. Change references of KMD to your coin where applicable.
+`NAME`, `SHORTNAME` and `RPC_PORT` are to be changed accordingly.
 
 
 ## Electrum Configuration
@@ -158,7 +158,7 @@ ws.close()
 To keep your electrum server running smoothly, it is recommended to compact the database once a week. We can do this with a [crontab](https://crontab.guru/) entry as below:
 
 ```bash
-33 3 * * 3 sudo systemctl stop electrumx_ROCK && COIN=Komodo; DB_DIRECTORY=/electrumdb/ROCK; /home/<USERNAME>/electrumx-1/electrumx_compact_history && sudo systemctl start electrumx_ROCK
+33 3 * * 3 sudo systemctl stop electrumx_ROCK && COIN=Rock; DB_DIRECTORY=/electrumdb/ROCK; /home/<USERNAME>/electrumx-1/electrumx_compact_history && sudo systemctl start electrumx_ROCK
 ```
 
 This means that every Wednesday at 3:33am, we'll stop the electrum service, compact the database, then restart the service. You should change the day of week for each of your electrum servers so that they dont all go down for maintainence at the same time.
