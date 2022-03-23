@@ -7,7 +7,6 @@ It's recommended to run at least 2 - 3 electrum servers to ensure stable operati
 
 Check out the [ElectrumX Docs](https://electrumx.readthedocs.io/en/latest/) for more info.
 
-
 ## Installation
 
 ```bash
@@ -18,7 +17,6 @@ cd ~/electrumx-1
 pip3 install .
 pip3 install .[uvloop,ujson]
 ```
-
 
 ## Coin Configuration
 
@@ -42,7 +40,6 @@ class Rick(KomodoMixin, EquihashMixin, Coin):
 
 `NAME`, `SHORTNAME` and `RPC_PORT` are to be changed accordingly.
 
-
 ## Electrum Configuration
 
 Run:
@@ -53,7 +50,6 @@ sudo mkdir -p /electrumdb/RICK
 sudo chown <USERNAME> /electrumdb/RICK
 sudo nano /etc/electrumx_RICK.conf
 ```
-
 
 Get your `RPC_USER`, `RPC_PASS` and `RPC_PORT` from your conf file, e.g.  `~/.komodo/RICK/RICK.conf`, then add them as below:
 
@@ -84,7 +80,8 @@ Change the `SERVICES` as required, and allow the `SERVICES` ports through your f
 For listing on AtomicDEX, wss (websocket) and ssl (secure socket) will be required. Please refer to the [EFF Certbot instructions](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal) for details on setting up SSL certificates (this varies depending on OS and installed web server).
 
 For example, using Ubuntu 20.04 and NGINX:
-```
+
+```bash
 sudo snap install core; sudo snap refresh core
 sudo apt-get remove certbot
 sudo snap install --classic certbot
@@ -94,7 +91,6 @@ sudo certbot --nginx
 
 Will create a cert file and key file, and update your nginx `sites-enabled` config.
 Add the path to these files in `/etc/electrumx_RICK.conf`.
-
 
 ## Configure as a service
 
@@ -114,7 +110,6 @@ ExecStart=/home/<username>/electrumx-1/electrumx_server
 User=<username>
 ```
 
-
 ```bash
 sudo systemctl start electrumx_RICK
 ```
@@ -131,12 +126,11 @@ To review it's logs:
 sudo journalctl -f -u electrumx_RICK.service --since today
 ```
 
-
 ## Confirm the server is running
 
 To issue commands to the electrum server from a local terminal use (change the transaction ID below to one valid for the chain)
 
-```
+```bash
 echo '{"method":"blockchain.transaction.get","params":["8e3293602465cf6d234fda4a2bb13affb4b5a3fb5bd46eb11a14ed72ac1836e0", true],"id":"test"}' | nc <ELECTRUM_SERVER_IP> <ELECTRUM_TCP_PORT> -i 1 | jq .
 ```
 
@@ -151,7 +145,6 @@ ws.send('{"method":"blockchain.transaction.get","params":["8e3293602465cf6d234fd
 print(ws.recv())
 ws.close()
 ```
-
 
 ## Maintainence
 
