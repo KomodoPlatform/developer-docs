@@ -24,12 +24,12 @@ pip3 install .[uvloop,ujson]
 
 If you are launching the electrum server for a new smartchain, you will have to add it to the `~/electrumx-1/electrumx/lib/coins.py` file. You can skip this step if seeting up an electrum server for KMD or another coin which already exists in this file.
 
-For example, using the ROCK Smart Chain [we created earlier](create-smart-chain.html):
+For example, using the RICK Smart Chain:
 
 ```python
-class Rock(KomodoMixin, EquihashMixin, Coin):
-    NAME = "Rock"
-    SHORTNAME = "ROCK"
+class Rick(KomodoMixin, EquihashMixin, Coin):
+    NAME = "Rick"
+    SHORTNAME = "RICK"
     NET = "mainnet"
     TX_COUNT = 55000
     TX_COUNT_HEIGHT = 42000
@@ -49,17 +49,17 @@ Run:
 
 ```bash
 cd ~/electrumx-1
-sudo mkdir -p /electrumdb/ROCK
-sudo chown <USERNAME> /electrumdb/ROCK
-sudo nano /etc/electrumx_ROCK.conf
+sudo mkdir -p /electrumdb/RICK
+sudo chown <USERNAME> /electrumdb/RICK
+sudo nano /etc/electrumx_RICK.conf
 ```
 
 
-Get your `RPC_USER`, `RPC_PASS` and `RPC_PORT` from your conf file, e.g.  `~/.komodo/ROCK/ROCK.conf`, then add them as below:
+Get your `RPC_USER`, `RPC_PASS` and `RPC_PORT` from your conf file, e.g.  `~/.komodo/RICK/RICK.conf`, then add them as below:
 
 ```
-COIN = Rock
-DB_DIRECTORY = /electrumdb/ROCK
+COIN = Rick
+DB_DIRECTORY = /electrumdb/RICK
 DAEMON_URL = http://<RPC_USER>:<RPC_PASS>@127.0.0.1:<RPC_PORT>/
 SERVICES = tcp://:<ELECTRUM_TCP_PORT>,rpc://:<ELECTRUM_RPC_PORT>,wss://:<ELECTRUM_WSS_PORT>,ssl://:<ELECTRUM_SSL_PORT>
 EVENT_LOOP_POLICY = uvloop
@@ -93,7 +93,7 @@ sudo certbot --nginx
 ```
 
 Will create a cert file and key file, and update your nginx `sites-enabled` config.
-Add the path to these files in `/etc/electrumx_ROCK.conf`.
+Add the path to these files in `/etc/electrumx_RICK.conf`.
 
 
 ## Configure as a service
@@ -101,34 +101,34 @@ Add the path to these files in `/etc/electrumx_ROCK.conf`.
 Run:
 
 ```bash
-sudo cp ~/electrumx-1/contrib/systemd/electrumx.service /etc/systemd/system/electrumx_ROCK.service
-sudo nano /etc/systemd/system/electrumx_ROCK.service
+sudo cp ~/electrumx-1/contrib/systemd/electrumx.service /etc/systemd/system/electrumx_RICK.service
+sudo nano /etc/systemd/system/electrumx_RICK.service
 ```
 
 Update the following fields in the file (leave the rest as it is):
 
 ```
-Description=Electrumx_ROCK
-EnvironmentFile=/etc/electrumx_ROCK.conf
+Description=Electrumx_RICK
+EnvironmentFile=/etc/electrumx_RICK.conf
 ExecStart=/home/<username>/electrumx-1/electrumx_server
 User=<username>
 ```
 
 
 ```bash
-sudo systemctl start electrumx_ROCK
+sudo systemctl start electrumx_RICK
 ```
 
 To check its status:
 
 ```bash
-sudo systemctl status electrumx_ROCK
+sudo systemctl status electrumx_RICK
 ```
 
 To review it's logs:
 
 ```bash
-sudo journalctl -f -u electrumx_ROCK.service --since today
+sudo journalctl -f -u electrumx_RICK.service --since today
 ```
 
 
@@ -158,7 +158,7 @@ ws.close()
 To keep your electrum server running smoothly, it is recommended to compact the database once a week. We can do this with a [crontab](https://crontab.guru/) entry as below:
 
 ```bash
-33 3 * * 3 sudo systemctl stop electrumx_ROCK && COIN=Rock; DB_DIRECTORY=/electrumdb/ROCK; /home/<USERNAME>/electrumx-1/electrumx_compact_history && sudo systemctl start electrumx_ROCK
+33 3 * * 3 sudo systemctl stop electrumx_RICK && COIN=Rick; DB_DIRECTORY=/electrumdb/RICK; /home/<USERNAME>/electrumx-1/electrumx_compact_history && sudo systemctl start electrumx_RICK
 ```
 
 This means that every Wednesday at 3:33am, we'll stop the electrum service, compact the database, then restart the service. You should change the day of week for each of your electrum servers so that they dont all go down for maintainence at the same time.
