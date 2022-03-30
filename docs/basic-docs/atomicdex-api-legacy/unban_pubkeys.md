@@ -2,7 +2,7 @@
 
 **unban_pubkey type data**
 
-The `unban_pubkeys` method will remove all current pubkeys from your ban list, or specific pubkeys from a user defined list.
+The `unban_pubkeys` method will remove all currently banned pubkeys from your ban list, or specific pubkeys from a user defined list.
 
 ::: tip
 
