@@ -32,7 +32,7 @@ curl --url "http://127.0.0.1:7783" --data "{
   \"userpass\": \"$userpass\",
   \"method\": \"ban_pubkey\",
   \"pubkey\": \"2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420\",
-  \"reason\": \"test\",
+  \"reason\": \"test\"
 }"
 ```
 
@@ -48,6 +48,15 @@ curl --url "http://127.0.0.1:7783" --data "{
 }
 ```
 
+#### Response (error)
+
+```json
+{
+  "error": "rpc:208] dispatcher_legacy:160] pubkey_banning:58] Pubkey is banned already"
+}
+```
+
 </collapse-text>
 
 </div>
+
