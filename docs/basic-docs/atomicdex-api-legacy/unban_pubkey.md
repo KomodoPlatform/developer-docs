@@ -1,6 +1,6 @@
-# ban\_pubkey
+# unban\_pubkey
 
-**ban_pubkey pubkey reason**
+**unban_pubkey type data**
 
 The `unban_pubkey` method will remove all currently pubkeys from your ban list, or specific pubkeys from a user defined list.
 

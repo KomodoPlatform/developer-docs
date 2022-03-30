@@ -236,6 +236,7 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex-api-legacy/validateaddress.md",
           "validateaddress",
         ],
+        ["/basic-docs/atomicdex-api-legacy/unban_pubkey.md", "unban_pubkey"],
         ["/basic-docs/atomicdex-api-legacy/version.md", "version"],
         ["/basic-docs/atomicdex-api-legacy/withdraw.md", "withdraw"],
       ],
