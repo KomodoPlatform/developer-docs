@@ -6,7 +6,7 @@
 
 MarketmakerV1 is capable of working with Electrum servers. This means it is not necessary to download blockchain data to your computer. As a matter of fact, you don't need even download and run native coin wallet or daemon. Check the list of current Electrum servers here: [Electrum Servers List.](./electrum-servers-list.md)
 
-If you however choose to use a native coin daemon, please make sure it is fully synced. For Komodo and other assetchains use the [latest Agama installer](https://komodoplatform.com/komodo-wallets) or use the [KomodoOcean-QT](https://github.com/DeckerSU/komodo-qt/releases).
+If you however choose to use a native coin daemon, please make sure it is fully synced. For Komodo and other assetchains use the [KomodoOcean-QT](https://github.com/DeckerSU/komodo-qt/releases).
 
 For a list of currently supported native coins and instructions for the coin specific configuration file, see [Supported Native Coins]()
 

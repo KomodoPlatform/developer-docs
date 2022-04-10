@@ -57,10 +57,6 @@ var navbar = [
         text: "nSPV",
         link: "/basic-docs/smart-chains/smart-chain-setup/nspv.md",
       },
-      // {
-      //   text: "Agama",
-      //   link: "/gui/agama/introduction.md",
-      // },
       {
         text: "QA and Testing",
         link: "/qa/debug-Komodo.md",

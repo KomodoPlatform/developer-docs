@@ -10,7 +10,7 @@ Komodo supports `encryptwallet` RPC to secure your **wallet.dat** file. After en
 
 ### Precautions / Best Practices:
 
-- Don't encrypt any wallet with private addresses (`z-addresses`). Transfer your funds from a private z address to transparent R address first ([Guide](https://support.komodoplatform.com/en/support/solutions/articles/29000026955-perform-z-transactions-using-agama)).
+- Don't encrypt any wallet with private addresses (`z-addresses`). Transfer your funds from a private z address to transparent R address first.
 
 - Don't forget your password. If you do, you will lose access to your funds.
 
