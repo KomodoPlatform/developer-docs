@@ -1,14 +1,14 @@
-# Complete Checklist for New Coins to Setup Explorer, Electrum Servers, Agama Wallet, Activate dPoW & AtomicDEX Trading
+# Complete Checklist for New Coins to Setup Explorer, Electrum Servers, Activate dPoW & AtomicDEX Trading
 
-This document will guide you through creating an independent assetchain/coin using Komodo and setup explorer, electrum servers, integrate into Agama GUI wallet, dPoW and enable trading on BarterDEX.
+This document will guide you through creating an independent assetchain/coin using Komodo and setup explorer, electrum servers, integrate into dPoW and enable trading on BarterDEX.
 
-## Step 1: Create an Assetchain/Coin, Setup Insight based Explorer, Electrum Servers and Agama GUI Wallet
+## Step 1: Create an Assetchain/Coin, Setup Insight based Explorer, Electrum Servers
 
 1. The various parameters using which the new blockchain can be customized are explained here: [Parameters to customize Blockchains created using Komodo Platform](../basic-docs/installations/asset-chain-parameters.html)
 1. Install explorer: [gcharang/komodo-install-explorer](https://github.com/gcharang/komodo-install-explorer)
 1. [Setup Electrum SPV server](../komodo/setup-electrumX-server.html)
-1. [Integrate into Agama Desktop wallet](../gui/agama/desktop/add-Komodo-Assetchains-Agama-Desktop.html)
-1. [Integrate into Agama Mobile wallet](../gui/agama/mobile/add-Komodo-Assetchains-Agama-Mobile.html)
+   <!-- 1. [Integrate into Agama Desktop wallet](../gui/agama/desktop/add-Komodo-Assetchains-Agama-Desktop.html)
+    [Integrate into Agama Mobile wallet](../gui/agama/mobile/add-Komodo-Assetchains-Agama-Mobile.html) -->
 
 We have used Zaddex (ZEX) coin as example for some part of this document. Please change to your coin name where ever applicable.
 

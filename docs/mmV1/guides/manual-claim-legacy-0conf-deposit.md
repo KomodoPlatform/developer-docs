@@ -54,7 +54,7 @@ You can use multiple txid usig a `,` inbetween the txids. Once you start native 
 
 By now you should have all the deposit files ready inside `~/SuperNET/iguana/DB/` if you been following this guide without any errors. Now, is the time to claim them.
 
-1. Start KMD in native mode using Agama or `komodod`, let the blockchain load.
+1. Start KMD in native mode `komodod`, let the blockchain load.
 
 1. Start BarterDEX by issuing `./client` script in one terminal and let it running. Output from this terminal is very important for troubleshooting purposes.
 

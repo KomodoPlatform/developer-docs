@@ -4,7 +4,7 @@ Multisignature (often called multisig) is a form of technology used to add addit
 
 In this short guide, we will demonstrate the creation and usage of a `2of2` multisignature wallet. We'll use 2 nodes and the Komodo chain. On a Komodo assetchain, follow the same steps but add the `-ac_name=COIN` parameter.
 
-There are various tools you can use for `multisig` including Agama. Check the [related materials section](./multisig-transactions-on-komodo-or-assetchains.html#related-materials) at the end of this guide for links.
+There are various tools you can use for `multisig`. Check the [related materials section](./multisig-transactions-on-komodo-or-assetchains.html#related-materials) at the end of this guide for links.
 
 ## Step 1 - Get new addresses, corresponding pubkeys and privkeys
 
@@ -264,5 +264,3 @@ Where `23c2aaaf458ada3f171ee5d274e8dcfc91b62099ec15e4b2d02da2b2d1172cb1` is the 
 
 - [Detailed Article in Russian Language](https://medium.com/@decker.komodo/%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%BC%D1%83%D0%BB%D1%8C%D1%82%D0%B8%D0%BF%D0%BE%D0%B4%D0%BF%D0%B8%D1%81%D0%B5%D0%B9-multisig-%D0%B2-komodo-9d8f8c48da52)
 - [Multisig Web Tool](https://deckersu.github.io/coinbin/#newMultiSig)
-- [Agama Download](https://komodoplatform.com/komodo-wallets)
-- [Agama MultiSig Guide](https://support.komodoplatform.com/en/support/solutions/articles/29000027745-create-sign-and-send-a-multi-sig-transaction)
