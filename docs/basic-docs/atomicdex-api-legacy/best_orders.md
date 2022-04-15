@@ -52,13 +52,17 @@ where order entry has the following structure
 | base_min_volume          | string (decimal)  | the minimum amount of `base` coin the offer provider is willing to buy or sell       |
 | base_min_volume_rat      | rational          | the `base_min_volume` in num-rational crate format                                   |
 | base_min_volume_fraction | object (rational) | the `base_min_volume` represented as an object                                       |
+| base_confs               | number            | the confirmations settings of `base` coin set by the offer provider                  |
+| base_nota                | bool              | the notarisation settings of `base` coin set by the offer provider                   |
 | rel_max_volume           | string (decimal)  | the maximum amount of `rel` coin the offer provider is willing to buy or sell        |
 | rel_max_volume_rat       | rational          | the `rel_max_volume` max volume in num-rational crate format                         |
 | rel_max_volume_fraction  | object (rational) | the `rel_max_volume` max volume represented as an object                             |
 | rel_min_volume           | string (decimal)  | the minimum amount of `rel` coin the offer provider is willing to buy or sell        |
 | rel_min_volume_rat       | rational          | the `rel_min_volume` in num-rational crate format                                    |
-| rel_min_volume_fraction  | object (rational) | the `rel_min_volume` represented as an object
-| original_tickers         | list (string)     | Tickers included in response when `orderbook_ticker` is configured for the queried coin in `coins` file|                                        |
+| rel_min_volume_fraction  | object (rational) | the `rel_min_volume` represented as an object                                        |
+| rel_confs                | number            | the confirmations settings of `rel` coin set by the offer provider                   |
+| rel_nota                 | bool              | the notarisation settings of `rel` coin set by the offer provider                    |
+| original_tickers         | list (string)     | Tickers included in response when `orderbook_ticker` is configured for the queried coin in `coins` file |
 
 
 
@@ -112,6 +116,10 @@ curl --url "http://127.0.0.1:7783" --data "{
         "zcredits": 0,
         "uuid": "09a61d61-9352-42f3-ae64-03e832aca07f",
         "is_mine": false,
+        "base_confs": 1,
+        "base_nota": false,
+        "rel_confs": 2,
+        "rel_nota": false,
         "base_max_volume": "2",
         "base_max_volume_fraction": {
           "numer": "2",
@@ -146,6 +154,10 @@ curl --url "http://127.0.0.1:7783" --data "{
           "numer": "10",
           "denom": "11"
         },
+        "base_confs": 1,
+        "base_nota": false,
+        "rel_confs": 2,
+        "rel_nota": false,
         "maxvolume": "56210.95940853",
         "max_volume_rat": [ [ 1, [ 3278717685, 1308 ] ], [ 1, [ 100000000 ] ] ],
         "max_volume_fraction": {
@@ -199,6 +211,10 @@ curl --url "http://127.0.0.1:7783" --data "{
           "numer": "1",
           "denom": "100"
         },
+        "base_confs": 1,
+        "base_nota": false,
+        "rel_confs": 2,
+        "rel_nota": false,
         "maxvolume": "1140445.56120275",
         "max_volume_rat": [ [ 1, [ 526976459, 1062 ] ], [ 1, [ 4000000 ] ] ],
         "max_volume_fraction": {
