@@ -1,5 +1,6 @@
 # get_raw_transaction
-The  `get_raw_transaction`  method takes coin also confirmed tx_hash as input, and returns its full signed raw transaction hex.
+
+The `get_raw_transaction` method takes `coin` and `tx_hash` as input, and returns the full signed raw transaction hex for any transaction that is confirmed or within the mempool.
 
 ## Arguments
 |Structure|Type|Description|
@@ -15,7 +16,7 @@ The  `get_raw_transaction`  method takes coin also confirmed tx_hash as input, a
 
 #### Examples:
 
-##### Request
+##### Request (RICK)
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
     \"mmrpc\": \"2.0\",
@@ -42,7 +43,51 @@ curl --url "http://127.0.0.1:7783" --data "{
 }
 ```
 
+</collapse-text>
+
+</div>
+
+
+##### Request (ETH)
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+    \"mmrpc\": \"2.0\",
+    \"method\":\"get_raw_transaction\",
+    \"userpass\":\"$userpass\",
+    \"params\":{\"coin\": \"ETH\",
+    \"tx_hash\": \"0x529aca42b6b592cca5d400832c83854135b924cada6e1c41b85f27fa0a0984b9\"},
+    \"id\":1
+}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+##### Response (success)
+```json
+{
+  "mmrpc":"2.0",
+  "result":{
+  "tx_hex":"f86e8227578503b6ed90e6825208943faaa59e42f616f859d5771cbc07a99412ae44b288026fe9cb1ec6e9a08026a08e04accc3733376cf7b8f8d51c8398fd244fca736277053a7e87093f6db67708a069cc7dbc57094c4cca7828e6f8d92a8221c457ac7b5d0b0562e9d8896f75d1a5"
+  },
+  "id":0
+}
+```
+
+</collapse-text>
+
+</div>
+
+
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Error Responses">
+
 ##### Error response (no such coin)
+
+
 ```json
 {
   "mmrpc": "2.0",
@@ -66,6 +111,19 @@ curl --url "http://127.0.0.1:7783" --data "{
   "error_trace": "utxo_common:1809]",
   "error_type": "InvalidHashError",
   "error_data": "Invalid input length",
+  "id": 1
+}
+```
+
+##### Error (invalid EC Signature)
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Internal error: eth:3221] Crypto error (Invalid EC signature)",
+  "error_path": "eth",
+  "error_trace": "eth:543]",
+  "error_type": "InternalError",
+  "error_data": "eth:3221] Crypto error (Invalid EC signature)",
   "id": 1
 }
 ```
