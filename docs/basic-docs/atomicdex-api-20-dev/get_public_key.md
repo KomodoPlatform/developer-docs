@@ -1,6 +1,6 @@
 # get\_public\_key
 
-The `get_public_key` method returns the the compressed secp256k1 pubkey corresponding to the user's seed phrase.
+The `get_public_key` method returns the compressed secp256k1 pubkey corresponding to the user's seed phrase.
 
 #### Arguments
 
