@@ -311,6 +311,10 @@ let atomicDEXsidebar = {
           "get_public_key",
         ],
         [
+          "/basic-docs/atomicdex-api-20-dev/get_public_key_hash.md",
+          "get_public_key_hash"
+        ],
+        [
           "/basic-docs/atomicdex-api-20-dev/trade_preimage.md",
           "trade_preimage",
         ],
