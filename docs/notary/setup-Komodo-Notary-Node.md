@@ -106,6 +106,8 @@ sudo apt-get install build-essential pkg-config bsdmainutils libtool libsodium-d
 sudo apt-get install libevent-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev python-zmq zlib1g-dev wget curl bsdmainutils automake cmake clang libsodium-dev libcurl4-gnutls-dev libssl-dev git unzip python jq htop -y
 ```
 
+Note: In Ubuntu-20.4, install `python3-zmq` instead of `python-zmq`
+
 ### Install `nanomsg`
 
 Required by iguana
