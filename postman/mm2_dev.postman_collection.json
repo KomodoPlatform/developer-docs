@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "fbe98b62-4cb8-4fe4-9eff-b3c756cd9ab4",
 		"name": "mm2_dev",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16279216"
 	},
 	"item": [
 		{
@@ -43,6 +44,50 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"RICK\",\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10017\"\r\n            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10017\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10017\"\r\n        }\r\n    ]\r\n    // \"mm2\": null, // Default: Coin Config, error // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": null, // Default: Coin Config, 1 // Accepted values: Integers\r\n    // \"requires_notarization\": null, // Default: Coin Config, false // Accepted values: booleans\r\n    // \"address_format\": null, // Default: Coin Config, {\"format\": \"standard\"}\r\n    // // \"address_format\": {\r\n    // //     \"format\": \"standard\", // Accepted values: \"standard\", \"cashaddress\"\r\n    // //     \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // // },\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:7783",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "7783"
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "electrum ETH/ERC20",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"ETH\",\r\n    \"urls\": [\r\n        \"http://eth1.cipig.net:8555\",\r\n        \"http://eth2.cipig.net:8555\",\r\n        \"http://eth3.cipig.net:8555\"\r\n    ],\r\n    \"swap_contract_address\": \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\"\r\n    // \"fallback_swap_contract\": \"0x8500AFc0bc5214728082163326C2FF0C73f4a871\",\r\n    // \"gas_station_url\": null, // Accepted values: Strings\r\n    // \"gas_station_decimals\": 8,\r\n    // \"gas_station_policy\": {\r\n    //     \"policy\": \"MeanAverageFast\" // Accepted values: \"MeanAverageFast\", \"Average\"\r\n    // },\r\n    // \"mm2\": null, // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -101,12 +146,188 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "electrum QRC20",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"QC\",\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10050\"\r\n            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10050\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10050\"\r\n        }\r\n    ],\r\n    \"swap_contract_address\": \"0xf2033ede578e17fa6231047265010445bca8cf1c\"\r\n    // \"fallback_swap_contract\": \"0xba8b71f3544b93e2f681f996da519a98ace0107a\",\r\n    // \"mm2\": null, // Default: Coin Config, error // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": null, // Default: Coin Config, 1 // Accepted values: Integers\r\n    // \"requires_notarization\": null, // Default: Coin Config, false // Accepted values: booleans\r\n    // \"address_format\": null, // Default: Coin Config, {\"format\": \"standard\"}\r\n    // // \"address_format\": {\r\n    // //     \"format\": \"standard\", // Accepted values: \"standard\", \"cashaddress\"\r\n    // //     \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // // },\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:7783",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "7783"
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "electrum BCH",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"tBCH\",\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"electroncash.de:50003\"\r\n            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"tbch.loping.net:60001\"\r\n        },\r\n        {\r\n            \"url\": \"blackie.c3-soft.com:60001\"\r\n        },\r\n        {\r\n            \"url\": \"bch0.kister.net:51001\"\r\n        }\r\n    ],\r\n    \"bchd_urls\": [\"https://bchd-testnet.electroncash.de:18335\"]\r\n    // \"allow_slp_unsafe_conf\": false,\r\n    // \"mm2\": null, // Default: Coin Config, error // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": null, // Default: Coin Config, 1 // Accepted values: Integers\r\n    // \"requires_notarization\": null, // Default: Coin Config, false // Accepted values: booleans\r\n    // \"address_format\": null, // Default: Coin Config, {\"format\": \"standard\"}\r\n    // // \"address_format\": {\r\n    // //     \"format\": \"standard\", // Accepted values: \"standard\", \"cashaddress\"\r\n    // //     \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // // },\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:7783",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "7783"
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "electrum SLPTOKEN",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"sTST\"\r\n}\r\n"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:7783",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "7783"
+										}
+									},
+									"response": []
 								}
 							]
 						},
 						{
 							"name": "Enable",
 							"item": [
+								{
+									"name": "enable UTXO",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"enable\",\r\n    \"coin\": \"RICK\"\r\n    // \"mm2\": null, // Default: Coin Config, error // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": null, // Default: Coin Config, 1 // Accepted values: Integers\r\n    // \"requires_notarization\": null, // Default: Coin Config, false // Accepted values: booleans\r\n    // \"address_format\": null, // Default: Coin Config, {\"format\": \"standard\"}\r\n    // // \"address_format\": {\r\n    // //     \"format\": \"standard\", // Accepted values: \"standard\", \"cashaddress\"\r\n    // //     \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // // },\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:7783",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "7783"
+										}
+									},
+									"response": []
+								},
 								{
 									"name": "enable ETH/ERC20",
 									"event": [
@@ -136,6 +357,182 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"enable\",\r\n    \"coin\": \"ETH\",\r\n    \"urls\": [\r\n        \"http://eth1.cipig.net:8555\",\r\n        \"http://eth2.cipig.net:8555\",\r\n        \"http://eth3.cipig.net:8555\"\r\n    ],\r\n    \"swap_contract_address\": \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\"\r\n    // \"fallback_swap_contract\": \"0x8500AFc0bc5214728082163326C2FF0C73f4a871\",\r\n    // \"gas_station_url\": null, // Accepted values: Strings\r\n    // \"gas_station_decimals\": 8,\r\n    // \"gas_station_policy\": {\r\n    //     \"policy\": \"MeanAverageFast\" // Accepted values: \"MeanAverageFast\", \"Average\"\r\n    // },\r\n    // \"mm2\": null, // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:7783",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "7783"
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "enable QTUM",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"enable\",\r\n    \"coin\": \"QTUM\"\r\n    // \"mm2\": null, // Default: Coin Config, error // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": null, // Default: Coin Config, 1 // Accepted values: Integers\r\n    // \"requires_notarization\": null, // Default: Coin Config, false // Accepted values: booleans\r\n    // \"address_format\": null, // Default: Coin Config, {\"format\": \"standard\"}\r\n    // // \"address_format\": {\r\n    // //     \"format\": \"standard\", // Accepted values: \"standard\", \"cashaddress\"\r\n    // //     \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // // },\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:7783",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "7783"
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "enable QRC20",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"enable\",\r\n    \"coin\": \"QC\",\r\n    \"swap_contract_address\": \"0xf2033ede578e17fa6231047265010445bca8cf1c\"\r\n    // \"fallback_swap_contract\": \"0xba8b71f3544b93e2f681f996da519a98ace0107a\",\r\n    // \"mm2\": null, // Default: Coin Config, error // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": null, // Default: Coin Config, 1 // Accepted values: Integers\r\n    // \"requires_notarization\": null, // Default: Coin Config, false // Accepted values: booleans\r\n    // \"address_format\": null, // Default: Coin Config, {\"format\": \"standard\"}\r\n    // // \"address_format\": {\r\n    // //     \"format\": \"standard\", // Accepted values: \"standard\", \"cashaddress\"\r\n    // //     \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // // },\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:7783",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "7783"
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "enable BCH",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"enable\",\r\n    \"coin\": \"tBCH\",\r\n    \"bchd_urls\": [\"https://bchd-testnet.electroncash.de:18335\"]\r\n    // \"allow_slp_unsafe_conf\": false,\r\n    // \"mm2\": null, // Default: Coin Config, error // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": null, // Default: Coin Config, 1 // Accepted values: Integers\r\n    // \"requires_notarization\": null, // Default: Coin Config, false // Accepted values: booleans\r\n    // \"address_format\": null, // Default: Coin Config, {\"format\": \"standard\"}\r\n    // // \"address_format\": {\r\n    // //     \"format\": \"standard\", // Accepted values: \"standard\", \"cashaddress\"\r\n    // //     \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // // },\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:7783",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "7783"
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "enable SLPTOKEN",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"enable\",\r\n    \"coin\": \"sTST\"\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
