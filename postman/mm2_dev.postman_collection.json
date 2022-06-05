@@ -1896,7 +1896,7 @@
 					"name": "Swaps",
 					"item": [
 						{
-							"name": "active_swaps WIP",
+							"name": "active_swaps",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1923,7 +1923,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"active_swaps\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"active_swaps\"\r\n    // \"include_status\": false\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -1940,7 +1940,7 @@
 							"response": []
 						},
 						{
-							"name": "all_swaps_uuids_by_filter WIP",
+							"name": "all_swaps_uuids_by_filter",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1967,7 +1967,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"all_swaps_uuids_by_filter\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"all_swaps_uuids_by_filter\"\r\n    // \"my_coin\": null, // Accepted values: Strings\r\n    // \"other_coin\": null, // Accepted values: Strings\r\n    // \"from_timestamp\": null, // Accepted values: Integers\r\n    // \"to_timestamp\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -1984,7 +1984,7 @@
 							"response": []
 						},
 						{
-							"name": "coins_needed_for_kick_start WIP",
+							"name": "coins_needed_for_kick_start",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2028,7 +2028,7 @@
 							"response": []
 						},
 						{
-							"name": "get_trade_fee WIP",
+							"name": "get_trade_fee",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2055,7 +2055,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"get_trade_fee\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"get_trade_fee\",\r\n    \"coin\": \"RICK\"\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -2072,7 +2072,7 @@
 							"response": []
 						},
 						{
-							"name": "import_swaps WIP",
+							"name": "import_swaps",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2099,7 +2099,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"import_swaps\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"import_swaps\",\r\n    \"swaps\": [\r\n        {\r\n            \"error_events\": [\r\n                \"StartFailed\",\r\n                \"NegotiateFailed\",\r\n                \"TakerFeeSendFailed\",\r\n                \"MakerPaymentValidateFailed\",\r\n                \"TakerPaymentTransactionFailed\",\r\n                \"TakerPaymentDataSendFailed\",\r\n                \"TakerPaymentWaitForSpendFailed\",\r\n                \"MakerPaymentSpendFailed\",\r\n                \"TakerPaymentRefunded\",\r\n                \"TakerPaymentRefundFailed\"\r\n            ],\r\n            \"events\": [\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"lock_duration\": 7800,\r\n                            \"maker\": \"631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640\",\r\n                            \"maker_amount\": \"3\",\r\n                            \"maker_coin\": \"BEER\",\r\n                            \"maker_coin_start_block\": 156186,\r\n                            \"maker_payment_confirmations\": 0,\r\n                            \"maker_payment_wait\": 1568883784,\r\n                            \"my_persistent_pub\": \"02031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3\",\r\n                            \"started_at\": 1568881184,\r\n                            \"taker_amount\": \"4\",\r\n                            \"taker_coin\": \"ETOMIC\",\r\n                            \"taker_coin_start_block\": 175041,\r\n                            \"taker_payment_confirmations\": 1,\r\n                            \"taker_payment_lock\": 1568888984,\r\n                            \"uuid\": \"07ce08bf-3db9-4dd8-a671-854affc1b7a3\"\r\n                        },\r\n                        \"type\": \"Started\"\r\n                    },\r\n                    \"timestamp\": 1568881185316\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"maker_payment_locktime\": 1568896784,\r\n                            \"maker_pubkey\": \"02631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640\",\r\n                            \"secret_hash\": \"eba736c5cc9bb33dee15b4a9c855a7831a484d84\"\r\n                        },\r\n                        \"type\": \"Negotiated\"\r\n                    },\r\n                    \"timestamp\": 1568881246025\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"tx_hash\": \"0c07be4dda88d8d75374496aa0f27e12f55363ce8d558cb5feecc828545e5f87\",\r\n                            \"tx_hex\": \"0400008085202f890146b98696761d5e8667ffd665b73e13a8400baab4b22230a7ede0e4708597ee9c000000006a473044022077acb70e5940dfe789faa77e72b34f098abbf0974ea94a0380db157e243965230220614ec4966db0a122b0e7c23aa0707459b3b4f8241bb630c635cf6e943e96362e012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff02f0da0700000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88ac68630700000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac5e3a835d000000000000000000000000000000\"\r\n                        },\r\n                        \"type\": \"TakerFeeSent\"\r\n                    },\r\n                    \"timestamp\": 1568881250689\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"tx_hash\": \"31d97b3359bdbdfbd241e7706c90691e4d7c0b7abd27f2b22121be7f71c5fd06\",\r\n                            \"tx_hex\": \"0400008085202f8901b4679094d4bf74f52c9004107cb9641a658213d5e9950e42a8805824e801ffc7010000006b483045022100b2e49f8bdc5a4b6c404e10150872dbec89a46deb13a837d3251c0299fe1066ca022012cbe6663106f92aefce88238b25b53aadd3522df8290ced869c3cc23559cc23012102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ffffffff0200a3e1110000000017a91476e1998b0cd18da5f128e5bb695c36fbe6d957e98764c987c9bf0000001976a91464ae8510aac9546d5e7704e31ce177451386455588ac753a835d000000000000000000000000000000\"\r\n                        },\r\n                        \"type\": \"MakerPaymentReceived\"\r\n                    },\r\n                    \"timestamp\": 1568881291571\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"type\": \"MakerPaymentWaitConfirmStarted\"\r\n                    },\r\n                    \"timestamp\": 1568881291571\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"type\": \"MakerPaymentValidatedAndConfirmed\"\r\n                    },\r\n                    \"timestamp\": 1568881291985\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"tx_hash\": \"95926ab204049edeadb370c17a1168d9d79ee5747d8d832f73cfddf1c74f3961\",\r\n                            \"tx_hex\": \"0400008085202f8902875f5e5428c8ecfeb58c558dce6353f5127ef2a06a497453d7d888da4dbe070c010000006a4730440220416059356dc6dde0ddbee206e456698d7e54c3afa92132ecbf332e8c937e5383022068a41d9c208e8812204d4b0d21749b2684d0eea513467295e359e03c5132e719012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff46b98696761d5e8667ffd665b73e13a8400baab4b22230a7ede0e4708597ee9c010000006b483045022100a990c798d0f96fd5ff7029fd5318f3c742837400d9f09a002e7f5bb1aeaf4e5a0220517dbc16713411e5c99bb0172f295a54c97aaf4d64de145eb3c5fa0fc38b67ff012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff020084d7170000000017a9144d57b4930e6c86493034f17aa05464773625de1c877bd0de03010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac8c3a835d000000000000000000000000000000\"\r\n                        },\r\n                        \"type\": \"TakerPaymentSent\"\r\n                    },\r\n                    \"timestamp\": 1568881296904\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"secret\": \"fb968d5460399f20ffd09906dc8f65c21fbb5cb8077a8e6d7126d0526586ca96\",\r\n                            \"transaction\": {\r\n                                \"tx_hash\": \"68f5ec617bd9a4a24d7af0ce9762d87f7baadc13a66739fd4a2575630ecc1827\",\r\n                                \"tx_hex\": \"0400008085202f890161394fc7f1ddcf732f838d7d74e59ed7d968117ac170b3adde9e0404b26a929500000000d8483045022100a33d976cf509d6f9e66c297db30c0f44cced2241ee9c01c5ec8d3cbbf3d41172022039a6e02c3a3c85e3861ab1d2f13ba52677a3b1344483b2ae443723ba5bb1353f0120fb968d5460399f20ffd09906dc8f65c21fbb5cb8077a8e6d7126d0526586ca96004c6b63049858835db1752102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac6782012088a914eba736c5cc9bb33dee15b4a9c855a7831a484d84882102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac68ffffffff011880d717000000001976a91464ae8510aac9546d5e7704e31ce177451386455588ac942c835d000000000000000000000000000000\"\r\n                            }\r\n                        },\r\n                        \"type\": \"TakerPaymentSpent\"\r\n                    },\r\n                    \"timestamp\": 1568881328643\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"error\": \"taker_swap:798] utxo:950] utxo:950] error\"\r\n                        },\r\n                        \"type\": \"MakerPaymentSpendFailed\"\r\n                    },\r\n                    \"timestamp\": 1568881328645\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"type\": \"Finished\"\r\n                    },\r\n                    \"timestamp\": 1568881328648\r\n                }\r\n            ],\r\n            \"my_info\": {\r\n                \"my_amount\": \"4\",\r\n                \"my_coin\": \"ETOMIC\",\r\n                \"other_amount\": \"3\",\r\n                \"other_coin\": \"BEER\",\r\n                \"started_at\": 1568881184\r\n            },\r\n            \"recoverable\": true,\r\n            \"success_events\": [\r\n                \"Started\",\r\n                \"Negotiated\",\r\n                \"TakerFeeSent\",\r\n                \"MakerPaymentReceived\",\r\n                \"MakerPaymentWaitConfirmStarted\",\r\n                \"MakerPaymentValidatedAndConfirmed\",\r\n                \"TakerPaymentSent\",\r\n                \"TakerPaymentSpent\",\r\n                \"MakerPaymentSpent\",\r\n                \"Finished\"\r\n            ],\r\n            \"type\": \"Taker\",\r\n            \"uuid\": \"07ce08bf-3db9-4dd8-a671-854affc1b7a3\"\r\n        },\r\n        {\r\n            \"error_events\": [\r\n                \"StartFailed\",\r\n                \"NegotiateFailed\",\r\n                \"TakerFeeSendFailed\",\r\n                \"MakerPaymentValidateFailed\",\r\n                \"TakerPaymentTransactionFailed\",\r\n                \"TakerPaymentDataSendFailed\",\r\n                \"TakerPaymentWaitForSpendFailed\",\r\n                \"MakerPaymentSpendFailed\",\r\n                \"TakerPaymentRefunded\",\r\n                \"TakerPaymentRefundFailed\"\r\n            ],\r\n            \"events\": [\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"lock_duration\": 7800,\r\n                            \"maker\": \"631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640\",\r\n                            \"maker_amount\": \"3\",\r\n                            \"maker_coin\": \"BEER\",\r\n                            \"maker_coin_start_block\": 156186,\r\n                            \"maker_payment_confirmations\": 0,\r\n                            \"maker_payment_wait\": 1568883784,\r\n                            \"my_persistent_pub\": \"02031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3\",\r\n                            \"started_at\": 1568881184,\r\n                            \"taker_amount\": \"4\",\r\n                            \"taker_coin\": \"ETOMIC\",\r\n                            \"taker_coin_start_block\": 175041,\r\n                            \"taker_payment_confirmations\": 1,\r\n                            \"taker_payment_lock\": 1568888984,\r\n                            \"uuid\": \"07ce08bf-3db9-4dd8-a671-854affc1b7a3\"\r\n                        },\r\n                        \"type\": \"Started\"\r\n                    },\r\n                    \"timestamp\": 1568881185316\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"maker_payment_locktime\": 1568896784,\r\n                            \"maker_pubkey\": \"02631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640\",\r\n                            \"secret_hash\": \"eba736c5cc9bb33dee15b4a9c855a7831a484d84\"\r\n                        },\r\n                        \"type\": \"Negotiated\"\r\n                    },\r\n                    \"timestamp\": 1568881246025\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"tx_hash\": \"0c07be4dda88d8d75374496aa0f27e12f55363ce8d558cb5feecc828545e5f87\",\r\n                            \"tx_hex\": \"0400008085202f890146b98696761d5e8667ffd665b73e13a8400baab4b22230a7ede0e4708597ee9c000000006a473044022077acb70e5940dfe789faa77e72b34f098abbf0974ea94a0380db157e243965230220614ec4966db0a122b0e7c23aa0707459b3b4f8241bb630c635cf6e943e96362e012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff02f0da0700000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88ac68630700000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac5e3a835d000000000000000000000000000000\"\r\n                        },\r\n                        \"type\": \"TakerFeeSent\"\r\n                    },\r\n                    \"timestamp\": 1568881250689\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"tx_hash\": \"31d97b3359bdbdfbd241e7706c90691e4d7c0b7abd27f2b22121be7f71c5fd06\",\r\n                            \"tx_hex\": \"0400008085202f8901b4679094d4bf74f52c9004107cb9641a658213d5e9950e42a8805824e801ffc7010000006b483045022100b2e49f8bdc5a4b6c404e10150872dbec89a46deb13a837d3251c0299fe1066ca022012cbe6663106f92aefce88238b25b53aadd3522df8290ced869c3cc23559cc23012102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ffffffff0200a3e1110000000017a91476e1998b0cd18da5f128e5bb695c36fbe6d957e98764c987c9bf0000001976a91464ae8510aac9546d5e7704e31ce177451386455588ac753a835d000000000000000000000000000000\"\r\n                        },\r\n                        \"type\": \"MakerPaymentReceived\"\r\n                    },\r\n                    \"timestamp\": 1568881291571\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"type\": \"MakerPaymentWaitConfirmStarted\"\r\n                    },\r\n                    \"timestamp\": 1568881291571\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"type\": \"MakerPaymentValidatedAndConfirmed\"\r\n                    },\r\n                    \"timestamp\": 1568881291985\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"tx_hash\": \"95926ab204049edeadb370c17a1168d9d79ee5747d8d832f73cfddf1c74f3961\",\r\n                            \"tx_hex\": \"0400008085202f8902875f5e5428c8ecfeb58c558dce6353f5127ef2a06a497453d7d888da4dbe070c010000006a4730440220416059356dc6dde0ddbee206e456698d7e54c3afa92132ecbf332e8c937e5383022068a41d9c208e8812204d4b0d21749b2684d0eea513467295e359e03c5132e719012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff46b98696761d5e8667ffd665b73e13a8400baab4b22230a7ede0e4708597ee9c010000006b483045022100a990c798d0f96fd5ff7029fd5318f3c742837400d9f09a002e7f5bb1aeaf4e5a0220517dbc16713411e5c99bb0172f295a54c97aaf4d64de145eb3c5fa0fc38b67ff012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff020084d7170000000017a9144d57b4930e6c86493034f17aa05464773625de1c877bd0de03010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac8c3a835d000000000000000000000000000000\"\r\n                        },\r\n                        \"type\": \"TakerPaymentSent\"\r\n                    },\r\n                    \"timestamp\": 1568881296904\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"secret\": \"fb968d5460399f20ffd09906dc8f65c21fbb5cb8077a8e6d7126d0526586ca96\",\r\n                            \"transaction\": {\r\n                                \"tx_hash\": \"68f5ec617bd9a4a24d7af0ce9762d87f7baadc13a66739fd4a2575630ecc1827\",\r\n                                \"tx_hex\": \"0400008085202f890161394fc7f1ddcf732f838d7d74e59ed7d968117ac170b3adde9e0404b26a929500000000d8483045022100a33d976cf509d6f9e66c297db30c0f44cced2241ee9c01c5ec8d3cbbf3d41172022039a6e02c3a3c85e3861ab1d2f13ba52677a3b1344483b2ae443723ba5bb1353f0120fb968d5460399f20ffd09906dc8f65c21fbb5cb8077a8e6d7126d0526586ca96004c6b63049858835db1752102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac6782012088a914eba736c5cc9bb33dee15b4a9c855a7831a484d84882102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac68ffffffff011880d717000000001976a91464ae8510aac9546d5e7704e31ce177451386455588ac942c835d000000000000000000000000000000\"\r\n                            }\r\n                        },\r\n                        \"type\": \"TakerPaymentSpent\"\r\n                    },\r\n                    \"timestamp\": 1568881328643\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"data\": {\r\n                            \"error\": \"taker_swap:798] utxo:950] utxo:950] error\"\r\n                        },\r\n                        \"type\": \"MakerPaymentSpendFailed\"\r\n                    },\r\n                    \"timestamp\": 1568881328645\r\n                },\r\n                {\r\n                    \"event\": {\r\n                        \"type\": \"Finished\"\r\n                    },\r\n                    \"timestamp\": 1568881328648\r\n                }\r\n            ],\r\n            \"my_info\": {\r\n                \"my_amount\": \"4\",\r\n                \"my_coin\": \"ETOMIC\",\r\n                \"other_amount\": \"3\",\r\n                \"other_coin\": \"BEER\",\r\n                \"started_at\": 1568881184\r\n            },\r\n            \"recoverable\": true,\r\n            \"success_events\": [\r\n                \"Started\",\r\n                \"Negotiated\",\r\n                \"TakerFeeSent\",\r\n                \"MakerPaymentReceived\",\r\n                \"MakerPaymentWaitConfirmStarted\",\r\n                \"MakerPaymentValidatedAndConfirmed\",\r\n                \"TakerPaymentSent\",\r\n                \"TakerPaymentSpent\",\r\n                \"MakerPaymentSpent\",\r\n                \"Finished\"\r\n            ],\r\n            \"type\": \"Taker\",\r\n            \"uuid\": \"07ce08bf-3db9-4dd8-a671-854affc1b7a3\"\r\n        }\r\n    ]\r\n}"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -2160,7 +2160,7 @@
 							"response": []
 						},
 						{
-							"name": "my_swap_status WIP",
+							"name": "my_swap_status",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2187,7 +2187,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"my_swap_status\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"my_swap_status\",\r\n    \"params\": {\r\n        \"uuid\": \"99041f7f-a4cd-4d79-a9df-55440345ed75\"\r\n    }\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -2204,7 +2204,7 @@
 							"response": []
 						},
 						{
-							"name": "recover_funds_of_swap WIP",
+							"name": "recover_funds_of_swap",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2231,7 +2231,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"recover_funds_of_swap\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"recover_funds_of_swap\",\r\n    \"params\": {\r\n        \"uuid\": \"99041f7f-a4cd-4d79-a9df-55440345ed75\"\r\n    }\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -2248,7 +2248,7 @@
 							"response": []
 						},
 						{
-							"name": "set_required_confirmations WIP",
+							"name": "set_required_confirmations",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2275,7 +2275,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"set_required_confirmations\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"set_required_confirmations\",\r\n    \"coin\": \"RICK\",\r\n    \"confirmations\": 3\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -2292,7 +2292,7 @@
 							"response": []
 						},
 						{
-							"name": "set_requires_notarization WIP",
+							"name": "set_requires_notarization",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2319,7 +2319,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"set_requires_notarization\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"set_requires_notarization\",\r\n    \"coin\": \"RICK\",\r\n    \"requires_notarization\": true\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
