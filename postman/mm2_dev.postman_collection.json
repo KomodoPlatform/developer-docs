@@ -1319,7 +1319,7 @@
 							"response": []
 						},
 						{
-							"name": "buy WIP",
+							"name": "buy",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1346,7 +1346,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"buy\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"buy\",\r\n    \"base\": \"RICK\",\r\n    \"rel\": \"MORTY\",\r\n    \"price\": 1.1,\r\n    \"volume\": 2.4\r\n    // \"min_volume\": null, // Accepted values: Decimals\r\n    // \"timeout\": 30,\r\n    // \"match_by\": {\r\n    //     \"type\": \"Any\" // Accepted values: \"Any\", \"Orders\", \"Pubkeys\"\r\n    //     // \"data\": [\r\n    //     //     \"1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a\",\r\n    //     //     \"1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a\"\r\n    //     //     ] // Required only if: \"type\": \"Orders\", \"type\": \"Pubkeys\"\r\n    // },\r\n    // \"order_type\": {\r\n    //     \"type\": \"GoodTillCancelled\" // Accepted values: \"GoodTillCancelled\", \"FillOrKill\"\r\n    // },\r\n    // \"base_confs\": 1, // Default: Coin Config\r\n    // \"base_nota\": false, // Default: Coin Config\r\n    // \"rel_confs\": 1, // Default: Coin Config\r\n    // \"rel_nota\": false, // Default: Coin Config\r\n    // \"save_in_history\": true\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -1583,7 +1583,7 @@
 							"response": []
 						},
 						{
-							"name": "orders_history_by_filter WIP",
+							"name": "orders_history_by_filter",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1610,7 +1610,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"orders_history_by_filter\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"orders_history_by_filter\"\r\n    // \"order_type\": null, // Accepted values: \"Maker\", \"Taker\"\r\n    // \"initial_action\": null, // Accepted values: \"Buy\", \"Sell\"\r\n    // \"base\": null, // Accepted values: Strings\r\n    // \"rel\": null, // Accepted values: Strings\r\n    // \"from_price\": null, // Accepted values: Decimals\r\n    // \"to_price\": null, // Accepted values: Decimals\r\n    // \"from_volume\": null, // Accepted values: Decimals\r\n    // \"to_volume\": null, // Accepted values: Decimals\r\n    // \"from_timestamp\": null, // Accepted values: Integers\r\n    // \"to_timestamp\": null, // Accepted values: Integers\r\n    // \"was_taker\": null, // Accepted values: Booleans\r\n    // \"status\": null, // Accepted values: \"Fulfilled\", \"ToMaker\", \"InsufficientBalance\", \"TimedOut\", \"Cancelled\"\r\n    // \"include_details\": false\r\n\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -1759,7 +1759,7 @@
 							"response": []
 						},
 						{
-							"name": "sell WIP",
+							"name": "sell",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1786,7 +1786,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"sell\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"sell\",\r\n    \"base\": \"RICK\",\r\n    \"rel\": \"MORTY\",\r\n    \"price\": 1.1,\r\n    \"volume\": 2.4\r\n    // \"min_volume\": null, // Accepted values: Decimals\r\n    // \"timeout\": 30,\r\n    // \"match_by\": {\r\n    //     \"type\": \"Any\" // Accepted values: \"Any\", \"Orders\", \"Pubkeys\"\r\n    //     // \"data\": [\r\n    //     //     \"1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a\",\r\n    //     //     \"1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a\"\r\n    //     //     ] // Required only if: \"type\": \"Orders\", \"type\": \"Pubkeys\"\r\n    // },\r\n    // \"order_type\": {\r\n    //     \"type\": \"GoodTillCancelled\" // Accepted values: \"GoodTillCancelled\", \"FillOrKill\"\r\n    // },\r\n    // \"base_confs\": 1, // Default: Coin Config\r\n    // \"base_nota\": false, // Default: Coin Config\r\n    // \"rel_confs\": 1, // Default: Coin Config\r\n    // \"rel_nota\": false, // Default: Coin Config\r\n    // \"save_in_history\": true\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -1803,7 +1803,7 @@
 							"response": []
 						},
 						{
-							"name": "setprice WIP",
+							"name": "setprice",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1830,7 +1830,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"setprice\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"setprice\",\r\n    \"base\": \"RICK\",\r\n    \"rel\": \"MORTY\",\r\n    \"price\": 0.9,\r\n    \"volume\": 1.05 // used only if: \"max\": false\r\n    // \"max\": false,\r\n    // \"min_volume\": null, // Accepted values: Decimals\r\n    // \"cancel_previous\": true,\r\n    // \"base_confs\": 1, // Default: Coin Config\r\n    // \"base_nota\": false, // Default: Coin Config\r\n    // \"rel_confs\": 1, // Default: Coin Config\r\n    // \"rel_nota\": false, // Default: Coin Config\r\n    // \"save_in_history\": true\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -1847,7 +1847,7 @@
 							"response": []
 						},
 						{
-							"name": "update_maker_order WIP",
+							"name": "update_maker_order",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1874,7 +1874,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"update_maker_order\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"update_maker_order\",\r\n    \"uuid\": \"6f65968f-e3c6-4978-98c5-5cec2bb5aa5b\"\r\n    // \"new_price\": null, // Accepted values: Decimals\r\n    // \"max\": null, // Accepted values: Booleans\r\n    // \"volume_delta\": null, // Accepted values: Positive or Negative Decimals\r\n    // \"min_volume\": null, // Accepted values: Decimals\r\n    // \"base_confs\": null, // Accepted values: Integers\r\n    // \"base_nota\": null, // Accepted values: Booleans\r\n    // \"rel_confs\": null, // Accepted values: Integers\r\n    // \"rel_nota\": null // Accepted values: Booleans\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
