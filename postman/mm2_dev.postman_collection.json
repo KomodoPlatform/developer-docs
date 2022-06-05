@@ -872,7 +872,7 @@
 							"name": "withdraw",
 							"item": [
 								{
-									"name": "withdraw UTXO WIP",
+									"name": "withdraw UTXO",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -899,7 +899,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"withdraw\",\r\n    \"coin\": \"RICK\",\r\n    \"to\": \"RNBA756iaFCx2Uhya3pvCufbeyovAaknJL\",\r\n    \"amount\": 0 // Required only if: \"max\": false\r\n    // \"max\": false,\r\n    // \"fee\": {\r\n    //     \"type\": \"UtxoFixed\", // Accepted values: \"UtxoFixed\", \"UtxoPerKbyte\"\r\n    //     \"amount\": 1.014\r\n    // }, // Default: Coin Config, { \"type\": \"UtxoFixed\", \"amount\": 0.00001 } // default amount is 1000 of the smallest unit of the coin\r\n    // \"from\": null\r\n    // // \"from\": {\r\n    // //     \"account_id\": 1,\r\n    // //     \"chain\": \"External\", // Accepted values: \"External\", \"Internal\"\r\n    // //     \"address_id\": 1\r\n    // // }\r\n    // // \"from\": {\r\n    // //     \"derivation_path\": \"m/44'/501'/0'\"\r\n    // // }\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"withdraw\",\r\n    \"coin\": \"RICK\",\r\n    \"to\": \"RNBA756iaFCx2Uhya3pvCufbeyovAaknJL\",\r\n    \"amount\": 1.025 // used only if: \"max\": false\r\n    // \"max\": false,\r\n    // \"fee\": {\r\n    //     \"type\": \"UtxoFixed\", // Accepted values: \"UtxoFixed\", \"UtxoPerKbyte\"\r\n    //     \"amount\": 0.00001 // default amount is 1000 of the smallest unit of the coin (0.00001 for 8 decimal places coins)\r\n    // } // Default: Coin Config\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -916,7 +916,7 @@
 									"response": []
 								},
 								{
-									"name": "withdraw ETH/ERC20 WIP",
+									"name": "withdraw ETH/ERC20",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -943,7 +943,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"withdraw\"\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"withdraw\",\r\n    \"coin\": \"ETH\",\r\n    \"to\": \"0x60b56cde26535caD3d8AB7b54bfA2689A3C1e134\",\r\n    \"amount\": 0.0025 // used only if: \"max\": false\r\n    // \"max\": false,\r\n    // \"fee\": {\r\n    //     \"type\": \"EthGas\",\r\n    //     \"gas_price\": \"3.5\", // Default: Max from [\"gas_station_url\", \"eth_gasPrice\" call, \"eth_feeHistory\" call]\r\n    //     \"gas\": 55000 // Default: from \"estimate_gas\" call\r\n    // }\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -960,7 +960,7 @@
 									"response": []
 								},
 								{
-									"name": "withdraw QRC20 WIP",
+									"name": "withdraw QRC20",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -987,7 +987,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"withdraw\"\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"withdraw\",\r\n    \"coin\": \"QC\",\r\n    \"to\": \"QZVx8rW99tHCPcRoXDAHEf82PyJ2g9VZRn\",\r\n    \"amount\": 10 // used only if: \"max\": false\r\n    // \"max\": false,\r\n    // \"fee\": {\r\n    //     \"type\": \"Qrc20Gas\",\r\n    //     \"gas_limit\": 100000,\r\n    //     \"gas_price\": 40\r\n    // }\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -1121,7 +1121,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"my_tx_history\",\r\n    \"coin\": \"RICK\"\r\n    // \"from_id\": \"e2f1331ac3338b3443eb176db97d588c7ec631481eb1a9c2b4334397e4addb2a\",\r\n    // \"max\": false,\r\n    // \"limit\": 10,\r\n    // \"page_number\": 1\r\n\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"my_tx_history\",\r\n    \"coin\": \"RICK\"\r\n    // \"from_id\": null, // Accepted values: Strings\r\n    // \"max\": false,\r\n    // \"limit\": 10,\r\n    // \"page_number\": 1, // used only if: \"from_id\": null\r\n\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
