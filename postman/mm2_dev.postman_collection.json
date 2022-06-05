@@ -1275,7 +1275,7 @@
 					"name": "Orders",
 					"item": [
 						{
-							"name": "best_orders WIP",
+							"name": "best_orders",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1302,7 +1302,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"best_orders\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"best_orders\",\r\n    \"coin\": \"RICK\",\r\n    \"action\": \"buy\", // Accepted values: \"buy\", \"sell\"\r\n    \"volume\": 1.1\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -1363,7 +1363,7 @@
 							"response": []
 						},
 						{
-							"name": "cancel_all_orders WIP",
+							"name": "cancel_all_orders",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1390,7 +1390,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"cancel_all_orders\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"cancel_all_orders\",\r\n    \"cancel_by\": {\r\n        \"type\": \"All\" // Accepted values: \"All\", \"Pair\", \"Coin\"\r\n        // \"data\": {\r\n        //     \"base\": \"RICK\", // Required only if: \"type\": \"Pair\"\r\n        //     \"rel\": \"MORTY\" // Required only if: \"type\": \"Pair\"\r\n        //     // \"ticker\": \"RICK\" // Required only if: \"type\": \"Coin\"\r\n        // } // Required only if: \"type\": \"Pair\", \"type\": \"Coin\"\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -1407,7 +1407,7 @@
 							"response": []
 						},
 						{
-							"name": "cancel_order WIP",
+							"name": "cancel_order",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1434,7 +1434,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"cancel_order\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"cancel_order\",\r\n    \"uuid\": \"6a242691-6c05-474a-85c1-5b3f42278f41\"\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -1451,7 +1451,7 @@
 							"response": []
 						},
 						{
-							"name": "max_taker_vol WIP",
+							"name": "max_taker_vol",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1478,7 +1478,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"max_taker_vol\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"max_taker_vol\",\r\n    \"coin\": \"RICK\"\r\n    // \"trade_with\": \"RICK\" // Default: \"coin\"\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -1495,7 +1495,7 @@
 							"response": []
 						},
 						{
-							"name": "min_trading_vol WIP",
+							"name": "min_trading_vol",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1522,7 +1522,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"min_trading_vol\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"min_trading_vol\",\r\n    \"coin\": \"RICK\"\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -1539,7 +1539,7 @@
 							"response": []
 						},
 						{
-							"name": "my_orders WIP",
+							"name": "my_orders",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1627,7 +1627,7 @@
 							"response": []
 						},
 						{
-							"name": "order_status WIP",
+							"name": "order_status",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1654,7 +1654,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"order_status\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"order_status\",\r\n    \"uuid\": \"6a242691-6c05-474a-85c1-5b3f42278f41\"\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -1671,7 +1671,7 @@
 							"response": []
 						},
 						{
-							"name": "orderbook WIP",
+							"name": "orderbook",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1698,7 +1698,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"orderbook\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"orderbook\",\r\n    \"base\": \"RICK\",\r\n    \"rel\": \"MORTY\"\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -1715,7 +1715,7 @@
 							"response": []
 						},
 						{
-							"name": "orderbook_depth WIP",
+							"name": "orderbook_depth",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1742,7 +1742,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"orderbook_depth\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"orderbook_depth\",\r\n    \"pairs\":[[\"RICK\",\"MORTY\"],[\"BTC\",\"KMD\"],[\"DOGE\",\"KMD\"]]\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
