@@ -33,13 +33,12 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 
 _To notarise KMD -> LTC, the `-notary=".litecoin/litecoin.conf"` flag is required when launching KMD._
 
-
 ### 3rd Party Server (some of these are yet to update - check discord for status - operators can still build and sync the chains to present using the current versions before the actual update needed for S5 is available)
 
 - **SFUSD:** [https://github.com/pbcllc/sfusd-core.git](https://github.com/pbcllc/sfusd-core.git) Tree: `d96497cbcec0dcf185cc149f1b3988a5964e5112`
 - **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Tree: `a716ae80995e51b9a9d0bd5977a3463bbda4a17e`
 - **CHIPS:** [https://github.com/chips-blockchain/chips.git](https://github.com/chips-blockchain/chips.git) Tree: `70362d54645748194b72e1cc753cca8be4f8629b`
-- **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master`
+- **AYA:** [https://github.com/KomodoPlatform/AYAv2](https://github.com/KomodoPlatform/AYAv2) Tree: `02afeacdc0702bd160abef603f03167381f39097`
 - **VRSC:** [https://github.com/VerusCoin/VerusCoin.git](https://github.com/VerusCoin/VerusCoin.git) Tag: `v0.7.3-6`
 - **MCL:** [https://github.com/marmarachain/marmara.git](https://github.com/marmarachain/marmara.git) Tree: `2412d5f5434a6b31f86da934d53df1729956654b`
 - **GLEEC** [https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git](https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git) Tree: `3c486d448dece7fc9a174b7a2eb36e651c1f3529`
@@ -479,9 +478,9 @@ The instructions below are only required on your 3rd party server, which is the 
 
 ```bash
 cd ~
-git clone https://github.com/sillyghost/AYAv2.git -b master
+git clone https://github.com/KomodoPlatform/AYAv2
 cd AYAv2
-git checkout fd94422
+git checkout 02afeac
 ```
 
 #### Step 2: Create a build script
