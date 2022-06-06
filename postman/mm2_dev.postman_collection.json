@@ -2116,7 +2116,7 @@
 							"response": []
 						},
 						{
-							"name": "my_recent_swaps WIP",
+							"name": "my_recent_swaps",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2143,7 +2143,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"my_recent_swaps\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"my_recent_swaps\"\r\n    // \"limit\": 10,\r\n    // \"page_number\": 1,\r\n    // \"from_uuid\": null, // Accepted values: Strings\r\n    // \"my_coin\": null, // Accepted values: Strings\r\n    // \"other_coin\": null, // Accepted values: Strings\r\n    // \"from_timestamp\": null, // Accepted values: Integers\r\n    // \"to_timestamp\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -2336,7 +2336,7 @@
 							"response": []
 						},
 						{
-							"name": "stats_swap_status WIP",
+							"name": "stats_swap_status",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2363,7 +2363,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"stats_swap_status\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"stats_swap_status\",\r\n    \"params\": {\r\n        \"uuid\": \"dad06692-399a-4a05-a6fc-4e4cbe6d227d\"\r\n    }\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -2380,7 +2380,7 @@
 							"response": []
 						},
 						{
-							"name": "trade_preimage WIP",
+							"name": "trade_preimage",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2407,7 +2407,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"trade_preimage\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"trade_preimage\",\r\n    \"base\": \"RICK\",\r\n    \"rel\": \"MORTY\",\r\n    \"swap_method\": \"setprice\", // Accepted values: \"setprice\", \"buy\", \"sell\"\r\n    \"price\": 1.01,\r\n    \"volume\": 1.05 // used only if: \"max\": false\r\n    // \"max\": false\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
