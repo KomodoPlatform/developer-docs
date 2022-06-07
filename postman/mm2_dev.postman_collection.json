@@ -3068,7 +3068,7 @@
 							"name": "UTXO",
 							"item": [
 								{
-									"name": "init_utxo WIP",
+									"name": "init_utxo",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3095,7 +3095,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_utxo\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_utxo\",\r\n    \"params\": {\r\n        \"ticker\":\"RICK\",\r\n        \"activation_params\": {\r\n            \"mode\": {\r\n                \"rpc\":\"Electrum\",\r\n                \"rpc_data\": {\r\n                    \"servers\": [\r\n                        {\r\n                            \"url\": \"electrum1.cipig.net:10017\"\r\n                            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n                            // \"disable_cert_verification\": false\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum2.cipig.net:10017\"\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum3.cipig.net:10017\"\r\n                        }\r\n                    ]\r\n                }\r\n            }\r\n            // \"tx_history\": false,\r\n            // \"required_confirmations\": 1, // Default: Coin Config\r\n            // \"requires_notarization\": false, // Default: Coin Config\r\n            // \"address_format\": {\r\n            //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\", \"cashaddress\"\r\n            // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n            // }, // Default: Coin Config\r\n            // \"utxo_merge_params\": null,\r\n            // // \"utxo_merge_params\": {\r\n            // //     \"merge_at\":50\r\n            // //     // \"check_every\":10,\r\n            // //     // \"max_merge_at_once\":100\r\n            // //     },\r\n            // \"check_utxo_maturity\": false,\r\n            // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n            // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n            // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -3112,7 +3112,7 @@
 									"response": []
 								},
 								{
-									"name": "init_utxo_status WIP",
+									"name": "init_utxo_status",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3139,7 +3139,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_utxo_status\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_utxo_status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -3156,7 +3156,7 @@
 									"response": []
 								},
 								{
-									"name": "init_utxo_user_action WIP",
+									"name": "init_utxo_user_action",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3183,7 +3183,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_utxo_user_action\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_utxo_user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -4254,7 +4254,7 @@
 							]
 						},
 						{
-							"name": "get_raw_transaction WIP",
+							"name": "get_raw_transaction",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -4281,7 +4281,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_raw_transaction\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_raw_transaction\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"tx_hash\": \"8c34946c0894b8520a84d6182f5962a173e0995b4a4fe1b40a867d8a9cd5e0c1\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -4386,7 +4386,7 @@
 							"response": []
 						},
 						{
-							"name": "sign_message WIP",
+							"name": "sign_message",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -4413,7 +4413,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"sign_message\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"sign_message\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"message\": \"test\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -4430,7 +4430,7 @@
 							"response": []
 						},
 						{
-							"name": "verify_message WIP",
+							"name": "verify_message",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -4457,7 +4457,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"verify_message\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"verify_message\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"message\": \"test\",\r\n        \"signature\": \"IB0DBH6R+P836Y86PVLJPTV5Vp3aEJhW6qwQj8mfExT4dJIyhohcDzZ6GQr7N8pIN05ISQS+D7G/DnLTc7C/oso=\",\r\n        \"address\": \"RNBA756iaFCx2Uhya3pvCufbeyovAaknJL\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -5640,7 +5640,7 @@
 					]
 				},
 				{
-					"name": "get_public_key WIP",
+					"name": "get_public_key",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -5684,7 +5684,7 @@
 					"response": []
 				},
 				{
-					"name": "get_public_key_hash WIP",
+					"name": "get_public_key_hash",
 					"event": [
 						{
 							"listen": "prerequest",
