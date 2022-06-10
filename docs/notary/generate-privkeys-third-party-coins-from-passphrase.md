@@ -5,8 +5,9 @@ While this guide is intended for Notary Node operators, other users may find it 
 Never enter your Notary Node's passphrase into any other computer/server other than your node itself for security purposes.
 
 :::tip Note
-For Notary Nodes, we will need `Compressed Public Key` as BTC pubkey, `Compressed WIF` as private key and `Compressed Address` as the public address.
+For Notary Nodes, we will need `Compressed Public Key` as pubkey, `Compressed WIF` as private key and `Compressed Address` as the public address.
 :::
+
 
 ## Install dependencies
 
@@ -113,4 +114,60 @@ Uncompressed Public Key: 04a854251adfee222bede8396fed0756985d4ea905f72611740867c
 Uncompressed Address: FUoCsa3NXq6TnuLLWQd3WGZSJeNWVgWuPR
 [ ETH/ERC20 ]
    ETH/ERC20 Address: 0x85FE0A232fA144921d880BE72A3C5515e5C17A8c
+```
+
+
+:::tip Note
+To convert from a WIF instead of a seed phrase, uncomment this line and input your WIF - https://github.com/DeckerSU/komodo_scripts/blob/master/genkomodo.php#L146-L147
+:::
+
+
+## WIF conversion in Python
+
+The python script below will return converted WIFs for all coins with a known `wiftype` prefix (or a specific coin if set via runtime param).
+If the coin you need to convert is not yet available, you need to find the relevant values in the project's source code, e.g. https://github.com/KomodoPlatform/komodo/blob/810d308d0792a560f05937b7989b6868381c1dc8/src/chainparams.cpp#L197-L199
+Then PR these values to https://github.com/KomodoPlatform/coins/blob/master/coins
+
+
+```python
+#!/usr/bin/env python3
+import sys
+import requests
+import hashlib
+import base58
+import binascii
+
+if len(sys.argv) > 1:
+    WIF = sys.argv[1]
+else:
+    WIF = input('Enter WIF: ')
+
+coin_prefixes = requests.get("https://stats.kmd.io/api/info/coin_prefixes/").json()["results"]
+
+if len(sys.argv) > 2:
+    coin = sys.argv[2]
+    if coin not in coin_prefixes:
+        print(f"Error: {coin} not in coin_prefixes")
+        sys.exit()
+else:
+    coin = ""
+
+def double_sha(x):
+    a = hashlib.sha256(binascii.unhexlify(x)).hexdigest()
+    return hashlib.sha256(binascii.unhexlify(a)).hexdigest()
+
+pk = binascii.hexlify(base58.b58decode(WIF))[2:-8]
+pk_utf = pk.decode("utf-8")
+
+for _coin in coin_prefixes:
+    prefix = coin_prefixes[_coin]["hex"]["wiftype"]
+    x_key = prefix + pk_utf
+    full_key = x_key + double_sha(x_key)[:8]
+    WIF = base58.b58encode(binascii.unhexlify(full_key)).decode('utf-8')
+    if coin != "":
+        if coin  == _coin:
+            print(WIF)
+            break
+    else:
+        print (f"{_coin} WIF: {WIF}")
 ```
