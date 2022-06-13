@@ -4885,7 +4885,7 @@
 					"name": "Lightning",
 					"item": [
 						{
-							"name": "close_channel WIP",
+							"name": "close_channel",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -4912,7 +4912,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"close_channel\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"close_channel\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"channel_id\": \"e57a53516302c3e35e0964c2b8b1db6e1e4b451fab3259b6fef0d0399a3e1ff2\"\r\n        // \"force_close\": false\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -4929,7 +4929,7 @@
 							"response": []
 						},
 						{
-							"name": "connect_to_lightning_node WIP",
+							"name": "connect_to_lightning_node",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -4956,7 +4956,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"connect_to_lightning_node\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"connect_to_lightning_node\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -4973,7 +4973,7 @@
 							"response": []
 						},
 						{
-							"name": "enable_lightning WIP",
+							"name": "enable_lightning",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5000,7 +5000,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"enable_lightning\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"enable_lightning\",\r\n    \"params\": {\r\n        \"ticker\": \"tBTC-TEST-lightning\",\r\n        \"activation_params\": {\r\n            \"name\": \"Mm2TestNode\"\r\n            // \"listening_port\": 9735,\r\n            // \"color\": \"000000\",\r\n            // \"payment_retries\": 5,\r\n            // \"backup_path\": null // Accepted values: Strings\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -5017,7 +5017,7 @@
 							"response": []
 						},
 						{
-							"name": "generate_invoice WIP",
+							"name": "generate_invoice",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5044,7 +5044,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"generate_invoice\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"generate_invoice\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"description\": \"test invoice\"\r\n        // \"amount_in_msat\": null // Accepted values: Integers\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -5061,7 +5061,7 @@
 							"response": []
 						},
 						{
-							"name": "get_channel_details WIP",
+							"name": "get_channel_details",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5088,7 +5088,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_channel_details\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_channel_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 1\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -5105,7 +5105,7 @@
 							"response": []
 						},
 						{
-							"name": "get_claimable_balances WIP",
+							"name": "get_claimable_balances",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5132,7 +5132,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_claimable_balances\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_claimable_balances\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"include_open_channels_balances\": false\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -5149,7 +5149,7 @@
 							"response": []
 						},
 						{
-							"name": "get_payment_details WIP",
+							"name": "get_payment_details",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5176,7 +5176,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_payment_details\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_payment_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"32f996e6e0aa88e567318beeadb37b6bc0fddfd3660d4a87726f308ed1ec7b33\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -5193,7 +5193,7 @@
 							"response": []
 						},
 						{
-							"name": "list_closed_channels_by_filter WIP",
+							"name": "list_closed_channels_by_filter",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5220,7 +5220,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"list_closed_channels_by_filter\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"list_closed_channels_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"filter\": null,\r\n        // // \"filter\": {\r\n        // //     // \"channel_id\": null, // Accepted values: Strings\r\n        // //     // \"counterparty_node_id\": null, // Accepted values: Strings\r\n        // //     // \"funding_tx\": null, // Accepted values: Strings\r\n        // //     // \"from_funding_value\": null, // Accepted values: Integers\r\n        // //     // \"to_funding_value\": null, // Accepted values: Integers\r\n        // //     // \"closing_tx\": null, // Accepted values: Strings\r\n        // //     // \"closure_reason\": null, // Accepted values: Strings\r\n        // //     // \"claiming_tx\": null, // Accepted values: Strings\r\n        // //     // \"from_claimed_balance\": null, // Accepted values: Decimals\r\n        // //     // \"to_claimed_balance\": null, // Accepted values: Decimals\r\n        // //     // \"channel_type\": null, // Accepted values: \"Outbound\", \"Inbound\"\r\n        // //     // \"channel_visibility\": null // Accepted values: \"Public\", \"Private\"\r\n        // // },\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": 4 // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -5237,7 +5237,7 @@
 							"response": []
 						},
 						{
-							"name": "list_open_channels_by_filter WIP",
+							"name": "list_open_channels_by_filter",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5264,7 +5264,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"list_open_channels_by_filter\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"list_open_channels_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"filter\": null,\r\n        // // \"filter\": {\r\n        // //     // \"channel_id\": null, // Accepted values: Strings\r\n        // //     // \"counterparty_node_id\": null, // Accepted values: Strings\r\n        // //     // \"funding_tx\": null, // Accepted values: Strings\r\n        // //     // \"from_funding_value_sats\": null, // Accepted values: Integers\r\n        // //     // \"to_funding_value_sats\": null, // Accepted values: Integers\r\n        // //     // \"is_outbound\": null, // Accepted values: Booleans\r\n        // //     // \"from_balance_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_balance_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_outbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_outbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_inbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_inbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"confirmed\": null, // Accepted values: Booleans\r\n        // //     // \"is_usable\": null, // Accepted values: Booleans\r\n        // //     // \"is_public\": null // Accepted values: Booleans\r\n        // // },\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": 4 // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -5281,7 +5281,7 @@
 							"response": []
 						},
 						{
-							"name": "list_payments_by_filter WIP",
+							"name": "list_payments_by_filter",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5308,7 +5308,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"list_payments_by_filter\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"list_payments_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"filter\": null,\r\n        // // \"filter\": {\r\n        // //     // \"payment_type\": null,\r\n        // //     // // \"payment_type\": {\r\n        // //     // //     \"type\": \"Outbound Payment\", // Accepted values: \"Outbound Payment\", \"Inbound Payment\"\r\n        // //     // //     \"destination\": \"03933884aaf1d6b108397e5efe5c86bcf2d8ca8d2f700eda99db9214fc2712b134\" // Required only if: \"type\": \"Putbound Payment\"\r\n        // //     // // },\r\n        // //     // \"description\": null, // Accepted values: Strings\r\n        // //     // \"status\": null, // Accepted values: \"pending\", \"succeeded\", \"failed\"\r\n        // //     // \"from_amount_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_amount_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_fee_paid_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_fee_paid_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_timestamp\": null, // Accepted values: Integers\r\n        // //     // \"to_timestamp\": null // Accepted values: Integers\r\n        // // },\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": \"d6d3cf3fd5237ed15295847befe00da67c043da1c39a373bff30bd22442eea43\" // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -5325,7 +5325,7 @@
 							"response": []
 						},
 						{
-							"name": "open_channel WIP",
+							"name": "open_channel",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5352,7 +5352,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"open_channel\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"open_channel\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735\",\r\n        \"amount\": {\r\n            \"type\": \"Exact\", // Accepted values: \"Exact\", \"Max\"\r\n            \"value\": 0.0002 // Required only if: \"type\": \"Exact\"\r\n        }\r\n        // \"push_msat\": 0,\r\n        // \"channel_options\": {\r\n        //     \"proportional_fee_in_millionths_sats\": 0, // Default: Coin Config\r\n        //     \"base_fee_msat\": 1000, // Default: Coin Config\r\n        //     \"cltv_expiry_delta\": 72, // Default: Coin Config\r\n        //     \"announced_channel\": false, // Default: Coin Config\r\n        //     \"commit_upfront_shutdown_pubkey\": true, // Default: Coin Config\r\n        //     \"max_dust_htlc_exposure_msat\": 5000000, // Default: Coin Config\r\n        //     \"force_close_avoidance_max_fee_satoshis\": 1000 // Default: Coin Config\r\n        // },\r\n        // \"counterparty_locktime\": 144, // Default: Coin Config\r\n        // \"our_htlc_minimum_msat\": 1 // Default: Coin Config\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -5369,7 +5369,7 @@
 							"response": []
 						},
 						{
-							"name": "send_payment WIP",
+							"name": "send_payment",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5396,7 +5396,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"send_payment\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"send_payment\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment\": {\r\n            \"type\": \"invoice\", // Accepted values: \"invoice\", \"keysend\"\r\n            \"invoice\": \"lntb20u1p32wwxapp5p8gjy2e79jku5tshhq2nkdauv0malqqhzefnqmx9pjwa8h83cmwqdp8xys9xcmpd3sjqsmgd9czq3njv9c8qatrvd5kumcxqrrsscqp79qy9qsqsp5m473qknpecv6ajmwwtjw7keggrwxerymehx6723avhdrlnxmuvhs54zmyrumkasvjp0fvvk2np30cx5xpjs329alvm60rwy3payrnkmsd3n8ahnky3kuxaraa3u4k453yf3age7cszdxhjxjkennpt75erqpsfmy4y\" // Required only if: \"type\": \"invoice\"\r\n            // \"destination\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9\", // Required only if: \"type\": \"keysend\"\r\n            // \"amount_in_msat\": 1000, // Required only if: \"type\": \"keysend\"\r\n            // \"expiry\": 24 // Required only if: \"type\": \"keysend\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
