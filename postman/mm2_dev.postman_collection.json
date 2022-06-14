@@ -3095,7 +3095,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_utxo\",\r\n    \"params\": {\r\n        \"ticker\":\"RICK\",\r\n        \"activation_params\": {\r\n            \"mode\": {\r\n                \"rpc\":\"Electrum\",\r\n                \"rpc_data\": {\r\n                    \"servers\": [\r\n                        {\r\n                            \"url\": \"electrum1.cipig.net:10017\"\r\n                            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n                            // \"disable_cert_verification\": false\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum2.cipig.net:10017\"\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum3.cipig.net:10017\"\r\n                        }\r\n                    ]\r\n                }\r\n            }\r\n            // \"tx_history\": false,\r\n            // \"required_confirmations\": 1, // Default: Coin Config\r\n            // \"requires_notarization\": false, // Default: Coin Config\r\n            // \"address_format\": {\r\n            //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\", \"cashaddress\"\r\n            // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n            // }, // Default: Coin Config\r\n            // \"utxo_merge_params\": null,\r\n            // // \"utxo_merge_params\": {\r\n            // //     \"merge_at\":50\r\n            // //     // \"check_every\":10,\r\n            // //     // \"max_merge_at_once\":100\r\n            // //     },\r\n            // \"check_utxo_maturity\": false,\r\n            // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n            // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n            // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_utxo\",\r\n    \"params\": {\r\n        \"ticker\":\"RICK\",\r\n        \"activation_params\": {\r\n            \"mode\": {\r\n                \"rpc\":\"Electrum\", // Accepted values: \"Electrum\", \"Native\"\r\n                \"rpc_data\": {\r\n                    \"servers\": [\r\n                        {\r\n                            \"url\": \"electrum1.cipig.net:10017\"\r\n                            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n                            // \"disable_cert_verification\": false\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum2.cipig.net:10017\"\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum3.cipig.net:10017\"\r\n                        }\r\n                    ]\r\n                } // Required only if: \"rpc\": \"Electrum\"\r\n            }\r\n            // \"tx_history\": false,\r\n            // \"required_confirmations\": 1, // Default: Coin Config\r\n            // \"requires_notarization\": false, // Default: Coin Config\r\n            // \"address_format\": {\r\n            //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\", \"cashaddress\"\r\n            // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n            // }, // Default: Coin Config\r\n            // \"utxo_merge_params\": null,\r\n            // // \"utxo_merge_params\": {\r\n            // //     \"merge_at\":50\r\n            // //     // \"check_every\":10,\r\n            // //     // \"max_merge_at_once\":100\r\n            // //     },\r\n            // \"check_utxo_maturity\": false,\r\n            // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n            // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n            // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -3205,7 +3205,7 @@
 							"name": "QTUM",
 							"item": [
 								{
-									"name": "init_qtum WIP",
+									"name": "init_qtum",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3232,7 +3232,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_qtum\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_qtum\",\r\n    \"params\": {\r\n        \"ticker\":\"QTUM\",\r\n        \"activation_params\": {\r\n            \"mode\": {\r\n                \"rpc\":\"Electrum\", // Accepted values: \"Electrum\", \"Native\"\r\n                \"rpc_data\": {\r\n                    \"servers\": [\r\n                        {\r\n                            \"url\": \"electrum1.cipig.net:10050\"\r\n                            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n                            // \"disable_cert_verification\": false\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum2.cipig.net:10050\"\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum3.cipig.net:10050\"\r\n                        }\r\n                    ]\r\n                } // Required only if: \"rpc\": \"Electrum\"\r\n            }\r\n            // \"tx_history\": false,\r\n            // \"required_confirmations\": 1, // Default: Coin Config\r\n            // \"address_format\": {\r\n            //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\"\r\n            // }, // Default: Coin Config\r\n            // \"utxo_merge_params\": null,\r\n            // // \"utxo_merge_params\": {\r\n            // //     \"merge_at\":50\r\n            // //     // \"check_every\":10,\r\n            // //     // \"max_merge_at_once\":100\r\n            // //     },\r\n            // \"check_utxo_maturity\": false,\r\n            // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n            // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n            // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -3249,7 +3249,7 @@
 									"response": []
 								},
 								{
-									"name": "init_qtum_status WIP",
+									"name": "init_qtum_status",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3276,7 +3276,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_qtum_status\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_qtum_status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -3293,7 +3293,7 @@
 									"response": []
 								},
 								{
-									"name": "init_qtum_user_action WIP",
+									"name": "init_qtum_user_action",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3320,7 +3320,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_qtum_user_action\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_qtum_user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -3342,7 +3342,7 @@
 							"name": "BCH",
 							"item": [
 								{
-									"name": "enable_bch_with_tokens WIP",
+									"name": "enable_bch_with_tokens",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3369,7 +3369,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"enable_bch_with_tokens\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"enable_bch_with_tokens\",\r\n    \"params\": {\r\n        \"ticker\":\"tBCH\",\r\n        // \"allow_slp_unsafe_conf\":false,\r\n        \"bchd_urls\":[\r\n            \"https://bchd-testnet.electroncash.de:18335\" // Required only if: \"allow_slp_unsafe_conf\": false\r\n        ],\r\n        \"mode\": {\r\n            \"rpc\":\"Electrum\", // Accepted values: \"Electrum\", \"Native\"\r\n            \"rpc_data\": {\r\n                \"servers\": [\r\n                    {\r\n                        \"url\": \"electroncash.de:50003\"\r\n                        // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n                        // \"disable_cert_verification\": false\r\n                    },\r\n                    {\r\n                        \"url\": \"tbch.loping.net:60001\"\r\n                    },\r\n                    {\r\n                        \"url\": \"blackie.c3-soft.com:60001\"\r\n                    },\r\n                    {\r\n                        \"url\": \"bch0.kister.net:51001\"\r\n                    }\r\n                ]\r\n            } // Required only if: \"rpc\": \"Electrum\"\r\n        },\r\n        \"slp_tokens_requests\":[\r\n            {\r\n                \"ticker\":\"USDF\"\r\n                // \"required_confirmations\": 1 // Default: Coin Config, Platform Coin Required Confirmation\r\n            }\r\n        ]\r\n        // \"tx_history\": false,\r\n        // \"required_confirmations\": 1, // Default: Coin Config\r\n        // \"address_format\": {\r\n        //     \"format\": \"standard\" // Accepted values: \"standard\", \"cashaddress\"\r\n        // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n        // }, // Default: Coin Config\r\n        // \"utxo_merge_params\": null,\r\n        // // \"utxo_merge_params\": {\r\n        // //     \"merge_at\":50\r\n        // //     // \"check_every\":10,\r\n        // //     // \"max_merge_at_once\":100\r\n        // //     },\r\n        // \"check_utxo_maturity\": false,\r\n        // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n        // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n        // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -3386,7 +3386,7 @@
 									"response": []
 								},
 								{
-									"name": "enable_slp WIP",
+									"name": "enable_slp",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3413,7 +3413,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"enable_slp\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"enable_slp\",\r\n    \"params\":{\r\n        \"ticker\":\"sTST\",\r\n        \"activation_params\": {\r\n            // \"required_confirmations\": 1 // Default: Coin Config, Platform Coin Required Confirmation\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -3435,7 +3435,7 @@
 							"name": "ZCOIN",
 							"item": [
 								{
-									"name": "init_z_coin WIP",
+									"name": "init_z_coin",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3462,7 +3462,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_z_coin\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_z_coin\",\r\n    \"params\": {\r\n        \"ticker\": \"ZOMBIE\",\r\n        \"activation_params\": {\r\n            \"mode\": {\r\n                \"rpc\": \"Light\", // Accepted values: \"Native\", \"Light\"\r\n                \"rpc_data\": {\r\n                    \"electrum_servers\": [\r\n                        {\r\n                            \"url\": \"zombie.sirseven.me:10033\"\r\n                            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n                            // \"disable_cert_verification\": false\r\n                        }\r\n                    ],\r\n                    \"light_wallet_d_servers\": [\r\n                        \"http://zombie.sirseven.me:443\"\r\n                    ]\r\n                } // Required only if: \"rpc\": \"Light\"\r\n            }\r\n            // \"required_confirmations\": 1, // Default: Coin Config\r\n            // \"requires_notarization\": false, // Default: Coin Config\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -3479,7 +3479,7 @@
 									"response": []
 								},
 								{
-									"name": "init_z_coin_status WIP",
+									"name": "init_z_coin_status",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3506,7 +3506,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_z_coin_status\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_z_coin_status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -3523,7 +3523,7 @@
 									"response": []
 								},
 								{
-									"name": "init_z_coin_user_action WIP",
+									"name": "init_z_coin_user_action",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3550,7 +3550,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_z_coin_user_action\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_z_coin_user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -3572,7 +3572,7 @@
 							"name": "SOLANA",
 							"item": [
 								{
-									"name": "enable_solana_with_tokens WIP",
+									"name": "enable_solana_with_tokens",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3599,7 +3599,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"enable_solana_with_tokens\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"enable_solana_with_tokens\",\r\n    \"params\": {\r\n        \"ticker\": \"SOL-DEVNET\",\r\n        \"confirmation_commitment\": \"finalized\", // Accepted values: \"processed\", \"confirmed\", \"finalized\"\r\n        \"client_url\": \"https://api.devnet.solana.com\",\r\n        \"spl_tokens_requests\": [\r\n            {\r\n                \"ticker\": \"USDC-SOL-DEVNET\",\r\n                \"activation_params\": {}\r\n            }\r\n        ]\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
@@ -3616,7 +3616,7 @@
 									"response": []
 								},
 								{
-									"name": "enable_spl WIP",
+									"name": "enable_spl",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3643,7 +3643,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"enable_spl\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"enable_spl\",\r\n    \"params\": {\r\n        \"ticker\": \"ADEX-SOL-DEVNET\",\r\n        \"activation_params\": {}\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "http://127.0.0.1:7783",
