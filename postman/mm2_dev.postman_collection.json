@@ -4611,7 +4611,7 @@
 					"name": "Orders",
 					"item": [
 						{
-							"name": "best_orders WIP",
+							"name": "best_orders",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -4638,7 +4638,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"add_node_to_version_stat\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"best_orders\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"action\": \"buy\", // Accepted values: \"buy\", \"sell\"\r\n        \"volume\": 1.1\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -4655,7 +4655,7 @@
 							"response": []
 						},
 						{
-							"name": "orderbook WIP",
+							"name": "orderbook",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -4682,7 +4682,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"orderbook\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"orderbook\",\r\n    \"params\": {\r\n        \"base\": \"RICK\",\r\n        \"rel\": \"MORTY\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -4699,7 +4699,7 @@
 							"response": []
 						},
 						{
-							"name": "start_simple_market_maker_bot WIP",
+							"name": "start_simple_market_maker_bot",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -4726,7 +4726,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"start_simple_market_maker_bot\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"start_simple_market_maker_bot\",\r\n    \"params\": {\r\n        \"cfg\": {\r\n            \"RICK/MORTY\": {\r\n                \"base\": \"RICK\",\r\n                \"rel\": \"MORTY\",\r\n                \"spread\": \"1.025\",\r\n                \"enable\": true\r\n                // \"min_volume\": null,\r\n                // // \"min_volume\": {\r\n                // //     \"percentage\": \"0.25\"\r\n                // // },\r\n                // // \"min_volume\": {\r\n                // //     \"usd\": \"1\"\r\n                // // },\r\n                // \"max_volume\": null,\r\n                // // \"max_volume\": {\r\n                // //     \"percentage\": \"0.25\"\r\n                // // },\r\n                // // \"max_volume\": {\r\n                // //     \"usd\": \"1\"\r\n                // // },\r\n                // \"max\": false,\r\n                // \"base_confs\": 1, // Default: Coin Config\r\n                // \"base_nota\": false, // Default: Coin Config\r\n                // \"rel_confs\": 1, // Default: Coin Config\r\n                // \"rel_nota\": false, // Default: Coin Config\r\n                // \"price_elapsed_validity\": 300.0,\r\n                // \"check_last_bidirectional_trade_thresh_hold\": false,\r\n                // \"min_base_price\": null, // Accepted values: Decimals\r\n                // \"min_rel_price\": null, // Accepted values: Decimals\r\n                // \"min_pair_price\": null // Accepted values: Decimals\r\n            },\r\n            \"KMD-BEP20/BUSD-BEP20\": {\r\n                \"base\": \"KMD-BEP20\",\r\n                \"rel\": \"BUSD-BEP20\",\r\n                \"spread\": \"1.025\",\r\n                \"enable\": true\r\n                // \"min_volume\": null,\r\n                // // \"min_volume\": {\r\n                // //     \"percentage\": \"0.25\"\r\n                // // },\r\n                // // \"min_volume\": {\r\n                // //     \"usd\": \"1\"\r\n                // // },\r\n                // \"max_volume\": null,\r\n                // // \"max_volume\": {\r\n                // //     \"percentage\": \"0.25\"\r\n                // // },\r\n                // // \"max_volume\": {\r\n                // //     \"usd\": \"1\"\r\n                // // },\r\n                // \"max\": false,\r\n                // \"base_confs\": 1, // Default: Coin Config\r\n                // \"base_nota\": false, // Default: Coin Config\r\n                // \"rel_confs\": 1, // Default: Coin Config\r\n                // \"rel_nota\": false, // Default: Coin Config\r\n                // \"price_elapsed_validity\": 300.0,\r\n                // \"check_last_bidirectional_trade_thresh_hold\": false,\r\n                // \"min_base_price\": null, // Accepted values: Decimals\r\n                // \"min_rel_price\": null, // Accepted values: Decimals\r\n                // \"min_pair_price\": null // Accepted values: Decimals\r\n            }\r\n        }\r\n        // \"price_url\": \"https://prices.komodo.live:1313/api/v2/tickers\",\r\n        // \"bot_refresh_rate\": 30.0\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
@@ -4743,7 +4743,7 @@
 							"response": []
 						},
 						{
-							"name": "stop_simple_market_maker_bot WIP",
+							"name": "stop_simple_market_maker_bot",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -4770,7 +4770,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"stop_simple_market_maker_bot\"\r\n    // \"params\": {},\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"stop_simple_market_maker_bot\"\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "http://127.0.0.1:7783",
