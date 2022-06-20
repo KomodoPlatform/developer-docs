@@ -47,7 +47,6 @@ You should have at least 64GB RAM and 32 GB [swap space](https://www.digitalocea
 - **SFUSD:** [https://github.com/pbcllc/sfusd-core.git](https://github.com/pbcllc/sfusd-core.git) Tree: `master` (S6 updates not yet merged!)
 - **TOKEL:** [https://github.com/TokelPlatform/tokel.git](https://github.com/TokelPlatform/tokel.git) Tree: `65d50d07fb5a3bf9cfa57033f1a1c25f4b37511e`
 - **VRSC:** [https://github.com/VerusCoin/VerusCoin.git](https://github.com/VerusCoin/VerusCoin.git) Tag: `master`  (S6 updates not yet merged!)
-
 ## Requirements
 
 ### Hardware
@@ -480,7 +479,7 @@ The instructions below are only required on your 3rd party server, which is the 
 
 ```bash
 cd ~
-git clone https://github.com/sillyghost/AYAv2.git -b master
+git clone https://github.com/KomodoPlatform/AYAv2
 cd AYAv2
 # git checkout (TBA: final commit in review)
 ```
