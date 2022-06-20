@@ -24,7 +24,7 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 
 ### Both Servers
 
-- **KMD:** [https://github.com/KomodoPlatform/komodo/tree/db5b016cf7b8ffffe440ad774dee8c6815ce5726](https://github.com/KomodoPlatform/komodo/tree/db5b016cf7b8ffffe440ad774dee8c6815ce5726) Tree: `db5b016cf7b8ffffe440ad774dee8c6815ce5726`
+- **KMD:** [https://github.com/KomodoPlatform/komodo/tree/d456be35acd1f8584e1e4f971aea27bd0644d5c5](https://github.com/KomodoPlatform/komodo/tree/d456be35acd1f8584e1e4f971aea27bd0644d5c5) Tree: `d456be35acd1f8584e1e4f971aea27bd0644d5c5`
 - **Iguana (no autosplit):** [https://github.com/KomodoPlatform/dPoW](https://github.com/KomodoPlatform/dPoW) Branch: `master`
 
 ### Main Server
@@ -33,16 +33,20 @@ We recommend the Notary Node Operators to check the Table at [https://github.com
 
 _To notarise KMD -> LTC, the `-notary=".litecoin/litecoin.conf"` flag is required when launching KMD._
 
+::: tip Note
+You should have at least 64GB RAM and 32 GB [swap space](https://www.digitalocean.com/community/tutorial_collections/how-to-add-swap-space) on your main server to avoid daemons crashing due to OOM.
+:::
 
-### 3rd Party Server (some of these are yet to update - check discord for status - operators can still build and sync the chains to present using the current versions before the actual update needed for S5 is available)
+### 3rd Party Server (some of these are yet to update - check discord for status - operators can still build and sync the chains to present using the current versions before the actual update needed for S6 is available)
 
-- **SFUSD:** [https://github.com/pbcllc/sfusd-core.git](https://github.com/pbcllc/sfusd-core.git) Tree: `d96497cbcec0dcf185cc149f1b3988a5964e5112`
-- **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Tree: `a716ae80995e51b9a9d0bd5977a3463bbda4a17e`
-- **CHIPS:** [https://github.com/chips-blockchain/chips.git](https://github.com/chips-blockchain/chips.git) Tree: `70362d54645748194b72e1cc753cca8be4f8629b`
-- **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master`
-- **VRSC:** [https://github.com/VerusCoin/VerusCoin.git](https://github.com/VerusCoin/VerusCoin.git) Tag: `v0.7.3-6`
-- **MCL:** [https://github.com/marmarachain/marmara.git](https://github.com/marmarachain/marmara.git) Tree: `2412d5f5434a6b31f86da934d53df1729956654b`
-- **GLEEC** [https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git](https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux.git) Tree: `3c486d448dece7fc9a174b7a2eb36e651c1f3529`
+- **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master` (S6 updates not yet merged!)
+- **CHIPS:** [https://github.com/chips-blockchain/chips.git](https://github.com/chips-blockchain/chips.git) Tree: `6e7560a69975d4419b3e36c817cdba6401bc8aed`
+- **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Tree: `c329ae64397bea743054d06b779bb4cbfdcdd25f`
+- **MCL:** [https://github.com/marmarachain/marmara.git](https://github.com/marmarachain/marmara.git) Tree: `a92d8344d3c545b2641a1e04479c90d19588abe7`
+- **MIL:** [https://github.com/emc2foundation/mil.git](https://github.com/emc2foundation/mil.git) Tree: `578bed7f403c4d4a16561317d356202ca60c605f`
+- **SFUSD:** [https://github.com/pbcllc/sfusd-core.git](https://github.com/pbcllc/sfusd-core.git) Tree: `master` (S6 updates not yet merged!)
+- **TOKEL:** [https://github.com/TokelPlatform/tokel.git](https://github.com/TokelPlatform/tokel.git) Tree: `65d50d07fb5a3bf9cfa57033f1a1c25f4b37511e`
+- **VRSC:** [https://github.com/VerusCoin/VerusCoin.git](https://github.com/VerusCoin/VerusCoin.git) Tag: `master`  (S6 updates not yet merged!)
 
 ## Requirements
 
@@ -52,7 +56,7 @@ _To notarise KMD -> LTC, the `-notary=".litecoin/litecoin.conf"` flag is require
 
 Komodo Notary Node currently only works on Linux. To setup Komodo Notary Node be sure you have a solid server with the following minimum requirements:
 
-- OS: Ubuntu 18.x or Debian 10.x is recommended.
+- OS: Debian/Ubuntu LTS x64 - minimal installation with Openssh server (recommended).
 - CPU: A High-Performance CPU (e.g. Xeon, i7/i9, Ryzen, EPYC, etc.)
 - RAM: 64 GB or more
 - Disk: 1 TB SSD or greater
@@ -63,16 +67,13 @@ Komodo Notary Node currently only works on Linux. To setup Komodo Notary Node be
 
 At the moment the current minimum server specs are listed below, however, this may change as more 3rd party coins require notarizing.
 
-- OS: Ubuntu 18.x or Debian 10.x is recommended.
+- OS: Debian/Ubuntu LTS x64 - minimal installation with Openssh server (recommended).
 - CPU: A High-Performance CPU (e.g. Xeon, i7/i9, Ryzen, EPYC, etc.)
 - RAM: 32 GB or more
 - Disk: 500 GB SSD or greater
 - Bandwidth: 100 Mbps or higher
 - Location: Within the same region as your main server (not required to be in the same datacenter)
 
-### Operating System
-
-**Recommended:** Debian/Ubuntu LTS x64 - minimal installation with Openssh server.
 
 ### Security
 
@@ -80,9 +81,9 @@ _Before doing anything further, please ensure that your server is secure._
 
 - Update the Operating System: `sudo apt-get update && sudo apt-get upgrade -y`
 
-- Install [Fail2ban](https://www.techrepublic.com/article/how-to-install-fail2ban-on-ubuntu-server-18-04/).
+- Install [Fail2ban](https://linuxize.com/post/install-configure-fail2ban-on-ubuntu-20-04/).
 
-- Perform Initial Setup for [creating new user, give it `sudo` permission](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04), [change SSH port](https://linuxhandbook.com/change-ssh-port/), [disable `root` login](https://www.howtogeek.com/howto/linux/security-tip-disable-root-ssh-login-on-linux/), [disable password authentication for login](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server)
+- Perform Initial Setup for [creating new user, give it `sudo` permission](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-20-04), [change SSH port](https://linuxhandbook.com/change-ssh-port/), [disable `root` login](https://www.howtogeek.com/howto/linux/security-tip-disable-root-ssh-login-on-linux/), [disable password authentication for login](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server)
 
 - Please run processes as an unprivileged user and use `sudo` where necessary
 
@@ -103,10 +104,10 @@ sudo apt-get install build-essential pkg-config bsdmainutils libtool libsodium-d
 3rd Party:
 
 ```bash
-sudo apt-get install libevent-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev python-zmq zlib1g-dev wget curl bsdmainutils automake cmake clang libsodium-dev libcurl4-gnutls-dev libssl-dev git unzip python jq htop -y
+sudo apt-get install libevent-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev python3-zmq zlib1g-dev wget curl bsdmainutils automake cmake clang libsodium-dev libcurl4-gnutls-dev libssl-dev git unzip python jq htop -y
 ```
 
-Note: In Ubuntu-20.4, install `python3-zmq` instead of `python-zmq`
+Note: If using Ubuntu-18.4, install `python-zmq` instead of `python3-zmq`
 
 ### Install `nanomsg`
 
@@ -124,13 +125,13 @@ sudo ldconfig
 
 ## Install Komodo by compiling it from source
 
-### Clone the source, checkout `master` branch and compile
+### Clone the source, checkout `d456be35acd1f8584e1e4f971aea27bd0644d5c5` tree and compile
 
 ```bash
 cd ~
 git clone https://github.com/KomodoPlatform/komodo
 cd komodo
-git checkout master
+git checkout d456be35acd1f8584e1e4f971aea27bd0644d5c5
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh -j$(nproc)
 ```
@@ -167,10 +168,10 @@ daemon=1
 rpcworkqueue=256
 rpcbind=127.0.0.1
 rpcallowip=127.0.0.1
-addnode=77.75.121.138
-addnode=95.213.238.100
-addnode=94.130.148.142
-addnode=103.6.12.105
+addnode=na.smk.dog
+addnode=dev.smk.dog
+addnode=na_3p.smk.dog
+addnode=dev_3p.smk.dog
 addnode=139.99.209.214
 addnode=185.130.212.13
 addnode=5.9.142.219
@@ -281,7 +282,7 @@ chmod 700 wp_7779
 
 ## Main Server Setup
 
-The instructions below are only required on your main server, which is the one that will be notarizing Komodo, all the Smart Chains and runtime forks to Litecoin.
+The instructions below are only required on your main server, which is the one that will be notarizing Komodo, all the Smart Chains and runtime forks to Litecoin. The instructions below are for Ubuntu 20.04. If running on Debian 11x, check the alternative instructions at the bottom of this document.
 
 ### Litecoin
 
@@ -481,7 +482,7 @@ The instructions below are only required on your 3rd party server, which is the 
 cd ~
 git clone https://github.com/sillyghost/AYAv2.git -b master
 cd AYAv2
-git checkout fd94422
+# git checkout (TBA: final commit in review)
 ```
 
 #### Step 2: Create a build script
@@ -559,6 +560,8 @@ rpcpassword=password
 bind=127.0.0.1
 rpcbind=127.0.0.1
 rpcallowip=127.0.0.1
+addnode=na_3p.smk.dog
+addnode=dev_3p.smk.dog
 ```
 
 Restrict access to the `aryacoin.conf` file
@@ -575,7 +578,7 @@ chmod 600 ~/.aryacoin/aryacoin.conf
 cd ~
 git clone https://github.com/chips-blockchain/chips -b master
 cd chips
-git checkout a2a33eb
+git checkout 6e7560a
 ```
 
 #### Step 2: Build
@@ -663,6 +666,8 @@ daemon=1
 txindex=1
 rpcuser=user
 rpcpassword=password
+addnode=na_3p.smk.dog
+addnode=dev_3p.smk.dog
 addnode=159.69.23.29
 addnode=95.179.192.102
 addnode=149.56.29.163
@@ -688,7 +693,7 @@ chmod 600 ~/.chips/chips.conf
 cd ~
 git clone https://github.com/emc2foundation/einsteinium -b master
 cd einsteinium
-git checkout a716ae8
+git checkout c329ae6
 ```
 
 #### Step 2: Create a build script
@@ -769,6 +774,8 @@ rpcpassword=password
 bind=127.0.0.1
 rpcbind=127.0.0.1
 rpcallowip=127.0.0.1
+addnode=na_3p.smk.dog
+addnode=dev_3p.smk.dog
 ```
 
 Restrict access to the `einsteinium.conf` file
@@ -777,28 +784,41 @@ Restrict access to the `einsteinium.conf` file
 chmod 600 ~/.einsteinium/einsteinium.conf
 ```
 
-### GleecBTC (GLEEC)
+### MarmaraChain (MCL)
 
-#### Step 1: Clone GleecBTC source
+#### Step 1: Clone MCL source and compile
 
 ```bash
 cd ~
-git clone https://github.com/KomodoPlatform/GleecBTC-FullNode-Win-Mac-Linux
-cd ~/GleecBTC-FullNode-Win-Mac-Linux
-git checkout 3c486d4
+git clone https://github.com/marmarachain/marmara -b master
+cd marmara
+git checkout a92d834
+./zcutil/build.sh -j$(nproc)
 ```
 
-#### Step 2: Create a build Script
+### Milevium (MIL)
 
-- Create a file named `build.sh` in the `~/GleecBTC-FullNode-Win-Mac-Linux` directory and copy the contents of the following code block into it
+#### Step 1: Clone MCL source and compile
+
+```bash
+cd ~
+git clone https://github.com/emc2foundation/mil -b master
+cd mil
+git checkout 578bed7
+./zcutil/build.sh -j$(nproc)
+```
+
+#### Step 2: Create a build script
+
+Name the script as `build.sh` inside the `~/einsteinium` dir for easy compiling and add the contents below to the script. The script will also create symlinks for the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
 
 ```bash
 #!/bin/bash
-# GleecBTC build script for Ubuntu & Debian 9 v.3 (c) Decker (and webworker)
+# MIL build script for Ubuntu & Debian 9 v.3 (c) Decker (and webworker)
 berkeleydb () {
-    GleecBTC_ROOT=$(pwd)
-    GleecBTC_PREFIX="${GleecBTC_ROOT}/db4"
-    mkdir -p $GleecBTC_PREFIX
+    MIL_ROOT=$(pwd)
+    MIL_PREFIX="${MIL_ROOT}/db4"
+    mkdir -p $MIL_PREFIX
     wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
     echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
     tar -xzvf db-4.8.30.NC.tar.gz
@@ -820,21 +840,21 @@ EOL
         sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h
     fi
     cd db-4.8.30.NC/build_unix/
-    ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$GleecBTC_PREFIX
+    ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$MIL_PREFIX
     make install
-    cd $GleecBTC_ROOT
+    cd $MIL_ROOT
 }
-buildGleecBTC () {
+buildMIL () {
     git pull
     ./autogen.sh
-    ./configure LDFLAGS="-L${GleecBTC_PREFIX}/lib/" CPPFLAGS="-I${GleecBTC_PREFIX}/include/" --with-gui=no --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm --enable-static --disable-shared --with-incompatible-bdb
+    ./configure LDFLAGS="-L${MIL_PREFIX}/lib/" CPPFLAGS="-I${MIL_PREFIX}/include/" --with-gui=no --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm --enable-static --disable-shared --with-incompatible-bdb
     make -j$(nproc)
 }
 berkeleydb
-buildGleecBTC
-echo "Done building GleecBTC!"
-sudo ln -sf /home/$USER/GleecBTC-FullNode-Win-Mac-Linux/src/gleecbtc-cli /usr/local/bin/gleecbtc-cli
-sudo ln -sf /home/$USER/GleecBTC-FullNode-Win-Mac-Linux/src/gleecbtcd /usr/local/bin/gleecbtcd
+buildMIL
+echo "Done building MIL!"
+sudo ln -sf /home/$USER/mil-1/src/mil-cli /usr/local/bin/mil-cli
+sudo ln -sf /home/$USER/mil-1/src/mild /usr/local/bin/mild
 ```
 
 #### Step 3: Make the script executable and run it
@@ -844,17 +864,15 @@ chmod +x build.sh
 ./build.sh
 ```
 
-- Supply your `sudo` password when asked, so that the daemon and cli can be symlinked to your `/usr/local/bin` directory
-
-#### Step 4: Create GleecBTC data dir, gleecbtc.conf file and restrict access to it
+#### Step 4: Create MIL data dir, `mil.conf` file and restrict access to it
 
 ```bash
 cd ~
-mkdir .gleecbtc
-nano ~/.gleecbtc/gleecbtc.conf
+mkdir .mil
+nano ~/.mil/mil.conf
 ```
 
-Insert the following contents inside the gleecbtc.conf file and save it. (change the rpcuser and rpcpassword values)
+Insert the following contents inside the `mil.conf` file and save it. (change the `rpcuser` and `rpcpassword` values)
 
 ```bash
 server=1
@@ -865,49 +883,14 @@ rpcpassword=password
 bind=127.0.0.1
 rpcbind=127.0.0.1
 rpcallowip=127.0.0.1
+addnode=na_3p.smk.dog
+addnode=dev_3p.smk.dog
 ```
 
-Restrict access to the gleecbtc.conf file
+Restrict access to the `mil.conf` file
 
 ```bash
-chmod 600 ~/.gleecbtc/gleecbtc.conf
-```
-
-:::tip Note
-
-GleecBTC's rpc calls are similar to BTC's after version `v0.18`. So familiar commands like `getinfo` don't work, and `validateaddress` doesn't output `ismine` info. To check if your address was imported, use `getaddressinfo` and check the `ismine` key in the response.
-
-:::
-
-### MarmaraChain (MCL)
-
-#### Step 1: Clone MCL source and compile
-
-```bash
-cd ~
-git clone https://github.com/marmarachain/marmara -b master
-cd marmara
-git checkout 2412d5f
-./zcutil/build.sh -j$(nproc)
-```
-
-### VerusCoin (VRSC)
-
-#### Step 1: Clone VRSC source and compile
-
-```bash
-cd ~
-git clone https://github.com/VerusCoin/VerusCoin -b master
-cd VerusCoin
-git checkout 7a740d2
-./zcutil/build.sh -j$(nproc)
-```
-
-Symlink the compiled binaries
-
-```bash
-sudo ln -sf /home/$USER/VerusCoin/src/verusd /usr/local/bin/verusd
-sudo ln -sf /home/$USER/VerusCoin/src/verus /usr/local/bin/verus
+chmod 600 ~/.mil/mil.conf
 ```
 
 ### SFUSD
@@ -918,7 +901,7 @@ sudo ln -sf /home/$USER/VerusCoin/src/verus /usr/local/bin/verus
 cd ~
 git clone https://github.com/pbcllc/sfusd-core
 cd ~/sfusd-core
-git checkout d96497cbcec0dcf185cc149f1b3988a5964e5112
+# git checkout (TBA: final commit in review)
 ```
 
 #### Build
@@ -998,6 +981,8 @@ rpcpassword=password
 bind=127.0.0.1
 rpcbind=127.0.0.1
 rpcallowip=127.0.0.1
+addnode=na_3p.smk.dog
+addnode=dev_3p.smk.dog
 ```
 
 Restrict access to the smartusd.conf file
@@ -1014,6 +999,44 @@ SFUSD's rpc calls are similar to BTC's after version `v0.16`. So instead of `get
 
 :::
 
+### Tokel (TKL)
+
+#### Step 1: Clone TKL source and compile
+
+```bash
+cd ~
+git clone https://github.com/TokelPlatform/tokel -b master
+cd tokel
+git checkout 65d50d0
+./zcutil/build.sh -j$(nproc)
+```
+Symlink the compiled binaries
+
+```bash
+sudo ln -sf /home/$USER/tokel/src/tokeld /usr/local/bin/tokeld
+sudo ln -sf /home/$USER/tokel/src/tokel-cli /usr/local/bin/tokel-cli
+```
+
+
+### VerusCoin (VRSC)
+
+#### Step 1: Clone VRSC source and compile
+
+```bash
+cd ~
+git clone https://github.com/VerusCoin/VerusCoin -b master
+cd VerusCoin
+# git checkout (TBA: final commit in review)
+./zcutil/build.sh -j$(nproc)
+```
+
+Symlink the compiled binaries
+
+```bash
+sudo ln -sf /home/$USER/VerusCoin/src/verusd /usr/local/bin/verusd
+sudo ln -sf /home/$USER/VerusCoin/src/verus /usr/local/bin/verus
+```
+
 ### Start the daemons and sync all the chains
 
 For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarization.
@@ -1022,13 +1045,13 @@ For the first time sync, we will run all the coin daemons normally. Make sure yo
 
 ```bash
 komodod &
+aryacoind &
 chipsd &
 einsteiniumd &
-smartusdd &
-aryacoind &
-verusd &
 ~/marmara/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
-gleecbtcd &
+mild &
+smartusdd &
+verusd &
 ```
 
 Now wait for all the chains to finish syncing. This might take about 8-10 hours depending on your machine and internet connection. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories.
@@ -1038,20 +1061,22 @@ Commands to tail `debug.log`
 ```bash
 # KMD
 tail -f ~/.komodo/debug.log
+# AYA
+tail -f ~/.aryacoin/debug.log
 # CHIPS
 tail -f ~/.chips/debug.log
 # EMC2
 tail -f ~/.einsteinium/debug.log
-# SFUSD
-tail -f ~/.smartusd/debug.log
-# AYA
-tail -f ~/.aryacoin/debug.log
 # MCL
 tail -f ~/.komodo/MCL/debug.log
+# MIL
+tail -f ~/.mil/debug.log
+# SFUSD
+tail -f ~/.smartusd/debug.log
+# TOKEL
+tail -f ~/.komodo/TOKEL/debug.log
 # VRSC
 tail -f ~/.komodo/VRSC/debug.log
-# GLEEC
-tail -f ~/.komodo/gleecbtc/debug.log
 ```
 
 You can now wait for all the coins to finish syncing. Just double check the block you've downloaded with an explorer to verify.
@@ -1064,13 +1089,14 @@ Feel free to import your addresses whilst your daemons are syncing.
 
 ```bash
 komodo-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
-smartusd-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+aryacoin-cli importprivkey T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
 chips-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
-aryacoin-cli importprivkey T6oxgc9ZYJA1Uvsm31Gb8Mg31hHgLWue7RuqQMjEHUWZEi5TdskL
 komodo-cli -ac_name=MCL importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+mil-cli importprivkey cSXsCzbmiZUyMCZyPqjYMhLxBxcFBP6tQSLrCpTpfYkvjJEMthcW
+smartusd-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+tokel-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 verus importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
-gleecbtc-cli importprivkey AhXsCzbmiZUyMCZyPqjYMhLxBxcFBP6tQSLrCpTpfYkvjJEMthcW
 ```
 
 This may take some time and will display the coin name and address after each import. You can tail the coin specific `debug.log` files to check the progress.
@@ -1099,13 +1125,14 @@ Never use `kill -9` to kill any Coin daemon if you don't like corrupt databases.
 
 ```bash
 komodo-cli stop
-smartusd-cli stop
+aryacoin-cli stop
 chips-cli stop
 einsteinium-cli stop
-aryacoin-cli stop
 komodo-cli -ac_name=MCL stop
+mil-cli stop
+tokel-cli stop
+smartusd-cli stop
 verus stop
-gleecbtc-cli stop
 ```
 
 ---
@@ -1185,16 +1212,15 @@ Here is an example of a 3rd Party Server start script :
 ```bash
 #!/bin/bash
 source ~/komodo/src/pubkey.txt
+aryacoind -pubkey=$pubkey &
 chipsd -pubkey=$pubkey &
 einsteiniumd -pubkey=$pubkey &
-smartusdd -pubkey=$pubkey &
-aryacoind -pubkey=$pubkey &
-~/VerusCoin/src/verusd -pubkey=$pubkey &
+mild -pubkey=$pubkey &
 ~/marmara/src/komodod -ac_name=MCL -pubkey=$pubkey -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
-sleep 60
-cd komodo/src
-./komodod -notary -pubkey=$pubkey &
-gleecbtcd -pubkey=$pubkey &
+smartusdd -pubkey=$pubkey &
+~/tokel/src/tokeld -pubkey=$pubkey &
+~/komodo/src/komodod -notary -pubkey=$pubkey &
+~/VerusCoin/src/verusd -pubkey=$pubkey &
 ```
 
 Make the file executable:
@@ -1222,7 +1248,7 @@ Once all required daemons are running, we have funds on all coins(DM @kolo with 
 
 ```bash
 cd ~/dPoW/iguana
-./m_notary_KMD
+./m_notary_main
 ```
 
 You can use the `m_notary` script if you wish, but this will issue a `git pull` command to update the repo, remove old iguana, compile fresh and start the whole process. This can take about 10 minutes maximum to finish. You will see `INIT with 64 notaries` once the process finishes.
@@ -1236,7 +1262,7 @@ cd ~/dPoW/iguana
 
 ## Address whitelisting
 
-If you are using a whitelist for incoming transactions (recommended to avoid dust attacks!) funding top ups will come from `RDragoNHdwovvsDLSLMiAEzEArAD3kq6FN` for your Main node, and `RHound8PpyhVLfi56dC7MK3ZvvkAmB3bvQ` for your 3P node, so add these address to your respective whitelists.
+If you are using a whitelist for incoming transactions (recommended to avoid dust attacks!) funding top ups will come from `RDragoNHdwovvsDLSLMiAEzEArAD3kq6FN` for your Main node, and `RHound8PpyhVLfi56dC7MK3ZvvkAmB3bvQ` for your 3P node, so add these addresses to your respective whitelists.
 
 ## Firewall and Ports
 
@@ -1248,4 +1274,26 @@ There are many open sourced scripts for managing your Komodo Notary Node servers
 
 ## MM2 Seed node setup
 
-Simple scripts to setup and configure MM2 as a seednode on your 3P server are available at - [https://github.com/smk762/nn_mm2_seed](https://github.com/smk762/nn_mm2_seed). The mm2 seed node will also need port `38890` opened on the 3p server.
+Simple scripts to setup and configure MM2 as a seednode on your 3P server are available at - [https://github.com/smk762/nn_mm2_seed](https://github.com/smk762/nn_mm2_seed). The mm2 seed node will also need ports `38890` and `38900` opened on the 3p server.
+
+
+# Setup for Debian 11
+
+Install the following dependancies:
+```
+sudo apt-get install -y tmux dc bc dnsutils speedtest-cli build-essential git libsodium-dev libssl-dev pkg-config autoconf automake bsdmainutils cmake curl g++-multilib htop libboost-all-dev libc6-dev libgtest-dev libtool m4 software-properties-common unzip wget zlib1g-dev binutils-dev clang jq libcurl4-openssl-dev libdb++-dev libevent-dev libexpat1-dev libgnutls28-dev libldns-dev liblzma-dev libnanomsg-dev libncurses-dev libprotobuf-dev libqrencode-dev libreadline-dev libunwind-dev ncurses-dev ntp ntpdate protobuf-compiler python3-pip
+```
+
+Use the template below to create build scripts for coins as needed:
+
+```bash
+# AnyCoin compile script (q) Decker, 2021-2022
+make -C ${PWD}/depends v=1 NO_PROTON=1 NO_QT=1 HOST=$(depends/config.guess) -j$(nproc --all)
+
+./autogen.sh
+
+CXXFLAGS="-g0 -O2" \
+CONFIG_SITE="$PWD/depends/$(depends/config.guess)/share/config.site" ./configure --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm --with-gui=no --disable-bip70
+
+make V=1 -j$(nproc --all)
+```

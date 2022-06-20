@@ -1,7 +1,7 @@
 # How to Split UTXO for Notarization
 
 To participate in a notarisation round, you need to ensure you have enough UTXOs of the correct size available in your wallet. The best way to do this is via a split script in crontab.
-Most coins use UTXOs of `0.0001` value (10000 satoshis), but some third party projects like AYA & EMC2 require `0.001` value UTXOs (100000 satoshis).
+Most coins use UTXOs of `0.0001` value (10000 satoshis), but some third party projects like AYA, MIL & EMC2 require `0.001` value UTXOs (100000 satoshis).
 To find out the correct size UTXO for each coin, check https://github.com/KomodoPlatform/dPoW/blob/master/iguana/dpow/dpow_rpc.c#L20
 
 
@@ -48,9 +48,9 @@ chain="AYA"
 source ~/dPoW/iguana/pubkey.txt
 unspent=$(~/AYAv2/src/aryacoin-cli listunspent | jq '[.[] | select (.amount==0.001 and .spendable==true and (.scriptPubKey == "'21${pubkey}ac'"))] | length')
 echo "${chain}: $unspent"
-if [ $unspent -lt 10 ]; then
+if [ $unspent -lt 20 ]; then
     echo "Topping up ${chain}"
-    curl --url "http://127.0.0.1:7779" --data "{\"coin\":\""${chain}"\",\"agent\":\"iguana\",\"method\":\"splitfunds\",\"satoshis\":\"100000\",\"sendflag\":1,\"duplicates\":"33"}"
+    curl --url "http://127.0.0.1:7779" --data "{\"coin\":\""${chain}"\",\"agent\":\"iguana\",\"method\":\"splitfunds\",\"satoshis\":\"100000\",\"sendflag\":1,\"duplicates\":"40"}"
 fi
 ```
 
