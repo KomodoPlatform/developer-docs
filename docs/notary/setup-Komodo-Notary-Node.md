@@ -39,7 +39,7 @@ You should have at least 64GB RAM and 32 GB [swap space](https://www.digitalocea
 
 ### 3rd Party Server (some of these are yet to update - check discord for status - operators can still build and sync the chains to present using the current versions before the actual update needed for S6 is available)
 
-- **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master` (S6 updates not yet merged!)
+- **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Tree: `94e6bc000c77401ac1b36f27a43d391984e81ac3`
 - **CHIPS:** [https://github.com/chips-blockchain/chips.git](https://github.com/chips-blockchain/chips.git) Tree: `6e7560a69975d4419b3e36c817cdba6401bc8aed`
 - **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Tree: `c329ae64397bea743054d06b779bb4cbfdcdd25f`
 - **MCL:** [https://github.com/marmarachain/marmara.git](https://github.com/marmarachain/marmara.git) Tree: `a92d8344d3c545b2641a1e04479c90d19588abe7`
@@ -485,7 +485,7 @@ The instructions below are only required on your 3rd party server, which is the 
 cd ~
 git clone https://github.com/KomodoPlatform/AYAv2
 cd AYAv2
-# git checkout (TBA: final commit in review)
+git checkout 94e6bc0
 ```
 
 #### Step 2: Create a build script
