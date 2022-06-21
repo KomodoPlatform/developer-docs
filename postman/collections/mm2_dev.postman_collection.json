@@ -55,45 +55,6 @@
 									"response": []
 								},
 								{
-									"name": "electrum ETH/ERC20",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"// Strip JSON Comments\r",
-													"const rawData = pm.request.body.toString();\r",
-													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-													"\r",
-													"pm.request.body.update(strippedData);"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"ETH\",\r\n    \"urls\": [\r\n        \"http://eth1.cipig.net:8555\",\r\n        \"http://eth2.cipig.net:8555\",\r\n        \"http://eth3.cipig.net:8555\"\r\n    ],\r\n    \"swap_contract_address\": \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\"\r\n    // \"fallback_swap_contract\": null, // Accepted values: Strings\r\n    // \"gas_station_url\": null, // Accepted values: Strings\r\n    // \"gas_station_decimals\": 8,\r\n    // \"gas_station_policy\": {\r\n    //     \"policy\": \"MeanAverageFast\" // Accepted values: \"MeanAverageFast\", \"Average\"\r\n    // },\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": 1 // Default: Coin Config\r\n}"
-										},
-										"url": {
-											"raw": "{{address}}",
-											"host": [
-												"{{address}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
 									"name": "electrum QTUM",
 									"event": [
 										{
@@ -643,7 +604,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"convertaddress\",\r\n    \"coin\": \"ETH\",\r\n    \"from\": \"0xa7A44759fa3902B304B51a3cA216f9cd8a01878a\",\r\n    \"to_address_format\": {\r\n        \"format\": \"mixedcase\"\r\n    }\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"convertaddress\",\r\n    \"coin\": \"ETH\",\r\n    \"from\": \"0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359\",\r\n    \"to_address_format\": {\r\n        \"format\": \"mixedcase\"\r\n    }\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3784,6 +3745,167 @@
 							]
 						},
 						{
+							"name": "Withdraw",
+							"item": [
+								{
+									"name": "withdraw",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"withdraw\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"to\": \"RNBA756iaFCx2Uhya3pvCufbeyovAaknJL\",\r\n        \"amount\": 1.025 // used only if: \"max\": false\r\n        // \"from\": null,\r\n        // // \"from\": {\r\n        // //     \"account_id\": 0,\r\n        // //     \"chain\": \"External\", // Accepted values: \"External\", \"Internal\"\r\n        // //     \"address_id\": 0\r\n        // // },\r\n        // // \"from\": {\r\n        // //     \"derivation_path\": \"m/44'/501'/0'\"\r\n        // // },\r\n        // \"max\": false,\r\n        // \"fee\": {\r\n        //     \"type\": \"UtxoFixed\", // Accepted values: \"UtxoFixed\", \"UtxoPerKbyte\"\r\n        //     \"amount\": 0.00001 // default amount is 1000 of the smallest unit of the coin (0.00001 for 8 decimal places coins)\r\n        // } // Default: Coin Config\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "init_withdraw",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_withdraw\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"to\": \"RNBA756iaFCx2Uhya3pvCufbeyovAaknJL\",\r\n        \"amount\": 1.025 // used only if: \"max\": false\r\n        // \"from\": null,\r\n        // // \"from\": {\r\n        // //     \"account_id\": 0,\r\n        // //     \"chain\": \"External\", // Accepted values: \"External\", \"Internal\"\r\n        // //     \"address_id\": 0\r\n        // // },\r\n        // // \"from\": {\r\n        // //     \"derivation_path\": \"m/44'/501'/0'\"\r\n        // // },\r\n        // \"max\": false,\r\n        // \"fee\": {\r\n        //     \"type\": \"UtxoFixed\", // Accepted values: \"UtxoFixed\", \"UtxoPerKbyte\"\r\n        //     \"amount\": 0.00001 // default amount is 1000 of the smallest unit of the coin (0.00001 for 8 decimal places coins)\r\n        // } // Default: Coin Config\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "withdraw_status",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"withdraw_status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "withdraw_user_action",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"withdraw_user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "get_raw_transaction",
 							"event": [
 								{
@@ -3823,45 +3945,6 @@
 							"response": []
 						},
 						{
-							"name": "init_withdraw",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_withdraw\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"to\": \"RNBA756iaFCx2Uhya3pvCufbeyovAaknJL\",\r\n        \"amount\": 1.025 // used only if: \"max\": false\r\n        // \"from\": null,\r\n        // // \"from\": {\r\n        // //     \"account_id\": 0,\r\n        // //     \"chain\": \"External\", // Accepted values: \"External\", \"Internal\"\r\n        // //     \"address_id\": 0\r\n        // // },\r\n        // // \"from\": {\r\n        // //     \"derivation_path\": \"m/44'/501'/0'\"\r\n        // // },\r\n        // \"max\": false,\r\n        // \"fee\": {\r\n        //     \"type\": \"UtxoFixed\", // Accepted values: \"UtxoFixed\", \"UtxoPerKbyte\"\r\n        //     \"amount\": 0.00001 // default amount is 1000 of the smallest unit of the coin (0.00001 for 8 decimal places coins)\r\n        // } // Default: Coin Config\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
-								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "my_tx_history",
 							"event": [
 								{
@@ -3889,7 +3972,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"my_tx_history\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\"\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     // \"FromId\": null, // Accepted values: Strings\r\n        //     \"PageNumber\": 1 // used only if: \"from_id\": null\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"my_tx_history\",\r\n    \"params\": {\r\n        \"coin\": \"tBCH\"\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     // \"FromId\": null, // Accepted values: Strings\r\n        //     \"PageNumber\": 1 // used only if: \"from_id\": null\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 								},
 								"url": {
 									"raw": "{{address}}",
@@ -3968,123 +4051,6 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"verify_message\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"message\": \"test\",\r\n        \"signature\": \"IB0DBH6R+P836Y86PVLJPTV5Vp3aEJhW6qwQj8mfExT4dJIyhohcDzZ6GQr7N8pIN05ISQS+D7G/DnLTc7C/oso=\",\r\n        \"address\": \"RNBA756iaFCx2Uhya3pvCufbeyovAaknJL\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
-								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "withdraw",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"withdraw\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"to\": \"RNBA756iaFCx2Uhya3pvCufbeyovAaknJL\",\r\n        \"amount\": 1.025 // used only if: \"max\": false\r\n        // \"from\": null,\r\n        // // \"from\": {\r\n        // //     \"account_id\": 0,\r\n        // //     \"chain\": \"External\", // Accepted values: \"External\", \"Internal\"\r\n        // //     \"address_id\": 0\r\n        // // },\r\n        // // \"from\": {\r\n        // //     \"derivation_path\": \"m/44'/501'/0'\"\r\n        // // },\r\n        // \"max\": false,\r\n        // \"fee\": {\r\n        //     \"type\": \"UtxoFixed\", // Accepted values: \"UtxoFixed\", \"UtxoPerKbyte\"\r\n        //     \"amount\": 0.00001 // default amount is 1000 of the smallest unit of the coin (0.00001 for 8 decimal places coins)\r\n        // } // Default: Coin Config\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
-								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "withdraw_status",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"withdraw_status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
-								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "withdraw_user_action",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"withdraw_user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 								},
 								"url": {
 									"raw": "{{address}}",
