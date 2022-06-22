@@ -801,19 +801,18 @@ git checkout a92d834
 
 ### Milevium (MIL)
 
-#### Step 1: Clone MCL source and compile
+#### Step 1: Clone MIL source and compile
 
 ```bash
 cd ~
 git clone https://github.com/emc2foundation/mil -b master
 cd mil
 git checkout 578bed7
-./zcutil/build.sh -j$(nproc)
 ```
 
-#### Step 2: Create a build script
+#### Step 2: Update the build script
 
-Name the script as `build.sh` inside the `~/einsteinium` dir for easy compiling and add the contents below to the script. The script will also create symlinks for the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
+Open the `build.sh` script inside the `~/mil` dir and replace the contents below to the script. The script will also create symlinks for the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
 
 ```bash
 #!/bin/bash
@@ -1008,7 +1007,7 @@ SFUSD's rpc calls are similar to BTC's after version `v0.16`. So instead of `get
 
 ```bash
 cd ~
-git clone https://github.com/TokelPlatform/tokel -b master
+git clone https://github.com/TokelPlatform/tokel -b tokel
 cd tokel
 git checkout 65d50d0
 ./zcutil/build.sh -j$(nproc)
@@ -1055,6 +1054,7 @@ einsteiniumd &
 ~/marmara/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 mild &
 smartusdd &
+tokeld &
 verusd &
 ```
 
