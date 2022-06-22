@@ -39,7 +39,7 @@ You should have at least 64GB RAM and 32 GB [swap space](https://www.digitalocea
 
 ### 3rd Party Server (some of these are yet to update - check discord for status - operators can still build and sync the chains to present using the current versions before the actual update needed for S6 is available)
 
-- **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Branch: `master` (S6 updates not yet merged!)
+- **AYA:** [https://github.com/sillyghost/AYAv2.git](https://github.com/sillyghost/AYAv2.git) Tree: `94e6bc000c77401ac1b36f27a43d391984e81ac3`
 - **CHIPS:** [https://github.com/chips-blockchain/chips.git](https://github.com/chips-blockchain/chips.git) Tree: `6e7560a69975d4419b3e36c817cdba6401bc8aed`
 - **EMC2:** [https://github.com/emc2foundation/einsteinium.git](https://github.com/emc2foundation/einsteinium.git) Tree: `c329ae64397bea743054d06b779bb4cbfdcdd25f`
 - **MCL:** [https://github.com/marmarachain/marmara.git](https://github.com/marmarachain/marmara.git) Tree: `a92d8344d3c545b2641a1e04479c90d19588abe7`
@@ -97,7 +97,7 @@ The instructions below are required.
 Main:
 
 ```bash
-sudo apt-get install build-essential pkg-config bsdmainutils libtool libsodium-dev libc6-dev libssl-dev libcurl4-gnutls-dev ncurses-dev zlib1g-dev cmake clang m4 automake autoconf g++-multilib python python3 python3-zmq curl wget jq git unzip -y
+sudo apt-get install build-essential pkg-config bsdmainutils libtool libsodium-dev libc6-dev libssl-dev libcurl4-gnutls-dev ncurses-dev zlib1g-dev cmake clang m4 automake autoconf g++-multilib python python3 python3-zmq curl wget jq git unzip libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev -y
 ```
 
 3rd Party:
@@ -485,7 +485,7 @@ The instructions below are only required on your 3rd party server, which is the 
 cd ~
 git clone https://github.com/KomodoPlatform/AYAv2
 cd AYAv2
-# git checkout (TBA: final commit in review)
+git checkout 94e6bc0
 ```
 
 #### Step 2: Create a build script
@@ -904,7 +904,7 @@ chmod 600 ~/.mil/mil.conf
 cd ~
 git clone https://github.com/pbcllc/sfusd-core
 cd ~/sfusd-core
-# git checkout (TBA: final commit in review)
+git checkout 4e79e1b
 ```
 
 #### Build
@@ -1046,12 +1046,13 @@ For the first time sync, we will run all the coin daemons normally. Make sure yo
 
 ### Start the coins
 
+
 ```bash
 komodod &
 aryacoind &
 chipsd &
 einsteiniumd &
-~/marmara/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+~/marmara/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 mild &
 smartusdd &
 verusd &
