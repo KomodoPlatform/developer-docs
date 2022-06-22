@@ -97,7 +97,7 @@ The instructions below are required.
 Main:
 
 ```bash
-sudo apt-get install build-essential pkg-config bsdmainutils libtool libsodium-dev libc6-dev libssl-dev libcurl4-gnutls-dev ncurses-dev zlib1g-dev cmake clang m4 automake autoconf g++-multilib python python3 python3-zmq curl wget jq git unzip -y
+sudo apt-get install build-essential pkg-config bsdmainutils libtool libsodium-dev libc6-dev libssl-dev libcurl4-gnutls-dev ncurses-dev zlib1g-dev cmake clang m4 automake autoconf g++-multilib python python3 python3-zmq curl wget jq git unzip libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev -y
 ```
 
 3rd Party:
@@ -904,7 +904,7 @@ chmod 600 ~/.mil/mil.conf
 cd ~
 git clone https://github.com/pbcllc/sfusd-core
 cd ~/sfusd-core
-# git checkout (TBA: final commit in review)
+git checkout 4e79e1b
 ```
 
 #### Build
@@ -1046,12 +1046,13 @@ For the first time sync, we will run all the coin daemons normally. Make sure yo
 
 ### Start the coins
 
+
 ```bash
 komodod &
 aryacoind &
 chipsd &
 einsteiniumd &
-~/marmara/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+~/marmara/src/komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 mild &
 smartusdd &
 verusd &
