@@ -65,6 +65,13 @@ curl --url "http://127.0.0.1:7783" --data "
 }
 ```
 
+### :warning: Error types
+
+**PrefixNotFound:** sign_message_prefix is not set in coin config file
+**CoinIsNotFound:** Specified coin is not found
+**InvalidRequest:** Message signing is not supported by the given coin type
+**InternalError:** An internal error occured during the signing process
+
 
 ## Message Verification
 
@@ -130,33 +137,9 @@ curl --url "http://127.0.0.1:7783" --data "
 
 ### :warning: Error types
 
-
-#### PrefixNotFound
-
-```json
-{
-  "mmrpc": "2.0",
-  "error": "sign_message_prefix is not set in coin config",
-  "error_path": "utxo_common",
-  "error_trace": "utxo_common:1699]",
-  "error_type": "PrefixNotFound",
-  "id": 0
-}
-```
-
-#### InvalidRequest
-
-```json
-{
-  "mmrpc": "2.0",
-  "error": "Invalid request: utxo_common:578] utxo_common:566] Invalid address: 0xaB95D01Bc8214E4D993043E8Ca1B68dB2c946498",
-  "error_path": "lp_coins",
-  "error_trace": "lp_coins:2554]",
-  "error_type": "InvalidRequest",
-  "error_data": "utxo_common:578] utxo_common:566] Invalid address: 0xaB95D01Bc8214E4D993043E8Ca1B68dB2c946498",
-  "id": 0
-}
-```
-
-
-
+**PrefixNotFound:** sign_message_prefix is not set in coin config
+**CoinIsNotFound:** Specified coin is not found
+**InvalidRequest:** Message verification is not supported by the given coin type
+**InternalError:** An internal error occured during the verification process
+**SignatureDecodingError:** Given signature could not be decoded
+**AddressDecodingError:** Given address could not be decoded
