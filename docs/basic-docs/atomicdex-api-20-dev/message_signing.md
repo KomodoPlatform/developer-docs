@@ -1,7 +1,7 @@
 # Signing\_and\_Verifying\_Messages
 
-Cryptocraphically signed messages are a useful feature which can be used to [prove ownership of an address](https://www.coindesk.com/policy/2020/05/25/craig-wright-called-fraud-in-message-signed-with-bitcoin-addresses-he-claims-to-own/).
-If you [`coins`](https://github.com/KomodoPlatform/coins) file contains the correct [message prefix](https://bitcoin.stackexchange.com/questions/3337/what-are-the-safety-guidelines-for-using-the-sign-message-feature/3339#3339) definitions for a coin, you can sign messages with the AtomicDEX-API(https://github.com/KomodoPlatform/atomicDEX-API). This can generally be found [within a coin's github repository](https://github.com/KomodoPlatform/komodo/blob/master/src/main.cpp#L146) and is assigned via the `sign_message_prefix` value as below.
+Cryptographically signed messages are a useful feature which can be used to [prove ownership of an address](https://www.coindesk.com/policy/2020/05/25/craig-wright-called-fraud-in-message-signed-with-bitcoin-addresses-he-claims-to-own/).
+If your [`coins`](https://github.com/KomodoPlatform/coins) file contains the correct [message prefix](https://bitcoin.stackexchange.com/questions/3337/what-are-the-safety-guidelines-for-using-the-sign-message-feature/3339#3339) definitions for a coin, you can sign messages with the AtomicDEX-API(https://github.com/KomodoPlatform/atomicDEX-API). This can generally be found [within a coin's github repository](https://github.com/KomodoPlatform/komodo/blob/master/src/main.cpp#L146) and is assigned via the `sign_message_prefix` value as below.
 
 ```json
 {
