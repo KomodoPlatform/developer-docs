@@ -4094,7 +4094,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"best_orders\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"action\": \"buy\", // Accepted values: \"buy\", \"sell\"\r\n        \"volume\": 1.1\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"best_orders\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"action\": \"buy\", // Accepted values: \"buy\", \"sell\"\r\n        \"request_by\": {\r\n            \"type\": \"volume\", // Accepted values: \"volume\", \"number\"\r\n            \"value\": 1.1 // Accepted values: Decimals if \"type\": \"volume\", Unsigned Integers if \"type\": \"number\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 								},
 								"url": {
 									"raw": "{{address}}",
