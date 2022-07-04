@@ -287,7 +287,7 @@ let atomicDEXsidebar = {
           "AtomicDEX-API RPC Protocol v2.0 (Dev)",
         ],
         [
-          "/basic-docs/atomicdex-api-20/message_signing.md",
+          "/basic-docs/atomicdex-api-20-dev/message_signing.md",
           "Message Signing",
         ],
         [
