@@ -1,7 +1,5 @@
 # best\_orders
 
-**best_orders coin action volume**
-
 The `best_orders` method returns the best priced trades available on the orderbook. There are two options for the request, either `volume` or `number`.
 If request is made by `volume`, the returned results will show the best prices for trades that can fill the requested volume.
 If request is made by `number`, the returned results will show a list of the best prices, `number` pairs long (e.g. top 5 best priced orders).
