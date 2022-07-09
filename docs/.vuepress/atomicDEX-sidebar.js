@@ -311,6 +311,10 @@ let atomicDEXsidebar = {
           "stop_version_stat_collection",
         ],
         [
+          "/basic-docs/atomicdex-api-20-dev/best_orders.md",
+          "best_orders"
+        ],
+        [
           "/basic-docs/atomicdex-api-20-dev/get_public_key.md",
           "get_public_key",
         ],
