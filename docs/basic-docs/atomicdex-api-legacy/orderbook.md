@@ -58,12 +58,16 @@ Where `Order` object structure is as follows
 | askdepth                      | number            | the depth of the ask requests                                                                                                     |
 | uuid                          | string            | the uuid of order                                                                                                                 |
 | is_mine                       | bool              | whether the order is placed by me                                                                                                 |
+| base_confs                    | number            | the confirmations settings of `base` coin set by the offer provider                                                               |
+| base_nota                     | bool              | the notarisation settings of `base` coin set by the offer provider                                                                |
 | base_max_volume               | string (decimal)  | the maximum amount of `base` coin the offer provider is willing to buy or sell                                                    |
 | base_max_volume_rat           | rational          | the `base` max volume in num-rational crate format                                                                                |
 | base_max_volume_fraction      | object (rational) | the `base` max volume represented as an object                                                                                    |
 | base_min_volume               | string (decimal)  | the minimum amount of `base` coin the offer provider is willing to buy or sell                                                    |
 | base_min_volume_rat           | rational          | the `base` min volume in num-rational crate format                                                                                |
 | base_min_volume_fraction      | object (rational) | the `base` min volume represented as an object                                                                                    |
+| rel_confs                     | number            | the confirmations settings of `rel` coin set by the offer provider                                                                |
+| rel_nota                      | bool              | the notarisation settings of `rel` coin set by the offer provider                                                                 |
 | rel_max_volume                | string (decimal)  | the maximum amount of `rel` coin the offer provider is willing to buy or sell                                                     |
 | rel_max_volume_rat            | rational          | the `rel` max volume in num-rational crate format                                                                                 |
 | rel_max_volume_fraction       | object (rational) | the `rel` max volume represented as an object                                                                                     |
@@ -76,6 +80,7 @@ Where `Order` object structure is as follows
 | rel_max_volume_aggr           | string (decimal)  | the rel max volume aggregated at the price level; the sum of rel volumes of the current order and all orders with a worse price   |
 | rel_max_volume_aggr_rat       | rational          | the `rel_max_volume_aggr` in num-rational crate format                                                                            |
 | rel_max_volume_aggr_fraction  | object (rational) | the `rel_max_volume_aggr` represented as an object                                                                                |
+
 
 #### :pushpin: Examples
 
@@ -145,6 +150,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "denom": "100000"
       },
       "rel_min_volume_rat": [ [ 1, [ 11 ] ], [ 1, [ 100000 ] ] ],
+      "base_confs": 1,
+      "base_nota": false,
+      "rel_confs": 2,
+      "rel_nota": false,
       "base_max_volume_aggr": "69711.32528304",
       "base_max_volume_aggr_fraction": {
         "numer": "435695783019",
@@ -208,6 +217,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "denom": "100000"
       },
       "rel_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+      "base_confs": 1,
+      "base_nota": false,
+      "rel_confs": 2,
+      "rel_nota": false,
       "base_max_volume_aggr": "2",
       "base_max_volume_aggr_fraction": {
         "numer": "2",
@@ -275,6 +288,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "denom": "100000"
       },
       "rel_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+      "base_confs": 1,
+      "base_nota": false,
+      "rel_confs": 2,
+      "rel_nota": false,
       "base_max_volume_aggr": "2",
       "base_max_volume_aggr_fraction": {
         "numer": "2",
@@ -338,6 +355,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "denom": "100000"
       },
       "rel_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+      "base_confs": 1,
+      "base_nota": false,
+      "rel_confs": 2,
+      "rel_nota": false,
       "base_max_volume_aggr": "388.7721352527054932",
       "base_max_volume_aggr_fraction": {
         "numer": "971930338131763733",
@@ -401,6 +422,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "denom": "10000"
       },
       "rel_min_volume_rat": [ [ 1, [ 1 ] ], [ 1, [ 10000 ] ] ],
+      "base_confs": 1,
+      "base_nota": false,
+      "rel_confs": 2,
+      "rel_nota": false,
       "base_max_volume_aggr": "62121.4270542197054932",
       "base_max_volume_aggr_fraction": {
         "numer": "155303567635549263733",
@@ -464,6 +489,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "denom": "1250000000"
       },
       "rel_min_volume_rat": [ [ 1, [ 125001 ] ], [ 1, [ 1250000000 ] ] ],
+      "base_confs": 1,
+      "base_nota": false,
+      "rel_confs": 2,
+      "rel_nota": false,
       "base_max_volume_aggr": "62121.5400542197054932",
       "base_max_volume_aggr_fraction": {
         "numer": "155303850135549263733",
@@ -527,6 +556,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "denom": "6250000000"
       },
       "rel_min_volume_rat": [ [ 1, [ 625003 ] ], [ 1, [ 1955032704, 1 ] ] ],
+      "base_confs": 1,
+      "base_nota": false,
+      "rel_confs": 2,
+      "rel_nota": false,
       "base_max_volume_aggr": "62121.6670542197054932",
       "base_max_volume_aggr_fraction": {
         "numer": "155304167635549263733",
@@ -590,6 +623,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "denom": "100000000000"
       },
       "rel_min_volume_rat": [ [ 1, [ 10000101 ] ], [ 1, [ 1215752192, 23 ] ] ],
+      "base_confs": 1,
+      "base_nota": false,
+      "rel_confs": 2,
+      "rel_nota": false,
       "base_max_volume_aggr": "62121.7780542197054932",
       "base_max_volume_aggr_fraction": {
         "numer": "155304445135549263733",

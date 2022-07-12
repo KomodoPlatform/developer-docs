@@ -312,9 +312,6 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 Here's the response:
 
 ```
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   505  100   377  100   128   122k  42666 --:--:-- --:--:-- --:--:--  246k
 {
   "bids": [],
   "numbids": 0,
@@ -462,9 +459,6 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 You should receive a similar response, the balance will be a bit less than volume set on trade as you have to pay the fee to mine your swap transaction:
 
 ```
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   192  100    77  100   115    377    563 --:--:-- --:--:-- --:--:--   945
 {
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": 0.99999,

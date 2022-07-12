@@ -58,6 +58,10 @@ let atomicDEXsidebar = {
               "/basic-docs/atomicdex/atomicdex-tutorials/coins-file-update.md",
               "How to update the coins file to work with the latest atomicDEX-API",
             ],
+            [
+              "/basic-docs/atomicdex/atomicdex-tutorials/query-the-mm2-database.md",
+              "How to query the MM2 SQLite database",
+            ],
           ],
         },
         {
@@ -232,6 +236,7 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex-api-legacy/validateaddress.md",
           "validateaddress",
         ],
+        ["/basic-docs/atomicdex-api-legacy/unban_pubkeys.md", "unban_pubkeys"],
         ["/basic-docs/atomicdex-api-legacy/version.md", "version"],
         ["/basic-docs/atomicdex-api-legacy/withdraw.md", "withdraw"],
       ],
@@ -293,6 +298,9 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex-api-20-dev/my_tx_history.md",
           "my_tx_history",
         ],
+          "/basic-docs/atomicdex-api-20-dev/message_signing.md",
+          "Message Signing",
+        ],
         [
           "/basic-docs/atomicdex-api-20-dev/add_node_to_version_stat.md",
           "add_node_to_version_stat",
@@ -314,8 +322,16 @@ let atomicDEXsidebar = {
           "stop_version_stat_collection",
         ],
         [
+          "/basic-docs/atomicdex-api-20-dev/best_orders.md",
+          "best_orders"
+        ],
+        [
           "/basic-docs/atomicdex-api-20-dev/get_public_key.md",
           "get_public_key",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/get_public_key_hash.md",
+          "get_public_key_hash"
         ],
         [
           "/basic-docs/atomicdex-api-20-dev/trade_preimage.md",
@@ -345,6 +361,10 @@ let atomicDEXsidebar = {
         [
           "/basic-docs/atomicdex-api-20-dev/remove_delegation.md",
           "remove_delegation",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/recreate_swap_data.md",
+          "recreate_swap_data",
         ],
       ],
     },
