@@ -337,7 +337,14 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex-api-20-dev/trade_preimage.md",
           "trade_preimage",
         ],
-        ["/basic-docs/atomicdex-api-20-dev/withdraw.md", "withdraw"],
+        [
+          "/basic-docs/atomicdex-api-20-dev/get_raw_transaction.md",
+          "get_raw_transaction",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/recreate_swap_data.md",
+          "recreate_swap_data",
+        ],
         [
           "/basic-docs/atomicdex-api-20-dev/stop_simple_market_maker_bot.md",
           "stop_simple_market_maker_bot",
@@ -355,17 +362,14 @@ let atomicDEXsidebar = {
           "add_delegation",
         ],
         [
-          "/basic-docs/atomicdex-api-20-dev/get_staking_infos.md",
-          "get_staking_infos",
-        ],
-        [
           "/basic-docs/atomicdex-api-20-dev/remove_delegation.md",
           "remove_delegation",
         ],
         [
-          "/basic-docs/atomicdex-api-20-dev/recreate_swap_data.md",
-          "recreate_swap_data",
+          "/basic-docs/atomicdex-api-20-dev/get_staking_infos.md",
+          "get_staking_infos",
         ],
+        ["/basic-docs/atomicdex-api-20-dev/withdraw.md", "withdraw"],
       ],
     },
   ],  
