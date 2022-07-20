@@ -7,19 +7,20 @@ AtomicDEX-API configuration parameters are [listed in the source code](https://g
 
 When running the AtomicDEX API via commandline with the `mm2` binary, some basic configuration parameters need to be defined in either an `MM2.json` file, or at runtime.
 
-| Parameter    | Type              | Description                     |
-| ------------ | ------------------| ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| gui          | string            | Information about your GUI; place essential info about your application (name, version, etc.) here. For example: AtomicDEX iOS 1.0.1                        |
-| netid        | integer           | Nework ID number, telling the AtomicDEX API which network to join. 7777 is the current main network, though alternative netids can be used for testing or "private" trades |
-| passphrase   | string            | Your passphrase; this is the source of each of your coins private keys. KEEP IT SAFE!                                                                       |
+| Parameter      | Type              | Description                     |
+| -------------- | ------------------| ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| gui            | string            | Information about your GUI; place essential info about your application (name, version, etc.) here. For example: AtomicDEX iOS 1.0.1                        |
+| netid          | integer           | Nework ID number, telling the AtomicDEX API which network to join. 7777 is the current main network, though alternative netids can be used for testing or "private" trades |
+| passphrase     | string            | Your passphrase; this is the source of each of your coins private keys. KEEP IT SAFE!                                                                       |
 | allow_weak_password   | boolean  | If `true`, will allow low entropy rpc_password. If `false` rpc_password must not have 3 of the same characters in a row, must be between 8-32 characters in length, must contain at least one of each of the following: numeric, uppercase, lowercase, special character (e.g. !#$*). It also can not contain the word "password", or the chars `<`, `>`, and `&`. Defaults to `false`.                                                                        |
-| rpc_password | string            | Your password for protected RPC methods (userpass)                                                                                                          |
-| userhome     | string            | The path to your home, called from your environment variables and entered as a regular expression                                                           |
-| dbdir        | string            | AtomicDEX API database path. Optional, defaults to a subfolder named `DB` in the path of your `mm2` binary                                                  |
-| rpcip        | string            | IP address to bind to for RPC server. Optional, defaults to 127.0.0.1                                                                                       |
-| rpcport      | integer           | Port to use for RPC communication. Optional, defaults to 7783                                                                                               |
-| i_am_seed    | boolean           | Runs AtomicDEX API as a seed node mode (acting as a relay for AtomicDEX API clients). Optional, defaults to false. Use of this mode is not reccomended on the main network (7777) as it could result in a pubkey ban if non-compliant. on alternative testing or private networks, at least one seed node is required to relay information to other AtomicDEX API clients using the same netID.                                            |
-| seednodes    | list of strings   | Optional. If operating on a test or private netID, the IP address of at least one seed node is required (on the main network, these are already hardcoded)  |
+| rpc_password   | string            | Your password for protected RPC methods (userpass)                                                                                                          |
+| userhome       | string            | The path to your home, called from your environment variables and entered as a regular expression                                                           |
+| dbdir          | string            | AtomicDEX API database path. Optional, defaults to a subfolder named `DB` in the path of your `mm2` binary                                                  |
+| rpcip          | string            | IP address to bind to for RPC server. Optional, defaults to 127.0.0.1                                                                                       |
+| rpcport        | integer           | Port to use for RPC communication. Optional, defaults to 7783                                                                                               |
+| rpc_local_only | boolean           | If `false` the AtomicDEX API will allow rpc methods sent from external IP addresses. Optional, defaults to `true`. **Warning:** Only use this if you know what you are doing, and have put the appropriate security measures in place. |
+| i_am_seed      | boolean           | Runs AtomicDEX API as a seed node mode (acting as a relay for AtomicDEX API clients). Optional, defaults to `false`. Use of this mode is not reccomended on the main network (7777) as it could result in a pubkey ban if non-compliant. on alternative testing or private networks, at least one seed node is required to relay information to other AtomicDEX API clients using the same netID.                                            |
+| seednodes      | list of strings   | Optional. If operating on a test or private netID, the IP address of at least one seed node is required (on the main network, these are already hardcoded)  |
 
 
 Example (allowing weak password):
