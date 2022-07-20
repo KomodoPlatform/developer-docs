@@ -162,7 +162,7 @@ let atomicDEXsidebar = {
           "get_my_peer_id",
         ],
 
-        
+
         ["/basic-docs/atomicdex-api-legacy/get_relay_mesh.md", "get_relay_mesh"],
         ["/basic-docs/atomicdex-api-legacy/get_peers_info.md", "get_peers_info"],
 
@@ -298,6 +298,7 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex-api-20-dev/my_tx_history.md",
           "my_tx_history",
         ],
+        [
           "/basic-docs/atomicdex-api-20-dev/message_signing.md",
           "Message Signing",
         ],
@@ -372,6 +373,6 @@ let atomicDEXsidebar = {
         ["/basic-docs/atomicdex-api-20-dev/withdraw.md", "withdraw"],
       ],
     },
-  ],  
+  ],
 };
 module.exports = atomicDEXsidebar;
