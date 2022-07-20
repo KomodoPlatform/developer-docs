@@ -10,7 +10,7 @@
   "license": "MIT",
   "devDependencies": {
     "@vuepress/plugin-back-to-top": "^1.8.2",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "vue-cookie-law": "^1.13.3",
     "vuepress": "^1.8.2",
     "vuepress-plugin-autometa": "^0.1.13",
