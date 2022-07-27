@@ -4852,7 +4852,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userpass\": \"{{userpass}}\",\n    \"mmrpc\": \"2.0\",\n    \"method\": \"get_current_mtp\",\n    \"params\": {\n        \"coin\": \"KMD\"\n    },\n    // \"id\": null // Accepted values: Integers\n}\n"
+							"raw": "{\n    \"userpass\": \"{{userpass}}\",\n    \"mmrpc\": \"2.0\",\n    \"method\": \"get_current_mtp\",\n    \"params\": {\n        \"coin\": \"RICK\"\n    },\n    // \"id\": null // Accepted values: Integers\n}\n"
 						},
 						"url": {
 							"raw": "{{address}}",
