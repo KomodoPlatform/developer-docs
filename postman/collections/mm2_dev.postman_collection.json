@@ -4825,21 +4825,21 @@
 					]
 				},
 				{
-				    "name": "get_current_mtp",
+					"name": "get_current_mtp",
 					"event": [
 						{
-                            "listen": "prerequest",
-                            "script": {
+							"listen": "prerequest",
+							"script": {
 								"exec": [
 									"// Strip JSON Comments\r",
 									"const rawData = pm.request.body.toString();\r",
 									"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
 									"\r",
-											"pm.request.body.update(strippedData);"
-										],
-										"type": "text/javascript"
-									}
-								}
+									"pm.request.body.update(strippedData);"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
 					"request": {
 						"method": "POST",
@@ -4852,13 +4852,13 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_current_mtp\",\r\n    \"params\": {\r\n        \"coin\": \"KMD\"\r\n    }\r\n}\r\n"
+							"raw": "{\n    \"userpass\": \"{{userpass}}\",\n    \"mmrpc\": \"2.0\",\n    \"method\": \"get_current_mtp\",\n    \"params\": {\n        \"coin\": \"KMD\"\n    },\n    // \"id\": null // Accepted values: Integers\n}\n"
 						},
 						"url": {
 							"raw": "{{address}}",
 							"host": [
 								"{{address}}"
-									]
+							]
 						}
 					},
 					"response": []
