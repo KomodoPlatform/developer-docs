@@ -4825,6 +4825,45 @@
 					]
 				},
 				{
+					"name": "get_current_mtp",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Strip JSON Comments\r",
+									"const rawData = pm.request.body.toString();\r",
+									"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+									"\r",
+									"pm.request.body.update(strippedData);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userpass\": \"{{userpass}}\",\n    \"mmrpc\": \"2.0\",\n    \"method\": \"get_current_mtp\",\n    \"params\": {\n        \"coin\": \"RICK\"\n    }\n    // \"id\": null // Accepted values: Integers\n}\n"
+						},
+						"url": {
+							"raw": "{{address}}",
+							"host": [
+								"{{address}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get_public_key",
 					"event": [
 						{
