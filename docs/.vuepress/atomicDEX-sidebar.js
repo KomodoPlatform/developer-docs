@@ -158,11 +158,11 @@ let atomicDEXsidebar = {
           ["/basic-docs/atomicdex-api-legacy/buy.md", "buy"],
           ["/basic-docs/atomicdex-api-legacy/cancel_all_orders.md", "cancel_all_orders"],
           ["/basic-docs/atomicdex-api-legacy/cancel_order.md", "cancel_order"],
+          ["/basic-docs/atomicdex-api-legacy/my_orders.md", "my_orders"],
           ["/basic-docs/atomicdex-api-legacy/orderbook.md", "orderbook"],
           ["/basic-docs/atomicdex-api-legacy/orderbook_depth.md", "orderbook_depth"],
           ["/basic-docs/atomicdex-api-legacy/orders_history_by_filter.md", "orders_history_by_filter"],
           ["/basic-docs/atomicdex-api-legacy/order_status.md", "order_status"],
-          ["/basic-docs/atomicdex-api-legacy/my_orders.md", "my_orders"],
           ["/basic-docs/atomicdex-api-legacy/recover_funds_of_swap.md", "recover_funds_of_swap"],
           ["/basic-docs/atomicdex-api-legacy/sell.md", "sell"],
           ["/basic-docs/atomicdex-api-legacy/setprice.md", "setprice"],
@@ -175,8 +175,13 @@ let atomicDEXsidebar = {
           children: [
             ["/basic-docs/atomicdex-api-legacy/active_swaps.md", "active_swaps"],
             ["/basic-docs/atomicdex-api-legacy/all_swaps_uuids_by_filter.md", "all_swaps_uuids_by_filter"],
+            ["/basic-docs/atomicdex-api-legacy/get_trade_fee.md", "get_trade_fee"],
+            ["/basic-docs/atomicdex-api-legacy/import_swaps.md", "import_swaps"],
+            ["/basic-docs/atomicdex-api-legacy/min_trading_vol.md", "min_trading_vol"],
+            ["/basic-docs/atomicdex-api-legacy/max_taker_vol.md", "max_taker_vol"],
             ["/basic-docs/atomicdex-api-legacy/my_recent_swaps.md", "my_recent_swaps"],
-            ["/basic-docs/atomicdex-api-legacy/my_swap_status.md", "my_swap_status"]
+            ["/basic-docs/atomicdex-api-legacy/my_swap_status.md", "my_swap_status"],
+            ["/basic-docs/atomicdex-api-legacy/trade_preimage.md", "trade_preimage"]
           ]
         },
         {
@@ -184,14 +189,9 @@ let atomicDEXsidebar = {
           collapsable: true,
           children: [
             ["/basic-docs/atomicdex-api-legacy/ban_pubkey.md", "ban_pubkey"],
-            ["/basic-docs/atomicdex-api-legacy/get_trade_fee.md", "get_trade_fee"],
             ["/basic-docs/atomicdex-api-legacy/help.md", "help"],
-            ["/basic-docs/atomicdex-api-legacy/import_swaps.md", "import_swaps"],
             ["/basic-docs/atomicdex-api-legacy/list_banned_pubkeys.md","list_banned_pubkeys"],
-            ["/basic-docs/atomicdex-api-legacy/min_trading_vol.md", "min_trading_vol"],
-            ["/basic-docs/atomicdex-api-legacy/max_taker_vol.md", "max_taker_vol"],
             ["/basic-docs/atomicdex-api-legacy/stop.md", "stop"],
-            ["/basic-docs/atomicdex-api-legacy/trade_preimage.md", "trade_preimage"],
             ["/basic-docs/atomicdex-api-legacy/unban_pubkeys.md", "unban_pubkeys"],
             ["/basic-docs/atomicdex-api-legacy/version.md", "version"],
           ]
@@ -247,18 +247,18 @@ let atomicDEXsidebar = {
           ]
         },
         {
+          title: "Swaps",
+          collapsable: true,
+          children: [
+            ["/basic-docs/atomicdex-api-20/trade_preimage.md", "trade_preimage"]
+          ]
+        },
+        {
           title: "Wallet",
           collapsable: true,
           children: [
             ["/basic-docs/atomicdex-api-20/get_public_key.md", "get_public_key"],
             ["/basic-docs/atomicdex-api-20/withdraw.md", "withdraw"]
-          ]
-        },
-        {
-          title: "Utility",
-          collapsable: true,
-          children: [
-            ["/basic-docs/atomicdex-api-20/trade_preimage.md", "trade_preimage"]
           ]
         },
       ],
@@ -358,7 +358,7 @@ let atomicDEXsidebar = {
           ]
         },
         {
-          title: "Utility",
+          title: "Swaps",
           collapsable: true,
           children: [
             ["/basic-docs/atomicdex-api-20-dev/recreate_swap_data.md", "recreate_swap_data"],
