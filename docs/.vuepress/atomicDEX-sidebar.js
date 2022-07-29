@@ -8,6 +8,10 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex/introduction-to-atomicdex.md",
           "Introduction to AtomicDEX Documentation",
         ],
+        [
+          "/basic-docs/atomicdex/atomicdex-methods.md",
+          "RPC Methods for AtomicDEX",
+        ],
         {
           title: "Setup",
           collapsable: true,
