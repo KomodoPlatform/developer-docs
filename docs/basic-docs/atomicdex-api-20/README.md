@@ -1,4 +1,4 @@
-# AtomicDEX API RPC Protocol v2.0 (Master)
+# AtomicDEX API RPC Protocol v2.0 (Dev)
 
 Starting with version [beta-2.1.3434](https://github.com/KomodoPlatform/atomicDEX-API/releases/tag/beta-2.1.3434), the AtomicDEX API supports the standardized protocol format called `mmrpc 2.0`.
 

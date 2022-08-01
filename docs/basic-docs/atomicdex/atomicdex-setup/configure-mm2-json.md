@@ -109,7 +109,7 @@ Refer to the rest of the AtomicDEX API documentation for details and examples of
 * [Place orders](../../atomicdex-api-legacy/buy.html)
 * [View the orderbook](../../atomicdex-api-legacy/orderbook.html) 
 * [Check your balance](../../atomicdex-api-legacy/my_balance.html)
-* [Configure bot trading!](../../atomicdex-api-20-dev/start_simple_market_maker_bot.html)
+* [Configure bot trading!](../../atomicdex-api-20/start_simple_market_maker_bot.html)
 
 When you are finished, you can exit the AtomicDEX API using the following command:
 

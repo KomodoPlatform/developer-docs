@@ -225,6 +225,49 @@ let atomicDEXsidebar = {
       children: [
         ["/basic-docs/atomicdex-api-20/", "AtomicDEX-API RPC Protocol v2.0 (Master)"],
         {
+          title: "Coin Activation",
+          collapsable: true,
+          children: [
+            [
+              "/basic-docs/atomicdex-api-20/enable_bch_with_tokens.md",
+              "enable_bch_with_slp_tokens",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/enable_slp.md",
+              "enable_slp",
+            ],
+          ]
+        },
+        {
+          title: "Market Maker Bot",
+          collapsable: true,
+          children: [
+            [
+              "/basic-docs/atomicdex-api-20/start_simple_market_maker_bot.md",
+              "start_simple_market_maker_bot",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/stop_simple_market_maker_bot.md",
+              "stop_simple_market_maker_bot",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/telegram_alerts.md",
+              "telegram_alerts",
+            ]
+          ]
+        },
+        [
+          "/basic-docs/atomicdex-api-20/message_signing.md",
+          "Message Signing",
+        ],
+        {
+          title: "Orders",
+          collapsable: true,
+          children: [
+            ["/basic-docs/atomicdex-api-20/best_orders.md", "best_orders"],
+          ]
+        },
+        {
           title: "Seednode Version Stats",
           collapsable: true,
           children: [
@@ -251,9 +294,28 @@ let atomicDEXsidebar = {
           ]
         },
         {
+          title: "Staking",
+          collapsable: true,
+          children: [
+            [
+              "/basic-docs/atomicdex-api-20/add_delegation.md",
+              "add_delegation",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/get_staking_infos.md",
+              "get_staking_infos",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/remove_delegation.md",
+              "remove_delegation",
+            ]
+          ]
+        },
+        {
           title: "Swaps",
           collapsable: true,
           children: [
+            ["/basic-docs/atomicdex-api-20/recreate_swap_data.md", "recreate_swap_data"],
             ["/basic-docs/atomicdex-api-20/trade_preimage.md", "trade_preimage"]
           ]
         },
@@ -262,7 +324,10 @@ let atomicDEXsidebar = {
           collapsable: true,
           children: [
             ["/basic-docs/atomicdex-api-20/get_public_key.md", "get_public_key"],
-            ["/basic-docs/atomicdex-api-20/withdraw.md", "withdraw"]
+            ["/basic-docs/atomicdex-api-20/get_public_key_hash.md", "get_public_key_hash"],
+            ["/basic-docs/atomicdex-api-20/get_raw_transaction.md", "get_raw_transaction"],
+            ["/basic-docs/atomicdex-api-20/my_tx_history.md", "my_tx_history"],
+            ["/basic-docs/atomicdex-api-20/withdraw.md", "withdraw"],
           ]
         },
       ],
@@ -275,113 +340,14 @@ let atomicDEXsidebar = {
       children: [
         ["/basic-docs/atomicdex-api-20-dev/", "AtomicDEX-API RPC Protocol v2.0 (Dev)"],
         {
-          title: "Coin Activation",
+          title: "Utility",
           collapsable: true,
           children: [
-            [
-              "/basic-docs/atomicdex-api-20-dev/enable_bch_with_tokens.md",
-              "enable_bch_with_slp_tokens",
-            ],
-            [
-              "/basic-docs/atomicdex-api-20-dev/enable_slp.md",
-              "enable_slp",
-            ],
+            ["/basic-docs/atomicdex-api-20-dev/get_current_mtp.md", "get_current_mtp"]
           ]
-        },
-        {
-          title: "Market Maker Bot",
-          collapsable: true,
-          children: [
-            [
-              "/basic-docs/atomicdex-api-20-dev/start_simple_market_maker_bot.md",
-              "start_simple_market_maker_bot",
-            ],
-            [
-              "/basic-docs/atomicdex-api-20-dev/stop_simple_market_maker_bot.md",
-              "stop_simple_market_maker_bot",
-            ],
-            [
-              "/basic-docs/atomicdex-api-20-dev/telegram_alerts.md",
-              "telegram_alerts",
-            ]
-          ]
-        },
-        [
-          "/basic-docs/atomicdex-api-20-dev/message_signing.md",
-          "Message Signing",
-        ],
-        {
-          title: "Orders",
-          collapsable: true,
-          children: [
-            ["/basic-docs/atomicdex-api-20-dev/best_orders.md", "best_orders"],
-          ]
-        },
-        {
-          title: "Seednode Version Stats",
-          collapsable: true,
-          children: [
-            [
-              "/basic-docs/atomicdex-api-20-dev/add_node_to_version_stat.md",
-              "add_node_to_version_stat",
-            ],
-            [
-              "/basic-docs/atomicdex-api-20-dev/remove_node_from_version_stat.md",
-              "remove_node_from_version_stat",
-            ],
-            [
-              "/basic-docs/atomicdex-api-20-dev/start_version_stat_collection.md",
-              "start_version_stat_collection",
-            ],
-            [
-              "/basic-docs/atomicdex-api-20-dev/stop_version_stat_collection.md",
-              "stop_version_stat_collection",
-            ],
-            [
-              "/basic-docs/atomicdex-api-20-dev/update_version_stat_collection.md",
-              "update_version_stat_collection",
-            ]
-          ]
-        },
-        {
-          title: "Staking",
-          collapsable: true,
-          children: [
-            [
-              "/basic-docs/atomicdex-api-20-dev/add_delegation.md",
-              "add_delegation",
-            ],
-            [
-              "/basic-docs/atomicdex-api-20-dev/get_staking_infos.md",
-              "get_staking_infos",
-            ],
-            [
-              "/basic-docs/atomicdex-api-20-dev/remove_delegation.md",
-              "remove_delegation",
-            ]
-          ]
-        },
-        {
-          title: "Swaps",
-          collapsable: true,
-          children: [
-            ["/basic-docs/atomicdex-api-20-dev/recreate_swap_data.md", "recreate_swap_data"],
-            ["/basic-docs/atomicdex-api-20-dev/trade_preimage.md", "trade_preimage"]
-          ]
-        },
-        {
-          title: "Wallet",
-          collapsable: true,
-          children: [
-            ["/basic-docs/atomicdex-api-20-dev/get_public_key.md", "get_public_key"],
-            ["/basic-docs/atomicdex-api-20-dev/get_public_key_hash.md", "get_public_key_hash"],
-            ["/basic-docs/atomicdex-api-20-dev/get_raw_transaction.md", "get_raw_transaction"],
-            ["/basic-docs/atomicdex-api-20-dev/my_tx_history.md", "my_tx_history"],
-            ["/basic-docs/atomicdex-api-20-dev/withdraw.md", "withdraw"],
-          ]
-        },
-      ],
-    },
-  ],
+        }
+      ]
+    }
+  ]
 };
 module.exports = atomicDEXsidebar;
