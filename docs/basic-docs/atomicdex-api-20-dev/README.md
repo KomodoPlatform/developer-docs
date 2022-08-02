@@ -2,9 +2,8 @@
 
 Starting with version [beta-2.1.3434](https://github.com/KomodoPlatform/atomicDEX-API/releases/tag/beta-2.1.3434), the AtomicDEX API supports the standardized protocol format called `mmrpc 2.0`.
 
-It includes a uniform request, successful and error response formats.
+It includes a uniform request, successful and error response formats. At the moment, only a few RPC methods support the `mmrpc 2.0` protocol.
 
-At the moment, only a few RPC methods support the `mmrpc 2.0` protocol, such as **withdraw** and **trade_preimage**.
 
 ### Request
 
