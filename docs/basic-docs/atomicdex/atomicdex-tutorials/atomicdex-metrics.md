@@ -48,26 +48,48 @@ The response should be similar to the following.
 
 ```json
 {
-  "metrics": [
-    {
-      "key": "rpc_client.traffic.out",
-      "labels": { "coin": "RICK", "client": "electrum" },
-      "type": "counter",
-      "value": 92
-    },
-    {
-      "key": "rpc_client.traffic.in",
-      "labels": { "coin": "RICK", "client": "electrum" },
-      "type": "counter",
-      "value": 125
-    }
-  ]
+	"metrics": [{
+		"type": "gauge",
+		"key": "p2p.received_messages.period_in_secs",
+		"labels": {},
+		"value": 60.0
+	}, {
+		"type": "gauge",
+		"key": "p2p.connected_relays.len",
+		"labels": {},
+		"value": 4.0
+	}, {
+		"type": "gauge",
+		"key": "orderbook.len",
+		"labels": {},
+		"value": 0.0
+	}, {
+		"type": "gauge",
+		"key": "p2p.relay_mesh.len",
+		"labels": {},
+		"value": 2.0
+	}, {
+		"type": "gauge",
+		"key": "p2p.received_messages.count",
+		"labels": {},
+		"value": 0.0
+	}, {
+		"type": "gauge",
+		"key": "p2p.connected_peers.count",
+		"labels": {},
+		"value": 4.0
+	}, {
+		"type": "gauge",
+		"key": "orderbook.memory_db",
+		"labels": {},
+		"value": 297800386624.0
+	}]
 }
 ```
 
 ## Prometheus Integration
 
-AtomicDEX API 2.0 supports integration with Prometheus. This software allows users to setup automated scraping of metrics at regular intervals and enables sophisticated queries on the stored [timeseries](https://en.wikipedia.org/wiki/Time_series) data. It also allows users to configure an elegant dashboard using built-in [graphs,](https://prometheus.io/docs/prometheus/latest/getting_started/#using-the-expression-browser) or to export data for graphical processing using [Grafana](https://prometheus.io/docs/visualization/grafana/).
+AtomicDEX API 2.0 supports integration with [Prometheus](https://github.com/prometheus/prometheus#install). This software allows users to setup automated scraping of metrics at regular intervals and enables sophisticated queries on the stored [timeseries](https://en.wikipedia.org/wiki/Time_series) data. It also allows users to configure an elegant dashboard using built-in [graphs,](https://prometheus.io/docs/prometheus/latest/getting_started/#using-the-expression-browser) or to export data for graphical processing using [Grafana](https://prometheus.io/docs/visualization/grafana/).
 
 Prometheus scrapes metrics using an HTTP pull model.
 
@@ -112,6 +134,9 @@ scrape_configs:
 
     static_configs:
       - targets: ['0.0.0.0:9001']
+        labels:
+          group: 'atomicdex'
+
 ```
 
 Replace PROM_USERNAME and PROM_PASSWORD with your actual Prometheus username and password.
@@ -163,82 +188,110 @@ docker-compose up
 
 Once the docker containers are up and running, navigate to [http://localhost:9090/graph](http://localhost:9090/graph) and use the `Graph` tab to use Prometheus's built-in graph expressions.
 
-To visualize one of the available metrics, click on the dropdown menu highlighted in the following picture, select a metric and then click execute.
+To visualize one of the available metrics, open the metric explorer (next to the execute button), select a metric and then click execute.
+
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="/prom-metric-selection.png">
+![image](https://user-images.githubusercontent.com/35845239/188268589-63341416-b7d2-4dfe-bba0-c4823b696c55.png)
 
 </div>
 
-The graphical representation of the metric can be viewed in the `Graph` tab.
 
-<div style="margin: 2rem; text-align: center; width: 80%">
-
-<img src="/prom-graph-example.png">
-
-</div>
-
-More graphs can be added to the same page using the "Add Graph" button available.
+More graphs can be added to the same page using the "Add Panel" button available.
 
 #### Grafana
 
 Grafana can access data scraped by Prometheus and it can analyze, transform and display it in a variety of ways. For more information see the [Prometheus guide.](https://prometheus.io/docs/visualization/grafana/#using)
 
-To use Grafana, navigate to [http://localhost:3000](http://localhost:3000) and log in using the default credentials: `admin` / `admin`. When offered to set a new password, do so and remember it.
+To use Grafana, navigate to [http://localhost:3000](http://localhost:3000) and log in using the default credentials: `admin` / `admin`. When offered to set a new password, do so and secure it in an encrypted password manager like [KeePassXC](https://keepassxc.org/).
+
+Next we need to add Prometheus as a data source. Click on the cog icon in the sidebar to open the configuration panel.
+
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+  
+<img src="https://user-images.githubusercontent.com/35845239/188268976-e92237f4-fe53-4621-841f-6ec12627d58b.png">
+
+</div>
+
+
+Click the "Add data source" button, and select **Prometheus** from the menu. Set the URL to `http://localhost:9090`, leave other fields as default, and click the "Test and save" button at the bottom of the form.
+
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+  
+<img src="https://user-images.githubusercontent.com/35845239/188269018-55f73470-6ee1-48da-bc35-f91cd3b91902.png">
+  
+</div>
+
 
 Next, navigate to [http://localhost:3000/dashboards](http://localhost:3000/dashboards) and click on the `New Dashboard` button
 
-<div style="margin: 2rem; text-align: center; width: 80%">
-
-<img src="/grafana-new-dashboard.png">
-
-</div>
-
-Next, click the `Add Panel` button
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="/grafana-add-panel.png">
+<img src="https://user-images.githubusercontent.com/35845239/188268706-4df6b386-478b-4230-a4e7-260be3ea8970.png">
 
 </div>
+
+
+Next, click on `Add a new panel` 
+
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+
+<img src="https://user-images.githubusercontent.com/35845239/188268783-a09e46b9-956a-4bd2-954b-51a3cf85adc7.png">
+
+</div>
+
 
 In the next screen, select `Prometheus` as the provider from the drop down menu in the `Query` tab. 
 
+
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="/grafana-select-prometheus.png">
+<img src="https://user-images.githubusercontent.com/35845239/188269269-0a2126cc-383f-429f-80e0-371df4081db2.png">
 
 </div>
+
 
 Click the `Metrics` menu and select one of the available options. These should be the same ones available directly in the Graphs tab of Prometheus: [http://localhost:9090/graph](http://localhost:9090/graph).
 
-<div style="margin: 2rem; text-align: center; width: 80%">
-
-<img src="/grafana-select-metric.png">
-
-</div>
-
-Optionally, follow the hint to add `rate` in the previous screen by clicking `Fix by adding rate()`. This results in the following screen.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="/grafana-rate-applied.png">
-
+<img src="https://user-images.githubusercontent.com/35845239/188269453-1ed3d03f-9793-43cf-aa3c-cb130f04e3e0.png">
+  
 </div>
 
-Click the `Save` button and set a name for the dashboard.
+
+Optionally, you can tweak the query options (shown in the image below).
+
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="/grafana-save-panel.png">
+<img src="https://user-images.githubusercontent.com/35845239/188269635-1eb23007-0159-4813-b256-0e9461c4ccd4.png">
 
 </div>
 
-Now you have a Grafana dashboard with a panel that shows a graph of the `rpc_client_traffic_in`.
+
+Once complete, click on "Run queries" to see the data displayed on the graph. If you like, you can also customise the graph, by adding a title, changing the colors, or using a different graph type. Click "Apply in the top right corner) once complete.
+
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="/grafana-dashboard.png">
+<img src="https://user-images.githubusercontent.com/35845239/188269816-f39390aa-e7b3-4166-8420-515fc701d86f.png">
 
 </div>
+
+
+Add any additional panels as desired, and save them to your dashboard.
+
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+  
+<img src="https://user-images.githubusercontent.com/35845239/188270171-af42fa4b-5260-4a6c-b192-78feb2d56e1f.png">
+
+</div>
+
