@@ -193,7 +193,7 @@ To visualize one of the available metrics, open the metric explorer (next to the
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-![image](https://user-images.githubusercontent.com/35845239/188268589-63341416-b7d2-4dfe-bba0-c4823b696c55.png)
+<img src="../../../.vuepress/public/metrics/prometheus1.png" />
 
 </div>
 
@@ -210,8 +210,8 @@ Next we need to add Prometheus as a data source. Click on the cog icon in the si
 
 
 <div style="margin: 2rem; text-align: center; width: 80%">
-  
-<img src="https://user-images.githubusercontent.com/35845239/188268976-e92237f4-fe53-4621-841f-6ec12627d58b.png">
+
+<img src="../../../.vuepress/public/metrics/graphana1.png" />
 
 </div>
 
@@ -220,9 +220,9 @@ Click the "Add data source" button, and select **Prometheus** from the menu. Set
 
 
 <div style="margin: 2rem; text-align: center; width: 80%">
-  
-<img src="https://user-images.githubusercontent.com/35845239/188269018-55f73470-6ee1-48da-bc35-f91cd3b91902.png">
-  
+
+<img src="../../../.vuepress/public/metrics/graphana2.png" />
+
 </div>
 
 
@@ -231,7 +231,7 @@ Next, navigate to [http://localhost:3000/dashboards](http://localhost:3000/dashb
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="https://user-images.githubusercontent.com/35845239/188268706-4df6b386-478b-4230-a4e7-260be3ea8970.png">
+<img src="../../../.vuepress/public/metrics/graphana3.png" />
 
 </div>
 
@@ -241,7 +241,7 @@ Next, click on `Add a new panel`
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="https://user-images.githubusercontent.com/35845239/188268783-a09e46b9-956a-4bd2-954b-51a3cf85adc7.png">
+<img src="../../../.vuepress/public/metrics/graphana4.png" />
 
 </div>
 
@@ -251,7 +251,7 @@ In the next screen, select `Prometheus` as the provider from the drop down menu 
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="https://user-images.githubusercontent.com/35845239/188269269-0a2126cc-383f-429f-80e0-371df4081db2.png">
+<img src="../../../.vuepress/public/metrics/graphana5.png" />
 
 </div>
 
@@ -261,7 +261,7 @@ Click the `Metrics` menu and select one of the available options. These should b
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="https://user-images.githubusercontent.com/35845239/188269453-1ed3d03f-9793-43cf-aa3c-cb130f04e3e0.png">
+<img src="../../../.vuepress/public/metrics/graphana6.png" />
   
 </div>
 
@@ -271,7 +271,7 @@ Optionally, you can tweak the query options (shown in the image below).
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="https://user-images.githubusercontent.com/35845239/188269635-1eb23007-0159-4813-b256-0e9461c4ccd4.png">
+<img src="../../../.vuepress/public/metrics/graphana7.png" />
 
 </div>
 
@@ -281,7 +281,7 @@ Once complete, click on "Run queries" to see the data displayed on the graph. If
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="https://user-images.githubusercontent.com/35845239/188269816-f39390aa-e7b3-4166-8420-515fc701d86f.png">
+<img src="../../../.vuepress/public/metrics/graphana8.png" />
 
 </div>
 
@@ -291,7 +291,7 @@ Add any additional panels as desired, and save them to your dashboard.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
   
-<img src="https://user-images.githubusercontent.com/35845239/188270171-af42fa4b-5260-4a6c-b192-78feb2d56e1f.png">
+<img src="../../../.vuepress/public/metrics/graphana9.png" />
 
 </div>
 
