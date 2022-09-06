@@ -190,10 +190,9 @@ Once the docker containers are up and running, navigate to [http://localhost:909
 
 To visualize one of the available metrics, open the metric explorer (next to the execute button), select a metric and then click execute.
 
-
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="../../../.vuepress/public/metrics/prometheus1.png" />
+<img src="/metrics/prometheus1.png" />
 
 </div>
 
@@ -211,7 +210,7 @@ Next we need to add Prometheus as a data source. Click on the cog icon in the si
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="../../../.vuepress/public/metrics/graphana1.png" />
+<img src="/metrics/graphana1.png" />
 
 </div>
 
@@ -221,7 +220,7 @@ Click the "Add data source" button, and select **Prometheus** from the menu. Set
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="../../../.vuepress/public/metrics/graphana2.png" />
+<img src="/metrics/graphana2.png" />
 
 </div>
 
@@ -231,7 +230,7 @@ Next, navigate to [http://localhost:3000/dashboards](http://localhost:3000/dashb
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="../../../.vuepress/public/metrics/graphana3.png" />
+<img src="/metrics/graphana3.png" />
 
 </div>
 
@@ -241,7 +240,7 @@ Next, click on `Add a new panel`
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="../../../.vuepress/public/metrics/graphana4.png" />
+<img src="/metrics/graphana4.png" />
 
 </div>
 
@@ -251,7 +250,7 @@ In the next screen, select `Prometheus` as the provider from the drop down menu 
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="../../../.vuepress/public/metrics/graphana5.png" />
+<img src="/metrics/graphana5.png" />
 
 </div>
 
@@ -261,7 +260,7 @@ Click the `Metrics` menu and select one of the available options. These should b
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="../../../.vuepress/public/metrics/graphana6.png" />
+<img src="/metrics/graphana6.png" />
   
 </div>
 
@@ -271,7 +270,7 @@ Optionally, you can tweak the query options (shown in the image below).
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="../../../.vuepress/public/metrics/graphana7.png" />
+<img src="/metrics/graphana7.png" />
 
 </div>
 
@@ -281,7 +280,7 @@ Once complete, click on "Run queries" to see the data displayed on the graph. If
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
-<img src="../../../.vuepress/public/metrics/graphana8.png" />
+<img src="/metrics/graphana8.png" />
 
 </div>
 
@@ -291,7 +290,7 @@ Add any additional panels as desired, and save them to your dashboard.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
   
-<img src="../../../.vuepress/public/metrics/graphana9.png" />
+<img src="/metrics/graphana9.png" />
 
 </div>
 
