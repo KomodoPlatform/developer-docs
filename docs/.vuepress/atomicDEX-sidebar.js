@@ -256,10 +256,20 @@ let atomicDEXsidebar = {
             ]
           ]
         },
-        [
-          "/basic-docs/atomicdex-api-20/message_signing.md",
-          "Message Signing",
-        ],
+        {
+          title: "Message Signing",
+          collapsable: true,
+          children: [
+            [
+            "/basic-docs/atomicdex-api-20/message_signing.md#message-signing",
+            "sign_message",
+            ],
+            [
+            "/basic-docs/atomicdex-api-20/message_signing.md#message-verification",
+            "verify_message",
+            ]
+          ]
+        },
         {
           title: "Orders",
           collapsable: true,
