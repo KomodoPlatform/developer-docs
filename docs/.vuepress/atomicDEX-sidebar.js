@@ -355,6 +355,18 @@ let atomicDEXsidebar = {
           children: [
             ["/basic-docs/atomicdex-api-20-dev/get_current_mtp.md", "get_current_mtp"]
           ]
+        },
+        {
+          title: "Z Coin Tasks",
+          collapsable: true,
+          children: [
+            ["/basic-docs/atomicdex-api-20-dev/enable_z_coin_init.md", "enable_z_coin_init"],
+            ["/basic-docs/atomicdex-api-20-dev/enable_z_coin_status.md", "enable_z_coin_status"],
+            ["/basic-docs/atomicdex-api-20-dev/enable_z_coin_cancel.md", "enable_z_coin_cancel"],
+            ["/basic-docs/atomicdex-api-20-dev/withdraw_init.md", "withdraw_init"],
+            ["/basic-docs/atomicdex-api-20-dev/withdraw_status.md", "withdraw_status"],
+            ["/basic-docs/atomicdex-api-20-dev/withdraw_cancel.md", "withdraw_cancel"],
+          ]
         }
       ]
     }
