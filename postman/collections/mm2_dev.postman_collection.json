@@ -4235,7 +4235,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"my_tx_history\",\r\n    \"params\": {\r\n        \"coin\": \"tBCH\"\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     // \"FromId\": null, // Accepted values: Strings\r\n        //     \"PageNumber\": 1 // used only if: \"from_id\": null\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"my_tx_history\",\r\n    \"params\": {\r\n        \"coin\": \"tBCH\"\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     // \"FromId\": null, // Accepted values: Strings\r\n        //     \"PageNumber\": 1 // used only if: \"from_id\": null\r\n        // },\r\n        // \"target\": {\r\n        //     \"type\": \"iguana\"\r\n        // }\r\n        // \"target\": {\r\n        //     \"type\": \"account_id\",\r\n        //     \"account_id\": 0 // Accepted values: Integer\r\n        // }\r\n        // \"target\": {\r\n        //     \"type\": \"address_id\",\r\n        //     \"account_id\": 0, // Accepted values: Integer\r\n        //     \"chain\": \"External\", // Accepted values: \"External\" and \"Internal\"\r\n        //     \"address_id\": 0 // Accepted values: Integer\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 								},
 								"url": {
 									"raw": "{{address}}",
