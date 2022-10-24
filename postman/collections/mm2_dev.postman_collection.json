@@ -2533,7 +2533,7 @@
 							"name": "UTXO",
 							"item": [
 								{
-									"name": "init_utxo",
+									"name": "task::enable_utxo::init",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -2560,7 +2560,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_utxo\",\r\n    \"params\": {\r\n        \"ticker\":\"RICK\",\r\n        \"activation_params\": {\r\n            \"mode\": {\r\n                \"rpc\":\"Electrum\", // Accepted values: \"Electrum\", \"Native\"\r\n                \"rpc_data\": {\r\n                    \"servers\": [\r\n                        {\r\n                            \"url\": \"electrum1.cipig.net:10017\"\r\n                            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n                            // \"disable_cert_verification\": false\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum2.cipig.net:10017\"\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum3.cipig.net:10017\"\r\n                        }\r\n                    ]\r\n                } // Required only if: \"rpc\": \"Electrum\"\r\n            }\r\n            // \"tx_history\": false,\r\n            // \"required_confirmations\": 1, // Default: Coin Config\r\n            // \"requires_notarization\": false, // Default: Coin Config\r\n            // \"address_format\": {\r\n            //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\", \"cashaddress\"\r\n            // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n            // }, // Default: Coin Config\r\n            // \"utxo_merge_params\": null,\r\n            // // \"utxo_merge_params\": {\r\n            // //     \"merge_at\":50\r\n            // //     // \"check_every\":10,\r\n            // //     // \"max_merge_at_once\":100\r\n            // //     },\r\n            // \"check_utxo_maturity\": false,\r\n            // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n            // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n            // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_utxo::init\",\r\n    \"params\": {\r\n        \"ticker\":\"RICK\",\r\n        \"activation_params\": {\r\n            \"mode\": {\r\n                \"rpc\":\"Electrum\", // Accepted values: \"Electrum\", \"Native\"\r\n                \"rpc_data\": {\r\n                    \"servers\": [\r\n                        {\r\n                            \"url\": \"electrum1.cipig.net:10017\"\r\n                            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n                            // \"disable_cert_verification\": false\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum2.cipig.net:10017\"\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum3.cipig.net:10017\"\r\n                        }\r\n                    ]\r\n                } // Required only if: \"rpc\": \"Electrum\"\r\n            }\r\n            // \"tx_history\": false,\r\n            // \"required_confirmations\": 1, // Default: Coin Config\r\n            // \"requires_notarization\": false, // Default: Coin Config\r\n            // \"address_format\": {\r\n            //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\", \"cashaddress\"\r\n            // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n            // }, // Default: Coin Config\r\n            // \"utxo_merge_params\": null,\r\n            // // \"utxo_merge_params\": {\r\n            // //     \"merge_at\":50\r\n            // //     // \"check_every\":10,\r\n            // //     // \"max_merge_at_once\":100\r\n            // //     },\r\n            // \"check_utxo_maturity\": false,\r\n            // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n            // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n            // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n            // \"min_addresses_number\": 3 // used only if \"priv_key_policy\": \"Trezor\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -2572,7 +2572,7 @@
 									"response": []
 								},
 								{
-									"name": "init_utxo_status",
+									"name": "task::enable_utxo::status",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -2599,7 +2599,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_utxo_status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_utxo::status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -2611,7 +2611,7 @@
 									"response": []
 								},
 								{
-									"name": "init_utxo_user_action",
+									"name": "task::enable_utxo::user_action",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -2638,7 +2638,46 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_utxo_user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_utxo::user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n        // \"user_action\": {\r\n        //     \"action_type\": \"TrezorPassphrase\",\r\n        //     \"passphrase\": \"Any passphrase here\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "task::enable_utxo::cancel",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_utxo::cancel\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -2655,7 +2694,7 @@
 							"name": "QTUM",
 							"item": [
 								{
-									"name": "init_qtum",
+									"name": "task::enable_qtum::init",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -2682,7 +2721,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_qtum\",\r\n    \"params\": {\r\n        \"ticker\":\"tQTUM\",\r\n        \"activation_params\": {\r\n            \"mode\": {\r\n                \"rpc\":\"Electrum\", // Accepted values: \"Electrum\", \"Native\"\r\n                \"rpc_data\": {\r\n                    \"servers\": [\r\n                        {\r\n                            \"url\": \"electrum1.cipig.net:10071\"\r\n                            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n                            // \"disable_cert_verification\": false\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum2.cipig.net:10071\"\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum3.cipig.net:10071\"\r\n                        }\r\n                    ]\r\n                } // Required only if: \"rpc\": \"Electrum\"\r\n            }\r\n            // \"tx_history\": false,\r\n            // \"required_confirmations\": 1, // Default: Coin Config\r\n            // \"address_format\": {\r\n            //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\"\r\n            // }, // Default: Coin Config\r\n            // \"utxo_merge_params\": null,\r\n            // // \"utxo_merge_params\": {\r\n            // //     \"merge_at\":50\r\n            // //     // \"check_every\":10,\r\n            // //     // \"max_merge_at_once\":100\r\n            // //     },\r\n            // \"check_utxo_maturity\": false,\r\n            // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n            // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n            // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_qtum::init\",\r\n    \"params\": {\r\n        \"ticker\":\"tQTUM\",\r\n        \"activation_params\": {\r\n            \"mode\": {\r\n                \"rpc\":\"Electrum\", // Accepted values: \"Electrum\", \"Native\"\r\n                \"rpc_data\": {\r\n                    \"servers\": [\r\n                        {\r\n                            \"url\": \"electrum1.cipig.net:10071\"\r\n                            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n                            // \"disable_cert_verification\": false\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum2.cipig.net:10071\"\r\n                        },\r\n                        {\r\n                            \"url\": \"electrum3.cipig.net:10071\"\r\n                        }\r\n                    ]\r\n                } // Required only if: \"rpc\": \"Electrum\"\r\n            }\r\n            // \"tx_history\": false,\r\n            // \"required_confirmations\": 1, // Default: Coin Config\r\n            // \"address_format\": {\r\n            //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\"\r\n            // }, // Default: Coin Config\r\n            // \"utxo_merge_params\": null,\r\n            // // \"utxo_merge_params\": {\r\n            // //     \"merge_at\":50\r\n            // //     // \"check_every\":10,\r\n            // //     // \"max_merge_at_once\":100\r\n            // //     },\r\n            // \"check_utxo_maturity\": false,\r\n            // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n            // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n            // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n            // \"min_addresses_number\": 3 // used only if \"priv_key_policy\": \"Trezor\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -2694,7 +2733,7 @@
 									"response": []
 								},
 								{
-									"name": "init_qtum_status",
+									"name": "task::enable_qtum::status",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -2721,7 +2760,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_qtum_status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_qtum::status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -2733,7 +2772,7 @@
 									"response": []
 								},
 								{
-									"name": "init_qtum_user_action",
+									"name": "task::enable_qtum::user_action",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -2760,7 +2799,46 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_qtum_user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_qtum::user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n        // \"user_action\": {\r\n        //     \"action_type\": \"TrezorPassphrase\",\r\n        //     \"passphrase\": \"Any passphrase here\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "task::enable_qtum::cancel",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_qtum::cancel\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -2860,7 +2938,7 @@
 							"name": "ZCOIN",
 							"item": [
 								{
-									"name": "init_z_coin",
+									"name": "task::enable_z_coin::init",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -2887,7 +2965,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_z_coin\",\r\n    \"params\": {\r\n        \"ticker\": \"ZOMBIE\",\r\n        \"activation_params\": {\r\n            \"mode\": {\r\n                \"rpc\": \"Light\", // Accepted values: \"Native\", \"Light\"\r\n                \"rpc_data\": {\r\n                    \"electrum_servers\": [\r\n                        {\r\n                            \"url\": \"zombie.sirseven.me:10033\"\r\n                            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n                            // \"disable_cert_verification\": false\r\n                        }\r\n                    ],\r\n                    \"light_wallet_d_servers\": [\r\n                        \"http://zombie.sirseven.me:443\"\r\n                    ]\r\n                } // Required only if: \"rpc\": \"Light\"\r\n            }\r\n            // \"required_confirmations\": 1, // Default: Coin Config\r\n            // \"requires_notarization\": false, // Default: Coin Config\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_z_coin::init\",\r\n    \"params\": {\r\n        \"ticker\": \"ZOMBIE\",\r\n        \"activation_params\": {\r\n            \"mode\": {\r\n                \"rpc\": \"Light\", // Accepted values: \"Native\", \"Light\"\r\n                \"rpc_data\": {\r\n                    \"electrum_servers\": [\r\n                        {\r\n                            \"url\": \"zombie.sirseven.me:10033\"\r\n                            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n                            // \"disable_cert_verification\": false\r\n                        }\r\n                    ],\r\n                    \"light_wallet_d_servers\": [\r\n                        \"http://zombie.sirseven.me:443\"\r\n                    ]\r\n                } // Required only if: \"rpc\": \"Light\"\r\n            }\r\n            // \"required_confirmations\": 1, // Default: Coin Config\r\n            // \"requires_notarization\": false, // Default: Coin Config\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -2899,7 +2977,7 @@
 									"response": []
 								},
 								{
-									"name": "init_z_coin_status",
+									"name": "task::enable_z_coin::status",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -2926,7 +3004,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_z_coin_status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_z_coin::status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -2938,7 +3016,7 @@
 									"response": []
 								},
 								{
-									"name": "init_z_coin_user_action",
+									"name": "task::enable_z_coin::user_action",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -2965,7 +3043,46 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_z_coin_user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_z_coin_user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n        // \"user_action\": {\r\n        //     \"action_type\": \"TrezorPassphrase\",\r\n        //     \"passphrase\": \"Any passphrase here\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "task::enable_z_coin::cancel",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_z_coin::cancel\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3060,6 +3177,45 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "get_enabled_coins",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments\r",
+											"const rawData = pm.request.body.toString();\r",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+											"\r",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"get_enabled_coins\"\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{address}}",
+									"host": [
+										"{{address}}"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -3097,7 +3253,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"account_balance\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"account_index\": 0,\r\n        \"chain\": \"External\" // Accepted values: \"External\", \"Internal\"\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": 4 // used instead of: \"PageNumber\"\r\n        // }\r\n\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"account_balance\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"account_index\": 0,\r\n        \"chain\": \"External\" // Accepted values: \"External\", \"Internal\"\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": 4 // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3136,7 +3292,114 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_new_address\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"account_id\": 0,\r\n        \"chain\": \"External\" // Accepted values: \"External\", \"Internal\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_new_address\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"account_id\": 0,\r\n        \"chain\": \"External\" // Accepted values: \"External\", \"Internal\"\r\n        // \"gap_limit\": 20 // Default: Coin Config\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "task::account_balance::init",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userpass\": \"{{userpass}}\",\n    \"mmrpc\": \"2.0\",\n    \"method\": \"task::account_balance::init\",\n    \"params\": {\n        \"coin\": \"RICK\",\n        \"account_index\": 0\n    }\n    // \"id\": null // Accepted values: Integers\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "task::account_balance::status",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::account_balance::status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "task::account_balance::cancel",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_z_coin::cancel\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3275,7 +3538,7 @@
 							"name": "Hardware Wallet",
 							"item": [
 								{
-									"name": "init_create_new_account",
+									"name": "task::create_new_account::init",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3302,7 +3565,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_create_new_account\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\"\r\n        // \"scan\": true\r\n        // \"gap_limit\": 20\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::create_new_account::init\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\"\r\n        // \"scan\": true\r\n        // \"gap_limit\": 20\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3314,7 +3577,7 @@
 									"response": []
 								},
 								{
-									"name": "init_create_new_account_status",
+									"name": "task::create_new_account::status",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3341,7 +3604,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_create_new_account_status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::create_new_account::status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3353,7 +3616,7 @@
 									"response": []
 								},
 								{
-									"name": "init_create_new_account_user_action",
+									"name": "task::create_new_account::user_action",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3380,7 +3643,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_create_new_account_user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::create_new_account::user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n        // \"user_action\": {\r\n        //     \"action_type\": \"TrezorPassphrase\",\r\n        //     \"passphrase\": \"Any passphrase here\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3392,7 +3655,7 @@
 									"response": []
 								},
 								{
-									"name": "init_scan_for_new_addresses",
+									"name": "task::create_new_account::cancel",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3419,7 +3682,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_scan_for_new_addresses\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"account_index\": 0\r\n        // \"gap_limit\": 20\r\n\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::create_new_account::cancel\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3431,7 +3694,7 @@
 									"response": []
 								},
 								{
-									"name": "init_scan_for_new_addresses_status",
+									"name": "task::scan_for_new_addresses::init",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3458,7 +3721,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_scan_for_new_addresses_status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::scan_for_new_addresses::init\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"account_index\": 0\r\n        // \"gap_limit\": 20\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3470,7 +3733,7 @@
 									"response": []
 								},
 								{
-									"name": "init_trezor",
+									"name": "task::scan_for_new_addresses::status",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3497,7 +3760,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_trezor\"\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::scan_for_new_addresses::status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3509,7 +3772,7 @@
 									"response": []
 								},
 								{
-									"name": "init_trezor_status",
+									"name": "task::scan_for_new_addresses::cancel",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3536,7 +3799,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_trezor_status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::scan_for_new_addresses::cancel\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3548,7 +3811,7 @@
 									"response": []
 								},
 								{
-									"name": "init_trezor_user_action",
+									"name": "task::init_trezor::init",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3575,7 +3838,124 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_trezor_user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::init_trezor::init\"\r\n    // \"params\": {\r\n    //     \"device_pubkey\": \"21605444b36ec72780bdf52a5ffbc18288893664\" // Accepted values: H160\r\n    // }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "task::init_trezor::status",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::init_trezor::status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "task::init_trezor::user_action",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::init_trezor::user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n        // \"user_action\": {\r\n        //     \"action_type\": \"TrezorPassphrase\",\r\n        //     \"passphrase\": \"Any passphrase here\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "task::init_trezor::cancel",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::init_trezor::cancel\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3631,7 +4011,7 @@
 									"response": []
 								},
 								{
-									"name": "init_withdraw",
+									"name": "task::withdraw::init",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3658,7 +4038,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"init_withdraw\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"to\": \"RNBA756iaFCx2Uhya3pvCufbeyovAaknJL\",\r\n        \"amount\": 1.025 // used only if: \"max\": false\r\n        // \"from\": null,\r\n        // // \"from\": {\r\n        // //     \"account_id\": 0,\r\n        // //     \"chain\": \"External\", // Accepted values: \"External\", \"Internal\"\r\n        // //     \"address_id\": 0\r\n        // // },\r\n        // // \"from\": {\r\n        // //     \"derivation_path\": \"m/44'/501'/0'\"\r\n        // // },\r\n        // \"max\": false,\r\n        // \"fee\": {\r\n        //     \"type\": \"UtxoFixed\", // Accepted values: \"UtxoFixed\", \"UtxoPerKbyte\"\r\n        //     \"amount\": 0.00001 // default amount is 1000 of the smallest unit of the coin (0.00001 for 8 decimal places coins)\r\n        // } // Default: Coin Config\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::withdraw::init\",\r\n    \"params\": {\r\n        \"coin\": \"RICK\",\r\n        \"to\": \"RNBA756iaFCx2Uhya3pvCufbeyovAaknJL\",\r\n        \"amount\": 1.025 // used only if: \"max\": false\r\n        // \"from\": null,\r\n        // // \"from\": {\r\n        // //     \"account_id\": 0,\r\n        // //     \"chain\": \"External\", // Accepted values: \"External\", \"Internal\"\r\n        // //     \"address_id\": 0\r\n        // // },\r\n        // // \"from\": {\r\n        // //     \"derivation_path\": \"m/44'/501'/0'\"\r\n        // // },\r\n        // \"max\": false,\r\n        // \"fee\": {\r\n        //     \"type\": \"UtxoFixed\", // Accepted values: \"UtxoFixed\", \"UtxoPerKbyte\"\r\n        //     \"amount\": 0.00001 // default amount is 1000 of the smallest unit of the coin (0.00001 for 8 decimal places coins)\r\n        // } // Default: Coin Config\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3670,7 +4050,7 @@
 									"response": []
 								},
 								{
-									"name": "withdraw_status",
+									"name": "task::withdraw::status",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3697,7 +4077,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"withdraw_status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::withdraw::status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3709,7 +4089,7 @@
 									"response": []
 								},
 								{
-									"name": "withdraw_user_action",
+									"name": "task::withdraw::user_action",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3736,7 +4116,46 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"withdraw_user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::withdraw::user_action\",\r\n    \"params\": {\r\n        \"task_id\": 0,\r\n        \"user_action\": {\r\n            \"action_type\": \"TrezorPin\",\r\n            \"pin\": \"123456\"\r\n        }\r\n        // \"user_action\": {\r\n        //     \"action_type\": \"TrezorPassphrase\",\r\n        //     \"passphrase\": \"Any passphrase here\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "task::withdraw::cancel",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::withdraw::cancel\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -3816,7 +4235,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"my_tx_history\",\r\n    \"params\": {\r\n        \"coin\": \"tBCH\"\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     // \"FromId\": null, // Accepted values: Strings\r\n        //     \"PageNumber\": 1 // used only if: \"from_id\": null\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"my_tx_history\",\r\n    \"params\": {\r\n        \"coin\": \"tBCH\"\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     // \"FromId\": null, // Accepted values: Strings\r\n        //     \"PageNumber\": 1 // used only if: \"from_id\": null\r\n        // },\r\n        // \"target\": {\r\n        //     \"type\": \"iguana\"\r\n        // }\r\n        // \"target\": {\r\n        //     \"type\": \"account_id\",\r\n        //     \"account_id\": 0 // Accepted values: Integer\r\n        // }\r\n        // \"target\": {\r\n        //     \"type\": \"address_id\",\r\n        //     \"account_id\": 0, // Accepted values: Integer\r\n        //     \"chain\": \"External\", // Accepted values: \"External\" and \"Internal\"\r\n        //     \"address_id\": 0 // Accepted values: Integer\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 								},
 								"url": {
 									"raw": "{{address}}",
