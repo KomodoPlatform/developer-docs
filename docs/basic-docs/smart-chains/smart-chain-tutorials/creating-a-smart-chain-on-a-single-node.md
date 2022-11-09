@@ -27,6 +27,10 @@ For this example, we use simple configurations.
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777
 ```
 
+::: tip
+If you want the Smart Chain to have Antara Modules enabled, please include the [-ac_cc](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cc) parameter with the required value in your launch parameters on both the daemons.
+:::
+
 ##### Response (truncated)
 
 Search for the part of the response that begins with this string: `>>>>>>>>>`
@@ -80,8 +84,7 @@ rpcport=12345
 
 (Change all values shown above on the right side of the `=` side. In all values above, the chosen values must be different from the values in the first daemon's .conf file.)
 
-
-Add a new line `port=<choose a port number betwen 1 and 65000>` to the file. This value indicates the [p2pport](../smart-chain-setup/common-runtime-parameters.html#port) used by the second daemon.  
+Add a new line `port=<choose a port number betwen 1 and 65000>` to the file. This value indicates the [p2pport](../smart-chain-setup/common-runtime-parameters.html#port) used by the second daemon.
 
 ```
 ... (file continued) ...
