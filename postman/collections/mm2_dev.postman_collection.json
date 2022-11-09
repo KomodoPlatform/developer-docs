@@ -4574,6 +4574,289 @@
 					"name": "Lightning",
 					"item": [
 						{
+							"name": "Enable",
+							"item": [
+								{
+									"name": "task::enable_lightning::init",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_lightning::init\",\r\n    \"params\": {\r\n        \"ticker\": \"tBTC-TEST-lightning\",\r\n        \"activation_params\": {\r\n            \"name\": \"Mm2TestNode\"\r\n            // \"listening_port\": 9735,\r\n            // \"color\": \"000000\",\r\n            // \"payment_retries\": 5,\r\n            // \"backup_path\": null // Accepted values: Strings\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "task::enable_lightning::status",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_lightning::status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "task::enable_lightning::cancel",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_lightning::cancel\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Nodes",
+							"item": [
+								{
+									"name": "add_trusted_node",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::add_trusted_node\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_id\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "connect_to_node",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::connect_to_node\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "list_trusted_nodes",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::list_trusted_nodes\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "remove_trusted_node",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::remove_trusted_node\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_id\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "Channels",
 							"item": [
 								{
@@ -4604,7 +4887,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::close_channel\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 1\r\n        // \"force_close\": false\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::close_channel\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 1\r\n        // \"force_close\": false\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -4643,7 +4926,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::get_channel_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 1\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::get_channel_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 1\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -4682,7 +4965,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::get_claimable_balances\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"include_open_channels_balances\": false\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::get_claimable_balances\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"include_open_channels_balances\": false\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -4760,7 +5043,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::list_open_channels_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"filter\": null,\r\n        // // \"filter\": {\r\n        // //     // \"channel_id\": null, // Accepted values: Strings\r\n        // //     // \"counterparty_node_id\": null, // Accepted values: Strings\r\n        // //     // \"funding_tx\": null, // Accepted values: Strings\r\n        // //     // \"from_funding_value_sats\": null, // Accepted values: Integers\r\n        // //     // \"to_funding_value_sats\": null, // Accepted values: Integers\r\n        // //     // \"is_outbound\": null, // Accepted values: Booleans\r\n        // //     // \"from_balance_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_balance_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_outbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_outbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_inbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_inbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"confirmed\": null, // Accepted values: Booleans\r\n        // //     // \"is_usable\": null, // Accepted values: Booleans\r\n        // //     // \"is_public\": null // Accepted values: Booleans\r\n        // // },\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": 4 // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::list_open_channels_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"filter\": null,\r\n        // // \"filter\": {\r\n        // //     // \"channel_id\": null, // Accepted values: Strings\r\n        // //     // \"counterparty_node_id\": null, // Accepted values: Strings\r\n        // //     // \"funding_tx\": null, // Accepted values: Strings\r\n        // //     // \"from_funding_value_sats\": null, // Accepted values: Integers\r\n        // //     // \"to_funding_value_sats\": null, // Accepted values: Integers\r\n        // //     // \"is_outbound\": null, // Accepted values: Booleans\r\n        // //     // \"from_balance_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_balance_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_outbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_outbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_inbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_inbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"confirmed\": null, // Accepted values: Booleans\r\n        // //     // \"is_usable\": null, // Accepted values: Booleans\r\n        // //     // \"is_public\": null // Accepted values: Booleans\r\n        // // },\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": 4 // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -4799,7 +5082,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::open_channel\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735\",\r\n        \"amount\": {\r\n            \"type\": \"Exact\", // Accepted values: \"Exact\", \"Max\"\r\n            \"value\": 0.004 // Required only if: \"type\": \"Exact\"\r\n        }\r\n        // \"push_msat\": 0,\r\n        // \"channel_options\": {\r\n        //     // \"proportional_fee_in_millionths_sats\": 0, // Default: Coin Config\r\n        //     // \"base_fee_msat\": 1000, // Default: Coin Config\r\n        //     // \"cltv_expiry_delta\": 72, // Default: Coin Config\r\n        //     // \"max_dust_htlc_exposure_msat\": 5000000, // Default: Coin Config\r\n        //     // \"force_close_avoidance_max_fee_satoshis\": 1000 // Default: Coin Config\r\n        // },\r\n        // \"channel_configs\" : {\r\n        //     // \"counterparty_locktime\": 144, // Default: Coin Config\r\n        //     // \"our_htlc_minimum_msat\": 1, // Default: Coin Config\r\n        //     // \"negotiate_scid_privacy\": false, // Default: Coin Config\r\n        //     // \"max_inbound_in_flight_htlc_percent\": 10, // Default: Coin Config\r\n        //     // \"announced_channel\": false, // Default: Coin Config\r\n        //     // \"commit_upfront_shutdown_pubkey\": true // Default: Coin Config\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::open_channel\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735\",\r\n        \"amount\": {\r\n            \"type\": \"Exact\", // Accepted values: \"Exact\", \"Max\"\r\n            \"value\": 0.004 // Required only if: \"type\": \"Exact\"\r\n        }\r\n        // \"push_msat\": 0,\r\n        // \"channel_options\": {\r\n        //     // \"proportional_fee_in_millionths_sats\": 0, // Default: Coin Config\r\n        //     // \"base_fee_msat\": 1000, // Default: Coin Config\r\n        //     // \"cltv_expiry_delta\": 72, // Default: Coin Config\r\n        //     // \"max_dust_htlc_exposure_msat\": 5000000, // Default: Coin Config\r\n        //     // \"force_close_avoidance_max_fee_satoshis\": 1000 // Default: Coin Config\r\n        // },\r\n        // \"channel_configs\" : {\r\n        //     // \"counterparty_locktime\": 144, // Default: Coin Config\r\n        //     // \"our_htlc_minimum_msat\": 1, // Default: Coin Config\r\n        //     // \"negotiate_scid_privacy\": false, // Default: Coin Config\r\n        //     // \"max_inbound_in_flight_htlc_percent\": 10, // Default: Coin Config\r\n        //     // \"announced_channel\": false, // Default: Coin Config\r\n        //     // \"commit_upfront_shutdown_pubkey\": true // Default: Coin Config\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -4838,168 +5121,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::update_channel\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 1,\r\n        \"channel_options\": {\r\n            // \"proportional_fee_in_millionths_sats\": 0, // Default: Coin Config\r\n            // \"base_fee_msat\": 1000, // Default: Coin Config\r\n            // \"cltv_expiry_delta\": 72, // Default: Coin Config\r\n            // \"max_dust_htlc_exposure_msat\": 5000000, // Default: Coin Config\r\n            // \"force_close_avoidance_max_fee_satoshis\": 1000 // Default: Coin Config\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
-										},
-										"url": {
-											"raw": "{{address}}",
-											"host": [
-												"{{address}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Nodes",
-							"item": [
-								{
-									"name": "add_trusted_node",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"// Strip JSON Comments\r",
-													"const rawData = pm.request.body.toString();\r",
-													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-													"\r",
-													"pm.request.body.update(strippedData);"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::add_trusted_node\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_id\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
-										},
-										"url": {
-											"raw": "{{address}}",
-											"host": [
-												"{{address}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "connect_to_node",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"// Strip JSON Comments\r",
-													"const rawData = pm.request.body.toString();\r",
-													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-													"\r",
-													"pm.request.body.update(strippedData);"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::connect_to_node\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
-										},
-										"url": {
-											"raw": "{{address}}",
-											"host": [
-												"{{address}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "list_trusted_nodes",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"// Strip JSON Comments\r",
-													"const rawData = pm.request.body.toString();\r",
-													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-													"\r",
-													"pm.request.body.update(strippedData);"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::list_trusted_nodes\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
-										},
-										"url": {
-											"raw": "{{address}}",
-											"host": [
-												"{{address}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "remove_trusted_node",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"// Strip JSON Comments\r",
-													"const rawData = pm.request.body.toString();\r",
-													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-													"\r",
-													"pm.request.body.update(strippedData);"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::remove_trusted_node\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_id\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::update_channel\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 1,\r\n        \"channel_options\": {\r\n            // \"proportional_fee_in_millionths_sats\": 0, // Default: Coin Config\r\n            // \"base_fee_msat\": 1000, // Default: Coin Config\r\n            // \"cltv_expiry_delta\": 72, // Default: Coin Config\r\n            // \"max_dust_htlc_exposure_msat\": 5000000, // Default: Coin Config\r\n            // \"force_close_avoidance_max_fee_satoshis\": 1000 // Default: Coin Config\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -5043,7 +5165,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::generate_invoice\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"description\": \"test invoice\"\r\n        // \"amount_in_msat\": null, // Accepted values: Integers\r\n        // \"expiry\": null // Accepted values: Integers\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::generate_invoice\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"description\": \"test invoice\"\r\n        // \"amount_in_msat\": null, // Accepted values: Integers\r\n        // \"expiry\": null // Accepted values: Integers\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -5082,7 +5204,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::get_payment_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"32f996e6e0aa88e567318beeadb37b6bc0fddfd3660d4a87726f308ed1ec7b33\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::get_payment_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"32f996e6e0aa88e567318beeadb37b6bc0fddfd3660d4a87726f308ed1ec7b33\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -5121,7 +5243,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::list_payments_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"filter\": null,\r\n        // // \"filter\": {\r\n        // //     // \"payment_type\": null,\r\n        // //     // // \"payment_type\": {\r\n        // //     // //     \"type\": \"Outbound Payment\", // Accepted values: \"Outbound Payment\", \"Inbound Payment\"\r\n        // //     // //     \"destination\": \"03933884aaf1d6b108397e5efe5c86bcf2d8ca8d2f700eda99db9214fc2712b134\" // Required only if: \"type\": \"Outbound Payment\"\r\n        // //     // // },\r\n        // //     // \"description\": null, // Accepted values: Strings\r\n        // //     // \"status\": null, // Accepted values: \"pending\", \"succeeded\", \"failed\"\r\n        // //     // \"from_amount_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_amount_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_fee_paid_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_fee_paid_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_timestamp\": null, // Accepted values: Integers\r\n        // //     // \"to_timestamp\": null // Accepted values: Integers\r\n        // // },\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": \"d6d3cf3fd5237ed15295847befe00da67c043da1c39a373bff30bd22442eea43\" // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::list_payments_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"filter\": null,\r\n        // // \"filter\": {\r\n        // //     // \"payment_type\": null,\r\n        // //     // // \"payment_type\": {\r\n        // //     // //     \"type\": \"Outbound Payment\", // Accepted values: \"Outbound Payment\", \"Inbound Payment\"\r\n        // //     // //     \"destination\": \"03933884aaf1d6b108397e5efe5c86bcf2d8ca8d2f700eda99db9214fc2712b134\" // Required only if: \"type\": \"Outbound Payment\"\r\n        // //     // // },\r\n        // //     // \"description\": null, // Accepted values: Strings\r\n        // //     // \"status\": null, // Accepted values: \"pending\", \"succeeded\", \"failed\"\r\n        // //     // \"from_amount_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_amount_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_fee_paid_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_fee_paid_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_timestamp\": null, // Accepted values: Integers\r\n        // //     // \"to_timestamp\": null // Accepted values: Integers\r\n        // // },\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": \"d6d3cf3fd5237ed15295847befe00da67c043da1c39a373bff30bd22442eea43\" // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -5160,7 +5282,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::send_payment\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment\": {\r\n            \"type\": \"invoice\", // Accepted values: \"invoice\", \"keysend\"\r\n            \"invoice\": \"lntb20u1p32wwxapp5p8gjy2e79jku5tshhq2nkdauv0malqqhzefnqmx9pjwa8h83cmwqdp8xys9xcmpd3sjqsmgd9czq3njv9c8qatrvd5kumcxqrrsscqp79qy9qsqsp5m473qknpecv6ajmwwtjw7keggrwxerymehx6723avhdrlnxmuvhs54zmyrumkasvjp0fvvk2np30cx5xpjs329alvm60rwy3payrnkmsd3n8ahnky3kuxaraa3u4k453yf3age7cszdxhjxjkennpt75erqpsfmy4y\" // Required only if: \"type\": \"invoice\"\r\n            // \"destination\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9\", // Required only if: \"type\": \"keysend\"\r\n            // \"amount_in_msat\": 1000, // Required only if: \"type\": \"keysend\"\r\n            // \"expiry\": 24 // Required only if: \"type\": \"keysend\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::send_payment\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment\": {\r\n            \"type\": \"invoice\", // Accepted values: \"invoice\", \"keysend\"\r\n            \"invoice\": \"lntb20u1p32wwxapp5p8gjy2e79jku5tshhq2nkdauv0malqqhzefnqmx9pjwa8h83cmwqdp8xys9xcmpd3sjqsmgd9czq3njv9c8qatrvd5kumcxqrrsscqp79qy9qsqsp5m473qknpecv6ajmwwtjw7keggrwxerymehx6723avhdrlnxmuvhs54zmyrumkasvjp0fvvk2np30cx5xpjs329alvm60rwy3payrnkmsd3n8ahnky3kuxaraa3u4k453yf3age7cszdxhjxjkennpt75erqpsfmy4y\" // Required only if: \"type\": \"invoice\"\r\n            // \"destination\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9\", // Required only if: \"type\": \"keysend\"\r\n            // \"amount_in_msat\": 1000, // Required only if: \"type\": \"keysend\"\r\n            // \"expiry\": 24 // Required only if: \"type\": \"keysend\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
 										},
 										"url": {
 											"raw": "{{address}}",
@@ -5172,45 +5294,6 @@
 									"response": []
 								}
 							]
-						},
-						{
-							"name": "enable_lightning",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"enable_lightning\",\r\n    \"params\": {\r\n        \"ticker\": \"tBTC-TEST-lightning\",\r\n        \"activation_params\": {\r\n            \"name\": \"Mm2TestNode\"\r\n            // \"listening_port\": 9735,\r\n            // \"color\": \"000000\",\r\n            // \"payment_retries\": 5,\r\n            // \"backup_path\": null // Accepted values: Strings\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
-								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
 						}
 					]
 				},
@@ -5567,7 +5650,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"method\": \"electrum\", // This method activates a coin on the playground node with electrum as a blockdata source (light mode). An error will probably be returned because the coin is already activated.\r\n    \"coin\": \"tBTC-TEST-segwit\", // The coin to be activated is testnet bitcoin in segwit mode\r\n    \"servers\": [ // the list of electrum servers the playground node should connect to\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10068\"\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10068\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10068\"\r\n        }\r\n    ]\r\n}"
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"method\": \"electrum\", // This method activates a coin on the playground node with electrum as a blockdata source (light mode). An error will be returned if the coin is already activated in this playground node, move to the next step if this happens.\r\n    \"coin\": \"tBTC-TEST-segwit\", // The coin to be activated is testnet bitcoin in segwit mode\r\n    \"servers\": [ // the list of electrum servers the playground node should connect to\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10068\"\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10068\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10068\"\r\n        }\r\n    ]\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30783",
@@ -5611,7 +5694,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"electrum\", // This method activates a coin on the playground node with electrum as a blockdata source (light mode). An error will probably be returned because the coin is already activated.\r\n    \"coin\": \"tBTC-TEST-segwit\", // The coin to be activated is testnet bitcoin in segwit mode\r\n    \"servers\": [ // the list of electrum servers the playground node should connect to\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10068\"\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10068\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10068\"\r\n        }\r\n    ]\r\n}"
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"electrum\", // This method activates a coin on the playground node with electrum as a blockdata source (light mode). An error will be returned if the coin is already activated in this playground node, move to the next step if this happens.\r\n    \"coin\": \"tBTC-TEST-segwit\", // The coin to be activated is testnet bitcoin in segwit mode\r\n    \"servers\": [ // the list of electrum servers the playground node should connect to\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10068\"\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10068\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10068\"\r\n        }\r\n    ]\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30784",
@@ -5655,7 +5738,51 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"method\": \"enable_lightning\", // This method starts a lightning node. An error will probably be returned because the node is already running.\r\n    \"mmrpc\": \"2.0\",\r\n    \"params\": {\r\n        \"ticker\": \"tBTC-TEST-lightning\", // Testnet lightning network\r\n        \"activation_params\": {\r\n            \"name\": \"AtomicDEX-Playground-Node-1\", // The name of the node that will be announced to other nodes\r\n            \"listening_port\": 31735, // The port that this node listens for incoming connections on\r\n            \"color\": \"2abcf1\" // The color of the node that will be announced to other nodes, this node will be showed with this color in network graphs in lightning explorers\r\n            // Node in lightning explorer: https://mempool.space/testnet/lightning/node/024e2a940e0cbeda84a0d5e00fa8e83b3f4e7f98382eedb488d058e0f5636dd164\r\n        }\r\n    }\r\n}"
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"method\": \"task::enable_lightning::init\", // This method starts a task that runs a lightning node. Use the returned \"task_id\" in the next use case to check if the lightning node is running or still initiating. An error will be returned if a lightning node was already running since only 1 lightning node is allowed to run from inside AtomicDEX, skip next step in such case.\r\n    \"mmrpc\": \"2.0\",\r\n    \"params\": {\r\n        \"ticker\": \"tBTC-TEST-lightning\", // Testnet lightning network\r\n        \"activation_params\": {\r\n            \"name\": \"AtomicDEX-Playground-Node-1\", // The name of the node that will be announced to other nodes\r\n            \"listening_port\": 31735, // The port that this node listens for incoming connections on\r\n            \"color\": \"2abcf1\" // The color of the node that will be announced to other nodes, this node will be showed with this color in network graphs in lightning explorers\r\n            // Node in lightning explorer: https://mempool.space/testnet/lightning/node/024e2a940e0cbeda84a0d5e00fa8e83b3f4e7f98382eedb488d058e0f5636dd164\r\n        }\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Check Enable Testnet BTC on Lightning Status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_lightning::status\", // This method checks the status of starting the lightning node, skip this step if an \"error\":\"Layer 2 tBTC-TEST-lightning is already activated\" was returned in the previous step\r\n    \"params\": {\r\n        \"task_id\": 0 // The \"task_id\" returned from the last use case\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30783",
@@ -5699,7 +5826,51 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"enable_lightning\", // An error will probably be returned because the node is already running.\r\n    \"mmrpc\": \"2.0\",\r\n    \"params\": {\r\n        \"ticker\": \"tBTC-TEST-lightning\",\r\n        \"activation_params\": {\r\n            \"name\": \"AtomicDEX-Playground-Node-2\",\r\n            \"listening_port\": 31736, // The port is changed for this node since both nodes are on the same machine and can't listen on the same port\r\n            \"color\": \"6a4de3\"\r\n            // Node in lightning explorer: https://mempool.space/testnet/lightning/node/02eb0b178576857b6990ba57d56aa08f651a05a8098496004f42df5e7440b0a9c1\r\n        }\r\n    }\r\n}"
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"task::enable_lightning::init\", // This method starts a task that runs a lightning node. Use the returned \"task_id\" in the next use case to check if the lightning node is running or still initiating. An error will be returned if a lightning node was already running since only 1 lightning node is allowed to run from inside AtomicDEX, skip next step in such case.\r\n    \"mmrpc\": \"2.0\",\r\n    \"params\": {\r\n        \"ticker\": \"tBTC-TEST-lightning\",\r\n        \"activation_params\": {\r\n            \"name\": \"AtomicDEX-Playground-Node-2\",\r\n            \"listening_port\": 31736, // The port is changed for this node since both nodes are on the same machine and can't listen on the same port\r\n            \"color\": \"6a4de3\"\r\n            // Node in lightning explorer: https://mempool.space/testnet/lightning/node/02eb0b178576857b6990ba57d56aa08f651a05a8098496004f42df5e7440b0a9c1\r\n        }\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Check Enable Testnet BTC on Lightning Status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_lightning::status\", // This method checks the status of starting the lightning node, skip this step if an \"error\":\"Layer 2 tBTC-TEST-lightning is already activated\" was returned in the previous step\r\n    \"params\": {\r\n        \"task_id\": 0 // The \"task_id\" returned from the last use case\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30784",
@@ -5743,7 +5914,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"method\": \"my_balance\", // This method displays the balance and address of the node, \"unspendable_balance\" is the balance that can't be spent because:\r\n            // 1- The node can't connect with a channel/s counterparty (when a channel is inactive it's balance can't be used on the lightning network, if it becomes inactive for a long time it should be closed)\r\n            // 2 - It's the total reserved channels balances that can't be spent to ensure that we are able to be punished if we broadcast an old state\r\n    \"coin\": \"tBTC-TEST-lightning\"\r\n}"
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"method\": \"my_balance\", // This method displays the balance and address of the node, \"unspendable_balance\" is the balance that can't be spent because:\r\n    // 1- The node can't connect with a channel/s counterparty (when a channel is inactive it's balance can't be used on the lightning network, if it becomes inactive for a long time it should be closed)\r\n    // 2 - It's the total reserved channels balances that can't be spent to ensure that we are able to be punished if we broadcast an old state\r\n    \"coin\": \"tBTC-TEST-lightning\"\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30783",
@@ -6271,7 +6442,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::get_payment_details\", // This method gets a payment details by it's hash, we need to check if the keysend payment we just sent is successful or not by checking the value of the \"status\" field in the response\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"7568a1b8c478ab4d12e53432cb2711acd73f34c4cc2142f8e70a87bd4f4b381f\" // This should be the payment_hash of the keysend payment we just sent in the last request\r\n    }\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::get_payment_details\", // This method gets a payment details by it's hash, we need to check if the keysend payment we just sent is successful or not by checking the value of the \"status\" field in the response\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"7568a1b8c478ab4d12e53432cb2711acd73f34c4cc2142f8e70a87bd4f4b381f\" // This should be the payment_hash of the keysend payment we just sent in the last request\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30784",
@@ -6403,7 +6574,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::send_payment\", // This method is used to pay an invoice or send a payment by pubkey/address (keysend)\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment\": {\r\n            \"type\": \"invoice\",  // Check v2/Lightning/Payments/send_payment for other accepted values and optional parameters\r\n            \"invoice\": \"lntb20u1p3kjyw2pp57z32c5knvttf0ecg726p6lf0mspa0fphlvhe7u5czyln4klx23ssdp8xys9xcmpd3sjqsmgd9czq3njv9c8qatrvd5kumcxqrrsscqp79qy9qsqsp5fgmtqxtmrfvx7j3vrjyx9lpujfn86rhwzymq4myykf83acy2wzuqcncltv33sqna9ze4y2jx9vnu9dsrrzpwf4pm48nr6drj993982q4mvlq477qndjhc9fauch5ahwf08pgy80dfl6ncxznw87j0cg2lhcp7rm7t6\" // This invoice is already paid, Go to https://starblocks.acinq.co/ and add some items to cart and checkout to get a new invoice to pay using this method, the total amount of the invoice must be less than 0.0002 BTC or 0.2 mBTC (10% of the channel) (this less than 0.0002 BTC to amount for the routing fees paid to Node 1 and other nodes)\r\n        }\r\n    }\r\n}"
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::send_payment\", // This method is used to pay an invoice or send a payment by pubkey/address (keysend)\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment\": {\r\n            \"type\": \"invoice\", // Check v2/Lightning/Payments/send_payment for other accepted values and optional parameters\r\n            \"invoice\": \"lntb20u1p3kjyw2pp57z32c5knvttf0ecg726p6lf0mspa0fphlvhe7u5czyln4klx23ssdp8xys9xcmpd3sjqsmgd9czq3njv9c8qatrvd5kumcxqrrsscqp79qy9qsqsp5fgmtqxtmrfvx7j3vrjyx9lpujfn86rhwzymq4myykf83acy2wzuqcncltv33sqna9ze4y2jx9vnu9dsrrzpwf4pm48nr6drj993982q4mvlq477qndjhc9fauch5ahwf08pgy80dfl6ncxznw87j0cg2lhcp7rm7t6\" // This invoice is already paid, Go to https://starblocks.acinq.co/ and add some items to cart and checkout to get a new invoice to pay using this method, the total amount of the invoice must be less than 0.0002 BTC or 0.2 mBTC (10% of the channel) (this less than 0.0002 BTC to amount for the routing fees paid to Node 1 and other nodes)\r\n        }\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30784",
@@ -6447,7 +6618,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::get_payment_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"f0a2ac52d362d697e708f2b41d7d2fdc03d7a437fb2f9f7298113f3adbe65461\" // This should be the payment_hash of the invoice we just paid in the last request, this payment_hash is returned in the response of the send_payment method\r\n    }\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::get_payment_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"f0a2ac52d362d697e708f2b41d7d2fdc03d7a437fb2f9f7298113f3adbe65461\" // This should be the payment_hash of the invoice we just paid in the last request, this payment_hash is returned in the response of the send_payment method\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30784",
@@ -6491,7 +6662,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::list_open_channels_by_filter\", // We can see using this method that Node 2 has some inbound liquidity now after sending 2 payments\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n    }\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::list_open_channels_by_filter\", // We can see using this method that Node 2 has some inbound liquidity now after sending 2 payments\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30784",
@@ -6535,7 +6706,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::list_payments_by_filter\", // without using the \"filter\" parameter, this method gets the list of all the payments with their details, see v2/Lightning/Payments/list_payments_by_filter to see all the options that we can filter by\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n    }\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::list_payments_by_filter\", // without using the \"filter\" parameter, this method gets the list of all the payments with their details, see v2/Lightning/Payments/list_payments_by_filter to see all the options that we can filter by\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30784",
@@ -6623,7 +6794,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::send_payment\", // This method is used to pay an invoice or send a payment by pubkey/address (keysend)\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment\": {\r\n            \"type\": \"invoice\",  // Check v2/Lightning/Payments/send_payment for other accepted values and optional parameters\r\n            \"invoice\": \"lntb100n1p3kjyjjdq5w3jhxapqd9h8vmmfvdjsnp4qt4sk9u9w6zhk6vshfta264q3aj35pdgpxzfvqz0gt04uazqkz5uzpp5g98ekdfyl38y3jvlyu3e2fejmz7zawsmxh8rhu48pag5fdq0tx0qsp5tzalk295kffw02y82sxp00svsa9a0ts65mj7ygqqy845y4ek58zs9qyysgqcqpcxqzjcn4nnuyvwm52h7cswfk7flj6r8dz0mcqjfazcef37huzaahs0wv0qrpqelfzjzzgd88t6859tkzfxsyrn5n9j3yvclx3n6sldzrkhz6sqxe6ngv\" // This invoice is already paid, paste the invoice generated by Node 2 here instead to pay it\r\n        }\r\n    }\r\n}"
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::send_payment\", // This method is used to pay an invoice or send a payment by pubkey/address (keysend)\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment\": {\r\n            \"type\": \"invoice\", // Check v2/Lightning/Payments/send_payment for other accepted values and optional parameters\r\n            \"invoice\": \"lntb100n1p3kjyjjdq5w3jhxapqd9h8vmmfvdjsnp4qt4sk9u9w6zhk6vshfta264q3aj35pdgpxzfvqz0gt04uazqkz5uzpp5g98ekdfyl38y3jvlyu3e2fejmz7zawsmxh8rhu48pag5fdq0tx0qsp5tzalk295kffw02y82sxp00svsa9a0ts65mj7ygqqy845y4ek58zs9qyysgqcqpcxqzjcn4nnuyvwm52h7cswfk7flj6r8dz0mcqjfazcef37huzaahs0wv0qrpqelfzjzzgd88t6859tkzfxsyrn5n9j3yvclx3n6sldzrkhz6sqxe6ngv\" // This invoice is already paid, paste the invoice generated by Node 2 here instead to pay it\r\n        }\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30783",
@@ -6667,7 +6838,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::get_payment_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"414f9b3524fc4e48c99f2723952732d8bc2eba1b35ce3bf2a70f5144b40f599e\" // This should be the payment_hash of the invoice we just paid in the last request, this payment_hash is returned in the response of the send_payment method\r\n    }\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::get_payment_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"414f9b3524fc4e48c99f2723952732d8bc2eba1b35ce3bf2a70f5144b40f599e\" // This should be the payment_hash of the invoice we just paid in the last request, this payment_hash is returned in the response of the send_payment method\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30783",
@@ -6755,7 +6926,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"orderbook\", // This method requests from the network the currently available orders for the specified trading pair, it's used here to assert that Node 2 can see Node 1 order on the orderbook\r\n    \"base\": \"tBTC-TEST-segwit\",\r\n    \"rel\": \"tBTC-TEST-lightning\"\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"orderbook\", // This method requests from the network the currently available orders for the specified trading pair, it's used here to assert that Node 2 can see Node 1 order on the orderbook\r\n    \"base\": \"tBTC-TEST-segwit\",\r\n    \"rel\": \"tBTC-TEST-lightning\"\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30784",
@@ -6799,7 +6970,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"buy\", // This method issues a buy request and attempts to match an order from the orderbook based on the provided price and volume\r\n    \"base\": \"tBTC-TEST-segwit\",\r\n    \"rel\": \"tBTC-TEST-lightning\",\r\n    \"price\": 1,\r\n    \"volume\": 0.0001\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"buy\", // This method issues a buy request and attempts to match an order from the orderbook based on the provided price and volume\r\n    \"base\": \"tBTC-TEST-segwit\",\r\n    \"rel\": \"tBTC-TEST-lightning\",\r\n    \"price\": 1,\r\n    \"volume\": 0.0001\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30784",
@@ -6887,7 +7058,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"order_status\",\r\n    \"uuid\": \"63955bf1-d3d4-44e8-b644-a462a2da4295\" // Insert the uuid returned from the buy method here, the same uuid is used as the swap uuid if a match was found for the order and the swap has started\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"order_status\",\r\n    \"uuid\": \"63955bf1-d3d4-44e8-b644-a462a2da4295\" // Insert the uuid returned from the buy method here, the same uuid is used as the swap uuid if a match was found for the order and the swap has started\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30784",
@@ -6975,7 +7146,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"my_swap_status\", // This method returns the data and status of an atomic swap that was initiated due to a matched order, in the data we can see all the transactions made for the swap and if there is an \"event\": {\"type\": \"MakerPaymentSpent\"} then we recieved the onchain tBTC successfully, we can see the payment info by using the \"tx_hash\" in the \"MakerPaymentSpent\" event and checking a BTC testnet explorer\r\n    \"params\": {\r\n        \"uuid\": \"63955bf1-d3d4-44e8-b644-a462a2da4295\" // The swap uuid is the same as the uuid used to get the buy order status\r\n    }\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"my_swap_status\", // This method returns the data and status of an atomic swap that was initiated due to a matched order, in the data we can see all the transactions made for the swap and if there is an \"event\": {\"type\": \"MakerPaymentSpent\"} then we recieved the onchain tBTC successfully, we can see the payment info by using the \"tx_hash\" in the \"MakerPaymentSpent\" event and checking a BTC testnet explorer\r\n    \"params\": {\r\n        \"uuid\": \"63955bf1-d3d4-44e8-b644-a462a2da4295\" // The swap uuid is the same as the uuid used to get the buy order status\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30784",
@@ -7019,7 +7190,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::close_channel\", // This method closes an open channel either cooperatively or by forcing the close depending on the used parameters\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 3 // Use the same rpc_channel_id of the channel we opened with Node 1\r\n        // \"force_close\": false // This is an optional parameter that can be set to true to force close the channel, if this parameter is not set false is the default value\r\n    }\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::close_channel\", // This method closes an open channel either cooperatively or by forcing the close depending on the used parameters\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 3 // Use the same rpc_channel_id of the channel we opened with Node 1\r\n        // \"force_close\": false // This is an optional parameter that can be set to true to force close the channel, if this parameter is not set false is the default value\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30784",
@@ -7107,7 +7278,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::get_claimable_balances\", // This method gets the balance that's onchain and still waiting for a condition to be claimed back to the Node's onchain tBTC address\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"include_open_channels_balances\": false\r\n    }\r\n}\r\n"
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::get_claimable_balances\", // This method gets the balance that's onchain and still waiting for a condition to be claimed back to the Node's onchain tBTC address\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"include_open_channels_balances\": false\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "http://95.216.148.216:30783",
