@@ -7,15 +7,16 @@ To enable Z coins you also need to [install some Zcash Params](https://forum.kom
 
 #### Arguments
 
-| Structure                           | Type            | Description                                                                                                                                                          |
-| ----------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ticker                              | string          | Ticker of coin to activate                                                                                                                                           |
-| activation_params                   | object          | List of [Electrum servers](https://github.com/KomodoPlatform/coins/tree/master/electrums)                                                                            |
-| activation_params.mode.rpc          | string          | Electrum server URL                                                                                                                                                  |
-| activation_params.mode.rpc_data     | object          | Transport protocol used by AtomicDEX API to connect to the electrum server (`TCP` or `SSL`)                                                                          |
-| ..rpc_data.electrum_servers         | list of objects | If `true`, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). <b>Use at your own risk</b>                                  |
-| ..rpc_data.electrum_servers.urls    | string          | If `true`, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). <b>Use at your own risk</b>                                  |
-| ..rpc_data.light_wallet_d_servers   | list of strings | Required if not set in `coins` file. Informs the AtomicDEX API whether or not the coin is expected to function. Accepted values are `0` or `1`                       |
+| Structure                                 | Type            | Description                                                                                                                                                          |
+| ----------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ticker                                    | string          | Ticker of coin to activate                                                                                                                                           |
+| activation_params                         | object          | List of [Electrum servers](https://github.com/KomodoPlatform/coins/tree/master/electrums)                                                                            |
+| activation_params.mode.zcash_params_path  | string          | Optional. Path to folder containing [Zcash parameters](https://z.cash/technology/paramgen/). Defaults to standard location as defined in [this guide](https://forum.komodoplatform.com/t/installing-zcash-params/603) |
+| activation_params.mode.rpc                | string          | Electrum server URL                                                                                                                                                  |
+| activation_params.mode.rpc_data           | object          | Transport protocol used by AtomicDEX API to connect to the electrum server (`TCP` or `SSL`)                                                                          |
+| ..rpc_data.electrum_servers               | list of objects | If `true`, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). <b>Use at your own risk</b>                                  |
+| ..rpc_data.electrum_servers.urls          | string          | If `true`, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). <b>Use at your own risk</b>                                  |
+| ..rpc_data.light_wallet_d_servers         | list of strings | Required if not set in `coins` file. Informs the AtomicDEX API whether or not the coin is expected to function. Accepted values are `0` or `1`                       |
 
 
 
@@ -46,7 +47,8 @@ curl --url "http://127.0.0.1:7783" --data "
                     \"electrum_servers\": [{\"url\":\"zombie.sirseven.me:10033\"}],
                     \"light_wallet_d_servers\": [\"http://zombie.sirseven.me:443\"]
                 }
-            }
+            },
+            \"zcash_params_path\": \"/home/username/path_to/.zcash-params\"
         }
     }
 }"
