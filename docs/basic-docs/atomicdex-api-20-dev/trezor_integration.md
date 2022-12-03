@@ -10,9 +10,9 @@ To get started, [configure and launch the AtomicDEX API]("../atomicdex/atomicdex
 Below are the new v2 RPC methods for interacting with your Trezor.
 
 Authentication:
-- Initialise connection with your Trezor with [task::init_trezor::init]("#task_trezor_init")
-- Check the status of the connecton with [task::init_trezor::status]("#task_trezor_status")
-- Authenitcate usng PIN or phrase with [task::init_trezor::user_action]("#task_trezor_user_action")
+- Initialise connection with your Trezor with [task::init_trezor::init]("#task_init_trezor_init")
+- Check the status of the connecton with [task::init_trezor::status]("#task_init_trezor_status")
+- Authenitcate usng PIN or phrase with [task::init_trezor::user_action]("#task_init_trezor_user_action")
 
 Coin Activation in Hardware Mode:
 - Use [task::enable_utxo::init]("#task_enable_utxo_init") for UTXO coins like KMD, BTC and DOGE, and check the activation status with [task::enable_utxo::status]("#task_enable_utxo_status")
@@ -32,7 +32,7 @@ Creating New Addresses:
 - Use [get_new_address]("#get_new_address") to generate a new address
 
 
-# task\_trezor\_init
+# task\_init_trezor\_init
 
 Before using this method, launch the AtomicDEX API, and plug in your Trezor.
 
@@ -99,7 +99,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 
 
-# task\_trezor\_status
+# task\_init\_trezor\_status
 
 After running the `task::init_trezor::init` method, we can query the status of device initialisation to check its progress.
 
@@ -220,6 +220,90 @@ Possible "In progress" Cases:
         "details": "EnterTrezorPin"
     },
     "id": null
+}
+```
+
+</collapse-text>
+
+</div>
+
+
+
+# task\_init\_trezor\_user\_action
+
+Before using this method, launch the AtomicDEX API, and plug in your Trezor.
+
+
+#### Arguments
+
+| Parameter                    | Type            | Description                                                                 |
+| ---------------------------- | --------------- | --------------------------------------------------------------------------- |
+| task_id                      | integer         | The identifying number returned when initiating the initialisation process. |
+| user_action                  | object          | Object containing the params below                                          |
+| user_action.action_type      | string          | Either `TrezorPin` or `TrezorPassphrase`, depending on which is requested by responses from related methods returning `"status": "UserActionRequired"`                                            |
+| user_action.pin              | string (number) | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information.  |
+| user_action.passphrase       | string          | The [passphrase](https://trezor.io/learn/a/passphrases-and-hidden-wallets) functions like an extra word added to your recovery seed, and it used to access hidden wallets.                        |
+
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+	<img src="/api_images/trezor_pin.png" />
+</div>
+
+
+#### Response
+
+| Parameter             | Type         | Description                 |
+| --------------------- | -------------| --------------------------- |
+| result                | string       | The outcome of the request. |
+
+
+#### :pushpin: Examples
+
+#### Command (for TrezorPin)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+    \"userpass\": \"YOUR_PASS\",
+    \"mmrpc\": \"2.0\",
+    \"method\": \"task::init_trezor::user_action\",
+    \"params\": {
+        \"task_id\": 0,
+        \"user_action\": {
+            \"action_type\": \"TrezorPin\",
+            \"pin\": \"862743\"
+        }
+    }
+}
+```
+
+#### Command (for TrezorPassphrase)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+    \"userpass\": \"YOUR_PASS\",
+    \"mmrpc\": \"2.0\",
+    \"method\": \"task::init_trezor::user_action\",
+    \"params\": {
+        \"task_id\": 0,
+        \"user_action\": {
+            \"action_type\": \"TrezorPassphrase\",
+            \"passphrase\": \"breakfast\"
+        }
+    }
+}
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+	"mmrpc":"2.0",
+	"result":"success",
+	"id":null
 }
 ```
 
