@@ -655,6 +655,72 @@ Possible Error Cases:
 </div>
 
 
+# task\_enable\_utxo\_user_action
+
+If the `task::enable_utxo::status` returns `UserActionRequired`, we need to use the `task::enable_utxo::user_action` method to enter our PIN
+
+
+#### Arguments
+
+| Parameter                    | Type            | Description                                                                 |
+| ---------------------------- | --------------- | --------------------------------------------------------------------------- |
+| task_id                      | integer         | The identifying number returned when initiating the initialisation process. |
+| user_action                  | object          | Object containing the params below                                          |
+| user_action.action_type      | string          | Will be `TrezorPin` for this method                                         |
+| user_action.pin              | string (number) | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information.  |
+
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+    <img src="/api_images/trezor_pin.png" />
+</div>
+
+
+#### Response
+
+| Parameter             | Type         | Description                 |
+| --------------------- | -------------| --------------------------- |
+| result                | string       | The outcome of the request. |
+
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+    \"userpass\": \"YOUR_PASS\",
+    \"mmrpc\": \"2.0\",
+    \"method\": \"task::enable_utxo::user_action\",
+    \"params\": {
+        \"task_id\": 0,
+        \"user_action\": {
+            \"action_type\": \"TrezorPin\",
+            \"pin\": \"862743\"
+        }
+    }
+}
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+    "mmrpc":"2.0",
+    "result":"success",
+    "id":null
+}
+```
+
+</collapse-text>
+
+</div>
+
+```
+
 
 # task\_enable\_qtum\_init
 
@@ -1021,3 +1087,69 @@ Possible Error Cases:
 
 </div>
 
+
+# task\_enable\_qtum\_user_action
+
+If the `task::enable_qtum::status` returns `UserActionRequired`, we need to use the `task::enable_qtum::user_action` method to enter our PIN
+
+
+#### Arguments
+
+| Parameter                    | Type            | Description                                                                 |
+| ---------------------------- | --------------- | --------------------------------------------------------------------------- |
+| task_id                      | integer         | The identifying number returned when initiating the initialisation process. |
+| user_action                  | object          | Object containing the params below                                          |
+| user_action.action_type      | string          | Will be `TrezorPin` for this method                                         |
+| user_action.pin              | string (number) | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information.  |
+
+
+<div style="margin: 2rem; text-align: center; width: 80%">
+    <img src="/api_images/trezor_pin.png" />
+</div>
+
+
+#### Response
+
+| Parameter             | Type         | Description                 |
+| --------------------- | -------------| --------------------------- |
+| result                | string       | The outcome of the request. |
+
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+    \"userpass\": \"YOUR_PASS\",
+    \"mmrpc\": \"2.0\",
+    \"method\": \"task::enable_qtum::user_action\",
+    \"params\": {
+        \"task_id\": 0,
+        \"user_action\": {
+            \"action_type\": \"TrezorPin\",
+            \"pin\": \"862743\"
+        }
+    }
+}
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+    "mmrpc":"2.0",
+    "result":"success",
+    "id":null
+}
+```
+
+</collapse-text>
+
+</div>
+
+```
