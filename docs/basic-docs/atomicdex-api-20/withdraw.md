@@ -11,6 +11,7 @@ This method generates a raw transaction which should then be broadcast using [se
 | coin          | string           | the name of the coin the user desires to withdraw                                                                                         |
 | to            | string           | coins are withdrawn to this address                                                                                                       |
 | amount        | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                                                          |
+| memo          | string           | Optional. Adds a transaction memo for compatible coins (e.g. Tendermint ecosystem).                                                       |
 | max           | bool             | withdraw the maximum available amount                                                                                                     |
 | fee.type      | string           | type of transaction fee; possible values: `UtxoFixed`, `UtxoPerKbyte`, `EthGas`                                                           |
 | fee.amount    | string (numeric) | fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte) |
@@ -112,6 +113,8 @@ The request was failed due to an AtomicDEX API internal error.
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"mmrpc\":\"2.0\",\"method\":\"withdraw\",\"params\":{\"coin\":\"KMD\",\"to\":\"RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh\",\"amount\":\"10\"},\"id\":0}"
 ```
 
+<div style="margin-top: 0.5rem;">
+<collapse-text hidden title="Response">
 #### Response (KMD success)
 
 ```json
@@ -158,12 +161,33 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"mmrpc\"
   "id": 0
 }
 ```
+</collapse-text>
+
+</div>
+
 
 #### Command (BTC, KMD, and other BTC-based forks, fixed fee)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$userpass\",\"method\":\"withdraw\",\"params\":{\"coin\":\"RICK\",\"to\":\"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW\",\"amount\":\"1.0\",\"fee\":{\"type\":\"UtxoFixed\",\"amount\":\"0.1\"}},\"id\":0}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"mmrpc\": \"2.0\",
+  \"userpass\": \"$userpass\",
+  \"method\": \"withdraw\",
+  \"params\":{
+    \"coin\": \"RICK\",
+    \"to\":\"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW\",
+    \"amount\":\"1.0\",
+    \"fee\": {
+      \"type\":\"UtxoFixed\",
+      \"amount\":\"0.1\"
+    }
+  },
+  \"id\":0
+}"
 ```
+
+<div style="margin-top: 0.5rem;">
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -205,12 +229,33 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
   "id": 0
 }
 ```
+</collapse-text>
+
+</div>
+
 
 #### Command (BTC, KMD, and other BTC-based forks, 1 RICK per Kbyte)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$userpass\",\"method\":\"withdraw\",\"params\":{\"coin\":\"RICK\",\"to\":\"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW\",\"amount\":\"1.0\",\"fee\":{\"type\":\"UtxoPerKbyte\",\"amount\":\"1\"}},\"id\":0}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"mmrpc\": \"2.0\",
+  \"userpass\": \"$userpass\",
+  \"method\": \"withdraw\",
+  \"params\":{
+    \"coin\":\"RICK\",
+    \"to\":\"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW\",
+    \"amount\":\"1.0\",
+    \"fee\": {
+      \"type\":\"UtxoPerKbyte\",
+      \"amount\":\"1\"
+    }
+  },
+  \"id\":0
+}"
 ```
+
+<div style="margin-top: 0.5rem;">
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -238,12 +283,29 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
   "id": 0
 }
 ```
+</collapse-text>
+
+</div>
+
 
 #### Command (ETH, ERC20, and other ETH-based forks)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$userpass\",\"method\":\"withdraw\",\"params\":{\"coin\":\"ETH\",\"to\":\"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",\"amount\":10},\"id\":0}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"mmrpc\": \"2.0\",
+  \"userpass\": \"$userpass\",
+  \"method\": \"withdraw\",
+  \"params\": {
+    \"coin\": \"ETH\",
+    \"to\": \"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",
+    \"amount\": 10
+  },
+  \"id\": 0
+}"
 ```
+
+<div style="margin-top: 0.5rem;">
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -272,12 +334,33 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
   "id": 0
 }
 ```
+</collapse-text>
+</div>
+
 
 #### Command (ETH, ERC20, and other ETH-based forks, with gas fee)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$userpass\",\"method\":\"withdraw\",\"params\":{\"coin\":\"$1\",\"to\":\"$2\",\"amount\":\"$3\",\"fee\":{\"type\":\"EthGas\",\"gas_price\":\"3.5\",\"gas\":55000}},\"id\":0}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"mmrpc\": \"2.0\",
+  \"userpass\": \"$userpass\",
+  \"method\": \"withdraw\",
+  \"params\": {
+    \"coin\": \"$1\",
+    \"to\": \"$2\",
+    \"amount\": \"$3\",
+    \"fee\": {
+      \"type\": \"EthGas\",
+      \"gas_price\": \"3.5\",
+      \"gas\": 55000
+    }
+  },
+  \"id\":0
+}"
 ```
+
+<div style="margin-top: 0.5rem;">
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -326,8 +409,21 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
 #### Command (max = true)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$userpass\",\"method\":\"withdraw\",\"params\":{\"coin\":\"ETH\",\"to\":\"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",\"max\":true},\"id\":0}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"mmrpc\": \"2.0\",
+  \"userpass\": \"$userpass\",
+  \"method\": \"withdraw\",
+  \"params\": {
+    \"coin\": \"ETH\",
+    \"to\": \"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",
+    \"max\": true
+  },
+  \"id\": 0
+}"
 ```
+
+<div style="margin-top: 0.5rem;">
+<collapse-text hidden title="Response">
 
 ##### Response (success)
 
@@ -357,11 +453,27 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
 }
 ```
 
+</collapse-text>
+</div>
+
 ##### Command (QRC20)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$userpass\",\"method\":\"withdraw\",\"params\":{\"coin\":\"QRC20\",\"to\":\"qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs\",\"amount\":10},\"id\":0}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"mmrpc\": \"2.0\",
+  \"userpass\": \"$userpass\",
+  \"method\": \"withdraw\",
+  \"params\": {
+    \"coin\":\"QRC20\",
+    \"to\":\"qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs\",
+    \"amount\":10
+  },
+  \"id\":0
+}"
 ```
+
+<div style="margin-top: 0.5rem;">
+<collapse-text hidden title="Response">
 
 ##### Response (success)
 
@@ -393,11 +505,32 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
 }
 ```
 
+</collapse-text>
+</div>
+
 ##### Command (QRC20, with gas fee)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$userpass\",\"method\":\"withdraw\",\"params\":{\"coin\":\"QRC20\",\"to\":\"qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs\",\"amount\":10,\"fee\":{\"type\":\"Qrc20Gas\",\"gas_limit\":250000,\"gas_price\":40}},\"id\":0}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"mmrpc\": \"2.0\",
+  \"userpass\": \"$userpass\",
+  \"method\": \"withdraw\",
+  \"params\": {
+    \"coin\": \"QRC20\",
+    \"to\": \"qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs\",
+    \"amount\": 10,
+    \"fee\": {
+      \"type\": \"Qrc20Gas\",
+      \"gas_limit\": 250000,
+      \"gas_price\": 40
+    }
+  },
+  \"id\":0
+}"
 ```
+
+<div style="margin-top: 0.5rem;">
+<collapse-text hidden title="Response">
 
 ```json
 {
@@ -426,3 +559,59 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
   "id": 0
 }
 ```
+
+</collapse-text>
+</div>
+
+
+##### Command (COSMOS, with memo)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+  \"mmrpc\": \"2.0\",
+  \"userpass\": \"$userpass\",
+  \"method\": \"withdraw\",
+  \"params\": {
+    \"coin\": \"IRIS\",
+    \"to\": \"iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k\",
+    \"amount\": 13,
+    \"memo\": \"It was a bright cold day in April, and the clocks were striking thirteen.\"
+  },
+  \"id\":0
+}"
+```
+
+<div style="margin-top: 0.5rem;">
+<collapse-text hidden title="Response">
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "tx_hex": "0ade010a8b010a1c2f636f736d6f732e62616e6b2e763162657461312e4d736753656e64126b0a2a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b122a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b1a110a05756972697312083133303030303030124949742077617320612062726967687420636f6c642064617920696e20417072696c2c20616e642074686520636c6f636b73207765726520737472696b696e6720746869727465656e2e188f85b50812680a500a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a2103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc212040a020801181d12140a0e0a0575697269731205333835353310a08d061a40a9ac8c4112d7d7252062e289d222a438258a7c49c6657fdcbf831d62fc5eb2d05af46d6b86881335b3bc7ca98b2bfc3ef02ec5adf6768de9a778b282f9cc868e",
+    "tx_hash": "E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6",
+    "from": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
+    "to": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
+    "total_amount": "13.038553",
+    "spent_by_me": "13.038553",
+    "received_by_me": "13",
+    "my_balance_change": "-0.038553",
+    "block_height": 0,
+    "timestamp": 0,
+    "fee_details": {
+      "type": "Tendermint",
+      "coin": "IRIS",
+      "amount": "0.038553",
+      "gas_limit": 100000
+    },
+    "coin": "IRIS",
+    "internal_id": "e00982a2a8442d7140916a34e29e287a0b1cbb4b38940372d1966ba7acde5bd6",
+    "transaction_type": "StandardTransfer"
+  },
+  "id": 0
+}
+```
+You can see the memo is included on the block explorer: https://irishub.iobscan.io/#/txs/E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6
+
+</collapse-text>
+</div>
