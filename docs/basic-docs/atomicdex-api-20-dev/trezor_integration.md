@@ -257,6 +257,29 @@ Before using this method, launch the AtomicDEX API, and plug in your Trezor.
 | result                | string       | The outcome of the request. |
 
 
+NOTE: Even an incorrect PIN will return `success`. This doesn't mean the PIN was accepted, just that it was communicated without errors. If the PIN was incorrect, you will see an error like below in the next response for a method that requires authentication - 
+
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "status": "Error",
+        "details": {
+            "error": "Error on platform coin KMD creation: Hardware Wallet context is not initialized",
+            "error_path": "lib.init_utxo_standard_activation.utxo_coin_builder",
+            "error_trace": "lib:103] init_utxo_standard_activation:79] utxo_coin_builder:317]",
+            "error_type": "CoinCreationError",
+            "error_data": {
+                "ticker":"KMD",
+                "error":"Hardware Wallet context is not initialized"
+            }
+        }
+    },
+    "id": null
+}
+```
+
+
 #### :pushpin: Examples
 
 #### Command (for TrezorPin)
@@ -719,8 +742,6 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 </div>
 
-```
-
 
 # task\_enable\_qtum\_init
 
@@ -1151,5 +1172,3 @@ curl --url "http://127.0.0.1:7783" --data "{
 </collapse-text>
 
 </div>
-
-```
