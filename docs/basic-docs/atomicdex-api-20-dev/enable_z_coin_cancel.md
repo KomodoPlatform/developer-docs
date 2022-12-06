@@ -107,15 +107,3 @@ echo
 </collapse-text>
 
 </div>
-
-
-To see more examples for other platforms like Fantom, Avalanche & Harmony, you can search the [AtomicDEX API Coin Activation Commands List
-](http://stats.kmd.io/atomicdex/activation_commands/) or build a single `batch` command to enable a set of selected coins via the 
-[Batch Coin Activation Form](http://stats.kmd.io/atomicdex/batch_activation_form/)
-
-
-::: tip
-
-We welcome volunteers to test new coins for AtomicDEX API compatibility! Follow the [Submitting Coin Test Results guide](https://github.com/KomodoPlatform/coins#about-this-repository) for more information, or drop into the [Komodo Platform Discord Server](https://komodoplatform.com/discord) for a chat if you need some help.
-
-:::

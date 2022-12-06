@@ -11,7 +11,7 @@ The `withdraw_init` method generates, signs, and returns a transaction that tran
 | to            | string           | coins are withdrawn to this address                                                                                                       |
 | amount        | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                                                          |
 | max           | bool             | withdraw the maximum available amount                                                                                                     |
-| fee.type      | string           | type of transaction fee; possible values: `UtxoFixed`, `UtxoPerKbyte`, `EthGas`                                                           |
+| fee.type      | string           | type of transaction fee; possible values: `UtxoFixed` or `UtxoPerKbyte`                                                                   |
 | fee.amount    | string (numeric) | fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte) |
 
 
