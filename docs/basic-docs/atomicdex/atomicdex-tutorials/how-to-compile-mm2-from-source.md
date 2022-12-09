@@ -123,16 +123,16 @@ source $HOME/.cargo/env
 ##### Command
 
 ```bash
-rustup install nightly-2020-10-25
+rustup install nightly-2022-02-01
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup install nightly-2020-10-25
-info: syncing channel updates for 'nightly-2020-10-25-x86_64-unknown-linux-gnu'
+$ rustup install nightly-2022-02-01
+info: syncing channel updates for 'nightly-2022-02-01-x86_64-unknown-linux-gnu'
 696.1 KiB / 696.1 KiB (100 %) 567.6 KiB/s in  2s ETA:  0s
-info: latest update on 2020-10-25, rust version 1.49.0-nightly (ffa2e7ae8 2020-10-24)
+info: latest update on 2022-02-01, rust version 1.49.0-nightly (ffa2e7ae8 2020-10-24)
 info: downloading component 'cargo'
   5.3 MiB /   5.3 MiB (100 %) 426.6 KiB/s in  3s ETA:  0s
 info: downloading component 'clippy'
@@ -157,7 +157,7 @@ info: installing component 'rustc'
  55.1 MiB /  55.1 MiB (100 %)   4.6 MiB/s in 12s ETA:  0s
 info: installing component 'rustfmt'
 
-  nightly-2020-10-25-x86_64-unknown-linux-gnu installed - rustc 1.49.0-nightly (ffa2e7ae8 2020-10-24)
+  nightly-2022-02-01-x86_64-unknown-linux-gnu installed - rustc 1.49.0-nightly (ffa2e7ae8 2020-10-24)
 
 info: checking for self-updates
 info: downloading self-update
@@ -169,17 +169,17 @@ info: downloading self-update
 ##### Command
 
 ```bash
-rustup default nightly-2020-10-25
+rustup default nightly-2022-02-01
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup default nightly-2020-10-25
-info: using existing install for 'nightly-2020-10-25-x86_64-unknown-linux-gnu'
-info: default toolchain set to 'nightly-2020-10-25-x86_64-unknown-linux-gnu'
+$ rustup default nightly-2022-02-01
+info: using existing install for 'nightly-2022-02-01-x86_64-unknown-linux-gnu'
+info: default toolchain set to 'nightly-2022-02-01-x86_64-unknown-linux-gnu'
 
-  nightly-2020-10-25-x86_64-unknown-linux-gnu unchanged - rustc 1.49.0-nightly (ffa2e7ae8 2020-10-24)
+  nightly-2022-02-01-x86_64-unknown-linux-gnu unchanged - rustc 1.49.0-nightly (ffa2e7ae8 2020-10-24)
 ```
 
 </collapse-text>

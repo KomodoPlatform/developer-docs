@@ -97,11 +97,11 @@ sudo apt-get install -y git llvm-dev libclang-dev clang libssl-dev pkg-config
 Install additional Rust components:
 
 ```bash
-rustup install nightly-2020-10-25
+rustup install nightly-2022-02-01
 ```
 
 ```bash
-rustup default nightly-2020-10-25
+rustup default nightly-2022-02-01
 ```
 
 (Optional) Skip this step if it fails.
