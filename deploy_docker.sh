@@ -5,8 +5,8 @@ set -e
 
 
 # build
-docker build -t komodo_docs_image .
-docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) komodo_docs_image
+docker build -t atomicdex_docs_image .
+docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) atomicdex_docs_image
 
 
 

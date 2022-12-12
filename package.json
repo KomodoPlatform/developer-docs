@@ -9,11 +9,10 @@
   "author": "Contributors from Komodo Platform",
   "license": "MIT",
   "devDependencies": {
-    "@vuepress/plugin-back-to-top": "^1.8.2",
-    "moment": "^2.29.4",
+    "@vuepress/plugin-last-updated": "^1.5.0",
+    "moment": "^2.29.2",
     "vue-cookie-law": "^1.13.3",
     "vuepress": "^1.8.2",
-    "vuepress-plugin-autometa": "^0.1.13",
     "vuepress-plugin-google-tag-manager": "^0.0.4",
     "vuepress-plugin-medium-zoom": "^1.1.8",
     "vuepress-plugin-redirect": "1.2.0-alpha.0"
