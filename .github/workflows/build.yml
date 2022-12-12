@@ -12,8 +12,6 @@ jobs:
         with:
           fetch-depth: "0"
           persist-credentials: false
-        run: |
-          ./prepare-atomicDEX-docs.sh
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -21,6 +19,10 @@ jobs:
           repository: ${{ github.repository_owner }}/AtomicDEX-docs
           path: AtomicDEX-docs
           persist-credentials: false
+
+      - name: Prepare AtomicDEX Docs
+        run: |
+          ./prepare-atomicDEX-docs.sh
 
       - name: Add Algolia Secret
         env:
