@@ -23,7 +23,7 @@ button
 
 <script>
   /* 
-   License:
+   Lisense:
    https://github.com/feathers-plus/generator-feathers-plus/blob/master/LICENSE
    The MIT License (MIT)
    Copyright (c) 2018 Feathers-Plus

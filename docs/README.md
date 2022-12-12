@@ -1,56 +1,30 @@
----
-title: Komodo Documentation
-description: Documentation for developers building on the Komodo Platform.
+# Introduction to AtomicDEX
 
-tags:
-  - Komodo
-  - docs
-  - developers
-  - blockchain
+Welcome to the AtomicDEX technical documentation.
 
----
+#### About the AtomicDEX Section
 
-<!--Sidd: Since the below HTML content is not a repeating element, I'm not going to create a unique component, nor a separate CSS class at this time.-->
+This documentation is intended for developers utilizing the AtomicDEX API.
 
-<div>
+Users who are not interested in development-related activities, but are searching for documentation assistance, can find support in the Komodo Support Center.
 
-<div class="introductoryImage">
+[<b>Link to Komodo Support Center</b>](https://support.komodoplatform.com/support/home)
 
-<img src="/start-here-pics/Dev_Docs_Introduction_small.png">
+#### Conceptual Overview
 
-</div>
+The [<b>AtomicDEX Tutorials</b>](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.md) section contains a more thorough conceptual explanation of AtomicDEX.
 
-<h1>Introduction</h1>
+#### About AtomicDEX Setup
 
-<div style="width: 4rem; height: .5rem; margin: .1rem 0rem 2rem .3rem; background-color: #18F4BF;"></div>
+The AtomicDEX Setup section contains basic information about setting up and using an AtomicDEX-enabled environment.
 
-<h4>Welcome to Komodo's Developer Documentation.</h4>
+#### About AtomicDEX Tutorials
 
-<div class="mobileIntroductoryImage">
+The AtomicDEX Tutorials section contains various tutorials that provide instruction for AtomicDEX usage and creation.
 
-<img src="/start-here-pics/Dev_Docs_Introduction_small.png">
+#### About AtomicDEX API
 
-</div>
+The AtomicDEX API section contains all available API commands.
 
-</div>
+These API commands can also be called Remote Procedure Calls, or RPCs.
 
-<hr style="clear: both;">
-
-Komodo's blockchain technology enables developers to create fully independent blockchains in a secure and highly competitive environment.
-
-Each independent blockchain built on the Komodo framework has a wide range of capabilities, including:
-
-* Bitcoin-hash rate supported security
-
-* Enterprise-level scalability
-
-* Consensus customization
-
-* Blockchain clustering
-
-* ...and more!
-
-Because a Komodo-based blockchain is independently managed, the developer has complete freedom, so long as the essential connections to the Komodo ecosystem remain.
-
-
-[Get Started →](./basic-docs/start-here/about-komodo-platform/about-komodo-platform.html)

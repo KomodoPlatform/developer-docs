@@ -28,6 +28,7 @@
         <slot name="page-bottom" />
       </template>
     </Page>
+
     <ClientOnly>
       <component
         v-if="dynamicCookieComponent"
@@ -45,6 +46,7 @@
         </div>
       </component>
     </ClientOnly>
+
   </div>
 </template>
 
@@ -57,6 +59,7 @@ import { resolveSidebarItems } from "../util";
 
 export default {
   name: "Layout",
+
   components: {
     Home,
     Page,
@@ -123,7 +126,7 @@ export default {
       this.isSidebarOpen = false;
     });
     this.importCookieLaw();
-  },
+    },
 
   methods: {
     toggleSidebar(to) {
