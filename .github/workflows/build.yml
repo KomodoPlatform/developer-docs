@@ -44,7 +44,7 @@ jobs:
       - name: Deploy updated files to AtomicDEX-docs repo
         uses: KomodoPlatform/github-pages-deploy-action@v4.4.1
         with:
-          ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
-          REPOSITORY_NAME: ${{ github.repository_owner }}/AtomicDEX-docs
-          BRANCH: master
-          FOLDER: AtomicDEX-docs
+          token: ${{ secrets.GH_TOKEN }}
+          repository-name: ${{ github.repository_owner }}/AtomicDEX-docs
+          branch: master
+          folder: AtomicDEX-docs
