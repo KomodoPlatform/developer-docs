@@ -21,7 +21,9 @@ jobs:
           persist-credentials: false
 
       - name: Prepare AtomicDEX Docs
+        working-directory: ./
         run: |
+          pwd
           ./prepare-atomicDEX-docs.sh
 
       - name: Add Algolia Secret
