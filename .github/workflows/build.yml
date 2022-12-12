@@ -12,6 +12,8 @@ jobs:
         with:
           fetch-depth: "0"
           persist-credentials: false
+        run: |
+          ./prepare-atomicDEX-docs.sh
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -35,11 +37,6 @@ jobs:
           CNAME: "developers.komodoplatform.com"
           BUILD_SCRIPT: yarn && yarn docs:build
           BUILD_DIR: docs/.vuepress/dist/
-
-      - name: Prepare AtomicDEX docs
-        env:
-          ALGOLIA_SECRET: ${{secrets.ALGOLIA_SECRET}}
-        run: ./prepare-atomicDEX-docs.sh
 
       - name: Deploy updated files to AtomicDEX-docs repo
         uses: KomodoPlatform/github-pages-deploy-action@v4.4.1
