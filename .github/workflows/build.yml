@@ -20,6 +20,13 @@ jobs:
           path: AtomicDEX-docs
           persist-credentials: false
 
+      - name: Prepare AtomicDEX Docs
+        working-directory: ./
+        run: |
+          pwd
+          ls
+          ./prepare-atomicDEX-docs.sh
+
       - name: Add Algolia Secret
         env:
           ALGOLIAKEY: ${{secrets.ALGOLIA_SECRET}}

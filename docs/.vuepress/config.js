@@ -2,24 +2,13 @@ require("dotenv").config();
 var redirectAliases = require("./public/_redirects.js");
 var sidebarImport = require("./sidebar.js");
 var navbarImport = require("./navbar.js");
-var algoliaSecret = require("./algolia-secret.js");
 
-const autometa_options = {
-  schema: true,
-  site: {
-    name: "Komodo Documentation",
-    twitter: "komodoplatform",
-  },
-  canonical_base: "https://developers.komodoplatform.com",
-};
-
+// var algoliaSecret = require("./algolia-secret.js")
 module.exports = {
   plugins: {
     redirect: {
       alias: redirectAliases,
     },
-    "@vuepress/back-to-top": {},
-    autometa: autometa_options,
     "@vuepress/last-updated": {
       transformer: (timestamp) => {
         // Don't forget to install moment yourself
@@ -36,27 +25,16 @@ module.exports = {
         scrollOffset: 0,
       },
     },
-    "vuepress-plugin-google-tag-manager": {
-      gtm: "GTM-PC28587",
-    },
   },
   head: [
     [
       "link",
       {
         rel: "icon",
-        href: "/KMD_Mark_Black.png",
+        href: "mark_only.svg",
       },
     ],
     [
-      "meta",
-      {
-        name: "twitter:image",
-        content:
-          "https://developers.komodoplatform.com/start-here-pics/Dev_Docs_Introduction_small.png",
-      },
-    ],
-    /* [
       "meta",
       {
         name: "twitter:card",
@@ -84,24 +62,31 @@ module.exports = {
         content: "Documentation for developers building on the Komodo Platform",
       },
     ],
-   */
+    [
+      "meta",
+      {
+        name: "twitter:image",
+        content:
+          "https://developers.komodoplatform.com/start-here-pics/Dev_Docs_Introduction_small.png",
+      },
+    ],
   ],
-  title: "Komodo Documentation",
+  title: "AtomicDEX Documentation",
   base: "/",
-  description: "Documentation for developers building on Komodo",
+  description: "Documentation for developers building on AtomicDEX",
   themeConfig: {
-    repo: "komodoplatform/developer-docs",
+    repo: "KomodoPlatform/AtomicDEX-docs",
     repoLabel: "Github",
     docsDir: "docs",
     editLinks: true,
     editLinkText: "Suggest an improvement for this page",
     //lastUpdated: "Last Updated",
     // sidebarDepth: 3,
-    logo: "/KMD_Horiz_White.svg",
-    algolia: {
-      apiKey: algoliaSecret.key,
-      indexName: "komodoplatform",
-    },
+    logo: "/logo_light.svg",
+    // algolia: {
+    // apiKey: algoliaSecret.key,
+    // indexName: 'komodoplatform'
+    // },
     nav: navbarImport,
     sidebar: sidebarImport,
   },

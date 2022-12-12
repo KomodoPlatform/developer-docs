@@ -4,8 +4,6 @@
 
 The `keypair` method generates a Dilithium `pubkey` and `privkey`. This method requires a 256 bit seed in hex format (64 characters).
 
-<!-- Sidd: please check below. Was not clear. -->
-
 If no `hexseed` is provided, the module uses the user's pubkey seed for entropy and generates a new seed. From this new seed the module produces a Dilithium `pubkey` and `privkey`.
 
 #### Arguments
