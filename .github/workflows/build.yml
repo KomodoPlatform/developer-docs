@@ -5,26 +5,20 @@ on:
       - master
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           fetch-depth: "0"
           persist-credentials: false
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           repository: ${{ github.repository_owner }}/AtomicDEX-docs
           path: AtomicDEX-docs
           persist-credentials: false
-
-      - name: Prepare AtomicDEX Docs
-        working-directory: ./
-        run: |
-          pwd
-          ./prepare-atomicDEX-docs.sh
 
       - name: Add Algolia Secret
         env:
@@ -42,10 +36,15 @@ jobs:
           BUILD_SCRIPT: yarn && yarn docs:build
           BUILD_DIR: docs/.vuepress/dist/
 
+      - name: Prepare AtomicDEX docs
+        env:
+          ALGOLIA_SECRET: ${{secrets.ALGOLIA_SECRET}}
+        run: ./prepare-atomicDEX-docs.sh
+
       - name: Deploy updated files to AtomicDEX-docs repo
-        uses: KomodoPlatform/github-pages-deploy-action@v4.4.1
+        uses: KomodoPlatform/github-pages-deploy-action@3.7.1
         with:
-          token: ${{ secrets.GH_TOKEN }}
-          repository-name: ${{ github.repository_owner }}/AtomicDEX-docs
-          branch: master
-          folder: AtomicDEX-docs
+          ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
+          REPOSITORY_NAME: ${{ github.repository_owner }}/AtomicDEX-docs
+          BRANCH: master
+          FOLDER: AtomicDEX-docs
