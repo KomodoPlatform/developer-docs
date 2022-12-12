@@ -42,7 +42,7 @@ jobs:
         run: ./prepare-atomicDEX-docs.sh
 
       - name: Deploy updated files to AtomicDEX-docs repo
-        uses: KomodoPlatform/github-pages-deploy-action@4ef50ca
+        uses: KomodoPlatform/github-pages-deploy-action@4ef50ca87fb0d1007fab1bfce9019fb5749daf26
         with:
           ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
           REPOSITORY_NAME: ${{ github.repository_owner }}/AtomicDEX-docs
