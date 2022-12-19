@@ -6,11 +6,11 @@ The AtomicDEX-API supports ETH(Ethereum) and many other EVM type platform coins 
 | -------------------------------------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ticker                                       | string                                                     | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20`                                                                                                                                                                                                                                         |
 | gas_station_url                              | string (optional for ETH/ERC20 and other gas model chains) | url of [ETH gas station API](https://docs.ethgasstation.info/); The AtomicDEX API uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; when this parameter is set, the AtomicDEX API will request the current gas price from Station for new transactions, and this often results in lower fees |
-| swap_contract_address                        | string (required for QRC20 only)                           | address of etomic swap smart contract                                                                                                                                                                                                                                                                                                           |
-| fallback_swap_contract                       | string (required for QRC20 only)                           | address of backup etomic swap smart contract                                                                                                                                                                                                                                                                                                    |
+| swap_contract_address                        | string                                                     | address of etomic swap smart contract                                                                                                                                                                                                                                                                                                           |
+| fallback_swap_contract                       | string                                                     | address of backup etomic swap smart contract                                                                                                                                                                                                                                                                                                    |
 | nodes                                        | array of objects                                           | objects describing each of the nodes to connect to                                                                                                                                                                                                                                                                                              |
 | nodes.url                                    | string                                                     | url of a node                                                                                                                                                                                                                                                                                                                                   |
-| nodes.gui_auth                               | bool (optional)                                            | must be set to `true` for nodes run by the Komodo Platform team                                                                                                                                                                                                                                                                                 |
+| nodes.gui_auth                               | bool (optional)                                            | must be set to `true` for nodes run officially by the Komodo Platform team                                                                                                                                                                                                                                                                      |
 | tx_history                                   | bool                                                       | If `true` the AtomicDEX API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](../../../basic-docs/atomicdex-api-legacy/my_tx_history.html#my-tx-history) method                                                                                                                        |
 | erc20_tokens_requests                        | array of objects                                           | objects describing each of the tokens to be enabled                                                                                                                                                                                                                                                                                             |
 | erc20_tokens_requests.ticker                 | string                                                     | Ticker of the token to be enabled                                                                                                                                                                                                                                                                                                               |
@@ -100,3 +100,23 @@ curl --url "http://127.0.0.1:7783" --data '{
   "id": null
 }
 ```
+
+## Errors
+
+### Error (The platform coin [ex: ETH, ONE, AVAX, BNB etc.,] you are trying to activate is already activated)
+
+In this case, you need to [disable](../atomicdex-api-legacy/disable_coin.md) the platform coin and try again.
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "ETH",
+  "error_path": "platform_coin_with_tokens",
+  "error_trace": "platform_coin_with_tokens:297]",
+  "error_type": "PlatformIsAlreadyActivated",
+  "error_data": "ETH",
+  "id": null
+}
+```
+
+### Error

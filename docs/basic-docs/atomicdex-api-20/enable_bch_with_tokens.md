@@ -122,7 +122,7 @@ curl --url "http://127.0.0.1:7783" --data '{
 ```
 
 ## Errors (BCH already activated)
-In this case, you need to [disable](../atomicdex-api-legacy/disable.md) BCH and try again.
+In this case, you need to [disable](../atomicdex-api-legacy/disable_coin.md) BCH and try again.
 ```json
 {
   "mmrpc":"2.0",
