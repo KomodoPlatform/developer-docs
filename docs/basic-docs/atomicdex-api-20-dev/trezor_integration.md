@@ -106,9 +106,10 @@ After running the `task::init_trezor::init` method, we can query the status of d
 
 #### Arguments
 
-| Parameter          | Type    | Description                                                                 |
-| ------------------ | ------- | --------------------------------------------------------------------------- |
-| task_id            | integer | The identifying number returned when initiating the initialisation process. |
+| Parameter          | Type    | Description                                                                               |
+| ------------------ | ------- | ----------------------------------------------------------------------------------------- |
+| task_id            | integer | The identifying number returned when initiating the initialisation process.               |
+| forget_if_finished | boolean | If `true`, will return final response for completed tasks. Optional, defaults to `false`. |
 
 
 #### Response
@@ -133,7 +134,8 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"mmrpc\": \"2.0\",
     \"method\": \"task::init_trezor::status\",
     \"params\": {
-        \"task_id\": 0
+        \"task_id\": 0,
+        \"forget_if_finished\": true
     }
 }
 ```
@@ -438,9 +440,10 @@ The response will return the following:
 
 #### Arguments
 
-| Parameter          | Type    | Description                                                                 |
-| ------------------ | ------- | --------------------------------------------------------------------------- |
-| task_id            | integer | The identifying number returned when initiating the activattion process.    |
+| Parameter          | Type    | Description                                                                               |
+| ------------------ | ------- | ----------------------------------------------------------------------------------------- |
+| task_id            | integer | The identifying number returned when initiating the initialisation process.               |
+| forget_if_finished | boolean | If `true`, will return final response for completed tasks. Optional, defaults to `false`
 
 #### Command
 
@@ -450,7 +453,8 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"mmrpc\": \"2.0\",
     \"method\": \"task::enable_utxo::status\",
     \"params\": {
-        \"task_id\": 0
+        \"task_id\": 0,
+        \"forget_if_finished\": true
     }
 }
 ```
@@ -846,9 +850,10 @@ The response will return the following:
 
 #### Arguments
 
-| Parameter          | Type    | Description                                                                 |
-| ------------------ | ------- | --------------------------------------------------------------------------- |
-| task_id            | integer | The identifying number returned when initiating the activattion process.    |
+| Parameter          | Type    | Description                                                                               |
+| ------------------ | ------- | ----------------------------------------------------------------------------------------- |
+| task_id            | integer | The identifying number returned when initiating the initialisation process.               |
+| forget_if_finished | boolean | If `true`, will return final response for completed tasks. Optional, defaults to `false`
 
 #### Command
 
@@ -858,7 +863,8 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"mmrpc\": \"2.0\",
     \"method\": \"task::enable_qtum::status\",
     \"params\": {
-        \"task_id\": 0
+        \"task_id\": 0,
+        \"forget_if_finished\": true
     }
 }
 ```
