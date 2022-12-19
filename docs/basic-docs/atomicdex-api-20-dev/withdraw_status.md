@@ -7,9 +7,10 @@ After initiating a Z coin withdrawal, you will need to use the `task_id` to chec
 
 #### Arguments
 
-| Structure              | Type              | Description                                                                                                        |
-| ---------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------ |
-| task_id                | integer           | The identifying number returned when initiating the withdraw process.                                              |
+| Parameter          | Type    | Description                                                                               |
+| ------------------ | ------- | ----------------------------------------------------------------------------------------- |
+| task_id            | integer | The identifying number returned when initiating the initialisation process.               |
+| forget_if_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`  |
 
 
 #### Response
@@ -39,11 +40,12 @@ After initiating a Z coin withdrawal, you will need to use the `task_id` to chec
 #!/bin/bash
 source userpass
 curl --url "http://127.0.0.1:7783" --data "{
-    \"mmrpc\":\"2.0\",
-    \"userpass\":\"$userpass\",
-    \"method\":\"task::withdraw::status\",
+    \"mmrpc\": \"2.0\",
+    \"userpass\": \"$userpass\",
+    \"method\": \"task::withdraw::status\",
     \"params\": {
-        \"task_id\":$1
+        \"task_id\": $1,
+        \"forget_if_finished\": false,
     }
     ,\"id\":0
 }"

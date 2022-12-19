@@ -5,9 +5,10 @@ After initiating z coin enabling, you can use the `task_id` to check progress.
 
 #### Arguments
 
-| Structure              | Type              | Description                                                                                                        |
-| ---------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------ |
-| task_id                | integer           | The identifying number returned when initiating the enabling process.                                              |
+| Parameter          | Type    | Description                                                                               |
+| ------------------ | ------- | ----------------------------------------------------------------------------------------- |
+| task_id            | integer | The identifying number returned when initiating the initialisation process.               |
+| forget_if_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`  |
 
 
 #### Response
@@ -32,6 +33,7 @@ curl --url "http://127.0.0.1:7783" --data "
     \"mmrpc\": \"2.0\",
     \"params\": {
         \"task_id\": $1
+        \"forget_if_finished\": false,
     }
 }"
 echo
