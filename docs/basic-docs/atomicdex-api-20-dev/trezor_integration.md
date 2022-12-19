@@ -1178,3 +1178,135 @@ curl --url "http://127.0.0.1:7783" --data "{
 </collapse-text>
 
 </div>
+
+
+- Prepare a transaction with [task::withdraw::init]("#task_withdraw_init")
+- Check the status of the transaction preparation with [task::withdraw::status]("#task_withdraw_status")
+- Cancel the transaction preparation with [task::withdraw::cancel]("#task_withdraw_cancel")
+
+
+# task\_withdraw\_init
+
+To prepare a transaction for signing on your Trezor, we use the `task::withdraw::init` method. It will return the transaction hex, which then needs to be broadcast with the `sendrawtransaction` to complete the withdrawal. There are two methods to let your Trezor know which address to send funds from:
+
+- Using `derivation_path` as a single input. E.g `m/44'/20'/0'/0/2`
+- Using `account_id` (0), `chain` (External) & `address_id` (2) inputs. The bracketed values are the equavalent of the derivation path above.
+
+
+#### Arguments (derivation path option)
+
+| Parameter            | Type    | Description                                                                               |
+| -------------------- | ------- | ----------------------------------------------------------------------------------------- |
+| amount               | integer | The amount you want to withdraw                                                           |
+| coin                 | string  | The coin you want to withdraw                                                             |
+| to                   | string  | The destination address you want to withdraw to                                           |
+| from.derivation_path | string  | Follows the format `m/44'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID`                          |
+
+#### Command
+
+```bash
+curl --url "$url:$port" --data "{
+    \"userpass\": \"$userpass\",
+    \"mmrpc\": \"2.0\",
+    \"method\": \"task::withdraw::init\",
+    \"params\": {
+        \"coin\": \"$1\",
+        \"to\": \"$2\",
+        \"amount\": $3,
+        \"from\": {
+            \"derivation_path\": \"$4\"
+        }
+    }
+}"
+```
+
+#### Arguments (account_id & address_id option)
+
+| Parameter          | Type    | Description                                                                                |
+| ------------------ | ------- | ------------------------------------------------------------------------------------------ |
+| amount             | integer | The amount you want to withdraw                                                            |
+| coin               | string  | The coin you want to withdraw                                                              |
+| to                 | string  | The destination address you want to withdraw to                                            |
+| from.account_id    | integer | Generally this will be `0` unless you have multiple accounts registered on your Trezor     |
+| from.chain         | string  | `Internal`, or `External`. Check the output from coin activation to determine which to use |
+| from.address_id    | integer | Check the output from coin activation to find the ID of an address with balance            |
+
+
+#### Command
+
+```bash
+curl --url "$url:$port" --data "{
+    \"userpass\": \"$userpass\",
+    \"mmrpc\": \"2.0\",
+    \"method\": \"task::withdraw::init\",
+    \"params\": {
+        \"coin\": \"$1\",
+        \"to\": \"$2\",
+        \"amount\": $3,
+        \"from\": {
+            \"account_id\": 0,
+            \"chain\": \"External\",
+            \"address_id\": $4
+        }
+    }
+}"
+```
+
+
+#### Response (ready, successful, Trezor mode)
+
+| Parameter                 | Type                       | Description                                                                                                                                                                                 |
+| ------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| from                      | array of strings           | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                                |
+| to                        | array of strings           | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                                        |
+| my_balance_change         | string (numeric)           | the expected balance of change in `my_address` after the transaction broadcasts                                                                                                             |
+| received_by_me            | string (numeric)           | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the AtomicDEX API send change to `my_address` |
+| spent_by_me               | string (numeric)           | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                                  |
+| total_amount              | string (numeric)           | the total amount of coins transferred                                                                                                                                                       |
+| fee_details               | object                     | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details                                                          |
+| tx_hash                   | string                     | the hash of the generated transaction                                                                                                                                                       |
+| tx_hex                    | string                     | transaction bytes in hexadecimal format; use this value as input for the `send_raw_transaction` method                                                                                      |
+| coin                      | string                     | the name of the coin the user wants to withdraw                                                                                                                                             |
+| kmd_rewards               | object (optional)          | an object containing information about accrued rewards; always exists if the coin is `KMD`                                                                                                  |
+| kmd_rewards.amount        | string (numeric, optional) | the amount of accrued rewards                                                                                                                                                               |
+| kmd_rewards.claimed_by_me | bool (optional)            | whether the rewards been claimed by me                                                                                                                                                      |
+
+
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "status": "Ok",
+        "details": {
+            "tx_hex": "01000000013491ce86d6f55a5748d17be4ce54f5bc2aa1ec776c385f0a5ae198bb58e4171c000000006b483045022100816bd2f782ec9c7ca846a0ffd62ce541b7b82927ef358c8ebb87a344170235cf022074e6b55b5a38d4910dbf3f3c0aba840799af65b737ecbd14aee9824e590e9932012103587baa3738f6b12f500cfc854deec5d46d24748aceb8901d5c46174d3ceec66bffffffff0200f2052a010000001976a91421bf462cf9badbd63d3c69dec4c1d886e0723e8488ac606b042a010000001976a91497db49cfcbaaed2c00d840f6016c05ff7613b76e88ac7419a063",
+            "tx_hash": "8ccf2d19ccd910483d78a145a122adcdda0989d05337553345e1204890f19a48",
+            "from": ["DJz3GeMhqm1afkbEEBJfwH62Df5Nh5kJZU"],
+            "to": ["D8DXyYjZbSstoNkD1iqYhUqBYbSSLqwSug"],
+            "total_amount": "100",
+            "spent_by_me": "100",
+            "received_by_me": "49.999",
+            "my_balance_change": "-50.001",
+            "block_height": 0,
+            "timestamp": 1671436676,
+            "fee_details": {
+                "type": "Utxo",
+                "coin": "DGB",
+                "amount": "0.001"
+            },
+            "coin": "DGB",
+            "internal_id": "",
+            "transaction_type": "StandardTransfer"
+        }
+    },
+    "id": null
+}
+```
+
+</collapse-text>
+
+</div>
