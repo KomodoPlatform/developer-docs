@@ -109,7 +109,7 @@ After running the `task::init_trezor::init` method, we can query the status of d
 | Parameter          | Type    | Description                                                                               |
 | ------------------ | ------- | ----------------------------------------------------------------------------------------- |
 | task_id            | integer | The identifying number returned when initiating the initialisation process.               |
-| forget_if_finished | boolean | If `true`, will return final response for completed tasks. Optional, defaults to `false`. |
+| forget_if_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
 
 
 #### Response
@@ -135,7 +135,7 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"method\": \"task::init_trezor::status\",
     \"params\": {
         \"task_id\": 0,
-        \"forget_if_finished\": true
+        \"forget_if_finished\": false
     }
 }
 ```
@@ -443,7 +443,7 @@ The response will return the following:
 | Parameter          | Type    | Description                                                                               |
 | ------------------ | ------- | ----------------------------------------------------------------------------------------- |
 | task_id            | integer | The identifying number returned when initiating the initialisation process.               |
-| forget_if_finished | boolean | If `true`, will return final response for completed tasks. Optional, defaults to `false`
+| forget_if_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
 
 #### Command
 
@@ -454,7 +454,7 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"method\": \"task::enable_utxo::status\",
     \"params\": {
         \"task_id\": 0,
-        \"forget_if_finished\": true
+        \"forget_if_finished\": false
     }
 }
 ```
@@ -853,7 +853,7 @@ The response will return the following:
 | Parameter          | Type    | Description                                                                               |
 | ------------------ | ------- | ----------------------------------------------------------------------------------------- |
 | task_id            | integer | The identifying number returned when initiating the initialisation process.               |
-| forget_if_finished | boolean | If `true`, will return final response for completed tasks. Optional, defaults to `false`
+| forget_if_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
 
 #### Command
 
@@ -864,7 +864,7 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"method\": \"task::enable_qtum::status\",
     \"params\": {
         \"task_id\": 0,
-        \"forget_if_finished\": true
+        \"forget_if_finished\": false
     }
 }
 ```
