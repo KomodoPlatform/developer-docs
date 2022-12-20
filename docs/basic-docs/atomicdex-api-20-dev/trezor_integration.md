@@ -61,7 +61,7 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"mmrpc\": \"2.0\",
     \"method\": \"task::init_trezor::init\",
     \"params\": {}
-}
+}"
 ```
 
 #### Command (with device_pubkey)
@@ -74,7 +74,7 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"params\": {
         \"device_pubkey\": \"066deb87b0d0500ec2e9b85f5314870b03a53517\"
     }
-}
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -137,7 +137,7 @@ curl --url "http://127.0.0.1:7783" --data "{
         \"task_id\": 0,
         \"forget_if_finished\": false
     }
-}
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -298,7 +298,7 @@ curl --url "http://127.0.0.1:7783" --data "{
             \"pin\": \"862743\"
         }
     }
-}
+}"
 ```
 
 #### Command (for TrezorPassphrase)
@@ -315,7 +315,7 @@ curl --url "http://127.0.0.1:7783" --data "{
             \"passphrase\": \"breakfast\"
         }
     }
-}
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -404,8 +404,7 @@ curl --url "http://127.0.0.1:7783" --data "{
             \"gap_limit\": 20
         }
     }
-}'
-
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -456,7 +455,7 @@ curl --url "http://127.0.0.1:7783" --data "{
         \"task_id\": 0,
         \"forget_if_finished\": false
     }
-}
+}"
 ```
 
 
@@ -725,7 +724,7 @@ curl --url "http://127.0.0.1:7783" --data "{
             \"pin\": \"862743\"
         }
     }
-}
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -815,7 +814,6 @@ curl --url "http://127.0.0.1:7783" --data "{
         }
     }
 }"
-
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -866,7 +864,7 @@ curl --url "http://127.0.0.1:7783" --data "{
         \"task_id\": 0,
         \"forget_if_finished\": false
     }
-}
+}"
 ```
 
 
@@ -1158,7 +1156,7 @@ curl --url "http://127.0.0.1:7783" --data "{
             \"pin\": \"862743\"
         }
     }
-}
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
