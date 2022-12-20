@@ -12,7 +12,10 @@ Below are the new v2 RPC methods for interacting with your Trezor.
 Authentication:
 - Initialise connection with your Trezor with [task::init_trezor::init]("#task_init_trezor_init")
 - Check the status of the connecton with [task::init_trezor::status]("#task_init_trezor_status")
-- Authenitcate usng PIN or phrase with [task::init_trezor::user_action]("#task_init_trezor_user_action")
+- Authenticate using PIN or phrase with [task::init_trezor::user_action]("#task_init_trezor_user_action")
+- Cancel authentication process with [task::init_trezor::cancel]("#task_init_trezor_cancel")
+
+
 
 Coin Activation in Hardware Mode:
 - Use [task::enable_utxo::init]("#task_enable_utxo_init") for UTXO coins like KMD, BTC and DOGE, and check the activation status with [task::enable_utxo::status]("#task_enable_utxo_status")
@@ -231,9 +234,81 @@ Possible "In progress" Cases:
 
 
 
+# task\_init\_trezor\_cancel
+
+Use the `task::init_trezor::cancel` method to cancel the initialisation task.
+
+
+#### Arguments
+
+| Parameter          | Type    | Description                                                                               |
+| ------------------ | ------- | ----------------------------------------------------------------------------------------- |
+| task_id            | integer | The identifying number returned when initiating the initialisation process.               |
+
+
+#### Response
+
+| Parameter          | Type     | Description                                                                            |
+| ------------------ | -------- | -------------------------------------------------------------------------------------- |
+| result             | string   | Returns with value `success` when successful, otherwise returns the error values below |
+| error              | string   | Description of the error                                                               |
+| error_path         | string   | Used for debugging. A reference to the function in code base which returned the error  |
+| error_trace        | string   | Used for debugging. A trace of lines of code which led to the returned error           |
+| error_type         | string   | An enumerated error identifier to indicate the category of error                       |
+| error_data         | string   | Additonal context for the error type                                                   |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+    \"userpass\": \"YOUR_PASS\",
+    \"mmrpc\": \"2.0\",
+    \"method\": \"task::init_trezor::cancel\",
+    \"params\": {
+        \"task_id\": 0
+    }
+}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (ready, successful)
+
+```json
+{
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+}
+```
+
+#### Response (error, task already finished)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Task is finished already",
+    "error_path": "init_hw.manager",
+    "error_trace": "init_hw:209] manager:104]",
+    "error_type": "TaskFinished",
+    "error_data": 0,
+    "id": null
+}
+
+```
+
+</collapse-text>
+
+</div>
+
+
 # task\_init\_trezor\_user\_action
 
-Before using this method, launch the AtomicDEX API, and plug in your Trezor.
+When you see the pin grid on your device, or it asks for a passphrase word, use this method.
 
 
 #### Arguments
@@ -1178,14 +1253,9 @@ curl --url "http://127.0.0.1:7783" --data "{
 </div>
 
 
-- Prepare a transaction with [task::withdraw::init]("#task_withdraw_init")
-- Check the status of the transaction preparation with [task::withdraw::status]("#task_withdraw_status")
-- Cancel the transaction preparation with [task::withdraw::cancel]("#task_withdraw_cancel")
-
-
 # task\_withdraw\_init
 
-To prepare a transaction for signing on your Trezor, we use the `task::withdraw::init` method. It will return the transaction hex, which then needs to be broadcast with the `sendrawtransaction` to complete the withdrawal. There are two methods to let your Trezor know which address to send funds from:
+To prepare a transaction for signing on your Trezor, we use the `task::withdraw::init` method. It will return the transaction hex (via `task::withdraw::status`), which then needs to be broadcast with the [sendrawtransaction](../atomicdex-api-legacy/send_raw_transaction.html) to complete the withdrawal. There are two methods to let your Trezor know which address to send funds from:
 
 - Using `derivation_path` as a single input. E.g `m/44'/20'/0'/0/2`
 - Using `account_id` (0), `chain` (External) & `address_id` (2) inputs. The bracketed values are the equavalent of the derivation path above.
@@ -1200,7 +1270,7 @@ To prepare a transaction for signing on your Trezor, we use the `task::withdraw:
 | to                   | string  | The destination address you want to withdraw to                                           |
 | from.derivation_path | string  | Follows the format `m/44'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID`                          |
 
-#### Command
+#### Command (derivation path option)
 
 ```bash
 curl --url "$url:$port" --data "{
@@ -1230,7 +1300,7 @@ curl --url "$url:$port" --data "{
 | from.address_id    | integer | Check the output from coin activation to find the ID of an address with balance            |
 
 
-#### Command
+#### Command (account_id & address_id option)
 
 ```bash
 curl --url "$url:$port" --data "{
@@ -1249,6 +1319,41 @@ curl --url "$url:$port" --data "{
     }
 }"
 ```
+
+#### Response
+
+| Parameter  | Type    | Description                                               |
+| ---------- | ------- | --------------------------------------------------------- |
+| task_id    | integer | An identifying number which is used to query task status. |
+
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "task_id": 6
+    },
+    "id": null
+}
+
+```
+
+
+# task\_withdraw\_status
+
+To get the status of your withdrawal, use the `task::withdraw::status`, Once ready, it will provide the raw hex used to broadcast your transaction with [sendrawtransaction](../atomicdex-api-legacy/send_raw_transaction.html).
+
+
+#### Arguments
+
+| Parameter          | Type    | Description                                                                               |
+| ------------------ | ------- | ----------------------------------------------------------------------------------------- |
+| task_id            | integer | The identifying number returned when initiating the initialisation process.               |
+| forget_if_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
 
 
 #### Response (ready, successful, Trezor mode)
@@ -1270,10 +1375,21 @@ curl --url "$url:$port" --data "{
 | kmd_rewards.claimed_by_me | bool (optional)            | whether the rewards been claimed by me                                                                                                                                                      |
 
 
+#### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
+#### Command
 
-<collapse-text hidden title="Response">
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+    \"userpass\": \"YOUR_PASS\",
+    \"mmrpc\": \"2.0\",
+    \"method\": \"task::withdraw::status\",
+    \"params\": {
+        \"task_id\": 4,
+        \"forget_if_finished\": false
+    }
+}"
+```
 
 ```json
 {
@@ -1301,6 +1417,77 @@ curl --url "$url:$port" --data "{
             "transaction_type": "StandardTransfer"
         }
     },
+    "id": null
+}
+```
+
+</collapse-text>
+
+</div>
+
+
+# task\_withdraw\_cancel
+
+Use the `task::withdraw::cancel` method to cancel the withdrawal preparation task.
+
+
+#### Arguments
+
+| Parameter          | Type    | Description                                                                               |
+| ------------------ | ------- | ----------------------------------------------------------------------------------------- |
+| task_id            | integer | The identifying number returned when initiating the withdrawal process.                   |
+
+
+#### Response
+
+| Parameter          | Type     | Description                                                                            |
+| ------------------ | -------- | -------------------------------------------------------------------------------------- |
+| result             | string   | Returns with value `success` when successful, otherwise returns the error values below |
+| error              | string   | Description of the error                                                               |
+| error_path         | string   | Used for debugging. A reference to the function in code base which returned the error  |
+| error_trace        | string   | Used for debugging. A trace of lines of code which led to the returned error           |
+| error_type         | string   | An enumerated error identifier to indicate the category of error                       |
+| error_data         | string   | Additonal context for the error type                                                   |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+    \"userpass\": \"YOUR_PASS\",
+    \"mmrpc\": \"2.0\",
+    \"method\": \"task::withdraw::cancel\",
+    \"params\": {
+        \"task_id\": 3
+    }
+}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (ready, successful)
+
+```json
+{
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+}
+```
+
+#### Response (error, task already finished)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Task is finished already",
+    "error_path": "init_withdraw.manager",
+    "error_trace": "init_withdraw:94] manager:104]",
+    "error_type": "TaskFinished",
+    "error_data": 4,
     "id": null
 }
 ```
