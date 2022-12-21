@@ -118,7 +118,7 @@ curl --url "http://127.0.0.1:7783" --data '{
 
 ## Errors
 
-### Error (The platform coin [ex: ETH, ONE, AVAX, BNB etc.,] you are trying to activate is already activated)
+### Error (The platform coin you are trying to activate is already activated)
 
 In this case, you need to [disable](../atomicdex-api-legacy/disable_coin.md) the platform coin and try again.
 
@@ -134,4 +134,107 @@ In this case, you need to [disable](../atomicdex-api-legacy/disable_coin.md) the
 }
 ```
 
-### Error
+### Error (Config of the platform coin you are trying to activate is not found)
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Platform ETH config is not found",
+  "error_path": "platform_coin_with_tokens.prelude",
+  "error_trace": "platform_coin_with_tokens:302] prelude:79]",
+  "error_type": "PlatformConfigIsNotFound",
+  "error_data": "ETH",
+  "id": null
+}
+```
+
+### Error (Parsing the protocol of the platform coin you are trying to activate failed)
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Platform coin ETH protocol parsing failed: invalid type: null, expected adjacently tagged enum CoinProtocol",
+  "error_path": "platform_coin_with_tokens.prelude",
+  "error_trace": "platform_coin_with_tokens:302] prelude:82]",
+  "error_type": "CoinProtocolParseError",
+  "error_data": {
+    "ticker": "ETH",
+    "error": "invalid type: null, expected adjacently tagged enum CoinProtocol"
+  },
+  "id": null
+}
+```
+
+### Error (Unexpected platform protocol found for the platform coin you are trying to activate)
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Unexpected platform protocol QTUM for ETH",
+  "error_path": "platform_coin_with_tokens.prelude.eth_with_token_activation",
+  "error_trace": "platform_coin_with_tokens:302] prelude:90] eth_with_token_activation:64]",
+  "error_type": "UnexpectedPlatformProtocol",
+  "error_data": { "ticker": "ETH", "protocol": { "type": "QTUM" } },
+  "id": null
+}
+```
+
+### Error (Config of the token you are trying to activate is not found)
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Token BTUSD-ERC20 config is not found",
+  "error_path": "platform_coin_with_tokens.prelude",
+  "error_trace": "platform_coin_with_tokens:314] platform_coin_with_tokens:109] prelude:79]",
+  "error_type": "TokenConfigIsNotFound",
+  "error_data": "BTUSD-ERC20",
+  "id": null
+}
+```
+
+### Error (Parsing the protocol of the token you are trying to activate failed)
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Token BUSD-ERC20 protocol parsing failed: unknown variant `TERC20`, expected one of `UTXO`, `QTUM`, `QRC20`, `ETH`, `ERC20`, `SLPTOKEN`, `BCH`, `TENDERMINT`, `TENDERMINTTOKEN`, `LIGHTNING`, `SOLANA`, `SPLTOKEN`, `ZHTLC`",
+  "error_path": "platform_coin_with_tokens.prelude",
+  "error_trace": "platform_coin_with_tokens:314] platform_coin_with_tokens:109] prelude:82]",
+  "error_type": "TokenProtocolParseError",
+  "error_data": {
+    "ticker": "BUSD-ERC20",
+    "error": "unknown variant `TERC20`, expected one of `UTXO`, `QTUM`, `QRC20`, `ETH`, `ERC20`, `SLPTOKEN`, `BCH`, `TENDERMINT`, `TENDERMINTTOKEN`, `LIGHTNING`, `SOLANA`, `SPLTOKEN`, `ZHTLC`"
+  },
+  "id": null
+}
+```
+
+### Error (Unexpected protocol is found in the config of the token you are trying to activate)
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Unexpected token protocol QRC20 { platform: \"ETH\", contract_address: \"0x4Fabb145d64652a948d72533023f6E7A623C7C53\" } for BUSD-ERC20",
+  "error_path": "platform_coin_with_tokens.prelude.erc20_token_activation",
+  "error_trace": "platform_coin_with_tokens:314] platform_coin_with_tokens:109] prelude:90] erc20_token_activation:58]",
+  "error_type": "UnexpectedTokenProtocol",
+  "error_data": {
+    "ticker": "BUSD-ERC20",
+    "protocol": {
+      "type": "QRC20",
+      "protocol_data": {
+        "platform": "ETH",
+        "contract_address": "0x4Fabb145d64652a948d72533023f6E7A623C7C53"
+      }
+    }
+  },
+  "id": null
+}
+```
+
+### Error ()
+
+```json
+
+```
