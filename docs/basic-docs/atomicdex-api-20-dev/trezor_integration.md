@@ -32,6 +32,8 @@ Creating New Addresses:
 - Use [can_get_new_address]("#can_get_new_address") to determine if your current address has been used, or should be updated.
 - Use [get_new_address]("#get_new_address") to generate a new address
 
+**Note:** These methods (and others with a `task::` prefix) will be linked to a numeric `task_id` value which is used to query the status or outcome of the task.
+
 
 # task\_init_trezor\_init
 
