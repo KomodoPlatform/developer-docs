@@ -26,63 +26,63 @@ The AtomicDEX-API supports ETH(Ethereum) and many other EVM type platform coins 
 ## Example
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data '{
-  "userpass": "RPC_CONTROL_USERPASS@123a",
-  "method": "enable_eth_with_tokens",
-  "mmrpc": "2.0",
-  "params": {
-    "ticker": "ETH",
-    "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
-    "gas_station_decimals": 8,
-    "gas_station_policy": {
-      "policy": "MeanAverageFast"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"'$userpass'\",
+  \"method\": \"enable_eth_with_tokens\",
+  \"mmrpc\": \"2.0\",
+  \"params\": {
+    \"ticker\": \"ETH\",
+    \"gas_station_url\": \"https://ethgasstation.info/json/ethgasAPI.json\",
+    \"gas_station_decimals\": 8,
+    \"gas_station_policy\": {
+      \"policy\": \"MeanAverageFast\"
     },
-    "mm2": 1,
-    "priv_key_policy": "ContextPrivKey",
-    "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-    "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
-    "nodes": [
+    \"mm2\": 1,
+    \"priv_key_policy\": \"ContextPrivKey\",
+    \"swap_contract_address\": \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\",
+    \"fallback_swap_contract\": \"0x8500AFc0bc5214728082163326C2FF0C73f4a871\",
+    \"nodes\": [
       {
-        "url": "http://eth1.cipig.net:8555",
-        "gui_auth": false
+        \"url\": \"http://eth1.cipig.net:8555\",
+        \"gui_auth\": false
       },
       {
-        "url": "http://eth2.cipig.net:8555",
-        "gui_auth": false
+        \"url\": \"http://eth2.cipig.net:8555\",
+        \"gui_auth\": false
       },
       {
-        "url": "http://eth3.cipig.net:8555",
-        "gui_auth": false
+        \"url\": \"http://eth3.cipig.net:8555\",
+        \"gui_auth\": false
       },
       {
-        "url": "https://node.komodo.live:8080/ethereum",
-        "gui_auth": true
+        \"url\": \"https://node.komodo.live:8080/ethereum\",
+        \"gui_auth\": true
       }
     ],
-    "rpc_mode": "Http",
-    "tx_history": true,
-    "erc20_tokens_requests": [
+    \"rpc_mode\": \"Http\",
+    \"tx_history\": true,
+    \"erc20_tokens_requests\": [
       {
-        "ticker": "APE-ERC20",
-        "required_confirmations": 4
+        \"ticker\": \"APE-ERC20\",
+        \"required_confirmations\": 4
       },
       {
-        "ticker": "BCH-ERC20",
-        "required_confirmations": 4
+        \"ticker\": \"BCH-ERC20\",
+        \"required_confirmations\": 4
       },
       {
-        "ticker": "MINDS-ERC20",
-        "required_confirmations": 4
+        \"ticker\": \"MINDS-ERC20\",
+        \"required_confirmations\": 4
       },
       {
-        "ticker": "BUSD-ERC20",
-        "required_confirmations": 4
+        \"ticker\": \"BUSD-ERC20\",
+        \"required_confirmations\": 4
       }
     ],
-    "required_confirmations": 5,
-    "requires_notarization": false
+    \"required_confirmations\": 5,
+    \"requires_notarization\": false
   }
-}'
+}"
 ```
 
 ## Response
