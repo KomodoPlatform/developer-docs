@@ -9,17 +9,17 @@ The `enable_slp` method allows you to activate additional SLP tokens. Before usi
 | activation_params.required_confirmations  | integer  | Optional. Confirmations to wait for steps in swap. Defaults to value in the coins file if not set. |
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data '{
-  "userpass":"'$userpass'",
-  "method":"enable_slp",
-  "mmrpc":"2.0",
-  "params":{
-    "ticker":"HONK",
-    "activation_params": {
-      "required_confirmations": 3
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\":\"'$userpass'\",
+  \"method\":\"enable_slp\",
+  \"mmrpc\":\"2.0\",
+  \"params\":{
+    \"ticker\":\"HONK\",
+    \"activation_params\": {
+      \"required_confirmations\": 3
     }
   }
-}'
+}"
 ```
 
 

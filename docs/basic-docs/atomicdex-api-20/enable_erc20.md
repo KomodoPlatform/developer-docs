@@ -8,17 +8,17 @@ The `enable_erc20` method allows you to activate additional ERC20 like tokens of
 | activation_params.required_confirmations | integer | Optional. Confirmations to wait for steps in swap. Defaults to value in the coins file if not set. |
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data '{
-  "userpass":"'$userpass'",
-  "method":"enable_erc20",
-  "mmrpc":"2.0",
-  "params":{
-    "ticker":"BAT-ERC20",
-    "activation_params": {
-      "required_confirmations": 3
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\":\"'$userpass'\",
+  \"method\":\"enable_erc20\",
+  \"mmrpc\":\"2.0\",
+  \"params\":{
+    \"ticker\":\"BAT-ERC20\",
+    \"activation_params\": {
+      \"required_confirmations\": 3
     }
   }
-}'
+}"
 ```
 
 ## Response
