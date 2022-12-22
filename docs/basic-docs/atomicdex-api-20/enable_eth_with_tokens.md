@@ -235,12 +235,6 @@ In this case, you need to [disable](../atomicdex-api-legacy/disable_coin.md) the
 
 ### Misc Errors
 
-- PlatformCoinCreationError
-- PrivKeyNotAllowed
-- UnexpectedDerivationMethod
-- Transport
-- Internal
-
 | Structure                  | Type   | Description                                                   |
 | -------------------------- | ------ | ------------------------------------------------------------- |
 | PlatformCoinCreationError  | string | There was an error when trying to activate the platform coin  |
