@@ -119,19 +119,34 @@ let atomicDEXsidebar = {
       title: "AtomicDEX API (Legacy)",
       collapsable: false,
       children: [
-        ["/basic-docs/atomicdex-api-legacy/batch_requests.md", "batch_requests"],
-        ["/basic-docs/atomicdex-api-legacy/rational_number_note.md", "Note about rational number type"],
+        [
+          "/basic-docs/atomicdex-api-legacy/batch_requests.md",
+          "batch_requests",
+        ],
+        [
+          "/basic-docs/atomicdex-api-legacy/rational_number_note.md",
+          "Note about rational number type",
+        ],
         {
           title: "Coin Activation",
           collapsable: true,
           children: [
-            ["/basic-docs/atomicdex-api-legacy/coin_activation.md", "coin activation"],
+            [
+              "/basic-docs/atomicdex-api-legacy/coin_activation.md",
+              "coin activation",
+            ],
             [
               "/basic-docs/atomicdex-api-legacy/coins_needed_for_kick_start.md",
               "coins_needed_for_kick_start",
             ],
-            ["/basic-docs/atomicdex-api-legacy/disable_coin.md", "disable_coin"],
-            ["/basic-docs/atomicdex-api-legacy/get_enabled_coins.md", "get_enabled_coins"],
+            [
+              "/basic-docs/atomicdex-api-legacy/disable_coin.md",
+              "disable_coin",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/get_enabled_coins.md",
+              "get_enabled_coins",
+            ],
             [
               "/basic-docs/atomicdex-api-legacy/set_required_confirmations.md",
               "set_required_confirmations",
@@ -140,53 +155,119 @@ let atomicDEXsidebar = {
               "/basic-docs/atomicdex-api-legacy/set_requires_notarization.md",
               "set_requires_notarization",
             ],
-          ]
+          ],
         },
         {
           title: "Network",
           collapsable: true,
           children: [
-            ["/basic-docs/atomicdex-api-legacy/get_gossip_mesh.md", "get_gossip_mesh"],
-            ["/basic-docs/atomicdex-api-legacy/get_gossip_peer_topics.md", "get_gossip_peer_topics"],
-            ["/basic-docs/atomicdex-api-legacy/get_gossip_topic_peers.md", "get_gossip_topic_peers"],
-            ["/basic-docs/atomicdex-api-legacy/get_my_peer_id.md","get_my_peer_id",],
-            ["/basic-docs/atomicdex-api-legacy/get_peers_info.md", "get_peers_info"],
-            ["/basic-docs/atomicdex-api-legacy/get_relay_mesh.md", "get_relay_mesh"],
-          ]
+            [
+              "/basic-docs/atomicdex-api-legacy/get_gossip_mesh.md",
+              "get_gossip_mesh",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/get_gossip_peer_topics.md",
+              "get_gossip_peer_topics",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/get_gossip_topic_peers.md",
+              "get_gossip_topic_peers",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/get_my_peer_id.md",
+              "get_my_peer_id",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/get_peers_info.md",
+              "get_peers_info",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/get_relay_mesh.md",
+              "get_relay_mesh",
+            ],
+          ],
         },
         {
           title: "Orders",
           collapsable: true,
           children: [
-          ["/basic-docs/atomicdex-api-legacy/best_orders.md", "best_orders"],
-          ["/basic-docs/atomicdex-api-legacy/buy.md", "buy"],
-          ["/basic-docs/atomicdex-api-legacy/cancel_all_orders.md", "cancel_all_orders"],
-          ["/basic-docs/atomicdex-api-legacy/cancel_order.md", "cancel_order"],
-          ["/basic-docs/atomicdex-api-legacy/my_orders.md", "my_orders"],
-          ["/basic-docs/atomicdex-api-legacy/orderbook.md", "orderbook"],
-          ["/basic-docs/atomicdex-api-legacy/orderbook_depth.md", "orderbook_depth"],
-          ["/basic-docs/atomicdex-api-legacy/orders_history_by_filter.md", "orders_history_by_filter"],
-          ["/basic-docs/atomicdex-api-legacy/order_status.md", "order_status"],
-          ["/basic-docs/atomicdex-api-legacy/recover_funds_of_swap.md", "recover_funds_of_swap"],
-          ["/basic-docs/atomicdex-api-legacy/sell.md", "sell"],
-          ["/basic-docs/atomicdex-api-legacy/setprice.md", "setprice"],
-          ["/basic-docs/atomicdex-api-legacy/update_maker_order.md", "update_maker_order"],
-          ]
+            ["/basic-docs/atomicdex-api-legacy/best_orders.md", "best_orders"],
+            ["/basic-docs/atomicdex-api-legacy/buy.md", "buy"],
+            [
+              "/basic-docs/atomicdex-api-legacy/cancel_all_orders.md",
+              "cancel_all_orders",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/cancel_order.md",
+              "cancel_order",
+            ],
+            ["/basic-docs/atomicdex-api-legacy/my_orders.md", "my_orders"],
+            ["/basic-docs/atomicdex-api-legacy/orderbook.md", "orderbook"],
+            [
+              "/basic-docs/atomicdex-api-legacy/orderbook_depth.md",
+              "orderbook_depth",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/orders_history_by_filter.md",
+              "orders_history_by_filter",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/order_status.md",
+              "order_status",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/recover_funds_of_swap.md",
+              "recover_funds_of_swap",
+            ],
+            ["/basic-docs/atomicdex-api-legacy/sell.md", "sell"],
+            ["/basic-docs/atomicdex-api-legacy/setprice.md", "setprice"],
+            [
+              "/basic-docs/atomicdex-api-legacy/update_maker_order.md",
+              "update_maker_order",
+            ],
+          ],
         },
         {
           title: "Swaps",
           collapsable: true,
           children: [
-            ["/basic-docs/atomicdex-api-legacy/active_swaps.md", "active_swaps"],
-            ["/basic-docs/atomicdex-api-legacy/all_swaps_uuids_by_filter.md", "all_swaps_uuids_by_filter"],
-            ["/basic-docs/atomicdex-api-legacy/get_trade_fee.md", "get_trade_fee"],
-            ["/basic-docs/atomicdex-api-legacy/import_swaps.md", "import_swaps"],
-            ["/basic-docs/atomicdex-api-legacy/min_trading_vol.md", "min_trading_vol"],
-            ["/basic-docs/atomicdex-api-legacy/max_taker_vol.md", "max_taker_vol"],
-            ["/basic-docs/atomicdex-api-legacy/my_recent_swaps.md", "my_recent_swaps"],
-            ["/basic-docs/atomicdex-api-legacy/my_swap_status.md", "my_swap_status"],
-            ["/basic-docs/atomicdex-api-legacy/trade_preimage.md", "trade_preimage"]
-          ]
+            [
+              "/basic-docs/atomicdex-api-legacy/active_swaps.md",
+              "active_swaps",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/all_swaps_uuids_by_filter.md",
+              "all_swaps_uuids_by_filter",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/get_trade_fee.md",
+              "get_trade_fee",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/import_swaps.md",
+              "import_swaps",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/min_trading_vol.md",
+              "min_trading_vol",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/max_taker_vol.md",
+              "max_taker_vol",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/my_recent_swaps.md",
+              "my_recent_swaps",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/my_swap_status.md",
+              "my_swap_status",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/trade_preimage.md",
+              "trade_preimage",
+            ],
+          ],
         },
         {
           title: "Utility",
@@ -194,26 +275,53 @@ let atomicDEXsidebar = {
           children: [
             ["/basic-docs/atomicdex-api-legacy/ban_pubkey.md", "ban_pubkey"],
             ["/basic-docs/atomicdex-api-legacy/help.md", "help"],
-            ["/basic-docs/atomicdex-api-legacy/list_banned_pubkeys.md","list_banned_pubkeys"],
+            [
+              "/basic-docs/atomicdex-api-legacy/list_banned_pubkeys.md",
+              "list_banned_pubkeys",
+            ],
             ["/basic-docs/atomicdex-api-legacy/stop.md", "stop"],
-            ["/basic-docs/atomicdex-api-legacy/unban_pubkeys.md", "unban_pubkeys"],
+            [
+              "/basic-docs/atomicdex-api-legacy/unban_pubkeys.md",
+              "unban_pubkeys",
+            ],
             ["/basic-docs/atomicdex-api-legacy/version.md", "version"],
-          ]
+          ],
         },
         {
           title: "Wallet",
           collapsable: true,
           children: [
-            ["/basic-docs/atomicdex-api-legacy/convertaddress.md", "convertaddress"],
-            ["/basic-docs/atomicdex-api-legacy/convert_utxo_address.md", "convert_utxo_address"],
-            ["/basic-docs/atomicdex-api-legacy/kmd_rewards_info.md", "kmd_rewards_info"],
+            [
+              "/basic-docs/atomicdex-api-legacy/convertaddress.md",
+              "convertaddress",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/convert_utxo_address.md",
+              "convert_utxo_address",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/kmd_rewards_info.md",
+              "kmd_rewards_info",
+            ],
             ["/basic-docs/atomicdex-api-legacy/my_balance.md", "my_balance"],
-            ["/basic-docs/atomicdex-api-legacy/my_tx_history.md", "my_tx_history"],
-            ["/basic-docs/atomicdex-api-legacy/send_raw_transaction.md", "send_raw_transaction"],
-            ["/basic-docs/atomicdex-api-legacy/show_priv_key.md", "show_priv_key"],
-            ["/basic-docs/atomicdex-api-legacy/validateaddress.md", "validateaddress"],
+            [
+              "/basic-docs/atomicdex-api-legacy/my_tx_history.md",
+              "my_tx_history",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/send_raw_transaction.md",
+              "send_raw_transaction",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/show_priv_key.md",
+              "show_priv_key",
+            ],
+            [
+              "/basic-docs/atomicdex-api-legacy/validateaddress.md",
+              "validateaddress",
+            ],
             ["/basic-docs/atomicdex-api-legacy/withdraw.md", "withdraw"],
-          ]
+          ],
         },
       ],
     },
@@ -223,20 +331,25 @@ let atomicDEXsidebar = {
       title: "AtomicDEX API 2.0 (Master)",
       collapsable: false,
       children: [
-        ["/basic-docs/atomicdex-api-20/", "AtomicDEX-API RPC Protocol v2.0 (Master)"],
+        [
+          "/basic-docs/atomicdex-api-20/",
+          "AtomicDEX-API RPC Protocol v2.0 (Master)",
+        ],
         {
           title: "Coin Activation",
           collapsable: true,
           children: [
             [
               "/basic-docs/atomicdex-api-20/enable_bch_with_tokens.md",
-              "enable_bch_with_slp_tokens",
+              "enable_bch_with_tokens",
             ],
+            ["/basic-docs/atomicdex-api-20/enable_slp.md", "enable_slp"],
             [
-              "/basic-docs/atomicdex-api-20/enable_slp.md",
-              "enable_slp",
+              "/basic-docs/atomicdex-api-20/enable_eth_with_tokens.md",
+              "enable_eth_with_tokens",
             ],
-          ]
+            ["/basic-docs/atomicdex-api-20/enable_erc20.md", "enable_erc20"],
+          ],
         },
         {
           title: "Market Maker Bot",
@@ -253,19 +366,16 @@ let atomicDEXsidebar = {
             [
               "/basic-docs/atomicdex-api-20/telegram_alerts.md",
               "telegram_alerts",
-            ]
-          ]
+            ],
+          ],
         },
-        [
-          "/basic-docs/atomicdex-api-20/message_signing.md",
-          "Message Signing",
-        ],
+        ["/basic-docs/atomicdex-api-20/message_signing.md", "Message Signing"],
         {
           title: "Orders",
           collapsable: true,
           children: [
             ["/basic-docs/atomicdex-api-20/best_orders.md", "best_orders"],
-          ]
+          ],
         },
         {
           title: "Seednode Version Stats",
@@ -290,8 +400,8 @@ let atomicDEXsidebar = {
             [
               "/basic-docs/atomicdex-api-20/update_version_stat_collection.md",
               "update_version_stat_collection",
-            ]
-          ]
+            ],
+          ],
         },
         {
           title: "Staking",
@@ -308,27 +418,42 @@ let atomicDEXsidebar = {
             [
               "/basic-docs/atomicdex-api-20/remove_delegation.md",
               "remove_delegation",
-            ]
-          ]
+            ],
+          ],
         },
         {
           title: "Swaps",
           collapsable: true,
           children: [
-            ["/basic-docs/atomicdex-api-20/recreate_swap_data.md", "recreate_swap_data"],
-            ["/basic-docs/atomicdex-api-20/trade_preimage.md", "trade_preimage"]
-          ]
+            [
+              "/basic-docs/atomicdex-api-20/recreate_swap_data.md",
+              "recreate_swap_data",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/trade_preimage.md",
+              "trade_preimage",
+            ],
+          ],
         },
         {
           title: "Wallet",
           collapsable: true,
           children: [
-            ["/basic-docs/atomicdex-api-20/get_public_key.md", "get_public_key"],
-            ["/basic-docs/atomicdex-api-20/get_public_key_hash.md", "get_public_key_hash"],
-            ["/basic-docs/atomicdex-api-20/get_raw_transaction.md", "get_raw_transaction"],
+            [
+              "/basic-docs/atomicdex-api-20/get_public_key.md",
+              "get_public_key",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/get_public_key_hash.md",
+              "get_public_key_hash",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/get_raw_transaction.md",
+              "get_raw_transaction",
+            ],
             ["/basic-docs/atomicdex-api-20/my_tx_history.md", "my_tx_history"],
             ["/basic-docs/atomicdex-api-20/withdraw.md", "withdraw"],
-          ]
+          ],
         },
       ],
     },
@@ -338,16 +463,22 @@ let atomicDEXsidebar = {
       title: "AtomicDEX API 2.0 (Dev)",
       collapsable: false,
       children: [
-        ["/basic-docs/atomicdex-api-20-dev/", "AtomicDEX-API RPC Protocol v2.0 (Dev)"],
+        [
+          "/basic-docs/atomicdex-api-20-dev/",
+          "AtomicDEX-API RPC Protocol v2.0 (Dev)",
+        ],
         {
           title: "Utility",
           collapsable: true,
           children: [
-            ["/basic-docs/atomicdex-api-20-dev/get_current_mtp.md", "get_current_mtp"]
-          ]
-        }
-      ]
-    }
-  ]
+            [
+              "/basic-docs/atomicdex-api-20-dev/get_current_mtp.md",
+              "get_current_mtp",
+            ],
+          ],
+        },
+      ],
+    },
+  ],
 };
 module.exports = atomicDEXsidebar;

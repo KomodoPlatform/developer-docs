@@ -1,4 +1,4 @@
-# enable_eth_with_tokens
+# enable\_eth\_with\_tokens
 
 The AtomicDEX-API supports ETH(Ethereum) and many other EVM type platform coins like AVAX(Avalanche), BNB(Binance), FTM(Fantom), MATIC(Polygon), ONE(Harmony), ETH-ARB20(Arbitrum) . Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 like tokens on the rest of the platform coin chains. Using this method, you can enable a platform coin along with multiple ERC20 like tokens of the platform coin chain in a single command.
 
@@ -233,8 +233,18 @@ In this case, you need to [disable](../atomicdex-api-legacy/disable_coin.md) the
 }
 ```
 
-### Error ()
+### Misc Errors
 
-```json
+- PlatformCoinCreationError
+- PrivKeyNotAllowed
+- UnexpectedDerivationMethod
+- Transport
+- Internal
 
-```
+| Structure                  | Type   | Description                                                   |
+| -------------------------- | ------ | ------------------------------------------------------------- |
+| PlatformCoinCreationError  | string | There was an error when trying to activate the platform coin  |
+| PrivKeyNotAllowed          | string | The privkey is not allowed                                    |
+| UnexpectedDerivationMethod | string | The derivation method used is unexpected                      |
+| Transport                  | string | The request was failed due to a network error                 |
+| InternalError              | string | The request was failed due to an AtomicDEX API internal error |

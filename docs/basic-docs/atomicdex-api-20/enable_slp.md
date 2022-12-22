@@ -5,7 +5,7 @@ The `enable_slp` method allows you to activate additional SLP tokens. Before usi
 
 | parameter                                 | Type     | Description                               |
 | ----------------------------------------- | -------- | ----------------------------------------- |
-| ticker                                    | string   | Ticker of the platform BCH protocol coin. |
+| ticker                                    | string   | Ticker of the SLP token. |
 | activation_params.required_confirmations  | integer  | Optional. Confirmations to wait for steps in swap. Defaults to value in the coins file if not set. |
 
 ```bash
