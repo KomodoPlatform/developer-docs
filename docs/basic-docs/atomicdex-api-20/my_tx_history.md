@@ -112,7 +112,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"'$userpass'\",
+  \"userpass\":\"$userpass\",
   \"method\":\"my_tx_history\",
   \"mmrpc\":\"2.0\",
   \"params\": {
