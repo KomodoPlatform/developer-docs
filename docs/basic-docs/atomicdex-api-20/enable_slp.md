@@ -10,7 +10,7 @@ The `enable_slp` method allows you to activate additional SLP tokens. Before usi
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"'$userpass'\",
+  \"userpass\":\"$userpass\",
   \"method\":\"enable_slp\",
   \"mmrpc\":\"2.0\",
   \"params\":{

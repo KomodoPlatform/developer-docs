@@ -23,7 +23,7 @@ The AtomicDEX-API supports Bitcoin Cash SLP tokens. Using this method, you can e
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"'$userpass'\",
+  \"userpass\":\"$userpass\",
   \"method\":\"enable_bch_with_tokens\",
   \"mmrpc\":\"2.0\",
   \"params\":{
@@ -63,7 +63,7 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"tx_history\":true,
     \"slp_tokens_requests\":[
       {
-        \"ticker\":\"ASLP\",
+        \"ticker\":\"ASLP-SLP\",
         \"required_confirmations\": 4
       }
     ],

@@ -15,18 +15,18 @@ This method currently works only for BCH and SLP protocols. Implementation for a
 
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data '{
-  "userpass":"'$userpass'",
-  "method":"my_tx_history",
-  "mmrpc":"2.0",
-  "params": {
-    "coin": "tBCH",
-    "limit": 2,
-    "paging_options": {
-      "PageNumber": 2
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\":\"$userpass\",
+  \"method\":\"my_tx_history\",
+  \"mmrpc\":\"2.0\",
+  \"params\": {
+    \"coin\": \"tBCH\",
+    \"limit\": 2,
+    \"paging_options\": {
+      \"PageNumber\": 2
     }
   }
-}'
+}"
 ```
 
 
@@ -111,18 +111,18 @@ curl --url "http://127.0.0.1:7783" --data '{
 # Request (HONK with FromId)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data '{
-  "userpass":"'$userpass'",
-  "method":"my_tx_history",
-  "mmrpc":"2.0",
-  "params": {
-    "coin": "HONK",
-    "limit": 2,
-    "paging_options": {
-      "FromId": "433b641bc89e1b59c22717918583c60ec98421805c8e85b064691705d9aeb970"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\":\"'$userpass'\",
+  \"method\":\"my_tx_history\",
+  \"mmrpc\":\"2.0\",
+  \"params\": {
+    \"coin\": \"HONK\",
+    \"limit\": 2,
+    \"paging_options\": {
+      \"FromId\": \"433b641bc89e1b59c22717918583c60ec98421805c8e85b064691705d9aeb970\"
     }
   }
-}'
+}"
 ```
 
 
