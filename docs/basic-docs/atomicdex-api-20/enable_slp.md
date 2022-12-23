@@ -14,7 +14,7 @@ curl --url "http://127.0.0.1:7783" --data "{
   \"method\":\"enable_slp\",
   \"mmrpc\":\"2.0\",
   \"params\":{
-    \"ticker\":\"HONK\",
+    \"ticker\":\"SPICE-SLP\",
     \"activation_params\": {
       \"required_confirmations\": 3
     }
@@ -62,11 +62,11 @@ curl --url "http://127.0.0.1:7783" --data "{
 ```json
 {
   "mmrpc":"2.0",
-  "error":"Token HONK is already activated",
+  "error":"Token SPICE-SLP is already activated",
   "error_path":"token",
   "error_trace":"token:95]",
   "error_type":"TokenIsAlreadyActivated",
-  "error_data":"HONK",
+  "error_data":"SPICE-SLP",
   "id":null
 }
 ```
@@ -77,11 +77,11 @@ curl --url "http://127.0.0.1:7783" --data "{
 ```json
 {
   "mmrpc":"2.0",
-  "error":"Token HONK-WRONG config is not found",
+  "error":"Token SPICE-SLP-WRONG config is not found",
   "error_path":"token.prelude",
   "error_trace":"token:98] prelude:56]",
   "error_type":"TokenConfigIsNotFound",
-  "error_data":"HONK-WRONG",
+  "error_data":"SPICE-SLP-WRONG",
   "id":null
 }
 ```
