@@ -21,6 +21,7 @@ When running the AtomicDEX API via commandline with the `mm2` binary, some basic
 | rpc_local_only | boolean           | If `false` the AtomicDEX API will allow rpc methods sent from external IP addresses. Optional, defaults to `true`. **Warning:** Only use this if you know what you are doing, and have put the appropriate security measures in place. |
 | i_am_seed      | boolean           | Runs AtomicDEX API as a seed node mode (acting as a relay for AtomicDEX API clients). Optional, defaults to `false`. Use of this mode is not reccomended on the main network (7777) as it could result in a pubkey ban if non-compliant. on alternative testing or private networks, at least one seed node is required to relay information to other AtomicDEX API clients using the same netID.                                            |
 | seednodes      | list of strings   | Optional. If operating on a test or private netID, the IP address of at least one seed node is required (on the main network, these are already hardcoded)  |
+| hd_account_id  | integer           | Optional. If this value is set, the AtomicDEX-API will work in only the HD derivation mode, coins will need to have a coin derivation path entry in the `coins` file for activation. The `hd_account_id` value effectively takes its place in the full derivation as follows: `m/44'/COIN_ID'/<hd_account_id>'/CHAIN/ADDRESS_ID` |
 
 
 Example (allowing weak password):

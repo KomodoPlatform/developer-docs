@@ -422,7 +422,7 @@ UTXO coins are activated using this method. For QTUM coins, refer to [task::enab
 | ----------------------------- | ------- | ------------------------------------------------------------------------------- |
 | ticker                        | string  | The ticker of tyhe coin you want to enable.                                     |
 | activation_params             | object  | An object containing the actvation parameters below.                            |
-| .priv_key_policy              | string  | Defaults to `IguanaPrivKey`. Set as `Trezor` to activate in Trezor mode.        |
+| .priv_key_policy              | string  | Defaults to `ContextPrivkey`. Set as `Trezor` to activate in Trezor mode.        |
 | .min_addresses_number         | integer | How many additional addreesses to generate at a minimum.                        |
 | .scan_policy                  | string  | Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the AtomicDEX-API. |
 | .gap_limit                    | integer | The max number of empty addresses in a row. If transactions were sent to an address outside the `gap_limit`, they will not be identified when scanning.                     |
@@ -831,7 +831,7 @@ UTXO coins are activated using this method. For UTXO coins, refer to [task::enab
 | ----------------------------- | ------- | ------------------------------------------------------------------------------- |
 | ticker                        | string  | The ticker of tyhe coin you want to enable.                                     |
 | activation_params             | object  | An object containing the actvation parameters below.                            |
-| .priv_key_policy              | string  | Defaults to `IguanaPrivKey`. Set as `Trezor` to activate in Trezor mode.        |
+| .priv_key_policy              | string  | Defaults to `ContextPrivkey`. Set as `Trezor` to activate in Trezor mode.        |
 | .min_addresses_number         | integer | How many additional addreesses to generate at a minimum.                        |
 | .scan_policy                  | string  | Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the AtomicDEX-API. |
 | .gap_limit                    | integer | The max number of empty addresses in a row. If transactions were sent to an address outside the `gap_limit`, they will not be identified when scanning.                     |
