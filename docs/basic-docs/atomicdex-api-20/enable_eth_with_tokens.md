@@ -27,7 +27,7 @@ The AtomicDEX-API supports ETH(Ethereum) and many other EVM type platform coins 
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\": \"'$userpass'\",
+  \"userpass\": \"$userpass\",
   \"method\": \"enable_eth_with_tokens\",
   \"mmrpc\": \"2.0\",
   \"params\": {

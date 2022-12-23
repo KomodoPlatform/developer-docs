@@ -9,7 +9,7 @@ The `enable_erc20` method allows you to activate additional ERC20 like tokens of
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
-  \"userpass\":\"'$userpass'\",
+  \"userpass\":\"$userpass\",
   \"method\":\"enable_erc20\",
   \"mmrpc\":\"2.0\",
   \"params\":{
