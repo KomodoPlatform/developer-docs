@@ -11,7 +11,7 @@ This method currently works only for BCH and SLP protocols. Implementation for a
 | paging_options.PageNumber                 | integer  | Optional. AtomicDEX API will return limit swaps from the selected page. Ignored if `FromId` . | 
 
 
-# Request (tBCH from page 2)
+# Request (BCH from page 2)
 
 
 ```bash
@@ -20,7 +20,7 @@ curl --url "http://127.0.0.1:7783" --data "{
   \"method\":\"my_tx_history\",
   \"mmrpc\":\"2.0\",
   \"params\": {
-    \"coin\": \"tBCH\",
+    \"coin\": \"BCH\",
     \"limit\": 2,
     \"paging_options\": {
       \"PageNumber\": 2
@@ -33,77 +33,77 @@ curl --url "http://127.0.0.1:7783" --data "{
 ## Response
 ```json
 {
-  "mmrpc":"2.0",
-  "result":{
-    "coin":"tBCH",
-    "current_block":1480496,
-    "transactions":[
+  "mmrpc": "2.0",
+  "result": {
+    "coin": "BCH",
+    "target": {
+      "type": "iguana"
+    },
+    "current_block": 772607,
+    "transactions": [
       {
-        "tx_hex":"0100000001a789174935fb6af2d669b52d03e4dc37dbf0d6afced2d598c54bb692c02367d7010000006b483045022100c3fee0b751f098debd3cfd6befdcd7210f192840143655dee95157c20c9731920220548dab4ddaabd4da92c838d036853a97d6ab98af6d4d8894f82f261c9ed14aa34121036879df230663db4cd083c8eeb0f293f46abc460ad3c299b0089b72e6d472202cffffffff013dfcad00000000001976a9148cfffc2409d063437d6aa8b75a009b9ba51b71fc88acda865161",
-        "tx_hash":"091877294268b2b1734255067146f15c3ac5e6199e72cd4f68a8d9dec32bb0c0",
-        "from":[
-          "bchtest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsnnczzt66"
+        "tx_hex": "0100000001b7b45d92f8f3413a0e5656258e0a51f5c7e8230c0a08cef2ebec1ddbb8f7c28200000000d747304402203ca957fdfcfbba6123d78afe28b17fd4103cc04f6ada4110eb61c2a0350c29b802204215f203d583e8bcc79bd70f33af4f4e27500b5a5375efe75a1c31ec112f3c344120b3f71dbea00eeace7f09b0911de31e46f76a48036b86ccc207dac55540912e01004c6b6304dbf67563b175210315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732ac6782012088a914dde61fe24ea3cfa39379c475702692fa2f080900882103ed00156316c46094c0cbcf21a5ee549a1b3a50938c43096ef499ca28059edca6ac68ffffffff0133980200000000001976a91411a1563bfa55ae05fa621b2e245abe5a358c852e88acdbf67563",
+        "tx_hash": "e2167df56142bccdb8c620297f1b6ca3f7c8a955332838430d4d0f62530870f9",
+        "from": [
+          "bitcoincash:ppaa62685yaucdf2a54g3rgtyc9g7yawrvvmqsfumc"
         ],
-        "to":[
-          "bchtest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsnnczzt66"
+        "to": [
+          "bitcoincash:qqg6z43mlf26up06vgdjufz6hedrtry99cvk5dgcnt"
         ],
-        "total_amount":"0.11403301",
-        "spent_by_me":"0.11403301",
-        "received_by_me":"0.11402301",
-        "my_balance_change":"-0.00001000",
-        "block_height":1467009,
-        "timestamp":1632733367,
-        "fee_details":{
-          "type":"Utxo",
-          "coin":"tBCH",
-          "amount":"0.00001"
+        "total_amount": "0.00171035",
+        "spent_by_me": "0",
+        "received_by_me": "0.00170035",
+        "my_balance_change": "0.00170035",
+        "block_height": 766923,
+        "timestamp": 1668615553,
+        "fee_details": {
+          "type": "Utxo",
+          "coin": "BCH",
+          "amount": "0.00001"
         },
-        "coin":"tBCH",
-        "internal_id":"091877294268b2b1734255067146f15c3ac5e6199e72cd4f68a8d9dec32bb0c0",
-        "transaction_type":"StandardTransfer",
-        "confirmations":13488
+        "coin": "BCH",
+        "internal_id": "e2167df56142bccdb8c620297f1b6ca3f7c8a955332838430d4d0f62530870f9",
+        "transaction_type": "StandardTransfer",
+        "confirmations": 5685
       },
       {
-        "tx_hex":"010000000190e35c09c83b5818b441c18a2d5ec54734851e5581fb21bde7936e77c6c3dca8030000006b483045022100e6b1415cbd81f2d04360597fba65965bc77ab5a972f5b8f8d5c0f1b1912923c402206a63f305f03e9c49ffba6c71c7a76ef60631f67dce7631f673a0e8485b86898d4121036879df230663db4cd083c8eeb0f293f46abc460ad3c299b0089b72e6d472202cffffffff020000000000000000376a04534c500001010453454e4420bb309e48930671582bea508f9a1d9b491e49b69be3d6f372dc08da2ac6e90eb70800000000000003e82500ae00000000001976a9148cfffc2409d063437d6aa8b75a009b9ba51b71fc88ac62715161",
-        "tx_hash":"d76723c092b64bc598d5d2ceafd6f0db37dce4032db569d6f26afb35491789a7",
-        "from":[
-          "bchtest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsnnczzt66"
+        "tx_hex": "0100000001eccfa8c296e7b3e229be28a8ca6a5e5a7e89ee07a2d9441faaf5905679286a3c00000000d7473044022077d38ae45bb7257b152d4cb803aab62ca879cab60e9b3a7ca05ef099078e000402203106be31513c6526c14bdf40b28b4d38f78bb1958fc995e040ac4b2165d9d79141203bffadbc5bf035674f0d0f6e1d1a121fc6d404720679ff9b6610b298b41375a3004c6b6304bc847463b175210315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732ac6782012088a91457c7ce14c0444edc37ee52ed32b68890b0647cd3882103ed00156316c46094c0cbcf21a5ee549a1b3a50938c43096ef499ca28059edca6ac68ffffffff0163b10200000000001976a91411a1563bfa55ae05fa621b2e245abe5a358c852e88acbc847463",
+        "tx_hash": "98ddc27aa161967519f53cb3e91146a23b76ac4e33605f8e827c69f4d9b6de37",
+        "from": [
+          "bitcoincash:ppnzkha52y53d7r7qn6mq4mcmaadmxzj4clfgneaxv"
         ],
-        "to":[
-          "bchtest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsnnczzt66"
+        "to": [
+          "bitcoincash:qqg6z43mlf26up06vgdjufz6hedrtry99cvk5dgcnt"
         ],
-        "total_amount":"0.11404301",
-        "spent_by_me":"0.11404301",
-        "received_by_me":"0.11403301",
-        "my_balance_change":"-0.00001000",
-        "block_height":1467000,
-        "timestamp":1632728165,
-        "fee_details":{
-          "type":"Utxo",
-          "coin":"tBCH",
-          "amount":"0.00001"
+        "total_amount": "0.00177483",
+        "spent_by_me": "0",
+        "received_by_me": "0.00176483",
+        "my_balance_change": "0.00176483",
+        "block_height": 766752,
+        "timestamp": 1668519015,
+        "fee_details": {
+          "type": "Utxo",
+          "coin": "BCH",
+          "amount": "0.00001"
         },
-        "coin":"tBCH",
-        "internal_id":"d76723c092b64bc598d5d2ceafd6f0db37dce4032db569d6f26afb35491789a7",
-        "transaction_type":"StandardTransfer",
-        "confirmations":13497
+        "coin": "BCH",
+        "internal_id": "98ddc27aa161967519f53cb3e91146a23b76ac4e33605f8e827c69f4d9b6de37",
+        "transaction_type": "StandardTransfer",
+        "confirmations": 5856
       }
     ],
-    "sync_status":{
-      "state":"InProgress",
-      "additional_info":{
-        "transactions_left":123
-      }
+    "sync_status": {
+      "state": "Finished"
     },
-    "limit":2,
-    "skipped":2,
-    "total":9,
-    "total_pages":5,
-    "paging_options":{
-      "PageNumber":2
+    "limit": 2,
+    "skipped": 2,
+    "total": 16,
+    "total_pages": 8,
+    "paging_options": {
+      "PageNumber": 2
     }
   },
-  "id":null
+  "id": null
 }
 ```
 
