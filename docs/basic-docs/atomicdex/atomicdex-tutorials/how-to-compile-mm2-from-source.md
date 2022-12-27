@@ -20,6 +20,13 @@ sudo apt update
 sudo apt-get install build-essential git jq llvm-dev libclang-dev clang cmake libssl-dev pkg-config
 ```
 
+For rpm-based distributions:
+
+```bash
+sudo dnf groupinstall "Development Tools"
+sudo dnf install jq clang cmake openssl-devel clang-devel libzstd systemd-devel  # systemd-devel is used for libudev dep instead of pkg-config
+```
+
 #### Step 2: Install Rust
 
 ##### Command
