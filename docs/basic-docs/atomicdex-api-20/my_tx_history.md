@@ -11,118 +11,118 @@ This method currently works only for BCH and SLP protocols. Implementation for a
 | paging_options.PageNumber                 | integer  | Optional. AtomicDEX API will return limit swaps from the selected page. Ignored if `FromId` . | 
 
 
-# Request (tBCH from page 2)
+# Request (BCH from page 2)
 
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data '{
-  "userpass":"'$userpass'",
-  "method":"my_tx_history",
-  "mmrpc":"2.0",
-  "params": {
-    "coin": "tBCH",
-    "limit": 2,
-    "paging_options": {
-      "PageNumber": 2
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\":\"$userpass\",
+  \"method\":\"my_tx_history\",
+  \"mmrpc\":\"2.0\",
+  \"params\": {
+    \"coin\": \"BCH\",
+    \"limit\": 2,
+    \"paging_options\": {
+      \"PageNumber\": 2
     }
   }
-}'
+}"
 ```
 
 
 ## Response
 ```json
 {
-  "mmrpc":"2.0",
-  "result":{
-    "coin":"tBCH",
-    "current_block":1480496,
-    "transactions":[
+  "mmrpc": "2.0",
+  "result": {
+    "coin": "BCH",
+    "target": {
+      "type": "iguana"
+    },
+    "current_block": 772607,
+    "transactions": [
       {
-        "tx_hex":"0100000001a789174935fb6af2d669b52d03e4dc37dbf0d6afced2d598c54bb692c02367d7010000006b483045022100c3fee0b751f098debd3cfd6befdcd7210f192840143655dee95157c20c9731920220548dab4ddaabd4da92c838d036853a97d6ab98af6d4d8894f82f261c9ed14aa34121036879df230663db4cd083c8eeb0f293f46abc460ad3c299b0089b72e6d472202cffffffff013dfcad00000000001976a9148cfffc2409d063437d6aa8b75a009b9ba51b71fc88acda865161",
-        "tx_hash":"091877294268b2b1734255067146f15c3ac5e6199e72cd4f68a8d9dec32bb0c0",
-        "from":[
-          "bchtest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsnnczzt66"
+        "tx_hex": "0100000001b7b45d92f8f3413a0e5656258e0a51f5c7e8230c0a08cef2ebec1ddbb8f7c28200000000d747304402203ca957fdfcfbba6123d78afe28b17fd4103cc04f6ada4110eb61c2a0350c29b802204215f203d583e8bcc79bd70f33af4f4e27500b5a5375efe75a1c31ec112f3c344120b3f71dbea00eeace7f09b0911de31e46f76a48036b86ccc207dac55540912e01004c6b6304dbf67563b175210315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732ac6782012088a914dde61fe24ea3cfa39379c475702692fa2f080900882103ed00156316c46094c0cbcf21a5ee549a1b3a50938c43096ef499ca28059edca6ac68ffffffff0133980200000000001976a91411a1563bfa55ae05fa621b2e245abe5a358c852e88acdbf67563",
+        "tx_hash": "e2167df56142bccdb8c620297f1b6ca3f7c8a955332838430d4d0f62530870f9",
+        "from": [
+          "bitcoincash:ppaa62685yaucdf2a54g3rgtyc9g7yawrvvmqsfumc"
         ],
-        "to":[
-          "bchtest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsnnczzt66"
+        "to": [
+          "bitcoincash:qqg6z43mlf26up06vgdjufz6hedrtry99cvk5dgcnt"
         ],
-        "total_amount":"0.11403301",
-        "spent_by_me":"0.11403301",
-        "received_by_me":"0.11402301",
-        "my_balance_change":"-0.00001000",
-        "block_height":1467009,
-        "timestamp":1632733367,
-        "fee_details":{
-          "type":"Utxo",
-          "coin":"tBCH",
-          "amount":"0.00001"
+        "total_amount": "0.00171035",
+        "spent_by_me": "0",
+        "received_by_me": "0.00170035",
+        "my_balance_change": "0.00170035",
+        "block_height": 766923,
+        "timestamp": 1668615553,
+        "fee_details": {
+          "type": "Utxo",
+          "coin": "BCH",
+          "amount": "0.00001"
         },
-        "coin":"tBCH",
-        "internal_id":"091877294268b2b1734255067146f15c3ac5e6199e72cd4f68a8d9dec32bb0c0",
-        "transaction_type":"StandardTransfer",
-        "confirmations":13488
+        "coin": "BCH",
+        "internal_id": "e2167df56142bccdb8c620297f1b6ca3f7c8a955332838430d4d0f62530870f9",
+        "transaction_type": "StandardTransfer",
+        "confirmations": 5685
       },
       {
-        "tx_hex":"010000000190e35c09c83b5818b441c18a2d5ec54734851e5581fb21bde7936e77c6c3dca8030000006b483045022100e6b1415cbd81f2d04360597fba65965bc77ab5a972f5b8f8d5c0f1b1912923c402206a63f305f03e9c49ffba6c71c7a76ef60631f67dce7631f673a0e8485b86898d4121036879df230663db4cd083c8eeb0f293f46abc460ad3c299b0089b72e6d472202cffffffff020000000000000000376a04534c500001010453454e4420bb309e48930671582bea508f9a1d9b491e49b69be3d6f372dc08da2ac6e90eb70800000000000003e82500ae00000000001976a9148cfffc2409d063437d6aa8b75a009b9ba51b71fc88ac62715161",
-        "tx_hash":"d76723c092b64bc598d5d2ceafd6f0db37dce4032db569d6f26afb35491789a7",
-        "from":[
-          "bchtest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsnnczzt66"
+        "tx_hex": "0100000001eccfa8c296e7b3e229be28a8ca6a5e5a7e89ee07a2d9441faaf5905679286a3c00000000d7473044022077d38ae45bb7257b152d4cb803aab62ca879cab60e9b3a7ca05ef099078e000402203106be31513c6526c14bdf40b28b4d38f78bb1958fc995e040ac4b2165d9d79141203bffadbc5bf035674f0d0f6e1d1a121fc6d404720679ff9b6610b298b41375a3004c6b6304bc847463b175210315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732ac6782012088a91457c7ce14c0444edc37ee52ed32b68890b0647cd3882103ed00156316c46094c0cbcf21a5ee549a1b3a50938c43096ef499ca28059edca6ac68ffffffff0163b10200000000001976a91411a1563bfa55ae05fa621b2e245abe5a358c852e88acbc847463",
+        "tx_hash": "98ddc27aa161967519f53cb3e91146a23b76ac4e33605f8e827c69f4d9b6de37",
+        "from": [
+          "bitcoincash:ppnzkha52y53d7r7qn6mq4mcmaadmxzj4clfgneaxv"
         ],
-        "to":[
-          "bchtest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsnnczzt66"
+        "to": [
+          "bitcoincash:qqg6z43mlf26up06vgdjufz6hedrtry99cvk5dgcnt"
         ],
-        "total_amount":"0.11404301",
-        "spent_by_me":"0.11404301",
-        "received_by_me":"0.11403301",
-        "my_balance_change":"-0.00001000",
-        "block_height":1467000,
-        "timestamp":1632728165,
-        "fee_details":{
-          "type":"Utxo",
-          "coin":"tBCH",
-          "amount":"0.00001"
+        "total_amount": "0.00177483",
+        "spent_by_me": "0",
+        "received_by_me": "0.00176483",
+        "my_balance_change": "0.00176483",
+        "block_height": 766752,
+        "timestamp": 1668519015,
+        "fee_details": {
+          "type": "Utxo",
+          "coin": "BCH",
+          "amount": "0.00001"
         },
-        "coin":"tBCH",
-        "internal_id":"d76723c092b64bc598d5d2ceafd6f0db37dce4032db569d6f26afb35491789a7",
-        "transaction_type":"StandardTransfer",
-        "confirmations":13497
+        "coin": "BCH",
+        "internal_id": "98ddc27aa161967519f53cb3e91146a23b76ac4e33605f8e827c69f4d9b6de37",
+        "transaction_type": "StandardTransfer",
+        "confirmations": 5856
       }
     ],
-    "sync_status":{
-      "state":"InProgress",
-      "additional_info":{
-        "transactions_left":123
-      }
+    "sync_status": {
+      "state": "Finished"
     },
-    "limit":2,
-    "skipped":2,
-    "total":9,
-    "total_pages":5,
-    "paging_options":{
-      "PageNumber":2
+    "limit": 2,
+    "skipped": 2,
+    "total": 16,
+    "total_pages": 8,
+    "paging_options": {
+      "PageNumber": 2
     }
   },
-  "id":null
+  "id": null
 }
 ```
 
 
-# Request (HONK with FromId)
+# Request (TTT-SLP with FromId)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data '{
-  "userpass":"'$userpass'",
-  "method":"my_tx_history",
-  "mmrpc":"2.0",
-  "params": {
-    "coin": "HONK",
-    "limit": 2,
-    "paging_options": {
-      "FromId": "433b641bc89e1b59c22717918583c60ec98421805c8e85b064691705d9aeb970"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\":\"$userpass\",
+  \"method\":\"my_tx_history\",
+  \"mmrpc\":\"2.0\",
+  \"params\": {
+    \"coin\": \"TTT-SLP\",
+    \"limit\": 2,
+    \"paging_options\": {
+      \"FromId\": \"433b641bc89e1b59c22717918583c60ec98421805c8e85b064691705d9aeb970\"
     }
   }
-}'
+}"
 ```
 
 
@@ -130,75 +130,43 @@ curl --url "http://127.0.0.1:7783" --data '{
 
 ```json
 {
-  "mmrpc":"2.0",
-  "result":{
-    "coin":"USDF",
-    "current_block":1480496,
-    "transactions":[
-      {
-        "tx_hex":"010000000270fba4f0921a57c550bfe911fa436757cc65f56825f2ff0581aed9775a72fb9c020000006b483045022100c0b9faeb97307ed33db1ac5c5b1b189d7b18267676a3e01d65a48d310651779302205e5be1e1d5ebfeed6994f52c1cc1af2908ff2d9d9b7eb846c7e715e9673e228a4121036879df230663db4cd083c8eeb0f293f46abc460ad3c299b0089b72e6d472202cffffffff70fba4f0921a57c550bfe911fa436757cc65f56825f2ff0581aed9775a72fb9c030000006b483045022100965eed3d4152262adbacc52f928b59385480cd4ef44e899d2064a6f38503794902205cebbf1abaab0c116f4b63417cdf6a13dd681cf75e520e26caa7257f9064c6454121036879df230663db4cd083c8eeb0f293f46abc460ad3c299b0089b72e6d472202cffffffff040000000000000000406a04534c500001010453454e4420bb309e48930671582bea508f9a1d9b491e49b69be3d6f372dc08da2ac6e90eb70800000000000003e808000000000000f9e7e80300000000000017a914fe9318c279369c68cb240c88ef2c2df18cea63e087e8030000000000001976a9148cfffc2409d063437d6aa8b75a009b9ba51b71fc88acd7bf4601000000001976a9148cfffc2409d063437d6aa8b75a009b9ba51b71fc88acc3c7ee60",
-        "tx_hash":"eebc3d0d231be6a0569c197ffad3f97ab7b0f1d64631640807babae509c918f4",
-        "from":[
-          "slptest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsg8lecug8"
-        ],
-        "to":[
-          "slptest:prlfxxxz0ymfc6xtysxg3mev9hcce6nruq74at6frt",
-          "slptest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsg8lecug8"
-        ],
-        "total_amount":"6.4975",
-        "spent_by_me":"6.4975",
-        "received_by_me":"6.3975",
-        "my_balance_change":"-0.1000",
-        "block_height":1456229,
-        "timestamp":1626261653,
-        "fee_details":{
-          "type":"Utxo",
-          "coin":"tBCH",
-          "amount":"0.00002"
+  "mmrpc": "2.0",
+    "result": {
+        "coin": "TTT-SLP",
+        "target": {
+            "type": "iguana"
         },
-        "coin":"USDF",
-        "internal_id":"cd6ec10b0cd9747ddc66ac5c97c2d7b493e8cea191bc2d847b3498719d4bd989",
-        "transaction_type":{
-          "TokenTransfer":"bb309e48930671582bea508f9a1d9b491e49b69be3d6f372dc08da2ac6e90eb7"
+        "current_block": 772612,
+        "transactions": [{
+            "tx_hex": "0200000002365a29eb638da7fc57720ad6c99fdbc6cfb9c957920cfb62fd69e494b412c1c1020000006b483045022100de81bca8cfef2f95b3da8aa89edf4f5cc6cf489c565d0965b8142380ef3986f1022062d6ed47f2cd281f4860a27e835949aafbab89eeb0865fbf2280a283dfb7c417412102b9fdfedefde71b21523974b9f24a4b6a1b83c5640b839baa6eb14418cae08191ffffffffc1f73b403f893f93d95b8c7dfa1b59bb5445109d4c51107da1e08fb770e54136010000006a47304402203658375dac3b84ae17e72cf3f5157b8ad25e7caee0629fa8708868974f8d58b402206f38d016ed4e390d783627441685692d21b889d83919abd39368cba28f43f544412102b9fdfedefde71b21523974b9f24a4b6a1b83c5640b839baa6eb14418cae08191ffffffff040000000000000000406a04534c500001010453454e44205321508197ffed321c5fc9a1427e5c68b31d2c1ec92ae1c495f8acb08d8d66cd080000000000002710080000002278c569d322020000000000001976a914d346067e3c3c3964c395fee208594790e29ede5d88ac22020000000000001976a914580af35e3553d57b4b3a2036f4959f10246e98c788ac68955e03000000001976a914580af35e3553d57b4b3a2036f4959f10246e98c788ac00000000",
+            "tx_hash": "7b58248f3486079951a57d6dbd41c019a83f2b876c9fa3afa6fcc5a7c595b837",
+            "from": ["simpleledger:qpvq4u67x4fa276t8gsrday4nugzgm5ccu4usawss8"],
+            "to": ["simpleledger:qpvq4u67x4fa276t8gsrday4nugzgm5ccu4usawss8", "simpleledger:qrf5vpn78s7rjexrjhlwyzzeg7gw98k7t5va3wuz4v"],
+            "total_amount": "1480551016.67",
+            "spent_by_me": "0",
+            "received_by_me": "100",
+            "my_balance_change": "100",
+            "block_height": 772211,
+            "timestamp": 1671817336,
+            "fee_details": {
+                "type": "Utxo",
+                "coin": "BCH",
+                "amount": "0.00000482"
+            },
+            "coin": "TTT-SLP",
+            "internal_id": "57b78eb912a704921640a589d8bb42bb147dfb88c3d1b4b2e3df910be6b9ab31",
+            "transaction_type": {
+                "TokenTransfer": "5321508197ffed321c5fc9a1427e5c68b31d2c1ec92ae1c495f8acb08d8d66cd"
+            },
+            "confirmations": 402
+        }],
+        "sync_status": {
+            "state": "Finished"
         },
-        "confirmations":24268
-      },
-      {
-        "tx_hex":"01000000026fd35b26526cebfc7df0b229bde298b04aa853c0499c4c54c12df0118ed84052020000006a47304402203bd00a6a61434abb4fe4359aad6991e28eeb224fc1f4524309bebca89fbe5807022062a38c4e1da944942c6722141df6bae9c44c07ed52fd736e1f8c75e15aaf99f44121036879df230663db4cd083c8eeb0f293f46abc460ad3c299b0089b72e6d472202cffffffff6fd35b26526cebfc7df0b229bde298b04aa853c0499c4c54c12df0118ed84052030000006b483045022100909a8d0be19172c68c2889f240b1531d4a921bf9df8d081fce172d95c7a971cd02206ab0de0ed044b002341e72678106c558cd5e8565352fd78dcdf88a574c409a754121036879df230663db4cd083c8eeb0f293f46abc460ad3c299b0089b72e6d472202cffffffff040000000000000000406a04534c500001010453454e4420bb309e48930671582bea508f9a1d9b491e49b69be3d6f372dc08da2ac6e90eb708000000000000000108000000000000fdcfe8030000000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88ace8030000000000001976a9148cfffc2409d063437d6aa8b75a009b9ba51b71fc88ac8fcb4601000000001976a9148cfffc2409d063437d6aa8b75a009b9ba51b71fc88acc0c7ee60",
-        "tx_hash":"9cfb725a77d9ae8105fff22568f565cc576743fa11e9bf50c5571a92f0a4fb70",
-        "from":[
-          "slptest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsg8lecug8"
-        ],
-        "to":[
-          "slptest:qr9pupr5t6x2p3sd33vgz5ca2xlvgur58u8m6uhlr8",
-          "slptest:qzx0llpyp8gxxsmad25twksqnwd62xm3lsg8lecug8"
-        ],
-        "total_amount":"6.4976",
-        "spent_by_me":"6.4976",
-        "received_by_me":"6.4975",
-        "my_balance_change":"-0.0001",
-        "block_height":1456229,
-        "timestamp":1626261653,
-        "fee_details":{
-          "type":"Utxo",
-          "coin":"tBCH",
-          "amount":"0.00002"
-        },
-        "coin":"USDF",
-        "internal_id":"1c1e68357cf5a6dacb53881f13aa5d2048fe0d0fab24b76c9ec48f53884bed97",
-        "transaction_type":{
-          "TokenTransfer":"bb309e48930671582bea508f9a1d9b491e49b69be3d6f372dc08da2ac6e90eb7"
-        },
-        "confirmations":24268
-      }
-    ],
-    "sync_status":{
-      "state":"Finished"
-    },
-    "limit":2,
-    "skipped":6,
-    "total":121,
-    "total_pages":61,
+    "limit":10,
+    "skipped":0,
+    "total":1,
+    "total_pages":1,
     "paging_options":{
       "FromId":"433b641bc89e1b59c22717918583c60ec98421805c8e85b064691705d9aeb970"
     }
@@ -210,13 +178,13 @@ curl --url "http://127.0.0.1:7783" --data '{
 ## Error - Coin not active
 ```json
 {
-  "mmrpc":"2.0",
-  "error":"USDF",
-  "error_path":"my_tx_history_v2.lp_coins",
-  "error_trace":"my_tx_history_v2:324] lp_coins:1924]",
-  "error_type":"CoinIsNotActive",
-  "error_data":"USDF",
-  "id":null
+  "mmrpc": "2.0",
+  "error": "TTT-SLP",
+  "error_path": "my_tx_history_v2.lp_coins",
+  "error_trace": "my_tx_history_v2:389] lp_coins:2847]",
+  "error_type": "CoinIsNotActive",
+  "error_data": "TTT-SLP",
+  "id": null
 }
 ```
 
@@ -224,11 +192,11 @@ curl --url "http://127.0.0.1:7783" --data '{
 ```json
 {
   "mmrpc":"2.0",
-  "error":"BNBT",
+  "error":"TTT-SLP",
   "error_path":"my_tx_history_v2",
   "error_trace":"my_tx_history_v2:336]",
   "error_type":"NotSupportedFor",
-  "error_data":"BNBT",
+  "error_data":"TTT-SLP",
   "id":null
 }
 ```
@@ -237,11 +205,11 @@ curl --url "http://127.0.0.1:7783" --data '{
 ```json
 {
   "mmrpc":"2.0",
-  "error":"Storage is not initialized for BCH",
+  "error":"Storage is not initialized for TTT-SLP",
   "error_path":"my_tx_history_v2",
   "error_trace":"my_tx_history_v2:343]",
   "error_type":"StorageIsNotInitialized",
-  "error_data":"Storage is not initialized for BCH",
+  "error_data":"Storage is not initialized for TTT-SLP",
   "id":null
 }
 ```
