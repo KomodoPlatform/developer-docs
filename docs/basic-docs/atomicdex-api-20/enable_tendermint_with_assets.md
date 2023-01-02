@@ -75,6 +75,20 @@ curl --url "http://127.0.0.1:7783" --data "{
 }
 ```
 
+## Error (Platform coin is already activated)
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "IRIS",
+  "error_path": "platform_coin_with_tokens",
+  "error_trace": "platform_coin_with_tokens:297]",
+  "error_type": "PlatformIsAlreadyActivated",
+  "error_data": "IRIS",
+  "id": null
+}
+```
+
 ### Error (Parsing the protocol of the platform coin you are trying to activate failed)
 
 ```json
