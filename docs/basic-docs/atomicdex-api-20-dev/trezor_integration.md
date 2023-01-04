@@ -32,6 +32,9 @@ Creating New Addresses:
 - Use [can_get_new_address]("#can_get_new_address") to determine if your current address has been used, or should be updated.
 - Use [get_new_address]("#get_new_address") to generate a new address
 
+Additional information about Hardware Error response types:
+- [HwError error type details](#Details_for_HwError_error_type)
+
 **Note:** These methods (and others with a `task::` prefix) will be linked to a numeric `task_id` value which is used to query the status or outcome of the task.
 
 
@@ -143,6 +146,53 @@ curl --url "http://127.0.0.1:7783" --data "{
 }"
 ```
 
+#### Response (in progress)
+
+Possible "In progress" Cases:
+
+- `Initializing` - This is the normal task state. It does not require any action from the user.
+
+- `WaitingForTrezorToConnect` - The AtomicDEX API is waiting for the user to plugin a Trezor device.
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "status": "InProgress",
+        "details": "WaitingForTrezorToConnect"
+    },
+    "id": null
+}
+```
+
+- `FollowHwDeviceInstructions` - The AtomicDEX API is waiting for the user to follow instructions displayed on the device (e.g. clicking a button to confirm).
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "status": "InProgress",
+        "details": "FollowHwDeviceInstructions"
+    },
+    "id": null
+}
+```
+
+- `UserActionRequired` - This will either be `EnterTrezorPin` or `EnterTrezorPassphrase`. Refer to the [task::init_trezor::user_action]("#task_trezor_user_action") section for more information.
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "status": "UserActionRequired",
+        "details": "EnterTrezorPin"
+    },
+    "id": null
+}
+```
+
+</collapse-text>
+
+</div>
+
+
 <div style="margin-top: 0.5rem;">
 
 <collapse-text hidden title="Response">
@@ -168,69 +218,47 @@ curl --url "http://127.0.0.1:7783" --data "{
 }
 ```
 
-#### Response (ready, error)
-
-Possible Error Cases:
+#### Error Responses (by `error_type`)
+:
 - `HwContextInitializingAlready` - Returned if user calls `task::init_trezor::init` before the previous `task::init_trezor::init` task has been completed.
-- `Timeout` - Timed out while trying to connect to a device.
-- `HwError` - There is a problem with the hardware. Check the details in error_data field for more information.
-- `NoTrezorDeviceAvailable` - No Trezor device detected by the AtomicDEX API.
-- `FoundMultipleDevices` - Multiple Trezor devices are pluged in. Remove the additional devices, and keep the one you want to use plugged in.
-- `FoundUnexpectedDevice` - The connected Trezor device has a different pubkey value than what was specified in the `device_pubkey` parameter during the `task::init_trezor::init` request.
-
-
 ```json
 {
     "mmrpc": "2.0",
     "result": {
         "status": "Error",
         "details": {
-            "error": "Found unexpected device. Please re-initialize Hardware wallet",
-            "error_path": "lib.common_impl.coin_balance.utxo_common.hd_pubkey.hw_ctx",
-            "error_trace": "lib:93] common_impl:46] coin_balance:304] utxo_common:163] hd_pubkey:176] hw_ctx:149]",
-            "error_type": "HwError",
-            "error_data": "FoundUnexpectedDevice"
+            "error": "Hardware Wallet context is initializing already",
+            "error_path": "init_hw.crypto_ctx",
+            "error_trace": "init_hw:151] crypto_ctx:235]",
+            "error_type": "HwContextInitializingAlready"
         }
     },
     "id": null
 }
 ```
 
-#### Response (in progress)
-
-Possible "In progress" Cases:
-
-- `Initializing` - This is the normal task state. It does not require any action from the user.
-- `WaitingForTrezorToConnect` - The AtomicDEX API is waiting for the user to plugin a Trezor device.
-- `FollowHwDeviceInstructions` - The AtomicDEX API is waiting for the user to follow instructions displayed on the device (e.g. clicking a button to confirm).
-- `UserActionRequired` - This will either be `EnterTrezorPin` or `EnterTrezorPassphrase`. Refer to the [task::init_trezor::user_action]("#task_trezor_user_action") section for more information.
-
-
+- `Timeout` - Task timed out while trying to connect to a device.
 ```json
 {
     "mmrpc": "2.0",
     "result": {
-        "status": "InProgress",
-        "details": "FollowHwDeviceInstructions"
+        "status": "Error",
+        "details": {
+            "error": "RPC timed out 300s",
+            "error_path": "init_hw.crypto_ctx.hw_client",
+            "error_trace": "init_hw:151] crypto_ctx:248] crypto_ctx:354] hw_client:156]",
+            "error_type": "Timeout",
+            "error_data": {
+                "secs": 300,
+                "nanos": 0
+            }
+        }
     },
     "id": null
 }
 ```
 
-```json
-{
-    "mmrpc": "2.0",
-    "result": {
-        "status": "UserActionRequired",
-        "details": "EnterTrezorPin"
-    },
-    "id": null
-}
-```
-
-</collapse-text>
-
-</div>
+- `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](#Details_for_HwError_error_type) for more info.
 
 
 
@@ -319,7 +347,7 @@ When you see the pin grid on your device, or it asks for a passphrase word, use 
 | user_action                  | object          | Object containing the params below                                          |
 | user_action.action_type      | string          | Either `TrezorPin` or `TrezorPassphrase`, depending on which is requested by responses from related methods returning `"status": "UserActionRequired"`                                            |
 | user_action.pin              | string (number) | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information.  |
-| user_action.passphrase       | string          | The [passphrase](https://trezor.io/learn/a/passphrases-and-hidden-wallets) functions like an extra word added to your recovery seed, and it used to access hidden wallets.                        |
+| user_action.passphrase       | string          | The [passphrase](https://trezor.io/learn/a/passphrases-and-hidden-wallets) functions like an extra word added to your recovery seed, and it used to access hidden wallets. To access the default wallet, input an empty string here. |
 
 
 <div style="margin: 2rem; text-align: center; width: 80%">
@@ -724,10 +752,7 @@ Possible In Progress Cases:
 Possible Error Cases:
 - `TaskTimedOut` - Timed out waiting for coin activation, connecting to the device trezor or for user to confirm pubkey)
 - `CoinCreationError` - Error during activation. E.g. incorrect or inactive electrum servers.
-- `HwError` - There is a problem with the hardware. Check the details in error_data field for more information.
-- `NoTrezorDeviceAvailable` - No Trezor device detected by the AtomicDEX API.
-- `FoundMultipleDevices` - Multiple Trezor devices are pluged in. Remove the additional devices, and keep the one you want to use plugged in.
-- `FoundUnexpectedDevice` - The connected Trezor device has a different pubkey value than what was specified in the `device_pubkey` parameter during the `task::init_trezor::init` request.
+- `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](#Details_for_HwError_error_type) for more info.
 
 
 <div style="margin-top: 0.5rem;">
@@ -823,7 +848,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 # task\_enable\_qtum\_init
 
-UTXO coins are activated using this method. For UTXO coins, refer to [task::enable_utxo::init]("#task_enable_utxo_init")
+QTUM coins are activated using this method. For UTXO coins, refer to [task::enable_utxo::init]("#task_enable_utxo_init")
 
 #### Arguments
 
@@ -928,7 +953,7 @@ The response will return the following:
 | task_id            | integer | The identifying number returned when initiating the initialisation process.               |
 | forget_if_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
 
-#### Command
+#### Request
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
@@ -1133,10 +1158,7 @@ Possible In Progress Cases:
 Possible Error Cases:
 - `TaskTimedOut` - Timed out waiting for coin activation, connecting to the device trezor or for user to confirm pubkey)
 - `CoinCreationError` - Error during activation. E.g. incorrect or inactive electrum servers.
-- `HwError` - There is a problem with the hardware. Check the details in error_data field for more information.
-- `NoTrezorDeviceAvailable` - No Trezor device detected by the AtomicDEX API.
-- `FoundMultipleDevices` - Multiple Trezor devices are pluged in. Remove the additional devices, and keep the one you want to use plugged in.
-- `FoundUnexpectedDevice` - The connected Trezor device has a different pubkey value than what was specified in the `device_pubkey` parameter during the `task::init_trezor::init` request.
+- `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](#Details_for_HwError_error_type) for more info.
 
 
 <div style="margin-top: 0.5rem;">
@@ -1255,7 +1277,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 # task\_withdraw\_init
 
-To prepare a transaction for signing on your Trezor, we use the `task::withdraw::init` method. It will return the transaction hex (via `task::withdraw::status`), which then needs to be broadcast with the [sendrawtransaction](../atomicdex-api-legacy/send_raw_transaction.html) to complete the withdrawal. There are two methods to let your Trezor know which address to send funds from:
+To prepare a transaction for signing on your Trezor, we use the `task::withdraw::init` method. It will return the transaction hex (via `task::withdraw::status`), which then needs to be broadcast with the [sendrawtransaction](../atomicdex-api-legacy/send_raw_transaction.html) to complete the withdrawal. This method is uses the same input fields as the [standard v2 withdraw method](../atomicdex-api-20/withdraw.html), with additional fields to specify the `from` address. There are two methods to let your Trezor know which address to send funds from:
 
 - Using `derivation_path` as a single input. E.g `m/44'/20'/0'/0/2`
 - Using `account_id` (0), `chain` (External) & `address_id` (2) inputs. The bracketed values are the equavalent of the derivation path above.
@@ -1339,14 +1361,13 @@ curl --url "$url:$port" --data "{
     },
     "id": null
 }
-
 ```
 
 
 # task\_withdraw\_status
 
 To get the status of your withdrawal, use the `task::withdraw::status`, Once ready, it will provide the raw hex used to broadcast your transaction with [sendrawtransaction](../atomicdex-api-legacy/send_raw_transaction.html).
-
+The response returned here is the same as returned from the [standard v2 withdraw method](../atomicdex-api-20/withdraw.html#response)
 
 #### Arguments
 
@@ -1922,3 +1943,50 @@ curl --url "$url:$port" --data "{
 </collapse-text>
 
 </div>
+
+
+
+# Details\_for\_HwError\_error\_type
+
+When requesting the status of a task, if an `error_type` of `HwError` is returned, the GUI / User should check the details in `error_data` field to know which action is required (as detailed below).
+
+ - `FoundUnexpectedDevice` - The connected Trezor device has a different pubkey value than what was specified in the `device_pubkey` parameter 
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "status": "Error",
+        "details": {
+            "error": "Found unexpected device. Please re-initialize Hardware wallet",
+            "error_path": "lib.common_impl.coin_balance.utxo_common.hd_pubkey.hw_ctx",
+            "error_trace": "lib:93] common_impl:46] coin_balance:304] utxo_common:163] hd_pubkey:176] hw_ctx:149]",
+            "error_type": "HwError",
+            "error_data": "FoundUnexpectedDevice"
+        }
+    },
+    "id": null
+}
+```
+
+ - `FoundMultipleDevices` - Multiple Trezor devices are plugged in. Remove the additional devices, and keep the one you want to use plugged in.
+```json
+
+```
+
+ - `NoTrezorDeviceAvailable` - No Trezor device detected by the AtomicDEX API. Make sure it is plugged in, or try a different USB cable / port.
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "status": "Error",
+        "details": {
+            "error": "No Trezor device available",
+            "error_path": "init_hw.crypto_ctx.hw_ctx.response.usb.libusb",
+            "error_trace": "init_hw:151] crypto_ctx:248] crypto_ctx:354] hw_ctx:120] response:136] usb:46] libusb:195]",
+            "error_type": "HwError",
+            "error_data": "NoTrezorDeviceAvailable"
+        }
+    },
+    "id": null
+}
+```
