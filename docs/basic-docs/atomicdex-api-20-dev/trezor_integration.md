@@ -1970,7 +1970,20 @@ When requesting the status of a task, if an `error_type` of `HwError` is returne
 
  - `FoundMultipleDevices` - Multiple Trezor devices are plugged in. Remove the additional devices, and keep the one you want to use plugged in.
 ```json
-
+{
+  "mmrpc": "2.0",
+  "result": {
+    "status": "Error",
+    "details": {
+      "error": "Found multiple devices. Please unplug unused devices",
+      "error_path": "init_hw.crypto_ctx.hw_client",
+      "error_trace": "init_hw:151] crypto_ctx:248] crypto_ctx:354] hw_client:152] hw_client:126]",
+      "error_type": "HwError",
+      "error_data": "FoundMultipleDevices"
+    }
+  },
+  "id": null
+}
 ```
 
  - `NoTrezorDeviceAvailable` - No Trezor device detected by the AtomicDEX API. Make sure it is plugged in, or try a different USB cable / port.
