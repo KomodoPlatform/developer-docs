@@ -7,19 +7,21 @@ Z coins, like Pirate (ARRR) and the test coin ZOMBIE take a little longer to ena
 
 #### Arguments
 
-| Structure                                 | Type            | Description                                                                                                                                                          |
-| ----------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ticker                                    | string          | Ticker of coin to activate                                                                                                                                           |
-| activation_params                         | object          | Contains details required for activation as explained below                                                                                                          |
-| activation_params.required_confirmations  | integer         | Block confirmations to wait for transactions when doing a swap. Optional, defaults to `3`. Overrides value if set in `coins` file.                                            |
-| activation_params.requires_notarization   | boolean         | For [dPoW](https://komodoplatform.com/en/blog/dpow-demystified/) protected coins, a `true` value will wait for transactions to be notarised when doing swaps. Optional, defaults to `false`. Overrides value if set in `coins` file.  |
-| activation_params.mode.rpc                | string          | Set as `Light` to use external electrum & lightwallet_d servers or `Native` to use local block chain data. If native, the `rpc_data` fields below are not required.  |
-| activation_params.mode.rpc_data           | list of objects | Contains details about servers to be used for `Light` mode operation.                                                                                                |
-| ..rpc_data.electrum_servers.protocol      | string          | Transport protocol used by AtomicDEX API to connect to the electrum server (`TCP` or `SSL`). Optional, defaults to `TCP`                                             |
-| ..rpc_data.electrum_servers.urls          | string          | Urls which are hosting electrum servers                                                                                                                              |
-| ...electrum_servers.disable_cert_verification | boolean     | If `true`, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). <b>Use at your own risk</b>                                  |
-| ..rpc_data.light_wallet_d_servers         | list of strings | Urls which are hosting lightwallet_d servers                                                                                                                         |
-| activation_params.zcash_params_path       | string          | Optional. Path to folder containing [Zcash parameters](https://z.cash/technology/paramgen/). Defaults to standard location as defined in [this guide](https://forum.komodoplatform.com/t/installing-zcash-params/603) |
+| Structure                                     | Type            | Description                                                                                                                                                          |
+| --------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ticker                                        | string          | Ticker of coin to activate                                                                                                                                           |
+| activation_params                             | object          | Contains details required for activation as explained below                                                                                                          |
+| activation_params.required_confirmations      | integer         | Block confirmations to wait for transactions when doing a swap. Optional, defaults to `3`. Overrides value if set in `coins` file.                                   |
+| activation_params.requires_notarization       | boolean         | For [dPoW](https://komodoplatform.com/en/blog/dpow-demystified/) protected coins, a `true` value will wait for transactions to be notarised when doing swaps. Optional, defaults to `false`. Overrides value if set in `coins` file.  |
+| activation_params.mode.rpc                    | string          | Set as `Light` to use external electrum & lightwallet_d servers or `Native` to use local block chain data. If native, the `rpc_data` fields below are not required.  |
+| activation_params.mode.rpc_data               | list of objects | Contains details about servers to be used for `Light` mode operation.                                                                                                |
+| ..rpc_data.light_wallet_d_servers             | list of strings | Urls which are hosting lightwallet_d servers                                                                                                                         |
+| ..rpc_data.electrum_servers                   | list of objects | Contains additional details about a coins electrum servers.                                                                                                          |
+| ...electrum_servers.protocol                  | string          | Transport protocol used by AtomicDEX API to connect to the electrum server (`TCP` or `SSL`). Optional, defaults to `TCP`                                             |
+| ...electrum_servers.url                       | string          | The URL and port of an electrum server                                                                                                                               |
+| ...electrum_servers.disable_cert_verification | boolean         | If `true`, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). <b>Use at your own risk</b>                                  |
+| activation_params.zcash_params_path           | string          | Optional. Path to folder containing [Zcash parameters](https://z.cash/technology/paramgen/). Defaults to standard location as defined in [this guide](https://forum.komodoplatform.com/t/installing-zcash-params/603) |
+
 
 
 
