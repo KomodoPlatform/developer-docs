@@ -253,7 +253,6 @@ Possible "In progress" Cases:
 }
 ```
 
-
 - `NoSuchTask` - Something went wrong or `task::init_trezor::init` was not called. Refer to the [task::init_trezor::init](#task_init_trezor_init) section for more information.
 ```json
 {
@@ -1308,16 +1307,16 @@ To prepare a transaction for signing on your Trezor, we use the `task::withdraw:
 #### Command (derivation path option)
 
 ```bash
-curl --url "$url:$port" --data "{
+curl --url "http://127.0.0.1:7783" --data "{
     \"userpass\": \"$userpass\",
     \"mmrpc\": \"2.0\",
     \"method\": \"task::withdraw::init\",
     \"params\": {
-        \"coin\": \"$1\",
-        \"to\": \"$2\",
-        \"amount\": $3,
+        \"coin\": \"COIN_NAME\",
+        \"to\": \"ADDRESS_OF_RECIPIENT\",
+        \"amount\": AMOUNT_TO_SEND,
         \"from\": {
-            \"derivation_path\": \"$4\"
+            \"derivation_path\": \"DERIVATION_PATH\"
         }
     }
 }"
@@ -1338,18 +1337,18 @@ curl --url "$url:$port" --data "{
 #### Command (account_id & address_id option)
 
 ```bash
-curl --url "$url:$port" --data "{
+curl --url "http://127.0.0.1:7783" --data "{
     \"userpass\": \"$userpass\",
     \"mmrpc\": \"2.0\",
     \"method\": \"task::withdraw::init\",
     \"params\": {
-        \"coin\": \"$1\",
-        \"to\": \"$2\",
-        \"amount\": $3,
+        \"coin\": \"COIN_NAME\",
+        \"to\": \"ADDRESS_OF_RECIPIENT\",
+        \"amount\": AMOUNT_TO_SEND,
         \"from\": {
             \"account_id\": 0,
             \"chain\": \"External\",
-            \"address_id\": $4
+            \"address_id\": ADDRESS_ID
         }
     }
 }"
@@ -1578,12 +1577,12 @@ Use the `task::account_balance::init` method to initialise an account balance re
 #### Command
 
 ```bash
-curl --url "$url:$port" --data "{
+curl --url "http://127.0.0.1:7783" --data "{
     \"userpass\": \"$userpass\",
     \"mmrpc\": \"2.0\",
     \"method\": \"task::account_balance::init\",
     \"params\": {
-        \"coin\": \"$1\",
+        \"coin\": \"COIN_NAME\",
         \"account_index\": 0
     }
 }"
@@ -1648,12 +1647,12 @@ Use the `task::account_balance::status` method to view the status / response of 
 #### Command
 
 ```bash
-curl --url "$url:$port" --data "{
+curl --url "http://127.0.0.1:7783" --data "{
     \"userpass\": \"$userpass\",
     \"mmrpc\": \"2.0\",
     \"method\": \"task::account_balance::status\",
     \"params\": {
-        \"task_id\": $1,
+        \"task_id\": TASK_ID,
         \"forget_if_finished\": false
     }
 }"
@@ -1740,12 +1739,12 @@ Use the `task::account_balance::cancel` method to cancel an account balance requ
 #### Command
 
 ```bash
-curl --url "$url:$port" --data "{
+curl --url "http://127.0.0.1:7783" --data "{
     \"userpass\": \"$userpass\",
     \"mmrpc\": \"2.0\",
     \"method\": \"task::account_balance::cancel\",
     \"params\": {
-        \"task_id\": $1
+        \"task_id\": TASK_ID
     }
 }"
 ```
@@ -1818,7 +1817,7 @@ Other reasons you might not be able to get a new address are:
 #### Command
 
 ```bash
-curl --url "$url:$port" --data "{
+curl --url "http://127.0.0.1:7783" --data "{
     \"userpass\": \"YOUR_PASS\",
     \"mmrpc\": \"2.0\",
     \"method\": \"can_get_new_address\",
@@ -1908,7 +1907,7 @@ Other reasons you might not be able to get a new address are:
 #### Command
 
 ```bash
-curl --url "$url:$port" --data "{
+curl --url "http://127.0.0.1:7783" --data "{
     \"userpass\": \"YOUR_PASS\",
     \"mmrpc\": \"2.0\",
     \"method\": \"get_new_address\",
