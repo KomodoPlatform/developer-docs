@@ -1,2 +1,2 @@
-var algoliaSecret = { key : process.env.apiKey }
+var algoliaSecret = { key : "" }
 module.exports = algoliaSecret;

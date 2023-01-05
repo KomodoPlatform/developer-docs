@@ -5,40 +5,40 @@ The AtomicDEX API now is able to activate coins in Iguana and HW modes simultane
 For example, you can activate RICK with seed phrase private key like usual, and also activate MORTY with Hardware wallet at the same time.
 
 
-To get started, [configure and launch the AtomicDEX API]("../atomicdex/atomicdex-setup/get-started-atomicdex.html"), then plug in your Trezor hardware wallet device. 
+To get started, [configure and launch the AtomicDEX API](../atomicdex/atomicdex-setup/get-started-atomicdex.html), then plug in your Trezor hardware wallet device. 
 
 Below are the new v2 RPC methods for interacting with your Trezor.
 
 Authentication:
-- Initialise connection with your Trezor with [task::init_trezor::init]("#task_init_trezor_init")
-- Check the status of the connecton with [task::init_trezor::status]("#task_init_trezor_status")
-- Authenticate using PIN or phrase with [task::init_trezor::user_action]("#task_init_trezor_user_action")
-- Cancel authentication process with [task::init_trezor::cancel]("#task_init_trezor_cancel")
+- Initialise connection with your Trezor with [task::init_trezor::init](#task-init-trezor-init)
+- Check the status of the connecton with [task::init_trezor::status](#task_init_trezor_status)
+- Authenticate using PIN or phrase with [task::init_trezor::user_action](#task-init-trezor-user-action)
+- Cancel authentication process with [task::init_trezor::cancel](#task-init-trezor-cancel)
 
 Coin Activation in Hardware Mode:
-- Use [task::enable_utxo::init]("#task_enable_utxo_init") for UTXO coins like KMD, BTC and DOGE, and check the activation status with [task::enable_utxo::status]("#task_enable_utxo_status")
-- Use [task::enable_qtum::init]("#task_enable_qtum_init") for QTUM Ecosystem coins, and check the activation status with [task::enable_qtum::status]("#task_enable_qtum_status")
+- Use [task::enable_utxo::init](#task-enable-utxo-init) for UTXO coins like KMD, BTC and DOGE, and check the activation status with [task::enable_utxo::status](#task-enable-utxo-status)
+- Use [task::enable_qtum::init](#task-enable-qtum-init) for QTUM Ecosystem coins, and check the activation status with [task::enable_qtum::status](#task-enable-qtum-status)
 
 Withdrawing your Funds:
-- Prepare a transaction with [task::withdraw::init]("#task_withdraw_init")
-- Check the status of the transaction preparation with [task::withdraw::status]("#task_withdraw_status")
-- Cancel the transaction preparation with [task::withdraw::cancel]("#task_withdraw_cancel")
+- Prepare a transaction with [task::withdraw::init](#task-withdraw-init)
+- Check the status of the transaction preparation with [task::withdraw::status](#task-withdraw-status)
+- Cancel the transaction preparation with [task::withdraw::cancel](#task-withdraw-cancel)
 
 Viewing Hardware Wallet Coin Balances:
-- Initialise the balance request with [task::account_balance::init]("#task_account_balance_init")
-- Check the status of the balance request with [task::account_balance::status]("#task_account_balance_status")
+- Initialise the balance request with [task::account_balance::init](#task-account-balance-init)
+- Check the status of the balance request with [task::account_balance::status](#task-account-balance-status)
 
 Creating New Addresses:
-- Use [can_get_new_address]("#can_get_new_address") to determine if your current address has been used, or should be updated.
-- Use [get_new_address]("#get_new_address") to generate a new address
+- Use [can_get_new_address](#can-get-new-address) to determine if your current address has been used, or should be updated.
+- Use [get_new_address](#get-new-address) to generate a new address
 
 Additional information about Hardware Error response types:
-- [HwError error type details](#Details_for_HwError_error_type)
+- [HwError error type details](#details-for-hwerror-error-type)
 
 **Note:** These methods (and others with a `task::` prefix) will be linked to a numeric `task_id` value which is used to query the status or outcome of the task.
 
 
-# task\_init_trezor\_init
+## task\_init\_trezor\_init
 
 Before using this method, launch the AtomicDEX API, and plug in your Trezor.
 
@@ -105,7 +105,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 
 
-# task\_init\_trezor\_status
+## task\_init\_trezor\_status
 
 After running the `task::init_trezor::init` method, we can query the status of device initialisation to check its progress.
 
@@ -146,6 +146,10 @@ curl --url "http://127.0.0.1:7783" --data "{
 }"
 ```
 
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
 #### Response (in progress)
 
 Possible "In progress" Cases:
@@ -176,7 +180,7 @@ Possible "In progress" Cases:
 }
 ```
 
-- `UserActionRequired` - This will either be `EnterTrezorPin` or `EnterTrezorPassphrase`. Refer to the [task::init_trezor::user_action]("#task_trezor_user_action") section for more information.
+- `UserActionRequired` - This will either be `EnterTrezorPin` or `EnterTrezorPassphrase`. Refer to the [task::init_trezor::user_action](#task_trezor_user_action) section for more information.
 ```json
 {
     "mmrpc": "2.0",
@@ -187,15 +191,6 @@ Possible "In progress" Cases:
     "id": null
 }
 ```
-
-</collapse-text>
-
-</div>
-
-
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Response">
 
 #### Response (ready, successful)
 
@@ -260,9 +255,13 @@ Possible "In progress" Cases:
 
 - `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](#Details_for_HwError_error_type) for more info.
 
+</collapse-text>
+
+</div>
 
 
-# task\_init\_trezor\_cancel
+
+## task\_init\_trezor\_cancel
 
 Use the `task::init_trezor::cancel` method to cancel the initialisation task.
 
@@ -334,7 +333,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 </div>
 
 
-# task\_init\_trezor\_user\_action
+## task\_init\_trezor\_user\_action
 
 When you see the pin grid on your device, or it asks for a passphrase word, use this method.
 
@@ -440,9 +439,9 @@ curl --url "http://127.0.0.1:7783" --data "{
 </div>
 
 
-# task\_enable\_utxo\_init
+## task\_enable\_utxo\_init
 
-UTXO coins are activated using this method. For QTUM coins, refer to [task::enable_qtum::init]("#task_enable_qtum_init")
+UTXO coins are activated using this method. For QTUM coins, refer to [task::enable_qtum::init](#task-enable-qtum-init)
 
 #### Arguments
 
@@ -531,7 +530,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 </div>
 
 
-# task\_enable\_utxo\_status
+## task\_enable\_utxo\_status
 
 After running the `task::enable_utxo::init` method, we can query the status of activation to check its progress.
 The response will return the following:
@@ -781,7 +780,7 @@ Possible Error Cases:
 </div>
 
 
-# task\_enable\_utxo\_user_action
+## task\_enable\_utxo\_user\_action
 
 If the `task::enable_utxo::status` returns `UserActionRequired`, we need to use the `task::enable_utxo::user_action` method to enter our PIN
 
@@ -846,9 +845,9 @@ curl --url "http://127.0.0.1:7783" --data "{
 </div>
 
 
-# task\_enable\_qtum\_init
+## task\_enable\_qtum\_init
 
-QTUM coins are activated using this method. For UTXO coins, refer to [task::enable_utxo::init]("#task_enable_utxo_init")
+QTUM coins are activated using this method. For UTXO coins, refer to [task::enable_utxo::init](#task-enable-utxo-init)
 
 #### Arguments
 
@@ -937,7 +936,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 </div>
 
 
-# task\_enable\_qtum\_status
+## task\_enable\_qtum\_status
 
 After running the `task::enable_qtum::init` method, we can query the status of activation to check its progress.
 The response will return the following:
@@ -1210,7 +1209,7 @@ Possible Error Cases:
 </div>
 
 
-# task\_enable\_qtum\_user_action
+## task\_enable\_qtum\_user\_action
 
 If the `task::enable_qtum::status` returns `UserActionRequired`, we need to use the `task::enable_qtum::user_action` method to enter our PIN
 
@@ -1275,7 +1274,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 </div>
 
 
-# task\_withdraw\_init
+## task\_withdraw\_init
 
 To prepare a transaction for signing on your Trezor, we use the `task::withdraw::init` method. It will return the transaction hex (via `task::withdraw::status`), which then needs to be broadcast with the [sendrawtransaction](../atomicdex-api-legacy/send_raw_transaction.html) to complete the withdrawal. This method is uses the same input fields as the [standard v2 withdraw method](../atomicdex-api-20/withdraw.html), with additional fields to specify the `from` address. There are two methods to let your Trezor know which address to send funds from:
 
@@ -1363,8 +1362,12 @@ curl --url "$url:$port" --data "{
 }
 ```
 
+</collapse-text>
 
-# task\_withdraw\_status
+</div>
+
+
+## task\_withdraw\_status
 
 To get the status of your withdrawal, use the `task::withdraw::status`, Once ready, it will provide the raw hex used to broadcast your transaction with [sendrawtransaction](../atomicdex-api-legacy/send_raw_transaction.html).
 The response returned here is the same as returned from the [standard v2 withdraw method](../atomicdex-api-20/withdraw.html#response)
@@ -1467,7 +1470,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 </div>
 
 
-# task\_withdraw\_cancel
+## task\_withdraw\_cancel
 
 Use the `task::withdraw::cancel` method to cancel the withdrawal preparation task.
 
@@ -1537,7 +1540,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 </div>
 
-# task\_account_balance\_init
+## task\_account\_balance\_init
 
 Use the `task::account_balance::init` method to initialise an account balance request.
 
@@ -1594,7 +1597,7 @@ curl --url "$url:$port" --data "{
 </div>
 
 
-# task\_account_balance\_status
+## task\_account\_balance\_status
 
 Use the `task::account_balance::status` method to view the status / response of an account balance request.
 
@@ -1695,7 +1698,7 @@ curl --url "$url:$port" --data "{
 
 </div>
 
-# task\_account_balance\_cancel
+## task\_account\_balance\_cancel
 
 Use the `task::account_balance::cancel` method to cancel an account balance request.
 
@@ -1766,7 +1769,7 @@ curl --url "$url:$port" --data "{
 </div>
 
 
-# can\_get\_new\_address
+## can\_get\_new\_address
 
 To avoid generating too many addresses at once, we can use a `gap_limit` constraint so that no more than a specific amount of unused addresses can be generated before more addresses can be generated.
 
@@ -1851,7 +1854,7 @@ curl --url "$url:$port" --data "{
 </div>
 
 
-# get\_new\_address
+## get\_new\_address
 
 If we don't already have too many unused addresses, we can use the `get_new_address` method to generate a new address. The generated address will be shown in account_balance and init_account_balance RPCs and on the next coin activation.
 
@@ -1946,7 +1949,7 @@ curl --url "$url:$port" --data "{
 
 
 
-# Details\_for\_HwError\_error\_type
+## Details for HwError error type
 
 When requesting the status of a task, if an `error_type` of `HwError` is returned, the GUI / User should check the details in `error_data` field to know which action is required (as detailed below).
 
