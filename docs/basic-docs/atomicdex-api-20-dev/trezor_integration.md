@@ -253,6 +253,20 @@ Possible "In progress" Cases:
 }
 ```
 
+
+- `NoSuchTask` - Something went wrong or `task::init_trezor::init` was not called. Refer to the [task::init_trezor::init](#task_init_trezor_init) section for more information.
+```json
+{
+  "mmrpc": "2.0",
+  "error": "No such task '0'",
+  "error_path": "init_hw",
+  "error_trace": "init_hw:184]",
+  "error_type": "NoSuchTask",
+  "error_data": 0,
+  "id": null
+}
+```
+
 - `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](#Details_for_HwError_error_type) for more info.
 
 </collapse-text>
