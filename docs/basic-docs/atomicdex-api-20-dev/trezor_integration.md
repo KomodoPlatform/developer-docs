@@ -1825,7 +1825,7 @@ curl --url "http://127.0.0.1:7783" --data "{
         \"coin\": \"RICK\",
         \"account_id\": 0,
         \"chain\": \"External\",
-        \"gap_limit\": 20,
+        \"gap_limit\": 20
     }
 }"
 ```
@@ -1915,7 +1915,7 @@ curl --url "http://127.0.0.1:7783" --data "{
         \"coin\": \"RICK\",
         \"account_id\": 0,
         \"chain\": \"External\",
-        \"gap_limit\": 20,
+        \"gap_limit\": 20
     }
 }"
 ```
