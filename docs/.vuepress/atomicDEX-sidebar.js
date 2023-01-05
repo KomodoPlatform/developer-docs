@@ -345,6 +345,26 @@ let atomicDEXsidebar = {
           children: [
             ["/basic-docs/atomicdex-api-20-dev/get_current_mtp.md", "get_current_mtp"]
           ]
+        },
+        {
+          title: "Trezor",
+          collapsable: true,
+          children: [
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#task_init_trezor_init", "task_init_trezor_init"],
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#task_init_trezor_status", "task_init_trezor_status"],
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#task_init_trezor_user_action", "task_init_trezor_user_action"],
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#task_init_trezor_cancel", "task_init_trezor_cancel"],
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#task_enable_qtum_init", "task_enable_qtum_init"],
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#task_enable_utxo_init", "task_enable_utxo_init"],
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#task_withdraw_init", "task_withdraw_init"],
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#task_withdraw_status", "task_withdraw_status"],
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#task_withdraw_cancel", "task_withdraw_cancel"],
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#task_account_balance_init", "task_account_balance_init"],
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#task_account_balance_status", "task_account_balance_status"],
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#can_get_new_address", "can_get_new_address"],
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#get_new_address", "get_new_address"],
+            ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md#Details_for_HwError_error_type", "HwError details"],
+          ]
         }
       ]
     }
