@@ -31,7 +31,7 @@ For example, if the developers are operating on a local router, where the two ma
 
 A home or office-type setup can suffice, if you're just looking to test an Smart Chain quickly and don't want to spend money on a VPS. However, don't be surprised if you need to ask for help. Please reach out to us, and we'll help the best we can.
 
-To test the creation of a Smart Chain using only a single node, [see these linked instructions.](../../../basic-docs/smart-chains/smart-chain-tutorials/creating-a-smart-chain-on-a-single-node.html#introduction) 
+To test the creation of a Smart Chain using only a single node, [see these linked instructions.](../../../basic-docs/smart-chains/smart-chain-tutorials/creating-a-smart-chain-on-a-single-node.html#introduction)
 
 To prepare for the next step, execute the following command in the terminal on both machines:
 
@@ -81,6 +81,10 @@ On your first node, change into the directory where Komodo's `komodod` and `komo
 ```bash
 ./komodod.exe -ac_name=HELLOWORLD -ac_supply=777777 -addnode=<IP address of the second node> &
 ```
+
+::: tip
+If you want the Smart Chain to have Antara Modules enabled, please include the [-ac_cc](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cc) parameter with the required value in your launch parameters on both the nodes.
+:::
 
 ### Verify the Response
 
@@ -231,7 +235,7 @@ Several teams have already signed up for our services and are developing on our 
 
 ### A Note About Low-Activity Blockchains
 
-Blockchain technology relies on a network of users using the blockchain and sharing data to function. 
+Blockchain technology relies on a network of users using the blockchain and sharing data to function.
 
 Smart Chains that are built for low-activity networks require extra steps from the developer to ensure proper syncing between nodes.
 

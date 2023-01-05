@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6f80e924-7ab6-4e43-8741-5edd50eee3b4",
+		"_postman_id": "9621b583-2009-472c-96ea-9a907d86ac77",
 		"name": "mm2_dev",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "16279216"
@@ -4574,472 +4574,726 @@
 					"name": "Lightning",
 					"item": [
 						{
-							"name": "close_channel",
-							"event": [
+							"name": "Enable",
+							"item": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
+									"name": "task::enable_lightning::init",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"close_channel\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"channel_id\": \"e57a53516302c3e35e0964c2b8b1db6e1e4b451fab3259b6fef0d0399a3e1ff2\"\r\n        // \"force_close\": false\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_lightning::init\",\r\n    \"params\": {\r\n        \"ticker\": \"tBTC-TEST-lightning\",\r\n        \"activation_params\": {\r\n            \"name\": \"Mm2TestNode\"\r\n            // \"listening_port\": 9735,\r\n            // \"color\": \"000000\",\r\n            // \"payment_retries\": 5,\r\n            // \"backup_path\": null // Accepted values: Strings\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
+								{
+									"name": "task::enable_lightning::status",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_lightning::status\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n        // \"forget_if_finished\": true\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "task::enable_lightning::cancel",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_lightning::cancel\",\r\n    \"params\": {\r\n        \"task_id\": 0\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "connect_to_lightning_node",
-							"event": [
+							"name": "Nodes",
+							"item": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
+									"name": "add_trusted_node",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"connect_to_lightning_node\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::add_trusted_node\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_id\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
+								{
+									"name": "connect_to_node",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::connect_to_node\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "list_trusted_nodes",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::list_trusted_nodes\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "remove_trusted_node",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::remove_trusted_node\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_id\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "enable_lightning",
-							"event": [
+							"name": "Channels",
+							"item": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
+									"name": "close_channel",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"enable_lightning\",\r\n    \"params\": {\r\n        \"ticker\": \"tBTC-TEST-lightning\",\r\n        \"activation_params\": {\r\n            \"name\": \"Mm2TestNode\"\r\n            // \"listening_port\": 9735,\r\n            // \"color\": \"000000\",\r\n            // \"payment_retries\": 5,\r\n            // \"backup_path\": null // Accepted values: Strings\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::close_channel\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 1\r\n        // \"force_close\": false\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
+								{
+									"name": "get_channel_details",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::get_channel_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 1\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get_claimable_balances",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::get_claimable_balances\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"include_open_channels_balances\": false\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "list_closed_channels_by_filter",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::list_closed_channels_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"filter\": null,\r\n        // // \"filter\": {\r\n        // //     // \"channel_id\": null, // Accepted values: Strings\r\n        // //     // \"counterparty_node_id\": null, // Accepted values: Strings\r\n        // //     // \"funding_tx\": null, // Accepted values: Strings\r\n        // //     // \"from_funding_value\": null, // Accepted values: Integers\r\n        // //     // \"to_funding_value\": null, // Accepted values: Integers\r\n        // //     // \"closing_tx\": null, // Accepted values: Strings\r\n        // //     // \"closure_reason\": null, // Accepted values: Strings\r\n        // //     // \"claiming_tx\": null, // Accepted values: Strings\r\n        // //     // \"from_claimed_balance\": null, // Accepted values: Decimals\r\n        // //     // \"to_claimed_balance\": null, // Accepted values: Decimals\r\n        // //     // \"channel_type\": null, // Accepted values: \"Outbound\", \"Inbound\"\r\n        // //     // \"channel_visibility\": null // Accepted values: \"Public\", \"Private\"\r\n        // // },\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": 4 // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "list_open_channels_by_filter",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::list_open_channels_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"filter\": null,\r\n        // // \"filter\": {\r\n        // //     // \"channel_id\": null, // Accepted values: Strings\r\n        // //     // \"counterparty_node_id\": null, // Accepted values: Strings\r\n        // //     // \"funding_tx\": null, // Accepted values: Strings\r\n        // //     // \"from_funding_value_sats\": null, // Accepted values: Integers\r\n        // //     // \"to_funding_value_sats\": null, // Accepted values: Integers\r\n        // //     // \"is_outbound\": null, // Accepted values: Booleans\r\n        // //     // \"from_balance_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_balance_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_outbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_outbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_inbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_inbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"confirmed\": null, // Accepted values: Booleans\r\n        // //     // \"is_usable\": null, // Accepted values: Booleans\r\n        // //     // \"is_public\": null // Accepted values: Booleans\r\n        // // },\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": 4 // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "open_channel",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::open_channel\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735\",\r\n        \"amount\": {\r\n            \"type\": \"Exact\", // Accepted values: \"Exact\", \"Max\"\r\n            \"value\": 0.004 // Required only if: \"type\": \"Exact\"\r\n        }\r\n        // \"push_msat\": 0,\r\n        // \"channel_options\": {\r\n        //     // \"proportional_fee_in_millionths_sats\": 0, // Default: Coin Config\r\n        //     // \"base_fee_msat\": 1000, // Default: Coin Config\r\n        //     // \"cltv_expiry_delta\": 72, // Default: Coin Config\r\n        //     // \"max_dust_htlc_exposure_msat\": 5000000, // Default: Coin Config\r\n        //     // \"force_close_avoidance_max_fee_satoshis\": 1000 // Default: Coin Config\r\n        // },\r\n        // \"channel_configs\" : {\r\n        //     // \"counterparty_locktime\": 144, // Default: Coin Config\r\n        //     // \"our_htlc_minimum_msat\": 1, // Default: Coin Config\r\n        //     // \"negotiate_scid_privacy\": false, // Default: Coin Config\r\n        //     // \"max_inbound_in_flight_htlc_percent\": 10, // Default: Coin Config\r\n        //     // \"announced_channel\": false, // Default: Coin Config\r\n        //     // \"commit_upfront_shutdown_pubkey\": true // Default: Coin Config\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "update_channel",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::update_channel\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 1,\r\n        \"channel_options\": {\r\n            // \"proportional_fee_in_millionths_sats\": 0, // Default: Coin Config\r\n            // \"base_fee_msat\": 1000, // Default: Coin Config\r\n            // \"cltv_expiry_delta\": 72, // Default: Coin Config\r\n            // \"max_dust_htlc_exposure_msat\": 5000000, // Default: Coin Config\r\n            // \"force_close_avoidance_max_fee_satoshis\": 1000 // Default: Coin Config\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "generate_invoice",
-							"event": [
+							"name": "Payments",
+							"item": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
+									"name": "generate_invoice",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"generate_invoice\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"description\": \"test invoice\"\r\n        // \"amount_in_msat\": null // Accepted values: Integers\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::generate_invoice\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"description\": \"test invoice\"\r\n        // \"amount_in_msat\": null, // Accepted values: Integers\r\n        // \"expiry\": null // Accepted values: Integers\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get_channel_details",
-							"event": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
+									"name": "get_payment_details",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_channel_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 1\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::get_payment_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"32f996e6e0aa88e567318beeadb37b6bc0fddfd3660d4a87726f308ed1ec7b33\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get_claimable_balances",
-							"event": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
+									"name": "list_payments_by_filter",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_claimable_balances\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"include_open_channels_balances\": false\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::list_payments_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"filter\": null,\r\n        // // \"filter\": {\r\n        // //     // \"payment_type\": null,\r\n        // //     // // \"payment_type\": {\r\n        // //     // //     \"type\": \"Outbound Payment\", // Accepted values: \"Outbound Payment\", \"Inbound Payment\"\r\n        // //     // //     \"destination\": \"03933884aaf1d6b108397e5efe5c86bcf2d8ca8d2f700eda99db9214fc2712b134\" // Required only if: \"type\": \"Outbound Payment\"\r\n        // //     // // },\r\n        // //     // \"description\": null, // Accepted values: Strings\r\n        // //     // \"status\": null, // Accepted values: \"pending\", \"succeeded\", \"failed\"\r\n        // //     // \"from_amount_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_amount_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_fee_paid_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_fee_paid_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_timestamp\": null, // Accepted values: Integers\r\n        // //     // \"to_timestamp\": null // Accepted values: Integers\r\n        // // },\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": \"d6d3cf3fd5237ed15295847befe00da67c043da1c39a373bff30bd22442eea43\" // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get_payment_details",
-							"event": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
+									"name": "send_payment",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Strip JSON Comments\r",
+													"const rawData = pm.request.body.toString();\r",
+													"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+													"\r",
+													"pm.request.body.update(strippedData);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript"
-									}
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::send_payment\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment\": {\r\n            \"type\": \"invoice\", // Accepted values: \"invoice\", \"keysend\"\r\n            \"invoice\": \"lntb20u1p32wwxapp5p8gjy2e79jku5tshhq2nkdauv0malqqhzefnqmx9pjwa8h83cmwqdp8xys9xcmpd3sjqsmgd9czq3njv9c8qatrvd5kumcxqrrsscqp79qy9qsqsp5m473qknpecv6ajmwwtjw7keggrwxerymehx6723avhdrlnxmuvhs54zmyrumkasvjp0fvvk2np30cx5xpjs329alvm60rwy3payrnkmsd3n8ahnky3kuxaraa3u4k453yf3age7cszdxhjxjkennpt75erqpsfmy4y\" // Required only if: \"type\": \"invoice\"\r\n            // \"destination\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9\", // Required only if: \"type\": \"keysend\"\r\n            // \"amount_in_msat\": 1000, // Required only if: \"type\": \"keysend\"\r\n            // \"expiry\": 24 // Required only if: \"type\": \"keysend\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
+										},
+										"url": {
+											"raw": "{{address}}",
+											"host": [
+												"{{address}}"
+											]
+										}
+									},
+									"response": []
 								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"get_payment_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"32f996e6e0aa88e567318beeadb37b6bc0fddfd3660d4a87726f308ed1ec7b33\"\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
-								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "list_closed_channels_by_filter",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"list_closed_channels_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"filter\": null,\r\n        // // \"filter\": {\r\n        // //     // \"channel_id\": null, // Accepted values: Strings\r\n        // //     // \"counterparty_node_id\": null, // Accepted values: Strings\r\n        // //     // \"funding_tx\": null, // Accepted values: Strings\r\n        // //     // \"from_funding_value\": null, // Accepted values: Integers\r\n        // //     // \"to_funding_value\": null, // Accepted values: Integers\r\n        // //     // \"closing_tx\": null, // Accepted values: Strings\r\n        // //     // \"closure_reason\": null, // Accepted values: Strings\r\n        // //     // \"claiming_tx\": null, // Accepted values: Strings\r\n        // //     // \"from_claimed_balance\": null, // Accepted values: Decimals\r\n        // //     // \"to_claimed_balance\": null, // Accepted values: Decimals\r\n        // //     // \"channel_type\": null, // Accepted values: \"Outbound\", \"Inbound\"\r\n        // //     // \"channel_visibility\": null // Accepted values: \"Public\", \"Private\"\r\n        // // },\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": 4 // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}"
-								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "list_open_channels_by_filter",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"list_open_channels_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"filter\": null,\r\n        // // \"filter\": {\r\n        // //     // \"channel_id\": null, // Accepted values: Strings\r\n        // //     // \"counterparty_node_id\": null, // Accepted values: Strings\r\n        // //     // \"funding_tx\": null, // Accepted values: Strings\r\n        // //     // \"from_funding_value_sats\": null, // Accepted values: Integers\r\n        // //     // \"to_funding_value_sats\": null, // Accepted values: Integers\r\n        // //     // \"is_outbound\": null, // Accepted values: Booleans\r\n        // //     // \"from_balance_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_balance_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_outbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_outbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_inbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_inbound_capacity_msat\": null, // Accepted values: Integers\r\n        // //     // \"confirmed\": null, // Accepted values: Booleans\r\n        // //     // \"is_usable\": null, // Accepted values: Booleans\r\n        // //     // \"is_public\": null // Accepted values: Booleans\r\n        // // },\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": 4 // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
-								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "list_payments_by_filter",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"list_payments_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"filter\": null,\r\n        // // \"filter\": {\r\n        // //     // \"payment_type\": null,\r\n        // //     // // \"payment_type\": {\r\n        // //     // //     \"type\": \"Outbound Payment\", // Accepted values: \"Outbound Payment\", \"Inbound Payment\"\r\n        // //     // //     \"destination\": \"03933884aaf1d6b108397e5efe5c86bcf2d8ca8d2f700eda99db9214fc2712b134\" // Required only if: \"type\": \"Putbound Payment\"\r\n        // //     // // },\r\n        // //     // \"description\": null, // Accepted values: Strings\r\n        // //     // \"status\": null, // Accepted values: \"pending\", \"succeeded\", \"failed\"\r\n        // //     // \"from_amount_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_amount_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_fee_paid_msat\": null, // Accepted values: Integers\r\n        // //     // \"to_fee_paid_msat\": null, // Accepted values: Integers\r\n        // //     // \"from_timestamp\": null, // Accepted values: Integers\r\n        // //     // \"to_timestamp\": null // Accepted values: Integers\r\n        // // },\r\n        // \"limit\": 10,\r\n        // \"paging_options\": {\r\n        //     \"PageNumber\": 1\r\n        //     // \"FromId\": \"d6d3cf3fd5237ed15295847befe00da67c043da1c39a373bff30bd22442eea43\" // used instead of: \"PageNumber\"\r\n        // }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
-								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "open_channel",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"open_channel\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735\",\r\n        \"amount\": {\r\n            \"type\": \"Exact\", // Accepted values: \"Exact\", \"Max\"\r\n            \"value\": 0.0002 // Required only if: \"type\": \"Exact\"\r\n        }\r\n        // \"push_msat\": 0,\r\n        // \"channel_options\": {\r\n        //     \"proportional_fee_in_millionths_sats\": 0, // Default: Coin Config\r\n        //     \"base_fee_msat\": 1000, // Default: Coin Config\r\n        //     \"cltv_expiry_delta\": 72, // Default: Coin Config\r\n        //     \"announced_channel\": false, // Default: Coin Config\r\n        //     \"commit_upfront_shutdown_pubkey\": true, // Default: Coin Config\r\n        //     \"max_dust_htlc_exposure_msat\": 5000000, // Default: Coin Config\r\n        //     \"force_close_avoidance_max_fee_satoshis\": 1000 // Default: Coin Config\r\n        // },\r\n        // \"counterparty_locktime\": 144, // Default: Coin Config\r\n        // \"our_htlc_minimum_msat\": 1 // Default: Coin Config\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
-								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "send_payment",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Strip JSON Comments\r",
-											"const rawData = pm.request.body.toString();\r",
-											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-											"\r",
-											"pm.request.body.update(strippedData);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"send_payment\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment\": {\r\n            \"type\": \"invoice\", // Accepted values: \"invoice\", \"keysend\"\r\n            \"invoice\": \"lntb20u1p32wwxapp5p8gjy2e79jku5tshhq2nkdauv0malqqhzefnqmx9pjwa8h83cmwqdp8xys9xcmpd3sjqsmgd9czq3njv9c8qatrvd5kumcxqrrsscqp79qy9qsqsp5m473qknpecv6ajmwwtjw7keggrwxerymehx6723avhdrlnxmuvhs54zmyrumkasvjp0fvvk2np30cx5xpjs329alvm60rwy3payrnkmsd3n8ahnky3kuxaraa3u4k453yf3age7cszdxhjxjkennpt75erqpsfmy4y\" // Required only if: \"type\": \"invoice\"\r\n            // \"destination\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9\", // Required only if: \"type\": \"keysend\"\r\n            // \"amount_in_msat\": 1000, // Required only if: \"type\": \"keysend\"\r\n            // \"expiry\": 24 // Required only if: \"type\": \"keysend\"\r\n        }\r\n    }\r\n    // \"id\": null // Accepted values: Integers\r\n}\r\n"
-								},
-								"url": {
-									"raw": "{{address}}",
-									"host": [
-										"{{address}}"
-									]
-								}
-							},
-							"response": []
+							]
 						}
 					]
 				},
@@ -5359,6 +5613,1688 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Use Cases",
+			"item": [
+				{
+					"name": "Lightning",
+					"item": [
+						{
+							"name": "Playground Node 1: Enable Testnet BTC",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"method\": \"electrum\", // This method activates a coin on the playground node with electrum as a blockdata source (light mode). An error will be returned if the coin is already activated in this playground node, move to the next step if this happens.\r\n    \"coin\": \"tBTC-TEST-segwit\", // The coin to be activated is testnet bitcoin in segwit mode\r\n    \"servers\": [ // the list of electrum servers the playground node should connect to\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10068\"\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10068\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10068\"\r\n        }\r\n    ]\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Enable Testnet BTC",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"electrum\", // This method activates a coin on the playground node with electrum as a blockdata source (light mode). An error will be returned if the coin is already activated in this playground node, move to the next step if this happens.\r\n    \"coin\": \"tBTC-TEST-segwit\", // The coin to be activated is testnet bitcoin in segwit mode\r\n    \"servers\": [ // the list of electrum servers the playground node should connect to\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10068\"\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10068\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10068\"\r\n        }\r\n    ]\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Enable Testnet BTC on Lightning",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"method\": \"task::enable_lightning::init\", // This method starts a task that runs a lightning node. Use the returned \"task_id\" in the next use case to check if the lightning node is running or still initiating. An error will be returned if a lightning node was already running since only 1 lightning node is allowed to run from inside AtomicDEX, skip next step in such case.\r\n    \"mmrpc\": \"2.0\",\r\n    \"params\": {\r\n        \"ticker\": \"tBTC-TEST-lightning\", // Testnet lightning network\r\n        \"activation_params\": {\r\n            \"name\": \"AtomicDEX-Playground-Node-1\", // The name of the node that will be announced to other nodes\r\n            \"listening_port\": 31735, // The port that this node listens for incoming connections on\r\n            \"color\": \"2abcf1\" // The color of the node that will be announced to other nodes, this node will be showed with this color in network graphs in lightning explorers\r\n            // Node in lightning explorer: https://mempool.space/testnet/lightning/node/024e2a940e0cbeda84a0d5e00fa8e83b3f4e7f98382eedb488d058e0f5636dd164\r\n        }\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Check Enable Testnet BTC on Lightning Status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_lightning::status\", // This method checks the status of starting the lightning node, skip this step if an \"error\":\"Layer 2 tBTC-TEST-lightning is already activated\" was returned in the previous step\r\n    \"params\": {\r\n        \"task_id\": 0 // The \"task_id\" returned from the last use case\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Enable Testnet BTC on Lightning",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"task::enable_lightning::init\", // This method starts a task that runs a lightning node. Use the returned \"task_id\" in the next use case to check if the lightning node is running or still initiating. An error will be returned if a lightning node was already running since only 1 lightning node is allowed to run from inside AtomicDEX, skip next step in such case.\r\n    \"mmrpc\": \"2.0\",\r\n    \"params\": {\r\n        \"ticker\": \"tBTC-TEST-lightning\",\r\n        \"activation_params\": {\r\n            \"name\": \"AtomicDEX-Playground-Node-2\",\r\n            \"listening_port\": 31736, // The port is changed for this node since both nodes are on the same machine and can't listen on the same port\r\n            \"color\": \"6a4de3\"\r\n            // Node in lightning explorer: https://mempool.space/testnet/lightning/node/02eb0b178576857b6990ba57d56aa08f651a05a8098496004f42df5e7440b0a9c1\r\n        }\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Check Enable Testnet BTC on Lightning Status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"task::enable_lightning::status\", // This method checks the status of starting the lightning node, skip this step if an \"error\":\"Layer 2 tBTC-TEST-lightning is already activated\" was returned in the previous step\r\n    \"params\": {\r\n        \"task_id\": 0 // The \"task_id\" returned from the last use case\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Get Node Balance",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"method\": \"my_balance\", // This method displays the balance and address of the node, \"unspendable_balance\" is the balance that can't be spent because:\r\n    // 1- The node can't connect with a channel/s counterparty (when a channel is inactive it's balance can't be used on the lightning network, if it becomes inactive for a long time it should be closed)\r\n    // 2 - It's the total reserved channels balances that can't be spent to ensure that we are able to be punished if we broadcast an old state\r\n    \"coin\": \"tBTC-TEST-lightning\"\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Get Node Balance",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"my_balance\", // Node 2 probably has no balance on the lightning network yet, we will open a channel from Node 2 to Node 1 in the upcoming steps to get some balance\r\n    \"coin\": \"tBTC-TEST-lightning\"\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Connect to a Node to Download Network Graph from",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::connect_to_node\", // We need to connect a node at the start to get the network graph so we can find routes for payments\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735\" // https://mempool.space/testnet/lightning/node/038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9, choose another node to connect to to test this since we are probably already connected to this node_address\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Connect to a Node to Download Network Graph from",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::connect_to_node\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735\" // https://mempool.space/testnet/lightning/node/038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9, choose another node to connect to to test this since we are probably already connected to this node_address\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Add Node 2 as Trusted",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::add_trusted_node\", // This adds a node to our trusted nodes list, if this node opens a channel to us we will accept the funding with 0 confirmations\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_id\": \"02eb0b178576857b6990ba57d56aa08f651a05a8098496004f42df5e7440b0a9c1\" // Node 2 address (lightning public key)\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: List trusted nodes",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::nodes::list_trusted_nodes\", // View the trusted nodes list, we can see that node 2 address is added to the trusted list (Possible improvement to this is to add the name of the node too)\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Open 0 conf channel to Node 1",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::open_channel\", // This method opens a channel with a node\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"024e2a940e0cbeda84a0d5e00fa8e83b3f4e7f98382eedb488d058e0f5636dd164@95.216.148.216:31735\", // Node 2 address to open a 0 confirmations channel\r\n        \"amount\": {\r\n            \"type\": \"Exact\", // If we want to open a channel with all our tBTC balance we can use \"type\": \"Max\" here instead\r\n            \"value\": 0.002\r\n        }\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Get Open Channel Status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::get_channel_details\", // This method gets a channel details\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 3 // Please use the \"rpc_channel_id\" value returned from the \"open_channel\" method to see that the channel is ready and usable straight away with 0 confirmations, you can see more details about the channel like the actual channel id and the \"funding_tx\" hash which can be used to view the transaction on block explorers\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Get Node Balance",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"my_balance\", // The balance of the opened channel is added to the overall balance\r\n    \"coin\": \"tBTC-TEST-lightning\"\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: List Open Channels",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::list_open_channels_by_filter\", // without using the \"filter\" parameter, this method gets the list of all the open channels with their details, to see only inbound channels by using the \"filter\" parameter we can check the next use case\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: List Inbound Open Channels",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::list_open_channels_by_filter\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"filter\": {\r\n            \"is_outbound\": false // Check for a channel with \"counterparty_node_id\": \"02eb0b178576857b6990ba57d56aa08f651a05a8098496004f42df5e7440b0a9c1\" to see the channel that Node 2 opened to this Node (Node 1)\r\n            // To see the complete parameters that can be used in filter please check v2/Lightning/Channels/list_open_channels_by_filter\r\n        }\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Send Payment to Node 1 by PubKey",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::send_payment\", // This method is used to pay an invoice or send a payment by pubkey/address\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment\": {\r\n            \"type\": \"keysend\", // Check v2/Lightning/Payments/send_payment for other accepted values and optional parameters\r\n            \"destination\": \"024e2a940e0cbeda84a0d5e00fa8e83b3f4e7f98382eedb488d058e0f5636dd164\", // Node 1 pubkey, https://mempool.space/testnet/lightning/node/024e2a940e0cbeda84a0d5e00fa8e83b3f4e7f98382eedb488d058e0f5636dd164\r\n            \"amount_in_msat\": 1000000, // The maximum amount that can be send to Node 1 over the opened 0conf channel is 20000000 msat since Node 1 config has \"max_inbound_in_flight_htlc_percent\": 10 (The maximum allowed inbound payment to Node 1 through a channel is 10% of the channel's value, equal to 0.0002 BTC or  20000000 msat for the 0conf channel we just opened between Node 2 and 1\r\n            \"expiry\": 24\r\n        }\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Check Keysend Payment Status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::get_payment_details\", // This method gets a payment details by it's hash, we need to check if the keysend payment we just sent is successful or not by checking the value of the \"status\" field in the response\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"7568a1b8c478ab4d12e53432cb2711acd73f34c4cc2142f8e70a87bd4f4b381f\" // This should be the payment_hash of the keysend payment we just sent in the last request\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Open a normal Channel (not 0conf) to a public node",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::open_channel\", // If there is no outbound liquidity in Node 1, we should open a channel to a well connected public node to route an invoice payment through Node 1 from Node 2 to the target in upcoming usecases (total outbound liquidity is equal to the \"balance\" field returned in the response of \"Playground Node 1: Get Node Balance\") \r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"node_address\": \"036497fee1a0b963a63f0b4374819d9016fcca9c09dbef4cb427a2d0146649b025@44.234.48.207:9735\", // Please use one of the following testnet lightning explorers (https://1ml.com/testnet/ , https://mempool.space/testnet/lightning) to choose either a high capacity or a well connected node to open a channel with\r\n        \"amount\": {\r\n            \"type\": \"Exact\",\r\n            \"value\": 0.002\r\n        }\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Get Open Channel Status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::get_channel_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 16 // Please use the \"rpc_channel_id\" value returned from the \"open_channel\" method to check periodically  for the channel status until the response has \"is_ready\": true, \"is_usable\": true to proceed to the next use case of paying an invoice with Node 1 as a routing node (\"funding_tx\" field in response can be used to check the funding tx in testnet explorers to see how many confirmations occured)\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Pay Invoice",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::send_payment\", // This method is used to pay an invoice or send a payment by pubkey/address (keysend)\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment\": {\r\n            \"type\": \"invoice\", // Check v2/Lightning/Payments/send_payment for other accepted values and optional parameters\r\n            \"invoice\": \"lntb20u1p3kjyw2pp57z32c5knvttf0ecg726p6lf0mspa0fphlvhe7u5czyln4klx23ssdp8xys9xcmpd3sjqsmgd9czq3njv9c8qatrvd5kumcxqrrsscqp79qy9qsqsp5fgmtqxtmrfvx7j3vrjyx9lpujfn86rhwzymq4myykf83acy2wzuqcncltv33sqna9ze4y2jx9vnu9dsrrzpwf4pm48nr6drj993982q4mvlq477qndjhc9fauch5ahwf08pgy80dfl6ncxznw87j0cg2lhcp7rm7t6\" // This invoice is already paid, Go to https://starblocks.acinq.co/ and add some items to cart and checkout to get a new invoice to pay using this method, the total amount of the invoice must be less than 0.0002 BTC or 0.2 mBTC (10% of the channel) (this less than 0.0002 BTC to amount for the routing fees paid to Node 1 and other nodes)\r\n        }\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Check Invoice Payment Status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::get_payment_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"f0a2ac52d362d697e708f2b41d7d2fdc03d7a437fb2f9f7298113f3adbe65461\" // This should be the payment_hash of the invoice we just paid in the last request, this payment_hash is returned in the response of the send_payment method\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: List Open Channels to Check Inbound Liquidity",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::list_open_channels_by_filter\", // We can see using this method that Node 2 has some inbound liquidity now after sending 2 payments\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: View Payments History",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::list_payments_by_filter\", // without using the \"filter\" parameter, this method gets the list of all the payments with their details, see v2/Lightning/Payments/list_payments_by_filter to see all the options that we can filter by\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Generate invoice to be paid by another node",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::generate_invoice\", // This method is used to generate an invoice to be paid to us by another node\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"description\": \"test invoice\",\r\n        \"amount_in_msat\": 10000, // Now that Node 2 has some inbound liquidity, we will generate an invoice by Node 2 with an amount requested of 10000 msat to be paid by Node 1\r\n        \"expiry\": 600 // This is an optional parameter, if not set the default value will be 1 hour or 3600 seconds\r\n    }\r\n}\r\n"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Pay Invoice",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::send_payment\", // This method is used to pay an invoice or send a payment by pubkey/address (keysend)\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment\": {\r\n            \"type\": \"invoice\", // Check v2/Lightning/Payments/send_payment for other accepted values and optional parameters\r\n            \"invoice\": \"lntb100n1p3kjyjjdq5w3jhxapqd9h8vmmfvdjsnp4qt4sk9u9w6zhk6vshfta264q3aj35pdgpxzfvqz0gt04uazqkz5uzpp5g98ekdfyl38y3jvlyu3e2fejmz7zawsmxh8rhu48pag5fdq0tx0qsp5tzalk295kffw02y82sxp00svsa9a0ts65mj7ygqqy845y4ek58zs9qyysgqcqpcxqzjcn4nnuyvwm52h7cswfk7flj6r8dz0mcqjfazcef37huzaahs0wv0qrpqelfzjzzgd88t6859tkzfxsyrn5n9j3yvclx3n6sldzrkhz6sqxe6ngv\" // This invoice is already paid, paste the invoice generated by Node 2 here instead to pay it\r\n        }\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Check Invoice Payment Status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::payments::get_payment_details\",\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"payment_hash\": \"414f9b3524fc4e48c99f2723952732d8bc2eba1b35ce3bf2a70f5144b40f599e\" // This should be the payment_hash of the invoice we just paid in the last request, this payment_hash is returned in the response of the send_payment method\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Place a maker order to sell onchain BTC for LNBTC",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"method\": \"setprice\", // This method places an order in the order book, the \"uuid\" field in the response will be used to check the order status\r\n    \"base\": \"tBTC-TEST-segwit\", // Node 1 wants to sell onchain testnet BTC\r\n    \"rel\": \"tBTC-TEST-lightning\", // Node 1 wants to buy lightning testnet BTC\r\n    \"price\": 1, // The price for 1 LNtBTC (1 LNtBTC = 1 tBTC)\r\n    \"volume\": 0.0001 // The amount of onchain testnet BTC Node 1 wants to sell (If the order is matched Node 1 shall recieve 0.00001 LNBTC) - Note that in the current Node 1 & 2 setup the volume should be less than 0.0002 LNBTC, this is the max amount to be sent on the channel, Node 2 can open more channels to Node 1 or other nodes and and get more outbound liquidity to be able to trade more LNBTC.\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: View BTC/LNBTC Orderbook",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"orderbook\", // This method requests from the network the currently available orders for the specified trading pair, it's used here to assert that Node 2 can see Node 1 order on the orderbook\r\n    \"base\": \"tBTC-TEST-segwit\",\r\n    \"rel\": \"tBTC-TEST-lightning\"\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Buy onchain BTC for LNBTC",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"buy\", // This method issues a buy request and attempts to match an order from the orderbook based on the provided price and volume\r\n    \"base\": \"tBTC-TEST-segwit\",\r\n    \"rel\": \"tBTC-TEST-lightning\",\r\n    \"price\": 1,\r\n    \"volume\": 0.0001\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Check order status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"method\": \"order_status\", // This method returns the data of the order using it's uuid. The response is different for maker (using set_price method) and taker (using buy/sell method) orders\r\n    \"uuid\": \"31307ed5-bf9c-4ec5-a69f-a5f463521514\" // Insert the uuid returned from the setprice method here, if there is any values returned inside started_swaps field, the uuids will be used to check for the swap status\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Check order status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"order_status\",\r\n    \"uuid\": \"63955bf1-d3d4-44e8-b644-a462a2da4295\" // Insert the uuid returned from the buy method here, the same uuid is used as the swap uuid if a match was found for the order and the swap has started\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Check swap status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"method\": \"my_swap_status\", // This method returns the data and status of an atomic swap that was initiated due to a matched order, in the data we can see all the transactions made for the swap and if there is an \"event\": {\"type\": \"TakerPaymentSpendConfirmed\"} then we recieved the LNBTC successfully, we can see the payment info by using the \"tx_hash\" in the \"TakerPaymentSpent\" event\r\n    \"params\": {\r\n        \"uuid\": \"63955bf1-d3d4-44e8-b644-a462a2da4295\" // One of the \"started_swaps\" uuids returned from the order_status method\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Check swap status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"method\": \"my_swap_status\", // This method returns the data and status of an atomic swap that was initiated due to a matched order, in the data we can see all the transactions made for the swap and if there is an \"event\": {\"type\": \"MakerPaymentSpent\"} then we recieved the onchain tBTC successfully, we can see the payment info by using the \"tx_hash\" in the \"MakerPaymentSpent\" event and checking a BTC testnet explorer\r\n    \"params\": {\r\n        \"uuid\": \"63955bf1-d3d4-44e8-b644-a462a2da4295\" // The swap uuid is the same as the uuid used to get the buy order status\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Close the channel opened with Node 1",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::close_channel\", // This method closes an open channel either cooperatively or by forcing the close depending on the used parameters\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 3 // Use the same rpc_channel_id of the channel we opened with Node 1\r\n        // \"force_close\": false // This is an optional parameter that can be set to true to force close the channel, if this parameter is not set false is the default value\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 2: Get Closed Channel Status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"E3vI9p#Srtz3axn!jQDQ\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::get_channel_details\", // This method gets a channel details, you can see the channel closing tx in the response once it's broadcasted, you can also use this method after claiming the closing balance back to your account to see the claiming tx hash and the balance that got claimed back to your address\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\",\r\n        \"rpc_channel_id\": 3 // Use the same \"rpc_channel_id\" of the closed channel\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30784",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30784"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Playground Node 1: Get balance to be claimed on-chain",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Strip JSON Comments",
+											"const rawData = pm.request.body.toString();",
+											"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+											"",
+											"pm.request.body.update(strippedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"00ahk2jd0z!1JRm#F9e2\",\r\n    \"mmrpc\": \"2.0\",\r\n    \"method\": \"lightning::channels::get_claimable_balances\", // This method gets the balance that's onchain and still waiting for a condition to be claimed back to the Node's onchain tBTC address\r\n    \"params\": {\r\n        \"coin\": \"tBTC-TEST-lightning\"\r\n        // \"include_open_channels_balances\": false\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://95.216.148.216:30783",
+									"protocol": "http",
+									"host": [
+										"95",
+										"216",
+										"148",
+										"216"
+									],
+									"port": "30783"
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
