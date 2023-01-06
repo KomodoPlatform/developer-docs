@@ -1,8 +1,79 @@
+# Withdraw Tasks
 
 
-## task::withdraw::status
 
-After initiating a Z coin withdrawal, you will need to use the `task_id` to check its progress and retrieve the generatated tranaction hex to use as an input in [send_raw_transaction](../../../basic-docs/atomicdex-api-legacy/send_raw_transaction.html) to complete the withdrawal.
+## withdraw\_init
+
+The `task::withdraw::init` method generates, signs, and returns a transaction that transfers the `amount` of `coin` to the address indicated in the `to` argument. The status of this method can be queried via the [withdraw_status](#withdraw-status) method, or cancelled with [withdraw_cancel](#withdraw-cancel).
+
+:::tip
+When used for ZHTLC coins like ARRR or ZOMBIE, it may take some time to complete.
+:::
+
+
+### Arguments
+
+| Structure     | Type             | Description                                                                                                                               |
+| ------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| coin          | string           | the name of the coin the user desires to withdraw                                                                                         |
+| to            | string           | coins are withdrawn to this address                                                                                                       |
+| amount        | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                                                          |
+| max           | bool             | withdraw the maximum available amount                                                                                                     |
+| fee.type      | string           | type of transaction fee; possible values: `UtxoFixed` or `UtxoPerKbyte`                                                                   |
+| fee.amount    | string (numeric) | fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte) |
+
+
+#### Response
+
+| Structure              | Type              | Description                                                                                                        |
+| ---------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------ |
+| task_id                | integer           | An identifying number which is used to query task status.                                                          |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+#!/bin/bash
+source userpass
+curl --url "http://127.0.0.1:7783" --data "{
+    \"mmrpc\":\"2.0\",
+    \"userpass\":\"${userpass}\",
+    \"method\":\"task::withdraw::init\",
+    \"params\": {
+        \"coin\":\"$1\",
+        \"to\":\"$2\",
+        \"amount\":\"$3\"
+    },
+    \"id\":0
+}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "task_id": 0
+  },
+  "id": null
+}
+```
+
+</collapse-text>
+
+</div>                                                                                                                   |
+
+
+
+## withdraw\_status
+
+After initiating a withdrawal, you will need use the `task::withdraw::status` method with a related `task_id` to check its progress and retrieve the generatated tranaction hex to use as an input in [send_raw_transaction](../../../basic-docs/atomicdex-api-legacy/send_raw_transaction.html) to complete the withdrawal.
 
 
 #### Arguments
@@ -129,6 +200,92 @@ curl --url "http://127.0.0.1:7783" --data "{
     "error_type": "NoSuchTask",
     "error_data":1,
     "id":0
+}
+```
+
+</collapse-text>
+
+</div>
+
+
+## withdraw\_cancel
+
+If you want to cancel a withdrawal task which has not yet completed, use the `task::withdraw::cancel` method.
+
+
+#### Arguments
+
+| Structure              | Type              | Description                                                                                                        |
+| ---------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------ |
+| task_id                | integer           | The identifying number returned when initiating the withdraw process.                                              |
+
+
+#### Response
+
+| Structure              | Type              | Description                                                    |
+| ---------------------- | ----------------- | -------------------------------------------------------------- |
+| result                 | string            | Indicates task cancellation was succesful.                     |
+| error                  | string            | An error message to explain what went wrong.                   |
+| error_path             | string            | An indicator of the class or function which reurned the error. |
+| error_trace            | string            | An indicator of where in the source code the error was thrown. |
+| error_type             | string            | An enumerated value for the returned  error.                   |
+| error_data             | string            | The input task ID which resulted in the error.                 |
+
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+#!/bin/bash
+source userpass
+curl --url "http://127.0.0.1:7783" --data "
+{
+    \"userpass\": \"${userpass}\",
+    \"method\": \"task::withdraw::cancel\",
+    \"mmrpc\": \"2.0\",
+    \"params\": {
+        \"task_id\": $1
+    }
+}"
+echo
+```
+
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": "success",
+  "id": null
+}
+```
+
+</collapse-text>
+
+</div>
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (No such task / task expired)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "No such task '1'",
+    "error_path": "init_withdraw.manager",
+    "error_trace": "init_withdraw:92] manager:97]",
+    "error_type": "NoSuchTask",
+    "error_data": 1,
+    "id": 0
 }
 ```
 
