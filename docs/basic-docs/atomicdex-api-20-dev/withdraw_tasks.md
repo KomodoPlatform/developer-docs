@@ -18,6 +18,8 @@ When used for ZHTLC coins like ARRR or ZOMBIE, it may take some time to complete
 | coin          | string           | the name of the coin the user desires to withdraw                                                                                         |
 | to            | string           | coins are withdrawn to this address                                                                                                       |
 | amount        | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                                                          |
+| memo          | string           | Optional, used for ZHTLC and Tendermint coins only. Attaches a memo to the transaction.                                                   |
+| from          | string           | Optional, used only for transactions using a hardware wallet. For more information, see the [Trezor Integration guide](trezor_integration.html) |
 | max           | bool             | withdraw the maximum available amount                                                                                                     |
 | fee.type      | string           | type of transaction fee; possible values: `UtxoFixed` or `UtxoPerKbyte`                                                                   |
 | fee.amount    | string (numeric) | fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte) |
@@ -67,7 +69,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 </collapse-text>
 
-</div>                                                                                                                   |
+</div>
 
 
 
@@ -100,7 +102,7 @@ After initiating a withdrawal, you will need use the `task::withdraw::status` me
 | details.tx_hash            | string            | the hash of the generated transaction                                                                                                                                                           |
 | details.tx_hex             | string            | transaction bytes in hexadecimal format; use this value as input for the [send_raw_transaction](../../../basic-docs/atomicdex-api-legacy/send_raw_transaction.html)                             |
 | details.coin               | string            | the name of the coin the user wants to withdraw                                                                                                                                                 |
-| details.transaction_type   | string            | Transaction type will be `StandardTransfer` for Z coin transaction                                                                                                                              |
+| details.transaction_type   | string            | Transaction type will be `StandardTransfer` for Z coin transactions.                                                                                                                            |
 
 
 #### :pushpin: Examples
