@@ -118,9 +118,9 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"method\": \"task::withdraw::status\",
     \"params\": {
         \"task_id\": $1,
-        \"forget_if_finished\": false,
-    }
-    ,\"id\":0
+        \"forget_if_finished\": false
+    },
+    \"id\":0
 }"
 ```
 
