@@ -15,14 +15,15 @@ When used for ZHTLC coins like ARRR or ZOMBIE, it may take some time to complete
 
 | Structure     | Type             | Description                                                                                                                               |
 | ------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| coin          | string           | the name of the coin the user desires to withdraw                                                                                         |
-| to            | string           | coins are withdrawn to this address                                                                                                       |
-| amount        | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                                                          |
+| coin          | string           | The name of the coin the user desires to withdraw                                                                                         |
+| to            | string           | Coins are withdrawn to this address                                                                                                       |
+| amount        | string (numeric) | The amount the user desires to withdraw, ignored when `max=true`                                                                          |
 | memo          | string           | Optional, used for ZHTLC and Tendermint coins only. Attaches a memo to the transaction.                                                   |
 | from          | string           | Optional, used only for transactions using a hardware wallet. For more information, see the [Trezor Integration guide](trezor_integration.html) |
-| max           | bool             | withdraw the maximum available amount                                                                                                     |
-| fee.type      | string           | type of transaction fee; possible values: `UtxoFixed` or `UtxoPerKbyte`                                                                   |
-| fee.amount    | string (numeric) | fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte) |
+| max           | bool             | Optional. Withdraw the maximum available amount. Defaults to `false`                                                                      |
+| fee           | object           | Optional. Used only to set a custom fee, otherwise fee value will be derived from a deamon's `estimatefee` (or similar) RPC method        |
+| fee.type      | string           | Type of transaction fee; possible values: `UtxoFixed` or `UtxoPerKbyte`                                                                   |
+| fee.amount    | string (numeric) | Fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte) |
 
 
 #### Response
@@ -39,15 +40,77 @@ When used for ZHTLC coins like ARRR or ZOMBIE, it may take some time to complete
 #!/bin/bash
 source userpass
 curl --url "http://127.0.0.1:7783" --data "{
-    \"mmrpc\":\"2.0\",
-    \"userpass\":\"${userpass}\",
-    \"method\":\"task::withdraw::init\",
+    \"mmrpc\": \"2.0\",
+    \"userpass\": \"${userpass}\",
+    \"method\": \"task::withdraw::init\",
     \"params\": {
-        \"coin\":\"$1\",
-        \"to\":\"$2\",
-        \"amount\":\"$3\"
+        \"coin\": \"$1\",
+        \"to\": \"$2\",
+        \"amount\": \"$3\"
     },
-    \"id\":0
+    \"id\": 0
+}"
+```
+
+#### Command (max = true)
+
+```bash
+#!/bin/bash
+source userpass
+curl --url "http://127.0.0.1:7783" --data "{
+    \"mmrpc\": \"2.0\",
+    \"userpass\": \"${userpass}\",
+    \"method\": \"task::withdraw::init\",
+    \"params\": {
+        \"coin\": \"$1\",
+        \"to\": \"$2\",
+        \"max\": true
+    },
+    \"id\": 0
+}"
+```
+
+#### Command (custom UtxoFixed fee)
+
+```bash
+#!/bin/bash
+source userpass
+curl --url "http://127.0.0.1:7783" --data "{
+    \"mmrpc\": \"2.0\",
+    \"userpass\": \"${userpass}\",
+    \"method\": \"task::withdraw::init\",
+    \"params\": {
+        \"coin\": \"$1\",
+        \"to\": \"$2\",
+        \"amount\": \"$3\",
+        \"fee\": {
+            \"type\":\"UtxoFixed\",
+             \"amount\":\"0.001\"
+         }
+    },
+    \"id\": 0
+}"
+```
+
+#### Command (custom UtxoPerKbyte fee)
+
+```bash
+#!/bin/bash
+source userpass
+curl --url "http://127.0.0.1:7783" --data "{
+    \"mmrpc\": \"2.0\",
+    \"userpass\": \"${userpass}\",
+    \"method\": \"task::withdraw::init\",
+    \"params\": {
+        \"coin\": \"$1\",
+        \"to\": \"$2\",
+        \"amount\": \"$3\",
+        \"fee\": {
+            \"type\":\"UtxoPerKbyte\",
+             \"amount\":\"0.00097\"
+         }
+    },
+    \"id\": 0
 }"
 ```
 
