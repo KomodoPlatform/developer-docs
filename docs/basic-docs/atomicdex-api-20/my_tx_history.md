@@ -1,6 +1,6 @@
 # my\_tx\_history
 
-To use this method, you must activate your coin with `"tx_history": true`. The response will vary depending on the coin. Currently only BCH, SLP tokens, UTXO coins, QTUM, and Tendermint/Tendermint tokens are supported.
+To use this method, you must activate your coin with `"tx_history": true`. The response will vary depending on the coin. Currently only BCH & SLP tokens are supported in the master/release API. In the latest dev API, UTXO coins, QTUM, and Tendermint/Tendermint tokens are also supported.
 
 
 | parameter                                 | Type     | Description                               |
