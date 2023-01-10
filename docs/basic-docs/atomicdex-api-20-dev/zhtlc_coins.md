@@ -343,7 +343,7 @@ echo
 
 ## z\_coin\_tx\_history
 
-To get the transaction history for ZHTLC coins, you need to use this special method - the [v2 my_tx_history](../atomicdex-api-20/my_tx_history.html) and [legacy my_tx_history](../atomicdex-api-legacy/my_tx_history.html) methods are not compatible with ZHTLC coins.
+To get the transaction history for ZHTLC coins, you need to use this special method - the [v2 my_tx_history](../atomicdex-api-20/my_tx_history.html) and [legacy my_tx_history](../atomicdex-api-legacy/my_tx_history.html) methods are not compatible with ZHTLC coins. Currently trasaction memos will not be displayed in output, though they can be added to outgoing transactions with the [task::withdraw](withdraw_tasks.html) methods.
 
 #### Arguments
 
