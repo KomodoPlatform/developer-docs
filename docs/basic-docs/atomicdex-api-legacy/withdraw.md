@@ -42,7 +42,13 @@ This method generates a raw transaction which should then be broadcast using [se
 #### Command (BTC, KMD, and other BTC-based forks)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"KMD\",\"to\":\"RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh\",\"amount\":\"10\",\"userpass\":\"$userpass\"}"
+curl --url "http://127.0.0.1:7783" --data "{
+    \"method\":\"withdraw\",
+    \"coin\":\"KMD\",
+    \"to\":\"RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh\",
+    \"amount\":\"10\",
+    \"userpass\":\"$userpass\"
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -81,7 +87,16 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"K
 #### Command (BTC, KMD, and other BTC-based forks, fixed fee)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"RICK\",\"to\":\"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW\",\"amount\":\"1.0\",\"fee\":{\"type\":\"UtxoFixed\",\"amount\":\"0.1\"}}"
+curl --url "http://127.0.0.1:7783" --data "{
+    \"method\":\"withdraw\",
+    \"coin\":\"RICK\",
+    \"to\":\"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW\",
+    \"amount\":\"1.0\",
+    \"fee\": {
+        \"type\":\"UtxoFixed\",
+        \"amount\":\"0.1\"
+    }
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -124,7 +139,16 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"R
 #### Command (BTC, KMD, and other BTC-based forks, 1 RICK per Kbyte)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"RICK\",\"to\":\"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW\",\"amount\":\"1.0\",\"fee\":{\"type\":\"UtxoPerKbyte\",\"amount\":\"1\"}}"
+curl --url "http://127.0.0.1:7783" --data "{
+    \"method\":\"withdraw\",
+    \"coin\":\"RICK\",
+    \"to\":\"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW\",
+    \"amount\":\"1.0\",
+    \"fee\": {
+        \"type\":\"UtxoPerKbyte\",
+        \"amount\":\"1\"
+    }
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -167,7 +191,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"R
 #### Command (ETH, ERC20, and other ETH-based forks)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"ETH\",\"to\":\"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",\"amount\":10,\"userpass\":\"$userpass\"}"
+curl --url "http://127.0.0.1:7783" --data "{
+    \"method\":\"withdraw\",
+    \"coin\":\"ETH\",
+    \"to\":\"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",
+    \"amount\":10,
+    \"userpass\":\"$userpass\"
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -205,7 +235,18 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"E
 #### Command (ETH, ERC20, and other ETH-based forks, with gas fee)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"withdraw\",\"coin\":\"$1\",\"to\":\"$2\",\"amount\":\"$3\",\"fee\":{\"type\":\"EthGas\",\"gas_price\":\"3.5\",\"gas\":55000}}"
+curl --url "http://127.0.0.1:7783" --data "{
+    \"userpass\":\"$userpass\",
+    \"method\":\"withdraw\",
+    \"coin\":\"$1\",
+    \"to\":\"$2\",
+    \"amount\":\"$3\",
+    \"fee\": {
+        \"type\":\"EthGas\",
+        \"gas_price\":\"3.5\",
+        \"gas\":55000
+    }
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -251,7 +292,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 #### Command (max = true)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"ETH\",\"to\":\"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",\"max\":true,\"userpass\":\"$userpass\"}"
+curl --url "http://127.0.0.1:7783" --data "{
+    \"method\":\"withdraw\",
+    \"coin\":\"ETH\",
+    \"to\":\"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",
+    \"max\":true,
+    \"userpass\":\"$userpass\"
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -289,7 +336,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"E
 #### Command (QRC20)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"QRC20\",\"to\":\"qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs\",\"amount\":10,\"userpass\":\"$userpass\"}"
+curl --url "http://127.0.0.1:7783" --data "{
+    \"method\":\"withdraw\",
+    \"coin\":\"QRC20\",
+    \"to\":\"qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs\",
+    \"amount\":10,
+    \"userpass\":\"$userpass\"
+}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -329,7 +382,18 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"Q
 #### Command (QRC20, with gas fee)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"withdraw\",\"coin\":\"QRC20\",\"to\":\"qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs\",\"amount\":10,\"fee\":{\"type\":\"Qrc20Gas\",\"gas_limit\":250000,\"gas_price\":40}}"
+curl --url "http://127.0.0.1:7783" --data "{
+    \"userpass\":\"$userpass\",
+    \"method\":\"withdraw\",
+    \"coin\":\"QRC20\",
+    \"to\":\"qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs\",
+    \"amount\":10,
+    \"fee\": {
+        \"type\":\"Qrc20Gas\",
+        \"gas_limit\":250000,
+        \"gas_price\":40
+    }
+}"
 ```
 
 <div style="margin-top: 0.5rem;">

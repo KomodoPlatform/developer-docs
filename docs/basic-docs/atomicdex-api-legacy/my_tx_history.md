@@ -41,13 +41,25 @@ The coin that is used must have `tx_history` set to true in its [enable](../../.
 #### Command
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_tx_history\",\"coin\":\"RICK\",\"limit\":1,\"from_id\":\"1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1\"}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"my_tx_history\",
+  \"coin\": \"RICK\",
+  \"limit\": 1,
+  \"from_id\": \"1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1\"
+}"
 ```
 
 #### Command (max = true)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_tx_history\",\"coin\":\"RICK\",\"max\":true,\"from_id\":\"1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1\"}"
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"my_tx_history\",
+  \"coin\": \"RICK\",
+  \"max\": true,
+  \"from_id\": \"1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1\"
+}"
 ```
 
 <div style="margin-top: 0.5rem;">

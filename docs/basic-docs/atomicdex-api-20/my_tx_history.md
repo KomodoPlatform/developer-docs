@@ -1,17 +1,43 @@
 # my\_tx\_history
 
-This method currently works only for BCH and SLP protocols. Implementation for all other UTXO coins (and other protocols) will be added in future.
+To use this method, you must activate your coin with `"tx_history": true`. The response will vary depending on the coin.
+Currently only BCH & SLP tokens are supported in the master/release API. In the latest dev API, UTXO coins, QTUM, and Tendermint/Tendermint tokens are also supported.
+For ZHTLC coins, you must use the [z_coin_tx_history](../atomicdex-api-20-dev/zhtlc_coins.html#z_coin_tx_history) method.
+For all other coins, use the legacy [my_tx_history](../atomicdex-api-legacy/my_tx_history.html) method.
 
+
+#### Arguments
 
 | parameter                                 | Type     | Description                               |
 | ----------------------------------------- | -------- | ----------------------------------------- |
-| ticker                                    | string   | Ticker of the coin to get history for.    |
+| coin                                      | string   | Ticker of the coin to get history for.    |
 | limit                                     | integer  | Optional. Limits the number of returned transactions. Defaults to `10`. Ignored if `max = true`. |
 | paging_options.FromId                     | string   | Optional. AtomicDEX API will skip records until it reaches this ID, skipping the from_id as well; track the internal_id of the last displayed transaction to find the value of this field for the next page |
 | paging_options.PageNumber                 | integer  | Optional. AtomicDEX API will return limit swaps from the selected page. Ignored if `FromId` . | 
 
 
-# Request (BCH from page 2)
+#### Response
+
+| Structure                                     | Type             | Description                                                                                                                                    |
+| --------------------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| transactions                                  | array of objects | transactions data                                                                                                                              |
+| from_id                                       | string           | the from_id specified in the request; this value is null if from_id was not set                                                                |
+| skipped                                       | number           | the number of skipped records (i.e. the position of `from_id` in the list + 1); this value is 0 if `from_id` was not set                       |
+| limit                                         | number           | the limit that was set in the request; note that the actual number of transactions can differ from the specified limit (e.g. on the last page) |
+| total                                         | number           | the total number of transactions available                                                                                                     |
+| page_number                                   | number           | the page_number that was set in the request                                                                                                    |
+| total_pages                                   | number           | total pages available with the selected limit                                                                                                  |
+| current_block                                 | number           | the number of the latest block of coin blockchain                                                                                              |
+| sync_status                                   | object           | provides the information that helps to track the progress of transaction history preloading at background                                      |
+| sync_status.state                             | string           | current state of sync; possible values: `NotEnabled`, `NotStarted`, `InProgress`, `Error`, `Finished`                                          |
+| sync_status.additional_info                   | object           | additional info that helps to track the progress; present for `InProgress` and `Error` states only                                             |
+| sync_status.additional_info.blocks_left       | number           | present for ETH/ERC20 coins only; displays the number of blocks left to be processed for `InProgress` state                                    |
+| sync_status.additional_info.transactions_left | number           | present for UTXO coins only; displays the number of transactions left to be processed for `InProgress` state                                   |
+| sync_status.additional_info.code              | number           | displays the error code for `Error` state                                                                                                      |
+| sync_status.additional_info.message           | number           | displays the error message for `Error` state                                                                                                   |
+
+
+## Request (BCH from page 2)
 
 
 ```bash
@@ -29,8 +55,11 @@ curl --url "http://127.0.0.1:7783" --data "{
 }"
 ```
 
+<div style="margin-top: 0.5rem;">
 
-## Response
+<collapse-text hidden title="Response">
+
+### Response
 ```json
 {
   "mmrpc": "2.0",
@@ -107,8 +136,11 @@ curl --url "http://127.0.0.1:7783" --data "{
 }
 ```
 
+</collapse-text>
 
-# Request (TTT-SLP with FromId)
+</div>
+
+## Request (TTT-SLP with FromId)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{
@@ -126,7 +158,12 @@ curl --url "http://127.0.0.1:7783" --data "{
 ```
 
 
-## Response
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+### Response
 
 ```json
 {
@@ -175,7 +212,134 @@ curl --url "http://127.0.0.1:7783" --data "{
 }
 ```
 
-## Error - Coin not active
+</collapse-text>
+
+</div>
+
+## Request (IRIS with limit = 50)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\":\"$userpass\",
+  \"method\":\"my_tx_history\",
+  \"mmrpc\":\"2.0\",
+  \"params\": {
+    \"coin\": \"IRIS\",
+    \"limit\": 50
+  }
+}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+### Response
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "coin": "IRIS",
+    "target": {
+      "type": "iguana"
+    },
+    "current_block": 18120346,
+    "transactions": [{
+      "tx_hex": "0a2a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b122a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b1a110a05756972697312083130303030303030",
+      "tx_hash": "B34A8D5AD74067F01A0207DF1851A14673C859D8A6F4FB0CBE292D2104C143CA",
+      "from": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
+      "to": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
+      "total_amount": "10.044559",
+      "spent_by_me": "10.044559",
+      "received_by_me": "10",
+      "my_balance_change": "-0.044559",
+      "block_height": 18120218,
+      "timestamp": 1673016440,
+      "fee_details": {
+        "type": "Tendermint",
+        "coin": "IRIS",
+        "amount": "0.044559",
+        "gas_limit": 100000
+      },
+      "coin": "IRIS",
+      "internal_id": "4644373032304131304637363034374441354438413433420000000000000000",
+      "transaction_type": "StandardTransfer",
+      "memo": "while you are out, buy milk",
+      "confirmations": 129
+    }, {
+      "tx_hex": "0a2a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b122a696161317a78733476776c36326b687174376e7a7276687a676b34377467366365706677707a673537711a4d0a446962632f3237333934464230393244324543434435363132334337344633364534433146393236303031434541444139434139374541363232423235463431453545423212053130303030",
+      "tx_hash": "09ADDD3427A3BA4B0A94023456DF534DB5B9B6821EC17C7C1B2C168EFCF49F26",
+      "from": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
+      "to": [],
+      "total_amount": "0.051788",
+      "spent_by_me": "0.051788",
+      "received_by_me": "0",
+      "my_balance_change": "-0.051788",
+      "block_height": 17996530,
+      "timestamp": 1672232661,
+      "fee_details": {
+        "type": "Tendermint",
+        "coin": "IRIS",
+        "amount": "0.051788",
+        "gas_limit": 100000
+      },
+      "coin": "IRIS",
+      "internal_id": "0000000000000000303941444444333432374133424134423041393430323334",
+      "transaction_type": "FeeForTokenTx",
+      "memo": null,
+      "confirmations": 123817
+    }, {
+      "tx_hex": "0a2a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b1240343133433843414333434142363945454632344432423643414238314146454344383044413745323731433237343637453142324635463337314446353241441a4061353539343834666536316665383630326465383632353964643263663031613865393437306437666635346262323536336233393035646462366238366535",
+      "tx_hash": "4E30C074CED6825F3E1B6584C376A426C20FDEFC9A22EB17D8E7DA4139FA0AEB",
+      "from": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
+      "to": [],
+      "total_amount": "182.742425",
+      "spent_by_me": "0.053103",
+      "received_by_me": "182.689322",
+      "my_balance_change": "182.636219",
+      "block_height": 17981793,
+      "timestamp": 1672138900,
+      "fee_details": {
+        "type": "Tendermint",
+        "coin": "IRIS",
+        "amount": "0.053103",
+        "gas_limit": 100000
+      },
+      "coin": "IRIS",
+      "internal_id": "3438353642314533463532383644454334373043303345340000000000000000",
+      "transaction_type": {
+        "CustomTendermintMsg": {
+          "msg_type": "SignClaimHtlc",
+          "token_id": null
+        }
+      },
+      "memo": null,
+      "confirmations": 138554
+    }],
+    "sync_status": {
+      "state": "NotStarted"
+    },
+    "limit": 50,
+    "skipped": 0,
+    "total": 3,
+    "total_pages": 1,
+    "paging_options": {
+      "PageNumber": 1
+    }
+  },
+  "id": null
+}
+```
+
+</collapse-text>
+
+</div>
+
+## Error cases
+
+
+### Error - Coin not active
 ```json
 {
   "mmrpc": "2.0",
@@ -188,7 +352,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 }
 ```
 
-## Error - Coin not compatible
+### Error - Coin not compatible
 ```json
 {
   "mmrpc":"2.0",
@@ -201,7 +365,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 }
 ```
 
-## Error - Coin enabled without tx_history = true
+### Error - Coin enabled without tx_history = true
 ```json
 {
   "mmrpc":"2.0",
@@ -215,7 +379,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 ```
 
 
-## Error - Local database failed
+### Error - Local database failed
 ```json
 {
   "mmrpc":"2.0",
