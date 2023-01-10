@@ -1,14 +1,40 @@
 # my\_tx\_history
 
-To use this method, you must activate your coin with `"tx_history": true`. The response will vary depending on the coin. Currently only BCH & SLP tokens are supported in the master/release API. In the latest dev API, UTXO coins, QTUM, and Tendermint/Tendermint tokens are also supported.
+To use this method, you must activate your coin with `"tx_history": true`. The response will vary depending on the coin.
+Currently only BCH & SLP tokens are supported in the master/release API. In the latest dev API, UTXO coins, QTUM, and Tendermint/Tendermint tokens are also supported.
+For ZHTLC coins, you must use the [z_coin_tx_history](../atomicdex-api-20-dev/zhtlc_coins.html#z_coin_tx_history) method.
+For all other coins, use the legacy [my_tx_history](../atomicdex-api-legacy/my_tx_history.html) method.
 
+
+#### Arguments
 
 | parameter                                 | Type     | Description                               |
 | ----------------------------------------- | -------- | ----------------------------------------- |
-| ticker                                    | string   | Ticker of the coin to get history for.    |
+| coin                                      | string   | Ticker of the coin to get history for.    |
 | limit                                     | integer  | Optional. Limits the number of returned transactions. Defaults to `10`. Ignored if `max = true`. |
 | paging_options.FromId                     | string   | Optional. AtomicDEX API will skip records until it reaches this ID, skipping the from_id as well; track the internal_id of the last displayed transaction to find the value of this field for the next page |
 | paging_options.PageNumber                 | integer  | Optional. AtomicDEX API will return limit swaps from the selected page. Ignored if `FromId` . | 
+
+
+#### Response
+
+| Structure                                     | Type             | Description                                                                                                                                    |
+| --------------------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| transactions                                  | array of objects | transactions data                                                                                                                              |
+| from_id                                       | string           | the from_id specified in the request; this value is null if from_id was not set                                                                |
+| skipped                                       | number           | the number of skipped records (i.e. the position of `from_id` in the list + 1); this value is 0 if `from_id` was not set                       |
+| limit                                         | number           | the limit that was set in the request; note that the actual number of transactions can differ from the specified limit (e.g. on the last page) |
+| total                                         | number           | the total number of transactions available                                                                                                     |
+| page_number                                   | number           | the page_number that was set in the request                                                                                                    |
+| total_pages                                   | number           | total pages available with the selected limit                                                                                                  |
+| current_block                                 | number           | the number of the latest block of coin blockchain                                                                                              |
+| sync_status                                   | object           | provides the information that helps to track the progress of transaction history preloading at background                                      |
+| sync_status.state                             | string           | current state of sync; possible values: `NotEnabled`, `NotStarted`, `InProgress`, `Error`, `Finished`                                          |
+| sync_status.additional_info                   | object           | additional info that helps to track the progress; present for `InProgress` and `Error` states only                                             |
+| sync_status.additional_info.blocks_left       | number           | present for ETH/ERC20 coins only; displays the number of blocks left to be processed for `InProgress` state                                    |
+| sync_status.additional_info.transactions_left | number           | present for UTXO coins only; displays the number of transactions left to be processed for `InProgress` state                                   |
+| sync_status.additional_info.code              | number           | displays the error code for `Error` state                                                                                                      |
+| sync_status.additional_info.message           | number           | displays the error message for `Error` state                                                                                                   |
 
 
 ## Request (BCH from page 2)

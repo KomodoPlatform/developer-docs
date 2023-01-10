@@ -293,13 +293,11 @@ curl --url "http://127.0.0.1:7783" --data "
 echo
 ```
 
-
 <div style="margin-top: 0.5rem;">
 
 <collapse-text hidden title="Response">
 
 #### Response (success)
-
 
 ```json
 {
@@ -309,9 +307,7 @@ echo
 }
 ```
 
-
 #### Response (success - already finished)
-
 
 ```json
 {
@@ -327,7 +323,6 @@ echo
 
 #### Response (error - no such task)
 
-
 ```json
 {
   "mmrpc": "2.0",
@@ -339,6 +334,156 @@ echo
   "id": null
 }
 
+```
+
+</collapse-text>
+
+</div>
+
+
+## z\_coin\_tx\_history
+
+To get the transaction history for ZHTLC coins, you need to use this special method - the [v2 my_tx_history](../atomicdex-api-20/my_tx_history.html) and [legacy my_tx_history](../atomicdex-api-legacy/my_tx_history.html) methods are not compatible with ZHTLC coins.
+
+#### Arguments
+
+| Structure                 | Type     | Description                                                                                                        |
+| ------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
+| coin                      | string   | Ticker of the coin to get history for.    |
+| limit                     | integer  | Optional. Limits the number of returned transactions. Defaults to `10`. Ignored if `max = true`. |
+| paging_options.FromId     | string   | Optional. AtomicDEX API will skip records until it reaches this ID, skipping the from_id as well; track the internal_id of the last displayed transaction to find the value of this field for the next page |
+| paging_options.PageNumber | integer  | Optional. AtomicDEX API will return limit swaps from the selected page. Ignored if `FromId` . | 
+
+
+#### Response
+
+| Structure                                     | Type             | Description                                                                                                                                    |
+| --------------------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| transactions                                  | array of objects | transactions data                                                                                                                              |
+| from_id                                       | string           | the from_id specified in the request; this value is null if from_id was not set                                                                |
+| skipped                                       | number           | the number of skipped records (i.e. the position of `from_id` in the list + 1); this value is 0 if `from_id` was not set                       |
+| limit                                         | number           | the limit that was set in the request; note that the actual number of transactions can differ from the specified limit (e.g. on the last page) |
+| total                                         | number           | the total number of transactions available                                                                                                     |
+| page_number                                   | number           | the page_number that was set in the request                                                                                                    |
+| total_pages                                   | number           | total pages available with the selected limit                                                                                                  |
+| current_block                                 | number           | the number of the latest block of coin blockchain                                                                                              |
+| sync_status                                   | object           | provides the information that helps to track the progress of transaction history preloading at background                                      |
+| sync_status.state                             | string           | current state of sync; possible values: `NotEnabled`, `NotStarted`, `InProgress`, `Error`, `Finished`                                          |
+| sync_status.additional_info                   | object           | additional info that helps to track the progress; present for `InProgress` and `Error` states only                                             |
+| sync_status.additional_info.blocks_left       | number           | present for ETH/ERC20 coins only; displays the number of blocks left to be processed for `InProgress` state                                    |
+| sync_status.additional_info.transactions_left | number           | present for UTXO coins only; displays the number of transactions left to be processed for `InProgress` state                                   |
+| sync_status.additional_info.code              | number           | displays the error code for `Error` state                                                                                                      |
+| sync_status.additional_info.message           | number           | displays the error message for `Error` state                                                                                                   |
+
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+#!/bin/bash
+source userpass
+curl --url "http://127.0.0.1:7783" --data "{
+  \"userpass\": \"$userpass\",
+  \"method\": \"z_coin_tx_history\",
+  \"mmrpc\": \"2.0\",
+  \"params\": {
+    \"coin\": \"ARRR\",
+    \"limit\": 2,
+    \"paging_options\": {
+      \"PageNumber\": 2
+    }
+  }
+}"
+echo ""
+```
+
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "coin": "ARRR",
+    "target": {
+      "type": "iguana"
+    },
+    "current_block": 2228711,
+    "transactions": [{
+      "tx_hash": "b7e8307778d7d61ebb2ebc7a130661ef6fbeb66ee5d15d0f84a3bfce3ebad5a1",
+      "from": ["zs1e3puxpnal8ljjrqlxv4jctlyndxnm5a3mj5rarjvp0qv72hmm9caduxk9asu9kyc6erfx4zsauj"],
+      "to": ["zs1e3puxpnal8ljjrqlxv4jctlyndxnm5a3mj5rarjvp0qv72hmm9caduxk9asu9kyc6erfx4zsauj"],
+      "spent_by_me": "17.65495855",
+      "received_by_me": "17.65494855",
+      "my_balance_change": "-0.00001000",
+      "block_height": 2224011,
+      "confirmations": 4701,
+      "timestamp": 1673018341,
+      "transaction_fee": "0.00001",
+      "coin": "ARRR",
+      "internal_id": 26
+    }, {
+      "tx_hash": "967deb0a8cbce0c1f0ba20deee7a955e1a82bd1173bb3dd15cc95f03738ca65c",
+      "from": ["zs1e3puxpnal8ljjrqlxv4jctlyndxnm5a3mj5rarjvp0qv72hmm9caduxk9asu9kyc6erfx4zsauj"],
+      "to": ["zs10ah73fpudlecg678jmqjdyeym5fgccvjytqry533rq2w04dekenxe8ekt349s3lelmlss3j4u9q", "zs1e3puxpnal8ljjrqlxv4jctlyndxnm5a3mj5rarjvp0qv72hmm9caduxk9asu9kyc6erfx4zsauj"],
+      "spent_by_me": "20.65496855",
+      "received_by_me": "17.65495855",
+      "my_balance_change": "-3.00001000",
+      "block_height": 2196913,
+      "confirmations": 31799,
+      "timestamp": 1671100306,
+      "transaction_fee": "0.00001",
+      "coin": "ARRR",
+      "internal_id": 25
+    }],
+    "sync_status": {
+      "state": "Finished"
+    },
+    "limit": 2,
+    "skipped": 2,
+    "total": 28,
+    "total_pages": 14,
+    "paging_options": {
+      "PageNumber": 2
+    }
+  },
+  "id": null
+}
+```
+
+#### Response (error - coin not supported)
+
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "TKL",
+  "error_path": "my_tx_history_v2",
+  "error_trace": "my_tx_history_v2:523]",
+  "error_type": "NotSupportedFor",
+  "error_data": "TKL",
+  "id": null
+}
+```
+
+#### Response (error - coin not active)
+
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "ZOMBIE",
+  "error_path": "my_tx_history_v2.lp_coins",
+  "error_trace": "my_tx_history_v2:521] lp_coins:2849]",
+  "error_type": "CoinIsNotActive",
+  "error_data": "ZOMBIE",
+  "id": null
+}
 ```
 
 </collapse-text>
