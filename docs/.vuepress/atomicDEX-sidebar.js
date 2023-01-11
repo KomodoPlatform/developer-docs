@@ -346,7 +346,28 @@ let atomicDEXsidebar = {
             ["/basic-docs/atomicdex-api-20-dev/get_current_mtp.md", "get_current_mtp"]
           ]
         },
-        ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md", "Trezor Integration"],
+        {
+          title: "Hardware Wallet Tasks",
+          collapsable: true,
+          children: [
+            [
+              "/basic-docs/atomicdex-api-20-dev/trezor_integration.md",
+              "Trezor Integration"
+            ],
+            [
+              "/basic-docs/atomicdex-api-20-dev/trezor_initialisation.md",
+              "Trezor Initialisation"
+            ],
+            [
+              "/basic-docs/atomicdex-api-20-dev/account_balance_tasks.md",
+              "Account Balance Tasks"
+            ],
+          ]
+        },
+        [
+          "/basic-docs/atomicdex-api-20-dev/coin_activation_tasks.md",
+          "Coin Activation Tasks",
+        ],
         [
           "/basic-docs/atomicdex-api-20-dev/withdraw_tasks.md",
           "Withdraw Tasks",

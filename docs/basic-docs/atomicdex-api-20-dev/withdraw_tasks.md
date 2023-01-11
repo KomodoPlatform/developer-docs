@@ -2,7 +2,7 @@
 
 
 
-## withdraw\_init
+## task\_withdraw\_init
 
 The `task::withdraw::init` method generates and signs transaction which will transfer the `amount` of `coin` to the address indicated in the `to` argument. The status of this method can be queried via the [withdraw_status](#withdraw-status) method, or .
 
@@ -186,7 +186,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 
 
-## withdraw\_status
+## task\_withdraw\_status
 
 To get the status of your withdrawal transaction generation, use the `task::withdraw::status` method. Once ready, it will provide the raw hex used to broadcast your transaction with [sendrawtransaction](../atomicdex-api-legacy/send_raw_transaction.html). The response returned is the same as what is returned from the [standard v2 withdraw method](../atomicdex-api-20/withdraw.html#response)
 
@@ -375,7 +375,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 </div>
 
 
-## withdraw\_cancel
+## task\_withdraw\_cancel
 
 Use the `task::withdraw::cancel` method to cancel the withdrawal preparation task.
 
