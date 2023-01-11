@@ -121,7 +121,7 @@ curl --url "http://127.0.0.1:7783" --data "
     \"method\": \"task::enable_z_coin::status\",
     \"mmrpc\": \"2.0\",
     \"params\": {
-        \"task_id\": $1,
+        \"task_id\": TASK_ID,
         \"forget_if_finished\": false
     }
 }"
@@ -287,7 +287,7 @@ curl --url "http://127.0.0.1:7783" --data "
     \"method\": \"task::enable_z_coin::cancel\",
     \"mmrpc\": \"2.0\",
     \"params\": {
-        \"task_id\": $1
+        \"task_id\": TASK_ID
     }
 }"
 echo
