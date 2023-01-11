@@ -496,6 +496,9 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 </div>
 
+For enabling Z coins, refer to the [Z coin tasks](../../../basic-docs/atomicdex-api-20-dev/enable_z_coin.html) in the v2.0 Dev API.
+
+
 To see more examples for other platforms like Fantom, Avalanche & Harmony, you can search the [AtomicDEX API Coin Activation Commands List
 ](http://stats.kmd.io/atomicdex/activation_commands/) or build a single `batch` command to enable a set of selected coins via the 
 [Batch Coin Activation Form](http://stats.kmd.io/atomicdex/batch_activation_form/)

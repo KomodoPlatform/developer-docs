@@ -346,7 +346,15 @@ let atomicDEXsidebar = {
             ["/basic-docs/atomicdex-api-20-dev/get_current_mtp.md", "get_current_mtp"]
           ]
         },
-        ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md", "Trezor Integration"]
+        ["/basic-docs/atomicdex-api-20-dev/trezor_integration.md", "Trezor Integration"],
+        [
+          "/basic-docs/atomicdex-api-20-dev/withdraw_tasks.md",
+          "Withdraw Tasks",
+        ],
+        [
+          "/basic-docs/atomicdex-api-20-dev/zhtlc_coins.md",
+          "ZHTLC Coins",
+        ]
       ]
     }
   ]
