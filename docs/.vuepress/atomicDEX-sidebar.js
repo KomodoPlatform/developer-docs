@@ -359,6 +359,10 @@ let atomicDEXsidebar = {
               "Trezor Initialisation"
             ],
             [
+              "/basic-docs/atomicdex-api-20-dev/hd_address_management.md",
+              "HD Address Management"
+            ],
+            [
               "/basic-docs/atomicdex-api-20-dev/account_balance_tasks.md",
               "Account Balance Tasks"
             ]
