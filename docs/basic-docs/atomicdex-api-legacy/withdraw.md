@@ -238,9 +238,9 @@ curl --url "http://127.0.0.1:7783" --data "{
 curl --url "http://127.0.0.1:7783" --data "{
     \"userpass\":\"$userpass\",
     \"method\":\"withdraw\",
-    \"coin\":\"$1\",
-    \"to\":\"$2\",
-    \"amount\":\"$3\",
+    \"coin\":\"COIN_NAME\",
+    \"to\":\"RECIPIENT_ADDRESS\",
+    \"amount\":\"AMOUNT\",
     \"fee\": {
         \"type\":\"EthGas\",
         \"gas_price\":\"3.5\",

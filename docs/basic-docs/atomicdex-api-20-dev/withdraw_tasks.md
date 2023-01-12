@@ -44,9 +44,9 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"userpass\": \"${userpass}\",
     \"method\": \"task::withdraw::init\",
     \"params\": {
-        \"coin\": \"$1\",
-        \"to\": \"$2\",
-        \"amount\": \"$3\"
+        \"coin\": \"COIN_NAME\",
+        \"to\": \"RECIPIENT_ADDRESS\",
+        \"amount\": \"AMOUNT\"
     },
     \"id\": 0
 }"
@@ -62,8 +62,8 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"userpass\": \"${userpass}\",
     \"method\": \"task::withdraw::init\",
     \"params\": {
-        \"coin\": \"$1\",
-        \"to\": \"$2\",
+        \"coin\": \"COIN_NAME\",
+        \"to\": \"RECIPIENT_ADDRESS\",
         \"max\": true
     },
     \"id\": 0
@@ -80,9 +80,9 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"userpass\": \"${userpass}\",
     \"method\": \"task::withdraw::init\",
     \"params\": {
-        \"coin\": \"$1\",
-        \"to\": \"$2\",
-        \"amount\": \"$3\",
+        \"coin\": \"COIN_NAME\",
+        \"to\": \"RECIPIENT_ADDRESS\",
+        \"amount\": \"AMOUNT\",
         \"fee\": {
             \"type\":\"UtxoFixed\",
              \"amount\":\"0.001\"
@@ -102,9 +102,9 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"userpass\": \"${userpass}\",
     \"method\": \"task::withdraw::init\",
     \"params\": {
-        \"coin\": \"$1\",
-        \"to\": \"$2\",
-        \"amount\": \"$3\",
+        \"coin\": \"COIN_NAME\",
+        \"to\": \"RECIPIENT_ADDRESS\",
+        \"amount\": \"AMOUNT\",
         \"fee\": {
             \"type\":\"UtxoPerKbyte\",
              \"amount\":\"0.00097\"
@@ -180,7 +180,7 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"userpass\": \"$userpass\",
     \"method\": \"task::withdraw::status\",
     \"params\": {
-        \"task_id\": $1,
+        \"task_id\": TASK_ID,
         \"forget_if_finished\": false
     },
     \"id\":0
@@ -310,7 +310,7 @@ curl --url "http://127.0.0.1:7783" --data "
     \"method\": \"task::withdraw::cancel\",
     \"mmrpc\": \"2.0\",
     \"params\": {
-        \"task_id\": $1
+        \"task_id\": TASK_ID
     }
 }"
 echo
