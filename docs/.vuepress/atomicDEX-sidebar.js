@@ -347,12 +347,12 @@ let atomicDEXsidebar = {
           ]
         },
         {
-          title: "Hardware Wallet Tasks",
+          title: "HD Wallet Tasks",
           collapsable: true,
           children: [
             [
-              "/basic-docs/atomicdex-api-20-dev/trezor_integration.md",
-              "Trezor Integration"
+              "/basic-docs/atomicdex-api-20-dev/hd_wallets_overview.md",
+              "HD Wallets Overview"
             ],
             [
               "/basic-docs/atomicdex-api-20-dev/trezor_initialisation.md",
@@ -361,7 +361,7 @@ let atomicDEXsidebar = {
             [
               "/basic-docs/atomicdex-api-20-dev/account_balance_tasks.md",
               "Account Balance Tasks"
-            ],
+            ]
           ]
         },
         [
