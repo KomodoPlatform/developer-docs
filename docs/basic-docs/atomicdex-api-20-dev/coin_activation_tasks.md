@@ -7,7 +7,7 @@ UTXO coins are activated using this method. For QTUM coins, refer to [task::enab
 
 | Parameter                     | Type    | Description                                                                     |
 | ----------------------------- | ------- | ------------------------------------------------------------------------------- |
-| ticker                        | string  | The ticker of tyhe coin you want to enable.                                     |
+| ticker                        | string  | The ticker of the coin you want to enable.                                      |
 | activation_params             | object  | An object containing the actvation parameters below.                            |
 | .priv_key_policy              | string  | Defaults to `ContextPrivkey`. Set as `Trezor` to activate in Trezor mode.        |
 | .min_addresses_number         | integer | How many additional addreesses to generate at a minimum.                        |
@@ -385,7 +385,7 @@ QTUM coins are activated using this method. For UTXO coins, refer to [task::enab
 
 | Parameter                     | Type    | Description                                                                     |
 | ----------------------------- | ------- | ------------------------------------------------------------------------------- |
-| ticker                        | string  | The ticker of tyhe coin you want to enable.                                     |
+| ticker                        | string  | The ticker of the coin you want to enable.                                     |
 | activation_params             | object  | An object containing the actvation parameters below.                            |
 | .priv_key_policy              | string  | Defaults to `ContextPrivkey`. Set as `Trezor` to activate in Trezor mode.       |
 | .min_addresses_number         | integer | How many additional addreesses to generate at a minimum.                        |

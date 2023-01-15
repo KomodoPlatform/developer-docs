@@ -1,6 +1,6 @@
 # Account Balance Tasks
 
-When using a hardware wallet, your funds may be spread across a range of addresses under a specified account index. The methods below will return the combined balance of your account, detailing the balance for each active account address.
+If you have activated a coin with the [task::enable_utxo::init](coin_activation_tasks.html#task-enable-utxo-init) or [task::enable_qtum::init](coin_activation_tasks.html#task-enable-qtum-init) and used the `"priv_key_policy": "Trezor"` parameter, your funds may be spread across a range of addresses under a specified account index. The methods below will return the combined balance of your account, detailing the balance for each active account address.
 
 
 ## task\_account\_balance\_init
