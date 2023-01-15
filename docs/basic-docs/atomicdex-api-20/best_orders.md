@@ -3,6 +3,7 @@
 The `best_orders` method returns the best priced trades available on the orderbook. There are two options for the request, either `volume` or `number`.
 If request is made by `volume`, the returned results will show the best prices for trades that can fill the requested volume.
 If request is made by `number`, the returned results will show a list of the best prices, `number` pairs long (e.g. top 5 best priced orders).
+For coins with segwit, they may appear twice in the output (once for each address). E.g. `LTC` and `LTC-segwit`
 
 ::: tip
 
@@ -79,11 +80,11 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"method\": \"best_orders\",
     \"mmrpc\": \"2.0\",
     \"params\": {
-        \"coin\": \"TKL\",
+        \"coin\": \"DGB\",
         \"action\": \"buy\",
         \"request_by\": { 
               \"type\": \"number\",
-              \"value\": 1
+              \"value\": 100
         }
     }
 }"
@@ -100,261 +101,370 @@ curl --url "http://127.0.0.1:7783" --data "{
   "mmrpc": "2.0",
   "result": {
     "orders": {
-      "MORTY": [
-        {
-          "coin": "MORTY",
-          "address": {
-            "address_type": "Transparent",
-            "address_data": "RKGn1jkeS7VNLfwY74esW7a8JFfLNj1Yoo"
-          },
-          "price": {
-            "decimal": "0.7",
-            "rational": [
-              [
-                1,
-                [
-                  7
-                ]
-              ],
-              [
-                1,
-                [
-                  10
-                ]
-              ]
-            ],
-            "fraction": {
-              "numer": "7",
-              "denom": "10"
-            }
-          },
-          "pubkey": "03c6a78589e18b482aea046975e6d0acbdea7bf7dbf04d9d5bd67fda917815e3ed",
-          "uuid": "785065d4-3d46-44c7-a0d7-402bf6104750",
-          "is_mine": false,
-          "base_max_volume": {
-            "decimal": "0.9",
-            "rational": [
-              [
-                1,
-                [
-                  9
-                ]
-              ],
-              [
-                1,
-                [
-                  10
-                ]
-              ]
-            ],
-            "fraction": {
-              "numer": "9",
-              "denom": "10"
-            }
-          },
-          "base_min_volume": {
-            "decimal": "0.9",
-            "rational": [
-              [
-                1,
-                [
-                  9
-                ]
-              ],
-              [
-                1,
-                [
-                  10
-                ]
-              ]
-            ],
-            "fraction": {
-              "numer": "9",
-              "denom": "10"
-            }
-          },
-          "rel_max_volume": {
-            "decimal": "0.63",
-            "rational": [
-              [
-                1,
-                [
-                  63
-                ]
-              ],
-              [
-                1,
-                [
-                  100
-                ]
-              ]
-            ],
-            "fraction": {
-              "numer": "63",
-              "denom": "100"
-            }
-          },
-          "rel_min_volume": {
-            "decimal": "0.63",
-            "rational": [
-              [
-                1,
-                [
-                  63
-                ]
-              ],
-              [
-                1,
-                [
-                  100
-                ]
-              ]
-            ],
-            "fraction": {
-              "numer": "63",
-              "denom": "100"
-            }
-          },
-          "conf_settings": {
-            "base_confs": 1,
-            "base_nota": false,
-            "rel_confs": 1,
-            "rel_nota": false
+      "TKL": [{
+        "coin": "TKL",
+        "address": {
+          "address_type": "Transparent",
+          "address_data": "RAwv8JhfvmFx2V3QpY7ehiYpBJ1eqxxdxR"
+        },
+        "price": {
+          "decimal": "8.7753611926",
+          "rational": [
+            [1, [927133003, 10]],
+            [1, [705032704, 1]]
+          ],
+          "fraction": {
+            "numer": "43876805963",
+            "denom": "5000000000"
           }
-        }
-      ],
-      "ETH": [
-        {
-          "coin": "ETH",
-          "address": {
-            "address_type": "Transparent",
-            "address_data": "0x4b2d0d6c2c785217457b69b922a2a9cea98f71e9"
-          },
-          "price": {
-            "decimal": "0.8",
-            "rational": [
-              [
-                1,
-                [
-                  4
-                ]
-              ],
-              [
-                1,
-                [
-                  5
-                ]
-              ]
-            ],
-            "fraction": {
-              "numer": "4",
-              "denom": "5"
-            }
-          },
-          "pubkey": "03c6a78589e18b482aea046975e6d0acbdea7bf7dbf04d9d5bd67fda917815e3ed",
-          "uuid": "09628057-a42f-4868-bdb7-b719bc75477e",
-          "is_mine": false,
-          "base_max_volume": {
-            "decimal": "0.9",
-            "rational": [
-              [
-                1,
-                [
-                  9
-                ]
-              ],
-              [
-                1,
-                [
-                  10
-                ]
-              ]
-            ],
-            "fraction": {
-              "numer": "9",
-              "denom": "10"
-            }
-          },
-          "base_min_volume": {
-            "decimal": "0.00777",
-            "rational": [
-              [
-                1,
-                [
-                  777
-                ]
-              ],
-              [
-                1,
-                [
-                  100000
-                ]
-              ]
-            ],
-            "fraction": {
-              "numer": "777",
-              "denom": "100000"
-            }
-          },
-          "rel_max_volume": {
-            "decimal": "0.72",
-            "rational": [
-              [
-                1,
-                [
-                  18
-                ]
-              ],
-              [
-                1,
-                [
-                  25
-                ]
-              ]
-            ],
-            "fraction": {
-              "numer": "18",
-              "denom": "25"
-            }
-          },
-          "rel_min_volume": {
-            "decimal": "0.006216",
-            "rational": [
-              [
-                1,
-                [
-                  777
-                ]
-              ],
-              [
-                1,
-                [
-                  125000
-                ]
-              ]
-            ],
-            "fraction": {
-              "numer": "777",
-              "denom": "125000"
-            }
-          },
-          "conf_settings": {
-            "base_confs": 1,
-            "base_nota": false,
-            "rel_confs": 1,
-            "rel_nota": false
+        },
+        "pubkey": "02dbd8c73e2e80e4f3cf88d2f04a9d2d0df4269496608b14a3e17556fdcb01e0c1",
+        "uuid": "416bb993-acac-42cf-ae54-bf57a21f7a3d",
+        "is_mine": false,
+        "base_max_volume": {
+          "decimal": "2478.31474597274",
+          "rational": [
+            [1, [1635841741, 28851]],
+            [1, [2755359744, 11]]
+          ],
+          "fraction": {
+            "numer": "123915737298637",
+            "denom": "50000000000"
           }
+        },
+        "base_min_volume": {
+          "decimal": "0.0001",
+          "rational": [
+            [1, [1]],
+            [1, [10000]]
+          ],
+          "fraction": {
+            "numer": "1",
+            "denom": "10000"
+          }
+        },
+        "rel_max_volume": {
+          "decimal": "21748.107044857509733489724",
+          "rational": [
+            [1, [2703103759, 3484586521, 294741]],
+            [1, [2007498752, 2373086065, 13]]
+          ],
+          "fraction": {
+            "numer": "5437026761214377433372431",
+            "denom": "250000000000000000000"
+          }
+        },
+        "rel_min_volume": {
+          "decimal": "0.00087753611926",
+          "rational": [
+            [1, [927133003, 10]],
+            [1, [2285707264, 11641]]
+          ],
+          "fraction": {
+            "numer": "43876805963",
+            "denom": "50000000000000"
+          }
+        },
+        "conf_settings": {
+          "base_confs": 7,
+          "base_nota": false,
+          "rel_confs": 2,
+          "rel_nota": true
         }
-      ]
+      }],
+      "XMY-segwit": [{
+        "coin": "XMY-segwit",
+        "address": {
+          "address_type": "Transparent",
+          "address_data": "MJx4vyc657NwQUMjzRgDcypvRw5NduzSz4"
+        },
+        "price": {
+          "decimal": "88.3356107012",
+          "rational": [
+            [1, [1795694657, 51]],
+            [1, [2500000000]]
+          ],
+          "fraction": {
+            "numer": "220839026753",
+            "denom": "2500000000"
+          }
+        },
+        "pubkey": "025d81c96aa4269c5946c0bd8dad7785ae0f4f595e7aea2ec4f8fe71f77ebf74a9",
+        "uuid": "999b34ca-c7b2-4caa-92e2-76349ed2d4b5",
+        "is_mine": false,
+        "base_max_volume": {
+          "decimal": "2478.31474597274",
+          "rational": [
+            [1, [1635841741, 28851]],
+            [1, [2755359744, 11]]
+          ],
+          "fraction": {
+            "numer": "123915737298637",
+            "denom": "50000000000"
+          }
+        },
+        "base_min_volume": {
+          "decimal": "0.0001",
+          "rational": [
+            [1, [1]],
+            [1, [10000]]
+          ],
+          "fraction": {
+            "numer": "1",
+            "denom": "10000"
+          }
+        },
+        "rel_max_volume": {
+          "decimal": "218923.446595291331147485288",
+          "rational": [
+            [1, [1174424077, 4198508482, 1483482]],
+            [1, [3151233024, 3334026680, 6]]
+          ],
+          "fraction": {
+            "numer": "27365430824411416393435661",
+            "denom": "125000000000000000000"
+          }
+        },
+        "rel_min_volume": {
+          "decimal": "0.00883356107012",
+          "rational": [
+            [1, [1795694657, 51]],
+            [1, [3290337280, 5820]]
+          ],
+          "fraction": {
+            "numer": "220839026753",
+            "denom": "25000000000000"
+          }
+        },
+        "conf_settings": {
+          "base_confs": 7,
+          "base_nota": false,
+          "rel_confs": 3,
+          "rel_nota": false
+        }
+      }],
+      "LTC": [{
+        "coin": "LTC",
+        "address": {
+          "address_type": "Transparent",
+          "address_data": "Lgrta1iKRcy8zzygVkZeEXuxBqzssPWtae"
+        },
+        "price": {
+          "decimal": "0.0001087673",
+          "rational": [
+            [1, [1087673]],
+            [1, [1410065408, 2]]
+          ],
+          "fraction": {
+            "numer": "1087673",
+            "denom": "10000000000"
+          }
+        },
+        "pubkey": "026da2fc632afabbb1b86d04a9a012db25eca74db38ba2eccd88552f27f4c0b245",
+        "uuid": "8530300a-b11c-4eca-80ab-c4124aaf3b64",
+        "is_mine": false,
+        "base_max_volume": {
+          "decimal": "24706.624279842",
+          "rational": [
+            [1, [986196625, 2876]],
+            [1, [500000000]]
+          ],
+          "fraction": {
+            "numer": "12353312139921",
+            "denom": "500000000"
+          }
+        },
+        "base_min_volume": {
+          "decimal": "5.019891088590044985947063133864681756373468864263432116086360514603194158538457790163036133102504153",
+          "rational": [
+            [1, [5460000]],
+            [1, [1087673]]
+          ],
+          "fraction": {
+            "numer": "5460000",
+            "denom": "1087673"
+          }
+        },
+        "rel_max_volume": {
+          "decimal": "2.6872728150328587666",
+          "rational": [
+            [1, [4244429513, 3128397295]],
+            [1, [1156841472, 1164153218]]
+          ],
+          "fraction": {
+            "numer": "13436364075164293833",
+            "denom": "5000000000000000000"
+          }
+        },
+        "rel_min_volume": {
+          "decimal": "0.000546",
+          "rational": [
+            [1, [273]],
+            [1, [500000]]
+          ],
+          "fraction": {
+            "numer": "273",
+            "denom": "500000"
+          }
+        },
+        "conf_settings": {
+          "base_confs": 7,
+          "base_nota": false,
+          "rel_confs": 2,
+          "rel_nota": false
+        }
+      }],
+      "LTC-segwit": [{
+        "coin": "LTC-segwit",
+        "address": {
+          "address_type": "Transparent",
+          "address_data": "Lgrta1iKRcy8zzygVkZeEXuxBqzssPWtae"
+        },
+        "price": {
+          "decimal": "0.0001087673",
+          "rational": [
+            [1, [1087673]],
+            [1, [1410065408, 2]]
+          ],
+          "fraction": {
+            "numer": "1087673",
+            "denom": "10000000000"
+          }
+        },
+        "pubkey": "026da2fc632afabbb1b86d04a9a012db25eca74db38ba2eccd88552f27f4c0b245",
+        "uuid": "8530300a-b11c-4eca-80ab-c4124aaf3b64",
+        "is_mine": false,
+        "base_max_volume": {
+          "decimal": "24706.624279842",
+          "rational": [
+            [1, [986196625, 2876]],
+            [1, [500000000]]
+          ],
+          "fraction": {
+            "numer": "12353312139921",
+            "denom": "500000000"
+          }
+        },
+        "base_min_volume": {
+          "decimal": "5.019891088590044985947063133864681756373468864263432116086360514603194158538457790163036133102504153",
+          "rational": [
+            [1, [5460000]],
+            [1, [1087673]]
+          ],
+          "fraction": {
+            "numer": "5460000",
+            "denom": "1087673"
+          }
+        },
+        "rel_max_volume": {
+          "decimal": "2.6872728150328587666",
+          "rational": [
+            [1, [4244429513, 3128397295]],
+            [1, [1156841472, 1164153218]]
+          ],
+          "fraction": {
+            "numer": "13436364075164293833",
+            "denom": "5000000000000000000"
+          }
+        },
+        "rel_min_volume": {
+          "decimal": "0.000546",
+          "rational": [
+            [1, [273]],
+            [1, [500000]]
+          ],
+          "fraction": {
+            "numer": "273",
+            "denom": "500000"
+          }
+        },
+        "conf_settings": {
+          "base_confs": 7,
+          "base_nota": false,
+          "rel_confs": 2,
+          "rel_nota": false
+        }
+      }],
+      "MATIC": [{
+        "coin": "MATIC",
+        "address": {
+          "address_type": "Transparent",
+          "address_data": "0xf2ed2ac92489106c942c9e32c6a912ba61af93e3"
+        },
+        "price": {
+          "decimal": "0.0104639634",
+          "rational": [
+            [1, [52319817]],
+            [1, [705032704, 1]]
+          ],
+          "fraction": {
+            "numer": "52319817",
+            "denom": "5000000000"
+          }
+        },
+        "pubkey": "02dbd8c73e2e80e4f3cf88d2f04a9d2d0df4269496608b14a3e17556fdcb01e0c1",
+        "uuid": "95bb48ce-7411-4be7-a1b9-70e8f8d7887f",
+        "is_mine": false,
+        "base_max_volume": {
+          "decimal": "8964.021726027",
+          "rational": [
+            [1, [424979275, 2087]],
+            [1, [1000000000]]
+          ],
+          "fraction": {
+            "numer": "8964021726027",
+            "denom": "1000000000"
+          }
+        },
+        "base_min_volume": {
+          "decimal": "20.0825412816031",
+          "rational": [
+            [1, [1331989663, 46758]],
+            [1, [1316134912, 2328]]
+          ],
+          "fraction": {
+            "numer": "200825412816031",
+            "denom": "10000000000000"
+          }
+        },
+        "rel_max_volume": {
+          "decimal": "93.7991952579513554118",
+          "rational": [
+            [1, [2658798179, 1822452630, 25]],
+            [1, [1156841472, 1164153218]]
+          ],
+          "fraction": {
+            "numer": "468995976289756777059",
+            "denom": "5000000000000000000"
+          }
+        },
+        "rel_min_volume": {
+          "decimal": "0.21014297694968393172654",
+          "rational": [
+            [1, [3263923031, 2549837702, 569]],
+            [1, [2067791872, 2170810533, 2710]]
+          ],
+          "fraction": {
+            "numer": "10507148847484196586327",
+            "denom": "50000000000000000000000"
+          }
+        },
+        "conf_settings": {
+          "base_confs": 7,
+          "base_nota": false,
+          "rel_confs": 3,
+          "rel_nota": false
+        }
+      }]
     },
     "original_tickers": {
-      "BTC": [
-        "BTC-segwit"
-      ]
+      "LTC": ["LTC-segwit"],
+      "BTC": ["BTC-segwit"],
+      "XMY": ["XMY-segwit"]
     }
   },
   "id": 0
-} 
+}
 ```
 
 </collapse-text>
