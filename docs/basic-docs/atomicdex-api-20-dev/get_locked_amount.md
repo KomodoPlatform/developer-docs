@@ -14,7 +14,6 @@ The `get_locked_amount` method returns the amount of a coin which is currently l
 
 | Parameter                    | Type            | Description                                                                                                    |
 | ---------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------- |
-| id                           | integer         | Identifies a response to allow matching it with a request. Defaults to `null` if `id` not provided in request.       |
 | coin                         | string          | The ticker of the coin you queried.                                                                                  |
 | locked_amount                | object          | An object cointaining the locked amount in decimal, fraction and rational formats.                                   |
 | locked_amount.decimal        | numeric string  | The locked amount in [decimal format](https://www.mathsisfun.com/definitions/decimal.html).                          |
@@ -35,8 +34,7 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"method\": \"get_locked_amount\",
     \"params\": {
         \"coin\": \"RICK\"
-    },
-    \"id\": 42
+    }
 }"
 ```
 
