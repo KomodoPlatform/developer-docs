@@ -1,6 +1,6 @@
 # get\_locked\_amount
 
-The `get_locked_amount` method returns the amount of a coin which is currently locked by a swap which is in progress. If the coin queried is not activated, a `NoSuchCoin` error will be returned.
+The `get_locked_amount` method returns the amount of a coin which is currently locked by a swap which is in progress. If the coin is not activated, a `NoSuchCoin` error will be returned.
 
 
 #### Arguments
@@ -19,8 +19,6 @@ The `get_locked_amount` method returns the amount of a coin which is currently l
 | locked_amount.decimal        | numeric string  | The locked amount in [decimal format](https://www.mathsisfun.com/definitions/decimal.html).                          |
 | locked_amount.rational       | rational object | The locked amount in [rational format](../atomicdex-api-legacy/rational_number_note.md).                             |
 | locked_amount.fraction       | fraction object | The locked amount in [fraction format](https://www.mathsisfun.com/definitions/fraction.html).                        |
-| locked_amount.fraction.numer | numeric string  | The [numerator](https://www.mathsisfun.com/definitions/numerator.html) for the locked amount in fraction format.     |
-| locked_amount.fraction.denom | numeric string  | The [denominator](https://www.mathsisfun.com/definitions/denominator.html) for the locked amount in fraction format. |
 
 
 #### :pushpin: Examples
@@ -34,7 +32,8 @@ curl --url "http://127.0.0.1:7783" --data "{
     \"method\": \"get_locked_amount\",
     \"params\": {
         \"coin\": \"RICK\"
-    }
+    },
+  "id": 42
 }"
 ```
 
