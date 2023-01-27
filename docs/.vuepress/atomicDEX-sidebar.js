@@ -493,6 +493,10 @@ let atomicDEXsidebar = {
           ]
         },
         [
+          "/basic-docs/atomicdex-api-20-dev/max_maker_vol.md",
+          "max_maker_vol",
+        ],
+        [
           "/basic-docs/atomicdex-api-20-dev/withdraw_tasks.md",
           "Withdraw Tasks",
         ],
