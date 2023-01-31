@@ -109,6 +109,37 @@ curl --url "http://127.0.0.1:7783" --data "{
 }
 ```
 
+#### Response (balance too low)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Not enough QTUM for swap: available 0, required at least 0.000728, locked by swaps None",
+    "error_path": "max_maker_vol_rpc.maker_swap.utxo_common",
+    "error_trace": "max_maker_vol_rpc:148] maker_swap:2203] utxo_common:3327] utxo_common:892]",
+    "error_type": "NotSufficientBalance",
+    "error_data": {
+        "coin": "QTUM",
+        "available": "0",
+        "required": "0.000728"
+    },
+    "id": null
+}
+```
+
+#### Response (Transport error)
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Transport error: JsonRpcError { client_info: 'coin: tBTC', request: JsonRpcRequest { jsonrpc: '2.0', id: '31', method: 'blockchain.estimatefee', params: [Number(1), String('ECONOMICAL')] }, error: Transport('rpc_clients:1237] rpc_clients:1239] ['rpc_clients:2047] common:1385] future timed out']') }",
+  "error_path": "taker_swap.utxo_common",
+  "error_trace": "taker_swap:1599] utxo_common:1990] utxo_common:166]",
+  "error_type": "Transport",
+  "error_data": "JsonRpcError { client_info: 'coin: tBTC', request: JsonRpcRequest { jsonrpc: '2.0', id: '31', method: 'blockchain.estimatefee', params: [Number(1), String('ECONOMICAL')] }, error: Transport('rpc_clients:1237] rpc_clients:1239] ['rpc_clients:2047] common:1385] future timed out']') }",
+  "id": 0
+}
+```
 
 </collapse-text>
 
