@@ -39,7 +39,7 @@ curl --url "http://127.0.0.1:7783" --data "{
   \"mmrpc\": \"2.0\",
   \"method\": \"max_maker_vol\",
   \"params\": {
-    \"coin\": \"RICK\",
+    \"coin\": \"RICK\"
   }
 }"
 ```
