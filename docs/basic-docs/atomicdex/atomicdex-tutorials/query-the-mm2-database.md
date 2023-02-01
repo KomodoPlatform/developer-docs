@@ -43,8 +43,8 @@ This table keeps a detailed record of all swaps performed (including failed) in 
 |    10    | maker_coin_platform  |   VARCHAR(255)   | Maker coin platform                |
 |    11    |  taker_coin_ticker   |   VARCHAR(255)   | Taker coin ticker                  |
 |    12    | taker_coin_platform  |   VARCHAR(255)   | Taker coin platform                |
-|    13    | maker_coin_usd_price |     DECIMAL      | USD price of maker coin at time of swap  |
-|    14    | taker_coin_usd_price |     DECIMAL      | USD price of taker coin at time of swap  |
+|    13    | maker_coin_usd_price |     DECIMAL      | USD price of maker coin at the time of the swap |
+|    14    | taker_coin_usd_price |     DECIMAL      | USD price of taker coin at the time of the swap |
 
 #### Query:
 `sqlite3 ${PATH_TO_MM2_DB_FILE} "SELECT * FROM stats_swaps WHERE taker_coin = 'DOGE' and maker_coin = 'KMD' ORDER BY finished_at DESC LIMIT 5;"`
