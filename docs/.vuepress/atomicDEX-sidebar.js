@@ -492,9 +492,8 @@ let atomicDEXsidebar = {
             ["/basic-docs/atomicdex-api-20-dev/get_current_mtp.md", "get_current_mtp"]
           ]
         },
-        [
-          "/basic-docs/atomicdex-api-20-dev/get_locked_amount.md", "get_locked_amount"
-        ],
+        ["/basic-docs/atomicdex-api-20-dev/max_maker_vol.md", "max_maker_vol"],
+        ["/basic-docs/atomicdex-api-20-dev/get_locked_amount.md", "get_locked_amount"],
         [
           "/basic-docs/atomicdex-api-20-dev/withdraw_tasks.md",
           "Withdraw Tasks",
