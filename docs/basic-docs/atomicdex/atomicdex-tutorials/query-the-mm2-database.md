@@ -28,27 +28,35 @@ This table keeps a record of all swaps successfully performed in this pubkey's M
 
 This table keeps a detailed record of all swaps performed (including failed) in this pubkey's MM2.db
 
-|    ID    |        Name         |       Type       | Description |
-|----------|---------------------|------------------|-------------|
-|    0     |         id          |     INTEGER      | Primary Key |
-|    1     |     maker_coin      |   VARCHAR(255)   | Maker Coin  |
-|    2     |     taker_coin      |   VARCHAR(255)   | Taker Coin  |
-|    3     |        uuid         |   VARCHAR(255)   | Swap UUID   |
-|    4     |     started_at      |     INTEGER      | Timestamp   |
-|    5     |     finished_at     |     INTEGER      | Timestamp   |
-|    6     |    maker_amount     |     DECIMAL      | Maker Coin  |
-|    7     |    taker_amount     |     DECIMAL      | Taker Coin  |
-|    8     |     is_success      |     INTEGER      | `1` for successful, `0` for failed |
-|    9     |  maker_coin_ticker  |   VARCHAR(255)   | Maker Coin Ticker                  |
-|    10    | maker_coin_platform |   VARCHAR(255)   | Maker Coin Platform                |
-|    11    |  taker_coin_ticker  |   VARCHAR(255)   | Taker Coin Ticker                  |
-|    12    | taker_coin_platform |   VARCHAR(255)   | Taker Coin Platform                |
+|    ID    |        Name          |       Type       | Description |
+|----------|----------------------|------------------|-------------|
+|    0     |         id           |     INTEGER      | Primary key |
+|    1     |     maker_coin       |   VARCHAR(255)   | Maker coin  |
+|    2     |     taker_coin       |   VARCHAR(255)   | Taker coin  |
+|    3     |        uuid          |   VARCHAR(255)   | Swap UUID   |
+|    4     |     started_at       |     INTEGER      | Timestamp   |
+|    5     |     finished_at      |     INTEGER      | Timestamp   |
+|    6     |    maker_amount      |     DECIMAL      | Maker coin  |
+|    7     |    taker_amount      |     DECIMAL      | Taker coin  |
+|    8     |     is_success       |     INTEGER      | `1` for successful, `0` for failed |
+|    9     |  maker_coin_ticker   |   VARCHAR(255)   | Maker coin ticker                  |
+|    10    | maker_coin_platform  |   VARCHAR(255)   | Maker coin platform                |
+|    11    |  taker_coin_ticker   |   VARCHAR(255)   | Taker coin ticker                  |
+|    12    | taker_coin_platform  |   VARCHAR(255)   | Taker coin platform                |
+|    13    | maker_coin_usd_price |     DECIMAL      | USD price of maker coin at the time of the swap |
+|    14    | taker_coin_usd_price |     DECIMAL      | USD price of taker coin at the time of the swap |
 
 #### Query:
-`sqlite3 ${PATH_TO_MM2_DB_FILE} "SELECT * FROM stats_swaps WHERE taker_coin_platform != '' and maker_coin_platform != '' LIMIT 1"`
+`sqlite3 ${PATH_TO_MM2_DB_FILE} "SELECT * FROM stats_swaps WHERE taker_coin = 'DOGE' and maker_coin = 'KMD' ORDER BY finished_at DESC LIMIT 5;"`
 
 #### Response:
-`97|KMD-BEP20|BUSD-BEP20|a4f1518f-390c-4075-abec-fa0087e7b2d9|1639656068|1639656218|17.8120351868728|13.4020942543104|1|KMD|BEP20|BUSD|BEP20`
+```
+379462|KMD|DOGE|c0075282-a3f3-446e-a0e9-fa52bb8d12a0|1674827977|1674829749|389.711613406079|1188.35101317225|1|KMD||DOGE||0.255|0.08498
+379461|KMD|DOGE|33b06a69-8893-459c-a23f-f9f611d0f57b|1674827984|1674829747|780.03120124805|2383.50480733229|1|KMD||DOGE||0.255|0.08496
+379394|KMD|DOGE|d3f4957d-7456-4380-8939-3e5822e6ce37|1674786677|1674787940|9.40810674604327|29|1|KMD||DOGE||0.2562|0.08454
+379101|KMD|DOGE|b57581ba-306e-42a6-b6f5-68725ca54ff0|1674574794|1674577440|1.98754823881042|5.94610949827182|1|KMD||DOGE||0.2631|0.08863
+378827|KMD|DOGE|f160d589-d120-4116-9081-ebdd22dd7893|1674443611|1674444889|0.078067056388503|0.2341549|1|KMD||DOGE||0.2648|0.08979
+```
 
 
 ## my_orders
