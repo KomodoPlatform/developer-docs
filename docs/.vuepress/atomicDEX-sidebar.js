@@ -373,6 +373,9 @@ let atomicDEXsidebar = {
           "Coin Activation Tasks",
         ],
         [
+          "/basic-docs/atomicdex-api-20-dev/get_locked_amount.md", "get_locked_amount"
+        ],
+        [
           "/basic-docs/atomicdex-api-20-dev/withdraw_tasks.md",
           "Withdraw Tasks",
         ],

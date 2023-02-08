@@ -31,6 +31,13 @@ To enable Z coins you also need to [install some Zcash Params](https://forum.kom
 | ...electrum_servers.url                       | string          | The URL and port of an electrum server.                                                                                                                              |
 | ...electrum_servers.disable_cert_verification | boolean         | If `true`, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). Optional, defaults to `false` <b>Use at your own risk!</b>   |
 | activation_params.zcash_params_path           | string          | Path to folder containing [Zcash parameters](https://z.cash/technology/paramgen/). Optional, defaults to standard location as defined in [this guide](https://forum.komodoplatform.com/t/installing-zcash-params/603) |
+| activation_params.scan_blocks_per_iteration   | integer         | Sets the number of scanned blocks per iteration during `BuildingWalletDb` state. Optional, default value is 1000.                                                      |
+| activation_params.scan_interval_ms            | integer         | Sets the interval in milliseconds between iterations of `BuildingWalletDb` state. Optional, default value is 0.                                                        |
+
+
+:::tip
+Using a smaller `scan_blocks_per_iteration` and larger `scan_interval_ms`, will reduce the average CPU load during Z coin activation (at the cost of a longer activation time). These optional fields are recommended when developing for iOS, where a high CPU load may kill the activation process. Android & desktop operating systems do not appear to have any problems with high CPU load during Z coin activation.
+:::
 
 
 #### Response
@@ -61,7 +68,9 @@ curl --url "http://127.0.0.1:7783" --data "
                     \"light_wallet_d_servers\": [\"http://zombie.sirseven.me:443\"]
                 }
             },
-            \"zcash_params_path\": \"/home/username/path_to/.zcash-params\"
+            \"zcash_params_path\": \"/home/username/path_to/.zcash-params\",
+            \"scan_blocks_per_iteration\": 100,
+            \"scan_interval_ms\": 200
         }
     }
 }"
