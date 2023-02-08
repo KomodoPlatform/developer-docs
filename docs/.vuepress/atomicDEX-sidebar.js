@@ -352,7 +352,7 @@ let atomicDEXsidebar = {
           children: [
             [
               "/basic-docs/atomicdex-api-20-dev/hd_wallets_overview.md",
-              "HD Wallets Overview"
+              "Overview"
             ],
             [
               "/basic-docs/atomicdex-api-20-dev/trezor_initialisation.md",
@@ -360,7 +360,7 @@ let atomicDEXsidebar = {
             ],
             [
               "/basic-docs/atomicdex-api-20-dev/hd_address_management.md",
-              "HD Address Management"
+              "Address Management"
             ],
             [
               "/basic-docs/atomicdex-api-20-dev/account_balance_tasks.md",
@@ -375,6 +375,8 @@ let atomicDEXsidebar = {
         [
           "/basic-docs/atomicdex-api-20-dev/get_locked_amount.md", "get_locked_amount"
         ],
+        ["/basic-docs/atomicdex-api-20-dev/max_maker_vol.md", "max_maker_vol"],
+        ["/basic-docs/atomicdex-api-20-dev/get_locked_amount.md", "get_locked_amount"],
         [
           "/basic-docs/atomicdex-api-20-dev/withdraw_tasks.md",
           "Withdraw Tasks",
