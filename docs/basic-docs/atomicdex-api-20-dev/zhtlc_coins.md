@@ -8,7 +8,7 @@ To withdraw ZHTLC coins, you need to use the [task::withdraw](withdraw_tasks.htm
 - Cancel generating the transaction with `task::withdraw::cancel`
 
 
-## enable\_z\_coin\_init
+## task\_enable\_z\_coin\_init
 
 :::tip
 To enable Z coins you also need to [install some Zcash Params](https://forum.komodoplatform.com/t/installing-zcash-params/603)
@@ -97,7 +97,7 @@ echo
 
 </div>
 
-## enable\_z\_coin\_status
+## task\_enable\_z\_coin\_status
 
 After initiating z coin enabling, you can use the `task_id` to check progress.
 
@@ -259,7 +259,7 @@ You'll see this if the task number does not exist, or the task has already compl
 </div>
 
 
-## enable\_z\_coin\_cancel
+## task\_enable\_z\_coin\_cancel
 
 If you want to cancel the enabling process before it has completed, you can use this method.
 

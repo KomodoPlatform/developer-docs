@@ -2,9 +2,16 @@
 
 
 
-## withdraw\_init
+## task\_withdraw\_init
 
-The `task::withdraw::init` method generates, signs, and returns a transaction that transfers the `amount` of `coin` to the address indicated in the `to` argument. The status of this method can be queried via the [withdraw_status](#withdraw-status) method, or cancelled with [withdraw_cancel](#withdraw-cancel).
+The `task::withdraw::init` method generates and signs transaction which will transfer the `amount` of `coin` to the address indicated in the `to` argument. The status of this method can be queried via the [withdraw_status](#withdraw-status) method, or .
+
+It will return the transaction hex (via `task::withdraw::status`), which then needs to be broadcast with the [sendrawtransaction](../atomicdex-api-legacy/send_raw_transaction.html) to complete the withdrawal. This method is uses the same input fields as the [standard v2 withdraw method](../atomicdex-api-20/withdraw.html), with additional optional fields to specify the `from` address when using a hardware or HD wallet. There are two way to indicate which HW/HD address to send funds from:
+
+- Using `derivation_path` as a single input. E.g `m/44'/20'/0'/0/2`
+- Using `account_id` (0), `chain` (External) & `address_id` (2) inputs. The bracketed values are the equavalent of the derivation path above.
+
+To cancel the transaction generation, use the [withdraw_cancel](#withdraw-cancel) method.
 
 :::tip
 When used for ZHTLC coins like ARRR or ZOMBIE, it may take some time to complete.
@@ -13,17 +20,21 @@ When used for ZHTLC coins like ARRR or ZOMBIE, it may take some time to complete
 
 ### Arguments
 
-| Structure     | Type             | Description                                                                                                                               |
-| ------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| coin          | string           | The name of the coin the user desires to withdraw                                                                                         |
-| to            | string           | Coins are withdrawn to this address                                                                                                       |
-| amount        | string (numeric) | The amount the user desires to withdraw, ignored when `max=true`                                                                          |
-| memo          | string           | Optional, used for ZHTLC and Tendermint coins only. Attaches a memo to the transaction.                                                   |
-| from          | string           | Optional, used only for transactions using a hardware wallet. For more information, see the [Trezor Integration guide](trezor_integration.html) |
-| max           | bool             | Optional. Withdraw the maximum available amount. Defaults to `false`                                                                      |
-| fee           | object           | Optional. Used only to set a custom fee, otherwise fee value will be derived from a deamon's `estimatefee` (or similar) RPC method        |
-| fee.type      | string           | Type of transaction fee; possible values: `UtxoFixed` or `UtxoPerKbyte`                                                                   |
-| fee.amount    | string (numeric) | Fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte) |
+| Structure            | Type             | Description                                                                                                                               |
+| -------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                 | string           | The name of the coin the user desires to withdraw                                                                                         |
+| to                   | string           | Coins are withdrawn to this address                                                                                                       |
+| amount               | string (numeric) | The amount the user desires to withdraw, ignored when `max=true`                                                                          |
+| memo                 | string           | Optional, used for ZHTLC and Tendermint coins only. Attaches a memo to the transaction.                                                   |
+| from                 | string           | Optional, used only for transactions using a hardware or HD wallet.                                                                       |
+| from.derivation_path | string           | Optional, HW/HD wallets only. Follows the format `m/44'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID`                                            |
+| from.account_id      | integer          | Optional, HW/HD wallets only. Generally this will be `0` unless you have multiple accounts registered on your HW/HD wallet                |
+| from.chain           | string           | Optional, HW/HD wallets only. `Internal`, or `External`. External is used for addresses that are meant to be visible outside of the wallet (e.g. for receiving payments). Internal is used for addresses which are not meant to be visible outside of the wallet and is used for return transaction change. |
+| from.address_id      | integer          | Optional, HW/HD wallets only. Check the output from coin activation to find the ID of an address with balance.                            |
+| max                  | bool             | Optional. Withdraw the maximum available amount. Defaults to `false`                                                                      |
+| fee                  | object           | Optional. Used only to set a custom fee, otherwise fee value will be derived from a deamon's `estimatefee` (or similar) RPC method        |
+| fee.type             | string           | Type of transaction fee; possible values: `UtxoFixed` or `UtxoPerKbyte`                                                                   |
+| fee.amount           | string (numeric) | Fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte) |
 
 
 #### Response
@@ -114,6 +125,45 @@ curl --url "http://127.0.0.1:7783" --data "{
 }"
 ```
 
+#### Command (HW/HD wallet: derivation path option)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+    \"userpass\": \"$userpass\",
+    \"mmrpc\": \"2.0\",
+    \"method\": \"task::withdraw::init\",
+    \"params\": {
+        \"coin\": \"COIN_NAME\",
+        \"to\": \"ADDRESS_OF_RECIPIENT\",
+        \"amount\": AMOUNT_TO_SEND,
+        \"from\": {
+            \"derivation_path\": \"DERIVATION_PATH\"
+        }
+    }
+}"
+```
+
+#### Command (HW/HD wallet: account_id, chain & address_id option)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{
+    \"userpass\": \"$userpass\",
+    \"mmrpc\": \"2.0\",
+    \"method\": \"task::withdraw::init\",
+    \"params\": {
+        \"coin\": \"COIN_NAME\",
+        \"to\": \"ADDRESS_OF_RECIPIENT\",
+        \"amount\": AMOUNT_TO_SEND,
+        \"from\": {
+            \"account_id\": 0,
+            \"chain\": \"External\",
+            \"address_id\": ADDRESS_ID
+        }
+    }
+}"
+```
+
+
 <div style="margin-top: 0.5rem;">
 
 <collapse-text hidden title="Response">
@@ -124,7 +174,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 {
   "mmrpc": "2.0",
   "result": {
-    "task_id": 0
+    "task_id": 6
   },
   "id": null
 }
@@ -136,9 +186,9 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 
 
-## withdraw\_status
+## task\_withdraw\_status
 
-After initiating a withdrawal, you will need use the `task::withdraw::status` method with a related `task_id` to check its progress and retrieve the generatated tranaction hex to use as an input in [send_raw_transaction](../../../basic-docs/atomicdex-api-legacy/send_raw_transaction.html) to complete the withdrawal.
+To get the status of your withdrawal transaction generation, use the `task::withdraw::status` method. Once ready, it will provide the raw hex used to broadcast your transaction with [sendrawtransaction](../atomicdex-api-legacy/send_raw_transaction.html). The response returned is the same as what is returned from the [standard v2 withdraw method](../atomicdex-api-20/withdraw.html#response)
 
 
 #### Arguments
@@ -155,18 +205,20 @@ After initiating a withdrawal, you will need use the `task::withdraw::status` me
 | -------------------------- | ------------------| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | status                     | string            | A short indication of how the withdrawal is progressing.                                                                                                                                        |
 | details                    | object            | Depending on the state of withdrawal progress, this will contain different information as shown in the responses below.                                                                         |
+| details.coin               | string            | The ticker of the coin to be withdrawn.                                                                                                                                                         |
 | details.to                 | array of strings  | Coins are withdrawn to these addresses; this may contain the `my_address` address, where change from UTXO coins is sent.                                                                        |
 | details.from               | array of strings  | Coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                                    |
-| details.my_balance_change  | string (numeric)  | the expected balance of change in `my_address` after the transaction broadcasts                                                                                                                 |
-| details.received_by_me     | string (numeric)  | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the AtomicDEX API send change to `my_address`     |
-| details.spent_by_me        | string (numeric)  | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                                      |
-| details.total_amount       | string (numeric)  | the total amount of coins transferred                                                                                                                                                           |
-| details.fee_details        | object            | the fee details of the generated transaction; `fee_details.type` is "Utxo" for Z coins. `fee_details.coin` will be the same as `details.coin`, and `fee_details.amount` will be a numeric value.|
-| details.tx_hash            | string            | the hash of the generated transaction                                                                                                                                                           |
-| details.tx_hex             | string            | transaction bytes in hexadecimal format; use this value as input for the [send_raw_transaction](../../../basic-docs/atomicdex-api-legacy/send_raw_transaction.html)                             |
-| details.coin               | string            | the name of the coin the user wants to withdraw                                                                                                                                                 |
-| details.transaction_type   | string            | Transaction type will be `StandardTransfer` for Z coin transactions.                                                                                                                            |
-
+| details.my_balance_change  | string (numeric)  | The expected balance of change in `my_address` after the transaction broadcasts.                                                                                                                |
+| details.received_by_me     | string (numeric)  | The amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the AtomicDEX API send change to `my_address`     |
+| details.spent_by_me        | string (numeric)  | The amount of coins spent by `my_address`. This value differ from the request amount, as the transaction fee is taken into account.                                                             |
+| details.total_amount       | string (numeric)  | The total amount of coins transferred.                                                                                                                                                          |
+| details.fee_details        | object            | The fee details of the generated transaction. `fee_details.type` is "Utxo" for Z coins. `fee_details.coin` will be the same as `details.coin`, and `fee_details.amount` will be a numeric value.|
+| details.tx_hash            | string            | The hash of the generated transaction.                                                                                                                                                          |
+| details.tx_hex             | string            | Transaction bytes in hexadecimal format. Use this value as input for the [send_raw_transaction](../../../basic-docs/atomicdex-api-legacy/send_raw_transaction.html) method.                     |
+| details.transaction_type   | string            | A value to indicate the type of transaction. Most often this will be `StandardTransfer`.                                                                                                        |
+| details.kmd_rewards               | object (optional)          | If supported (e.g. when withdrawing `KMD`), an object containing information about accrued rewards.                                                                             |
+| details.kmd_rewards.amount        | string (numeric, optional) | The amount of accrued rewards                                                                                                                                                   |
+| details.kmd_rewards.claimed_by_me | bool (optional)            | Whether or not the rewards been claimed by me.                                                                                                                                  |
 
 #### :pushpin: Examples
 
@@ -213,7 +265,7 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 <collapse-text hidden title="Response">
 
-#### Response (Generating transaction complete)
+#### Response (Generating ZHTLC transaction complete)
 
 ```json
 {
@@ -245,6 +297,43 @@ curl --url "http://127.0.0.1:7783" --data "{
 }
 ```
 
+#### Response (Generating KMD transaction complete with rewards info)
+
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "status": "Ok",
+        "details": {
+            "tx_hex": "0400008085202f89051f43676aa53f06aaf67cfe76b4995a80c204aee630bf1909c37e2efc03c8ceac000000006b48304502210084c8d5345794b6bc78557a7aab71668020a6decf2537e9854044969f0125579202207d059c5cb465ffdd5920ddcca2760da49ce03252b4b3fd4b58605adbbc4d3ec1012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2fffffffffc4ba9e537032043caba0982f4b0d46b029ecb261edf9b22fd84a665158cc3d6000000006a47304402207d720393347252195c09b16b9e23a0da7e00979521a9277daa297cd2f5d6d5b902204a8b35f7088ba7e7e7327c2c4fb30de300c26ba1527f3979cf1ed7a85bd70a58012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffff19723c4dd6e57edbf623625370ffc8fbeef1ec367e4514491e3da333896f01260000000069463043021f488fa0fc7c8e1f2dbcff589c72f33d4354bc065b4d0e0c69592df293a81fb40220224e7cf3ec63dbbb6f9a2929baed7328af286b6b5f53c1ac0a9bc8156163d6e5012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffff59c28f535d6b73c7f622f7aade547ef1db2277d3a43207b289cf56afa5e37f6b010000006a473044022017fbc3310ce3ae66caaf6782cba58a6065af43052e0a97db93d0fa9f6a5eb59e02207d3f766a230bf5159333104f773e2c45daa91828ac53da9f87b6c7dcd255370c012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffffcdbbc54aabaa6d0f5984c444f4317500c2f2b2b77e70f310b1940987b5ce9d3c010000006a4730440220793808739a53e3eedec7aef12b833fdd0e1d789e5211170331f492250757cac002207a3b748b674cb875bdf0cce87d61da10ca2eb24788afe5b061dba01972d9cdb1012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffff0200e40b54020000001976a914e6d49471e6e83b5b69c0bee93caa4dc880205d9a88ac5856bb5b000000001976a914d346067e3c3c3964c395fee208594790e29ede5d88ac095cbe63000000000000000000000000000000",
+            "tx_hash": "7c201920db65b134a99c8405d84456bed7456bc29451c5bdcc92f30db62a4279",
+            "from": ["RUYJYSTuCKm9gouWzQN1LirHFEYThwzA2d"],
+            "to": ["RWKi9wkqMH4C9h4psPKjcKQaYNq5vsL89F"],
+            "total_amount": "115.39004992",
+            "spent_by_me": "115.39004992",
+            "received_by_me": "15.39003992",
+            "my_balance_change": "-100.00001",
+            "block_height": 0,
+            "timestamp": 1673421831,
+            "fee_details": {
+                "type": "Utxo",
+                "coin": "KMD",
+                "amount": "0.00001"
+            },
+            "coin": "KMD",
+            "internal_id": "",
+            "kmd_rewards": {
+                "amount": "5.64955481",
+                "claimed_by_me": true
+            },
+            "transaction_type": "StandardTransfer",
+            "memo": null
+        }
+    },
+    "id": 0
+}
+```
+
 </collapse-text>
 
 </div>
@@ -268,14 +357,27 @@ curl --url "http://127.0.0.1:7783" --data "{
 }
 ```
 
+#### Response (error, waiting for user to confirm signing on hardware wallet device)
+
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "status": "InProgress",
+        "details": "WaitingForUserToConfirmSigning"
+    },
+    "id": null
+}
+```
+
 </collapse-text>
 
 </div>
 
 
-## withdraw\_cancel
+## task\_withdraw\_cancel
 
-If you want to cancel a withdrawal task which has not yet completed, use the `task::withdraw::cancel` method.
+Use the `task::withdraw::cancel` method to cancel the withdrawal preparation task.
 
 
 #### Arguments
@@ -310,7 +412,11 @@ curl --url "http://127.0.0.1:7783" --data "
     \"method\": \"task::withdraw::cancel\",
     \"mmrpc\": \"2.0\",
     \"params\": {
+<<<<<<< HEAD
+        \"task_id\": 6
+=======
         \"task_id\": TASK_ID
+>>>>>>> master
     }
 }"
 echo
@@ -321,7 +427,7 @@ echo
 
 <collapse-text hidden title="Response">
 
-#### Response (success)
+#### Response (Success)
 
 
 ```json
@@ -332,15 +438,8 @@ echo
 }
 ```
 
-</collapse-text>
 
-</div>
-
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Response">
-
-#### Response (No such task / task expired)
+#### Response (Error: No such task / task expired)
 
 ```json
 {
@@ -354,7 +453,21 @@ echo
 }
 ```
 
+
+#### Response (Error: Task already finished)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Task is finished already",
+    "error_path": "init_withdraw.manager",
+    "error_trace": "init_withdraw:94] manager:104]",
+    "error_type": "TaskFinished",
+    "error_data": 4,
+    "id": null
+}
+```
+
 </collapse-text>
 
 </div>
-
