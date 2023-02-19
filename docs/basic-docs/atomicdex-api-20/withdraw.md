@@ -161,10 +161,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"mmrpc\"
   "id": 0
 }
 ```
+
 </collapse-text>
 
 </div>
-
 
 #### Command (BTC, KMD, and other BTC-based forks, fixed fee)
 
@@ -229,10 +229,10 @@ curl --url "http://127.0.0.1:7783" --data "{
   "id": 0
 }
 ```
+
 </collapse-text>
 
 </div>
-
 
 #### Command (BTC, KMD, and other BTC-based forks, 1 RICK per Kbyte)
 
@@ -283,10 +283,10 @@ curl --url "http://127.0.0.1:7783" --data "{
   "id": 0
 }
 ```
+
 </collapse-text>
 
 </div>
-
 
 #### Command (ETH, ERC20, and other ETH-based forks)
 
@@ -334,9 +334,9 @@ curl --url "http://127.0.0.1:7783" --data "{
   "id": 0
 }
 ```
+
 </collapse-text>
 </div>
-
 
 #### Command (ETH, ERC20, and other ETH-based forks, with gas fee)
 
@@ -405,6 +405,9 @@ curl --url "http://127.0.0.1:7783" --data "{
   "id": 0
 }
 ```
+
+</collapse-text>
+</div>
 
 #### Command (max = true)
 
@@ -563,7 +566,6 @@ curl --url "http://127.0.0.1:7783" --data "{
 </collapse-text>
 </div>
 
-
 ##### Command (COSMOS, with memo)
 
 ```bash
@@ -611,6 +613,7 @@ curl --url "http://127.0.0.1:7783" --data "{
   "id": 0
 }
 ```
+
 You can see the memo is included on the block explorer: https://irishub.iobscan.io/#/txs/E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6
 
 </collapse-text>
