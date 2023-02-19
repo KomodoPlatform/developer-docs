@@ -9,7 +9,7 @@ To get started, [configure and launch the AtomicDEX API](../atomicdex/atomicdex-
 Initialisation and authentication:
 
 - Initialise connection with your Trezor with [task::init_trezor::init](trezor_initialisation.html#task-init-trezor-init)
-- Check the status of the connecton with [task::init_trezor::status](trezor_initialisation.html#task_init_trezor_status)
+- Check the status of the connecton with [task::init_trezor::status](trezor_initialisation.html#task-init-trezor-status)
 - Cancel authentication process with [task::init_trezor::cancel](trezor_initialisation.html#task-init-trezor-cancel)
 - Authenticate using PIN or phrase with [task::init_trezor::user_action](trezor_initialisation.html#task-init-trezor-user-action)
 
