@@ -236,6 +236,22 @@ let atomicDEXsidebar = {
               "/basic-docs/atomicdex-api-20/enable_slp.md",
               "enable_slp",
             ],
+            [
+              "/basic-docs/atomicdex-api-20/enable_tendermint_with_assets.md",
+              "enable_tendermint_with_assets",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/enable_tendermint_token.md",
+              "enable_tendermint_token",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/enable_eth_with_tokens.md",
+              "enable_eth_with_tokens",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/enable_erc20.md",
+              "enable_erc20",
+            ],
           ]
         },
         {
