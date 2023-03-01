@@ -605,7 +605,7 @@ The Komodo ecosystem is also well protected against the 51% Attack. Consider an 
 
 ##### Before Notarization
 
-During the waiting period for notarization, on a default PoW-based Smart Chain, this transaction is vulnerable to the attacker's 51% Attack. The attacker would simply wait until the opportune moment to attack their victim by providing 51% of the total hash rate to a new version of the independent Smart Chain wherein the transaction never occurred. This new chain version, having more PoW, would erase the transaction before the notary nodes create the next notarization, and therefore the unfortunate recipient of the transaction would no longer have the funds from the vanished transaction.
+During the waiting period for notarization, on a default PoW-based Smart Chain, any transaction is vulnerable to the attacker's 51% Attack. The attacker would simply wait until the opportune moment to attack their victim by providing 51% of the total hash rate to a new version of the independent Smart Chain wherein the transaction never occurred. This new chain version, having more PoW, would override the original chain history with the transaction before the notary nodes create the next notarization, and therefore the unfortunate recipient of the transaction would no longer have the funds from the vanished transaction.
 
 On a default PoW-based Smart Chain, therefore, the recipient of any transaction should always wait until the notarization process is underway before exchanging their valuables.
 
