@@ -182,7 +182,7 @@ On the opposite side of the world, essentially the exact same actions happen. Th
 
 Note the paradox here. There are now two versions of the Bitcoin history that are valid, yet different.
 
-These two versions make their way across the Internet, around the world, each to the other side. When the competing messages arrive, the Bitcoin protocol sees two conflicting chain histories: the same money was spent twice in each of them.
+These two versions make their way across the Internet, around the world, each to the other side. When the competing messages arrive, the Bitcoin protocol sees two conflicting chain histories: the same money was spent twice (once on each competing chain).
 
 Consider how on each side of the world the miners are spending their financial and temporal resources to further their own interests. There is no economic incentive for either side to submit to the other, by nature. Therefore, there is a conflict of interest within the Bitcoin network itself. The Bitcoin network would swiftly fail, were it not for The Longest Chain Rule.
 
