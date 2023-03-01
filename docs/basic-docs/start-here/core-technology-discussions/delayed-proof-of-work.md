@@ -190,7 +190,7 @@ Consider how on each side of the world the miners are spending their financial a
 
 The Longest Chain Rule simply declares that whichever of the two competing blockchains grows longer first, wins. The consensus mechanism deactivates the other version and chain users won't see it anymore.
 
-Let us suppose that the Chinese mining equipment is superior in this instance, and the Chinese miner manages to discover the next valid block hash and send out a message with the new block before the Washington state miner can do likewise. Across the world, the moment the message with the block that Chinese miner completed, the Bitcoin protocol will select the best chain between both Chineese miner's and the Washington state miner’s versions of the Bitcoin history, based on more proof-of-work in Chineese miner's history.
+Let us suppose that the Chinese mining equipment is superior in this instance, and the Chinese miner manages to discover the next valid block hash and send out a message with the new block before the Washington state miner can do likewise. Across the world, the moment the message with the block that Chinese miner completed, the Bitcoin protocol will select the best chain between both Chinese miner's and the Washington state miner’s versions of the Bitcoin history, based on more proof-of-work in Chinese miner's history.
 
 There is no sympathy for any wasted efforts, nor for any misunderstandings between the wife and her car dealer. The Bitcoin protocol’s consensus mechanism simply presses forward. The Washington state miner’s rewards disappear, as though they never occurred. The wife’s purchase of a car likewise evaporates.
 
