@@ -64,8 +64,8 @@ curl --url "http://127.0.0.1:7783" --data "
             \"mode\": {
                 \"rpc\": \"Light\",
                 \"rpc_data\": {
-                    \"electrum_servers\": [{\"url\":\"zombie.sirseven.me:10033\"}],
-                    \"light_wallet_d_servers\": [\"http://zombie.sirseven.me:443\"]
+                    \"electrum_servers\": [{\"url\":\"zombie.sirseven.me:10033\"}, {\"url\":\"zombie.dragonhound.info:10033\"}],
+                    \"light_wallet_d_servers\": [\"http://zombie.sirseven.me:443\", \"http://zombie.dragonhound.info:443\"]
                 }
             },
             \"zcash_params_path\": \"/home/username/path_to/.zcash-params\",
