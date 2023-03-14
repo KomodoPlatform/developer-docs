@@ -1,32 +1,79 @@
+## lightning\:\:channels\:\:list_open_channels_by_filter
+
+| Parameter            | Type    | Description |
+|----------------------|---------|-------------|
+| coin                 | string  | The ticker of the coin you would like to view closed channels for  |
+| filter               | object  | [Lightning open channels filter](/basic-docs/atomicdex/common-structures.html#Lightning_open_channels_filter) (optional)      |
+| limit                | string  | Max number of records to return (optional)                         |
+
 {
     "userpass": "userpass",
     "mmrpc": "2.0",
     "method": "lightning::channels::list_open_channels_by_filter",
     "params": {
         "coin": "tBTC-TEST-lightning"
-        // "filter": null,
-        // // "filter": {
-        // //     // "channel_id": null, // Accepted values: Strings
-        // //     // "counterparty_node_id": null, // Accepted values: Strings
-        // //     // "funding_tx": null, // Accepted values: Strings
-        // //     // "from_funding_value_sats": null, // Accepted values: Integers
-        // //     // "to_funding_value_sats": null, // Accepted values: Integers
-        // //     // "is_outbound": null, // Accepted values: Booleans
-        // //     // "from_balance_msat": null, // Accepted values: Integers
-        // //     // "to_balance_msat": null, // Accepted values: Integers
-        // //     // "from_outbound_capacity_msat": null, // Accepted values: Integers
-        // //     // "to_outbound_capacity_msat": null, // Accepted values: Integers
-        // //     // "from_inbound_capacity_msat": null, // Accepted values: Integers
-        // //     // "to_inbound_capacity_msat": null, // Accepted values: Integers
-        // //     // "confirmed": null, // Accepted values: Booleans
-        // //     // "is_usable": null, // Accepted values: Booleans
-        // //     // "is_public": null // Accepted values: Booleans
-        // // },
-        // "limit": 10,
-        // "paging_options": {
-        //     "PageNumber": 1
-        //     // "FromId": 4 // used instead of: "PageNumber"
-        // }
     }
-    "id": 45
+    "id": 55
+}
+
+{
+    "userpass": "userpass",
+    "mmrpc": "2.0",
+    "method": "lightning::channels::list_open_channels_by_filter",
+    "params": {
+        "coin": "tBTC-TEST-lightning"
+        "filter": {
+                "channel_id": null,
+                "counterparty_node_id": null,
+                "funding_tx": null,
+                "from_funding_value_sats": null,
+                "to_funding_value_sats": null,
+                "is_outbound": null,
+                "from_balance_msat": null,
+                "to_balance_msat": null,
+                "from_outbound_capacity_msat": null,
+                "to_outbound_capacity_msat": null,
+                "from_inbound_capacity_msat": null,
+                "to_inbound_capacity_msat": null,
+                "confirmed": null,
+                "is_usable": null,
+                "is_public": null
+        },
+        "limit": 10,
+        "paging_options": {
+           "PageNumber": 1
+        }
+    }
+    "id": 55
+}
+
+{
+    "userpass": "userpass",
+    "mmrpc": "2.0",
+    "method": "lightning::channels::list_open_channels_by_filter",
+    "params": {
+        "coin": "tBTC-TEST-lightning"
+        "filter": {
+                "channel_id": null,
+                "counterparty_node_id": null,
+                "funding_tx": null,
+                "from_funding_value_sats": null,
+                "to_funding_value_sats": null,
+                "is_outbound": null,
+                "from_balance_msat": null,
+                "to_balance_msat": null,
+                "from_outbound_capacity_msat": null,
+                "to_outbound_capacity_msat": null,
+                "from_inbound_capacity_msat": null,
+                "to_inbound_capacity_msat": null,
+                "confirmed": null,
+                "is_usable": null,
+                "is_public": null
+        },
+        "limit": 10,
+        "paging_options": {
+           "FromId": 4
+        }
+    }
+    "id": 55
 }

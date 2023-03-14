@@ -1,10 +1,10 @@
-## List closed channels by filter
+## lightning\:\:channels\:\:list_closed_channels_by_filter
 
 | Parameter            | Type    | Description |
 |----------------------|---------|-------------|
 | coin                 | string  | The ticker of the coin you would like to view closed channels for  |
-| filter               | object  | [Lightning channels fliter](/basic-docs/atomicdex/common-structures.html#Lightning_channel_filter)             |
-| limit                | string  |             |
+| filter               | object  | [Lightning closed channels filter](/basic-docs/atomicdex/common-structures.html#Lightning_closed_channel_filter) (optional)      |
+| limit                | string  | Max number of records to return (optional)                         |
 
 {
     "userpass": "userpass",
@@ -72,16 +72,4 @@
     }
     "id": 55
 }
-
-
-{
-    "userpass": "userpass",
-    "mmrpc": "2.0",
-    "method": "lightning::channels::list_closed_channels_by_filter",
-    "params": {
-        "coin": "tBTC-TEST-lightning"
-    }
-    "id": 55
-}
-
 

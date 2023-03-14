@@ -1,3 +1,11 @@
+## lightning\:\:payments\:\:send_payment
+
+| Parameter  | Type    | Description |
+|------------|---------|-------------|
+| coin       | string  | A coin ticker                           |
+| payment    | object  | [Lightning payment object](/basic-docs/atomicdex/common-structures.html#Lightning_payment)  |
+
+
 {
     "userpass": "{{userpass}}",
     "mmrpc": "2.0",

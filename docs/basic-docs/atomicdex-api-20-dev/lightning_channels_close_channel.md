@@ -1,3 +1,11 @@
+## lightning\:\:channels\:\:close_channel
+
+| Parameter            | Type    | Description |
+|----------------------|---------|-------------|
+| coin                 | string  | A coin ticker          |
+| rpc_channel_id       | integer | Channel ID you would like to see the details of |
+| force_close          | boolean | Optional, defaults to `false`. If `true`, will force closing the channel |
+
 {
     "userpass": "{{userpass}}",
     "mmrpc": "2.0",
@@ -5,7 +13,7 @@
     "params": {
         "coin": "tBTC-TEST-lightning",
         "rpc_channel_id": 1
-        // "force_close": false
+        "force_close": false
     }
-    // "id": null // Accepted values: Integers
+    "id": 8
 }

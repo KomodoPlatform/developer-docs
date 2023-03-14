@@ -1,3 +1,11 @@
+## lightning\:\:channels\:\:get_claimable_balances
+
+| Parameter                      | Type    | Description |
+|--------------------------------|---------|-------------|
+| coin                           | string  | A coin ticker          |
+| include_open_channels_balances | boolean | `true` to include balances from open channels, `false` if not |
+
+
 {
     "userpass": "userpass",
     "mmrpc": "2.0",

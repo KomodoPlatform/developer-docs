@@ -1,3 +1,9 @@
+## lightning\:\:nodes\:\:list_trusted_nodes
+
+| Parameter            | Type    | Description |
+|----------------------|---------|-------------|
+| coin                 | string  | A coin ticker          |
+
 {
     "userpass": "{{userpass}}",
     "mmrpc": "2.0",
@@ -5,5 +11,5 @@
     "params": {
         "coin": "tBTC-TEST-lightning"
     }
-    // "id": null // Accepted values: Integers
+    "id": 1
 }

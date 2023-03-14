@@ -354,7 +354,48 @@ let atomicDEXsidebar = {
           title: "Lightning",
           collapsable: true,
           children: [
-            ["/basic-docs/atomicdex-api-20-dev/lightning_channels_list_closed_channels_by_filter.md", "list_closed_channels_by_filter"]
+            {
+              title: "Enable",
+              collapsable: true,
+              children: [
+                ["/basic-docs/atomicdex-api-20-dev/task_enable_lightning_init.md", "task_enable_lightning_init"],
+                ["/basic-docs/atomicdex-api-20-dev/task_enable_lightning_status.md", "task_enable_lightning_status"],
+                ["/basic-docs/atomicdex-api-20-dev/task_enable_lightning_cancel.md", "task_enable_lightning_cancel"],
+              ]
+            },
+            {
+              title: "Channels",
+              collapsable: true,
+              children: [
+                ["/basic-docs/atomicdex-api-20-dev/lightning_channels_get_channel_details.md", "get_channel_details"],
+                ["/basic-docs/atomicdex-api-20-dev/lightning_channels_update_channel.md", "update_channel"],
+                ["/basic-docs/atomicdex-api-20-dev/lightning_channels_open_channel.md", "open_channel"],
+                ["/basic-docs/atomicdex-api-20-dev/lightning_channels_get_claimable_balances.md", "get_claimable_balances"],
+                ["/basic-docs/atomicdex-api-20-dev/lightning_channels_list_closed_channels_by_filter.md", "list_closed_channels_by_filter"],
+                ["/basic-docs/atomicdex-api-20-dev/lightning_channels_list_open_channels_by_filter.md", "list_open_channels_by_filter"],
+                ["/basic-docs/atomicdex-api-20-dev/lightning_channels_close_channel.md", "close_channel"]
+              ]
+            },
+            {
+              title: "Nodes",
+              collapsable: true,
+              children: [
+                ["/basic-docs/atomicdex-api-20-dev/lightning_nodes_add_trusted_node.md", "add_trusted_node"],
+                ["/basic-docs/atomicdex-api-20-dev/lightning_nodes_remove_trusted_node.md", "remove_trusted_node"],
+                ["/basic-docs/atomicdex-api-20-dev/lightning_nodes_list_trusted_nodes.md", "list_trusted_nodes"],
+                ["/basic-docs/atomicdex-api-20-dev/lightning_nodes_connect_to_node.md", "connect_to_node"],
+              ]
+            },
+            {
+              title: "Payments",
+              collapsable: true,
+              children: [
+                ["/basic-docs/atomicdex-api-20-dev/lightning_payments_generate_invoice.md", "generate_invoice"],
+                ["/basic-docs/atomicdex-api-20-dev/lightning_payments_get_payment_details.md", "get_payments_details"],
+                ["/basic-docs/atomicdex-api-20-dev/lightning_payments_list_payments_by_filter.md", "list_payments_by_filter"],
+                ["/basic-docs/atomicdex-api-20-dev/lightning_payments_send_payment.md", "send_payment"]
+              ]
+            }
           ]
         },
         {
