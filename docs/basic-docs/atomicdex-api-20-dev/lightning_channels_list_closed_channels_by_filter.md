@@ -1,29 +1,87 @@
+## List closed channels by filter
+
+| Parameter            | Type    | Description |
+|----------------------|---------|-------------|
+| coin                 | string  | The ticker of the coin you would like to view closed channels for  |
+| filter               | object  | [Lightning channels fliter](/basic-docs/atomicdex/common-structures.html#Lightning_channel_filter)             |
+| limit                | string  |             |
+
 {
     "userpass": "userpass",
     "mmrpc": "2.0",
     "method": "lightning::channels::list_closed_channels_by_filter",
     "params": {
         "coin": "tBTC-TEST-lightning"
-        // "filter": null,
-        // // "filter": {
-        // //     // "channel_id": null, // Accepted values: Strings
-        // //     // "counterparty_node_id": null, // Accepted values: Strings
-        // //     // "funding_tx": null, // Accepted values: Strings
-        // //     // "from_funding_value": null, // Accepted values: Integers
-        // //     // "to_funding_value": null, // Accepted values: Integers
-        // //     // "closing_tx": null, // Accepted values: Strings
-        // //     // "closure_reason": null, // Accepted values: Strings
-        // //     // "claiming_tx": null, // Accepted values: Strings
-        // //     // "from_claimed_balance": null, // Accepted values: Decimals
-        // //     // "to_claimed_balance": null, // Accepted values: Decimals
-        // //     // "channel_type": null, // Accepted values: "Outbound", "Inbound"
-        // //     // "channel_visibility": null // Accepted values: "Public", "Private"
-        // // },
-        // "limit": 10,
-        // "paging_options": {
-        //     "PageNumber": 1
-        //     // "FromId": 4 // used instead of: "PageNumber"
-        // }
     }
     "id": 55
 }
+
+
+{
+    "userpass": "userpass",
+    "mmrpc": "2.0",
+    "method": "lightning::channels::list_closed_channels_by_filter",
+    "params": {
+        "coin": "tBTC-TEST-lightning"
+        "filter": {
+                "channel_id": null,
+                "counterparty_node_id": null,
+                "funding_tx": null,
+                "from_funding_value": null,
+                "to_funding_value": null,
+                "closing_tx": null,
+                "closure_reason": null,
+                "claiming_tx": null,
+                "from_claimed_balance": null,
+                "to_claimed_balance": null,
+                "channel_type": null,
+                "channel_visibility": null
+        },
+        "limit": 10,
+        "paging_options": {
+           "PageNumber": 1
+        }
+    }
+    "id": 55
+}
+
+{
+    "userpass": "userpass",
+    "mmrpc": "2.0",
+    "method": "lightning::channels::list_closed_channels_by_filter",
+    "params": {
+        "coin": "tBTC-TEST-lightning"
+        "filter": {
+                "channel_id": null,
+                "counterparty_node_id": null,
+                "funding_tx": null,
+                "from_funding_value": null,
+                "to_funding_value": null,
+                "closing_tx": null,
+                "closure_reason": null,
+                "claiming_tx": null,
+                "from_claimed_balance": null,
+                "to_claimed_balance": null,
+                "channel_type": null,
+                "channel_visibility": null
+        },
+        "limit": 10,
+        "paging_options": {
+           "FromId": 4
+        }
+    }
+    "id": 55
+}
+
+
+{
+    "userpass": "userpass",
+    "mmrpc": "2.0",
+    "method": "lightning::channels::list_closed_channels_by_filter",
+    "params": {
+        "coin": "tBTC-TEST-lightning"
+    }
+    "id": 55
+}
+
+

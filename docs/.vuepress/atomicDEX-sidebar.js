@@ -12,6 +12,10 @@ let atomicDEXsidebar = {
           "/basic-docs/atomicdex/atomicdex-methods.md",
           "RPC Methods for AtomicDEX",
         ],
+        [
+          "/basic-docs/atomicdex/common-structures.md",
+          "Common structure objects in AtomicDEX",
+        ],
         {
           title: "Setup",
           collapsable: true,
@@ -344,6 +348,13 @@ let atomicDEXsidebar = {
           collapsable: true,
           children: [
             ["/basic-docs/atomicdex-api-20-dev/get_current_mtp.md", "get_current_mtp"]
+          ]
+        },
+        {
+          title: "Lightning",
+          collapsable: true,
+          children: [
+            ["/basic-docs/atomicdex-api-20-dev/lightning_channels_list_closed_channels_by_filter.md", "list_closed_channels_by_filter"]
           ]
         },
         {
