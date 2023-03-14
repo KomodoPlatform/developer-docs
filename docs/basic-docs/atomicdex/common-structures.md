@@ -16,7 +16,7 @@
 | channel_visibility   | string  | Accepted values: "Public", "Private"   |
 
 
-```
+```json
 "filter": {
         "channel_id": null,
         "counterparty_node_id": null,
@@ -51,7 +51,7 @@
 | channel_visibility   | string  | Accepted values: "Public", "Private"   |
 
 
-```
+```json
 "filter": {
     "channel_id": null,
     "counterparty_node_id": null,
@@ -82,7 +82,7 @@
 | expiry           | integer | Required if `keysend`. Timestamp for expiry of payment broadcast |
 
 
-```
+```json
 "filter": {
     "channel_id": null,
     "counterparty_node_id": null,
@@ -111,13 +111,13 @@
 
 Use either value, not both.
 
-```
+```json
 {
     "PageNumber": 1
 }
 ```
 
-```
+```json
 {
     "FromId": 4
 }

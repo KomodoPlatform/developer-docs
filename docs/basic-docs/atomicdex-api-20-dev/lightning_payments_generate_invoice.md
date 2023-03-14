@@ -1,4 +1,4 @@
-## lightning\:\:payments\:\:generate_invoice
+### lightning\:\:payments\:\:generate_invoice
 
 | Parameter            | Type    | Description |
 |----------------------|---------|-------------|
@@ -8,6 +8,8 @@
 | expiry               | integer | Epoch timestamp of expiry (optional)        |
 
 
+
+```json
 {
     "userpass": "userpass",
     "mmrpc": "2.0",
@@ -15,19 +17,23 @@
     "params": {
         "coin": "tBTC-TEST-lightning",
         "description": "test invoice"
-    }
+    },
     "id": 56
 }
 
+```
+
+```json
 {
     "userpass": "userpass",
     "mmrpc": "2.0",
     "method": "lightning::payments::generate_invoice",
     "params": {
         "coin": "tBTC-TEST-lightning",
-        "description": "test invoice"
+        "description": "test invoice",
         "amount_in_msat": null,
         "expiry": null 
-    }
+    },
     "id": 56
 }
+```

@@ -1,4 +1,4 @@
-## lightning\:\:channels\:\:get_channel_details
+### lightning\:\:channels\:\:get_channel_details
 
 | Parameter            | Type    | Description |
 |----------------------|---------|-------------|
@@ -6,6 +6,8 @@
 | rpc_channel_id       | integer | Channel ID you would like to see the details of |
 
 
+
+```json
 {
     "userpass": "userpass",
     "mmrpc": "2.0",
@@ -13,6 +15,7 @@
     "params": {
         "coin": "tBTC-TEST-lightning",
         "rpc_channel_id": 1
-    }
+    },
     "id": 54
 }
+```

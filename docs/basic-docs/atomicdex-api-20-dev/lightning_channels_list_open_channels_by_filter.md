@@ -1,4 +1,4 @@
-## lightning\:\:channels\:\:list_open_channels_by_filter
+### lightning\:\:channels\:\:list_open_channels_by_filter
 
 | Parameter            | Type    | Description |
 |----------------------|---------|-------------|
@@ -6,22 +6,26 @@
 | filter               | object  | [Lightning open channels filter](/basic-docs/atomicdex/common-structures.html#Lightning_open_channels_filter) (optional)      |
 | limit                | string  | Max number of records to return (optional)                         |
 
+
+```json
 {
     "userpass": "userpass",
     "mmrpc": "2.0",
     "method": "lightning::channels::list_open_channels_by_filter",
     "params": {
         "coin": "tBTC-TEST-lightning"
-    }
+    },
     "id": 55
 }
+```
 
+```json
 {
     "userpass": "userpass",
     "mmrpc": "2.0",
     "method": "lightning::channels::list_open_channels_by_filter",
     "params": {
-        "coin": "tBTC-TEST-lightning"
+        "coin": "tBTC-TEST-lightning",
         "filter": {
                 "channel_id": null,
                 "counterparty_node_id": null,
@@ -43,7 +47,7 @@
         "paging_options": {
            "PageNumber": 1
         }
-    }
+    },
     "id": 55
 }
 
@@ -52,7 +56,7 @@
     "mmrpc": "2.0",
     "method": "lightning::channels::list_open_channels_by_filter",
     "params": {
-        "coin": "tBTC-TEST-lightning"
+        "coin": "tBTC-TEST-lightning",
         "filter": {
                 "channel_id": null,
                 "counterparty_node_id": null,
@@ -74,6 +78,7 @@
         "paging_options": {
            "FromId": 4
         }
-    }
+    },
     "id": 55
 }
+```

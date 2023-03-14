@@ -1,3 +1,5 @@
+
+```json
 {
     "userpass": "{{userpass}}",
     "mmrpc": "2.0",
@@ -12,6 +14,8 @@
             // "max_dust_htlc_exposure_msat": 5000000, // Default: Coin Config
             // "force_close_avoidance_max_fee_satoshis": 1000 // Default: Coin Config
         }
-    }
+    },
     "id": 1
 }
+
+```

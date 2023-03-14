@@ -1,4 +1,4 @@
-## lightning\:\:payments\:\:send_payment
+### lightning\:\:payments\:\:send_payment
 
 | Parameter  | Type    | Description |
 |------------|---------|-------------|
@@ -6,6 +6,7 @@
 | payment    | object  | [Lightning payment object](/basic-docs/atomicdex/common-structures.html#Lightning_payment)  |
 
 
+```json
 {
     "userpass": "{{userpass}}",
     "mmrpc": "2.0",
@@ -22,3 +23,4 @@
     }
     // "id": null // Accepted values: Integers
 }
+```

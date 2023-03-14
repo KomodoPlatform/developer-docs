@@ -1,3 +1,5 @@
+
+```json
 {
     "userpass": "{{userpass}}",
     "mmrpc": "2.0",
@@ -28,3 +30,5 @@
     }
     // "id": null // Accepted values: Integers
 }
+
+```
