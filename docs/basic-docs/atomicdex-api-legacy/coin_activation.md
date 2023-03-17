@@ -18,6 +18,13 @@ The value of the `mm2` parameter informs the software as to whether the `coin` i
 
 :::
 
+
+::: tip
+
+Many examples of activation commands are available at [kmd.stats.io](https://stats.kmd.io/atomicdex/activation_commands/)
+
+:::
+
 ## Native mode activation
 
 If you are running a UTXO based coin daemon locally and the blockchain is synchronised, you can connect the local daemon to the AtomicDEX API by using the `enable` method, though some additional configuration is required. The AtomicDEX API requires the following options to be added to  the native chain's [.conf file](http://bitcoincoredocs.com/bitcoin-conf.html).
