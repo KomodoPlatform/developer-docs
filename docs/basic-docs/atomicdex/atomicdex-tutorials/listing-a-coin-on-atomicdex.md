@@ -300,15 +300,15 @@ The API IDs are stored in json files within the `/api_ids` folder, and used to s
 
 For [CoinGecko](https://www.coingecko.com/en/coins/komodo) it is conveniently displayed on the right had side of a coins page as below -
 
-<img src="/apis/gecko_api.png" />
+<img src="/api_images/gecko_api.png" />
 
 For [CoinPaprika](https://coinpaprika.com/coin/kmd-komodo/) it is the same as displayed in a coin's URL -
 
-<img src="/apis/paprika_api.png" />
+<img src="/api_images/paprika_api.png" />
 
 For [Nomics](https://nomics.com/assets/kmd-komodo/widget) you can find it under the "widget" tab for a coin.
 
-<img src="/apis/nomics_api.png" />
+<img src="/api_images/nomics_api.png" />
 
 For For Forex the API ID is the same as the [ISO 4217 currency code](https://en.wikipedia.org/wiki/ISO_4217).
 
@@ -323,7 +323,7 @@ The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044
 
 For Trezor compatibility, this field is required. You can find this value at [https://trezor.io/coins](https://trezor.io/coins). Not all coins are listed on this page by default, but if compatible can be found by searching the supported coins. The value is the name of the coin in larger black text (not the grey text in brackets). E.g. for the image below, the Trezor coin name would be `Qtum`.
 
-<img src="/apis/qtum.png" />
+<img src="/api_images/qtum.png" />
 
 ## 8. Successful swap confirmation
 

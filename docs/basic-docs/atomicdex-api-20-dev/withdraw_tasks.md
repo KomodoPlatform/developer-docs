@@ -412,11 +412,7 @@ curl --url "http://127.0.0.1:7783" --data "
     \"method\": \"task::withdraw::cancel\",
     \"mmrpc\": \"2.0\",
     \"params\": {
-<<<<<<< HEAD
         \"task_id\": 6
-=======
-        \"task_id\": TASK_ID
->>>>>>> master
     }
 }"
 echo

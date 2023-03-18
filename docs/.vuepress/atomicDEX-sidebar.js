@@ -43,12 +43,12 @@ let atomicDEXsidebar = {
               "AtomicDEX Walkthrough",
             ],
             [
-              "/basic-docs/atomicdex/atomicdex-tutorials/atomicdex-metrics.md",
-              "DEX Metrics",
+              "/basic-docs/atomicdex/atomicdex-tutorials/listing-a-coin-on-atomicdex.md",
+              "Adding a new coin to the AtomicDEX-API",
             ],
             [
-              "/basic-docs/atomicdex/atomicdex-tutorials/add-coin-to-atomicdex-desktop.md",
-              "List a new coin on AtomicDEX Desktop",
+              "/basic-docs/atomicdex/atomicdex-tutorials/atomicdex-metrics.md",
+              "DEX Metrics",
             ],
             [
               "/basic-docs/atomicdex/atomicdex-tutorials/listing-a-coin-on-atomicdex.md",
@@ -243,6 +243,22 @@ let atomicDEXsidebar = {
             [
               "/basic-docs/atomicdex-api-20/enable_slp.md",
               "enable_slp",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/enable_tendermint_with_assets.md",
+              "enable_tendermint_with_assets",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/enable_tendermint_token.md",
+              "enable_tendermint_token",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/enable_eth_with_tokens.md",
+              "enable_eth_with_tokens",
+            ],
+            [
+              "/basic-docs/atomicdex-api-20/enable_erc20.md",
+              "enable_erc20",
             ],
           ]
         },

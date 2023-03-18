@@ -45,17 +45,15 @@ This table keeps a detailed record of all swaps performed (including failed) in 
 |    12    | taker_coin_platform  |   VARCHAR(255)   | Taker coin platform                |
 |    13    | maker_coin_usd_price |     DECIMAL      | USD price of maker coin at the time of the swap |
 |    14    | taker_coin_usd_price |     DECIMAL      | USD price of taker coin at the time of the swap |
+|    15    | taker_pubkey         |     DECIMAL      | Taker pubkey |
+|    16    | maker_pubkey         |     DECIMAL      | Maker pubkey |
 
 #### Query:
-`sqlite3 ${PATH_TO_MM2_DB_FILE} "SELECT * FROM stats_swaps WHERE taker_coin = 'DOGE' and maker_coin = 'KMD' ORDER BY finished_at DESC LIMIT 5;"`
+`sqlite3 ${PATH_TO_MM2_DB_FILE} "SELECT * FROM stats_swaps WHERE taker_coin = 'DOGE' and maker_coin = 'DGB' ORDER BY finished_at DESC LIMIT 1;"`
 
 #### Response:
 ```
-379462|KMD|DOGE|c0075282-a3f3-446e-a0e9-fa52bb8d12a0|1674827977|1674829749|389.711613406079|1188.35101317225|1|KMD||DOGE||0.255|0.08498
-379461|KMD|DOGE|33b06a69-8893-459c-a23f-f9f611d0f57b|1674827984|1674829747|780.03120124805|2383.50480733229|1|KMD||DOGE||0.255|0.08496
-379394|KMD|DOGE|d3f4957d-7456-4380-8939-3e5822e6ce37|1674786677|1674787940|9.40810674604327|29|1|KMD||DOGE||0.2562|0.08454
-379101|KMD|DOGE|b57581ba-306e-42a6-b6f5-68725ca54ff0|1674574794|1674577440|1.98754823881042|5.94610949827182|1|KMD||DOGE||0.2631|0.08863
-378827|KMD|DOGE|f160d589-d120-4116-9081-ebdd22dd7893|1674443611|1674444889|0.078067056388503|0.2341549|1|KMD||DOGE||0.2648|0.08979
+8|DGB|DOGE|c9515636-f5a4-4767-a0af-c69e59086899|1678815183|1678815631|200|28|1|DGB||DOGE||0.0108|0.07673|02d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2|03a93f666b9030958f282edd2904f0a33278c0c676ae132d2094840fe722f011c3
 ```
 
 

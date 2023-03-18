@@ -156,7 +156,7 @@ Furthermore, consider the effect caused when the price of a PoW-blockchain coin 
 
 There are many more reasons why PoW networks continue to dominate in security. Yet, for our discussion, there is one element that rises above all others. It is called, "The Longest Chain Rule," and some blockchain developers may argue that it is "the secret sauce" that fuels PoW’s strength.
 
-The Longest Chain Rule is the determining factor whenever two competing versions of the blockchain history arise on the network. The rule simply states that whichever of the two versions grows longer first, wins. The other version is overwritten, and therefore all transactions and rewards on that version are erased. The simplicity of this rule is a key to understanding why PoW consensus mechanisms continue to outperform their competition.
+The Longest Chain Rule is the determining factor whenever two competing versions of the blockchain history arise on the network. The rule simply states that whichever of the two versions grows longer first, wins. The other version is deactivated, and therefore all transactions and rewards on that version are not visible to users. The simplicity of this rule is a key to understanding why PoW consensus mechanisms continue to outperform their competition.
 
 ##### The Simple Effects of The Longest Chain Rule
 
@@ -174,23 +174,23 @@ Let us suppose that the husband is in Asia and the wife is in the Americas. Both
 
 After making his purchase, the husband’s transaction hash is immediately sent to a mining device in China, where it is held in the miner’s local mempool. (Recall that a mempool is a collection of all raw transaction data across the network.)
 
-Let us suppose that the husband’s transaction arrives in the Chinese miner’s mempool at the exact moment that the Chinese mining equipment finds a correct nonce and a valid block hash. The Chinese miner declares the winning information, mines a new block, and collects a reward. All the miners in his local (Asian) vicinity (who receive the winning information faster than in the Americas, due to proximity) complete the block verification process, increase the length of the blockchain, and begin searching for the next valid block hash.
+Let us suppose that the husband’s transaction arrives in the Chinese miner’s mempool, the miner adds this transaction in a new block and soon the Chinese mining equipment finds a correct nonce and a valid block hash. The Chinese miner declares the winning information by sending out a message with a new block (note that he also collects a reward in this block). All the miners in his local (Asian) vicinity (who receive the winning information faster than in the Americas, due to proximity) complete the block verification process, increase the length of the blockchain, and begin assembling and mining the next block on top of the Chinese block.
 
-On the opposite side of the world, essentially the exact same actions happen. The wife’s transaction is sent to the nearest miner, this time located in Washington state of the United States. Just as the transaction enters the Washington state miner’s mempool, the miner discovers a valid block hash. He sends out the signal, mines a new block, and also collects the reward (this is the same reward that the Chinese miner is attempting to claim). All the miners in the local (US) vicinity verify the information immediately and begin searching for a new valid block hash based on the Washington state miner’s recent block.
+On the opposite side of the world, essentially the exact same actions happen. The wife’s transaction is sent to the nearest miner, this time located in Washington state of the United States. Just as the transaction enters the Washington state miner’s mempool, the miner adds it to a new block and discovers a valid block hash. Then he sends out a message with the new block (in this block he also collects the reward - this is the same reward that the Chinese miner is attempting to claim). All the miners in the local (US) vicinity verify the information immediately, add the new block to their chain database and begin assembling a new block and then searching for a valid hash for this block, to connect it to the Washington state miner’s recent block.
 
 ##### An Internal Conflict of Interest Arises Within the Bitcoin Network
 
 Note the paradox here. There are now two versions of the Bitcoin history that are valid, yet different.
 
-These two versions make their way across the Internet, around the world, each to the other side. When the competing messages arrive, the Bitcoin protocol sees that there is a conflict: the same money was spent twice.
+These two versions make their way across the Internet, around the world, each to the other side. When the competing messages arrive, the Bitcoin protocol sees two conflicting chain histories: the same money was spent twice (once on each competing chain).
 
 Consider how on each side of the world the miners are spending their financial and temporal resources to further their own interests. There is no economic incentive for either side to submit to the other, by nature. Therefore, there is a conflict of interest within the Bitcoin network itself. The Bitcoin network would swiftly fail, were it not for The Longest Chain Rule.
 
 ##### The Longest Chain Rule: The History Which is Longer First, Wins
 
-The Longest Chain Rule simply declares that whichever of the two competing blockchains grows longer first, wins. The consensus mechanism erases the other version.
+The Longest Chain Rule simply declares that whichever of the two competing blockchains grows longer first, wins. The consensus mechanism deactivates the other version and chain users won't see it anymore.
 
-Let us suppose that the Chinese mining equipment is superior in this instance, and the Chinese miner manages to discover the next valid block hash and send out the signal before the Washington state miner can do likewise. Across the world, the moment the information arrives that the Chinese miner completed yet another valid block, the Bitcoin protocol erases the Washington state miner’s version of the Bitcoin history.
+Let us suppose that the Chinese mining equipment is superior in this instance, and the Chinese miner manages to discover the next valid block hash and send out a message with the new block before the Washington state miner can do likewise. Across the world, the moment the message with the block that Chinese miner completed, the Bitcoin protocol will select the best chain between both Chinese miner's and the Washington state miner’s versions of the Bitcoin history, based on more proof-of-work in Chinese miner's history.
 
 There is no sympathy for any wasted efforts, nor for any misunderstandings between the wife and her car dealer. The Bitcoin protocol’s consensus mechanism simply presses forward. The Washington state miner’s rewards disappear, as though they never occurred. The wife’s purchase of a car likewise evaporates.
 
@@ -252,7 +252,7 @@ One notable instance occurred when an original Bitcoin developer, Luke-jr, used 
 
 The complexity in establishing a secure PoW blockchain remains a challenge for would-be entrepreneurs. Furthermore, there are existing PoW developers that are not fully aware of their vulnerability. Likewise, there are would-be malicious actors that have yet to realize the many methods available to cause frustration. The potential danger surrounding the issue of the Genesis Attack shows the relative youthfulness of the cryptocurrency industry.
 
-For a PoW blockchain network to maintain Bitcoin-level security, therefore, it must maintain a hash rate that is high enough to constantly mine blocks faster than a potential competitor could either perform the 51% Attack (destroying the most recent of transactions), or the deadly Genesis Attack (complete annihilation).
+For a PoW blockchain network to maintain Bitcoin-level security, therefore, it must maintain a hash rate that is high enough to constantly mine blocks faster than a potential competitor could either perform the 51% Attack (rewriting the most recent history of transactions), or the deadly Genesis Attack (complete chain rebuilding).
 
 ## The Financial and Eco-Unfriendly Problems With All PoW Networks
 
@@ -585,7 +585,7 @@ There are myriad ways that an attacker can assail a blockchain project, and the 
 
 By relying on the notarizations in the chosen PoW network’s hash rate (Litecoin), users in the Komodo ecosystem are well protected from both the 51% Attack and the Genesis Attack.
 
-Recall that in a 51% Attack, the attacker first makes a transaction and then erases it by providing 51% of the total hash rate to a "false" blockchain where the transaction never occurred. In the Genesis Attack, the attacker recreates the genesis block of a blockchain and mines an entirely false history.
+Recall that in a 51% Attack, the attacker first makes a transaction and then 'erases' it by providing 51% of the total hash rate to create another blockchain branch where the transaction never occurred. In the Genesis Attack, the attacker recreates the genesis block of a blockchain and mines an entirely false history.
 
 For either of these attacks to play any part in the Komodo ecosystem, the successful attack would have to destroy every transaction at every level it is recorded.
 
@@ -605,7 +605,7 @@ The Komodo ecosystem is also well protected against the 51% Attack. Consider an 
 
 ##### Before Notarization
 
-During the waiting period for notarization, on a default PoW-based Smart Chain, this transaction is vulnerable to the attacker's 51% Attack. The attacker would simply wait until the opportune moment to attack their victim by providing 51% of the total hash rate to a "false" version of the independent Smart Chain wherein the transaction never occurred. This "false" version would erase the transaction before the notary nodes create the next notarization, and therefore the unfortunate recipient of the transaction would no longer have the funds from the vanished transaction.
+During the waiting period for notarization, on a default PoW-based Smart Chain, any transaction is vulnerable to the attacker's 51% Attack. The attacker would simply wait until the opportune moment to attack their victim by providing 51% of the total hash rate to a new version of the independent Smart Chain wherein the transaction never occurred. This new chain version, having more PoW, would override the original chain history with the transaction before the notary nodes create the next notarization, and therefore the unfortunate recipient of the transaction would no longer have the funds from the vanished transaction.
 
 On a default PoW-based Smart Chain, therefore, the recipient of any transaction should always wait until the notarization process is underway before exchanging their valuables.
 
