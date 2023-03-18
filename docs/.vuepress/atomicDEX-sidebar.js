@@ -39,12 +39,12 @@ let atomicDEXsidebar = {
               "AtomicDEX Walkthrough",
             ],
             [
-              "/basic-docs/atomicdex/atomicdex-tutorials/atomicdex-metrics.md",
-              "DEX Metrics",
+              "/basic-docs/atomicdex/atomicdex-tutorials/listing-a-coin-on-atomicdex.md",
+              "Adding a new coin to the AtomicDEX-API",
             ],
             [
-              "/basic-docs/atomicdex/atomicdex-tutorials/add-coin-to-atomicdex-desktop.md",
-              "List a new coin on AtomicDEX Desktop",
+              "/basic-docs/atomicdex/atomicdex-tutorials/atomicdex-metrics.md",
+              "DEX Metrics",
             ],
             [
               "/basic-docs/atomicdex/atomicdex-tutorials/how-to-become-a-liquidity-provider.md",
