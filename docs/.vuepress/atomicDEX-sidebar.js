@@ -51,6 +51,10 @@ let atomicDEXsidebar = {
               "List a new coin on AtomicDEX Desktop",
             ],
             [
+              "/basic-docs/atomicdex/atomicdex-tutorials/listing-a-coin-on-atomicdex.md",
+              "Adding a new coin to the AtomicDEX-API",
+            ],
+            [
               "/basic-docs/atomicdex/atomicdex-tutorials/how-to-become-a-liquidity-provider.md",
               "How to Become a Liquidity Provider",
             ],
