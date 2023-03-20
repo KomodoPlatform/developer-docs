@@ -106,7 +106,7 @@ The `USERPASS` environment variable will remain in our terminal's memory until w
 :::
 
 Refer to the rest of the AtomicDEX API documentation for details and examples of how to:
-* [Enable coins](../../atomicdex-api-legacy/electrum.html)
+* [Enable coins](../../atomicdex-api-legacy/coin_activation.html)
 * [Place orders](../../atomicdex-api-legacy/buy.html)
 * [View the orderbook](../../atomicdex-api-legacy/orderbook.html) 
 * [Check your balance](../../atomicdex-api-legacy/my_balance.html)
