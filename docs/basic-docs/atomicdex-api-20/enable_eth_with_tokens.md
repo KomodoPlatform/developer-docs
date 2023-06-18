@@ -55,7 +55,7 @@ curl --url "http://127.0.0.1:7783" --data "{
         \"gui_auth\": false
       },
       {
-        \"url\": \"https://node.komodo.live:8080/ethereum\",
+        \"url\": \"https://node.komodo.earth:8080/ethereum\",
         \"gui_auth\": true
       }
     ],
