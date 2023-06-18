@@ -26,7 +26,7 @@ curl --url "http://127.0.0.1:7783" --data "{
              {\"ticker\":\"ATOM-IBC_IRIS\"}
         ],
         \"rpc_urls\": [
-            \"https://iris.komodo.live/\",
+            \"https://iris.komodo.earth/\",
             \"https://rpc.irishub-1.irisnet.org\"
        ],
        \"tx_history\":true
