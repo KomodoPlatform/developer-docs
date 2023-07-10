@@ -1,20 +1,20 @@
-# Introduction to AtomicDEX
+# Introduction to Komodo DeFi Framework
 
-One of Komodo's blockchain tools is an atomic-swap powered, decentralized exchange (DEX), called AtomicDEX.
+One of Komodo's blockchain tools is an atomic-swap powered, decentralized exchange (DEX), offered as part of the Komodo DeFi Framework.
 
-Komodo’s AtomicDEX software is entirely separate from the `komodod` software that powers the rest of Komodo.
+Komodo’s DeFi Framework software is entirely separate from the `komodod` software that powers the rest of Komodo.
 
-Because AtomicDEX is built on atomic swaps, developers and users can rely on it to exchange cryptocurrencies at will, and without any middleman involvement. Users of this software maintain full control over the private keys of their assets at all times. This dramatically increases the security of the exchange process.
+Because KomoDefi is built on atomic swaps, developers and users can rely on it to exchange cryptocurrencies at will, and without any middleman involvement. Users of this software maintain full control over the private keys of their assets at all times. This dramatically increases the security of the exchange process.
 
 This software is capable of facilitating atomic-swap exchanges between approximately 99% of the coins listed on [coinmarketcap.com](https://coinmarketcap.com). All coins were listed without charge.
 
-## Why is AtomicDEX Special?
+## Why is Komodo DeFi Framework Special?
 
 When it comes to DEX technology, Komodo has a remarkable story.
 
 In April 2014, Komodo’s lead developer experimented with his first atomic-swap prototypes. By August of 2017, Komodo released version 1.0 of the atomic-swap DEX software, allowing anonymous Internet users to perform over 100,000 atomic swaps via automation. These are but two examples of how Komodo has led the way in atomic-swap DEX technology since the beginning.
 
-To understand AtomicDEX, one must first understand what a decentralized exchange is, why it is important, and how atomic swaps come into play.
+To understand Komodo DeFi Framework, one must first understand what a decentralized exchange is, why it is important, and how atomic swaps come into play.
 
 This discussion requires a small amount of foundational knowledge. The reader should be generally familiar with blockchain technology and should understand the basic ideas of the Komodo project.
 
@@ -121,7 +121,7 @@ However, the nature of an atomic swap is unique in comparison with the opposing 
 | Users maintain control over the funds throughout the process       | <b>Yes:</b> Users maintain control over their funds until the trade is completed, at which point ownership is swapped atomically         | <b>No:</b> Users relinquish ownership to the gateway nodes, although users do hold private keys to IOUs                    | <b>No:</b> Once the user sends funds to the CEX, they only own their funds in theory until the funds are returned |
 | User funds remain distributed and decentralized throughout process | <b>Yes:</b> As users maintain ownership over their funds at all times, all funds in the exchange process are never in a central location | <b>No:</b> User funds are held in a collection of multi-signature addresses that are maintained by a small group of people | <b>No:</b> User funds are held in a centralized database, managed by company employees                            |
 
-This is probably enough to get the basic idea. If the reader desires a more thorough understanding of the atomic swap process, read the [AtomicDEX and Atomic Swaps section of the Core Technology Disucssions.](https://developers.komodoplatform.com/basic-docs/start-here/core-technology-discussions/atomicdex.html)
+This is probably enough to get the basic idea. If the reader desires a more thorough understanding of the atomic swap process, read the [Komodo DeFi Framework and Atomic Swaps section of the Core Technology Disucssions.](https://developers.komodoplatform.com/basic-docs/start-here/core-technology-discussions/atomicdex.html)
 
 The underlying ideas of atomic swaps were invented by Tier Nolan in 2013. He posted his ideas on an online community forum where Komodo's lead developer and primary visionary, JL777, or "James" for short, was also exploring blockchain technology. Here’s where Komodo enters the picture.
 
@@ -137,7 +137,7 @@ From its foundation, the Komodo ecosystem is designed to facilitate blockchain i
 
 Upon release of Komodo’s DEX 1.0, hundreds of members of the Komodo open-source community collectively performed over 100,000 atomic swaps. It was the first time in history that users with no coding knowledge could trade assets without either a third-party acting as an arbiter, or even without any public knowledge of who was trading with whom.
 
-Another point to mention is that while AtomicDEX is built upon atomic swaps, other software in the Komodo ecosystem is able to perform the rest of the functionality necessary to run other types of decentralized exchanges. As all Komodo software is natively integrated, this provides the Komodo entrepreneur with perhaps the widest range of DEX software packages in existence.
+Another point to mention is that while KomoDeFi is built upon atomic swaps, other software in the Komodo ecosystem is able to perform the rest of the functionality necessary to run other types of decentralized exchanges. As all Komodo software is natively integrated, this provides the Komodo entrepreneur with perhaps the widest range of DEX software packages in existence.
 
 ### Capabilities of Komodo Software
 
@@ -145,15 +145,15 @@ Another point to mention is that while AtomicDEX is built upon atomic swaps, oth
 | ------------ | --------------------- | ----------------------- | --------------------------- | ------------- |
 | Check!       | Check!                | Check!                  | Check!                      | Check!        |
 
-Today, Komodo developers took what they learned from version 1.0 and rewrote the code from the ground up to enhance essentially all aspects of the user experience. This is the AtomicDEX 2.0 software.
+Today, Komodo developers took what they learned from version 1.0 and rewrote the code from the ground up to enhance essentially all aspects of the user experience. This is the KomoDeFi 2.0 software.
 
-Recently, yet again Komodo forged into new territory with atomic swaps. In February of 2019, the Komodo team performed the first mobile-based atomic swap. The mobile version of AtomicDEX is available for Android and iOS devices, and the software interfaces seamlessly with our desktop software.
+Recently, yet again Komodo forged into new territory with atomic swaps. In February of 2019, the Komodo team performed the first mobile-based atomic swap. The mobile version of Komodo Wallet is available for Android and iOS devices, and the software interfaces seamlessly with our desktop software.
 
 While the code behind Komodo's technology is complex, the good news is, the code takes care of itself. A developer and entrepreneur building on Komodo can simply fire up the software and access its functionalities through the API.
 
-## AtomicDEX Software is an Industry-Wide Invitation
+## Komodo DeFi Framework is an Industry-Wide Invitation
 
-AtomicDEX is open source, meaning that we do not keep the software's source code private. Also, the Komodo team is creating a network that is open to other financially motivated businesses and organizations seeking profit in the cryptocurrency-exchange industry.
+Komodo DeFi Framework is open source, meaning that we do not keep the software's source code private. Also, the Komodo team is creating a network that is open to other financially motivated businesses and organizations seeking profit in the cryptocurrency-exchange industry.
 
 Many opportunities are available for cryptocurrency-exchange entrepreneurs to build their own audiences and businesses using Komodo software. Entrepreneurs can create their own market places on the main Komodo network for trading, or they can create their own private and public networks. Developers can use Komodo's back-end software API to feature atomic-swap DEX functionality in their existing or upcoming software innovations, including mobile software. Enterprise and other large-scale companies can reach out to Komodo for integration with Komodo technology, or even for consulting services.
 

@@ -1,4 +1,4 @@
-# How to Perform Cross-Chain Atomic Swaps Using AtomicDEX Mobile
+# How to Perform Cross-Chain Atomic Swaps Using Komodo Mobile Wallet
 
 #### Prerequisites
 
@@ -7,26 +7,25 @@
 
 ::: tip
 
-AtomicDEX Mobile is still in a beta-testing phase. Do not use large funds for testing. 
+Komodo Mobile Wallet is still in a beta-testing phase. Do not use large funds for testing.
 
 Use RICK & MORTY test coins for swaps first to gain experience.
 
-You can obtain coins for testing from the coins' faucets. 
+You can obtain coins for testing from the coins' faucets.
 
 [Link to RICK Faucet](https://www.atomicexplorer.com/#/faucet/rick)
 
 [Link to MORTY Faucet](https://www.atomicexplorer.com/#/faucet/morty)
 
-
 :::
 
 #### Instructions
 
-- Click on the "DEX" tab at the bottom of AtomicDEX Mobile app
+- Click on the "DEX" tab at the bottom of Komodo Mobile Wallet app
 
 This will bring you to the DEX view.
 
-In DEX tab you can perform cross-chain atomic swaps, and view current orders and your swap history. 
+In DEX tab you can perform cross-chain atomic swaps, and view current orders and your swap history.
 
 - Swip left or right to view either option
 
@@ -42,7 +41,7 @@ In DEX tab you can perform cross-chain atomic swaps, and view current orders and
 
 The amount modal will fill automatically, based on the amount you want to sell.
 
-You may also see the best available rate, based on the orders available. 
+You may also see the best available rate, based on the orders available.
 
 - When ready, click on the "TRADE" button
 
@@ -79,4 +78,3 @@ If you are still on the swap monitoring page from before, when your swap complet
 <img src="/how-to-perform/how-to-perform-05.jpg">
 
 </div>
-

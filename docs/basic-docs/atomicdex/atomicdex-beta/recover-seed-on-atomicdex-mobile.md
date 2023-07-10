@@ -1,4 +1,4 @@
-# How to Recover Seed on AtomicDEX Mobile
+# How to Recover Seed on Komodo Mobile Wallet
 
 - Click on `Settings` > `View Seed`
 
@@ -23,4 +23,3 @@ The app will display your seed that you used.
 <img src="/how-to-recover/how-to-recover-03.jpg">
 
 </div>
-

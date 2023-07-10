@@ -1,6 +1,6 @@
-# How To Become a Liquidity Provider on AtomicDEX
+# How To Become a Liquidity Provider on Komodo DeFi Framework
 
-The following tutorial introduces the reader to a simple method to become a liquidity provider on the main network of the AtomicDEX software.
+The following tutorial introduces the reader to a simple method to become a liquidity provider on the main network of the KomoDeFi software.
 
 ## Requirements
 
@@ -20,17 +20,17 @@ If the user prefers to use computer hardware at home, instead of a VPS, we recom
 - RAM - _at least_ 4 GB
 - Processor - _at least_ i5 or equivalent
 
-## Get the AtomicDEX API and Coins Configuration File
+## Get the Komodo DeFi Framework and Coins Configuration File
 
-#### Step 1: Get the AtomicDEX API binary
+#### Step 1: Get the Komodo DeFi Framework binary
 
-You can get the AtomicDEX API binary by downloading pre-compiled versions from the official repository or by building from source.
+You can get the Komodo DeFi Framework binary by downloading pre-compiled versions from the official repository or by building from source.
 
 ##### Downloading from the Official Repository (Option 1)
 
 We will create `~/atomicDEX-API/target/debug` directory for compatibility with building from source method.
 
-You can get the latest release of the AtomicDEX API binary from the [atomicDEX-API/releases](https://github.com/KomodoPlatform/atomicDEX-API/releases) page on Github. Download and extract it to `~/atomicDEX-API/target/debug`.
+You can get the latest release of the Komodo DeFi Framework binary from the [atomicDEX-API/releases](https://github.com/KomodoPlatform/atomicDEX-API/releases) page on Github. Download and extract it to `~/atomicDEX-API/target/debug`.
 
 For example:
 
@@ -45,7 +45,7 @@ Then you can proceed to [download the coins configuration file](#step-2-download
 
 ##### Building from Source (Option 2)
 
-If you decide to build from source, please follow the [Build AtomicDEX API from source guide](how-to-compile-mm2-from-source.html)
+If you decide to build from source, please follow the [Build Komodo DeFi Framework from source guide](how-to-compile-mm2-from-source.html)
 
 #### Step 2: Download the Coins Configuration File
 
@@ -74,7 +74,7 @@ coins                                                        100%[==============
 
 </collapse-text>
 
-## Running the AtomicDEX API
+## Running the Komodo DeFi Framework
 
 #### Step 1: Download and Edit Scripts to Provide Liquidity for the KMD/LTC Pair
 
@@ -84,7 +84,7 @@ Navigate to the directory: `~/atomicDEX-API/target/debug`
 cd ~/atomicDEX-API/target/debug
 ```
 
-Download the scripts used to start and interact with the AtomicDEX API.
+Download the scripts used to start and interact with the Komodo DeFi Framework.
 
 ```bash
 git clone https://github.com/gcharang/mm2scripts
@@ -100,9 +100,9 @@ cp mm2scripts/* .
 
 The user must create a seed phrase that will serve as a type of password for accessing all coins in the user's digital wallet.
 
-Various tools are available in the cryptocurrency community to create a secure seed phrase. One available method is to use the automated procedure that is included in the [AtomicDEX Desktop Wallet](https://atomicdex.io).
+Various tools are available in the cryptocurrency community to create a secure seed phrase. One available method is to use the automated procedure that is included in the [Komodo Desktop Wallet](https://komodoplatform.com/en/wallets.html).
 
-Backup these 24 words carefully. They provide access to the coins that are stored in the addresses created by the AtomicDEX API.
+Backup these 24 words carefully. They provide access to the coins that are stored in the addresses created by the Komodo DeFi Framework.
 
 To learn more about creating secure phrases, [read this linked content on the Bitcoin wiki.](https://en.bitcoin.it/wiki/Seed_phrase)
 
@@ -142,7 +142,7 @@ Replace the text `"RPC_CONTROL_USERPASSWORD"` with your RPC user password.
 
 ::: warning Danger!
 
-The below example contains an example for launching the AtomicDEX API software with a 24-word passphrase. This is provided for demonstration purposes only. You should NOT copy/paste this example. Type this command in manually to your terminal, and MAKE SURE TO CHANGE THE PASSPHRASE TO YOUR OWN.
+The below example contains an example for launching the Komodo DeFi Framework software with a 24-word passphrase. This is provided for demonstration purposes only. You should NOT copy/paste this example. Type this command in manually to your terminal, and MAKE SURE TO CHANGE THE PASSPHRASE TO YOUR OWN.
 
 Failure to properly manage your passphrase can (and likely will) result in lost funds.
 
@@ -173,9 +173,9 @@ userpass=GlHjhvYlev8fh8xZgSBI
 
 </collapse-text>
 
-We now have basic scripts to use the AtomicDEX API as a liquidity provider.
+We now have basic scripts to use the Komodo DeFi Framework as a liquidity provider.
 
-#### Step 2: Start the AtomicDEX API
+#### Step 2: Start the Komodo DeFi Framework
 
 ##### Command
 
@@ -193,7 +193,7 @@ nohup: appending output to 'nohup.out'
 </collapse-text>
 
 :::tip Note
-Starting the AtomicDEX API in the above manner causes the passphrase to be visible to other programs such as `htop`.
+Starting the Komodo DeFi Framework in the above manner causes the passphrase to be visible to other programs such as `htop`.
 
 To avoid this issue, there is an alternate method that uses a json file to replace the command line parameters
 
@@ -206,7 +206,7 @@ nano MM2.json
 
 Edit the values of the keys `"rpc_password"` and `"passphrase"` with the same values used in the `start.sh` file. Save and close the file.
 
-To start the AtomicDEX API:
+To start the Komodo DeFi Framework:
 
 ```bash
 stdbuf -oL nohup ./mm2
@@ -240,7 +240,7 @@ Take note of the address.
 
 ::: tip
 
-We recommend here that you make sure that the public address above matches the address generated by the same passphrase, when entered into the AtomicDEX wallet or the Verus Desktop wallet.
+We recommend here that you make sure that the public address above matches the address generated by the same passphrase, when entered into the Komodo wallet or the Verus Desktop wallet.
 
 :::
 
@@ -272,7 +272,7 @@ A sample response of the terminal output after the `start.sh` file is executed.
 
 ::: tip
 
-Again, a best practice here is to ensure that the public address above matches with the address in the AtomicDEX or Verus Desktop wallets.
+Again, a best practice here is to ensure that the public address above matches with the address in the Komodo Wallet or Verus Desktop wallets.
 
 :::
 
@@ -301,7 +301,7 @@ cd ~/atomicDEX-API/target/debug
 chmod +x COINNAMEconnect.sh
 ```
 
-Execute the command `./COINNAMEconnect.sh` to instruct your AtomicDEX API instance to connect to the coin's electrum server.
+Execute the command `./COINNAMEconnect.sh` to instruct your Komodo DeFi Framework instance to connect to the coin's electrum server.
 
 ## Trading
 
@@ -484,7 +484,7 @@ Display the LTC/KMD Orderbook.
 
 In this example, we sell KMD for LTC.
 
-To achieve this, we first fund the KMD address created by the AtomicDEX API.
+To achieve this, we first fund the KMD address created by the Komodo DeFi Framework.
 
 Use the following command to find the address and check the balance.
 
@@ -614,7 +614,7 @@ The above `tx_hash` can be searched for in an explorer to check the status of th
 
 #### Stop
 
-To stop the AtomicDEX API, use the `stop.sh` script.
+To stop the Komodo DeFi Framework, use the `stop.sh` script.
 
 ##### Command
 

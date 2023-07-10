@@ -1,4 +1,4 @@
-# Installing the AtomicDEX API
+# Installing the Komodo DeFi Framework
 
 ### Minimum Requirements for Installation
 
@@ -11,12 +11,12 @@
 - Normal user account with admin/root privileges
 
 ::: warning Note
-If you would prefer to avoid building the AtomicDEX API from source, you can download our pre-built binary [from our Github releases page.](https://github.com/KomodoPlatform/atomicDEX-API/releases)
+If you would prefer to avoid building the Komodo DeFi Framework from source, you can download our pre-built binary [from our Github releases page.](https://github.com/KomodoPlatform/atomicDEX-API/releases)
 :::
 
 ### Note about Linux
 
-For Linux users, much of the following documentation assumes that you are building and running the AtomicDEX API on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us on the #dev-marketmaker channel on Discord.](https://komodoplatform.com/discord)
+For Linux users, much of the following documentation assumes that you are building and running the Komodo DeFi Framework on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us on the #dev-marketmaker channel on Discord.](https://komodoplatform.com/discord)
 
 ### Note about Installing on Windows
 
@@ -24,7 +24,7 @@ Developing software on Windows typically requires an installation of Git Bash.
 
 Git Bash is a terminal shell based on Unix. It is similar to the Windows Shell or Windows Command Prompt, but uses Unix-based syntax.
 
-All instructions in the AtomicDEX API documentation are given with Unix-based syntax, and therefore we recommend installing Git Bash before proceeding.
+All instructions in the Komodo DeFi Framework documentation are given with Unix-based syntax, and therefore we recommend installing Git Bash before proceeding.
 
 You may download and install Git Bash for Windows here:
 
@@ -38,7 +38,7 @@ Once Git Bash is open and running on your machine, you may continue.
 
 ### Note About 32-bit Operating Systems
 
-We are currently testing 32-bit operating system functionality. As 32-bit machines can often be comparatively older hardware, we cannot guarantee that AtomicDEX API will run successfully by default.
+We are currently testing 32-bit operating system functionality. As 32-bit machines can often be comparatively older hardware, we cannot guarantee that Komodo DeFi Framework will run successfully by default.
 
 We invite users of 32-bit operating systems to test the software and [report any errors to our team on the #dev-marketmaker channel on Discord](https://komodoplatform.com/discord).
 
@@ -112,7 +112,7 @@ rustup component add rustfmt-preview
 
 #### Install jq
 
-`jq` is an optional, but useful addition to our needed software. `jq` can provide a more readable format of JSON output in the terminal, which helps us more quickly digest the data respone output by the AtomicDEX API.
+`jq` is an optional, but useful addition to our needed software. `jq` can provide a more readable format of JSON output in the terminal, which helps us more quickly digest the data respone output by the Komodo DeFi Framework.
 
 ##### Linux:
 
@@ -136,9 +136,9 @@ Execute the file.
 
 Download and execute the appropriate file from [this link.](https://stedolan.github.io/jq/download/)
 
-### Build AtomicDEX API
+### Build Komodo DeFi Framework
 
-Clone the AtomicDEX API repository:
+Clone the Komodo DeFi Framework repository:
 
 ```bash
 cd ~
@@ -171,4 +171,4 @@ If everything installed successfully, a response that is similar to the followin
 “Finished dev [optimized + debuginfo] target(s) in 3m 33s”
 ```
 
-The AtomicDEX API executable is now built and available here: `~/atomicDEX-API/target/debug/mm2`
+The Komodo DeFi Framework executable is now built and available here: `~/atomicDEX-API/target/debug/mm2`

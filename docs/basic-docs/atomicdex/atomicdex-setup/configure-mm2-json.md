@@ -1,28 +1,26 @@
-# AtomicDEX API configuration
+# Komodo DeFi Framework configuration
 
-AtomicDEX-API configuration parameters are [listed in the source code](https://github.com/KomodoPlatform/atomicDEX-API/blob/mm2.1/mm2src/mm2.rs#L126), along with [additional runtime flags](https://github.com/KomodoPlatform/atomicDEX-API/blob/mm2.1/mm2src/mm2.rs#L115), and [per-process environment variables](https://github.com/KomodoPlatform/atomicDEX-API/blob/mm2.1/mm2src/mm2.rs#L171)
-
+Komodo DeFi Framework configuration parameters are [listed in the source code](https://github.com/KomodoPlatform/atomicDEX-API/blob/mm2.1/mm2src/mm2.rs#L126), along with [additional runtime flags](https://github.com/KomodoPlatform/atomicDEX-API/blob/mm2.1/mm2src/mm2.rs#L115), and [per-process environment variables](https://github.com/KomodoPlatform/atomicDEX-API/blob/mm2.1/mm2src/mm2.rs#L171)
 
 ## MM2.json
 
-When running the AtomicDEX API via commandline with the `mm2` binary, some basic configuration parameters need to be defined in either an `MM2.json` file, or at runtime.
+When running the Komodo DeFi Framework via commandline with the `mm2` binary, some basic configuration parameters need to be defined in either an `MM2.json` file, or at runtime.
 
-| Parameter      | Type              | Description                     |
-| -------------- | ------------------| ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| gui            | string            | Information about your GUI; place essential info about your application (name, version, etc.) here. For example: AtomicDEX iOS 1.0.1                        |
-| netid          | integer           | Nework ID number, telling the AtomicDEX API which network to join. 7777 is the current main network, though alternative netids can be used for testing or "private" trades |
-| passphrase     | string            | Your passphrase; this is the source of each of your coins private keys. KEEP IT SAFE!                                                                       |
-| allow_weak_password   | boolean  | If `true`, will allow low entropy rpc_password. If `false` rpc_password must not have 3 of the same characters in a row, must be between 8-32 characters in length, must contain at least one of each of the following: numeric, uppercase, lowercase, special character (e.g. !#$*). It also can not contain the word "password", or the chars `<`, `>`, and `&`. Defaults to `false`.                                                                        |
-| rpc_password   | string            | Your password for protected RPC methods (userpass)                                                                                                          |
-| userhome       | string            | The path to your home, called from your environment variables and entered as a regular expression                                                           |
-| dbdir          | string            | AtomicDEX API database path. Optional, defaults to a subfolder named `DB` in the path of your `mm2` binary                                                  |
-| rpcip          | string            | IP address to bind to for RPC server. Optional, defaults to 127.0.0.1                                                                                       |
-| rpcport        | integer           | Port to use for RPC communication. Optional, defaults to 7783                                                                                               |
-| rpc_local_only | boolean           | If `false` the AtomicDEX API will allow rpc methods sent from external IP addresses. Optional, defaults to `true`. **Warning:** Only use this if you know what you are doing, and have put the appropriate security measures in place. |
-| i_am_seed      | boolean           | Runs AtomicDEX API as a seed node mode (acting as a relay for AtomicDEX API clients). Optional, defaults to `false`. Use of this mode is not reccomended on the main network (7777) as it could result in a pubkey ban if non-compliant. on alternative testing or private networks, at least one seed node is required to relay information to other AtomicDEX API clients using the same netID.                                            |
-| seednodes      | list of strings   | Optional. If operating on a test or private netID, the IP address of at least one seed node is required (on the main network, these are already hardcoded)  |
-| hd_account_id  | integer           | Optional. If this value is set, the AtomicDEX-API will work in only the HD derivation mode, coins will need to have a coin derivation path entry in the `coins` file for activation. The `hd_account_id` value effectively takes its place in the full derivation as follows: `m/44'/COIN_ID'/<hd_account_id>'/CHAIN/ADDRESS_ID` |
-
+| Parameter           | Type            | Description                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| gui                 | string          | Information about your GUI; place essential info about your application (name, version, etc.) here. For example: Komodo Mobile Wallet iOS 1.0.1                                                                                                                                                                                                                                                                           |
+| netid               | integer         | Nework ID number, telling the Komodo DeFi Framework which network to join. 7777 is the current main network, though alternative netids can be used for testing or "private" trades                                                                                                                                                                                                                                        |
+| passphrase          | string          | Your passphrase; this is the source of each of your coins private keys. KEEP IT SAFE!                                                                                                                                                                                                                                                                                                                                     |
+| allow_weak_password | boolean         | If `true`, will allow low entropy rpc_password. If `false` rpc_password must not have 3 of the same characters in a row, must be between 8-32 characters in length, must contain at least one of each of the following: numeric, uppercase, lowercase, special character (e.g. !#$\*). It also can not contain the word "password", or the chars `<`, `>`, and `&`. Defaults to `false`.                                  |
+| rpc_password        | string          | Your password for protected RPC methods (userpass)                                                                                                                                                                                                                                                                                                                                                                        |
+| userhome            | string          | The path to your home, called from your environment variables and entered as a regular expression                                                                                                                                                                                                                                                                                                                         |
+| dbdir               | string          | Komodo DeFi Framework database path. Optional, defaults to a subfolder named `DB` in the path of your `mm2` binary                                                                                                                                                                                                                                                                                                        |
+| rpcip               | string          | IP address to bind to for RPC server. Optional, defaults to 127.0.0.1                                                                                                                                                                                                                                                                                                                                                     |
+| rpcport             | integer         | Port to use for RPC communication. Optional, defaults to 7783                                                                                                                                                                                                                                                                                                                                                             |
+| rpc_local_only      | boolean         | If `false` the Komodo DeFi Framework will allow rpc methods sent from external IP addresses. Optional, defaults to `true`. **Warning:** Only use this if you know what you are doing, and have put the appropriate security measures in place.                                                                                                                                                                            |
+| i_am_seed           | boolean         | Runs Komodo DeFi Framework as a seed node mode (acting as a relay for Komodo DeFi Framework clients). Optional, defaults to `false`. Use of this mode is not reccomended on the main network (7777) as it could result in a pubkey ban if non-compliant. on alternative testing or private networks, at least one seed node is required to relay information to other Komodo DeFi Framework clients using the same netID. |
+| seednodes           | list of strings | Optional. If operating on a test or private netID, the IP address of at least one seed node is required (on the main network, these are already hardcoded)                                                                                                                                                                                                                                                                |
+| hd_account_id       | integer         | Optional. If this value is set, the Komodo DeFi Framework will work in only the HD derivation mode, coins will need to have a coin derivation path entry in the `coins` file for activation. The `hd_account_id` value effectively takes its place in the full derivation as follows: `m/44'/COIN_ID'/<hd_account_id>'/CHAIN/ADDRESS_ID`                                                                                  |
 
 Example (allowing weak password):
 
@@ -61,17 +59,16 @@ stdbuf -oL nohup ./mm2 "{\"gui\":\"DEVDOCS_CLI\",\"netid\":7777, \"userhome\":\"
 
 ::: tip
 
-When using the AtomicDEX API on a VPS without accompanying tools such as `tmux` or `screen`, it is recommended that the user add the command `nohup` to the AtomicDEX API launch command. This addition ensures that the AtomicDEX API instance is not shutdown when the user logs out.
-
+When using the Komodo DeFi Framework on a VPS without accompanying tools such as `tmux` or `screen`, it is recommended that the user add the command `nohup` to the Komodo DeFi Framework launch command. This addition ensures that the Komodo DeFi Framework instance is not shutdown when the user logs out.
 
 Optional environment variables that can be user defined are as follows:
 
-| Variable      | Type              | Description                     |
-| ------------- | ------------------| ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| MM2_CONF_PATH | string            | File path. MM2 will try to load the JSON configuration from this file. The file must contain valid json with structure mentioned above. Defaults to `MM2.json` in the same folder as your `mm2` binary |
-| MM_COINS_PATH | string            | File path. MM2 will try to load coins data from this file. File must contain valid json. A comprehensive version for public use is maintained in the [Komodo Platform coins github repository](https://github.com/KomodoPlatform/coins/blob/master/coins)  |
-| MM_LOG        | string            | File path. Must end with '.log'. The AtomicDEX api will write logs to this file. |
-| USERPASS      | string            | For convenience, this variable can store the value of your `rpc_password` to be referenced in any shell scripts |
+| Variable      | Type   | Description                                                                                                                                                                                                                                               |
+| ------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| MM2_CONF_PATH | string | File path. MM2 will try to load the JSON configuration from this file. The file must contain valid json with structure mentioned above. Defaults to `MM2.json` in the same folder as your `mm2` binary                                                    |
+| MM_COINS_PATH | string | File path. MM2 will try to load coins data from this file. File must contain valid json. A comprehensive version for public use is maintained in the [Komodo Platform coins github repository](https://github.com/KomodoPlatform/coins/blob/master/coins) |
+| MM_LOG        | string | File path. Must end with '.log'. The Komodo DeFi Framework will write logs to this file.                                                                                                                                                                  |
+| USERPASS      | string | For convenience, this variable can store the value of your `rpc_password` to be referenced in any shell scripts                                                                                                                                           |
 
 :::
 
@@ -102,17 +99,18 @@ echo $USERPASS
 You should see your USERPASS as a returned value.
 
 ::: tip
-The `USERPASS` environment variable will remain in our terminal's memory until we close the session. When we open up a new session later, we need to create the `USERPASS` environment variable again. 
+The `USERPASS` environment variable will remain in our terminal's memory until we close the session. When we open up a new session later, we need to create the `USERPASS` environment variable again.
 :::
 
-Refer to the rest of the AtomicDEX API documentation for details and examples of how to:
-* [Enable coins](../../atomicdex-api-legacy/coin_activation.html)
-* [Place orders](../../atomicdex-api-legacy/buy.html)
-* [View the orderbook](../../atomicdex-api-legacy/orderbook.html) 
-* [Check your balance](../../atomicdex-api-legacy/my_balance.html)
-* [Configure bot trading!](../../atomicdex-api-20/start_simple_market_maker_bot.html)
+Refer to the rest of the Komodo DeFi Framework documentation for details and examples of how to:
 
-When you are finished, you can exit the AtomicDEX API using the following command:
+- [Enable coins](../../atomicdex-api-legacy/coin_activation.html)
+- [Place orders](../../atomicdex-api-legacy/buy.html)
+- [View the orderbook](../../atomicdex-api-legacy/orderbook.html)
+- [Check your balance](../../atomicdex-api-legacy/my_balance.html)
+- [Configure bot trading!](../../atomicdex-api-20/start_simple_market_maker_bot.html)
+
+When you are finished, you can exit the Komodo DeFi Framework using the following command:
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"stop\"}"

@@ -1,8 +1,8 @@
-# cancel\_order
+# cancel_order
 
 **cancel_order uuid**
 
-The `cancel_order` cancels the active order created by the AtomicDEX API node.
+The `cancel_order` cancels the active order created by the Komodo DeFi Framework node.
 
 #### Arguments
 

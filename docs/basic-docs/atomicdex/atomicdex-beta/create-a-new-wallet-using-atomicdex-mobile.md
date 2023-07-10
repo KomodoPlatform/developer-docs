@@ -1,6 +1,6 @@
-# How to Create a New Wallet Using AtomicDEX Mobile
+# How to Create a New Wallet Using Komodo Mobile Wallet
 
-- Start AtomicDEX Mobile app
+- Start Komodo Mobile Wallet app
 
 - Select "CREATE A WALLET" button
 
@@ -62,8 +62,7 @@ If normal encryption takes longer on your phone, enable "Fast encryption" and tr
 
 - Create a PIN
 
-In the next two steps you will be asked to provide a custom six digit PIN. You will need this PIN every time you want to access atomicDEX.
-
+In the next two steps you will be asked to provide a custom six digit PIN. You will need this PIN every time you want to access Komodo Mobile Wallet.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -77,11 +76,10 @@ In the next two steps you will be asked to provide a custom six digit PIN. You w
 
 </div>
 
-Upon completion, AtomicDEX Mobile returns you to the dashboard.
+Upon completion, Komodo Mobile Wallet returns you to the dashboard.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
 <img src="/how-to-create/how-to-create-10.jpg">
 
 </div>
-

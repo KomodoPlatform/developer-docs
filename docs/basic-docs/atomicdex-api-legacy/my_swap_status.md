@@ -1,8 +1,8 @@
-# my\_swap\_status
+# my_swap_status
 
 **uuid**
 
-The `my_swap_status` method returns the data of an atomic swap executed on an AtomicDEX API node.
+The `my_swap_status` method returns the data of an atomic swap executed on an Komodo DeFi Framework node.
 
 #### Arguments
 
@@ -12,24 +12,24 @@ The `my_swap_status` method returns the data of an atomic swap executed on an At
 
 #### Response
 
-| Structure      | Type                       | Description                                                                                                                                                                                                                                                                    |
-| -------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| events         | array of objects           | the events that occurred during the swap                                                                                                                                                                                                                                       |
-| events.type    | string                     | an event type; the list of event types with their data structure is available below                                                                                                                                                                                            |
-| events.data    | object                     | additional data of the event; the list of events with their data structure is available below                                                                                                                                                                                  |
-| success_events | array of strings           | a list of events that gained a `success` swap state; the contents are listed in the order in which they should occur in the `events` array                                                                                                                                     |
-| error_events   | array of strings           | a list of events that fell into an `error` swap state; if at least 1 of the events happens, the swap is considered a failure                                                                                                                                                   |
-| type           | string                     | whether the node acted as a market `Maker` or `Taker`                                                                                                                                                                                                                          |
-| uuid           | string                     | swap uuid                                                                                                                                                                                                                                                                      |
-| gui            | string (optional)          | information about gui; copied from AtomicDEX API configuration (MM2.json)                                                                                                                                                                                                                        |
-| mm_version     | string (optional)          | AtomicDEX API version                                                                                                                                                                                                                                                                    |
-| maker_coin     | string (optional)          | ticker of maker coin                                                                                                                                                                                                                                                           |
-| taker_coin     | string (optional)          | ticker of taker coin                                                                                                                                                                                                                                                           |
-| maker_amount   | string (numeric, optional) | the amount of coins to be swapped by maker                                                                                                                                                                                                                                     |
-| taker_amount   | string (numeric, optional) | the amount of coins to be swapped by taker                                                                                                                                                                                                                                     |
-| my_info        | object (optional)          | this object maps event data to make displaying swap data in a GUI simpler (`my_coin`, `my_amount`, etc.)                                                                                                                                                                       |
-| recoverable    | bool                       | whether the swap can be recovered using the `recover_funds_of_swap` API command. Important note: The AtomicDEX API does not record the state regarding whether the swap was recovered or not. The AtomicDEX API allows as many calls to the `recover_funds_of_swap` method as necessary, in case of errors |
-| my_order_uuid  | string (uuid, optional)    | the uuid of order that matched to start the swap                                                                                                                                                                                                                               |
+| Structure      | Type                       | Description                                                                                                                                                                                                                                                                                                                |
+| -------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| events         | array of objects           | the events that occurred during the swap                                                                                                                                                                                                                                                                                   |
+| events.type    | string                     | an event type; the list of event types with their data structure is available below                                                                                                                                                                                                                                        |
+| events.data    | object                     | additional data of the event; the list of events with their data structure is available below                                                                                                                                                                                                                              |
+| success_events | array of strings           | a list of events that gained a `success` swap state; the contents are listed in the order in which they should occur in the `events` array                                                                                                                                                                                 |
+| error_events   | array of strings           | a list of events that fell into an `error` swap state; if at least 1 of the events happens, the swap is considered a failure                                                                                                                                                                                               |
+| type           | string                     | whether the node acted as a market `Maker` or `Taker`                                                                                                                                                                                                                                                                      |
+| uuid           | string                     | swap uuid                                                                                                                                                                                                                                                                                                                  |
+| gui            | string (optional)          | information about gui; copied from Komodo DeFi Framework configuration (MM2.json)                                                                                                                                                                                                                                          |
+| mm_version     | string (optional)          | Komodo DeFi Framework version                                                                                                                                                                                                                                                                                              |
+| maker_coin     | string (optional)          | ticker of maker coin                                                                                                                                                                                                                                                                                                       |
+| taker_coin     | string (optional)          | ticker of taker coin                                                                                                                                                                                                                                                                                                       |
+| maker_amount   | string (numeric, optional) | the amount of coins to be swapped by maker                                                                                                                                                                                                                                                                                 |
+| taker_amount   | string (numeric, optional) | the amount of coins to be swapped by taker                                                                                                                                                                                                                                                                                 |
+| my_info        | object (optional)          | this object maps event data to make displaying swap data in a GUI simpler (`my_coin`, `my_amount`, etc.)                                                                                                                                                                                                                   |
+| recoverable    | bool                       | whether the swap can be recovered using the `recover_funds_of_swap` API command. Important note: The Komodo DeFi Framework does not record the state regarding whether the swap was recovered or not. The Komodo DeFi Framework allows as many calls to the `recover_funds_of_swap` method as necessary, in case of errors |
+| my_order_uuid  | string (uuid, optional)    | the uuid of order that matched to start the swap                                                                                                                                                                                                                                                                           |
 
 #### Maker Swap Events
 
@@ -39,30 +39,30 @@ The `my_swap_status` method returns the data of an atomic swap executed on an At
 
 ##### Started
 
-The `Started` event indicates that mandatory pre-checks passed, such as "available balance," and that the swap started successfully.  
+The `Started` event indicates that mandatory pre-checks passed, such as "available balance," and that the swap started successfully.
 
 The swap goes to the negotiation stage after this event occurs.
 
-| Structure                   | Type                              | Description                                                                                                                                                                                                                     |
-| --------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| taker_coin                  | string                            | the ticker of the taker coin                                                                                                                                                                                                    |
-| maker_coin                  | string                            | the ticker of the maker coin                                                                                                                                                                                                    |
-| taker                       | string (hexadecimal)              | the p2p ID of taker node                                                                                                                                                                                                        |
-| secret                      | string (hexadecimal)              | a random secret, the hash of which is used to lock atomic-swap payments                                                                                                                                                         |
-| secret_hash                 | string (hexadecimal)              | the hash of the swap secret                                                                                                                                                                                                     |
-| my_persistent_pub           | string (hexadecimal)              | a persistent secp256k1 public key of maker node                                                                                                                                                                                 |
-| lock_duration               | number (integer)                  | the lock duration of swap payments in seconds. The sender can refund the transaction when the lock duration is passed. The taker payment is locked for the lock duration. The maker payment is locked for lock duration * 2     |
-| maker_amount                | string (numeric)                  | the amount of coins to be swapped by maker                                                                                                                                                                                      |
-| taker_amount                | string (numeric)                  | the amount of coins to be swapped by taker                                                                                                                                                                                      |
-| maker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for maker payment                                                                                                                                                               |
-| maker_payment_requires_nota | bool                              | whether dPoW notarization is required for maker payment; can be null; available since `beta-2.0.1738`                                                                                                                           |
-| taker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for taker payment                                                                                                                                                               |
-| taker_payment_requires_nota | bool                              | whether dPoW notarization is required for taker payment; can be null; available since `beta-2.0.1738`                                                                                                                           |
-| maker_payment_lock          | number (UTC timestamp in seconds) | the maker payment is locked until this timestamp                                                                                                                                                                                |
-| uuid                        | string                            | the swap uuid                                                                                                                                                                                                                   |
-| started_at                  | number (UTC timestamp in seconds) | the timestamp at the start of the swap                                                                                                                                                                                          |
-| maker_coin_start_block      | number (integer)                  | the maker coin block number at the start of the swap                                                                                                                                                                            |
-| taker_coin_start_block      | number (integer)                  | the taker coin block number at the start of the swap                                                                                                                                                                            |
+| Structure                   | Type                              | Description                                                                                                                                                                                                                  |
+| --------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| taker_coin                  | string                            | the ticker of the taker coin                                                                                                                                                                                                 |
+| maker_coin                  | string                            | the ticker of the maker coin                                                                                                                                                                                                 |
+| taker                       | string (hexadecimal)              | the p2p ID of taker node                                                                                                                                                                                                     |
+| secret                      | string (hexadecimal)              | a random secret, the hash of which is used to lock atomic-swap payments                                                                                                                                                      |
+| secret_hash                 | string (hexadecimal)              | the hash of the swap secret                                                                                                                                                                                                  |
+| my_persistent_pub           | string (hexadecimal)              | a persistent secp256k1 public key of maker node                                                                                                                                                                              |
+| lock_duration               | number (integer)                  | the lock duration of swap payments in seconds. The sender can refund the transaction when the lock duration is passed. The taker payment is locked for the lock duration. The maker payment is locked for lock duration \* 2 |
+| maker_amount                | string (numeric)                  | the amount of coins to be swapped by maker                                                                                                                                                                                   |
+| taker_amount                | string (numeric)                  | the amount of coins to be swapped by taker                                                                                                                                                                                   |
+| maker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for maker payment                                                                                                                                                            |
+| maker_payment_requires_nota | bool                              | whether dPoW notarization is required for maker payment; can be null; available since `beta-2.0.1738`                                                                                                                        |
+| taker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for taker payment                                                                                                                                                            |
+| taker_payment_requires_nota | bool                              | whether dPoW notarization is required for taker payment; can be null; available since `beta-2.0.1738`                                                                                                                        |
+| maker_payment_lock          | number (UTC timestamp in seconds) | the maker payment is locked until this timestamp                                                                                                                                                                             |
+| uuid                        | string                            | the swap uuid                                                                                                                                                                                                                |
+| started_at                  | number (UTC timestamp in seconds) | the timestamp at the start of the swap                                                                                                                                                                                       |
+| maker_coin_start_block      | number (integer)                  | the maker coin block number at the start of the swap                                                                                                                                                                         |
+| taker_coin_start_block      | number (integer)                  | the taker coin block number at the start of the swap                                                                                                                                                                         |
 
 ##### StartFailed
 
@@ -70,9 +70,9 @@ The `StartFailed` event indicates that some of the pre-checks did not pass, and 
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### Negotiated
 
@@ -80,10 +80,10 @@ The `Negotiated` event indicates that maker has received and validated swap nego
 
 Maker starts waiting for taker to send the dex fee after this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| taker_payment_locktime | number (UTC timestamp in seconds) | the taker payment is locked until this timestamp        |
-| taker_pubkey           | string (hexadecimal)              | a persistent secp256k1 public key of taker node         |
+| Structure              | Type                              | Description                                      |
+| ---------------------- | --------------------------------- | ------------------------------------------------ |
+| taker_payment_locktime | number (UTC timestamp in seconds) | the taker payment is locked until this timestamp |
+| taker_pubkey           | string (hexadecimal)              | a persistent secp256k1 public key of taker node  |
 
 ##### NegotiateFailed
 
@@ -91,20 +91,20 @@ The `NegotiateFailed` event indicates that taker negotiation data was not receiv
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### TakerFeeValidated
 
-The `TakerFeeValidated` event indicates that maker received and validated dex fee data from taker.  
+The `TakerFeeValidated` event indicates that maker received and validated dex fee data from taker.
 
 Maker sends their payment after this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| tx_hash                | string                            | the hash of the transaction                             |
-| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
+| Structure | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| tx_hash   | string | the hash of the transaction             |
+| tx_hex    | string | transaction bytes in hexadecimal format |
 
 ##### TakerFeeValidateFailed
 
@@ -112,9 +112,9 @@ The `TakerFeeValidateFailed` event indicates that taker dex fee data was not rec
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### MakerPaymentTransactionFailed
 
@@ -122,29 +122,29 @@ The `MakerPaymentTransactionFailed` event indicates that maker was not able to b
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### MakerPaymentSent
 
-The `MakerPaymentSent` event indicates that maker has broadcast the maker payment transaction.  
+The `MakerPaymentSent` event indicates that maker has broadcast the maker payment transaction.
 
 Maker starts waiting for taker to send his payment after this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| tx_hash                | string                            | the hash of the transaction                             |
-| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
+| Structure | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| tx_hash   | string | the hash of the transaction             |
+| tx_hex    | string | transaction bytes in hexadecimal format |
 
 ##### MakerPaymentDataSendFailed
 
 The `MakerPaymentDataSendFailed` event indicates that maker was not able to send his payment data to taker due to a network error.
 When this event occurs, maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### MakerPaymentWaitConfirmFailed
 
@@ -152,24 +152,24 @@ The `MakerPaymentWaitConfirmFailed` event indicates that maker payment transacti
 
 When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### TakerPaymentReceived
 
-The `TakerPaymentReceived` event indicates that maker received the taker payment transaction data.  
+The `TakerPaymentReceived` event indicates that maker received the taker payment transaction data.
 
 Maker starts waiting for taker payment confirmation after this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| tx_hash                | string                            | the hash of the transaction                             |
-| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
+| Structure | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| tx_hash   | string | the hash of the transaction             |
+| tx_hex    | string | transaction bytes in hexadecimal format |
 
 ##### TakerPaymentWaitConfirmStarted
 
-The `TakerPaymentReceived` event indicates that maker started waiting for taker payment confirmation.  
+The `TakerPaymentReceived` event indicates that maker started waiting for taker payment confirmation.
 
 This event does not have additional data.
 
@@ -179,9 +179,9 @@ The `TakerPaymentValidateFailed` event indicates that taker payment did not pass
 
 When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### TakerPaymentWaitConfirmFailed
 
@@ -189,13 +189,13 @@ The `MakerPaymentWaitConfirmFailed` event indicates that the taker payment trans
 
 When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### TakerPaymentValidatedAndConfirmed
 
-The `TakerPaymentValidatedAndConfirmed` event indicates that maker validated taker payment and payment was confirmed the required number of times.  
+The `TakerPaymentValidatedAndConfirmed` event indicates that maker validated taker payment and payment was confirmed the required number of times.
 
 Maker attempts to spend the taker payment after this event occurs.
 
@@ -207,24 +207,24 @@ The `TakerPaymentSpendFailed` event indicates that maker payment was not able to
 
 When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### TakerPaymentSpent
 
-The `TakerPaymentSpent` event indicates that maker has broadcast the **taker payment spend** transaction.  
+The `TakerPaymentSpent` event indicates that maker has broadcast the **taker payment spend** transaction.
 
 Maker starts waiting for **taker payment spend** confirmation after this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| tx_hash                | string                            | the hash of the transaction                             |
-| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
+| Structure | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| tx_hash   | string | the hash of the transaction             |
+| tx_hex    | string | transaction bytes in hexadecimal format |
 
 ##### TakerPaymentSpendConfirmStarted
 
-The `TakerPaymentSpendConfirmStarted` event indicates that maker started waiting for **taker payment spend** transaction confirmation.  
+The `TakerPaymentSpendConfirmStarted` event indicates that maker started waiting for **taker payment spend** transaction confirmation.
 
 This event does not have additional data.
 
@@ -234,9 +234,9 @@ The `TakerPaymentSpendConfirmFailed` event indicates that the **taker payment sp
 
 Maker attempts to refund the maker payment.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### TakerPaymentSpendConfirmed
 
@@ -250,9 +250,9 @@ This event does not have additional data.
 
 The `MakerPaymentWaitRefundStarted` event indicates that maker started waiting for lock time expiration to refund the payment.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| wait_until             | number (UTC timestamp)            | the timestamp at which a refund will occur              |
+| Structure  | Type                   | Description                                |
+| ---------- | ---------------------- | ------------------------------------------ |
+| wait_until | number (UTC timestamp) | the timestamp at which a refund will occur |
 
 ##### MakerPaymentRefundFailed
 
@@ -260,24 +260,24 @@ The `MakerPaymentRefundFailed` event indicates that maker was not able to broadc
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### MakerPaymentRefunded
 
-The `MakerPaymentRefunded` event indicates that maker has broadcast the maker payment refund transaction.  
+The `MakerPaymentRefunded` event indicates that maker has broadcast the maker payment refund transaction.
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| tx_hash                | string                            | the hash of the transaction                             |
-| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
+| Structure | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| tx_hash   | string | the hash of the transaction             |
+| tx_hex    | string | transaction bytes in hexadecimal format |
 
 ##### Finished
 
-The `Finished` event indicates that the swap finished.  
+The `Finished` event indicates that the swap finished.
 
 This event does not have additional data.
 
@@ -293,7 +293,7 @@ This event does not have additional data.
 
 ##### Started
 
-The `Started` event indicates that mandatory pre-checks, such as "available balance," passed and the swap started successfully.  
+The `Started` event indicates that mandatory pre-checks, such as "available balance," passed and the swap started successfully.
 
 The swap goes to negotiation stage after this event occurs.
 
@@ -303,7 +303,7 @@ The swap goes to negotiation stage after this event occurs.
 | maker_coin                  | string                            | the ticker of maker coin                                                                                                                                                                                                     |
 | maker                       | string (hexadecimal)              | the p2p ID of maker node                                                                                                                                                                                                     |
 | my_persistent_pub           | string (hexadecimal)              | a persistent secp256k1 public key of taker node                                                                                                                                                                              |
-| lock_duration               | number (integer)                  | the lock duration of swap payments in seconds. The sender can refund the transaction when the lock duration is passed. The taker payment is locked for the lock duration. The maker payment is locked for lock duration * 2  |
+| lock_duration               | number (integer)                  | the lock duration of swap payments in seconds. The sender can refund the transaction when the lock duration is passed. The taker payment is locked for the lock duration. The maker payment is locked for lock duration \* 2 |
 | maker_amount                | string (numeric)                  | the amount of coins to be swapped by maker                                                                                                                                                                                   |
 | taker_amount                | string (numeric)                  | the amount of coins to be swapped by taker                                                                                                                                                                                   |
 | maker_payment_confirmations | number (integer)                  | the required number of blockchain confirmations for maker payment                                                                                                                                                            |
@@ -323,9 +323,9 @@ The `StartFailed` event indicates that some of the pre-checks did not pass, and 
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### Negotiated
 
@@ -345,20 +345,20 @@ The `NegotiateFailed` event indicates that maker negotiation data was not receiv
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### TakerFeeSent
 
-The `TakerFeeSent` event indicates that taker broadcast the dex fee transaction.  
+The `TakerFeeSent` event indicates that taker broadcast the dex fee transaction.
 
 Taker starts waiting for maker payment after this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| tx_hash                | string                            | the hash of the transaction                             |
-| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
+| Structure | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| tx_hash   | string | the hash of the transaction             |
+| tx_hex    | string | transaction bytes in hexadecimal format |
 
 ##### TakerFeeSendFailed
 
@@ -366,9 +366,9 @@ The `TakerFeeSendFailed` event indicates that the taker dex fee transaction fail
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### MakerPaymentValidateFailed
 
@@ -376,24 +376,24 @@ The `MakerPaymentValidateFailed` event indicates that taker was not able to rece
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### MakerPaymentReceived
 
-The `MakerPaymentReceived` event indicates that taker received the maker payment transaction data.  
+The `MakerPaymentReceived` event indicates that taker received the maker payment transaction data.
 
 Taker starts waiting for transaction confirmation after this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| tx_hash                | string                            | the hash of the transaction                             |
-| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
+| Structure | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| tx_hash   | string | the hash of the transaction             |
+| tx_hex    | string | transaction bytes in hexadecimal format |
 
 ##### MakerPaymentWaitConfirmStarted
 
-The `MakerPaymentWaitConfirmStarted` event indicates that taker started waiting for maker payment confirmation.  
+The `MakerPaymentWaitConfirmStarted` event indicates that taker started waiting for maker payment confirmation.
 
 This event does not have additional data.
 
@@ -403,13 +403,13 @@ The `MakerPaymentWaitConfirmFailed` event indicates that the maker payment trans
 
 Taker swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### MakerPaymentValidatedAndConfirmed
 
-The `MakerPaymentValidatedAndConfirmed` event indicates that taker validated maker payment and the payment was confirmed the required number of times.  
+The `MakerPaymentValidatedAndConfirmed` event indicates that taker validated maker payment and the payment was confirmed the required number of times.
 
 Taker sends his payment after this event occurs.
 
@@ -417,14 +417,14 @@ This event does not have additional data.
 
 ##### TakerPaymentSent
 
-The `TakerPaymentSent` event indicates that taker broadcast taker payment transaction to taker coin blockchain.  
+The `TakerPaymentSent` event indicates that taker broadcast taker payment transaction to taker coin blockchain.
 
 Taker starts waiting for maker to spend this transaction.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| tx_hash                | string                            | the hash of the transaction                             |
-| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
+| Structure | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| tx_hash   | string | the hash of the transaction             |
+| tx_hex    | string | transaction bytes in hexadecimal format |
 
 ##### TakerPaymentTransactionFailed
 
@@ -432,9 +432,9 @@ The `TakerPaymentTransactionFailed` event indicates that taker failed to broadca
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### TakerPaymentWaitConfirmFailed
 
@@ -442,9 +442,9 @@ The `TakerPaymentWaitConfirmFailed` event indicates that the taker payment trans
 
 When this event occurs taker starts waiting for taker payment lock time expiration to issue a refund.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### TakerPaymentDataSendFailed
 
@@ -452,9 +452,9 @@ The `TakerPaymentDataSendFailed` event indicates that taker was not able to send
 
 When this event occurs taker starts waiting for taker payment lock time expiration to issue a refund.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### TakerPaymentSpent
 
@@ -462,12 +462,12 @@ The `TakerPaymentSpent` event indicates that maker spent taker payment and taker
 
 When this event occurs taker extracts the secret from the transaction and attempts to spend maker payment.
 
-| Structure              | Type                              | Description                                                |
-| ---------------------- | --------------------------------- | ---------------------------------------------------------- |
-| secret                 | string                            | the atomic swap secret extracted from spending transaction |
-| transaction            | object                            | transaction object                                         |
-| transaction.tx_hash    | string                            | the hash of the transaction                                |
-| transaction.tx_hex     | string                            | transaction bytes in hexadecimal format                    |
+| Structure           | Type   | Description                                                |
+| ------------------- | ------ | ---------------------------------------------------------- |
+| secret              | string | the atomic swap secret extracted from spending transaction |
+| transaction         | object | transaction object                                         |
+| transaction.tx_hash | string | the hash of the transaction                                |
+| transaction.tx_hex  | string | transaction bytes in hexadecimal format                    |
 
 ##### TakerPaymentWaitForSpendFailed
 
@@ -475,9 +475,9 @@ The `TakerPaymentWaitForSpendFailed` event indicates that maker did not spend ta
 
 When this event occurs taker attempts to refund the payment.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### MakerPaymentSpendFailed
 
@@ -485,9 +485,9 @@ The `MakerPaymentSpendFailed` event indicates that taker failed to broadcast **m
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### MakerPaymentSpent
 
@@ -495,42 +495,42 @@ The `MakerPaymentSpent` event indicates that taker spent maker payment.
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| tx_hash                | string                            | the hash of the transaction                             |
-| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
+| Structure | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| tx_hash   | string | the hash of the transaction             |
+| tx_hex    | string | transaction bytes in hexadecimal format |
 
 ##### TakerPaymentWaitRefundStarted
 
 `TakerPaymentWaitRefundStarted` event indicates that taker started waiting for lock time expiration to refund the payment.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| wait_until             | number (UTC timestamp)            | the timestamp at which a refund will occur              |
+| Structure  | Type                   | Description                                |
+| ---------- | ---------------------- | ------------------------------------------ |
+| wait_until | number (UTC timestamp) | the timestamp at which a refund will occur |
 
 ##### TakerPaymentRefundFailed
 
 `TakerPaymentRefundFailed` event indicates that taker was not able to broadcast a refund transaction to taker coin blockchain.
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| error                  | string                            | error description with stack trace                      |
+| Structure | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| error     | string | error description with stack trace |
 
 ##### TakerPaymentRefunded
 
-The `TakerPaymentRefunded` event indicates that taker broadcast the taker payment refund transaction.  
+The `TakerPaymentRefunded` event indicates that taker broadcast the taker payment refund transaction.
 
 The swap finishes immediately when this event occurs.
 
-| Structure              | Type                              | Description                                             |
-| ---------------------- | --------------------------------- | ------------------------------------------------------- |
-| tx_hash                | string                            | the hash of the transaction                             |
-| tx_hex                 | string                            | transaction bytes in hexadecimal format                 |
+| Structure | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| tx_hash   | string | the hash of the transaction             |
+| tx_hex    | string | transaction bytes in hexadecimal format |
 
 ##### Finished
 
-The `Finished` event indicates that the swap finished.  
+The `Finished` event indicates that the swap finished.
 
 This event does not have additional data.
 
@@ -554,155 +554,195 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 ```json
 {
-    "result": {
-        "type": "Taker",
-        "uuid": "0d72c435-821e-4278-b2a7-e36ab1ba8cb7",
-        "my_order_uuid": "0d72c435-821e-4278-b2a7-e36ab1ba8cb7",
-        "events": [{
-            "timestamp": 1674802079095,
-            "event": {
-                "type": "Started",
-                "data": {
-                    "taker_coin": "MORTY",
-                    "maker_coin": "RICK",
-                    "maker": "7310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5",
-                    "my_persistent_pub": "03d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2",
-                    "lock_duration": 7800,
-                    "maker_amount": "1",
-                    "taker_amount": "1",
-                    "maker_payment_confirmations": 1,
-                    "maker_payment_requires_nota": false,
-                    "taker_payment_confirmations": 0,
-                    "taker_payment_requires_nota": false,
-                    "taker_payment_lock": 1674809878,
-                    "uuid": "0d72c435-821e-4278-b2a7-e36ab1ba8cb7",
-                    "started_at": 1674802078,
-                    "maker_payment_wait": 1674805198,
-                    "maker_coin_start_block": 1800637,
-                    "taker_coin_start_block": 1813161,
-                    "fee_to_send_taker_fee": {
-                        "coin": "MORTY",
-                        "amount": "0.00001",
-                        "paid_from_trading_vol": false
-                    },
-                    "taker_payment_trade_fee": {
-                        "coin": "MORTY",
-                        "amount": "0.00002",
-                        "paid_from_trading_vol": false
-                    },
-                    "maker_payment_spend_trade_fee": {
-                        "coin": "RICK",
-                        "amount": "0.00001",
-                        "paid_from_trading_vol": true
-                    },
-                    "maker_coin_htlc_pubkey": "03d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2",
-                    "taker_coin_htlc_pubkey": "03d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2",
-                    "p2p_privkey": null
-                }
-            }
-        }, {
-            "timestamp": 1674802095105,
-            "event": {
-                "type": "Negotiated",
-                "data": {
-                    "maker_payment_locktime": 1674817676,
-                    "maker_pubkey": "000000000000000000000000000000000000000000000000000000000000000000",
-                    "secret_hash": "9af6a305578518d693fca3f1e4c529224a81f654",
-                    "maker_coin_swap_contract_addr": null,
-                    "taker_coin_swap_contract_addr": null,
-                    "maker_coin_htlc_pubkey": "037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5",
-                    "taker_coin_htlc_pubkey": "037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5"
-                }
-            }
-        }, {
-            "timestamp": 1674802095885,
-            "event": {
-                "type": "TakerFeeSent",
-                "data": {
-                    "tx_hex": "0400008085202f89014b9e44ba75ed80361776ac385feee7bba13b6c2d3147a3d9b5d71362a4624219000000006b483045022100a45de07b5d211c62e8ecf90cd5bee5076f6b6f20715f5618d7d0d93a6209ad870220596ca01682d2dbd4efeba3a0e90a373fd61b619471747df26afc2e2bb167de4c012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffff02bcf60100000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88acf4979600000000001976a914d346067e3c3c3964c395fee208594790e29ede5d88acaf73d363000000000000000000000000000000",
-                    "tx_hash": "b2ee0e692523c5ca081f62e36325d09a629004850be8b86df149fc979e9e3e87"
-                }
-            }
-        }, {
-            "timestamp": 1674802097888,
-            "event": {
-                "type": "TakerPaymentInstructionsReceived",
-                "data": null
-            }
-        }, {
-            "timestamp": 1674802097890,
-            "event": {
-                "type": "MakerPaymentReceived",
-                "data": {
-                    "tx_hex": "0400008085202f89036aefd7ae1e6933ef997ad44adf5d0c19bc2bbede499a3421eb2022d06fa772f7000000006b4830450221009ad555b27ee9d0e2044bfc14aec47c160819d79dfaacc36e0426b4c35b5626aa02207624ef91881e42b210f16ce96bca00ce3d7cde46e7aaca76bd39f3aa64489e940121037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5ffffffff66f0d84da9abf07914969af7479934a518a5363353e0968efebc78eac561f07e020000006a4730440220597126d39bb86ce6f6e478eeae7714daa08d05d57df69e641293d70cfe78f510022037bdff2a77ead08b8a60cafff9524beacf28513499e57a15615e66955e51636e0121037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5ffffffffffe65f8d99d56844f9f5c94a590bf4d6cca116b170fee21e6c04c1a4ab39f4a7000000006a47304402202f2ab19d0f70bfbbc649e78eeda8c14afc72e41a80c9f81c25466307cef619440220466ed647fe07cc75dba20176c05aef671c04cb929e30ce4988014e1c553fe84b0121037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5ffffffff0300e1f5050000000017a914252fe9c1a8b61a9ca1da6bcbc017e4677e89c480870000000000000000166a149af6a305578518d693fca3f1e4c529224a81f654798b0306000000001976a91486f747b28c60ad1130bdd3f84f48eeaf1801ca9888acb173d363000000000000000000000000000000",
-                    "tx_hash": "879535fa1057a1f2587245f0d656ff4126848060574b85f581f7ac57200dcf80"
-                }
-            }
-        }, {
-            "timestamp": 1674802097894,
-            "event": {
-                "type": "MakerPaymentWaitConfirmStarted"
-            }
-        }, {
-            "timestamp": 1674802191003,
-            "event": {
-                "type": "MakerPaymentValidatedAndConfirmed"
-            }
-        }, {
-            "timestamp": 1674802192167,
-            "event": {
-                "type": "TakerPaymentSent",
-                "data": {
-                    "tx_hex": "0400008085202f8908873e9e9e97fc49f16db8e80b850490629ad02563e3621f08cac52325690eeeb2010000006a47304402204208734d38019ab1940348bd5091b392cab57565591f26447cdb5396e006dba50220365770af3714083901571635407d43dc87e9abfc05b382c8fde598f624eae2d1012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffffc895dd30ec91dafeb8023af40625a367aaf2a835141c537a4c746fe27e8160b8000000006a4730440220432cb8c44befb2fb076979f275aa205ddd9853a296f7b6df0bfb15dcd7e659fd0220741262c04a3697e474474cdb1e18c908511a7edfec9a7d350403bd8c90039a93012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffffaad904fafd259e9d5960866964c2e2752853b36dcd7bf205196e443f1f611453000000006b483045022100982d3ffb1a0bab130fc51071c0e60de08354161f8ba29593cbb849de31152da502200d74a8edbadf816b2076b14c74b5236b6d98ced09f6700b7411f008726b7d570012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffff354c776ffd2c883236d9135ea72e5991adf27f10f5fdc39e42be9be0d748539b000000006a4730440220742fa6411298f2c02edb690327860729d6a90c74b35f529065f6c15d29e609c20220008b68bd92a7f3c8ac8f00d161658a315103c3e2783c62e57172202c3db6016c012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2fffffffff191e32dca5ace0ca52c8d4dfa59a1e12e5c32968e08c7289fb7e4823fd119c2000000006b483045022100d1ba0bf5aadc658f61d6a348cfd3edaf2341ebafb12209d1da375130d8d17a8602201b09147377c70fead7f8dba9d9d0f2335c85b960e76affeb05cc7bff6cbb7aff012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffffd3cfdb64be12f201fa3ae27871f200f395c014864f87b9744e51540a769ab58c000000006a473044022030214231517e3787c9bf6f85695401d5923ec3d69a5eead708986bc0490bcab302201073be01e5298baaa65f80d6e35dfde54ff81469439e27d741719c31779065f6012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffffa945e0db62d26072c2b20b1e7a959e9cdf09ad840584ae1467264e2658b1f1ca010000006b483045022100aa0f00f2f60dac8ab5944183804a6a92c8b4f6a8cd29a027cac20e6a494a6c3d0220457ff0d4ca023e1f311485c42088043fa5f9a0c37c583ffb510f9caa2fe6b210012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffff1a95c4f75da608bc81f39bed78dc6658da2042ecf1d2cd4da1980a0cc404e2f1010000006b483045022100e933ef22abfb3c6832ecda2b7465a8e218fb2ce7fb4cef2733e7424e6cc5e41f022001e8a9635b5377fe211fb4821557afb7eabe45b04028526e017c8e615a5d4320012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffff0300e1f5050000000017a9144a8ff1f3c9a654f6ef8b4b12773c8d242ef3cfaa870000000000000000166a149af6a305578518d693fca3f1e4c529224a81f6546761eb02000000001976a914d346067e3c3c3964c395fee208594790e29ede5d88ac0f74d363000000000000000000000000000000",
-                    "tx_hash": "c6536056800b211635c4f64dbe941a967361fbe92c0c4d4c575f157f922a080a"
-                }
-            }
-        }, {
-            "timestamp": 1674802203724,
-            "event": {
-                "type": "TakerPaymentSpent",
-                "data": {
-                    "transaction": {
-                        "tx_hex": "0400008085202f89010a082a927f155f574c4d0c2ce9fb6173961a94be4df6c43516210b80566053c600000000d747304402202ad8f7c2319e6097f5d28953bf45b02ec4501cf82b849d3f2286c8e98aa1ab6d02205e631875f0ff327c24665213195d29f86ba015a0d7c3e134e14b9109331375fc01201e2e0289634d42865e0f82ff0546ce2a384ae3548fb3f927c4aa1faefb0aa5d4004c6b63041692d363b1752103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ac6782012088a9149af6a305578518d693fca3f1e4c529224a81f6548821037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5ac68ffffffff0118ddf505000000001976a91486f747b28c60ad1130bdd3f84f48eeaf1801ca9888ac1692d363000000000000000000000000000000",
-                        "tx_hash": "9a72b62bb99bee92f9e3a047c65fcf7cdd3fc8443286c97647550df42f0f81d4"
-                    },
-                    "secret": "1e2e0289634d42865e0f82ff0546ce2a384ae3548fb3f927c4aa1faefb0aa5d4"
-                }
-            }
-        }, {
-            "timestamp": 1674802205274,
-            "event": {
-                "type": "MakerPaymentSpent",
-                "data": {
-                    "tx_hex": "0400008085202f890180cf0d2057acf781f5854b576080842641ff56d6f0457258f2a15710fa35958700000000d74730440220159ac3c574bed4473bd6da6eb4b37a3c073dbe5311a4648795f2b0c02b68ef8d022034bc743cbe656b3d335a138f21093fcc9039f50bff40cf56e2654eb9eb225ca901201e2e0289634d42865e0f82ff0546ce2a384ae3548fb3f927c4aa1faefb0aa5d4004c6b63048cb0d363b17521037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5ac6782012088a9149af6a305578518d693fca3f1e4c529224a81f654882103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ac68ffffffff0118ddf505000000001976a914d346067e3c3c3964c395fee208594790e29ede5d88ac8cb0d363000000000000000000000000000000",
-                    "tx_hash": "02c6bc927712478b866c3303cfdfacb868545a6730513605d4d7b5b2dbe97b09"
-                }
-            }
-        }, {
-            "timestamp": 1674802205278,
-            "event": {
-                "type": "Finished"
-            }
-        }],
-        "maker_amount": "1",
-        "maker_coin": "RICK",
-        "maker_coin_usd_price": null,
-        "taker_amount": "1",
-        "taker_coin": "MORTY",
-        "taker_coin_usd_price": null,
-        "gui": "MM2CLI",
-        "mm_version": "2.1.9780_dev_89f720751_Linux_CI",
-        "success_events": ["Started", "Negotiated", "TakerFeeSent", "TakerPaymentInstructionsReceived", "MakerPaymentReceived", "MakerPaymentWaitConfirmStarted", "MakerPaymentValidatedAndConfirmed", "TakerPaymentSent", "TakerPaymentSpent", "MakerPaymentSpent", "Finished"],
-        "error_events": ["StartFailed", "NegotiateFailed", "TakerFeeSendFailed", "MakerPaymentValidateFailed", "MakerPaymentWaitConfirmFailed", "TakerPaymentTransactionFailed", "TakerPaymentWaitConfirmFailed", "TakerPaymentDataSendFailed", "TakerPaymentWaitForSpendFailed", "MakerPaymentSpendFailed", "TakerPaymentWaitRefundStarted", "TakerPaymentRefundStarted", "TakerPaymentRefunded", "TakerPaymentRefundFailed", "TakerPaymentRefundFinished"],
-        "my_info": {
-            "my_coin": "MORTY",
-            "other_coin": "RICK",
-            "my_amount": "1",
-            "other_amount": "1",
-            "started_at": 1674802078
-        },
-        "recoverable": false
-    }
+  "result": {
+    "type": "Taker",
+    "uuid": "0d72c435-821e-4278-b2a7-e36ab1ba8cb7",
+    "my_order_uuid": "0d72c435-821e-4278-b2a7-e36ab1ba8cb7",
+    "events": [
+      {
+        "timestamp": 1674802079095,
+        "event": {
+          "type": "Started",
+          "data": {
+            "taker_coin": "MORTY",
+            "maker_coin": "RICK",
+            "maker": "7310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5",
+            "my_persistent_pub": "03d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2",
+            "lock_duration": 7800,
+            "maker_amount": "1",
+            "taker_amount": "1",
+            "maker_payment_confirmations": 1,
+            "maker_payment_requires_nota": false,
+            "taker_payment_confirmations": 0,
+            "taker_payment_requires_nota": false,
+            "taker_payment_lock": 1674809878,
+            "uuid": "0d72c435-821e-4278-b2a7-e36ab1ba8cb7",
+            "started_at": 1674802078,
+            "maker_payment_wait": 1674805198,
+            "maker_coin_start_block": 1800637,
+            "taker_coin_start_block": 1813161,
+            "fee_to_send_taker_fee": {
+              "coin": "MORTY",
+              "amount": "0.00001",
+              "paid_from_trading_vol": false
+            },
+            "taker_payment_trade_fee": {
+              "coin": "MORTY",
+              "amount": "0.00002",
+              "paid_from_trading_vol": false
+            },
+            "maker_payment_spend_trade_fee": {
+              "coin": "RICK",
+              "amount": "0.00001",
+              "paid_from_trading_vol": true
+            },
+            "maker_coin_htlc_pubkey": "03d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2",
+            "taker_coin_htlc_pubkey": "03d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2",
+            "p2p_privkey": null
+          }
+        }
+      },
+      {
+        "timestamp": 1674802095105,
+        "event": {
+          "type": "Negotiated",
+          "data": {
+            "maker_payment_locktime": 1674817676,
+            "maker_pubkey": "000000000000000000000000000000000000000000000000000000000000000000",
+            "secret_hash": "9af6a305578518d693fca3f1e4c529224a81f654",
+            "maker_coin_swap_contract_addr": null,
+            "taker_coin_swap_contract_addr": null,
+            "maker_coin_htlc_pubkey": "037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5",
+            "taker_coin_htlc_pubkey": "037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5"
+          }
+        }
+      },
+      {
+        "timestamp": 1674802095885,
+        "event": {
+          "type": "TakerFeeSent",
+          "data": {
+            "tx_hex": "0400008085202f89014b9e44ba75ed80361776ac385feee7bba13b6c2d3147a3d9b5d71362a4624219000000006b483045022100a45de07b5d211c62e8ecf90cd5bee5076f6b6f20715f5618d7d0d93a6209ad870220596ca01682d2dbd4efeba3a0e90a373fd61b619471747df26afc2e2bb167de4c012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffff02bcf60100000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88acf4979600000000001976a914d346067e3c3c3964c395fee208594790e29ede5d88acaf73d363000000000000000000000000000000",
+            "tx_hash": "b2ee0e692523c5ca081f62e36325d09a629004850be8b86df149fc979e9e3e87"
+          }
+        }
+      },
+      {
+        "timestamp": 1674802097888,
+        "event": {
+          "type": "TakerPaymentInstructionsReceived",
+          "data": null
+        }
+      },
+      {
+        "timestamp": 1674802097890,
+        "event": {
+          "type": "MakerPaymentReceived",
+          "data": {
+            "tx_hex": "0400008085202f89036aefd7ae1e6933ef997ad44adf5d0c19bc2bbede499a3421eb2022d06fa772f7000000006b4830450221009ad555b27ee9d0e2044bfc14aec47c160819d79dfaacc36e0426b4c35b5626aa02207624ef91881e42b210f16ce96bca00ce3d7cde46e7aaca76bd39f3aa64489e940121037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5ffffffff66f0d84da9abf07914969af7479934a518a5363353e0968efebc78eac561f07e020000006a4730440220597126d39bb86ce6f6e478eeae7714daa08d05d57df69e641293d70cfe78f510022037bdff2a77ead08b8a60cafff9524beacf28513499e57a15615e66955e51636e0121037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5ffffffffffe65f8d99d56844f9f5c94a590bf4d6cca116b170fee21e6c04c1a4ab39f4a7000000006a47304402202f2ab19d0f70bfbbc649e78eeda8c14afc72e41a80c9f81c25466307cef619440220466ed647fe07cc75dba20176c05aef671c04cb929e30ce4988014e1c553fe84b0121037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5ffffffff0300e1f5050000000017a914252fe9c1a8b61a9ca1da6bcbc017e4677e89c480870000000000000000166a149af6a305578518d693fca3f1e4c529224a81f654798b0306000000001976a91486f747b28c60ad1130bdd3f84f48eeaf1801ca9888acb173d363000000000000000000000000000000",
+            "tx_hash": "879535fa1057a1f2587245f0d656ff4126848060574b85f581f7ac57200dcf80"
+          }
+        }
+      },
+      {
+        "timestamp": 1674802097894,
+        "event": {
+          "type": "MakerPaymentWaitConfirmStarted"
+        }
+      },
+      {
+        "timestamp": 1674802191003,
+        "event": {
+          "type": "MakerPaymentValidatedAndConfirmed"
+        }
+      },
+      {
+        "timestamp": 1674802192167,
+        "event": {
+          "type": "TakerPaymentSent",
+          "data": {
+            "tx_hex": "0400008085202f8908873e9e9e97fc49f16db8e80b850490629ad02563e3621f08cac52325690eeeb2010000006a47304402204208734d38019ab1940348bd5091b392cab57565591f26447cdb5396e006dba50220365770af3714083901571635407d43dc87e9abfc05b382c8fde598f624eae2d1012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffffc895dd30ec91dafeb8023af40625a367aaf2a835141c537a4c746fe27e8160b8000000006a4730440220432cb8c44befb2fb076979f275aa205ddd9853a296f7b6df0bfb15dcd7e659fd0220741262c04a3697e474474cdb1e18c908511a7edfec9a7d350403bd8c90039a93012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffffaad904fafd259e9d5960866964c2e2752853b36dcd7bf205196e443f1f611453000000006b483045022100982d3ffb1a0bab130fc51071c0e60de08354161f8ba29593cbb849de31152da502200d74a8edbadf816b2076b14c74b5236b6d98ced09f6700b7411f008726b7d570012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffff354c776ffd2c883236d9135ea72e5991adf27f10f5fdc39e42be9be0d748539b000000006a4730440220742fa6411298f2c02edb690327860729d6a90c74b35f529065f6c15d29e609c20220008b68bd92a7f3c8ac8f00d161658a315103c3e2783c62e57172202c3db6016c012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2fffffffff191e32dca5ace0ca52c8d4dfa59a1e12e5c32968e08c7289fb7e4823fd119c2000000006b483045022100d1ba0bf5aadc658f61d6a348cfd3edaf2341ebafb12209d1da375130d8d17a8602201b09147377c70fead7f8dba9d9d0f2335c85b960e76affeb05cc7bff6cbb7aff012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffffd3cfdb64be12f201fa3ae27871f200f395c014864f87b9744e51540a769ab58c000000006a473044022030214231517e3787c9bf6f85695401d5923ec3d69a5eead708986bc0490bcab302201073be01e5298baaa65f80d6e35dfde54ff81469439e27d741719c31779065f6012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffffa945e0db62d26072c2b20b1e7a959e9cdf09ad840584ae1467264e2658b1f1ca010000006b483045022100aa0f00f2f60dac8ab5944183804a6a92c8b4f6a8cd29a027cac20e6a494a6c3d0220457ff0d4ca023e1f311485c42088043fa5f9a0c37c583ffb510f9caa2fe6b210012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffff1a95c4f75da608bc81f39bed78dc6658da2042ecf1d2cd4da1980a0cc404e2f1010000006b483045022100e933ef22abfb3c6832ecda2b7465a8e218fb2ce7fb4cef2733e7424e6cc5e41f022001e8a9635b5377fe211fb4821557afb7eabe45b04028526e017c8e615a5d4320012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ffffffff0300e1f5050000000017a9144a8ff1f3c9a654f6ef8b4b12773c8d242ef3cfaa870000000000000000166a149af6a305578518d693fca3f1e4c529224a81f6546761eb02000000001976a914d346067e3c3c3964c395fee208594790e29ede5d88ac0f74d363000000000000000000000000000000",
+            "tx_hash": "c6536056800b211635c4f64dbe941a967361fbe92c0c4d4c575f157f922a080a"
+          }
+        }
+      },
+      {
+        "timestamp": 1674802203724,
+        "event": {
+          "type": "TakerPaymentSpent",
+          "data": {
+            "transaction": {
+              "tx_hex": "0400008085202f89010a082a927f155f574c4d0c2ce9fb6173961a94be4df6c43516210b80566053c600000000d747304402202ad8f7c2319e6097f5d28953bf45b02ec4501cf82b849d3f2286c8e98aa1ab6d02205e631875f0ff327c24665213195d29f86ba015a0d7c3e134e14b9109331375fc01201e2e0289634d42865e0f82ff0546ce2a384ae3548fb3f927c4aa1faefb0aa5d4004c6b63041692d363b1752103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ac6782012088a9149af6a305578518d693fca3f1e4c529224a81f6548821037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5ac68ffffffff0118ddf505000000001976a91486f747b28c60ad1130bdd3f84f48eeaf1801ca9888ac1692d363000000000000000000000000000000",
+              "tx_hash": "9a72b62bb99bee92f9e3a047c65fcf7cdd3fc8443286c97647550df42f0f81d4"
+            },
+            "secret": "1e2e0289634d42865e0f82ff0546ce2a384ae3548fb3f927c4aa1faefb0aa5d4"
+          }
+        }
+      },
+      {
+        "timestamp": 1674802205274,
+        "event": {
+          "type": "MakerPaymentSpent",
+          "data": {
+            "tx_hex": "0400008085202f890180cf0d2057acf781f5854b576080842641ff56d6f0457258f2a15710fa35958700000000d74730440220159ac3c574bed4473bd6da6eb4b37a3c073dbe5311a4648795f2b0c02b68ef8d022034bc743cbe656b3d335a138f21093fcc9039f50bff40cf56e2654eb9eb225ca901201e2e0289634d42865e0f82ff0546ce2a384ae3548fb3f927c4aa1faefb0aa5d4004c6b63048cb0d363b17521037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5ac6782012088a9149af6a305578518d693fca3f1e4c529224a81f654882103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ac68ffffffff0118ddf505000000001976a914d346067e3c3c3964c395fee208594790e29ede5d88ac8cb0d363000000000000000000000000000000",
+            "tx_hash": "02c6bc927712478b866c3303cfdfacb868545a6730513605d4d7b5b2dbe97b09"
+          }
+        }
+      },
+      {
+        "timestamp": 1674802205278,
+        "event": {
+          "type": "Finished"
+        }
+      }
+    ],
+    "maker_amount": "1",
+    "maker_coin": "RICK",
+    "maker_coin_usd_price": null,
+    "taker_amount": "1",
+    "taker_coin": "MORTY",
+    "taker_coin_usd_price": null,
+    "gui": "MM2CLI",
+    "mm_version": "2.1.9780_dev_89f720751_Linux_CI",
+    "success_events": [
+      "Started",
+      "Negotiated",
+      "TakerFeeSent",
+      "TakerPaymentInstructionsReceived",
+      "MakerPaymentReceived",
+      "MakerPaymentWaitConfirmStarted",
+      "MakerPaymentValidatedAndConfirmed",
+      "TakerPaymentSent",
+      "TakerPaymentSpent",
+      "MakerPaymentSpent",
+      "Finished"
+    ],
+    "error_events": [
+      "StartFailed",
+      "NegotiateFailed",
+      "TakerFeeSendFailed",
+      "MakerPaymentValidateFailed",
+      "MakerPaymentWaitConfirmFailed",
+      "TakerPaymentTransactionFailed",
+      "TakerPaymentWaitConfirmFailed",
+      "TakerPaymentDataSendFailed",
+      "TakerPaymentWaitForSpendFailed",
+      "MakerPaymentSpendFailed",
+      "TakerPaymentWaitRefundStarted",
+      "TakerPaymentRefundStarted",
+      "TakerPaymentRefunded",
+      "TakerPaymentRefundFailed",
+      "TakerPaymentRefundFinished"
+    ],
+    "my_info": {
+      "my_coin": "MORTY",
+      "other_coin": "RICK",
+      "my_amount": "1",
+      "other_amount": "1",
+      "started_at": 1674802078
+    },
+    "recoverable": false
+  }
 }
 ```
 
@@ -710,7 +750,21 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 ```json
 {
-  "error_events": ["StartFailed","NegotiateFailed","TakerFeeSendFailed","MakerPaymentValidateFailed","MakerPaymentWaitConfirmFailed","TakerPaymentTransactionFailed","TakerPaymentWaitConfirmFailed","TakerPaymentDataSendFailed","TakerPaymentWaitForSpendFailed","MakerPaymentSpendFailed","TakerPaymentWaitRefundStarted","TakerPaymentRefunded","TakerPaymentRefundFailed"],
+  "error_events": [
+    "StartFailed",
+    "NegotiateFailed",
+    "TakerFeeSendFailed",
+    "MakerPaymentValidateFailed",
+    "MakerPaymentWaitConfirmFailed",
+    "TakerPaymentTransactionFailed",
+    "TakerPaymentWaitConfirmFailed",
+    "TakerPaymentDataSendFailed",
+    "TakerPaymentWaitForSpendFailed",
+    "MakerPaymentSpendFailed",
+    "TakerPaymentWaitRefundStarted",
+    "TakerPaymentRefunded",
+    "TakerPaymentRefundFailed"
+  ],
   "events": [
     {
       "event": {
@@ -838,7 +892,21 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 ```json
 {
   "result": {
-    "error_events": ["StartFailed","NegotiateFailed","TakerFeeValidateFailed","MakerPaymentTransactionFailed","MakerPaymentDataSendFailed","MakerPaymentWaitConfirmFailed","TakerPaymentValidateFailed","TakerPaymentWaitConfirmFailed","TakerPaymentSpendFailed","TakerPaymentSpendConfirmFailed","MakerPaymentWaitRefundStarted","MakerPaymentRefunded","MakerPaymentRefundFailed"],
+    "error_events": [
+      "StartFailed",
+      "NegotiateFailed",
+      "TakerFeeValidateFailed",
+      "MakerPaymentTransactionFailed",
+      "MakerPaymentDataSendFailed",
+      "MakerPaymentWaitConfirmFailed",
+      "TakerPaymentValidateFailed",
+      "TakerPaymentWaitConfirmFailed",
+      "TakerPaymentSpendFailed",
+      "TakerPaymentSpendConfirmFailed",
+      "MakerPaymentWaitRefundStarted",
+      "MakerPaymentRefunded",
+      "MakerPaymentRefundFailed"
+    ],
     "events": [
       {
         "event": {
@@ -955,7 +1023,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
     "maker_amount": "1",
     "taker_coin": "PIZZA",
     "taker_amount": "1",
-    "gui": "AtomicDEX 1.0",
+    "gui": "KomoDeFi 1.0",
     "mm_version": "unknown",
     "recoverable": false,
     "success_events": [
@@ -982,7 +1050,21 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 ```json
 {
-  "error_events": ["StartFailed","NegotiateFailed","TakerFeeValidateFailed","MakerPaymentTransactionFailed","MakerPaymentDataSendFailed","MakerPaymentWaitConfirmFailed","TakerPaymentValidateFailed","TakerPaymentWaitConfirmFailed","TakerPaymentSpendFailed","TakerPaymentSpendConfirmFailed","MakerPaymentWaitRefundStarted","MakerPaymentRefunded","MakerPaymentRefundFailed"],
+  "error_events": [
+    "StartFailed",
+    "NegotiateFailed",
+    "TakerFeeValidateFailed",
+    "MakerPaymentTransactionFailed",
+    "MakerPaymentDataSendFailed",
+    "MakerPaymentWaitConfirmFailed",
+    "TakerPaymentValidateFailed",
+    "TakerPaymentWaitConfirmFailed",
+    "TakerPaymentSpendFailed",
+    "TakerPaymentSpendConfirmFailed",
+    "MakerPaymentWaitRefundStarted",
+    "MakerPaymentRefunded",
+    "MakerPaymentRefundFailed"
+  ],
   "events": [
     {
       "event": {

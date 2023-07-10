@@ -1,4 +1,4 @@
-# How to Add and Activate Coins on AtomicDEX Mobile
+# How to Add and Activate Coins on Komodo Mobile Wallet
 
 - Click on the "+" icon on the "Portfolio" screen
 
@@ -16,11 +16,10 @@
 
 </div>
 
-Once activated, AtomicDEX Mobile brings you back to the "Portfolio" tab. Your coins should now be activated.
+Once activated, Komodo Mobile Wallet brings you back to the "Portfolio" tab. Your coins should now be activated.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
 <img src="/how-to-add/how-to-add-03.jpg">
 
 </div>
-

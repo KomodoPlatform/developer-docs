@@ -1,8 +1,8 @@
-# get\_enabled\_coins
+# get_enabled_coins
 
 **get_enabled_coins**
 
-The `get_enabled_coins` method returns data of coins that are currently enabled on the user's AtomicDEX API node.
+The `get_enabled_coins` method returns data of coins that are currently enabled on the user's Komodo DeFi Framework node.
 
 #### Arguments
 

@@ -1,41 +1,38 @@
-# Signing\_and\_Verifying\_Messages
+# Signing_and_Verifying_Messages
 
 Cryptographically signed messages are a useful feature which can be used to [prove ownership of an address](https://www.coindesk.com/policy/2020/05/25/craig-wright-called-fraud-in-message-signed-with-bitcoin-addresses-he-claims-to-own/).
-If your [`coins`](https://github.com/KomodoPlatform/coins) file contains the correct [message prefix](https://bitcoin.stackexchange.com/questions/77324/how-are-bitcoin-signed-messages-generated/77325#77325) definitions for a coin, you can sign messages with the AtomicDEX-API(https://github.com/KomodoPlatform/atomicDEX-API). This can generally be found [within a coin's github repository](https://github.com/KomodoPlatform/komodo/blob/master/src/main.cpp#L146) and is assigned via the `sign_message_prefix` value as below.
+If your [`coins`](https://github.com/KomodoPlatform/coins) file contains the correct [message prefix](https://bitcoin.stackexchange.com/questions/77324/how-are-bitcoin-signed-messages-generated/77325#77325) definitions for a coin, you can sign messages with the Komodo DeFi Framework(https://github.com/KomodoPlatform/atomicDEX-API). This can generally be found [within a coin's github repository](https://github.com/KomodoPlatform/komodo/blob/master/src/main.cpp#L146) and is assigned via the `sign_message_prefix` value as below.
 
 ```json
 {
-        "coin": "RICK",
-        "asset": "RICK",
-        "fname": "RICK (TESTCOIN)",
-        "sign_message_prefix": "Komodo Signed Message:\n",
-        "rpcport": 25435,
-        "txversion": 4,
-        "overwintered": 1,
-        "mm2": 1,
-        "protocol": {
-                "type": "UTXO"
-        }
+  "coin": "RICK",
+  "asset": "RICK",
+  "fname": "RICK (TESTCOIN)",
+  "sign_message_prefix": "Komodo Signed Message:\n",
+  "rpcport": 25435,
+  "txversion": 4,
+  "overwintered": 1,
+  "mm2": 1,
+  "protocol": {
+    "type": "UTXO"
+  }
 }
 ```
 
 ## Message Signing
 
-
 ### Arguments
 
-| Structure     | Type             | Description                                                                                                           |
-| ------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------- |
-| coin          | string           | The coin to sign a message with                                                                                       |
-| message       | string           | The message you want to sign                                                                                          |
-
+| Structure | Type   | Description                     |
+| --------- | ------ | ------------------------------- |
+| coin      | string | The coin to sign a message with |
+| message   | string | The message you want to sign    |
 
 ### Response
 
-| Structure       | Type                       | Description                                                                                     |
-| --------------- | -------------------------- | ----------------------------------------------------------------------------------------------- |
-| signature       | string                     | The signature generated for the message                                                         |
-
+| Structure | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| signature | string | The signature generated for the message |
 
 #### Command
 
@@ -72,25 +69,22 @@ curl --url "http://127.0.0.1:7783" --data "
 **InvalidRequest:** Message signing is not supported by the given coin type
 **InternalError:** An internal error occured during the signing process
 
-
 ## Message Verification
 
 ### Arguments
 
-| Structure     | Type             | Description                                                                                                           |
-| ------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------- |
-| coin          | string           | The coin to sign a message with                                                                                       |
-| message       | string           | The message input via the `sign_message` method sign                                                                  |
-| signature     | string           | The signature generated for the message                                                                               |
-| address       | string           | The address used to sign the message                                                                                  |
-
+| Structure | Type   | Description                                          |
+| --------- | ------ | ---------------------------------------------------- |
+| coin      | string | The coin to sign a message with                      |
+| message   | string | The message input via the `sign_message` method sign |
+| signature | string | The signature generated for the message              |
+| address   | string | The address used to sign the message                 |
 
 ### Response
 
-| Structure       | Type                       | Description                                                                                     |
-| --------------- | -------------------------- | ----------------------------------------------------------------------------------------------- |
-| is_valid        | boolean                    | `true` is message signature is valid; `false` if it is not.                                     |
-
+| Structure | Type    | Description                                                 |
+| --------- | ------- | ----------------------------------------------------------- |
+| is_valid  | boolean | `true` is message signature is valid; `false` if it is not. |
 
 #### Command
 
@@ -133,7 +127,6 @@ curl --url "http://127.0.0.1:7783" --data "
   "id": 0
 }
 ```
-
 
 ### :warning: Error types
 

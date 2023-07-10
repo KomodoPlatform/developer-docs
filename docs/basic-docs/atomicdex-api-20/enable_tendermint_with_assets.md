@@ -1,18 +1,18 @@
-# enable\_tendermint\_with\_assets
+# enable_tendermint_with_assets
 
 Use this method to activate Tendermint coins (COSMOS/IRIS/OSMOSIS) and IBC assets in a single command.
 
-| parameter                            | Type                                    | Description                                                                                                                                                                                                                                                                                                                                     |
-| ------------------------------------ | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| ticker                               | string                                  | Ticker of the platform protocol coin. Options: `ATOM`, `IRIS`, `OSMOSIS`                                                                                                                                                                   |
-| mm2                                  | integer                                 | Required if not set in `coins` file. Informs the AtomicDEX API whether or not the coin is expected to function. Accepted values are `0` or `1`                                                                                             |
-| priv_key_policy                      | string (optional)                       | defaults to `ContextPrivKey`. value can be `ContextPrivKey`,`Trezor` when AtomicDEX-API is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the AtomicDEX-API is built targeting `wasm`                |
-| tx_history                           | bool                                    | If `true` the AtomicDEX API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](../../../basic-docs/atomicdex-api-legacy/my_tx_history.html#my-tx-history) method                   |
-| tokens_params                        | array of objects                        | objects describing each of the tokens to be enabled                                                                                                                                                                                        |
-| tokens_params.ticker                 | string                                  | Ticker of the token to be enabled                                                                                                                                                                                                          |
-| tokens_params.required_confirmations | integer                                 | when the token is involved, the number of confirmations for the AtomicDEX API to wait during the transaction steps of an atomic swap                                                                                                       |
-| required_confirmations               | integer (optional, defaults to `3`)     | when the platform coin is involved, the number of confirmations for the AtomicDEX API to wait during the transaction steps of an atomic swap                                                                                               |
-| requires_notarization                | boolean (optional, defaults to `false`) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step  |
+| parameter                            | Type                                    | Description                                                                                                                                                                                                                                 |
+| ------------------------------------ | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ticker                               | string                                  | Ticker of the platform protocol coin. Options: `ATOM`, `IRIS`, `OSMOSIS`                                                                                                                                                                    |
+| mm2                                  | integer                                 | Required if not set in `coins` file. Informs the Komodo DeFi Framework whether or not the coin is expected to function. Accepted values are `0` or `1`                                                                                      |
+| priv_key_policy                      | string (optional)                       | defaults to `ContextPrivKey`. value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm` |
+| tx_history                           | bool                                    | If `true` the Komodo DeFi Framework will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](../../../basic-docs/atomicdex-api-legacy/my_tx_history.html#my-tx-history) method            |
+| tokens_params                        | array of objects                        | objects describing each of the tokens to be enabled                                                                                                                                                                                         |
+| tokens_params.ticker                 | string                                  | Ticker of the token to be enabled                                                                                                                                                                                                           |
+| tokens_params.required_confirmations | integer                                 | when the token is involved, the number of confirmations for the Komodo DeFi Framework to wait during the transaction steps of an atomic swap                                                                                                |
+| required_confirmations               | integer (optional, defaults to `3`)     | when the platform coin is involved, the number of confirmations for the Komodo DeFi Framework to wait during the transaction steps of an atomic swap                                                                                        |
+| requires_notarization                | boolean (optional, defaults to `false`) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step   |
 
 ## Example
 
@@ -180,10 +180,10 @@ curl --url "http://127.0.0.1:7783" --data "{
 
 ### Misc Errors
 
-| Structure                  | Type   | Description                                                   |
-| -------------------------- | ------ | ------------------------------------------------------------- |
-| PlatformCoinCreationError  | string | There was an error when trying to activate the platform coin  |
-| PrivKeyNotAllowed          | string | The privkey is not allowed                                    |
-| UnexpectedDerivationMethod | string | The derivation method used is unexpected                      |
-| Transport                  | string | The request was failed due to a network error                 |
-| InternalError              | string | The request was failed due to an AtomicDEX API internal error |
+| Structure                  | Type   | Description                                                           |
+| -------------------------- | ------ | --------------------------------------------------------------------- |
+| PlatformCoinCreationError  | string | There was an error when trying to activate the platform coin          |
+| PrivKeyNotAllowed          | string | The privkey is not allowed                                            |
+| UnexpectedDerivationMethod | string | The derivation method used is unexpected                              |
+| Transport                  | string | The request was failed due to a network error                         |
+| InternalError              | string | The request was failed due to an Komodo DeFi Framework internal error |

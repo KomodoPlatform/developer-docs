@@ -1,12 +1,12 @@
-# recover\_funds\_of\_swap
+# recover_funds_of_swap
 
 **recover_funds_of_swap uuid**
 
 In certain cases, a swap can finish with an error wherein the user's funds are stuck on the swap-payment address. (This address is the P2SH address when executing on a utxo-based blockchain, or an etomic-swap smart contract when executing on an ETH/ERC20 blockchain.)
 
-This error can occur when one side of the trade does not follow the protocol (for any reason). The error persists as attempts to refund the payment fail due to network connection issues between the AtomicDEX API node and the coin's RPC server.
+This error can occur when one side of the trade does not follow the protocol (for any reason). The error persists as attempts to refund the payment fail due to network connection issues between the Komodo DeFi Framework node and the coin's RPC server.
 
-In this scenario, the `recover_funds_of_swap` method instructs the AtomicDEX API software to attempt to reclaim the user funds from the swap-payment address, if possible.
+In this scenario, the `recover_funds_of_swap` method instructs the Komodo DeFi Framework software to attempt to reclaim the user funds from the swap-payment address, if possible.
 
 #### Arguments
 

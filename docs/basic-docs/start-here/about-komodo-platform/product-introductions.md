@@ -18,13 +18,13 @@ This blockchain evolution allows innovators to better meet the demands of your c
 
 #### Comparing a Smart Chain to a Smart-Contract Platform
 
-| Layer | Branded Terminology | Universally Defined As: | Smart-Contract Comparison |
-| ----- | ------------------- | ----------------------- | ------------------------- |
-| Application Layer | Antara Apps | Smart-Chain Apps | dApps |
-| API Layer | Antara API | Smart-Chain API | - |
-| Service Layer | Antara Module | Smart-Chain Module | Smart Contract |
-| Blockchain Layer | Antara Smart Chains | Smart Chains | (Shared Chain) |
-| Platform Layer | Komodo Platform | Smart-Chain Platform | Smart-Contract Platform |
+| Layer             | Branded Terminology | Universally Defined As: | Smart-Contract Comparison |
+| ----------------- | ------------------- | ----------------------- | ------------------------- |
+| Application Layer | Antara Apps         | Smart-Chain Apps        | dApps                     |
+| API Layer         | Antara API          | Smart-Chain API         | -                         |
+| Service Layer     | Antara Module       | Smart-Chain Module      | Smart Contract            |
+| Blockchain Layer  | Antara Smart Chains | Smart Chains            | (Shared Chain)            |
+| Platform Layer    | Komodo Platform     | Smart-Chain Platform    | Smart-Contract Platform   |
 
 ### Smart Chains and Antara Create a Convenient Development Workflow
 
@@ -35,7 +35,7 @@ For developers, the unique combination of Smart Chain technology and Antara simp
 - Optionally, use Antara to add arbitrary code to your consensus mechanism
 - When your Smart Chain becomes popular, scale into a cluster of Smart Chains
 - Link your Smart Chain to other Smart Chains using Antara and Komodo technology
-- Trade your assets with essentially any blockchain token using Komodo's AtomicDEX
+- Trade your assets with essentially any blockchain token using the Komodo DeFi Framework
 - Stay up-to-date with the latest industry innovations through no-cost updates
 
 [Read an in-depth discussion on the advantages of the Antara Framework here.](../../../basic-docs/antara/antara-tutorials/overview-of-antara-modules-part-i.html)
@@ -48,7 +48,8 @@ For developers, the unique combination of Smart Chain technology and Antara simp
 
 </div>
 
---------------------------------------
+---
+
 <div class="inlineImageDiv"  style="clear: both; margin-top:1rem; float: right; display: block;">
 
 <img style="padding: 0.2rem; border: 0.05rem solid;" src="/start-here-pics/Komodo-layers-4.png">
@@ -67,7 +68,8 @@ Produced by Antara Modules
 
 </div>
 
---------------------------------------
+---
+
 <div style="clear: both; margin-top:1rem; float: right; display: block;">
 
 <img style="padding: 0.2rem; border: 0.05rem solid;" src="/start-here-pics/Komodo-layers-3.png">
@@ -86,7 +88,8 @@ Attached to the chain daemon.
 
 </div>
 
---------------------------------------
+---
+
 <div style="clear: both; margin-top:1rem; float: right; display: block;">
 
 <img style="padding: 0.2rem; border: 0.05rem solid;" src="/start-here-pics/Komodo-layers-2.png">
@@ -105,7 +108,8 @@ Purpose-built blockchains
 
 </div>
 
---------------------------------------
+---
+
 <div style="clear: both; margin-top:1rem; float: right; display: block;">
 
 <img style="padding: 0.2rem; border: 0.05rem solid;" src="/start-here-pics/Komodo-layers-1.png">
@@ -124,7 +128,7 @@ Composable & Open
 
 </div>
 
---------------------------------------
+---
 
 ### Advantages of the Antara Framework
 
@@ -158,7 +162,7 @@ Experienced developers can write custom modules, creating the building blocks an
 
 [Learn more about Smart Chains here.](../../../basic-docs/start-here/core-technology-discussions/antara.html#antara-smart-chains-2)
 
-## AtomicDEX
+## Komodo DeFi Framework
 
 Komodo provides open-source atomic-swap software for trading seamlessly between essentially any blockchain asset in existence.
 
@@ -198,5 +202,4 @@ Integration requires only a few simple steps, and once up and running, you are f
 
 You are free to discover your own audience.
 
-[Read an in-depth discussion about AtomicDEX here.](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html#why-is-atomicdex-special)
-
+[Read an in-depth discussion about the Komodo DeFi Framework here.](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html#why-is-atomicdex-special)

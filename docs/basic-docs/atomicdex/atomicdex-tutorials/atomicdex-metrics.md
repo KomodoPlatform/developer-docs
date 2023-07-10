@@ -1,20 +1,20 @@
 # DEX Metrics
 
-AtomicDEX API 2.0 collects data metrics that allow interested users to view the history of events of an AtomicDEX API session. For example, metrics recorded by the AtomicDEX API include incoming and outgoing traffic.
+Komodo DeFi Framework 2.0 collects data metrics that allow interested users to view the history of events of an Komodo DeFi Framework session. For example, metrics recorded by the Komodo DeFi Framework include incoming and outgoing traffic.
 
 The metrics can be:
 
 - Recorded to a log file at a specified frequency
-- Requested using AtomicDEX API in JSON format
+- Requested using Komodo DeFi Framework in JSON format
 - Visualized using Prometheus and Grafana
 
 ## Setting Up the Log Recording
 
-By default, the collected metrics are recorded to a log file every five minutes. 
+By default, the collected metrics are recorded to a log file every five minutes.
 
-A custom time interval can be set during the initiation of the AtomicDEX API 2.0 software.
+A custom time interval can be set during the initiation of the Komodo DeFi Framework 2.0 software.
 
-For example, to set the interval to two minutes, initiate AtomicDEX API with the additional argument `\"metrics\":120`, as follows.
+For example, to set the interval to two minutes, initiate Komodo DeFi Framework with the additional argument `\"metrics\":120`, as follows.
 
 :::tip
 
@@ -48,52 +48,60 @@ The response should be similar to the following.
 
 ```json
 {
-	"metrics": [{
-		"type": "gauge",
-		"key": "p2p.received_messages.period_in_secs",
-		"labels": {},
-		"value": 60.0
-	}, {
-		"type": "gauge",
-		"key": "p2p.connected_relays.len",
-		"labels": {},
-		"value": 4.0
-	}, {
-		"type": "gauge",
-		"key": "orderbook.len",
-		"labels": {},
-		"value": 0.0
-	}, {
-		"type": "gauge",
-		"key": "p2p.relay_mesh.len",
-		"labels": {},
-		"value": 2.0
-	}, {
-		"type": "gauge",
-		"key": "p2p.received_messages.count",
-		"labels": {},
-		"value": 0.0
-	}, {
-		"type": "gauge",
-		"key": "p2p.connected_peers.count",
-		"labels": {},
-		"value": 4.0
-	}, {
-		"type": "gauge",
-		"key": "orderbook.memory_db",
-		"labels": {},
-		"value": 297800386624.0
-	}]
+  "metrics": [
+    {
+      "type": "gauge",
+      "key": "p2p.received_messages.period_in_secs",
+      "labels": {},
+      "value": 60.0
+    },
+    {
+      "type": "gauge",
+      "key": "p2p.connected_relays.len",
+      "labels": {},
+      "value": 4.0
+    },
+    {
+      "type": "gauge",
+      "key": "orderbook.len",
+      "labels": {},
+      "value": 0.0
+    },
+    {
+      "type": "gauge",
+      "key": "p2p.relay_mesh.len",
+      "labels": {},
+      "value": 2.0
+    },
+    {
+      "type": "gauge",
+      "key": "p2p.received_messages.count",
+      "labels": {},
+      "value": 0.0
+    },
+    {
+      "type": "gauge",
+      "key": "p2p.connected_peers.count",
+      "labels": {},
+      "value": 4.0
+    },
+    {
+      "type": "gauge",
+      "key": "orderbook.memory_db",
+      "labels": {},
+      "value": 297800386624.0
+    }
+  ]
 }
 ```
 
 ## Prometheus Integration
 
-AtomicDEX API 2.0 supports integration with [Prometheus](https://github.com/prometheus/prometheus#install). This software allows users to setup automated scraping of metrics at regular intervals and enables sophisticated queries on the stored [timeseries](https://en.wikipedia.org/wiki/Time_series) data. It also allows users to configure an elegant dashboard using built-in [graphs,](https://prometheus.io/docs/prometheus/latest/getting_started/#using-the-expression-browser) or to export data for graphical processing using [Grafana](https://prometheus.io/docs/visualization/grafana/).
+Komodo DeFi Framework 2.0 supports integration with [Prometheus](https://github.com/prometheus/prometheus#install). This software allows users to setup automated scraping of metrics at regular intervals and enables sophisticated queries on the stored [timeseries](https://en.wikipedia.org/wiki/Time_series) data. It also allows users to configure an elegant dashboard using built-in [graphs,](https://prometheus.io/docs/prometheus/latest/getting_started/#using-the-expression-browser) or to export data for graphical processing using [Grafana](https://prometheus.io/docs/visualization/grafana/).
 
 Prometheus scrapes metrics using an HTTP pull model.
 
-To provide Prometheus with the ability to scrape the metrics at [localhost:9001](localhost:9001), initiate AtomicDEX API with the following additional argument:
+To provide Prometheus with the ability to scrape the metrics at [localhost:9001](localhost:9001), initiate Komodo DeFi Framework with the following additional argument:
 
 ```
 \"prometheusport\":9001
@@ -117,26 +125,25 @@ Example:
 stdbuf -oL ./mm2 "{\"gui\":\"Docs_Walkthru\",\"netid\":7777, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\", \"prometheusport\":9001, \"prometheus_credentials\":\"PROM_USERNAME:PROM_PASSWORD\"}" &
 ```
 
-### Configuring Prometheus to monitor the AtomicDEX API
+### Configuring Prometheus to monitor the Komodo DeFi Framework
 
-The following basic Prometheus configuration file, named `prometheus.yml`, can simplify the process of connecting Prometheus to the AtomicDEX API.
+The following basic Prometheus configuration file, named `prometheus.yml`, can simplify the process of connecting Prometheus to the Komodo DeFi Framework.
 
 ```yaml
 global:
   scrape_interval: 10s
 
 scrape_configs:
-  - job_name: 'AtomicDEX_API'
+  - job_name: "KomoDeFi"
 
     basic_auth:
-      username: 'PROM_USERNAME'
+      username: "PROM_USERNAME"
       password: "PROM_PASSWORD"
 
     static_configs:
-      - targets: ['0.0.0.0:9001']
+      - targets: ["0.0.0.0:9001"]
         labels:
-          group: 'atomicdex'
-
+          group: "komodefi"
 ```
 
 Replace PROM_USERNAME and PROM_PASSWORD with your actual Prometheus username and password.
@@ -160,7 +167,7 @@ services:
     depends_on:
       - prometheus
     ports:
-      - '3000:3000'
+      - "3000:3000"
     network_mode: "host"
     volumes:
       - grafana:/var/lib/grafana
@@ -168,7 +175,7 @@ services:
   prometheus:
     image: prom/prometheus:latest
     ports:
-      - '9090:9090'
+      - "9090:9090"
     network_mode: "host"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
@@ -196,7 +203,6 @@ To visualize one of the available metrics, open the metric explorer (next to the
 
 </div>
 
-
 More graphs can be added to the same page using the "Add Panel" button available.
 
 #### Grafana
@@ -207,16 +213,13 @@ To use Grafana, navigate to [http://localhost:3000](http://localhost:3000) and l
 
 Next we need to add Prometheus as a data source. Click on the cog icon in the sidebar to open the configuration panel.
 
-
 <div style="margin: 2rem; text-align: center; width: 80%">
 
 <img src="/metrics/graphana1.png" />
 
 </div>
 
-
 Click the "Add data source" button, and select **Prometheus** from the menu. Set the URL to `http://localhost:9090`, leave other fields as default, and click the "Test and save" button at the bottom of the form.
-
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -224,9 +227,7 @@ Click the "Add data source" button, and select **Prometheus** from the menu. Set
 
 </div>
 
-
 Next, navigate to [http://localhost:3000/dashboards](http://localhost:3000/dashboards) and click on the `New Dashboard` button
-
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -234,9 +235,7 @@ Next, navigate to [http://localhost:3000/dashboards](http://localhost:3000/dashb
 
 </div>
 
-
-Next, click on `Add a new panel` 
-
+Next, click on `Add a new panel`
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -244,9 +243,7 @@ Next, click on `Add a new panel`
 
 </div>
 
-
-In the next screen, select `Prometheus` as the provider from the drop down menu in the `Query` tab. 
-
+In the next screen, select `Prometheus` as the provider from the drop down menu in the `Query` tab.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -254,9 +251,7 @@ In the next screen, select `Prometheus` as the provider from the drop down menu 
 
 </div>
 
-
 Click the `Metrics` menu and select one of the available options. These should be the same ones available directly in the Graphs tab of Prometheus: [http://localhost:9090/graph](http://localhost:9090/graph).
-
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -264,9 +259,7 @@ Click the `Metrics` menu and select one of the available options. These should b
   
 </div>
 
-
 Optionally, you can tweak the query options (shown in the image below).
-
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -274,9 +267,7 @@ Optionally, you can tweak the query options (shown in the image below).
 
 </div>
 
-
 Once complete, click on "Run queries" to see the data displayed on the graph. If you like, you can also customise the graph, by adding a title, changing the colors, or using a different graph type. Click "Apply in the top right corner) once complete.
-
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -284,13 +275,10 @@ Once complete, click on "Run queries" to see the data displayed on the graph. If
 
 </div>
 
-
 Add any additional panels as desired, and save them to your dashboard.
-
 
 <div style="margin: 2rem; text-align: center; width: 80%">
   
 <img src="/metrics/graphana9.png" />
 
 </div>
-

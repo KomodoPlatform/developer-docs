@@ -1,25 +1,25 @@
-# my\_recent\_swaps
+# my_recent_swaps
 
 **my_recent_swaps (from_uuid page_number=1 limit=10 my_coin other_coin from_timestamp to_timestamp)**
 
-The `my_recent_swaps` method returns the data of the most recent atomic swaps executed by the AtomicDEX API node. Please note that all filters (my_coin, from_timestamp, etc.) are combined using logical AND.
+The `my_recent_swaps` method returns the data of the most recent atomic swaps executed by the Komodo DeFi Framework node. Please note that all filters (my_coin, from_timestamp, etc.) are combined using logical AND.
 
 #### Arguments
 
-| Structure      | Type                          | Description                                                                                                                                           |
-| -------------- | ----------------------------- | -----------------------------------------------------------------------                                                                               |
-| limit          | number                        | limits the number of returned swaps. The default is `10`.                                                                                             |
-| from_uuid      | string                        | AtomicDEX API will skip records until this uuid, skipping the `from_uuid` as well; The `from_uuid` approach is convenient for infinite scrolling implementation |
-| page_number    | number                        | AtomicDEX API will return `limit` swaps from the selected page; This param will be ignored if `from_uuid` is set.                                               |
-| my_coin        | string                        | return only swaps that match the `swap.my_coin = request.my_coin` condition                                                                           |
-| other_coin     | string                        | return only swaps that match the `swap.other_coin = request.other_coin` condition                                                                     |
-| from_timestamp | number (timestamp in seconds) | return only swaps that match the `swap.started_at >= request.from_timestamp` condition                                                                |
-| to_timestamp   | number (timestamp in seconds) | return only swaps that match the `swap.started_at < request.to_timestamp` condition                                                                   |
+| Structure      | Type                          | Description                                                                                                                                                             |
+| -------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| limit          | number                        | limits the number of returned swaps. The default is `10`.                                                                                                               |
+| from_uuid      | string                        | Komodo DeFi Framework will skip records until this uuid, skipping the `from_uuid` as well; The `from_uuid` approach is convenient for infinite scrolling implementation |
+| page_number    | number                        | Komodo DeFi Framework will return `limit` swaps from the selected page; This param will be ignored if `from_uuid` is set.                                               |
+| my_coin        | string                        | return only swaps that match the `swap.my_coin = request.my_coin` condition                                                                                             |
+| other_coin     | string                        | return only swaps that match the `swap.other_coin = request.other_coin` condition                                                                                       |
+| from_timestamp | number (timestamp in seconds) | return only swaps that match the `swap.started_at >= request.from_timestamp` condition                                                                                  |
+| to_timestamp   | number (timestamp in seconds) | return only swaps that match the `swap.started_at < request.to_timestamp` condition                                                                                     |
 
 #### Response
 
 | Structure     | Type             | Description                                                                                                                                                                                           |
-| ------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------                                                               |
+| ------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | swaps         | array of objects | swaps data; each record has the format of the `my_swap_status` response                                                                                                                               |
 | from_uuid     | string           | the from_uuid that was set in the request; this value is null if nothing was set                                                                                                                      |
 | skipped       | number           | the number of skipped records (i.e. the position of `from_uuid` in the list + 1 or `(page_number - 1) * limit`; the value is 0 if `from_uuid` or `page_number` were not set or `page_number` is 1)    |
@@ -79,7 +79,21 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "total_pages": 25,
     "swaps": [
       {
-        "error_events": ["StartFailed","NegotiateFailed","TakerFeeValidateFailed","MakerPaymentTransactionFailed","MakerPaymentDataSendFailed","MakerPaymentWaitConfirmFailed","TakerPaymentValidateFailed","TakerPaymentWaitConfirmFailed","TakerPaymentSpendFailed","TakerPaymentSpendConfirmFailed","MakerPaymentWaitRefundStarted","MakerPaymentRefunded","MakerPaymentRefundFailed"],
+        "error_events": [
+          "StartFailed",
+          "NegotiateFailed",
+          "TakerFeeValidateFailed",
+          "MakerPaymentTransactionFailed",
+          "MakerPaymentDataSendFailed",
+          "MakerPaymentWaitConfirmFailed",
+          "TakerPaymentValidateFailed",
+          "TakerPaymentWaitConfirmFailed",
+          "TakerPaymentSpendFailed",
+          "TakerPaymentSpendConfirmFailed",
+          "MakerPaymentWaitRefundStarted",
+          "MakerPaymentRefunded",
+          "MakerPaymentRefundFailed"
+        ],
         "events": [
           {
             "event": {
@@ -218,7 +232,21 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "my_order_uuid": "3447b727-fe93-4357-8e5a-8cf2699b7e86"
       },
       {
-        "error_events": ["StartFailed","NegotiateFailed","TakerFeeSendFailed","MakerPaymentValidateFailed","MakerPaymentWaitConfirmFailed","TakerPaymentTransactionFailed","TakerPaymentWaitConfirmFailed","TakerPaymentDataSendFailed","TakerPaymentWaitForSpendFailed","MakerPaymentSpendFailed","TakerPaymentWaitRefundStarted","TakerPaymentRefunded","TakerPaymentRefundFailed"],
+        "error_events": [
+          "StartFailed",
+          "NegotiateFailed",
+          "TakerFeeSendFailed",
+          "MakerPaymentValidateFailed",
+          "MakerPaymentWaitConfirmFailed",
+          "TakerPaymentTransactionFailed",
+          "TakerPaymentWaitConfirmFailed",
+          "TakerPaymentDataSendFailed",
+          "TakerPaymentWaitForSpendFailed",
+          "MakerPaymentSpendFailed",
+          "TakerPaymentWaitRefundStarted",
+          "TakerPaymentRefunded",
+          "TakerPaymentRefundFailed"
+        ],
         "events": [
           {
             "event": {

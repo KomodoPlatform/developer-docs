@@ -1,8 +1,8 @@
-# my\_orders
+# my_orders
 
 **my_orders()**
 
-The `my_orders` method returns the data of all active orders created by the AtomicDEX API node.
+The `my_orders` method returns the data of all active orders created by the Komodo DeFi Framework node.
 
 #### Arguments
 
@@ -153,15 +153,15 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
           ],
           "sender_pubkey": "031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
           "uuid": "ea199ac4-b216-4a04-9f08-ac73aa06ae37",
-          "match_by":{
-            "type":"Any"
+          "match_by": {
+            "type": "Any"
           }
         },
-        "order_type":{
-          "type":"GoodTillCancelled"
+        "order_type": {
+          "type": "GoodTillCancelled"
         },
-        "base_orderbook_ticker":null,
-        "rel_orderbook_ticker":null
+        "base_orderbook_ticker": null,
+        "rel_orderbook_ticker": null
       }
     }
   }

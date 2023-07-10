@@ -1,4 +1,4 @@
-# How to Delete Seed (Wallet) From AtomicDEX Mobile
+# How to Delete Seed (Wallet) From Komodo Mobile Wallet
 
 ::: tip
 
@@ -29,4 +29,3 @@ This action cannot be undone. [Make sure that you backup your seed beforehand.](
 <img src="/how-to-delete/how-to-delete-wallet-03.jpg">
 
 </div>
-
