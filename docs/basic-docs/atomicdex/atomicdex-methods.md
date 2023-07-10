@@ -1,9 +1,9 @@
-# AtomicDEX RPC Methods
+# KomoDeFi RPC Methods
 
 Legacy methods are in the process of a migration to Komodo DeFi Framework v2.0 (and will also remain backwards compatible).
 During development, some newer Komodo DeFi Framework methods are not available in the latest release.
 
-To test the methods in v2.0 (Dev), you will need to [build the Komodo DeFi Framework](../atomicdex/atomicdex-setup/get-started-atomicdex.html) from the `dev` branch.
+To test the methods in v2.0 (Dev), you will need to [build the KomoDeFi binary](../atomicdex/atomicdex-setup/get-started-atomicdex.html) from the `dev` branch.
 
 Below is a table of the currently available legacy, v2.0 and v2.0 (Dev) methods:
 

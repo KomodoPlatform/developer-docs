@@ -134,7 +134,7 @@ global:
   scrape_interval: 10s
 
 scrape_configs:
-  - job_name: "AtomicDEX_API"
+  - job_name: "KomoDeFi"
 
     basic_auth:
       username: "PROM_USERNAME"
@@ -143,7 +143,7 @@ scrape_configs:
     static_configs:
       - targets: ["0.0.0.0:9001"]
         labels:
-          group: "atomicdex"
+          group: "komodefi"
 ```
 
 Replace PROM_USERNAME and PROM_PASSWORD with your actual Prometheus username and password.

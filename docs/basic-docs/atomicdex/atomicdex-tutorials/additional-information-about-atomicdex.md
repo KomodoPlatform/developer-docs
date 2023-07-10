@@ -38,7 +38,7 @@ Komodo DeFi Framework has multi-threading. This allows it to reliably manage mul
 
 Komodo is pleased to announce that Komodo DeFi Framework is preparing for release on compatible Android and iOS devices. The software is currently undergoing quality tests and external reviews before publication.
 
-Notable aspects of the Mobile AtomicDEX software include:
+Notable aspects of the Komodo Mobile Wallet software include:
 
 - Optimization for low-data usage and CPU consumption
 - Low storage requirements (less than 50 MB)
@@ -62,12 +62,12 @@ Upon completing the checklist, please submit your proposed coin configuration fi
 
 ##### SPV-based Trading
 
-AtomicDEX holds support for [SPV Electrum-based](https://en.bitcoin.it/wiki/Electrum) coins. This feature allows a user to trade with their coins without downloading their coins' blockchain data. This feature is available for all Bitcoin-protocol based coins running native-coin daemons, Ethereum, and Ethereum-based ERC20 tokens. The Komodo DeFi Framework is built to handle the nature of the SPV requirements, providing additional functionality to developers.
+Komodo DeFi Framework holds support for [SPV Electrum-based](https://en.bitcoin.it/wiki/Electrum) coins. This feature allows a user to trade with their coins without downloading their coins' blockchain data. This feature is available for all Bitcoin-protocol based coins running native-coin daemons, Ethereum, and Ethereum-based ERC20 tokens. The Komodo DeFi Framework is built to handle the nature of the SPV requirements, providing additional functionality to developers.
 
 ##### Liquidity Multiplication
 
-AtomicDEX also enables a feature known as Liquidity Multiplication, a protocol that allows the same funds to be used in multiple requests on AtomicDEX "orderbooks." The first request to fill completes the trade, and all outstanding requests are immediately cancelled. This feature is available to the user when providing liquidity to the exchange (called a "Bob-side" trade).
+Komodo DeFi Framework also enables a feature known as Liquidity Multiplication, a protocol that allows the same funds to be used in multiple requests on Komodo DeFi Framework "orderbooks." The first request to fill completes the trade, and all outstanding requests are immediately cancelled. This feature is available to the user when providing liquidity to the exchange (called a "Bob-side" trade).
 
 Liquidity Multiplication therefore allows an initial amount of funding to create an exponentially higher amount of liquidity on the exchange. This also provides a special advantage for traders that like to wait for below-market dumps. While this feature is something that any other exchange could implement, few do.
 
-On AtomicDEX, all orderbook entries are 100% backed by real funds, as opposed to a centralized exchange’s vouchers, which may be one reason why AtomicDEX can more readily offer this feature.
+On Komodo DeFi Framework, all orderbook entries are 100% backed by real funds, as opposed to a centralized exchange’s vouchers, which may be one reason why Komodo DeFi Framework can more readily offer this feature.

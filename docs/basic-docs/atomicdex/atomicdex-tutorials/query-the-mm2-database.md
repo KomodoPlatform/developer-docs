@@ -1,4 +1,4 @@
-The AtomicDEX-API stores historical information such as swaps and orders within an SQLite database, located under the DB user data folder (e.g. {folder continaing mm2 binary}/DB/{wallet identifying hex string}/MM2.db).
+KomoDeFi stores historical information such as swaps and orders within an SQLite database, located under the DB user data folder (e.g. {folder continaing mm2 binary}/DB/{wallet identifying hex string}/MM2.db).
 
 There are a variety of methods to query sqlite databases. Examples below show how to do a sqlite query in Linux terminal, but first you might need to install sqlite with `sudo apt install sqlite3`.
 

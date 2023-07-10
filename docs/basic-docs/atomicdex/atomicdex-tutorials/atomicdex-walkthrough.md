@@ -73,7 +73,7 @@ Here is an approximate interpretation of the arguments in the command, to help y
 
 | Argument     | (Value)              | Description                                                                                                                                                                                |
 | ------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| gui          | Docs_Walkthru        | information about your GUI; place essential info about your application (name, version, etc.) here. For example: AtomicDEX iOS 1.0.1                                                       |
+| gui          | Docs_Walkthru        | information about your GUI; place essential info about your application (name, version, etc.) here. For example: Komodo Mobile Wallet iOS 1.0.1                                            |
 | netid        | 7777                 | this tells the Komodo DeFi Framework which network to join. 7777 is the default network, though you can set this to a different value to use a separate network if seednodes exist for it. |
 | passphrase   | YOUR_PASSPHRASE_HERE | your passphrase; this is the source of each of your coins' private keys                                                                                                                    |
 | rpc_password | YOUR_PASSWORD_HERE   | your password for protected RPC methods (userpass)                                                                                                                                         |

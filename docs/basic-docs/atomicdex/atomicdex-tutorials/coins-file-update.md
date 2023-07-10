@@ -16,11 +16,11 @@
 - Output similar to the following will be shown. The "Success" message indicates that the conversion was successful
 
 ```bash
-03 09:13:56, mm2:169] AtomicDEX MarketMaker f48b4ad DT 2020-07-28T17:25:18+07:00
+03 09:13:56, mm2:169] KomoDeFi MarketMaker f48b4ad DT 2020-07-28T17:25:18+07:00
 Success
 ```
 
-- You will find a new file named `coins_new` in the same directory with the new format expected by AtomicDEX
+- You will find a new file named `coins_new` in the same directory with the new format expected by KomoDeFi
 - Rename the file named `coins` to `coins_old` and then `coins_new` to `coins`
 - `mm2` will use the `coins` file in the new format the next time it is launched
 

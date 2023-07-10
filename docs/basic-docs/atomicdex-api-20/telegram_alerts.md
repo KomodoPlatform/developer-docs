@@ -11,7 +11,7 @@ To set this up, you can add some additional parameters to your MM2.json as shown
   "rpc_password": "YOUR_PASSWORD",
   "passphrase": "YOUR SEED PHRASE",
   "userhome": "/${HOME#\"/\"}",
-  "dbdir": "/path/to/your/atomicdex/DB",
+  "dbdir": "/path/to/your/komodefi/DB",
   "message_service_cfg": {
     "telegram": {
       "api_key": "YOUR:TELEGRAM_API_TOKEN",

@@ -2,11 +2,11 @@
 
 ## Details Regarding KMD Main Chain
 
-| Era of Block Rewards | Block Height | Block Reward | Coin Supply |
-| ----------- | ------------ | ------------ | ----------- |
-| Current Block Rewards | \~1150000 | 3 KMD | \~115000000 |
-| First Reward Reduction | 7777777 | 2 KMD | \~200000000 |
-| Final Reward Reduction | 15555553 | 1 KMD | \~215000000 |
+| Era of Block Rewards   | Block Height | Block Reward | Coin Supply |
+| ---------------------- | ------------ | ------------ | ----------- |
+| Current Block Rewards  | \~1150000    | 3 KMD        | \~115000000 |
+| First Reward Reduction | 7777777      | 2 KMD        | \~200000000 |
+| Final Reward Reduction | 15555553     | 1 KMD        | \~215000000 |
 
 The foundational coin of the Komodo ecosystem is named after the ecosystem itself, Komodo (KMD).
 
@@ -36,7 +36,7 @@ Many of humanity’s most meaningful advancements in art, technology, and other 
 
 Across the entire cryptocurrency industry, current pathways to obtain privacy in the blockchain industry have many problems.
 
-One of the most popular methods to obtain privacy is the use of a centralized mixing service. In this process, users send their cryptocurrencies to service providers, who then mix all the participants’ coins together, and return the coins according to the relevant contributions. With this method, the most dangerous issue, among many, is that for the duration of the mixing period users lose control over their currency.  The funds, therefore, are subject to theft and human error.
+One of the most popular methods to obtain privacy is the use of a centralized mixing service. In this process, users send their cryptocurrencies to service providers, who then mix all the participants’ coins together, and return the coins according to the relevant contributions. With this method, the most dangerous issue, among many, is that for the duration of the mixing period users lose control over their currency. The funds, therefore, are subject to theft and human error.
 
 Other decentralized coin-mixing methods, such as the [coin shuffle,](https://bitcoinmagazine.com/articles/shuffling-coins-to-protect-privacy-and-fungibility-a-new-take-on-traditional-mixing-1465934826/) require coordinating with other human parties. This also introduces the potential for the same issues of theft and human error, and adds yet another risk: the coordination between human parties can result in the disclosure of a user’s privacy.
 
@@ -44,22 +44,21 @@ Some cryptocurrencies support mixing as a part of the normal transaction process
 
 #### Komodo's Approach to Privacy Technologies
 
-The roots of the Komodo ecosystem stem from the seminal work of Satoshi Nakamoto and his Bitcoin protocol. One of the key challenges in this technology is that the original protocol does not make any account for privacy. Therefore, Komodo began not as a fork of the vanilla Bitcoin protocol, but rather as a fork of Zcash. The latter is a privacy-centric fork of Bitcoin, and therefore Komodo inherits technology from both Bitcoin and Zcash by this action. 
+The roots of the Komodo ecosystem stem from the seminal work of Satoshi Nakamoto and his Bitcoin protocol. One of the key challenges in this technology is that the original protocol does not make any account for privacy. Therefore, Komodo began not as a fork of the vanilla Bitcoin protocol, but rather as a fork of Zcash. The latter is a privacy-centric fork of Bitcoin, and therefore Komodo inherits technology from both Bitcoin and Zcash by this action.
 
 The Komodo Smart Chain software, komodod, retains the inherent privacy features of Zcash. These primarily consist of the ability to convert money from a transparent address to a private address, and then to transfer money from one private address to another. When sending money that is already private to an address that is also private, Zcash technology allows the funds to move without leaving a public data trail for later analysis.
 
-This is one of the most powerful forms of blockchain privacy in existence, as the provided privacy is effectively permanent.  
+This is one of the most powerful forms of blockchain privacy in existence, as the provided privacy is effectively permanent.
 
 ##### Private and Non-Private Addresses
 
 On any privacy-enabled Smart Chain, there are two types of addresses. One is transparent, the other is private.
 
-
 ##### Transparent Addresses
 
 We call a transparent address a "T address." These are fully accessible to the user, and they are the means of conducting normal transactions. All currency entering and leaving a T address is fully visible to the network.
 
-The user must use these addresses for most interactions on-chain, including most, if not all, of the Antara Module transactions, and when using AtomicDEX.
+The user must use these addresses for most interactions on-chain, including most, if not all, of the Antara Module transactions, and when using Komodo DeFi Framework.
 
 ##### Private Addresses
 
@@ -77,7 +76,7 @@ All of the following transactions are accomplished using the [<b>z_sendmany</b>]
 
 #### Transparent to Private
 
--------
+---
 
 <div style="text-align: center;">
 
@@ -85,7 +84,7 @@ All of the following transactions are accomplished using the [<b>z_sendmany</b>]
 
 </div>
 
-------
+---
 
 A user sends funds from a T address to a Z address.
 
@@ -93,7 +92,7 @@ This is <b>not</b> a private transaction. An observer of the blockchain can obse
 
 #### Private to Private
 
-------
+---
 
 <div style="text-align: center;">
 
@@ -101,9 +100,9 @@ This is <b>not</b> a private transaction. An observer of the blockchain can obse
 
 </div>
 
-------
+---
 
-This <b>is</b> a private transaction. Using zk-SNARK technology inherited from Zcash, this transaction moves funds from one address to another <b>without leaving any data available in the public domain for later observation.</b> 
+This <b>is</b> a private transaction. Using zk-SNARK technology inherited from Zcash, this transaction moves funds from one address to another <b>without leaving any data available in the public domain for later observation.</b>
 
 The user may also consider enhancing their privacy through services such as [Tor](https://www.torproject.org/).
 
@@ -111,7 +110,7 @@ All privacy from zk-SNARK technology is derived solely as a part of this type of
 
 #### Private to Transparent
 
-------
+---
 
 <div style="text-align: center;">
 
@@ -119,9 +118,9 @@ All privacy from zk-SNARK technology is derived solely as a part of this type of
 
 </div>
 
-------
+---
 
-This is <b>not</b> a private transaction. Rather, this is the transaction wherein funds again become public, and therefore usable for services such as a typical Antara Module or an AtomicDEX exchange.
+This is <b>not</b> a private transaction. Rather, this is the transaction wherein funds again become public, and therefore usable for services such as a typical Antara Module or an Komodo DeFi Framework exchange.
 
 Observers on the blockchain can observe both the Z address from which the funds are consumed and the T address to which the funds are sent.
 
@@ -151,7 +150,7 @@ To briefly summarize the security measures, the Zcash team used several layers o
 
 By our observation, the team performed this endeavor with sufficient competence and due diligence. Furthermore, given the nature of the project, the longstanding reputation of the Zcash developers, and the modus operandi of their lives’ work, we believe they were properly motivated to perform the creation and destruction in a capable and honest manner.
 
-Nevertheless, there are privacy advocates in the cryptocurrency industry who maintain a degree of suspicion over any project that requires an element of human trust.  This suspicion extends to the Zcash parameters. These observers continually scrutinize the Zcash project, searching for more and more processes by which the creation ceremony could have failed. Yet, while various theories have been put forth, no actual failure in the Zcash parameters has been discovered.
+Nevertheless, there are privacy advocates in the cryptocurrency industry who maintain a degree of suspicion over any project that requires an element of human trust. This suspicion extends to the Zcash parameters. These observers continually scrutinize the Zcash project, searching for more and more processes by which the creation ceremony could have failed. Yet, while various theories have been put forth, no actual failure in the Zcash parameters has been discovered.
 
 In adopting the Zcash parameters, we receive frequent questions regarding how they affect Komodo-based currency. The answer is that the privacy in the Komodo ecosystem is permanent, regardless of any potential fault by the Zcash team. Furthermore, we can adopt any updates the Zcash team releases to the parameters.
 
@@ -165,7 +164,7 @@ Though in Komodo we do not see this as a realistic threat, we nevertheless inclu
 
 All Bitcoin-based software relies heavily on a technology called the "utxo," short for Unspent Transaction. This technology was invented in the original Bitcoin protocol. Yet despite the technology's age, even the most active of cryptocurrency users rarely know what utxos are or why they exist.
 
-To better understand utxos, let us first examine the language of a common user when describing how much cryptocurrency money they have and how they perceive those funds. We will therefore need to understand the concept of "satoshis," the way a blockchain handles the collection and distribution of funds, and how we utilize these core technologies when trading on AtomicDEX.
+To better understand utxos, let us first examine the language of a common user when describing how much cryptocurrency money they have and how they perceive those funds. We will therefore need to understand the concept of "satoshis," the way a blockchain handles the collection and distribution of funds, and how we utilize these core technologies when trading on Komodo DeFi Framework.
 
 ### Comparing the Utxo to Fiat Money
 
@@ -216,12 +215,12 @@ To further clarify this, let us return to Charlie’s example with fiat money. R
 This is exactly how it works with utxos. Charlie has a collection of utxos in his digital wallet. When he goes to buy something, he will give out utxos until he surpasses how much he owes, and then the extra change from the last utxo will be broken down and returned to him.
 
 For example, let us suppose that Charlie’s 9.99000999 BTC is comprised of three utxos worth the following values:
-| Utxos in Charlie’s Wallet | Value          |
+| Utxos in Charlie’s Wallet | Value |
 | ------------------------- | -------------- |
-| Utxo #1:                 | 0.50000000 BTC |
-| Utxo #2:                 | 0.49000999 BTC |
-| Utxo #3:                 | 9.00000000 BTC |
-| Total                     | 9.99000999 BTC |
+| Utxo #1: | 0.50000000 BTC |
+| Utxo #2: | 0.49000999 BTC |
+| Utxo #3: | 9.00000000 BTC |
+| Total | 9.99000999 BTC |
 
 Charlie now desires to purchase an item that costs 0.60000000 BTC. He will have to hand out enough utxos from his wallet until he covers the costs of this transaction, just as he would if he were using fiat money. The Bitcoin protocol calculates the change from the transaction and then returns his change to him.
 
@@ -245,7 +244,7 @@ In the background, however, the digital wallet handles the utxos and the change 
 | Value                    | Description                                                              |
 | ------------------------ | ------------------------------------------------------------------------ |
 | 0.60000999 BTC           | The total amount that Charlie owes to the cashier and network            |
-| (-) 0.50000000 BTC   | The wallet sends the full value of **utxo #1** to the digital cashier   |
+| (-) 0.50000000 BTC       | The wallet sends the full value of **utxo #1** to the digital cashier    |
 | ------------------------ | ------------------------------------------------------------------------ |
 | 0.10000999 BTC           | This is the remaining total amount that Charlie still owes               |
 
@@ -255,9 +254,9 @@ This utxo is broken down or shattered into smaller pieces.
 
 | Value                | Description                                                            |
 | -------------------- | ---------------------------------------------------------------------- |
-| 0.49000999 BTC       | The size of Charlie’s **utxo #2**, now in the process of change       |
-| (-) 0.10000000 BTC   | This shatter of **utxo #2** goes to the cashier (payment fulfilled)   |
-| (-) 0.00000999 BTC   | This shatter of **utxo #2** pays the network fee to the miners        |
+| 0.49000999 BTC       | The size of Charlie’s **utxo #2**, now in the process of change        |
+| (-) 0.10000000 BTC   | This shatter of **utxo #2** goes to the cashier (payment fulfilled)    |
+| (-) 0.00000999 BTC   | This shatter of **utxo #2** pays the network fee to the miners         |
 | -------------------- | ---------------------------------------------------------------------- |
 | 0.39000000 BTC       | This last shatter now returns to Charlie’s wallet as a new utxo        |
 
@@ -265,8 +264,8 @@ Charlie now has one new utxo in his wallet, and it is worth 0.39000000 BTC:
 
 | Charlie’s New Wallet State   | Value            |
 | ---------------------------- | ---------------- |
-| Utxo #3:                    | 9.00000000 BTC   |
-| Utxo #4:                    | 0.39000000 BTC   |
+| Utxo #3:                     | 9.00000000 BTC   |
+| Utxo #4:                     | 0.39000000 BTC   |
 | ---------------------------- | ---------------- |
 | Total                        | 9.39000000 BTC   |
 
@@ -276,9 +275,9 @@ Now let us suppose that Charlie receives 0.4 BTC from someone else. In Charlie�
 
 | Charlie’s New Wallet State | Value          |
 | -------------------------- | -------------- |
-| Utxo #3:                  | 9.00000000 BTC |
-| Utxo #4:                  | 0.39000000 BTC |
-| Utxo #5:                  | 0.4000000 BTC  |
+| Utxo #3:                   | 9.00000000 BTC |
+| Utxo #4:                   | 0.39000000 BTC |
+| Utxo #5:                   | 0.4000000 BTC  |
 | Total                      | 9.79000000 BTC |
 
 As a result, the number and sizes of utxos in Charlie’s wallet will vary over time. He may have many smaller utxos that make up his full balance, or sometimes he might just have one large utxo that comprises all of it. For Charlie, it is normally possible to ignore this since the wallet developer could handle everything automatically.

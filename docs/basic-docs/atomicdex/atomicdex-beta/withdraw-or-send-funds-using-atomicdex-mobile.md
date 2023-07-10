@@ -1,4 +1,4 @@
-# How to Withdraw or Send Funds Using AtomicDEX Mobile
+# How to Withdraw or Send Funds Using Komodo Mobile Wallet
 
 - On the "Portfolio" page, click on the coin you want to send and press the "SEND" button
 
@@ -39,6 +39,3 @@ You may check the block explorer of your coin to verify the transaction, if you 
 <img src="/how-to-withdraw/how-to-withdraw-04.jpg">
 
 </div>
-
-
-

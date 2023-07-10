@@ -59,7 +59,7 @@ var sidebar = {
         ],
         [
           "/basic-docs/start-here/core-technology-discussions/atomicdex.md",
-          "AtomicDEX and Atomic Swaps",
+          "KomoDeFi and Atomic Swaps",
         ],
         [
           "/basic-docs/start-here/core-technology-discussions/miscellaneous.md",

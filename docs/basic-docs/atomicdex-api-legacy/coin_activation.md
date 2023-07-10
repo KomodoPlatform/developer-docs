@@ -44,7 +44,7 @@ The Komodo DeFi Framework node's coin address needs to be imported manually into
 
 Activating coins in 'lite mode' means you don't need to have a native coin daemon installed, or keep a local blockchain synchronised. In this mode, the Komodo DeFi Framework communicates with an external node to perform transactions and query the blockchain. UTXO based coins and QTUM/QRC20 tokens communicate via electrum servers, while other platform coins communicate via JSON RPC urls.
 
-AtomicDEX is a true cross chain, cross protocol Decentralized Exchange (DEX), allowing for trades between coins and tokens across many platforms and ecosystems, such as:
+Komodo DeFi Framework provides a true cross chain, cross protocol Decentralized Exchange (DEX), allowing for trades between coins and tokens across many platforms and ecosystems, such as:
 
 - UTXO based coins (e.g. DOGE, BTC, ZEC, LTC, DASH, DGB)
 - [Ethereum (ETH)](https://ethereum.org/en/) & [ERC20 tokens](https://etherscan.io/tokens)

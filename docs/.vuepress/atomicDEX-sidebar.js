@@ -1,16 +1,16 @@
 let atomicDEXsidebar = {
   "/basic-docs/atomicdex/": [
     {
-      title: "AtomicDEX",
+      title: "Komodo DeFi Framework",
       collapsable: false,
       children: [
         [
           "/basic-docs/atomicdex/introduction-to-atomicdex.md",
-          "Introduction to AtomicDEX Documentation",
+          "Introduction to Komodo DeFi Framework Documentation",
         ],
         [
           "/basic-docs/atomicdex/atomicdex-methods.md",
-          "RPC Methods for AtomicDEX",
+          "RPC Methods for Komodo DeFi Framework",
         ],
         {
           title: "Setup",
@@ -32,11 +32,11 @@ let atomicDEXsidebar = {
           children: [
             [
               "/basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.md",
-              "AtomicDEX Introduction",
+              "Komodo DeFi Framework Introduction",
             ],
             [
               "/basic-docs/atomicdex/atomicdex-tutorials/atomicdex-walkthrough.md",
-              "AtomicDEX Walkthrough",
+              "Komodo DeFi Framework Walkthrough",
             ],
             [
               "/basic-docs/atomicdex/atomicdex-tutorials/listing-a-coin-on-atomicdex.md",
@@ -64,7 +64,7 @@ let atomicDEXsidebar = {
             ],
             [
               "/basic-docs/atomicdex/atomicdex-tutorials/additional-information-about-atomicdex.md",
-              "More Information About AtomicDEX",
+              "More Information About Komodo DeFi Framework",
             ],
           ],
         },
@@ -74,15 +74,15 @@ let atomicDEXsidebar = {
           children: [
             [
               "/basic-docs/atomicdex/atomicdex-beta/create-a-new-wallet-using-atomicdex-mobile.md",
-              "Create a New Wallet Using AtomicDEX Mobile",
+              "Create a New Wallet Using Komodo Mobile Wallet",
             ],
             [
               "/basic-docs/atomicdex/atomicdex-beta/restore-wallet-using-atomicdex-mobile.md",
-              "Restore Wallet Using AtomicDEX Mobile",
+              "Restore Wallet Using Komodo Mobile Wallet",
             ],
             [
               "/basic-docs/atomicdex/atomicdex-beta/add-and-activate-coins-on-atomicdex-mobile.md",
-              "Add and Activate Coins on AtomicDEX Mobile",
+              "Add and Activate Coins on Komodo Mobile Wallet",
             ],
             [
               "/basic-docs/atomicdex/atomicdex-beta/view-your-receiving-address-to-send-funds-for-trading.md",
@@ -90,23 +90,23 @@ let atomicDEXsidebar = {
             ],
             [
               "/basic-docs/atomicdex/atomicdex-beta/withdraw-or-send-funds-using-atomicdex-mobile.md",
-              "Withdraw or Send Funds Using AtomicDEX Mobile",
+              "Withdraw or Send Funds Using Komodo Mobile Wallet",
             ],
             [
               "/basic-docs/atomicdex/atomicdex-beta/perform-cross-chain-atomic-swaps-using-atomicdex-mobile.md",
-              "Perform Cross-Chain Atomic Swaps Using AtomicDEX Mobile",
+              "Perform Cross-Chain Atomic Swaps Using Komodo Mobile Wallet",
             ],
             [
               "/basic-docs/atomicdex/atomicdex-beta/view-ongoing-orders-and-swap-history-on-atomicdex-mobile.md",
-              "View Ongoing Orders and Swap History on AtomicDEX Mobile",
+              "View Ongoing Orders and Swap History on Komodo Mobile Wallet",
             ],
             [
               "/basic-docs/atomicdex/atomicdex-beta/recover-seed-on-atomicdex-mobile.md",
-              "Recover Seed on AtomicDEX Mobile",
+              "Recover Seed on Komodo Mobile Wallet",
             ],
             [
               "/basic-docs/atomicdex/atomicdex-beta/delete-seed-from-atomicdex-mobile.md",
-              "Delete Seed (Wallet) on AtomicDEX Mobile",
+              "Delete Seed (Wallet) on Komodo Mobile Wallet",
             ],
           ],
         },

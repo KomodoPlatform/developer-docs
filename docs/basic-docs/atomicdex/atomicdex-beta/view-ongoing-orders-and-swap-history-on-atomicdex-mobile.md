@@ -1,4 +1,4 @@
-# How to View Ongoing Orders and Swap History on AtomicDEX Mobile
+# How to View Ongoing Orders and Swap History on Komodo Mobile Wallet
 
 #### View Ongoing Swaps and Orders
 
@@ -14,7 +14,7 @@
 
 #### View Your Swap History
 
-The swap history tab is on the right of the "ORDERS" tab. You should see your swap history here. 
+The swap history tab is on the right of the "ORDERS" tab. You should see your swap history here.
 
 ::: tip
 
@@ -27,5 +27,3 @@ If you delete app data in the settings menu or restore this seed on another phon
 <img src="/how-to-view-ongoing/how-to-view-ongoing-02.jpg">
 
 </div>
-
-

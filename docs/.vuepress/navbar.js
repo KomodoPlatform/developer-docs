@@ -14,7 +14,7 @@ var navbar = [
     link: "/basic-docs/antara/introduction-to-antara.md",
   },
   {
-    text: "AtomicDEX",
+    text: "KomoDeFi",
     items: [
       {
         text: "Docs",

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Welcome to the educational center for Komodo technology. This section provides a descriptive outline for new developers in the Komodo ecosystem. 
+Welcome to the educational center for Komodo technology. This section provides a descriptive outline for new developers in the Komodo ecosystem.
 
 The content first familiarizes the developer with basic blockchain principles, and then narrows down on principles that are unique to Komodo.
 
@@ -32,7 +32,7 @@ As another example, this type of developer could be building software for a web 
 
 The advanced Komodo developer intends both to use the Komodo software as it is provided to them, and also to add in their own customized functionality beyond the scope of the normal software. This developer is highly skilled in a mainstream programming language, such as C/C++, and is prepared to thoroughly understand and manipulate blockchain software.
 
-For example, this developer may intend to build customized Antara Modules to add to the consensus mechanism of their Smart Chain. These customized modules could create unique and fully playable blockchain-based games of a complexity level similar to [<b>this Komodo-based Roguelike game</b>](../../../basic-docs/antara/antara-tutorials/rogue-module-tutorial.html#introduction), or [<b>this Komodo-based version of Sudoku.</b>](../../../basic-docs/antara/antara-api/sudoku.html) 
+For example, this developer may intend to build customized Antara Modules to add to the consensus mechanism of their Smart Chain. These customized modules could create unique and fully playable blockchain-based games of a complexity level similar to [<b>this Komodo-based Roguelike game</b>](../../../basic-docs/antara/antara-tutorials/rogue-module-tutorial.html#introduction), or [<b>this Komodo-based version of Sudoku.</b>](../../../basic-docs/antara/antara-api/sudoku.html)
 
 #### How Each Type of Developer Should Approach the Educational Outlines
 
@@ -50,17 +50,17 @@ Difficulty: Normal
 
 Time: 10 Minutes
 
--------
+---
 
 Access to Komodo software allows the developer to immediately begin learning through direct experimentation.
 
-We recommend that all developers install Komodo software not by using pre-built binaries, but rather by installing and compiling from source code. 
+We recommend that all developers install Komodo software not by using pre-built binaries, but rather by installing and compiling from source code.
 
 This allows the developer to later have instant access to Komodo security patches, feature enhancements, and upgrades.
 
 [Link to Komodo Source Code Installation Methods](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html)
 
-[Link to AtomicDEX Source Code Installation Methods](../../../basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.html)
+[Link to Komodo DeFi Framework Source Code Installation Methods](../../../basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.html)
 
 ## Step 1: Reach Out to Our Community on Discord
 
@@ -70,9 +70,9 @@ Difficulty: Normal
 
 Time: 5 Minutes
 
--------
+---
 
-Discovering Komodo is best accomplished with a friend. 
+Discovering Komodo is best accomplished with a friend.
 
 Komodo utilizes a third-party chat service called Discord.
 
@@ -96,11 +96,11 @@ Difficulty: Normal
 
 Time: 10 Minutes
 
--------
+---
 
 With the Komodo software installed and a connection made to our community, you are prepared to begin learning about Komodo on a conceptual level.
 
-These conceptual concepts must be grasped first, before attempting to manipulate blockchain assets and software. The concepts help to orient you in your development process. 
+These conceptual concepts must be grasped first, before attempting to manipulate blockchain assets and software. The concepts help to orient you in your development process.
 
 ##### Platform Overview
 
@@ -128,7 +128,7 @@ Difficulty: Normal
 
 Time: 1 - 8 Hours
 
------------
+---
 
 The Core Technology Discussions section provides a thorough explanation of blockchain technology and Komodo. The principles explained herein are crucial in later stages.
 
@@ -158,13 +158,13 @@ The Antara Framework section explains to the reader the basic concepts of the An
 
 [<b>Link to Antara Framework Section</b>](../../../basic-docs/start-here/core-technology-discussions/antara.html)
 
-##### AtomicDEX and Atomic Swaps
+##### Komodo DeFi Framework and Atomic Swaps
 
-As a developer gains understanding of blockchain technology, and as your audience grows, you will likely seek to make atomic swaps available to your users. The AtomicDEX software is our signature method for conducting atomic swaps. 
+As a developer gains understanding of blockchain technology, and as your audience grows, you will likely seek to make atomic swaps available to your users. The Komodo DeFi Framework is our signature method for conducting atomic swaps.
 
-This section helps the reader to understand why atomic swaps are a key to the future of cryptocurrency trading and how they work. 
+This section helps the reader to understand why atomic swaps are a key to the future of cryptocurrency trading and how they work.
 
-[<b>Link to AtomicDEX and Atomic Swaps Section</b>](../../../basic-docs/start-here/core-technology-discussions/atomicdex.html)
+[<b>Link to Komodo DeFi Framework and Atomic Swaps Section</b>](../../../basic-docs/start-here/core-technology-discussions/atomicdex.html)
 
 ##### Miscellaneous
 
@@ -180,7 +180,7 @@ Difficulty: Normal
 
 Time: 1 Hour
 
-------------
+---
 
 The Beginner Series tutorials provide the reader with an easy pathway into the process of using Komodo technology.
 
@@ -200,7 +200,7 @@ Difficulty: Normal
 
 Time: < 1 Hour
 
---------------
+---
 
 Having completed the Beginner Series, the reader is now prepared to use the terminal more frequently while interacting with Komodo Smart Chains.
 
@@ -216,7 +216,7 @@ Difficulty: Normal
 
 Time: 1 - 5 Hours
 
-----------------
+---
 
 At this point, the Normal Developer should be generally comfortable with the basic concepts of utilizing the default Komodo Smart Chain software.
 
@@ -230,7 +230,7 @@ Many, if not most, developers in the Komodo ecosystem use a Linux-based Virtual 
 
 ##### Creating Komodo Smart Chains
 
-Up to this point in the outline, the developer has either relied on tutorial software to provide a Smart Chain, or the developer has relied on a `regtest` chain. 
+Up to this point in the outline, the developer has either relied on tutorial software to provide a Smart Chain, or the developer has relied on a `regtest` chain.
 
 Now, it is time to try creating your own Smart Chain.
 
@@ -288,7 +288,7 @@ Difficulty: Normal
 
 Time: 20 - 60 Minutes
 
-------------
+---
 
 The most basic aspect of Komodo's Antara Framework is the ability to customize your Smart Chain. These customizations are provided by Komodo as enhancements to the default Bitcoin/Zcash protocol.
 
@@ -304,7 +304,7 @@ Difficulty: Normal
 
 Time: 30 Minutes
 
----------------
+---
 
 Antara Modules are where the power of the Komodo Smart Chain and the Antara Framework begin to come into full display. Antara Modules allow the developer to expand blockchain potential far beyond the limits by which many other blockchain ecosystems are bound.
 
@@ -320,7 +320,7 @@ Difficulty: Normal
 
 Time: 30 Minutes
 
-----------
+---
 
 Part II of this discussion delves more deeply into the underlying methods by which Antara allows developers to solve problems.
 
@@ -334,11 +334,11 @@ Difficulty: Normal
 
 Time: 5 Minutes
 
----------------
+---
 
 At this point, the developer is familiar with common blockchain addresses.
 
-However, Antara requires the user to manage additional addresses for Antara-based currency. The passphrase for these addresses can all be the same, but the public address will not be. 
+However, Antara requires the user to manage additional addresses for Antara-based currency. The passphrase for these addresses can all be the same, but the public address will not be.
 
 These addresses keep funds separate between different modules on a Smart Chain, and assist in maintaining token scarcity, among other uses.
 
@@ -352,9 +352,9 @@ Difficult: Normal
 
 Time: 15 Minutes
 
--------------
+---
 
-A simple application of the Antara Framework is the Heir Antara Module. This simple module allows a user to designate an inheritor of their funds, should the user become inactive on a Smart Chain. 
+A simple application of the Antara Framework is the Heir Antara Module. This simple module allows a user to designate an inheritor of their funds, should the user become inactive on a Smart Chain.
 
 Read the introductory section to gain a more thorough understanding, and then try executing each command found in the Heir Module Flow section.
 
@@ -385,7 +385,7 @@ Difficulty: Normal
 
 Time: 15 Minutes
 
---------------
+---
 
 The Tokens Antara Module is often useful as it allows the developer to quickly and easily mint new currencies on their Smart Chain.
 
@@ -397,7 +397,7 @@ Use the `tokensinfo` RPC method to view your new tokens.
 
 [<b>Link to Tokens Antara Module - tokensinfo RPC</b>](../../../basic-docs/antara/antara-api/tokens.html#tokeninfo)
 
-## Step 13: Read the Introduction to AtomicDEX
+## Step 13: Read the Introduction to Komodo DeFi Framework
 
 Priority: Optional
 
@@ -405,13 +405,13 @@ Difficulty: Normal
 
 Time: 15 Minutes
 
-------------
+---
 
-The Normal Developer is now nearly finished with a grand tour of the Komodo software. The key remaining target is AtomicDEX, our signature method for exchanging cryptocurrencies using atomic swaps. Be one of the first people in the history of mankind to exchange assets with an anonymous person over the Internet without any middleman whatsoever.  
+The Normal Developer is now nearly finished with a grand tour of the Komodo software. The key remaining target is the Komodo DeFi Framework, our signature method for exchanging cryptocurrencies using atomic swaps. Be one of the first people in the history of mankind to exchange assets with an anonymous person over the Internet without any middleman whatsoever.
 
 This introductory discussion covers some of the same concepts that the reader encountered in the Core Technology Discussions section, but with several useful additional details.
 
-[<b>Link to Introduction to AtomicDEX</b>](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html#why-is-atomicdex-special)
+[<b>Link to Introduction to Komodo DeFi Framework</b>](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html#why-is-atomicdex-special)
 
 ## Step 14: Experiment with Atomic Swaps
 
@@ -421,15 +421,15 @@ Difficulty: Normal
 
 Time: 1 Hour
 
------------
+---
 
 Follow this walkthrough to perform your first atomic swaps.
 
-[<b>Link to AtomicDEX Walkthrough</b>](../../../basic-docs/atomicdex/atomicdex-tutorials/atomicdex-walkthrough.html#setting-up-the-coin-list)
+[<b>Link to Komodo DeFi Framework Walkthrough</b>](../../../basic-docs/atomicdex/atomicdex-tutorials/atomicdex-walkthrough.html#setting-up-the-coin-list)
 
-(If you still need to install AtomicDEX software, [click here for instructions on installing from source code.)](../../../basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.html)
+(If you still need to install KomoDeFi software, [click here for instructions on installing from source code.)](../../../basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.html)
 
-For those Normal Developers who make it this far, congratulations! You have completed the grand tour of the Komodo software suite. 
+For those Normal Developers who make it this far, congratulations! You have completed the grand tour of the Komodo software suite.
 
 Going forward, we recommend that you experiment with individual RPCs and customizations throughout the documentation, until you feel fluent in utilizing Komodo technology.
 
@@ -443,13 +443,13 @@ Difficulty: Advanced
 
 Time: 5 - 15 Hours
 
----------
+---
 
 Advanced Developers should now be familiar enough with the nature of Komodo technology to begin a more thorough approach to manipulating blockchain technology.
 
 The following tutorial series walks the developer through the initial development process. The tutorial will first explain several integral aspects of blockchain technology that blockchain engineers are required to understand. Then, the series walks the reader through the process of creating a simplified version of the Heir Antara Module.
 
-This tutorial series expects that you are comfortable with downloading a Github repository and manually inspecting the source code to determine the nature of the source code's functionality. 
+This tutorial series expects that you are comfortable with downloading a Github repository and manually inspecting the source code to determine the nature of the source code's functionality.
 
 Once you complete this tutorial, you are among the most advanced of community developers. You may feel prepared to offer your services to businesses that would like to use your skills to commission customized Antara Modules for their unique business purposes and competitive-advantage desires.
 
@@ -463,16 +463,16 @@ Difficulty: Advanced
 
 Time: ~
 
-----------
+---
 
 Now that you are comfortable building new Antara Modules, it's time to put your skills to use and build something for the community.
 
-The Komodo team is looking for talented C/C++ developers to build new Antara Modules that can be included with Komodo's default suite of modules. 
+The Komodo team is looking for talented C/C++ developers to build new Antara Modules that can be included with Komodo's default suite of modules.
 
-Creating a new default module can take up to a month's worth of time, and we try to make sure the value of the bounties is worth your while. 
+Creating a new default module can take up to a month's worth of time, and we try to make sure the value of the bounties is worth your while.
 
 [<b>Link to Komodo Bounties</b>](https://forum.komodoplatform.com/c/jobs-bounties)
 
-Alternatively, reach out to the Komodo development team on the `#dev-general` channel on [Discord](https://komodoplatform.com/discord) and ask where help is needed. 
+Alternatively, reach out to the Komodo development team on the `#dev-general` channel on [Discord](https://komodoplatform.com/discord) and ask where help is needed.
 
-We look forward to working with you! 
+We look forward to working with you!

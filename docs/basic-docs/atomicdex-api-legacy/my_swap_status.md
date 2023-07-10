@@ -1023,7 +1023,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
     "maker_amount": "1",
     "taker_coin": "PIZZA",
     "taker_amount": "1",
-    "gui": "AtomicDEX 1.0",
+    "gui": "KomoDeFi 1.0",
     "mm_version": "unknown",
     "recoverable": false,
     "success_events": [

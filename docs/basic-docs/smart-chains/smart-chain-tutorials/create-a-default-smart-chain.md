@@ -149,7 +149,7 @@ After issuing the mining command is issued, can check that the two nodes are con
 
 If the nodes are properly connected, both nodes will respond with: `"connections": 1`
 
-These are the coins you will later distribute to your community, using either our native DEX, [AtomicDEX](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html#why-is-atomicdex-special), or our decentralized-ICO software (coming soon), or on any other third-party exchange.
+These are the coins you will later distribute to your community, using either our native DEX, [KomoDeFi](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html#why-is-atomicdex-special), or our decentralized-ICO software (coming soon), or on any other third-party exchange.
 
 You can check the contents of the wallet by executing the following command in the terminal:
 
@@ -199,7 +199,7 @@ Since the Komodo software began as a fork of Zcash and BTC, essentially all comm
 
 Furthermore, a key purpose of the Komodo blockchain is to create features and functions that facilitate and enhance your development experience. Information regarding these enhancements is available throughout this documentation.
 
-In addition, since you are building on a Komodo-based blockchain, you have easy access to our multi-coin wallet and atomic-swap powered decentralized exchange, [AtomicDEX](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html#why-is-atomicdex-special), the Antara development framework and modules, our decentralized-ICO software, and our future upgrades.
+In addition, since you are building on a Komodo-based blockchain, you have easy access to our multi-coin wallet and atomic-swap powered decentralized exchange through the [Komodo DeFi Framework](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html#why-is-atomicdex-special), the Antara development framework and modules, our decentralized-ICO software, and our future upgrades.
 
 ## Example commands
 

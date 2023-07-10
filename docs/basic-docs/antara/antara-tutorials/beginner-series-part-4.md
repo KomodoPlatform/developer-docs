@@ -4,7 +4,7 @@
 
 Each Smart Chain in the Komodo ecosystem can act as a fully tokenizable platform. This provides many opportunities to the developer for creating on-chain assets that represent varying types of value for their users.
 
-For example, tokens can be used to represent real world assets, and users can then trade these tokens using Komodo's [Token DEX](../../../basic-docs/antara/antara-api/tokens.html) and [AtomicDEX](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html) features. The developer could also create tokens that provide incentives to their audience. Or, tokens can represent collectible assets. These are but a few examples of the usefulness of on-chain tokenization. 
+For example, tokens can be used to represent real world assets, and users can then trade these tokens using Komodo's [Token DEX](../../../basic-docs/antara/antara-api/tokens.html) and [Komodo DeFi Framework](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html) features. The developer could also create tokens that provide incentives to their audience. Or, tokens can represent collectible assets. These are but a few examples of the usefulness of on-chain tokenization.
 
 ## Conceptualizing Tokens
 
@@ -12,9 +12,9 @@ For example, tokens can be used to represent real world assets, and users can th
 
 All Smart Chain coins abide by the Bitcoin-protocol standard wherein 1 coin is divisible for up to eight decimal places: `1.00000000`. The smallest unit of a Smart Coin therefore is `0.00000001` coins. By convention it is called a "satoshi," in honor of the inventor of the Bitcoin protocol.
 
-On a Smart Chain, each individual token is derived from one individual satoshi. Therefore, each coin can be transformed into 100,000,000 tokens. 
+On a Smart Chain, each individual token is derived from one individual satoshi. Therefore, each coin can be transformed into 100,000,000 tokens.
 
-At the time of the creation of these tokens, the creator can define their properties, grant meta data to them, and establish the nature of their scarcity. 
+At the time of the creation of these tokens, the creator can define their properties, grant meta data to them, and establish the nature of their scarcity.
 
 All of this functionality is established and secured through the [Tokens Antara Module](../../../basic-docs/antara/antara-api/tokens.html).
 
@@ -26,7 +26,7 @@ In the process of creation we can choose a name for these tokens.
 
 All of the tokens created from this single transaction are fungible one with another, and maintain scarcity across the Smart Chain.
 
-*(It is even possible with Antara technology to maintain token scarcity across multiple chains, but this is an advanced topic that we do not cover here.)*
+_(It is even possible with Antara technology to maintain token scarcity across multiple chains, but this is an advanced topic that we do not cover here.)_
 
 #### Non-Fungible Token Creation
 
@@ -34,7 +34,7 @@ Alternatively, rather than creating a large collective of many fungible tokens, 
 
 #### Attaching Data to Tokens
 
-We can attach meta data to the tokens at their creation. 
+We can attach meta data to the tokens at their creation.
 
 The maximum size of data that can fit in a single Komodo transaction is `10000` bytes. This is enough to include all sorts of data, and even simple images.
 
@@ -57,9 +57,9 @@ This creates 50,000 GOLD tokens by sending 0.0005 TUT1 coins to the [Tokens Anta
 
 Wait a minute or so for the transaction to be mined and then use the `GETINFO` function to check the balance of our wallet. There are now `0.0993` coins remaining from the `0.1` coins we had previously.
 
-We used `0.0005` coins to create the tokens. 
+We used `0.0005` coins to create the tokens.
 
-We had a fee paid to the miners of `0.0001` coins. 
+We had a fee paid to the miners of `0.0001` coins.
 
 We also had another fee of `0.0001` coins that were sent to a special address in the Tokens Antara Module, called the "global address." The transaction for this fee had a small amount of data that permanently tells the entire `TUT1` Smart Chain community that we created these tokens. Therefore, if other users or developers want to learn about our `GOLD` tokens, they have a starting point in this global address.
 

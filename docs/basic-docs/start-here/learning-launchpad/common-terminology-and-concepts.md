@@ -64,7 +64,7 @@ Atomic swap technology is unique in that it requires no middleman to hold the as
 
 Should either party fail to complete the trade, Komodo's atomic-swap software ensures that all parties receive their funds in return, and neither side receives a reward for the failure.
 
-For more information, [discover the AtomicDEX Introduction section here.](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html)
+For more information, [discover the Komodo DeFi Framework Introduction section here.](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html)
 
 ## Block
 
@@ -114,7 +114,7 @@ A normal user would not call these types of transactions "CC transactions," but 
 
 A centralized exchange is a corporate entity that allows users to send cryptocurrency funds into the care of the corporation to hold in escrow while the user trades for alternate currencies with other users.
 
-For more information about centralized exchanges, [read the Introduction to AtomicDEX here.](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html#why-is-atomicdex-special)
+For more information about centralized exchanges, [read the Introduction to Komodo DeFi Framework here.](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html#why-is-atomicdex-special)
 
 ## Cluster
 
@@ -174,7 +174,7 @@ A decentralized exchange (DEX) is an entity that enables users to trade assets w
 
 For example, a common DEX uses a decentralized network of gateway nodes to hold user funds in escrow within the trading environment. No single individual has access to the escrow treasury.
 
-Komodo features a new form of DEX: AtomicDEX. This uses atomic swaps, and provides a revolutionary form of trading cryptocurrencies. Users maintain control over their assets at all times during the trading process, which makes AtomicDEX a truly decentralized DEX.
+Komodo features a new form of DEX: Komodo DeFi Framework. This uses atomic swaps, and provides a revolutionary form of trading cryptocurrencies. Users maintain control over their assets at all times during the trading process, which makes Komodo DeFi Framework a truly decentralized DEX.
 
 ## Initial DEX Offering (IDO)
 
@@ -256,15 +256,15 @@ In the spring of 2019, Jumblr technology was removed from the KMD chain. This oc
 
 ## Liquidity Maker
 
-A liquidity maker on the AtomicDEX network is a user who offers assets for trade and waits for a user to accept the offer.
+A liquidity maker on the Komodo DeFi Framework network is a user who offers assets for trade and waits for a user to accept the offer.
 
 ## Liquidity Pool
 
-A liquidity pool is a collection of live offers on an AtomicDEX trading network.
+A liquidity pool is a collection of live offers on an Komodo DeFi Framework trading network.
 
 ## Liquidity Taker
 
-A liquidity taker on the AtomicDEX network is a user who accepts a standing and live offer of another user.
+A liquidity taker on the Komodo DeFi Framework network is a user who accepts a standing and live offer of another user.
 
 ## Magic
 
@@ -332,7 +332,7 @@ Developers who wish to avoid the on-demand notarization situation have a few opt
 
 An orderbook is a record of all trade offers on an exchange. Typically, the orderbook only displays current offers.
 
-Komodo's AtomicDEX software offers a decentralized orderbook, wherein users send orders to a P2P network for distribution, and all nodes on the network assemble the orderbook locally.
+Komodo's Komodo DeFi Framework offers a decentralized orderbook, wherein users send orders to a P2P network for distribution, and all nodes on the network assemble the orderbook locally.
 
 ## Passphrase
 
@@ -432,13 +432,13 @@ The Komodo Platform uses the Tokens Antara Module (or any similar module) to tra
 
 The term "trade clearing" refers to the process of completing a promised trade between users.
 
-In AtomicDEX, trades are first matched on the peer-to-peer network, and then AtomicDEX uses our own signature atomic-swap process to clear the trade. Once both users either complete their sides of the trade, or abandon the procedure (and receive their appropriate refunds), the trade is considered cleared.
+In Komodo DeFi Framework, trades are first matched on the peer-to-peer network, and then Komodo DeFi Framework uses our own signature atomic-swap process to clear the trade. Once both users either complete their sides of the trade, or abandon the procedure (and receive their appropriate refunds), the trade is considered cleared.
 
 ## Trade Matching
 
 The term "trade matching" refers to the process of matching an offer to buy or sell with a willing trade partner.
 
-In AtomicDEX, trade offers are distributed on a decentralized peer-to-peer network. Liquidity makers make new offers, and liquidity takers accept offers made by liquidity makers.
+In Komodo DeFi Framework, trade offers are distributed on a decentralized peer-to-peer network. Liquidity makers make new offers, and liquidity takers accept offers made by liquidity makers.
 
 ## Trustless
 
