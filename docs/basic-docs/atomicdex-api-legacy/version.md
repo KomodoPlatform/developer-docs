@@ -2,7 +2,7 @@
 
 **version()**
 
-The `version` method returns the AtomicDEX API version.
+The `version` method returns the Komodo DeFi Framework version.
 
 #### Arguments
 
@@ -12,9 +12,9 @@ The `version` method returns the AtomicDEX API version.
 
 #### Response
 
-| Structure | Type   | Description     |
-| --------- | ------ | --------------- |
-| result    | string | the AtomicDEX API version |
+| Structure | Type   | Description                       |
+| --------- | ------ | --------------------------------- |
+| result    | string | the Komodo DeFi Framework version |
 
 #### :pushpin: Examples
 

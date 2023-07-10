@@ -8,51 +8,51 @@ The `setprice` order is always considered a `sell`, for internal implementation 
 
 ::: tip
 
-To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit to the value of a trade. See the description of the `volume` and `min_volume` arguments for more info. 
+To prevent a user from making trades in which the transaction fees may end up costing a significant portion of the value of the trade, we have set a lower limit to the value of a trade. See the description of the `volume` and `min_volume` arguments for more info.
 
 :::
 
 #### Arguments
 
-| Structure       | Type                       | Description                                                                                                                                                                                                                                                                                                               |
-| --------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------                                                                                                                                                                                                  |
-| base            | string                     | the name of the coin the user desires to sell                     |
-| rel             | string                     | the name of the coin the user desires to receive                  |  
-| price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin|
-| volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                             |
-| min_volume      | numeric string or rational | the minimum amount of `base` coin available for the order; it must be less or equal than `volume` param; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the product of the arguments `min_volume` and `price`</li></ul> |
-| max             | bool                       | AtomicDEX API will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                                                                                                                                                                                                                 |
-| cancel_previous | bool                       | AtomicDEX API will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior                                                                                                                                                                                                  |
-| base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                          |
-| base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                |
-| rel_confs       | number                     | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                            |
-| rel_nota        | bool                       | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                  |
-| save_in_history | boolean                                  | Defaults to `true`. If set to `false` no order history will be saved (though order status will be temporarily stored while in progress). If `true`, each order's short record history is stored in a local SQLite database table, and when the order is cancelled or fully matched, it's history will be saved as a json file                                                                                                                                                                                                                                                                                              |
+| Structure       | Type                       | Description                                                                                                                                                                                                                                                                                                                   |
+| --------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| base            | string                     | the name of the coin the user desires to sell                                                                                                                                                                                                                                                                                 |
+| rel             | string                     | the name of the coin the user desires to receive                                                                                                                                                                                                                                                                              |
+| price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                                                                                                                                                                                                                             |
+| volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>                                 |
+| min_volume      | numeric string or rational | the minimum amount of `base` coin available for the order; it must be less or equal than `volume` param; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the product of the arguments `min_volume` and `price`</li></ul>     |
+| max             | bool                       | Komodo DeFi Framework will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                                                                                                                                                                                                   |
+| cancel_previous | bool                       | Komodo DeFi Framework will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior                                                                                                                                                                                    |
+| base_confs      | number                     | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                              |
+| base_nota       | bool                       | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                    |
+| rel_confs       | number                     | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                |
+| rel_nota        | bool                       | whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                      |
+| save_in_history | boolean                    | Defaults to `true`. If set to `false` no order history will be saved (though order status will be temporarily stored while in progress). If `true`, each order's short record history is stored in a local SQLite database table, and when the order is cancelled or fully matched, it's history will be saved as a json file |
 
 #### Response
 
-| Structure                       | Type             | Description                                                                                               |
-| -----------------------         | ---------------- | --------------------------------------------------------------------------------------------------------- |
-| result                          | object           | the resulting order object                                                                                |
-| result.base                     | string           | the base coin of the order                                                                                |
-| result.rel                      | string           | the rel coin of the order                                                                                 |
-| result.price                    | string (numeric) | the expected amount of `rel` coin to be received per 1 unit of `base` coin; decimal representation        |
-| result.price_rat                | rational         | the expected amount of `rel` coin to be received per 1 unit of `base` coin; rational representation       |
-| result.max_base_vol             | string (numeric) | the maximum volume of base coin available to trade; decimal representation                                |
-| result.max_base_vol_rat         | rational         | the maximum volume of base coin available to trade; rational representation                               |
-| result.min_base_vol             | string (numeric) | AtomicDEX API won't match with other orders that attempt to trade less than `min_base_vol`; decimal representation  |
-| result.min_base_vol_rat         | rational         | AtomicDEX API won't match with other orders that attempt to trade less than `min_base_vol`; rational representation |
-| result.created_at               | number           | unix timestamp in milliseconds, indicating the order creation time                                        |
-| result.updated_at               | number           | unix timestamp in milliseconds, indicating the order update time                                        |
-| result.matches                  | object           | contains the map of ongoing matches with other orders, empty as the order was recently created            |
-| result.started_swaps            | array of strings | uuids of swaps that were initiated by the order                                                           |
-| result.uuid                     | string           | uuid of the created order                                                                                 |
-| result.conf_settings.base_confs | number           | number of required blockchain confirmations for base coin atomic swap transaction                         |
-| result.conf_settings.base_nota  | bool             | whether dPoW notarization is required for base coin atomic swap transaction                               |
-| result.conf_settings.rel_confs  | number           | number of required blockchain confirmations for rel coin atomic swap transaction                          |
-| result.conf_settings.rel_nota   | bool             | whether dPoW notarization is required for rel coin atomic swap transaction                                |
-| result.base_orderbook_ticker            | string                     | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value. |
-| result.rel_orderbook_ticker            | string                     | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value. |
+| Structure                       | Type             | Description                                                                                                                                          |
+| ------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                          | object           | the resulting order object                                                                                                                           |
+| result.base                     | string           | the base coin of the order                                                                                                                           |
+| result.rel                      | string           | the rel coin of the order                                                                                                                            |
+| result.price                    | string (numeric) | the expected amount of `rel` coin to be received per 1 unit of `base` coin; decimal representation                                                   |
+| result.price_rat                | rational         | the expected amount of `rel` coin to be received per 1 unit of `base` coin; rational representation                                                  |
+| result.max_base_vol             | string (numeric) | the maximum volume of base coin available to trade; decimal representation                                                                           |
+| result.max_base_vol_rat         | rational         | the maximum volume of base coin available to trade; rational representation                                                                          |
+| result.min_base_vol             | string (numeric) | Komodo DeFi Framework won't match with other orders that attempt to trade less than `min_base_vol`; decimal representation                           |
+| result.min_base_vol_rat         | rational         | Komodo DeFi Framework won't match with other orders that attempt to trade less than `min_base_vol`; rational representation                          |
+| result.created_at               | number           | unix timestamp in milliseconds, indicating the order creation time                                                                                   |
+| result.updated_at               | number           | unix timestamp in milliseconds, indicating the order update time                                                                                     |
+| result.matches                  | object           | contains the map of ongoing matches with other orders, empty as the order was recently created                                                       |
+| result.started_swaps            | array of strings | uuids of swaps that were initiated by the order                                                                                                      |
+| result.uuid                     | string           | uuid of the created order                                                                                                                            |
+| result.conf_settings.base_confs | number           | number of required blockchain confirmations for base coin atomic swap transaction                                                                    |
+| result.conf_settings.base_nota  | bool             | whether dPoW notarization is required for base coin atomic swap transaction                                                                          |
+| result.conf_settings.rel_confs  | number           | number of required blockchain confirmations for rel coin atomic swap transaction                                                                     |
+| result.conf_settings.rel_nota   | bool             | whether dPoW notarization is required for rel coin atomic swap transaction                                                                           |
+| result.base_orderbook_ticker    | string           | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value. |
+| result.rel_orderbook_ticker     | string           | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value.   |
 
 #### :pushpin: Examples
 
@@ -129,7 +129,7 @@ curl --url "http://127.0.0.1:7783" --data "{
   \"price\": {
     \"numer\": \"2\",
     \"denom\": \"1\"
-  },  
+  },
   \"min_volume\": \"1\"
 }"
 ```
@@ -153,7 +153,7 @@ curl --url "http://127.0.0.1:7783" --data "{
   \"base_confs\": 2,
   \"base_nota\": true,
   \"rel_confs\": 5,
-  \"rel_nota\": false  
+  \"rel_nota\": false
 }"
 ```
 
@@ -207,15 +207,15 @@ curl --url "http://127.0.0.1:7783" --data "{
     ],
     "started_swaps": [],
     "uuid": "6a242691-6c05-474a-85c1-5b3f42278f41",
-    "conf_settings":{
-      "base_confs":2,
-      "base_nota":true,
-      "rel_confs":5,
-      "rel_nota":false
+    "conf_settings": {
+      "base_confs": 2,
+      "base_nota": true,
+      "rel_confs": 5,
+      "rel_nota": false
     }
   },
-  "base_orderbook_ticker":null,
-  "rel_orderbook_ticker":null
+  "base_orderbook_ticker": null,
+  "rel_orderbook_ticker": null
 }
 ```
 

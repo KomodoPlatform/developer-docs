@@ -241,7 +241,7 @@ Because the payments that occur on one blockchain will proceed regardless of the
 
 We warn our readers, nevertheless. Every element of the Komodo ecosystem is still considered to be highly experimental. We provide no investment advice, nor any guarantees of any funds utilized on our network. Use our products only at your own risk.
 
-#### The AtomicDEX API
+#### The Komodo DeFi Framework
 
 We created an API model that is generally the same for all coins. 
 

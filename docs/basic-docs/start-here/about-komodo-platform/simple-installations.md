@@ -1,6 +1,6 @@
 # Simple Installations
 
-## Smart Chain Installation 
+## Smart Chain Installation
 
 To install the Komodo daemon, `komodod`, and its necessary counterpart, `komodo-cli`, the simplest method is to download pre-compiled binaries.
 
@@ -20,7 +20,7 @@ You may also build `komodod` and `komodo-cli` from source. This is not required,
 
 Komodo offers a Docker image that has pre-built versions of the Komodo software. The image is based on the Ubuntu operating system and offers different versions of the software that are built from different Komodo Github repositories, such as the `dev`, `beta`, and `research` branches.
 
-The Docker image can be found here: [https://hub.docker.com/r/komodoofficial/komodo](https://hub.docker.com/r/komodoofficial/komodo). 
+The Docker image can be found here: [https://hub.docker.com/r/komodoofficial/komodo](https://hub.docker.com/r/komodoofficial/komodo).
 
 An example of how the image can be used is available in this [github repository](https://github.com/tonymorony/komodo_docker_tests).
 
@@ -40,9 +40,9 @@ The following links contain downloadable AtomicDEX software. Simply download the
 
 #### Using the official Docker image
 
-Komodo offers a Docker image that features the AtomicDEX software. This Docker image is based on the Ubuntu (Linux) operating system. 
+Komodo offers a Docker image that features the AtomicDEX software. This Docker image is based on the Ubuntu (Linux) operating system.
 
-The image can be found here: [https://hub.docker.com/r/komodoofficial/atomicdexapi](https://hub.docker.com/r/komodoofficial/atomicdexapi). 
+The image can be found here: [https://hub.docker.com/r/komodoofficial/atomicdexapi](https://hub.docker.com/r/komodoofficial/atomicdexapi).
 
 An explanation of how the image can be used is available in the "Overview" section of the above linked webpage.
 
@@ -52,4 +52,4 @@ Please see the following links for further details regarding AtomicDEX software.
 
 [Link to Source Code Installation Methods](../../../basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.html)
 
-[Link to AtomicDEX API](../../../basic-docs/atomicdex/atomicdex-api.html)
+[Link to Komodo DeFi Framework](../../../basic-docs/atomicdex/atomicdex-api.html)

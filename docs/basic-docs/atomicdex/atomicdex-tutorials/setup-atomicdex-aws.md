@@ -1,13 +1,13 @@
-# How to Setup and use the AtomicDEX API on an AWS EC2 instance
+# How to Setup and use the Komodo DeFi Framework on an AWS EC2 instance
 
 ## Create the AtomicDEX setup script
 
 - Create a file named `atomicDEX_API_setup.txt`
 - Copy the code below into the file
-- In the code, find the text, `SEED_WORDS_PLEASE_REPLACE`, and replace it with custom seed words of your own 
+- In the code, find the text, `SEED_WORDS_PLEASE_REPLACE`, and replace it with custom seed words of your own
   - These seed words are used to generate new blockchain addresses, and therefore the seed words should be treated like a unique password
 - Find the text, `RPC_PASS_PLEASE_REPLACE`, and replace this also with a strong password
-  - This is used to authenticate yourself while communicating with the AtomicDEX API
+  - This is used to authenticate yourself while communicating with the Komodo DeFi Framework
 
 ```bash
 #!/bin/bash
@@ -68,4 +68,4 @@ nodeIp=REPLACE_PUBLIC_IP
 ssh -o IdentitiesOnly=yes -i ~/.ssh/mm2.pem admin@$nodeIp 'curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"RPC_PASS_PLEASE_REPLACE\",\"method\":\"version\"}"'
 ```
 
-Edit the command above as necessary to exchange one curl command for another from [the AtomicDEX API.](https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html)
+Edit the command above as necessary to exchange one curl command for another from [the Komodo DeFi Framework.](https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html)

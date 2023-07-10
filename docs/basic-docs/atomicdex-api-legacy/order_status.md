@@ -1,15 +1,14 @@
-# order\_status
+# order_status
 
 **order_status uuid**
 
-The `order_status` method returns the data of the order with the selected `uuid` created by the AtomicDEX API node. The response is different for `maker` and `taker` orders.
+The `order_status` method returns the data of the order with the selected `uuid` created by the Komodo DeFi Framework node. The response is different for `maker` and `taker` orders.
 
 #### Argument
 
 | Structure | Type   | Description              |
 | --------- | ------ | ------------------------ |
 | uuid      | string | uuid of order to display |
-
 
 #### Command
 
@@ -25,29 +24,29 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 #### Maker Order Response
 
-| Structure                    | Type   | Description                            |
-| ---------------------------- | ------ | -------------------------------------- |
-| type                         | string | type of the order ("Maker" or "Taker") |
-| order                        | object | order data                             |
-| order.base                   | string | base currency                          |
-| order.rel                    | string | rel currency                           |
-| order.price                  | number | order price as decimal number          |
-| order.price_rat              | rational number | order price as rational number         |
-| order.max_base_vol           | number | Maximum trade volume                   |
-| order.max_base_vol_rat       | rational number | Maximum trade volume as rational number|
-| order.min_base_vol           | number | Minimum trade volume                   |
-| order.min_base_vol_rat       | rational number | Minimum trade volume as rational number|
-| order.created_at             | number | timestamp of order creation                     |
-| order.updated_at             | number | timestamp of last order update                  |
-| order.matches                | list   | UUIDS of matching orders                        |
-| order.started_swaps          | list   | UUIDS of swaps started                          |
-| order.uuid                   | string | UUID of this order                              |
-| order.conf_settings          | object | Confirmation / Notarisation settings for order  |
-| order.base_orderbook_ticker  | string | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value. |
-| order.rel_orderbook_ticker   | string | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value. |
-| order.cancellable            | boolean| `true` if order is in a state which it can be cancelled. `false` if not (e.g. swap is in progress) |
-| order.cancellation_reason    | string | `Cancelled` indicates order was withdrawn by user. `Fulfilled` indicates order was swapped successfully. `TimedOut` indicates a taker order with type `FillOrKill` expired before matching.   |
-| order.available_amount       | string | Funds available for order to be matched against, taking into account current spendable balance and `max_volume` |
+| Structure                   | Type            | Description                                                                                                                                                                                 |
+| --------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type                        | string          | type of the order ("Maker" or "Taker")                                                                                                                                                      |
+| order                       | object          | order data                                                                                                                                                                                  |
+| order.base                  | string          | base currency                                                                                                                                                                               |
+| order.rel                   | string          | rel currency                                                                                                                                                                                |
+| order.price                 | number          | order price as decimal number                                                                                                                                                               |
+| order.price_rat             | rational number | order price as rational number                                                                                                                                                              |
+| order.max_base_vol          | number          | Maximum trade volume                                                                                                                                                                        |
+| order.max_base_vol_rat      | rational number | Maximum trade volume as rational number                                                                                                                                                     |
+| order.min_base_vol          | number          | Minimum trade volume                                                                                                                                                                        |
+| order.min_base_vol_rat      | rational number | Minimum trade volume as rational number                                                                                                                                                     |
+| order.created_at            | number          | timestamp of order creation                                                                                                                                                                 |
+| order.updated_at            | number          | timestamp of last order update                                                                                                                                                              |
+| order.matches               | list            | UUIDS of matching orders                                                                                                                                                                    |
+| order.started_swaps         | list            | UUIDS of swaps started                                                                                                                                                                      |
+| order.uuid                  | string          | UUID of this order                                                                                                                                                                          |
+| order.conf_settings         | object          | Confirmation / Notarisation settings for order                                                                                                                                              |
+| order.base_orderbook_ticker | string          | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value.                                        |
+| order.rel_orderbook_ticker  | string          | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value.                                          |
+| order.cancellable           | boolean         | `true` if order is in a state which it can be cancelled. `false` if not (e.g. swap is in progress)                                                                                          |
+| order.cancellation_reason   | string          | `Cancelled` indicates order was withdrawn by user. `Fulfilled` indicates order was swapped successfully. `TimedOut` indicates a taker order with type `FillOrKill` expired before matching. |
+| order.available_amount      | string          | Funds available for order to be matched against, taking into account current spendable balance and `max_volume`                                                                             |
 
 #### :pushpin: Maker Order Examples
 
@@ -123,8 +122,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "uuid": "ea77dcc3-a711-4c3d-ac36-d45fc5e1ee0c"
   },
   "type": "Maker",
-  "base_orderbook_ticker":null,
-  "rel_orderbook_ticker":null
+  "base_orderbook_ticker": null,
+  "rel_orderbook_ticker": null
 }
 ```
 
@@ -239,47 +238,45 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "cancellation_reason": "Cancelled"
 }
 ```
+
 </collapse-text>
 
 </div>
 
-
 #### Response: Taker Orders
 
-| Structure                    | Type   | Description                                     |
-| ---------------------------- | ------ | ----------------------------------------------- |
-| type                         | string | type of the order ("Maker" or "Taker")          |
-| order                        | object | order data                                      |
-| order.created_at             | number | timestamp of order creation                     |
-| order.request                | object | details of requested trade                      |
-| order.request.base           | string | base currency                                   |
-| order.request.base_amount    | number | base currency amount                            |
-| order.request.base_amount_rat| rational number | base currency amount as rational number|
-| order.request.rel            | string | rel currency                                    |
-| order.request.rel_amount     | number | rel currency amount                             |
-| order.request.rel_amount_rat | rational number | rel currency amount as rational number |
-| order.request.action         | string | `buy` or `sell`                                 |
-| order.request.uuid           | string | Taker order UUID                                |
-| order.request.method         | string | Deprecated field, which always has the value `request`. | 
-| order.request.sender_pubkey  | string | Pubkey of Taker                                 |
-| order.request.dest_pub_key   | string | reserved for future use. The `dest_pub_key` allows the user to choose the P2P node that is eligible to match with the request. This value defaults to "zero pubkey", meaning that `anyone` can match |
-| order.request.match_by.type  | string | `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Defaults to `Any`    | 
-| order.request.conf_settings  | object | base/rel confirmation/notarisation settings     |
-| order.matches                | object | Details of matching Maker Order UUIDs           |
-| order.order_type             | object | `FillOrKill`  or `GoodTillCancelled`            |
-| order.matches                | list   | UUIDS of matching orders                        |
-| order.base_orderbook_ticker  | string | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value. |
-| order.rel_orderbook_ticker   | string | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value. |
-| order.cancellable            | boolean| `true` if order is in a state which it can be cancelled. `false` if not (e.g. swap is in progress) |
-| cancellation_reason          | string | `Cancelled` indicates order was withdrawn by user. `Fulfilled` indicates order was swapped successfully. `TimedOut` indicates a taker order with type `FillOrKill` expired before matching.   |
-
+| Structure                     | Type            | Description                                                                                                                                                                                          |
+| ----------------------------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type                          | string          | type of the order ("Maker" or "Taker")                                                                                                                                                               |
+| order                         | object          | order data                                                                                                                                                                                           |
+| order.created_at              | number          | timestamp of order creation                                                                                                                                                                          |
+| order.request                 | object          | details of requested trade                                                                                                                                                                           |
+| order.request.base            | string          | base currency                                                                                                                                                                                        |
+| order.request.base_amount     | number          | base currency amount                                                                                                                                                                                 |
+| order.request.base_amount_rat | rational number | base currency amount as rational number                                                                                                                                                              |
+| order.request.rel             | string          | rel currency                                                                                                                                                                                         |
+| order.request.rel_amount      | number          | rel currency amount                                                                                                                                                                                  |
+| order.request.rel_amount_rat  | rational number | rel currency amount as rational number                                                                                                                                                               |
+| order.request.action          | string          | `buy` or `sell`                                                                                                                                                                                      |
+| order.request.uuid            | string          | Taker order UUID                                                                                                                                                                                     |
+| order.request.method          | string          | Deprecated field, which always has the value `request`.                                                                                                                                              |
+| order.request.sender_pubkey   | string          | Pubkey of Taker                                                                                                                                                                                      |
+| order.request.dest_pub_key    | string          | reserved for future use. The `dest_pub_key` allows the user to choose the P2P node that is eligible to match with the request. This value defaults to "zero pubkey", meaning that `anyone` can match |
+| order.request.match_by.type   | string          | `Orders` to select specific uuids; `Pubkeys` to select specific nodes; Defaults to `Any`                                                                                                             |
+| order.request.conf_settings   | object          | base/rel confirmation/notarisation settings                                                                                                                                                          |
+| order.matches                 | object          | Details of matching Maker Order UUIDs                                                                                                                                                                |
+| order.order_type              | object          | `FillOrKill` or `GoodTillCancelled`                                                                                                                                                                  |
+| order.matches                 | list            | UUIDS of matching orders                                                                                                                                                                             |
+| order.base_orderbook_ticker   | string          | the ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value.                                                 |
+| order.rel_orderbook_ticker    | string          | the ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value.                                                   |
+| order.cancellable             | boolean         | `true` if order is in a state which it can be cancelled. `false` if not (e.g. swap is in progress)                                                                                                   |
+| cancellation_reason           | string          | `Cancelled` indicates order was withdrawn by user. `Fulfilled` indicates order was swapped successfully. `TimedOut` indicates a taker order with type `FillOrKill` expired before matching.          |
 
 #### :pushpin: Taker Order Examples
 
 <div style="margin-top: 0.5rem;">
 
 <collapse-text hidden title="Response">
-
 
 #### Response: Taker Order Fullfilled
 
@@ -366,6 +363,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 ```
 
 #### Response: 'FillOrKill' Taker order after timeout with no match
+
 ```json
 {
   "type": "Taker",

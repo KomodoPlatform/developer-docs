@@ -1,10 +1,10 @@
 # Note About Rational Number Type
 
-The AtomicDEX API now offers the [num-rational crate](https://crates.io/crates/num-rational) feature. This is used to represent order volumes and prices.
+The Komodo DeFi Framework now offers the [num-rational crate](https://crates.io/crates/num-rational) feature. This is used to represent order volumes and prices.
 
 Komodo highly recommends that the developer use the rational number type when calculating an order's price and volume. This avoids rounding and precision errors when calculating numbers, such as `1/3`, as these cannot be represented as a finite decimal.
 
-The AtomicDEX API typically will return both the rational number type as well as the decimal representation, but the decimal representation should be considered only a convenience feature for readability.
+The Komodo DeFi Framework typically will return both the rational number type as well as the decimal representation, but the decimal representation should be considered only a convenience feature for readability.
 
 The number can be represented in the following two JSON formats:
 
@@ -33,4 +33,3 @@ The `numerator` and `denominator` are BigInteger numbers represented as a sign a
 `[1,[0,1]]` represents `+0000000000000000000000000000000010000000000000000000000000000000` = `4294967296`
 
 `[-1,[1,1]]` represents `-1000000000000000000000000000000010000000000000000000000000000000` = `-4294967297`
-

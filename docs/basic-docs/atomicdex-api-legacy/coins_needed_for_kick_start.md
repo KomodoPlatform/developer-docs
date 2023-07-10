@@ -1,8 +1,8 @@
-# coins\_needed\_for\_kick\_start
+# coins_needed_for_kick_start
 
 **coins_needed_for_kick_start()**
 
-If the AtomicDEX API is stopped while making a swap/having the active order it will attempt to kick-start them on next launch and continue from the point where it's stopped. `coins_needed_for_kick_start` returns the tickers of coins that should be activated ASAP after the AtomicDEX API is started to continue the interrupted swaps. Consider calling this method on AtomicDEX API startup and activate the returned coins using `enable` or `electrum` methods.
+If the Komodo DeFi Framework is stopped while making a swap/having the active order it will attempt to kick-start them on next launch and continue from the point where it's stopped. `coins_needed_for_kick_start` returns the tickers of coins that should be activated ASAP after the Komodo DeFi Framework is started to continue the interrupted swaps. Consider calling this method on Komodo DeFi Framework startup and activate the returned coins using `enable` or `electrum` methods.
 
 #### Arguments
 

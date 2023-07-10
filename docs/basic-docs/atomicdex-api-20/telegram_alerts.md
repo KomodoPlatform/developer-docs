@@ -1,6 +1,6 @@
 # Telegram Alerts for Market Maker Bot
 
-The AtomicDEX API Market Maker bot can be configured to send status update alerts via telegram!
+The Komodo DeFi Framework Market Maker bot can be configured to send status update alerts via telegram!
 
 To set this up, you can add some additional parameters to your MM2.json as shown in the example below
 
@@ -27,13 +27,12 @@ To set this up, you can add some additional parameters to your MM2.json as shown
 
 The extra fields required are:
 
-| Structure                       | Type    | Description                               |
-| ------------------------------- | ------- | ----------------------------------------- |
-| api_key                         | string  | A Telegram bot API token                  |
-| chat_registry.default           | string  | A Telegram Chat ID                        |
-| chat_registry.maker_bot         | string  | A Telegram Chat ID                        |
-| chat_registry.swap_events       | string  | A Telegram Chat ID                        |
-
+| Structure                 | Type   | Description              |
+| ------------------------- | ------ | ------------------------ |
+| api_key                   | string | A Telegram bot API token |
+| chat_registry.default     | string | A Telegram Chat ID       |
+| chat_registry.maker_bot   | string | A Telegram Chat ID       |
+| chat_registry.swap_events | string | A Telegram Chat ID       |
 
 You can use the same Telegram chat ID for all three `chat_registry` subfields, or sent your alerts to a different chat ID if you want to separate the alerts by type.
 

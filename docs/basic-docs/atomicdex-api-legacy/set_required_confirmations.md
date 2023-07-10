@@ -1,8 +1,8 @@
-# set\_required\_confirmations
+# set_required_confirmations
 
-**set\_required\_confirmations coin confirmations**
+**set_required_confirmations coin confirmations**
 
-The `set_required_confirmations` method sets the number of confirmations for which AtomicDEX API must wait for the selected coin.
+The `set_required_confirmations` method sets the number of confirmations for which Komodo DeFi Framework must wait for the selected coin.
 
 ::: tip Note
 
