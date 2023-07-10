@@ -248,14 +248,14 @@ At this point, let us assume that the Entrepreneur has created their coin using 
 - The entrepreneur can fork the [AtomicDEX Desktop repository](https://github.com/KomodoPlatform/atomicDEX-Desktop) and add their coin/token to the GUI.
 - This modified software will be used both by the entrepreneur to place sell orders and by the purchasers to buy.
 - This method needs the entrepreneur to launch electrum servers for their coin if it is a Komodo Smart Chain or another UTXO type blockchain. The entrepreneur will need server software that supports lite wallets if their coin is an ETH or QTUM fork/clone.
-- The entrepreneur must also launch [AtomicDEX-API](https://github.com/KomodoPlatform/atomicDEX-API) on a server to act as a seed node for the trading pairs they are planning to support.
+- The entrepreneur must also launch [Komodo DeFi Framework](https://github.com/KomodoPlatform/atomicDEX-API) on a server to act as a seed node for the trading pairs they are planning to support.
 
 ##### A Slightly more Involved Method
 
 - The entrepreneur can fork the [AtomicDEX Desktop repository](https://github.com/KomodoPlatform/atomicDEX-Desktop) or start from scratch. They create a custom IDO GUI with the specific features needed to conduct an IDO and only add the coins/tokens involved in their IDO.
 - This method allows the entrepreneur to create an exclusive feel to their IDO and remove distractions. This GUI is developed for the IDO and will only be used for it.
 - This method also needs the entrepreneur to launch electrum servers for their coin if it is a Komodo Smartchain or another UTXO type blockchain. And server software that supports lite wallets if their coin is a ETH or QTUM fork/clone.
-- The entrepreneur must also launch [AtomicDEX-API](https://github.com/KomodoPlatform/atomicDEX-API) on a server to act as a seed node for the trading pairs they are planning to support.
+- The entrepreneur must also launch [Komodo DeFi Framework](https://github.com/KomodoPlatform/atomicDEX-API) on a server to act as a seed node for the trading pairs they are planning to support.
 
 ##### Easy method, be Featured on AtomicDEX
 

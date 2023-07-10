@@ -1,4 +1,4 @@
-# best\_orders
+# best_orders
 
 **best_orders coin action volume**
 
@@ -6,65 +6,63 @@ The `best_orders` method returns the best price orders that can fill the volume 
 
 ::: tip
 
-The response of this method can contain coins that are not activated on the AtomicDEX API instance.
+The response of this method can contain coins that are not activated on the Komodo DeFi Framework instance.
 Activation will be required to proceed with the trade.
 
 :::
 
 #### Arguments
 
-| Structure       | Type                       | Description                                            |
-| --------------- | -------------------------- | ------------------------------------------------------ |
-| coin            | string                     | the ticker of the coin to get best orders              |
-| action          | string                     | whether to `buy` or `sell` the selected coin           |
-| volume          | string                     | the amount of `coin` user is willing to buy or sell    |
+| Structure | Type   | Description                                         |
+| --------- | ------ | --------------------------------------------------- |
+| coin      | string | the ticker of the coin to get best orders           |
+| action    | string | whether to `buy` or `sell` the selected coin        |
+| volume    | string | the amount of `coin` user is willing to buy or sell |
 
 #### Response
 
-| Structure              | Type         | Description                                                                   |
-| ---------------------- | ---------    | ----------------------------------------------------------------------------- |
-| result                 | object (map) | the `ticker -> array of order entries` map                                    |
+| Structure | Type         | Description                                |
+| --------- | ------------ | ------------------------------------------ |
+| result    | object (map) | the `ticker -> array of order entries` map |
 
 where order entry has the following structure
 
-| Structure                | Type              | Description                                                                          |
-| ----------------------   | ----------------- | ------------------------------------------------------------------------------------ |
-| coin                     | string            | the ticker of the coin                                                               |
-| address                  | string            | the address offering the trade                                                       |
-| price                    | string (decimal)  | the price the user is willing to buy or sell per one unit of the coin from request   |
-| price_rat                | rational          | the price in num-rational crate format                                               |
-| price_fraction           | object (fraction) | the price represented as an object                                                   |
-| maxvolume                | string (decimal)  | the maximum amount of `base` the offer provider is willing to sell                   |
-| max_volume_rat           | rational          | the max volume in num-rational crate format                                          |
-| max_volume_fraction      | object (rational) | the max volume represented as an object                                              |
-| min_volume               | string (decimal)  | the minimum amount of `base` coin the offer provider is willing to sell              |
-| min_volume_rat           | rational          | the min volume in num-rational crate format                                          |
-| min_volume_fraction      | object (rational) | the min volume represented as an object                                              |
-| pubkey                   | string            | the pubkey of the offer provider                                                     |
-| age                      | number            | the age of the offer (in seconds)                                                    |
-| zcredits                 | number            | the zeroconf deposit amount (deprecated)                                             |
-| netid                    | number            | the id of the network on which the request is made (default is `0`)                  |
-| uuid                     | string            | the uuid of order                                                                    |
-| is_mine                  | bool              | whether the order is placed by me                                                    |
-| base_max_volume          | string (decimal)  | the maximum amount of `base` coin the offer provider is willing to buy or sell       |
-| base_max_volume_rat      | rational          | the `base_max_volume` in num-rational crate format                                   |
-| base_max_volume_fraction | object (rational) | the `base_max_volume` represented as an object                                       |
-| base_min_volume          | string (decimal)  | the minimum amount of `base` coin the offer provider is willing to buy or sell       |
-| base_min_volume_rat      | rational          | the `base_min_volume` in num-rational crate format                                   |
-| base_min_volume_fraction | object (rational) | the `base_min_volume` represented as an object                                       |
-| base_confs               | number            | the confirmations settings of `base` coin set by the offer provider                  |
-| base_nota                | bool              | the notarisation settings of `base` coin set by the offer provider                   |
-| rel_max_volume           | string (decimal)  | the maximum amount of `rel` coin the offer provider is willing to buy or sell        |
-| rel_max_volume_rat       | rational          | the `rel_max_volume` max volume in num-rational crate format                         |
-| rel_max_volume_fraction  | object (rational) | the `rel_max_volume` max volume represented as an object                             |
-| rel_min_volume           | string (decimal)  | the minimum amount of `rel` coin the offer provider is willing to buy or sell        |
-| rel_min_volume_rat       | rational          | the `rel_min_volume` in num-rational crate format                                    |
-| rel_min_volume_fraction  | object (rational) | the `rel_min_volume` represented as an object                                        |
-| rel_confs                | number            | the confirmations settings of `rel` coin set by the offer provider                   |
-| rel_nota                 | bool              | the notarisation settings of `rel` coin set by the offer provider                    |
+| Structure                | Type              | Description                                                                                             |
+| ------------------------ | ----------------- | ------------------------------------------------------------------------------------------------------- |
+| coin                     | string            | the ticker of the coin                                                                                  |
+| address                  | string            | the address offering the trade                                                                          |
+| price                    | string (decimal)  | the price the user is willing to buy or sell per one unit of the coin from request                      |
+| price_rat                | rational          | the price in num-rational crate format                                                                  |
+| price_fraction           | object (fraction) | the price represented as an object                                                                      |
+| maxvolume                | string (decimal)  | the maximum amount of `base` the offer provider is willing to sell                                      |
+| max_volume_rat           | rational          | the max volume in num-rational crate format                                                             |
+| max_volume_fraction      | object (rational) | the max volume represented as an object                                                                 |
+| min_volume               | string (decimal)  | the minimum amount of `base` coin the offer provider is willing to sell                                 |
+| min_volume_rat           | rational          | the min volume in num-rational crate format                                                             |
+| min_volume_fraction      | object (rational) | the min volume represented as an object                                                                 |
+| pubkey                   | string            | the pubkey of the offer provider                                                                        |
+| age                      | number            | the age of the offer (in seconds)                                                                       |
+| zcredits                 | number            | the zeroconf deposit amount (deprecated)                                                                |
+| netid                    | number            | the id of the network on which the request is made (default is `0`)                                     |
+| uuid                     | string            | the uuid of order                                                                                       |
+| is_mine                  | bool              | whether the order is placed by me                                                                       |
+| base_max_volume          | string (decimal)  | the maximum amount of `base` coin the offer provider is willing to buy or sell                          |
+| base_max_volume_rat      | rational          | the `base_max_volume` in num-rational crate format                                                      |
+| base_max_volume_fraction | object (rational) | the `base_max_volume` represented as an object                                                          |
+| base_min_volume          | string (decimal)  | the minimum amount of `base` coin the offer provider is willing to buy or sell                          |
+| base_min_volume_rat      | rational          | the `base_min_volume` in num-rational crate format                                                      |
+| base_min_volume_fraction | object (rational) | the `base_min_volume` represented as an object                                                          |
+| base_confs               | number            | the confirmations settings of `base` coin set by the offer provider                                     |
+| base_nota                | bool              | the notarisation settings of `base` coin set by the offer provider                                      |
+| rel_max_volume           | string (decimal)  | the maximum amount of `rel` coin the offer provider is willing to buy or sell                           |
+| rel_max_volume_rat       | rational          | the `rel_max_volume` max volume in num-rational crate format                                            |
+| rel_max_volume_fraction  | object (rational) | the `rel_max_volume` max volume represented as an object                                                |
+| rel_min_volume           | string (decimal)  | the minimum amount of `rel` coin the offer provider is willing to buy or sell                           |
+| rel_min_volume_rat       | rational          | the `rel_min_volume` in num-rational crate format                                                       |
+| rel_min_volume_fraction  | object (rational) | the `rel_min_volume` represented as an object                                                           |
+| rel_confs                | number            | the confirmations settings of `rel` coin set by the offer provider                                      |
+| rel_nota                 | bool              | the notarisation settings of `rel` coin set by the offer provider                                       |
 | original_tickers         | list (string)     | Tickers included in response when `orderbook_ticker` is configured for the queried coin in `coins` file |
-
-
 
 #### :pushpin: Examples
 
@@ -94,19 +92,28 @@ curl --url "http://127.0.0.1:7783" --data "{
         "coin": "MORTY",
         "address": "RMaprYNUp8ErJ9ZAKcxMfpC4ioVycYCCCc",
         "price": "1",
-        "price_rat": [ [ 1, [ 1 ] ], [ 1, [ 1 ] ] ],
+        "price_rat": [
+          [1, [1]],
+          [1, [1]]
+        ],
         "price_fraction": {
           "numer": "1",
           "denom": "1"
         },
         "maxvolume": "2",
-        "max_volume_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+        "max_volume_rat": [
+          [1, [2]],
+          [1, [1]]
+        ],
         "max_volume_fraction": {
           "numer": "2",
           "denom": "1"
         },
         "min_volume": "0.00777",
-        "min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+        "min_volume_rat": [
+          [1, [777]],
+          [1, [100000]]
+        ],
         "min_volume_fraction": {
           "numer": "777",
           "denom": "100000"
@@ -125,31 +132,46 @@ curl --url "http://127.0.0.1:7783" --data "{
           "numer": "2",
           "denom": "1"
         },
-        "base_max_volume_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+        "base_max_volume_rat": [
+          [1, [2]],
+          [1, [1]]
+        ],
         "base_min_volume": "0.00777",
         "base_min_volume_fraction": {
           "numer": "777",
           "denom": "100000"
         },
-        "base_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+        "base_min_volume_rat": [
+          [1, [777]],
+          [1, [100000]]
+        ],
         "rel_max_volume": "2",
         "rel_max_volume_fraction": {
           "numer": "2",
           "denom": "1"
         },
-        "rel_max_volume_rat": [ [ 1, [ 2 ] ], [ 1, [ 1 ] ] ],
+        "rel_max_volume_rat": [
+          [1, [2]],
+          [1, [1]]
+        ],
         "rel_min_volume": "0.00777",
         "rel_min_volume_fraction": {
           "numer": "777",
           "denom": "100000"
         },
-        "rel_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ]
+        "rel_min_volume_rat": [
+          [1, [777]],
+          [1, [100000]]
+        ]
       },
       {
         "coin": "MORTY",
         "address": "RB8yufv3YTfdzYnwz5paNnnDynGJG6WsqD",
         "price": "0.9090909090909090909090909090909090909090909090909090909090909090909090909090909090909090909090909091",
-        "price_rat": [ [ 1, [ 10 ] ], [ 1, [ 11 ] ] ],
+        "price_rat": [
+          [1, [10]],
+          [1, [11]]
+        ],
         "price_fraction": {
           "numer": "10",
           "denom": "11"
@@ -159,13 +181,19 @@ curl --url "http://127.0.0.1:7783" --data "{
         "rel_confs": 2,
         "rel_nota": false,
         "maxvolume": "56210.95940853",
-        "max_volume_rat": [ [ 1, [ 3278717685, 1308 ] ], [ 1, [ 100000000 ] ] ],
+        "max_volume_rat": [
+          [1, [3278717685, 1308]],
+          [1, [100000000]]
+        ],
         "max_volume_fraction": {
           "numer": "5621095940853",
           "denom": "100000000"
         },
         "min_volume": "0.0001",
-        "min_volume_rat": [ [ 1, [ 1 ] ], [ 1, [ 10000 ] ] ],
+        "min_volume_rat": [
+          [1, [1]],
+          [1, [10000]]
+        ],
         "min_volume_fraction": {
           "numer": "1",
           "denom": "10000"
@@ -180,25 +208,37 @@ curl --url "http://127.0.0.1:7783" --data "{
           "numer": "61832055349383",
           "denom": "1000000000"
         },
-        "base_max_volume_rat": [ [ 1, [ 1706156167, 14396 ] ], [ 1, [ 1000000000 ] ] ],
+        "base_max_volume_rat": [
+          [1, [1706156167, 14396]],
+          [1, [1000000000]]
+        ],
         "base_min_volume": "0.00011",
         "base_min_volume_fraction": {
           "numer": "11",
           "denom": "100000"
         },
-        "base_min_volume_rat": [ [ 1, [ 11 ] ], [ 1, [ 100000 ] ] ],
+        "base_min_volume_rat": [
+          [1, [11]],
+          [1, [100000]]
+        ],
         "rel_max_volume": "56210.95940853",
         "rel_max_volume_fraction": {
           "numer": "5621095940853",
           "denom": "100000000"
         },
-        "rel_max_volume_rat": [ [ 1, [ 3278717685, 1308 ] ], [ 1, [ 100000000 ] ] ],
+        "rel_max_volume_rat": [
+          [1, [3278717685, 1308]],
+          [1, [100000000]]
+        ],
         "rel_min_volume": "0.0001",
         "rel_min_volume_fraction": {
           "numer": "1",
           "denom": "10000"
         },
-        "rel_min_volume_rat": [ [ 1, [ 1 ] ], [ 1, [ 10000 ] ] ]
+        "rel_min_volume_rat": [
+          [1, [1]],
+          [1, [10000]]
+        ]
       }
     ],
     "OOT": [
@@ -206,7 +246,10 @@ curl --url "http://127.0.0.1:7783" --data "{
         "coin": "OOT",
         "address": "RMaprYNUp8ErJ9ZAKcxMfpC4ioVycYCCCc",
         "price": "0.01",
-        "price_rat": [ [ 1, [ 1 ] ], [ 1, [ 100 ] ] ],
+        "price_rat": [
+          [1, [1]],
+          [1, [100]]
+        ],
         "price_fraction": {
           "numer": "1",
           "denom": "100"
@@ -216,13 +259,19 @@ curl --url "http://127.0.0.1:7783" --data "{
         "rel_confs": 2,
         "rel_nota": false,
         "maxvolume": "1140445.56120275",
-        "max_volume_rat": [ [ 1, [ 526976459, 1062 ] ], [ 1, [ 4000000 ] ] ],
+        "max_volume_rat": [
+          [1, [526976459, 1062]],
+          [1, [4000000]]
+        ],
         "max_volume_fraction": {
           "numer": "4561782244811",
           "denom": "4000000"
         },
         "min_volume": "0.00777",
-        "min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ],
+        "min_volume_rat": [
+          [1, [777]],
+          [1, [100000]]
+        ],
         "min_volume_fraction": {
           "numer": "777",
           "denom": "100000"
@@ -237,32 +286,42 @@ curl --url "http://127.0.0.1:7783" --data "{
           "numer": "4561782244811",
           "denom": "40000"
         },
-        "base_max_volume_rat": [ [ 1, [ 526976459, 1062 ] ], [ 1, [ 40000 ] ] ],
+        "base_max_volume_rat": [
+          [1, [526976459, 1062]],
+          [1, [40000]]
+        ],
         "base_min_volume": "0.777",
         "base_min_volume_fraction": {
           "numer": "777",
           "denom": "1000"
         },
-        "base_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 1000 ] ] ],
+        "base_min_volume_rat": [
+          [1, [777]],
+          [1, [1000]]
+        ],
         "rel_max_volume": "1140445.56120275",
         "rel_max_volume_fraction": {
           "numer": "4561782244811",
           "denom": "4000000"
         },
-        "rel_max_volume_rat": [ [ 1, [ 526976459, 1062 ] ], [ 1, [ 4000000 ] ] ],
+        "rel_max_volume_rat": [
+          [1, [526976459, 1062]],
+          [1, [4000000]]
+        ],
         "rel_min_volume": "0.00777",
         "rel_min_volume_fraction": {
           "numer": "777",
           "denom": "100000"
         },
-        "rel_min_volume_rat": [ [ 1, [ 777 ] ], [ 1, [ 100000 ] ] ]
+        "rel_min_volume_rat": [
+          [1, [777]],
+          [1, [100000]]
+        ]
       }
     ]
   },
-  "original_tickers": { 
-    "BTC": [
-      "BTC-segwit"
-      ]
+  "original_tickers": {
+    "BTC": ["BTC-segwit"]
   }
 }
 ```

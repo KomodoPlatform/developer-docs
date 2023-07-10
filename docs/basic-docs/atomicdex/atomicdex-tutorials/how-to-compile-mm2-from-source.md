@@ -1,6 +1,6 @@
-# How To Compile AtomicDEX API from Source
+# How To Compile Komodo DeFi Framework from Source
 
-The following tutorial introduces the reader to a simple method to build the AtomicDEX API from source.
+The following tutorial introduces the reader to a simple method to build the Komodo DeFi Framework from source.
 
 ## Installing Dependencies
 
@@ -208,7 +208,7 @@ info: installing component 'rustfmt'
 
 </collapse-text>
 
-## Install the AtomicDEX API
+## Install the Komodo DeFi Framework
 
 #### Step 1: Download source code
 

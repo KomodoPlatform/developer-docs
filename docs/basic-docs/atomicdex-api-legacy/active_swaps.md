@@ -1,22 +1,22 @@
-# active\_swaps
+# active_swaps
 
 **active_swaps (include_status)**
 
-The `active_swaps` method returns all the swaps that are currently running on the AtomicDEX API node.
+The `active_swaps` method returns all the swaps that are currently running on the Komodo DeFi Framework node.
 
 #### Arguments
 
-| Structure      | Type                          | Description                                                             |
-| -------------- | ----------------------------- | ----------------------------------------------------------------------- |
-| include_status | bool                          | whether to include swap statuses in response; defaults to `false`       |
+| Structure      | Type | Description                                                       |
+| -------------- | ---- | ----------------------------------------------------------------- |
+| include_status | bool | whether to include swap statuses in response; defaults to `false` |
 
 #### Response
 
-| Structure             | Type             | Description                                                                                                |
-| --------------------- | ---------------- | ---------------------------------------------------------------                                            |
-| result                | result object    |                                                                                                            |
-| result.uuids          | array of strings | uuids of currently running swaps                                                                           |
-| result.statuses       | object (map)     | the `uuid -> swap status` map of currently running swaps; `null` if include_status is false in the request |
+| Structure       | Type             | Description                                                                                                |
+| --------------- | ---------------- | ---------------------------------------------------------------------------------------------------------- |
+| result          | result object    |                                                                                                            |
+| result.uuids    | array of strings | uuids of currently running swaps                                                                           |
+| result.statuses | object (map)     | the `uuid -> swap status` map of currently running swaps; `null` if include_status is false in the request |
 
 #### :pushpin: Examples
 
@@ -52,8 +52,8 @@ curl --url "http://127.0.0.1:7783" --data "
 
 ```json
 {
-  "result":{
-    "uuids":[
+  "result": {
+    "uuids": [
       "015c13bc-da79-43e1-a6d4-4ac8b3099b34",
       "7592a07a-2805-4050-8ab8-984480e812f0",
       "82cbad96-ea9f-40fb-9225-07496323e35d",
@@ -67,9 +67,7 @@ curl --url "http://127.0.0.1:7783" --data "
 
 ```json
 {
-  "uuids": [
-    "5d02843e-d1b4-488d-aad0-114d82020453"
-  ],
+  "uuids": ["5d02843e-d1b4-488d-aad0-114d82020453"],
   "statuses": {
     "5d02843e-d1b4-488d-aad0-114d82020453": {
       "type": "Taker",

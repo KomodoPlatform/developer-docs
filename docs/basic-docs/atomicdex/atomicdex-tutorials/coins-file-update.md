@@ -1,4 +1,4 @@
-# How to update the coins file to work with the latest atomicDEX-API
+# How to update the coins file to work with the latest Komodo DeFi Framework
 
 ## Instructions
 
@@ -32,19 +32,19 @@ Success
 
 ```json
 {
-  "coin":"KMD",
-  "name":"komodo",
-  "fname":"Komodo",
-  "rpcport":7771,
-  "pubtype":60,
-  "p2shtype":85,
-  "wiftype":188,
-  "txversion":4,
-  "overwintered":1,
-  "txfee":1000,
-  "mm2":1,
-  "required_confirmations":2,
-  "requires_notarization":true
+  "coin": "KMD",
+  "name": "komodo",
+  "fname": "Komodo",
+  "rpcport": 7771,
+  "pubtype": 60,
+  "p2shtype": 85,
+  "wiftype": 188,
+  "txversion": 4,
+  "overwintered": 1,
+  "txfee": 1000,
+  "mm2": 1,
+  "required_confirmations": 2,
+  "requires_notarization": true
 }
 ```
 
@@ -52,21 +52,21 @@ Success
 
 ```json
 {
-  "coin":"KMD",
-  "name":"komodo",
-  "fname":"Komodo",
-  "rpcport":7771,
-  "pubtype":60,
-  "p2shtype":85,
-  "wiftype":188,
-  "txversion":4,
-  "overwintered":1,
-  "txfee":1000,
-  "mm2":1,
-  "required_confirmations":2,
-  "requires_notarization":true,
-  "protocol":{
-    "type":"UTXO"
+  "coin": "KMD",
+  "name": "komodo",
+  "fname": "Komodo",
+  "rpcport": 7771,
+  "pubtype": 60,
+  "p2shtype": 85,
+  "wiftype": 188,
+  "txversion": 4,
+  "overwintered": 1,
+  "txfee": 1000,
+  "mm2": 1,
+  "required_confirmations": 2,
+  "requires_notarization": true,
+  "protocol": {
+    "type": "UTXO"
   }
 }
 ```
@@ -77,13 +77,13 @@ Success
 
 ```json
 {
-  "coin":"MKR",
-  "name":"maker",
-  "fname":"Maker",
-  "etomic":"0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2",
-  "rpcport":80,
-  "mm2":1,
-  "required_confirmations":3
+  "coin": "MKR",
+  "name": "maker",
+  "fname": "Maker",
+  "etomic": "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2",
+  "rpcport": 80,
+  "mm2": 1,
+  "required_confirmations": 3
 }
 ```
 
@@ -91,17 +91,17 @@ Success
 
 ```json
 {
-  "coin":"MKR",
-  "name":"maker",
-  "fname":"Maker",
-  "required_confirmations":3,
-  "rpcport":80,
-  "mm2":1,
-  "protocol":{
-    "type":"ERC20",
-    "protocol_data":{
-      "platform":"ETH",
-      "contract_address":"0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2"
+  "coin": "MKR",
+  "name": "maker",
+  "fname": "Maker",
+  "required_confirmations": 3,
+  "rpcport": 80,
+  "mm2": 1,
+  "protocol": {
+    "type": "ERC20",
+    "protocol_data": {
+      "platform": "ETH",
+      "contract_address": "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2"
     }
   }
 }

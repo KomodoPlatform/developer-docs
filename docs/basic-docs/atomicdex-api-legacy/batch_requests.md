@@ -8,21 +8,21 @@ The requests are sent as an array filled with request objects. Results are retur
 
 Avoid sending requests that depend on each other. For example, do not send a coin activation and a balance request to that coin in the same batch.
 
-Such requests result in non-deterministic behavior, as the AtomicDEX API may or may not execute the requests in the desired order.
+Such requests result in non-deterministic behavior, as the Komodo DeFi Framework may or may not execute the requests in the desired order.
 
 :::
 
 #### Arguments
 
-| Structure       | Type                       | Description                                                                   |
-| --------------- | -------------------------- | ----------------------------------------------------------------------------- |
-| (none)          | array of objects           | request objects to be executed in parallel                                    |
+| Structure | Type             | Description                                |
+| --------- | ---------------- | ------------------------------------------ |
+| (none)    | array of objects | request objects to be executed in parallel |
 
 #### Response
 
-| Structure       | Type                | Description                                                                                                                                                                                                     |
-| --------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| (none)          | array of objects    | the results, provided in the order of received requests; this may contain null elements                                                                                                                         |
+| Structure | Type             | Description                                                                             |
+| --------- | ---------------- | --------------------------------------------------------------------------------------- |
+| (none)    | array of objects | the results, provided in the order of received requests; this may contain null elements |
 
 #### :pushpin: Examples
 
@@ -45,25 +45,25 @@ curl --url "http://127.0.0.1:7783" --data "[
 ```json
 [
   {
-    "address":"RR5ecgYgykX8NCjR5zjiHMLy7F62LZUecQ",
-    "balance":"9.8688213",
-    "coin":"RICK",
-    "locked_by_swaps":"0",
-    "required_confirmations":1,
-    "requires_notarization":false,
-    "result":"success"
+    "address": "RR5ecgYgykX8NCjR5zjiHMLy7F62LZUecQ",
+    "balance": "9.8688213",
+    "coin": "RICK",
+    "locked_by_swaps": "0",
+    "required_confirmations": 1,
+    "requires_notarization": false,
+    "result": "success"
   },
   {
-    "address":"RR5ecgYgykX8NCjR5zjiHMLy7F62LZUecQ",
-    "balance":"4.40662368",
-    "coin":"MORTY",
-    "locked_by_swaps":"0",
-    "required_confirmations":1,
-    "requires_notarization":false,
-    "result":"success"
+    "address": "RR5ecgYgykX8NCjR5zjiHMLy7F62LZUecQ",
+    "balance": "4.40662368",
+    "coin": "MORTY",
+    "locked_by_swaps": "0",
+    "required_confirmations": 1,
+    "requires_notarization": false,
+    "result": "success"
   },
   {
-    "error":"rpc:295] Userpass is invalid!"
+    "error": "rpc:295] Userpass is invalid!"
   }
 ]
 ```

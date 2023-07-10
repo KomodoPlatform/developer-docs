@@ -1,8 +1,8 @@
-# cancel\_all\_orders
+# cancel_all_orders
 
 **cancel_all_orders cancel_by**
 
-The `cancel_all_orders` cancels the active orders created by the AtomicDEX API node by specified condition.
+The `cancel_all_orders` cancels the active orders created by the Komodo DeFi Framework node by specified condition.
 
 #### Arguments
 

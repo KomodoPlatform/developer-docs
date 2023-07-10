@@ -2,7 +2,7 @@
 
 **stop()**
 
-The `stop` method stops the AtomicDEX API software.
+The `stop` method stops the Komodo DeFi Framework software.
 
 #### Arguments
 

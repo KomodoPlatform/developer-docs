@@ -1,8 +1,8 @@
-# import\_swaps
+# import_swaps
 
 **import_swaps swaps**
 
-The `import_swaps` method imports to the local database the `swaps` data that was exported from another AtomicDEX API instance.
+The `import_swaps` method imports to the local database the `swaps` data that was exported from another Komodo DeFi Framework instance.
 
 Use this method in combination with `my_swap_status` or `my_recent_swaps` to copy the swap history between different devices.
 

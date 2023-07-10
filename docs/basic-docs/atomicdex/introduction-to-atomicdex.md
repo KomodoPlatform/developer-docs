@@ -4,7 +4,7 @@ Welcome to the AtomicDEX technical documentation.
 
 #### About the AtomicDEX Section
 
-This documentation is intended for developers utilizing the AtomicDEX API.
+This documentation is intended for developers utilizing the Komodo DeFi Framework.
 
 Users who are not interested in development-related activities, but are searching for documentation assistance, can find support in the Komodo Support Center.
 
@@ -30,8 +30,8 @@ The AtomicDEX Tutorials section contains various tutorials that provide instruct
 
 For a walkthrough covering multiple tutorials in a targeted fashion, please see the [Learning Launchpad](https://developers.komodoplatform.com/basic-docs/start-here/learning-launchpad/learning-path-outline.html#introduction) section.
 
-#### About AtomicDEX API
+#### About Komodo DeFi Framework
 
-The AtomicDEX API section contains all available API commands.
+The Komodo DeFi Framework section contains all available API commands.
 
 These API commands can also be called Remote Procedure Calls, or RPCs.

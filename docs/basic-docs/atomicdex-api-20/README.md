@@ -1,33 +1,32 @@
-# AtomicDEX API RPC Protocol v2.0
+# Komodo DeFi Framework RPC Protocol v2.0
 
-Starting with version [beta-2.1.3434](https://github.com/KomodoPlatform/atomicDEX-API/releases/tag/beta-2.1.3434), the AtomicDEX API supports the standardized protocol format called `mmrpc 2.0`.
+Starting with version [beta-2.1.3434](https://github.com/KomodoPlatform/atomicDEX-API/releases/tag/beta-2.1.3434), the Komodo DeFi Framework supports the standardized protocol format called `mmrpc 2.0`.
 
 It includes a uniform request, successful and error response formats. At the moment, only a few RPC methods support the `mmrpc 2.0` protocol.
 
-
 ### Request
 
-| Structure | Type              | Description                                                                                                                                                       |
-| --------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| mmrpc     | string            | the string specifying the version of the AtomicDEX API RPC protocol. Must be exactly "2.0"                                                                        |
-| userpass  | string (optional) | your password for protected RPC methods. Skip this field if the specified `method` is public                                                                      |
-| method    | string            | the name of the method to be invoked                                                                                                                              |
-| params    | object (optional) | a structured value that holds the parameter values to be used during the invocation of the method. This field may be omitted if the method doesn't take arguments |
-| id        | number (optional) | the identifier is established by the client. AtomicDEX API will reply with the same value in the Response object if the `id` field is included and not `NULL`     |
+| Structure | Type              | Description                                                                                                                                                           |
+| --------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| mmrpc     | string            | the string specifying the version of the Komodo DeFi Framework RPC protocol. Must be exactly "2.0"                                                                    |
+| userpass  | string (optional) | your password for protected RPC methods. Skip this field if the specified `method` is public                                                                          |
+| method    | string            | the name of the method to be invoked                                                                                                                                  |
+| params    | object (optional) | a structured value that holds the parameter values to be used during the invocation of the method. This field may be omitted if the method doesn't take arguments     |
+| id        | number (optional) | the identifier is established by the client. Komodo DeFi Framework will reply with the same value in the Response object if the `id` field is included and not `NULL` |
 
 ### Response (Success)
 
 | Structure | Type              | Description                                                                                 |
 | --------- | ----------------- | ------------------------------------------------------------------------------------------- |
-| mmrpc     | string            | the string specifying the version of the AtomicDEX API RPC protocol                         |
-| result    | object            | the value of this field is determined by the method invoked on AtomicDEX API                |
+| mmrpc     | string            | the string specifying the version of the Komodo DeFi Framework RPC protocol                 |
+| result    | object            | the value of this field is determined by the method invoked on Komodo DeFi Framework        |
 | id        | number (optional) | the identifier established by the client. The same value as in the Request if it was passed |
 
 ### Response (Error)
 
 | Structure   | Type              | Description                                                                                 |
 | ----------- | ----------------- | ------------------------------------------------------------------------------------------- |
-| mmrpc       | string            | the string specifying the version of the AtomicDEX API RPC protocol                         |
+| mmrpc       | string            | the string specifying the version of the Komodo DeFi Framework RPC protocol                 |
 | error       | string            | the common error description                                                                |
 | error_path  | string            | the error path consisting of file names separated by a dot similar to JSON path notation    |
 | error_trace | string            | the error path consisting of file and line number pairs separated by ']'                    |

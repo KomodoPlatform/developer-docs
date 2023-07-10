@@ -1,4 +1,4 @@
-# trade\_preimage
+# trade_preimage
 
 The `trade_preimage` method returns the approximate fee amounts that are paid per the whole swap.
 Depending on the parameters, the function returns different results:
@@ -33,27 +33,27 @@ Use the `trade_preimage` request with `max = true` and `swap_method = "setprice"
 
 ### Result
 
-| Structure                                    | Type                                 | Description                                                                                                                                    |
-| -------------------------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                                       | object                               | an object containing the relevant information                                                                                                  |
-| result.base_coin_fee                         | object (`ExtendedFeeInfo`)           | the approximate miner fee is paid per the whole swap concerning the `base` coin                                                                |
-| result.rel_coin_fee                          | object (`ExtendedFeeInfo`)           | the approximate miner fee is paid per the whole swap concerning the `rel` coin                                                                 |
-| result.volume                                | string (numeric, optional)           | the max available volume that can be traded (in decimal representation); empty if the `max` argument is missing or false                       |
-| result.volume_rat                            | rational (optional)                  | the max available volume that can be traded (in rational representation); empty if the `max` argument is missing or false                      |
-| result.volume_fraction                       | fraction (optional)                  | the max available volume that can be traded (in fraction representation); empty if the `max` argument is missing or false                      |
-| result.taker_fee                             | object (optional, `ExtendedFeeInfo`) | the dex fee to be paid by Taker; empty if `swap_method` is `setprice`                                                                          |
-| result.fee_to_send_taker_fee                 | object (optional, `ExtendedFeeInfo`) | the approximate miner fee is paid to send the dex fee; empty if `swap_method` is `setprice`                                                    |
-| result.total_fees                            | array of `ExtendedFeeInfo` objects   | each element is a sum of fees required to be paid from user's balance of corresponding `ExtendedFeeInfo.coin`; the elements are unique by coin |
+| Structure                    | Type                                 | Description                                                                                                                                    |
+| ---------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                       | object                               | an object containing the relevant information                                                                                                  |
+| result.base_coin_fee         | object (`ExtendedFeeInfo`)           | the approximate miner fee is paid per the whole swap concerning the `base` coin                                                                |
+| result.rel_coin_fee          | object (`ExtendedFeeInfo`)           | the approximate miner fee is paid per the whole swap concerning the `rel` coin                                                                 |
+| result.volume                | string (numeric, optional)           | the max available volume that can be traded (in decimal representation); empty if the `max` argument is missing or false                       |
+| result.volume_rat            | rational (optional)                  | the max available volume that can be traded (in rational representation); empty if the `max` argument is missing or false                      |
+| result.volume_fraction       | fraction (optional)                  | the max available volume that can be traded (in fraction representation); empty if the `max` argument is missing or false                      |
+| result.taker_fee             | object (optional, `ExtendedFeeInfo`) | the dex fee to be paid by Taker; empty if `swap_method` is `setprice`                                                                          |
+| result.fee_to_send_taker_fee | object (optional, `ExtendedFeeInfo`) | the approximate miner fee is paid to send the dex fee; empty if `swap_method` is `setprice`                                                    |
+| result.total_fees            | array of `ExtendedFeeInfo` objects   | each element is a sum of fees required to be paid from user's balance of corresponding `ExtendedFeeInfo.coin`; the elements are unique by coin |
 
 Where the `ExtendedFeeInfo` has
 
-| Structure             | Type             | Description                                                                                                                                                   |
-| --------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                  | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas) |
-| amount                | string (numeric) | fee amount (in decimal representation)                                                                                                                        |
-| amount_rat            | rational         | fee amount (in rational representation)                                                                                                                       |
-| amount_fraction       | fraction         | fee amount (in fraction representation)                                                                                                                       |
-| paid_from_trading_vol | boolean          |  If `true`, fees are deducted from the payment amount for the spend/refund UTXO HTLC transaction. If `false`, fees are not deducted from the traded volume. This is where an additional miner fee is needed to broadcast a swap transaction and/or where gas paid (e.g in ETH for an ERC20 trade) - in this case, user requires a sufficient current ETH balance to cover the fees before they can initiate the swap.                                             |
+| Structure             | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                          |
+| --------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                  | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas)                                                                                                                                                                                                                                                        |
+| amount                | string (numeric) | fee amount (in decimal representation)                                                                                                                                                                                                                                                                                                                                                                               |
+| amount_rat            | rational         | fee amount (in rational representation)                                                                                                                                                                                                                                                                                                                                                                              |
+| amount_fraction       | fraction         | fee amount (in fraction representation)                                                                                                                                                                                                                                                                                                                                                                              |
+| paid_from_trading_vol | boolean          | If `true`, fees are deducted from the payment amount for the spend/refund UTXO HTLC transaction. If `false`, fees are not deducted from the traded volume. This is where an additional miner fee is needed to broadcast a swap transaction and/or where gas paid (e.g in ETH for an ERC20 trade) - in this case, user requires a sufficient current ETH balance to cover the fees before they can initiate the swap. |
 
 ### :warning: Error types
 
@@ -61,12 +61,12 @@ Where the `ExtendedFeeInfo` has
 
 The `available` balance of the `coin` is not sufficient to start the swap.
 
-| Structure       | Type                       | Description                                                                                |
-| --------------- | -------------------------- | ------------------------------------------------------------------------------------------ |
-| coin            | string                     | the name of the coin which balance is not sufficient                                       |
-| available       | string (numeric)           | the balance available for swap, including the amount locked by other swaps                 |
-| required        | string (numeric)           | the amount required to start the swap. This amount is necessary but may not be sufficient  |
-| locked_by_swaps | string (numeric, optional) | the amount locked by other swaps                                                        |
+| Structure       | Type                       | Description                                                                               |
+| --------------- | -------------------------- | ----------------------------------------------------------------------------------------- |
+| coin            | string                     | the name of the coin which balance is not sufficient                                      |
+| available       | string (numeric)           | the balance available for swap, including the amount locked by other swaps                |
+| required        | string (numeric)           | the amount required to start the swap. This amount is necessary but may not be sufficient |
+| locked_by_swaps | string (numeric, optional) | the amount locked by other swaps                                                          |
 
 #### NotSufficientBaseCoinBalance
 
@@ -74,12 +74,12 @@ The available balance of the base `coin` is not sufficient to pay transaction fe
 
 For example, ERC20 fees are paid by ETH (gas), and this error type is returned if the ETH coin balance is not sufficient to start the swap.
 
-| Structure       | Type                       | Description                                                                                |
-| --------------- | -------------------------- | ------------------------------------------------------------------------------------------ |
-| coin            | string                     | the name of the base coin which balance is not sufficient                                  |
-| available       | string (numeric)           | the balance available for swap, including the amount locked by other swaps                 |
+| Structure       | Type                       | Description                                                                               |
+| --------------- | -------------------------- | ----------------------------------------------------------------------------------------- |
+| coin            | string                     | the name of the base coin which balance is not sufficient                                 |
+| available       | string (numeric)           | the balance available for swap, including the amount locked by other swaps                |
 | required        | string (numeric)           | the amount required to start the swap. This amount is necessary but may not be sufficient |
-| locked_by_swaps | string (numeric, optional) | the amount is locked by other swaps                                                        |
+| locked_by_swaps | string (numeric, optional) | the amount is locked by other swaps                                                       |
 
 #### VolumeTooLow
 
@@ -118,9 +118,9 @@ The specified coin is wallet only and cannot be participated in the swap.
 
 The coin is wallet only and cannot be participated in the swap.
 
-| Structure | Type   | Description |
-| --------- | ------ | ----------- |
-| (none)    |        |             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |             |
 
 #### InvalidParam
 
@@ -150,7 +150,7 @@ The request was failed due to a network error.
 
 #### InternalError
 
-The request was failed due to a AtomicDEX API internal error.
+The request was failed due to a Komodo DeFi Framework internal error.
 
 | Structure | Type   | Description                    |
 | --------- | ------ | ------------------------------ |
@@ -177,7 +177,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
         "numer": "1",
         "denom": "100000"
       },
-      "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 100000 ] ] ],
+      "amount_rat": [
+        [1, [1]],
+        [1, [100000]]
+      ],
       "paid_from_trading_vol": false
     },
     "rel_coin_fee": {
@@ -187,7 +190,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
         "numer": "15391",
         "denom": "50000000"
       },
-      "amount_rat": [ [ 1, [ 15391 ] ], [ 1, [ 50000000 ] ] ],
+      "amount_rat": [
+        [1, [15391]],
+        [1, [50000000]]
+      ],
       "paid_from_trading_vol": true
     },
     "volume": "1138.46868712",
@@ -195,7 +201,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
       "numer": "14230858589",
       "denom": "12500000"
     },
-    "volume_rat": [ [ 1, [ 1345956701, 3 ] ], [ 1, [ 12500000 ] ] ],
+    "volume_rat": [
+      [1, [1345956701, 3]],
+      [1, [12500000]]
+    ],
     "total_fees": [
       {
         "coin": "KMD",
@@ -204,13 +213,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
           "numer": "1",
           "denom": "100000"
         },
-        "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 100000 ] ] ],
+        "amount_rat": [
+          [1, [1]],
+          [1, [100000]]
+        ],
         "required_balance": "0.00001",
         "required_balance_fraction": {
           "numer": "1",
           "denom": "100000"
         },
-        "required_balance_rat": [ [ 1, [ 1 ] ], [ 1, [ 100000 ] ] ]
+        "required_balance_rat": [
+          [1, [1]],
+          [1, [100000]]
+        ]
       },
       {
         "coin": "DGB",
@@ -219,19 +234,24 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
           "numer": "15391",
           "denom": "50000000"
         },
-        "amount_rat": [ [ 1, [ 15391 ] ], [ 1, [ 50000000 ] ] ],
+        "amount_rat": [
+          [1, [15391]],
+          [1, [50000000]]
+        ],
         "required_balance": "0",
         "required_balance_fraction": {
           "numer": "0",
           "denom": "1"
         },
-        "required_balance_rat": [ [ 0, [] ], [ 1, [ 1 ] ] ]
+        "required_balance_rat": [
+          [0, []],
+          [1, [1]]
+        ]
       }
     ]
   },
   "id": 0
 }
-
 ```
 
 #### Command (buy)
@@ -252,7 +272,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
         "denom": "100000000",
         "numer": "42049"
       },
-      "amount_rat": [ [ 1, [ 42049 ] ], [ 1, [ 100000000 ] ] ],
+      "amount_rat": [
+        [1, [42049]],
+        [1, [100000000]]
+      ],
       "coin": "BTC",
       "paid_from_trading_vol": true
     },
@@ -262,7 +285,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
         "denom": "10000",
         "numer": "1"
       },
-      "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 10000 ] ] ],
+      "amount_rat": [
+        [1, [1]],
+        [1, [10000]]
+      ],
       "coin": "RICK",
       "paid_from_trading_vol": false
     },
@@ -272,7 +298,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
         "denom": "7770",
         "numer": "1"
       },
-      "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 7770 ] ] ],
+      "amount_rat": [
+        [1, [1]],
+        [1, [7770]]
+      ],
       "coin": "RICK",
       "paid_from_trading_vol": false
     },
@@ -282,7 +311,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
         "denom": "10000",
         "numer": "1"
       },
-      "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 10000 ] ] ],
+      "amount_rat": [
+        [1, [1]],
+        [1, [10000]]
+      ],
       "coin": "RICK",
       "paid_from_trading_vol": false
     },
@@ -294,13 +326,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
           "numer": "50777",
           "denom": "38850000"
         },
-        "amount_rat": [ [ 1, [ 50777 ] ], [ 1, [ 38850000 ] ] ],
+        "amount_rat": [
+          [1, [50777]],
+          [1, [38850000]]
+        ],
         "required_balance": "0.001307001287001287001287001287001287001287001287001287001287001287001287001287001287001287001287001287",
         "required_balance_fraction": {
           "numer": "50777",
           "denom": "38850000"
         },
-        "required_balance_rat": [ [ 1, [ 50777 ] ], [ 1, [ 38850000 ] ] ]
+        "required_balance_rat": [
+          [1, [50777]],
+          [1, [38850000]]
+        ]
       },
       {
         "coin": "tBTC",
@@ -309,13 +347,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
           "denom": "100000000",
           "numer": "42049"
         },
-        "amount_rat": [ [ 1, [ 42049 ] ], [ 1, [ 100000000 ] ] ],
+        "amount_rat": [
+          [1, [42049]],
+          [1, [100000000]]
+        ],
         "required_balance": "0",
         "required_balance_fraction": {
           "numer": "0",
           "denom": "1"
         },
-        "required_balance_rat": [ [ 0, [] ], [ 1, [ 1 ] ] ]
+        "required_balance_rat": [
+          [0, []],
+          [1, [1]]
+        ]
       }
     ]
   },
@@ -341,7 +385,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
         "denom": "100000000",
         "numer": "42049"
       },
-      "amount_rat": [ [ 1, [ 42049 ] ], [ 1, [ 100000000 ] ] ],
+      "amount_rat": [
+        [1, [42049]],
+        [1, [100000000]]
+      ],
       "coin": "BTC",
       "paid_from_trading_vol": false
     },
@@ -352,7 +399,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
         "numer": "1",
         "denom": "100000"
       },
-      "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 100000 ] ] ],
+      "amount_rat": [
+        [1, [1]],
+        [1, [100000]]
+      ],
       "paid_from_trading_vol": true
     },
     "taker_fee": {
@@ -361,7 +411,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
         "denom": "1850000000",
         "numer": "5270559"
       },
-      "amount_rat": [ [ 1, [ 5270559 ] ], [ 1, [ 1850000000 ] ] ],
+      "amount_rat": [
+        [1, [5270559]],
+        [1, [1850000000]]
+      ],
       "coin": "BTC",
       "paid_from_trading_vol": false
     },
@@ -371,7 +424,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
         "denom": "100000000",
         "numer": "33219"
       },
-      "amount_rat": [ [ 1, [ 33219 ] ], [ 1, [ 100000000 ] ] ],
+      "amount_rat": [
+        [1, [33219]],
+        [1, [100000000]]
+      ],
       "coin": "BTC",
       "paid_from_trading_vol": false
     },
@@ -383,13 +439,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
           "numer": "1",
           "denom": "100000"
         },
-        "amount_rat": [ [ 1, [ 1 ] ], [ 1, [ 100000 ] ] ],
+        "amount_rat": [
+          [1, [1]],
+          [1, [100000]]
+        ],
         "required_balance": "0",
         "required_balance_fraction": {
           "numer": "0",
           "denom": "1"
         },
-        "required_balance_rat": [ [ 0, [] ], [ 1, [ 1 ] ] ]
+        "required_balance_rat": [
+          [0, []],
+          [1, [1]]
+        ]
       },
       {
         "coin": "BTC",
@@ -398,13 +460,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
           "denom": "1850000000",
           "numer": "6663017"
         },
-        "amount_rat": [ [ 1, [ 6663017 ] ], [ 1, [ 1850000000 ] ] ],
+        "amount_rat": [
+          [1, [6663017]],
+          [1, [1850000000]]
+        ],
         "required_balance": "0.0036016308108108106",
         "required_balance_fraction": {
           "denom": "1850000000",
           "numer": "6663017"
         },
-        "required_balance_rat": [ [ 1, [ 6663017 ] ], [ 1, [ 1850000000 ] ] ]
+        "required_balance_rat": [
+          [1, [6663017]],
+          [1, [1850000000]]
+        ]
       }
     ]
   },
@@ -430,7 +498,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
         "denom": "2000",
         "numer": "9"
       },
-      "amount_rat": [ [ 1, [ 9 ] ], [ 1, [ 2000 ] ] ],
+      "amount_rat": [
+        [1, [9]],
+        [1, [2000]]
+      ],
       "coin": "ETH",
       "paid_from_trading_vol": false
     },
@@ -440,7 +511,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
         "denom": "4000",
         "numer": "13"
       },
-      "amount_rat": [ [ 0, [ 13 ] ], [ 1, [ 4000 ] ] ],
+      "amount_rat": [
+        [0, [13]],
+        [1, [4000]]
+      ],
       "coin": "QTUM",
       "paid_from_trading_vol": false
     },
@@ -451,13 +525,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
           "denom": "1000",
           "numer": "3"
         },
-        "amount_rat": [ [ 1, [ 3 ] ], [ 1, [ 1000 ] ] ],
+        "amount_rat": [
+          [1, [3]],
+          [1, [1000]]
+        ],
         "required_balance": "0.003",
         "required_balance_fraction": {
           "denom": "1000",
           "numer": "3"
         },
-        "required_balance_rat": [ [ 1, [ 3 ] ], [ 1, [ 1000 ] ] ],
+        "required_balance_rat": [
+          [1, [3]],
+          [1, [1000]]
+        ],
         "coin": "ETH"
       },
       {
@@ -466,13 +546,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
           "denom": "4000",
           "numer": "13"
         },
-        "amount_rat": [ [ 0, [ 13 ] ], [ 1, [ 4000 ] ] ],
+        "amount_rat": [
+          [0, [13]],
+          [1, [4000]]
+        ],
         "required_balance": "0.00325",
         "required_balance_fraction": {
           "denom": "4000",
           "numer": "13"
         },
-        "required_balance_rat": [ [ 0, [ 13 ] ], [ 1, [ 4000 ] ] ],
+        "required_balance_rat": [
+          [0, [13]],
+          [1, [4000]]
+        ],
         "coin": "QTUM"
       }
     ]
@@ -491,10 +577,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
   "error_trace": "maker_swap:1540] maker_swap:1641]",
   "error_type": "NotSufficientBalance",
   "error_data": {
-    "coin":"BTC",
-    "available":"0.000015",
-    "required":"0.10012",
-    "locked_by_swaps":"0"
+    "coin": "BTC",
+    "available": "0.000015",
+    "required": "0.10012",
+    "locked_by_swaps": "0"
   },
   "id": 0
 }
@@ -505,7 +591,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"mmrpc\":\"2.0\",\"userpass\":\"$us
 ```json
 {
   "mmrpc": "2.0",
-  "error":"The volume 0.00001 of the RICK coin less than minimum transaction amount 0.0001",
+  "error": "The volume 0.00001 of the RICK coin less than minimum transaction amount 0.0001",
   "error_path": "maker_swap",
   "error_trace": "maker_swap:1599]",
   "error_type": "VolumeTooLow",
